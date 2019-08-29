@@ -1,0 +1,23 @@
+apiVersion: flux.weave.works/v1beta1
+kind: HelmRelease
+metadata:
+  name: hass
+  namespace: homeassistant
+  annotations:
+    flux.weave.works/ignore: "false"
+    flux.weave.works/automated: "false"
+    flux.weave.works/tag.chart-image: semver:~0
+spec:
+  releaseName: hass
+  chart:
+    repository: https://kubernetes-charts.storage.googleapis.com/
+    name: home-assistant
+    version: 0.9.4
+  values:
+    image:
+      repository: homeassistant/home-assistant
+      tag: 0.97.2
+    ingress:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: "traefik"
