@@ -1,0 +1,19 @@
+apiVersion: ceph.rook.io/v1
+kind: CephCluster
+metadata:
+  name: rook-ceph
+  namespace: rook-ceph
+spec:
+  cephVersion:
+    # see the "Cluster Settings" section below for more details on which image of ceph to run
+    image: ceph/ceph:v14.2.3-20190904
+  dataDirHostPath: /var/lib/rook
+  dashboard:
+    enabled: true
+  mon:
+    count: 3
+    allowMultiplePerNode: false
+  storage:
+    useAllNodes: true
+    useAllDevices: false
+    deviceFilter: "sda"
