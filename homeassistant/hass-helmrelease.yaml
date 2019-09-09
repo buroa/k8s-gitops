@@ -21,3 +21,8 @@ spec:
       enabled: true
       annotations:
         kubernetes.io/ingress.class: "traefik"
+    persistence:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 10Gi
+      storageClass: rook-ceph-block
