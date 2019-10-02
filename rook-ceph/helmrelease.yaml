@@ -11,4 +11,4 @@ spec:
   chart:
     repository: https://charts.rook.io/release
     name: rook-ceph
-    version: v1.0.6
+    version: v1.1.1
