@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: flux-release-values
+  namespace: flux
+data:
+  values.yaml: |
+    git:
+      url: git@github.com:blackjid/homelab-gitops
+    helmOperator:
+      create: false
+    registry:
+      rps: 1
+      burst: 1
+    prometheus:
+      enabled: true
+      serviceMonitor:
+        create: false
+        interval: 30s
+        scrapeTimeout: 10s
+        namespace: flux
+    additionalArgs:
+    - --connect=ws://fluxcloud
+    syncGarbageCollection:
+      enabled: true
+      dry: false
