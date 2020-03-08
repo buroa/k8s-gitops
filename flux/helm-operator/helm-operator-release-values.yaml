@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: flux-release-values
+  namespace: flux
+data:
+  values.yaml: |
+    createCRD: true
+    git:
+      ssh:
+        secretName: flux-git-deploy
+    chartsSyncInterval: "10m"
+    statusUpdateInterval: "10m"
+    prometheus:
+      enabled: true
+      serviceMonitor:
+        create: false
+        interval: 30s
+        scrapeTimeout: 10s
+        namespace: flux

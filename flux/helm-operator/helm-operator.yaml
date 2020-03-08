@@ -1,0 +1,15 @@
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: helm-operator
+  namespace: flux
+spec:
+  releaseName: helm-operator
+  chart:
+    repository: https://charts.fluxcd.io/
+    name: helm-operator
+    version: 0.2.1
+  valuesFrom:
+  - configMapKeyRef:
+      name: helm-operator-release-values
