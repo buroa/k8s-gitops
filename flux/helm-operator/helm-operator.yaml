@@ -6,7 +6,6 @@ metadata:
   namespace: flux
 spec:
   releaseName: helm-operator
-  helmVersion: v3
   chart:
     repository: https://charts.fluxcd.io/
     name: helm-operator

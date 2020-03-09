@@ -9,7 +9,6 @@ metadata:
     fluxcd.io/tag.chart-image: semver:~1.18
 spec:
   releaseName: flux
-  helmVersion: v3
   chart:
     repository: https://charts.fluxcd.io/
     name: flux
