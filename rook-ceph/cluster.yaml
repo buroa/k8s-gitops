@@ -5,15 +5,55 @@ metadata:
   namespace: rook-ceph
 spec:
   cephVersion:
-    # see the "Cluster Settings" section below for more details on which image of ceph to run
-    image: ceph/ceph:v14.2.4-20190917
+    image: ceph/ceph:v14.2.6
   dataDirHostPath: /var/lib/rook
   dashboard:
     enabled: true
+  mgr:
+    modules:
+    - name: pg_autoscaler
+      enabled: true
   mon:
     count: 3
     allowMultiplePerNode: false
-  storage:
+  storage: # cluster level storage configuration and selection
     useAllNodes: true
-    useAllDevices: false
-    deviceFilter: "sda"
+    useAllDevices: true
+    deviceFilter:
+    location:
+    config:
+      metadataDevice:
+      # databaseSizeMB: "1024" # this value can be removed for environments with normal sized disks (100 GB or larger)
+      # journalSizeMB: "1024"  # this value can be removed for environments with normal sized disks (20 GB or larger)
+      osdsPerDevice: "1"
+  resources:
+    api:
+      requests:
+          cpu: 25m
+          memory: 250Mi
+      limits:
+        memory: 512Mi
+    mgr:
+      requests:
+          cpu: 50m
+          memory: 300Mi
+      limits:
+        memory: 512Mi
+    mon:
+      requests:
+          cpu: 35m
+          memory: 800Mi
+      limits:
+        memory: 1024Mi
+    osd:
+      requests:
+        cpu: "35m"
+        memory: "2048Mi"
+      limits:
+        memory: "4096Mi"
+    rbdmirror:
+      requests:
+          cpu: 25m
+          memory: 250Mi
+      limits:
+        memory: 512Mi

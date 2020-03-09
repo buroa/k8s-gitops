@@ -1,0 +1,37 @@
+apiVersion: flux.weave.works/v1beta1
+kind: HelmRelease
+metadata:
+  name: rook-ceph
+  namespace: rook-ceph
+  annotations:
+    flux.weave.works/automated: "false"
+    flux.weave.works/ignore: "false"
+spec:
+  releaseName: rook-ceph
+  helmVersion: v3
+  chart:
+    repository: https://charts.rook.io/release
+    name: rook-ceph
+    version: v1.2.5
+  values:
+    csi:
+      kubeletDirPath: /var/lib/kubelet
+      cephcsi:
+        image: quay.io/cephcsi/cephcsi:v2.0.0
+      registrar:
+        image: quay.io/k8scsi/csi-node-driver-registrar:v1.2.0
+      provisioner:
+        image: quay.io/k8scsi/csi-provisioner:v1.4.0
+      snapshotter:
+        image: quay.io/k8scsi/csi-snapshotter:v1.2.2
+      attacher:
+        image: quay.io/k8scsi/csi-attacher:v2.1.0
+      resizer:
+        image: quay.io/k8scsi/csi-resizer:v0.4.0
+    resources:
+      limits:
+        cpu: 500m
+        memory: 256Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
