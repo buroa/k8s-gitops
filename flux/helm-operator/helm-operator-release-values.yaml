@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: flux-release-values
+  name: helm-operator-release-values
   namespace: flux
 data:
   values.yaml: |
