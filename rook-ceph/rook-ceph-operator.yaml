@@ -8,7 +8,6 @@ metadata:
     flux.weave.works/ignore: "false"
 spec:
   releaseName: rook-ceph
-  helmVersion: v3
   chart:
     repository: https://charts.rook.io/release
     name: rook-ceph
