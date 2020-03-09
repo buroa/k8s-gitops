@@ -12,7 +12,7 @@ data:
     chartsSyncInterval: "10m"
     statusUpdateInterval: "10m"
     helm:
-      versions: v3
+      versions: v2,v3
     prometheus:
       enabled: true
       serviceMonitor:
