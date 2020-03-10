@@ -1,0 +1,41 @@
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: home-assistant
+  namespace: default
+  annotations:
+    fluxcd.io/ignore: "false"
+    fluxcd.io/automated: "true"
+    fluxcd.io/tag.chart-image: semver:~0.
+spec:
+  releaseName: home-assistant
+  rollback:
+    enable: true
+  chart:
+    repository: https://kubernetes-charts.storage.googleapis.com/
+    name: home-assistant
+    version: 0.12.0
+  values:
+    image:
+      repository: homeassistant/home-assistant
+      tag: 0.106.5
+    persistence:
+      enabled: true
+      size: 10Gi
+      storageClass: "rook-ceph-block"
+    probes:
+      liveness:
+        enabled: false
+      readiness:
+        enabled: false
+    vscode:
+      enabled: true
+    resources:
+      limits:
+        memory: 2500Mi
+      requests:
+        cpu: 35m
+        memory: 2000Mi
+    monitoring:
+      enabled: false
