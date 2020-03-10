@@ -24,6 +24,8 @@ spec:
       enabled: true
       size: 10Gi
       storageClass: "rook-ceph-block"
+    service:
+      type: LoadBalancer
     probes:
       liveness:
         enabled: false
