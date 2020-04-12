@@ -15,11 +15,11 @@ spec:
   chart:
     repository: https://kubernetes-charts.storage.googleapis.com/
     name: home-assistant
-    version: 0.12.0
+    version: 0.12.6
   values:
     image:
       repository: homeassistant/home-assistant
-      tag: 0.106.5
+      tag: 0.108.3
     persistence:
       enabled: true
       size: 10Gi
