@@ -43,4 +43,4 @@ spec:
     monitoring:
       enabled: false
   valueFileSecrets:
-  - name: "home-assistant-helm-secrets"
+  - name: "home-assistant-values"
