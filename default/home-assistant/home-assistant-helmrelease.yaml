@@ -42,3 +42,5 @@ spec:
         memory: 2000Mi
     monitoring:
       enabled: false
+  valueFileSecrets:
+  - name: "home-assistant-helm-secrets"
