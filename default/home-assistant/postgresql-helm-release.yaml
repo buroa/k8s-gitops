@@ -32,4 +32,4 @@ spec:
     volumePermissions:
       enabled: true
   valueFileSecrets:
-  - name: "postgresql-helm-values"
+  - name: "postgresql-values"
