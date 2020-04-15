@@ -1,0 +1,35 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: hass-postgresql
+  namespace: default
+  annotations:
+    fluxcd.io/ignore: false
+    fluxcd.io/automated: "false"
+    fluxcd.io/tag.chart-image: semver:~12
+spec:
+  releaseName: hass-postgresql
+  helmVersion: v3
+  chart:
+    repository: https://charts.bitnami.com/bitnami
+    name: postgresql
+    version: 8.7.3
+  values:
+    image:
+      repository: postgres
+      tag: 12.1
+    postgresqlDataDir: "/data/pgdata"
+    postgresqlUsername: "homeassistant"
+    postgresqlDatabase: "homeassistant"
+    persistence:
+      enabled: true
+      storageClass: "rook-ceph-block"
+      mountPath: "/data/"
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+    volumePermissions:
+      enabled: true
+  valueFileSecrets:
+  - name: "postgresql-helm-values"
