@@ -44,6 +44,13 @@ spec:
         size: 10Gi
         accessModes:
         - ReadWriteOnce
+      sidecar:
+        dashboards:
+          enabled: true
+          searchNamespace: ALL
+        datasources:
+          enabled: true
+          searchNamespace: ALL
       env:
         GF_EXPLORE_ENABLED: true
         GF_DISABLE_SANITIZE_HTML: true
