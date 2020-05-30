@@ -26,6 +26,8 @@ spec:
       type: LoadBalancer
       loadBalancerIP: 10.2.1.104
     advertiseIp: http://10.2.1.104:32400
+    podAnnotations:
+      backup.velero.io/backup-volumes: config
     persistence:
       transcode:
         enabled: false
