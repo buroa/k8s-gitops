@@ -5,7 +5,7 @@ metadata:
   namespace: flux
 data:
   values.yaml: |
-    createCRD: true
+    createCRD: false
     git:
       ssh:
         secretName: flux-git-deploy
