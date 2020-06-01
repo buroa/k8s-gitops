@@ -14,8 +14,6 @@ spec:
       labels:
         app: intel-gpu-plugin
     spec:
-      nodeSelector:
-        app: intel-gpu-plugin
       containers:
       - name: intel-gpu-plugin
         env:
