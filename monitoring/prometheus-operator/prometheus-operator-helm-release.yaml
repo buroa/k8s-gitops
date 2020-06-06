@@ -31,7 +31,7 @@ spec:
         storage:
           volumeClaimTemplate:
             spec:
-              storageClassName: rook-ceph-block
+              storageClassName: longhorn
               resources:
                 requests:
                   storage: 5Gi
@@ -42,7 +42,7 @@ spec:
         backup.velero.io/backup-volumes: storage
       persistence:
         enabled: true
-        storageClassName: "rook-ceph-block"
+        storageClassName: "longhorn"
         size: 10Gi
         accessModes:
         - ReadWriteOnce
@@ -108,7 +108,7 @@ spec:
         storageSpec:
           volumeClaimTemplate:
             spec:
-              storageClassName: rook-ceph-block
+              storageClassName: longhorn
               resources:
                 requests:
                   storage: 50Gi
