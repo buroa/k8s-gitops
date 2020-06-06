@@ -37,7 +37,7 @@ spec:
         enabled: true
         claimName: nfs-media-pvc
       config:
-        storageClass: "rook-ceph-block"
+        storageClass: "longhorn"
         accessMode: ReadWriteOnce
         size: 21Gi
     resources:
