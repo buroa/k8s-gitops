@@ -1,0 +1,29 @@
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: oauth2-proxy
+  namespace: kube-system
+  annotations:
+    fluxcd.io/automated: "true"
+    fluxcd.io/tag.chart-image: semver:~v5
+spec:
+  releaseName: oauth2-proxy
+  helmVersion: v3
+  chart:
+    repository: https://kubernetes-charts.storage.googleapis.com/
+    name: oauth2-proxy
+    version: 2.4.1
+  values:
+    image:
+      repository: "quay.io/pusher/oauth2_proxy"
+      tag: "v5.1.1"
+    replicaCount: 2
+    # tolerations:
+    #   - key: "arm"
+    #     operator: "Exists"
+    ingress:
+      enabled: true
+      path: /oauth2
+  valueFileSecrets:
+  - name: "oauth2-proxy-values"
