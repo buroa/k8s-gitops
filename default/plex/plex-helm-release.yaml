@@ -26,6 +26,10 @@ spec:
       type: LoadBalancer
       loadBalancerIP: 10.2.1.104
     advertiseIp: http://10.2.1.104:32400
+    ingress:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: "nginx"
     podAnnotations:
       backup.velero.io/backup-volumes: config
     persistence:
