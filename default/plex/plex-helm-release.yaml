@@ -34,9 +34,9 @@ spec:
       backup.velero.io/backup-volumes: config
     persistence:
       transcode:
-        enabled: false
-        # claimName: nfs-data-pvc
-        # subPath: plex
+        enabled: true
+        claimName: nfs-data-pvc
+        subPath: plex
       data:
         enabled: true
         claimName: nfs-media-pvc
@@ -46,7 +46,7 @@ spec:
         size: 21Gi
     resources:
       limits:
-        # gpu.intel.com/i915: 1
+        gpu.intel.com/i915: 1
         memory: 4900Mi
       requests:
         cpu: 35m
