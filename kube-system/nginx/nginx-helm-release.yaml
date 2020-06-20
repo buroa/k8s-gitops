@@ -1,0 +1,63 @@
+
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: ingress-nginx
+  namespace: kube-system
+  annotations:
+    fluxcd.io/ignore: "false"
+    fluxcd.io/automated: "false"
+    fluxcd.io/tag.chart-image: semver:~0.
+spec:
+  releaseName: ingress-nginx
+  helmVersion: v3
+  rollback:
+    enable: true
+  chart:
+    repository: https://kubernetes.github.io/ingress-nginx
+    name: ingress-nginx
+    version: 2.3.0
+  values:
+    controller:
+      image:
+        repository: quay.io/kubernetes-ingress-controller/nginx-ingress-controller
+        tag: "0.32.0"
+      replicaCount: 2
+      config:
+        # custom-http-errors: 404,403,500,503
+        # global-auth-url: "http://oauth2-proxy.kube-system.svc.cluster.local/oauth2/auth"
+        # global-auth-signin: "https://auth.$server_name/oauth2/start"
+      use-forwarded-headers: "true"
+      service:
+        loadBalancerIP: 10.2.1.110
+        externalTrafficPolicy: Local
+      metrics:
+        enabled: false
+        serviceMonitor:
+          enabled: false
+          namespace: kube-system
+        prometheusRule:
+          enabled: false
+      # tolerations:
+      # - key: "arm"
+      #   operator: "Exists"
+      # extraArgs:
+      #   default-ssl-certificate: "kube-system/acme-crt-secret"
+      resources:
+        requests:
+          memory: 500Mi
+          cpu: 25m
+        limits:
+          memory: 600Mi
+    # defaultBackend:
+    #   enabled: true
+    #   image:
+    #     repository: billimek/custom-error-pages
+    #     tag: 0.4.4
+    #   resources:
+    #     requests:
+    #       memory: 250Mi
+    #       cpu: 25m
+    #     limits:
+    #       memory: 350Mi
