@@ -1,0 +1,34 @@
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: bitwarden
+  namespace: default
+  annotations:
+    # fluxcd.io/automated: "false"
+    # fluxcd.io/tag.chart-image: 'regexp:^(v[0-9]+\.[0-9]+-ls.*)$'
+spec:
+  releaseName: bitwarden
+  rollback:
+    enable: true
+  chart:
+    git: https://github.com/cdwv/bitwarden-k8s
+    ref: master
+    path: .
+    version: 0.1.2
+  values:
+    image:
+      repository: bitwardenrs/server
+      tag: latest
+    ingress:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: "nginx"
+        kubernetes.io/tls-acme: "true"
+    persistence:
+      enabled: true
+      storageClass: "longhorn"
+      accessMode: ReadWriteOnce
+      size: 5Gi
+  valueFileSecrets:
+    - name: "bitwarden-values"
