@@ -27,8 +27,13 @@ spec:
       enabled: true
       size: 10Gi
       storageClass: "longhorn"
+    ingress:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: "nginx"
     service:
       type: LoadBalancer
+      loadBalancerIP: 10.2.1.100
     probes:
       liveness:
         enabled: false
@@ -39,6 +44,10 @@ spec:
       image:
         repository: codercom/code-server
         tag: 3.1.1
+      ingress:
+        enabled: true
+        annotations:
+          kubernetes.io/ingress.class: "nginx"
     resources:
       limits:
         memory: 2500Mi
