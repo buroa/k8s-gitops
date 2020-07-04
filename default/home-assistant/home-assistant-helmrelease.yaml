@@ -14,19 +14,15 @@ spec:
   rollback:
     enable: true
   chart:
-    repository: https://kubernetes-charts.storage.googleapis.com/
+    repository: https://billimek.com/billimek-charts/
     name: home-assistant
-    version: 0.13.2
+    version: 1.0.0
   values:
     image:
       repository: homeassistant/home-assistant
       tag: 0.112.2
-    podAnnotations:
-      backup.velero.io/backup-volumes: config
     persistence:
-      enabled: true
-      size: 10Gi
-      storageClass: "longhorn"
+      existingClaim: home-assistant
     ingress:
       enabled: true
       annotations:
