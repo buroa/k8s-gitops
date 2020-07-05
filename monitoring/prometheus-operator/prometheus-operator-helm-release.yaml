@@ -106,7 +106,7 @@ spec:
               storageClassName: longhorn
               resources:
                 requests:
-                  storage: 50Gi
+                  storage: 30Gi
   valuesFrom:
   - secretKeyRef:
       name: prometheus-operator-values
