@@ -28,7 +28,7 @@ spec:
     metrics:
       enabled: true
       serviceMonitor:
-        enabled: false
+        enabled: true
     volumePermissions:
       enabled: true
   valueFileSecrets:
