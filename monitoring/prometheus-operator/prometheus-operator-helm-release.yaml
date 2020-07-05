@@ -40,10 +40,7 @@ spec:
         type: Recreate
       persistence:
         enabled: true
-        storageClassName: "longhorn"
-        size: 10Gi
-        accessModes:
-        - ReadWriteOnce
+        existingClaim: prometheus-operator-grafana
       sidecar:
         dashboards:
           enabled: true
