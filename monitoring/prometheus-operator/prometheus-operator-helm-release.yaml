@@ -51,6 +51,10 @@ spec:
       env:
         GF_EXPLORE_ENABLED: true
         GF_DISABLE_SANITIZE_HTML: true
+      ingress:
+        enabled: true
+        annotations:
+          kubernetes.io/ingress.class: "nginx"
       dashboardProviders:
         dashboardproviders.yaml:
           apiVersion: 1
