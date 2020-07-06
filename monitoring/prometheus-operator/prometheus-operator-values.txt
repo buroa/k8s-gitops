@@ -1,2 +1,4 @@
 grafana:
   adminPassword: "$GRAFANA_PASSWORD"
+  ingress:
+    hosts: [grafana.$DOMAIN]

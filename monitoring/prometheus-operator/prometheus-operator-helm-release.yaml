@@ -6,7 +6,7 @@ metadata:
   annotations:
     fluxcd.io/ignore: "false"
     fluxcd.io/automated: "false"
-    fluxcd.io/tag.grafana: semver:~6
+    fluxcd.io/tag.grafana: semver:~7
 spec:
   releaseName: prometheus-operator
   helmVersion: v3
@@ -36,6 +36,9 @@ spec:
                 requests:
                   storage: 5Gi
     grafana:
+      image:
+        repository: grafana/grafana
+        tag: 7.0.4
       deploymentStrategy:
         type: Recreate
       persistence:
