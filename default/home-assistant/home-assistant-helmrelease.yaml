@@ -20,7 +20,7 @@ spec:
   values:
     image:
       repository: homeassistant/home-assistant
-      tag: 0.112.2
+      tag: 0.112.3
     persistence:
       existingClaim: home-assistant
     ingress:
