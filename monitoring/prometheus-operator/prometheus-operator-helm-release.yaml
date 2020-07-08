@@ -73,7 +73,7 @@ spec:
       dashboards:
         default:
           flux:
-            url: https://grafana.com/api/dashboards/10475/revisions/1/download
+            url: https://raw.githubusercontent.com/fluxcd/flux/master/chart/flux/dashboards/flux-dashboard.json
             datasource: Prometheus
       grafana.ini:
         paths:
