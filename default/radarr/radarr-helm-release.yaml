@@ -20,10 +20,10 @@ spec:
     image:
       repository: linuxserver/radarr
       tag: 3.0.0.2719-ls1
-    # ingress:
-    #   enabled: true
-    #   annotations:
-    #     kubernetes.io/ingress.class: "nginx"
+    ingress:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: "nginx"
     timezone: "America/Santiago"
     persistence:
       config:
@@ -45,5 +45,5 @@ spec:
         cpu: 25m
       limits:
         memory: 500Mi
-  # valueFileSecrets:
-  # - name: "radarr-values"
+  valueFileSecrets:
+  - name: "radarr-values"
