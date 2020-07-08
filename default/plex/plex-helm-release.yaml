@@ -16,15 +16,22 @@ spec:
   chart:
     repository: https://billimek.com/billimek-charts/
     name: plex
-    version: 1.3.2
+    version: 1.6.0
   values:
     image:
       repository: plexinc/pms-docker
       tag: 1.19.4.2935-79e214ead
     timezone: "America/Santiago"
-    service:
+    serviceTCP:
       type: LoadBalancer
       loadBalancerIP: 10.2.1.104
+      annotations:
+        metallb.universe.tf/allow-shared-ip: plex-svc
+    serviceUDP:
+      type: LoadBalancer
+      loadBalancerIP: 10.2.1.104
+      annotations:
+        metallb.universe.tf/allow-shared-ip: plex-svc
     advertiseIp: http://10.2.1.104:32400
     ingress:
       enabled: true
