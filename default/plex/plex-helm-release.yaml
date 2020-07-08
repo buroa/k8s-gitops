@@ -32,7 +32,6 @@ spec:
       loadBalancerIP: 10.2.1.104
       annotations:
         metallb.universe.tf/allow-shared-ip: plex-svc
-    advertiseIp: http://10.2.1.104:32400
     ingress:
       enabled: true
       annotations:
