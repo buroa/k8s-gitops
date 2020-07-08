@@ -15,11 +15,11 @@ spec:
   chart:
     repository: https://billimek.com/billimek-charts/
     name: radarr
-    version: 3.2.0
+    version: 4.1.1
   values:
     image:
       repository: linuxserver/radarr
-      tag: 3.0.0.2719-ls1
+      tag: 3.0.0.3049-ls10
     ingress:
       enabled: true
       annotations:
@@ -34,11 +34,9 @@ spec:
         enabled: false
       movies:
         enabled: false
-      extraExistingClaimMounts:
-        - name: media
-          existingClaim: nfs-media-pvc
-          mountPath: /media
-          readOnly: false
+      media:
+        enabled: true
+        existingClaim: nfs-media-pvc
     resources:
       requests:
         memory: 350Mi
