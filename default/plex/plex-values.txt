@@ -1,4 +1,5 @@
 claimToken: "$PLEX_CLAIM_TOKEN"
+advertiseIp: http://10.2.1.104:32400,https://plex.$DOMAIN
 ingress:
   hosts: [plex.$DOMAIN]
   tls:
