@@ -21,20 +21,20 @@ spec:
   values:
     image:
       repository: spx01/blocky
-      tag: v0.9
+      tag: v0.9.1
     replicas: 2
     timeZone: "America/Santiago"
     config:
       upstream:
         externalResolvers:
-        - udp:8.8.8.8
-        - udp:8.8.4.4
-        - udp:1.1.1.1
+        - tcp+udp:8.8.8.8
+        - tcp+udp:8.8.4.4
+        - tcp+udp:1.1.1.1
         - tcp-tls:1.0.0.1:853
         - https://cloudflare-dns.com/dns-query
       conditional:
         mapping:
-          lan: udp:10.2.0.1
+          lan: tcp+udp:10.2.0.1
       blocking:
         blackLists:
           ads:
@@ -54,7 +54,7 @@ spec:
           default:
           - ads
       clientLookup:
-        upstream: udp:10.2.0.1
+        upstream: tcp+udp:10.2.0.1
       prometheus:
         enable: true
         path: /metrics
