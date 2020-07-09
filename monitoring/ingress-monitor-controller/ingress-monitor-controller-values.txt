@@ -5,6 +5,6 @@ ingressMonitorController:
       - name: UptimeRobot
         apiKey: $UPTIME_ROBOT_API_KEY
         apiURL: https://api.uptimerobot.com/v2/
-        alertContacts: 2995531
+        alertContacts: 2995749
       enableMonitorDeletion: true
       monitorNameTemplate: "{{.IngressName}}"
