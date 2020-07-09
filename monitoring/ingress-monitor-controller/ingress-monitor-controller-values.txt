@@ -1,0 +1,10 @@
+ingressMonitorController:
+  data:
+    config.yaml: |-
+      providers:
+      - name: UptimeRobot
+        apiKey: $UPTIME_ROBOT_API_KEY
+        apiURL: https://api.uptimerobot.com/v2/
+        alertContacts: 0972853
+      enableMonitorDeletion: true
+      monitorNameTemplate: "{{.IngressName}}"

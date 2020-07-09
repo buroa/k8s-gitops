@@ -1,0 +1,19 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: ingress-monitor-controller
+  namespace: monitoring
+  annotations:
+    fluxcd.io/ignore: "false"
+    fluxcd.io/automated: "false"
+spec:
+  releaseName: ingress-monitor-controller
+  rollback:
+    enable: true
+  chart:
+    repository: https://stakater.github.io/stakater-charts
+    name: ingressmonitorcontroller
+    version: v1.0.100
+  valuesFrom:
+  - secretKeyRef:
+      name: ingress-monitor-controller-values
