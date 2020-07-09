@@ -27,6 +27,7 @@ spec:
       enabled: true
       annotations:
         kubernetes.io/ingress.class: "nginx"
+        monitor.stakater.com/enabled: "true"
     service:
       type: LoadBalancer
       loadBalancerIP: 10.2.1.100

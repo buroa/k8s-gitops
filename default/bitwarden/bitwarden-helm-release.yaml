@@ -25,6 +25,7 @@ spec:
       annotations:
         kubernetes.io/ingress.class: "nginx"
         kubernetes.io/tls-acme: "true"
+        monitor.stakater.com/enabled: "true"
     persistence:
       enabled: true
       storageClass: "longhorn"
