@@ -36,6 +36,7 @@ spec:
       enabled: true
       annotations:
         kubernetes.io/ingress.class: "nginx"
+        monitor.stakater.com/enabled: "true"
     persistence:
       transcode:
         enabled: true
