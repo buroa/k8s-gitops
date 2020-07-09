@@ -28,6 +28,8 @@ spec:
             secretKeyRef:
               name: fluxcloud
               key: slack_url
+        - name: SLACK_CHANNEL
+          value: "@black-home"
         - name: GITHUB_URL
           value: "https://github.com/blackjid/homelab-gitops/"
         - name: LISTEN_ADDRESS
