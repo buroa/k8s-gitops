@@ -21,6 +21,8 @@ data:
         namespace: flux
     additionalArgs:
     - --connect=ws://fluxcloud
+    dashboards:
+      enabled: true
     syncGarbageCollection:
       enabled: true
       dry: false
