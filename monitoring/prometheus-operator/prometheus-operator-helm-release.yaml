@@ -73,11 +73,6 @@ spec:
             editable: true
             options:
               path: /var/lib/grafana/dashboards/default
-      dashboards:
-        default:
-          flux:
-            url: https://raw.githubusercontent.com/fluxcd/flux/master/chart/flux/dashboards/flux-dashboard.json
-            datasource: Prometheus
       grafana.ini:
         paths:
           data: /var/lib/grafana/data
