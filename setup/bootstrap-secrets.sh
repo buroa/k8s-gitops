@@ -27,14 +27,20 @@ kseal() {
   path=$(dirname "$@")
   echo "Writing $name to secret on $namespace namespace"
   if output=$(envsubst < "$REPO_ROOT/$*"); then
+    if [[ "$name" == *"values" ]]; then
+      input_arg="--from-file=values.yaml=/dev/stdin"
+    else
+      input_arg="--from-env-file=/dev/stdin"
+    fi
+
     printf '%s' "$output" \
-      | kubectl -n $namespace create secret generic $name --dry-run=client --from-file=values.yaml=/dev/stdin -o yaml \
+      | kubectl -n $namespace create secret generic $name --dry-run=client $input_arg -o yaml \
       | kubeseal --cert $PUB_CERT --format yaml \
       > "$REPO_ROOT/$path/$name-secret.yaml"
   fi
 }
 
-for value in $(find $REPO_ROOT -name *values.txt); do
+for value in $(find $REPO_ROOT -name *.txt); do
   kseal $(realpath --relative-to=$REPO_ROOT $value)
 done
 
