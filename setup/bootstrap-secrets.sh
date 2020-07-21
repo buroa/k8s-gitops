@@ -1,9 +1,4 @@
 #!/bin/bash
-
-# trap "exit" INT TERM
-# trap "kill 0" EXIT
-
-#set -x
 export REPO_ROOT=$(git rev-parse --show-toplevel)
 
 die() { echo "$*" 1>&2 ; exit 1; }
@@ -15,29 +10,51 @@ need() {
 need "kubeseal"
 need "kubectl"
 need "envsubst"
+need "awk"
 
 . "$REPO_ROOT"/setup/.env
 
 # Path to Public Cert
 PUB_CERT="$REPO_ROOT/setup/pub-cert.pem"
+SECRETS_CACHE="$REPO_ROOT/.secrets_cache"
 
 kseal() {
   name="$(basename -s .txt "$@")"
   namespace=$(echo "$@" | awk -F "/" '{print $1}')
   path=$(dirname "$@")
-  echo "Writing $name to secret on $namespace namespace"
   if output=$(envsubst < "$REPO_ROOT/$*"); then
-    if [[ "$name" == *"values" ]]; then
-      input_arg="--from-file=values.yaml=/dev/stdin"
-    else
-      input_arg="--from-env-file=/dev/stdin"
-    fi
+    checksum="$(printf '%s' "$output" | sha256sum)"
 
-    printf '%s' "$output" \
-      | kubectl -n $namespace create secret generic $name --dry-run=client $input_arg -o yaml \
-      | kubeseal --cert $PUB_CERT --format yaml \
-      > "$REPO_ROOT/$path/$name-secret.yaml"
+    if grep -q "$path/$name $checksum" $SECRETS_CACHE; then
+      echo "Skipping $name"
+    else
+      echo "Writing $name to secret on $namespace namespace"
+
+      # write to cache
+      write_cache "$path/$name" "$checksum"
+
+      if [[ "$name" == *"values" ]]; then
+        input_arg="--from-file=values.yaml=/dev/stdin"
+      else
+        input_arg="--from-env-file=/dev/stdin"
+      fi
+
+      printf '%s' "$output" \
+        | kubectl -n $namespace create secret generic $name --dry-run=client $input_arg -o yaml \
+        | kubeseal --cert $PUB_CERT --format yaml \
+        > "$REPO_ROOT/$path/$name-secret.yaml"
+    fi
   fi
+}
+
+write_cache() {
+  key=$1
+  checksum=$2
+
+  touch $SECRETS_CACHE
+  echo "$key $checksum" >> $SECRETS_CACHE
+  tmp_cache="$(tac $SECRETS_CACHE | awk '!seen[$1]++' | tac)"
+  echo "$tmp_cache" > $SECRETS_CACHE
 }
 
 for value in $(find $REPO_ROOT -name *.txt); do
