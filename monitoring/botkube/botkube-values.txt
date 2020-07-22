@@ -2,5 +2,5 @@ communications:
   slack:
     enabled: true
     channel: '@black-home'
-    token: '$SLACK_Bot_TOKEN'
+    token: '$SLACK_BOT_TOKEN'
     notiftype: short
