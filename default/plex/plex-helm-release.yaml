@@ -25,11 +25,13 @@ spec:
     serviceTCP:
       type: LoadBalancer
       loadBalancerIP: 10.2.1.104
+      externalTrafficPolicy: Local
       annotations:
         metallb.universe.tf/allow-shared-ip: plex-svc
     serviceUDP:
       type: LoadBalancer
       loadBalancerIP: 10.2.1.104
+      externalTrafficPolicy: Local
       annotations:
         metallb.universe.tf/allow-shared-ip: plex-svc
     ingress:
