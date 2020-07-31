@@ -15,7 +15,7 @@ spec:
   chart:
     repository: https://kubernetes-charts.storage.googleapis.com/
     name: prometheus-operator
-    version: 8.16.1
+    version: 9.3.0
   values:
     defaultRules:
       rules:
@@ -39,9 +39,9 @@ spec:
                 requests:
                   storage: 6Gi
     grafana:
-      image:
-        repository: grafana/grafana
-        tag: 7.0.4
+      # image:
+      #   repository: grafana/grafana
+      #   tag: 7.0.4
       deploymentStrategy:
         type: Recreate
       persistence:
@@ -101,6 +101,9 @@ spec:
 
     prometheus:
       prometheusSpec:
+        image:
+          repository: quay.io/prometheus/prometheus
+          tag: v2.20.0
         replicas: 2
         replicaExternalLabelName: "replica"
         ruleSelector: {}
