@@ -54,6 +54,7 @@ spec:
         datasources:
           enabled: true
           searchNamespace: ALL
+          defaultDatasourceEnabled: false
       additionalDataSources:
       - name: Prometheus
         type: prometheus
