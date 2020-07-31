@@ -54,6 +54,12 @@ spec:
         datasources:
           enabled: true
           searchNamespace: ALL
+      additionalDataSources:
+      - name: Prometheus
+        type: prometheus
+        access: proxy
+        url: http://thanos-query-http:10902/
+        isDefault: true
       env:
         GF_EXPLORE_ENABLED: true
         GF_DISABLE_SANITIZE_HTML: true
@@ -94,6 +100,8 @@ spec:
 
     prometheus:
       prometheusSpec:
+        replicas: 2
+        replicaExternalLabelName: "replica"
         ruleSelector: {}
         ruleNamespaceSelector: {}
         ruleSelectorNilUsesHelmValues: false
@@ -103,7 +111,7 @@ spec:
         podMonitorSelector: {}
         podMonitorNamespaceSelector: {}
         podMonitorSelectorNilUsesHelmValues: false
-        retention: 30d
+        retention: 3h
         enableAdminAPI: true
         storageSpec:
           volumeClaimTemplate:
@@ -112,6 +120,12 @@ spec:
               resources:
                 requests:
                   storage: 30Gi
+        thanos:
+          image: quay.io/thanos/thanos:v0.13.0
+          version: v0.13.0
+          objectStorageConfig:
+            name: thanos
+            key: object-store.yaml
   valuesFrom:
   - secretKeyRef:
       name: prometheus-operator-values
