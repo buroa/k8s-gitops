@@ -46,9 +46,7 @@ spec:
         enabled: true
         claimName: nfs-media-pvc
       config:
-        storageClass: "longhorn"
-        accessMode: ReadWriteOnce
-        size: 21Gi
+        claimName: 'plex-config'
     resources:
       limits:
         gpu.intel.com/i915: 1
