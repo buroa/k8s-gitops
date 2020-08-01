@@ -115,7 +115,7 @@ spec:
         podMonitorSelector: {}
         podMonitorNamespaceSelector: {}
         podMonitorSelectorNilUsesHelmValues: false
-        retention: 3h
+        retentionSize: 8GB
         enableAdminAPI: true
         storageSpec:
           volumeClaimTemplate:
@@ -123,7 +123,7 @@ spec:
               storageClassName: longhorn
               resources:
                 requests:
-                  storage: 30Gi
+                  storage: 10Gi
         thanos:
           image: quay.io/thanos/thanos:v0.13.0
           version: v0.13.0
