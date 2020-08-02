@@ -1,0 +1,9 @@
+loki:
+  config:
+    storage_config:
+      aws:
+        endpoint: minio.default.svc:9000
+        access_key_id: $MINIO_ACCESS_KEY
+        secret_access_key: $MINIO_SECRET_KEY
+        insecure: true
+        s3forcepathstyle: true
