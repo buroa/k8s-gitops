@@ -18,6 +18,7 @@ spec:
     version: 0.38.3
   values:
     loki:
+      replicas: 3
       persistence:
         enabled: false
       config:
@@ -75,15 +76,15 @@ spec:
         targetPort: 7946
       serviceMonitor:
         enabled: true
-      # tolerations:
-      # - key: "arm"
-      #   operator: "Exists"
+      tolerations:
+      - key: "arm"
+        operator: "Exists"
     promtail:
       serviceMonitor:
         enabled: true
-      # tolerations:
-      # - key: "arm"
-      #   operator: "Exists"
+      tolerations:
+      - key: "arm"
+        operator: "Exists"
   valuesFrom:
   - secretKeyRef:
       name: loki-values
