@@ -107,6 +107,7 @@ spec:
     prometheus-node-exporter:
       tolerations:
       - key: "arm"
+        operator: "Exists"
 
     prometheus:
       prometheusSpec:
