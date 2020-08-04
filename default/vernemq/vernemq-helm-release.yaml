@@ -29,7 +29,7 @@ spec:
       ws:
         enabled: true
     serviceMonitor:
-      enabled: true
+      create: true
     pdb:
       enabled: true
     additionalEnv:
