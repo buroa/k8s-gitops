@@ -15,23 +15,20 @@ spec:
   chart:
     repository: https://vernemq.github.io/docker-vernemq
     name: vernemq
-    version: 1.6.2
+    version: 1.6.5
   values:
-    image:
-      repository: vernemq/vernemq
-      tag: 1.10.2-1-alpine
-    replicaCount: 1
+    replicaCount: 3
     serviceMonitor:
       create: true
     service:
       type: LoadBalancer
-      # loadBalancerIP: 10.0.6.50
+      loadBalancerIP: 10.2.1.101
       ws:
         enabled: true
-    # statefulset:
-    #   podAnnotations:
-    #     prometheus.io/scrape: "true"
-    #     prometheus.io/port: "8888"
+    serviceMonitor:
+      enabled: true
+    pdb:
+      enabled: true
     additionalEnv:
       - name: DOCKER_VERNEMQ_ACCEPT_EULA
         value: "yes"
