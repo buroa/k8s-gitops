@@ -1,6 +1,10 @@
 ingress:
   hosts:
   - hass.$DOMAIN
+postgresql:
+  global:
+    postgresql:
+      postgresqlPassword: $HASS_DB_PASSWORD
 vscode:
   ingress:
     hosts:
