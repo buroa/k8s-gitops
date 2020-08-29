@@ -23,4 +23,4 @@ spec:
       server: "10.2.1.50"
       path: "/volume1/kube/nfs-data"
     storageClass:
-      defaultClass: true
+      defaultClass: false
