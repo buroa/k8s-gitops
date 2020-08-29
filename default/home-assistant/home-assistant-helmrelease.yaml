@@ -24,7 +24,9 @@ spec:
       repository: homeassistant/home-assistant
       tag: 0.114.2
     persistence:
-      existingClaim: home-assistant
+      enabled: true
+      size: 10Gi
+      storageClass: "longhorn"
     ingress:
       enabled: true
       annotations:
