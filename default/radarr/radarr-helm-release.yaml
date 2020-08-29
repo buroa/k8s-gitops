@@ -28,7 +28,8 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: "radarr-config"
+        storageClass: "longhorn"
+        size: 3Gi
       downloads:
         enabled: false
       movies:
