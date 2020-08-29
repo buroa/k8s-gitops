@@ -21,4 +21,3 @@ spec:
       backupTarget: s3://longhorn@minio/backups
       backupTargetCredentialSecret: longhorn-backup
       defaultReplicaCount: 2
-      defaultDataPath: /mnt/longhorn
