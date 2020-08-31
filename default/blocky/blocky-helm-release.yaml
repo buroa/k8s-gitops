@@ -100,6 +100,14 @@ spec:
               values:
               - blocky
           topologyKey: "kubernetes.io/hostname"
+        preferredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchExpressions:
+            - key: app.kubernetes.io/name
+              operator: In
+              values:
+              - blocky
+          topologyKey: "homelab.device/name"
     resources:
       requests:
         memory: 280Mi
