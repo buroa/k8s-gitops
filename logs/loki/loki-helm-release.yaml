@@ -21,15 +21,16 @@ spec:
       replicas: 3
       persistence:
         enabled: false
-      podAntiAffinity:
-        preferredDuringSchedulingIgnoredDuringExecution:
-        - labelSelector:
-            matchExpressions:
-            - key: app
-              operator: In
-              values:
-              - loki
-          topologyKey: "kubernetes.io/hostname"
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - loki
+            topologyKey: "kubernetes.io/hostname"
       config:
         auth_enabled: false
         server:
