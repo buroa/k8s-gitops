@@ -1,0 +1,19 @@
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: version-checker
+  namespace: monitoring
+  annotations:
+    fluxcd.io/ignore: "false"
+    fluxcd.io/automated: "false"
+spec:
+  releaseName: version-checker
+  chart:
+    git: https://github.com/jetstack/version-checker
+    ref: master
+    path: deploy/charts/version-checker
+    version: 0.2.0
+  values:
+    serviceMonitor:
+      enabled: true
