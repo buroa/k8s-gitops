@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: version-checker-dashboard
+  namespace: monitoring
+  labels:
+    grafana_dashboard: "1"
+data:
+  version-checker.json.url: https://grafana.com/api/dashboards/12833/revisions/1/download
