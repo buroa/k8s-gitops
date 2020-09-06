@@ -31,6 +31,6 @@ spec:
         - name: SLACK_CHANNEL
           value: "@black-home"
         - name: GITHUB_URL
-          value: "https://github.com/blackjid/homelab-gitops/"
+          value: "https://github.com/blackjid/k8s-gitops/"
         - name: LISTEN_ADDRESS
           value: ":3032"

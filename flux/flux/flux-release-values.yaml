@@ -6,7 +6,7 @@ metadata:
 data:
   values.yaml: |
     git:
-      url: git@github.com:blackjid/homelab-gitops
+      url: git@github.com:blackjid/k8s-gitops
     helmOperator:
       create: false
     registry:
