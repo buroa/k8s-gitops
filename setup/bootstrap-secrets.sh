@@ -21,9 +21,10 @@ SECRETS_CACHE="$REPO_ROOT/.secrets_cache"
 kseal() {
   name="$(basename -s .txt "$@")"
   namespace=$(echo "$@" | awk -F "/" '{print $1}')
+  pubkey_checksum=$(cat $PUB_CERT | sha256sum | cut -d' ' -f1)
   path=$(dirname "$@")
   if output=$(envsubst < "$REPO_ROOT/$*"); then
-    checksum="$(printf '%s' "$output" | sha256sum)"
+    checksum="$(printf '%s %s' "$output" "$pubkey_checksum" | sha256sum)"
 
     if grep -q "$path/$name $checksum" $SECRETS_CACHE; then
       echo "Skipping $name"
@@ -56,6 +57,8 @@ write_cache() {
   tmp_cache="$(tac $SECRETS_CACHE | awk '!seen[$1]++' | tac)"
   echo "$tmp_cache" > $SECRETS_CACHE
 }
+
+#kubeseal --fetch-cert --controller-name sealed-secrets --controller-namespace kube-system > setup/pub-cert.pem
 
 for value in $(find $REPO_ROOT -name *.txt); do
   kseal $(realpath --relative-to=$REPO_ROOT $value)
