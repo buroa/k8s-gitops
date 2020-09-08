@@ -38,7 +38,7 @@ installFlux() {
       values_file=$(mktemp)
       sleep 1
       kubectl get configmap -n flux ${release}-release-values -o json | jq -r '.data."values.yaml"' > $values_file
-      helm install -name $release --namespace flux --values $values_file --set prometheus.enabled=false --set prometheus.serviceMonitor.create=false fluxcd/$release
+      helm upgrade --install $release --namespace flux --values $values_file --set prometheus.enabled=false --set prometheus.serviceMonitor.create=false fluxcd/$release
   done
 
   FLUX_READY=1
