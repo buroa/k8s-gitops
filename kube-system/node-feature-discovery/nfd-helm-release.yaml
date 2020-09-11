@@ -16,7 +16,7 @@ spec:
   values:
     image:
       repository: raspbernetes/node-feature-discovery
-      tag: "2175bee759429f75837aaaa456aaaa7ffd55e2d5"
+      tag: "71e53851c1ef25e11c541b952d5484dd3687ea67"
     sources:
       # - cpu
     - custom
