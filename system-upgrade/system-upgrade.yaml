@@ -60,6 +60,8 @@ spec:
         - key: "node-role.kubernetes.io/master"
           operator: "Exists"
           effect: "NoSchedule"
+        - key: "arm"
+          operator: "Exists"
       containers:
         - name: system-upgrade-controller
           image: rancher/system-upgrade-controller:v0.6.2
