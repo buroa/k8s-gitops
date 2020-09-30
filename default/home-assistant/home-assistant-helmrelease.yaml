@@ -22,7 +22,7 @@ spec:
   values:
     image:
       repository: homeassistant/home-assistant
-      tag: 0.115.4
+      tag: 0.115.6
     persistence:
       enabled: true
       size: 10Gi
