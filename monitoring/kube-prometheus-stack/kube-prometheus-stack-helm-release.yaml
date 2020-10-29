@@ -129,7 +129,7 @@ spec:
         podMonitorSelector: {}
         podMonitorNamespaceSelector: {}
         podMonitorSelectorNilUsesHelmValues: false
-        retentionSize: 8GB
+        retention: 6h
         enableAdminAPI: true
         storageSpec:
           volumeClaimTemplate:
@@ -139,8 +139,8 @@ spec:
                 requests:
                   storage: 10Gi
         thanos:
-          image: quay.io/thanos/thanos:v0.13.0
-          version: v0.13.0
+          image: quay.io/thanos/thanos:v0.15.0
+          version: v0.15.0
           objectStorageConfig:
             name: thanos
             key: object-store.yaml
