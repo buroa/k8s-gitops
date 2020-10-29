@@ -16,13 +16,13 @@ spec:
   rollback:
     enable: true
   chart:
-    repository: https://billimek.com/billimek-charts/
+    repository: https://k8s-at-home.com/charts/
     name: home-assistant
-    version: 1.2.0
+    version: 2.5.0
   values:
     image:
       repository: homeassistant/home-assistant
-      tag: 0.116.4
+      tag: 0.117.0
     persistence:
       enabled: true
       size: 10Gi
@@ -54,7 +54,7 @@ spec:
       enabled: true
       image:
         repository: codercom/code-server
-        tag: 3.4.1
+        tag: 3.5.0
       ingress:
         enabled: true
         annotations:
