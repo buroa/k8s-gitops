@@ -118,9 +118,6 @@ spec:
 
     prometheus:
       prometheusSpec:
-        image:
-          repository: quay.io/prometheus/prometheus
-          tag: v2.20.0
         replicas: 2
         replicaExternalLabelName: "replica"
         ruleSelector: {}
