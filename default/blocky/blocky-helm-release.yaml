@@ -7,7 +7,7 @@ metadata:
   annotations:
     fluxcd.io/ignore: "false"
     fluxcd.io/automated: "false"
-    fluxcd.io/tag.chart-image: 'regexp:^v([0-9]+\.[0-9]+)$'
+    filter.fluxcd.io/chart-image: 'regexp:^v([0-9]+\.[0-9]+)$'
 spec:
   releaseName: blocky
   helmVersion: v3
@@ -15,13 +15,13 @@ spec:
   rollback:
     enable: true
   chart:
-    repository: https://billimek.com/billimek-charts/
+    repository: https://k8s-at-home.com/charts/
     name: blocky
-    version: 3.3.0
+    version: 4.0.1
   values:
     image:
       repository: spx01/blocky
-      tag: v0.9.1
+      tag: v0.10
     replicas: 2
     timeZone: "America/Santiago"
     config:
