@@ -109,6 +109,7 @@ spec:
             datasource: Prometheus
           speedtest:
             url: https://raw.githubusercontent.com/billimek/prometheus-speedtest-exporter/master/speedtest-exporter.json
+            datasource: Prometheus
       grafana.ini:
         paths:
           data: /var/lib/grafana/data
