@@ -19,6 +19,7 @@ spec:
   values:
     loki:
       replicas: 3
+      serviceName: loki.logs.svc.cluster.local
       persistence:
         enabled: false
       affinity:
