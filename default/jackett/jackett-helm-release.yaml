@@ -1,0 +1,39 @@
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: jackett
+  namespace: default
+  annotations:
+    fluxcd.io/ignore: "false"
+    fluxcd.io/automated: "true"
+    filter.fluxcd.io/chart-image: regexp:^(v0\.16\.[0-9]+-ls[0-9]+)$
+spec:
+  releaseName: jackett
+  helmVersion: v3
+  rollback:
+    enable: false
+  chart:
+    repository: https://k8s-at-home.com/charts/
+    name: jackett
+    version: 4.0.1
+  values:
+    image:
+      repository: linuxserver/jackett
+      tag: v0.16.1389-ls17
+    timezone: "America/Santiago"
+    puid: 1000
+    pgid: 1000
+    persistence:
+      config:
+        enabled: true
+        storageClass: "longhorn"
+        accessMode: ReadWriteOnce
+        size: 2Gi
+    resources:
+      requests:
+        memory: 350Mi
+        cpu: 25m
+      limits:
+        memory: 500Mi
+        cpu: 1000m
