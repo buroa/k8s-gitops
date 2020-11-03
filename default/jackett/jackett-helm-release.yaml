@@ -20,7 +20,7 @@ spec:
   values:
     image:
       repository: linuxserver/jackett
-      tag: v0.16.1999-ls19
+      tag: v0.16.2010-ls22
     timezone: "America/Santiago"
     puid: 1000
     pgid: 1000
