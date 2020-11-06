@@ -12,7 +12,7 @@ spec:
   rollback:
     enable: true
   chart:
-    git: https://cdwv.github.io/bitwarden-k8s/
+    repository: https://cdwv.github.io/bitwarden-k8s/
     name: bitwarden-k8s
     version: 0.1.5
   values:
