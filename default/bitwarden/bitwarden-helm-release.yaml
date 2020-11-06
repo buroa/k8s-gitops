@@ -27,7 +27,7 @@ spec:
         monitor.stakater.com/enabled: "true"
     persistence:
       enabled: true
-      storageClass: "longhorn"
+      storageClass: "longhorn-static"
       accessMode: ReadWriteOnce
       size: 5Gi
   valueFileSecrets:
