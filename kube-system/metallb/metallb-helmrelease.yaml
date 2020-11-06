@@ -9,9 +9,9 @@ spec:
   releaseName: metallb
   helmVersion: v3
   chart:
-    repository: https://kubernetes-charts.storage.googleapis.com/
+    repository: https://charts.bitnami.com/bitnami
     name: metallb
-    version: 0.12.0
+    version: 0.1.24
   values:
     configInline:
       address-pools:
@@ -20,6 +20,7 @@ spec:
         addresses:
         - 10.2.1.100-10.2.1.150
     prometheus:
+      enabled: true
       serviceMonitor:
         enabled: true
       prometheusRule:
