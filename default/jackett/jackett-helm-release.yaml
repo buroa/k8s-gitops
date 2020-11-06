@@ -20,8 +20,7 @@ spec:
   values:
     jackett:
       image:
-        repository: linuxserver/jackett
-        tag: v0.16.2076-ls21
+        tag: version-v0.16.2080
       timezone: "America/Santiago"
       puid: 1000
       pgid: 1000
