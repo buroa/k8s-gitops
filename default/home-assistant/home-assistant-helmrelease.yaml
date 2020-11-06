@@ -18,7 +18,7 @@ spec:
   chart:
     repository: https://k8s-at-home.com/charts/
     name: home-assistant
-    version: 2.5.0
+    version: 2.6.0
   values:
     image:
       repository: homeassistant/home-assistant
@@ -26,7 +26,7 @@ spec:
     persistence:
       enabled: true
       size: 10Gi
-      storageClass: "longhorn"
+      storageClass: "longhorn-static"
     ingress:
       enabled: true
       annotations:
