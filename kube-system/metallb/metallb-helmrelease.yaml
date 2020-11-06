@@ -11,7 +11,7 @@ spec:
   chart:
     repository: https://charts.bitnami.com/bitnami
     name: metallb
-    version: 0.1.24
+    version: 0.1.28
   values:
     configInline:
       address-pools:
