@@ -18,22 +18,23 @@ spec:
     name: jackett
     version: 4.0.1
   values:
-    image:
-      repository: linuxserver/jackett
-      tag: v0.16.2076-ls21
-    timezone: "America/Santiago"
-    puid: 1000
-    pgid: 1000
-    persistence:
-      config:
-        enabled: true
-        storageClass: "longhorn-static"
-        accessMode: ReadWriteOnce
-        size: 2Gi
-    resources:
-      requests:
-        memory: 350Mi
-        cpu: 25m
-      limits:
-        memory: 500Mi
-        cpu: 1000m
+    jackett:
+      image:
+        repository: linuxserver/jackett
+        tag: v0.16.2076-ls21
+      timezone: "America/Santiago"
+      puid: 1000
+      pgid: 1000
+      persistence:
+        config:
+          enabled: true
+          storageClass: "longhorn-static"
+          accessMode: ReadWriteOnce
+          size: 2Gi
+      resources:
+        requests:
+          memory: 350Mi
+          cpu: 25m
+        limits:
+          memory: 500Mi
+          cpu: 1000m
