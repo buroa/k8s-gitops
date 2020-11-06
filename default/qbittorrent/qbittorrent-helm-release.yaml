@@ -18,7 +18,7 @@ spec:
   values:
     image:
       repository: linuxserver/qbittorrent
-      tag: 14.3.0.99202010231047-7094-260e48b70ubuntu18.04.1-ls96
+      tag: version-14.2.5.99202004250119-7015-2c65b79ubuntu18.04.1
     timezone: America/Santiago
     puid: 1000
     pgid: 1000
