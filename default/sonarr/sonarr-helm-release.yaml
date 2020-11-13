@@ -1,0 +1,47 @@
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: sonarr
+  namespace: default
+  annotations:
+    fluxcd.io/automated: "true"
+    # filter.fluxcd.io/chart-image: semver:~3.0
+    filter.fluxcd.io/chart-image: 'regexp:^(3\.0\.[0-9]+\.[0-9]+-ls[0-9]+)$'
+spec:
+  releaseName: sonarr
+  helmVersion: v3
+  rollback:
+    enable: true
+  chart:
+    repository: https://k8s-at-home.com/charts/
+    name: sonarr
+    version: 5.0.0
+  values:
+    image:
+      repository: linuxserver/sonarr
+      tag: 3.0.4.994-ls71
+    ingress:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: "nginx"
+    timezone: "America/Santiago"
+    persistence:
+      config:
+        enabled: true
+        storageClass: "longhorn"
+        size: 2Gi
+      media:
+        enabled: true
+        existingClaim: nfs-media-pvc
+    resources:
+      requests:
+        memory: 350Mi
+        cpu: 25m
+      limits:
+        memory: 500Mi
+    tolerations:
+    - key: "arm"
+      operator: "Exists"
+  valueFileSecrets:
+  - name: "sonarr-values"
