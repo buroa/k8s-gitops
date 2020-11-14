@@ -16,24 +16,25 @@ spec:
   chart:
     repository: https://k8s-at-home.com/charts/
     name: jackett
-    version: 4.0.1
+    version: 5.3.0
   values:
-    jackett:
-      image:
-        tag: version-v0.16.2080
-      timezone: "America/Santiago"
-      puid: 1000
-      pgid: 1000
-      persistence:
-        config:
-          enabled: true
-          storageClass: "longhorn"
-          accessMode: ReadWriteOnce
-          size: 2Gi
-      resources:
-        requests:
-          memory: 350Mi
-          cpu: 25m
-        limits:
-          memory: 500Mi
-          cpu: 1000m
+    controllerType: deployment
+    image:
+      repository: k8sathome/jackett
+      tag: 0.16.2131
+      pullPolicy: Always
+    env:
+      TZ: "America/Santiago"
+    persistence:
+      config:
+        enabled: true
+        storageClass: "longhorn"
+        accessMode: ReadWriteOnce
+        size: 2Gi
+    resources:
+      requests:
+        memory: 350Mi
+        cpu: 25m
+      limits:
+        memory: 500Mi
+        cpu: 1000m
