@@ -20,7 +20,7 @@ spec:
   values:
     image:
       repository: plexinc/pms-docker
-      tag: 1.21.1.3830-6c22540d5
+      tag: 1.21.1.3842-b0c7a97d9
     timezone: "America/Santiago"
     plexUid: 1001
     plexGid: 1001
