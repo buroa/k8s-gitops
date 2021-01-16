@@ -1,0 +1,40 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: esphome
+  namespace: home
+  annotations:
+    flux.weave.works/automated: "true"
+spec:
+  chart:
+    repository: https://k8s-at-home.com/charts/
+    name: esphome
+    version: 4.3.1
+  values:
+    image:
+      repository: esphome/esphome
+      tag: 1.15.3
+    env:
+      TZ: "America/Santiago"
+      ESPHOME_DASHBOARD_USE_PING: true
+    hostNetwork: true
+    ingress:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: "nginx"
+        monitor.stakater.com/enabled: "true"
+    persistence:
+      config:
+        enabled: true
+        storageClass: "longhorn"
+        accessMode: ReadWriteOnce
+        size: "1Gi"
+    resources:
+      requests:
+        memory: 250Mi
+        cpu: 500m
+      limits:
+        memory: 1000Mi
+  valueFileSecrets:
+  - name: "esphome-values"
+
