@@ -1,3 +1,4 @@
+---
 apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease
 metadata:
@@ -13,7 +14,7 @@ spec:
   values:
     image:
       repository: esphome/esphome
-      tag: 1.15.3
+      tag: d9a2651
     env:
       TZ: "America/Santiago"
       ESPHOME_DASHBOARD_USE_PING: true
