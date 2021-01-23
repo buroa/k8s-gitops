@@ -6,7 +6,7 @@ metadata:
   namespace: default
   annotations:
     fluxcd.io/automated: "true"
-    filter.fluxcd.io/chart-image: 'regexp:^(3\.0\.[0-9]+\.[0-9]+-ls[0-9]+)$'
+    filter.fluxcd.io/chart-image: 'regexp:^v(3\.0\.[0-9]+\.[0-9]$'
 spec:
   releaseName: radarr
   helmVersion: v3
@@ -15,28 +15,50 @@ spec:
   chart:
     repository: https://k8s-at-home.com/charts/
     name: radarr
-    version: 5.0.1
+    version: 8.3.1
   values:
     image:
-      repository: linuxserver/radarr
-      tag: 3.0.1.4259-ls90
+      repository: k8sathome/radarr
+      tag: v3.0.2.4369
+    env:
+      TZ: "America/Santiago"
     ingress:
       enabled: true
       annotations:
         kubernetes.io/ingress.class: "nginx"
-    timezone: "America/Santiago"
+        nginx.ingress.kubernetes.io/auth-url: "https://auth.donoso.family/oauth2/auth"
+        nginx.ingress.kubernetes.io/auth-signin: https://auth.donoso.family/oauth2/start
+      hosts:
+      - host: radarr.donoso.family
+        paths:
+        - path: /
+          pathType: Prefix
+      tls:
+      - hosts:
+        - radarr.donoso.family
+    additionalIngresses:
+    - enabled: true
+      nameSuffix: "api"
+      hosts:
+      - host: radarr.donoso.family
+        paths:
+        - path: /api
+          pathType: Prefix
+      tls:
+      - hosts:
+        - "radarr.donoso.family"
     persistence:
       config:
         enabled: true
         storageClass: "longhorn"
         size: 3Gi
-      downloads:
-        enabled: false
-      movies:
-        enabled: false
-      media:
-        enabled: true
-        existingClaim: nfs-media-pvc
+    additionalVolumeMounts:
+    - name: media
+      mountPath: "/media"
+    additionalVolumes:
+    - name: media
+      persistentVolumeClaim:
+        claimName: nfs-media-pvc
     resources:
       requests:
         memory: 350Mi
