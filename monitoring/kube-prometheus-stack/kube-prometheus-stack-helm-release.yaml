@@ -15,7 +15,7 @@ spec:
   chart:
     repository: https://prometheus-community.github.io/helm-charts
     name: kube-prometheus-stack
-    version: 10.3.3
+    version: 12.9.1
   values:
     defaultRules:
       rules:
@@ -81,6 +81,7 @@ spec:
         enabled: true
         annotations:
           kubernetes.io/ingress.class: "nginx"
+        hosts: [grafana.donoso.family]
       dashboardProviders:
         dashboardproviders.yaml:
           apiVersion: 1
