@@ -11,7 +11,7 @@ spec:
   chart:
     repository: https://charts.bitnami.com/bitnami
     name: metallb
-    version: 0.1.28
+    version: 1.1.0
   values:
     configInline:
       address-pools:
@@ -28,14 +28,14 @@ spec:
     controller:
       image:
         repository: metallb/controller
-        tag: v0.9.3
+        tag: v0.9.5
       tolerations:
       - key: "arm"
         operator: "Exists"
     speaker:
       image:
         repository: metallb/speaker
-        tag: v0.9.3
+        tag: v0.9.5
       tolerations:
       - key: "arm"
         operator: "Exists"
