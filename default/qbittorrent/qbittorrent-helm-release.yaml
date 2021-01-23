@@ -14,21 +14,26 @@ spec:
   chart:
     repository: https://k8s-at-home.com/charts
     name: qbittorrent
-    version: 4.0.1
+    version: 7.2.1
   values:
     image:
-      repository: linuxserver/qbittorrent
-      tag: version-14.2.5.99202004250119-7015-2c65b79ubuntu18.04.1
-    timezone: America/Santiago
-    puid: 1000
-    pgid: 1000
-    umask: "022"
-    guiService:
-      type: ClusterIP
-    btService:
-      type: LoadBalancer
-      port: 50413
-      loadBalancerIP: 10.2.1.102
+      repository: k8sathome/qbittorrent
+      tag: v4.3.1
+    env:
+      TZ: America/Santiago
+    service:
+      additionalServices:
+      - enabled: true
+        nameSuffix: bittorrent
+        type: LoadBalancer
+        externalIPs:
+        - 10.2.1.102
+        port:
+          port: 50413
+          name: bittorrent
+          protocol: TCP
+          targetPort: 6881
+        externalTrafficPolicy: Local
     ingress:
       enabled: true
       annotations:
@@ -38,11 +43,13 @@ spec:
         enabled: true
         size: 1Gi
         storageClass: longhorn
-      downloads:
-        enabled: false
-      extraMounts:
-        - name: media
-          claimName: nfs-media-pvc
+    additionalVolumeMounts:
+    - name: media
+      mountPath: "/media"
+    additionalVolumes:
+    - name: media
+      persistentVolumeClaim:
+        claimName: nfs-media-pvc
     resources:
       requests:
         memory: 250Mi
