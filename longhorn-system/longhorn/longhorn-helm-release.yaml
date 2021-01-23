@@ -21,3 +21,10 @@ spec:
       backupTarget: s3://longhorn@minio/backups
       backupTargetCredentialSecret: longhorn-backup
       defaultReplicaCount: 2
+    ingress:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: "nginx"
+        nginx.ingress.kubernetes.io/auth-url: "https://auth.donoso.family/oauth2/auth"
+        nginx.ingress.kubernetes.io/auth-signin: https://auth.donoso.family/oauth2/start
+      host: longhorn.donoso.family
