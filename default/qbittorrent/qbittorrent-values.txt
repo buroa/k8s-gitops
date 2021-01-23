@@ -1,5 +1,9 @@
 ingress:
-  hosts: [qb.$DOMAIN]
+  hosts:
+  - host: qb.$DOMAIN
+    paths:
+    - path: /
+      pathType: Prefix
   tls:
   - hosts:
     - qb.$DOMAIN
