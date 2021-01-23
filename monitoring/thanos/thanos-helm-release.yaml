@@ -15,11 +15,11 @@ spec:
   chart:
     repository: https://kubernetes-charts.banzaicloud.com
     name: thanos
-    version: 0.3.29
+    version: 0.3.31
   values:
     image:
       repository: quay.io/thanos/thanos
-      tag: v0.15.0
+      tag: v0.17.2
     query:
       replicaCount: 2
       replicaLabels:
