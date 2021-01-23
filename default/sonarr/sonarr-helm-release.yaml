@@ -34,17 +34,17 @@ spec:
       annotations:
         nginx.ingress.kubernetes.io/auth-url: "https://auth.donoso.family/oauth2/auth"
         nginx.ingress.kubernetes.io/auth-signin: https://auth.donoso.family/oauth2/start
-    additionalIngresses:
-    - enabled: true
-      nameSuffix: "api"
-      hosts:
-      - host: sonarr.donoso.family
-        paths:
-        - path: /api
-          pathType: Prefix
-      tls:
-      - hosts:
-        - "sonarr.donoso.family"
+      additionalIngresses:
+      - enabled: true
+        nameSuffix: "api"
+        hosts:
+        - host: sonarr.donoso.family
+          paths:
+          - path: /api
+            pathType: Prefix
+        tls:
+        - hosts:
+          - "sonarr.donoso.family"
     persistence:
       config:
         enabled: true
