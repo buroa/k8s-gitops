@@ -13,7 +13,7 @@ spec:
   chart:
     repository: https://kubernetes-charts.storage.googleapis.com/
     name: oauth2-proxy
-    version: 3.2.3
+    version: 3.2.5
   values:
     image:
       repository: "quay.io/pusher/oauth2_proxy"
@@ -25,5 +25,22 @@ spec:
     ingress:
       enabled: true
       path: /oauth2
+      hosts:
+      - host: auth.donoso.family
+        paths:
+        - path: /
+          pathType: Prefix
+      tls:
+      - hosts:
+        - auth.donoso.family
+    extraArgs:
+      provider: oidc
+      oidc-issuer-url: https://donoso.auth0.com/
+      skip-provider-button:
+      pass-authorization-header:
+      email-domain: "*"
+      cookie-domain: .donoso.family
+      whitelist-domain: .donoso.family
+
   valueFileSecrets:
   - name: "oauth2-proxy-values"
