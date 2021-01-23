@@ -36,17 +36,17 @@ spec:
       tls:
       - hosts:
         - radarr.donoso.family
-    additionalIngresses:
-    - enabled: true
-      nameSuffix: "api"
-      hosts:
-      - host: radarr.donoso.family
-        paths:
-        - path: /api
-          pathType: Prefix
-      tls:
-      - hosts:
-        - "radarr.donoso.family"
+      additionalIngresses:
+      - enabled: true
+        nameSuffix: "api"
+        hosts:
+        - host: radarr.donoso.family
+          paths:
+          - path: /api
+            pathType: Prefix
+        tls:
+        - hosts:
+          - "radarr.donoso.family"
     persistence:
       config:
         enabled: true
