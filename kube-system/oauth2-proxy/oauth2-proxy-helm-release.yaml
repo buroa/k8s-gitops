@@ -25,11 +25,7 @@ spec:
     ingress:
       enabled: true
       path: /oauth2
-      hosts:
-      - host: auth.donoso.family
-        paths:
-        - path: /
-          pathType: Prefix
+      hosts: [auth.donoso.family]
       tls:
       - hosts:
         - auth.donoso.family
