@@ -13,7 +13,7 @@ spec:
   chart:
     repository: https://charts.longhorn.io
     name: longhorn
-    version: 1.0.2
+    version: 1.1.0
   values:
     persistence:
       defaultClassReplicaCount: 2
