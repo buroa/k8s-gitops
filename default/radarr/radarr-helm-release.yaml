@@ -65,5 +65,3 @@ spec:
         cpu: 25m
       limits:
         memory: 500Mi
-  valueFileSecrets:
-  - name: "radarr-values"
