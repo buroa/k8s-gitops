@@ -14,7 +14,7 @@ spec:
   values:
     image:
       repository: esphome/esphome
-      tag: beta
+      tag: 1.16.0
     env:
       TZ: "America/Santiago"
       ESPHOME_DASHBOARD_USE_PING: true
