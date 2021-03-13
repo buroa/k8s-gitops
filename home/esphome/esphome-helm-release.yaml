@@ -14,7 +14,7 @@ spec:
   values:
     image:
       repository: esphome/esphome
-      tag: 'c9ee513'
+      tag: '28a72fa'
     env:
       TZ: "America/Santiago"
       ESPHOME_DASHBOARD_USE_PING: true
