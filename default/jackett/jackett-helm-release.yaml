@@ -21,7 +21,7 @@ spec:
     controllerType: deployment
     image:
       repository: k8sathome/jackett
-      tag: v0.17.474
+      tag: v0.17.794
       pullPolicy: Always
     env:
       TZ: "America/Santiago"
