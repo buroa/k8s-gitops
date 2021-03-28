@@ -1,5 +1,0 @@
-config:
-  conditional:
-    mapping:
-      $DOMAIN: tcp+udp:10.2.0.1
-      local: tcp+udp:10.2.0.1
