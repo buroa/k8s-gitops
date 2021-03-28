@@ -1,0 +1,102 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: home-assistant
+  namespace: default
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://k8s-at-home.com/charts/
+      chart: home-assistant
+      version: 7.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    image:
+      repository: homeassistant/home-assistant
+      tag: 2021.3.4
+    env:
+      TZ: "America/Santiago"
+    hostNetwork: true
+    dnsPolicy: ClusterFirstWithHostNet
+    service:
+      type: LoadBalancer
+      loadBalancerIP: 10.2.1.100
+    ingress:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: "nginx"
+        monitor.stakater.com/enabled: "true"
+      hosts:
+      - host: hass.donoso.family
+        paths:
+        - path: /
+          pathType: Prefix
+    prometheus:
+      serviceMonitor:
+        enabled: false
+    probes:
+      liveness:
+        enabled: false
+      readiness:
+        enabled: false
+      startup:
+        enabled: true
+    persistence:
+      config:
+        enabled: true
+        storageClass: "longhorn-static"
+        accessMode: ReadWriteOnce
+        size: "10Gi"
+    addons:
+      codeserver:
+        enabled: true
+        image:
+          repository: codercom/code-server
+          tag: 3.9.1
+        workingDir: "/config"
+        args:
+          - --user-data-dir
+          - "/config/.vscode"
+          - --auth
+          - "none"
+        ingress:
+          enabled: true
+          annotations:
+            kubernetes.io/ingress.class: "nginx"
+            nginx.ingress.kubernetes.io/auth-url: "https://auth.donoso.family/oauth2/auth"
+            nginx.ingress.kubernetes.io/auth-signin: https://auth.donoso.family/oauth2/start
+          hosts:
+          - host: hass-vscode.donoso.family
+            paths:
+            - path: /
+              pathType: Prefix
+        volumeMounts:
+        - name: config
+          mountPath: /config
+    postgresql:
+      enabled: true
+      global:
+        postgresql:
+          postgresqlUsername: home-assistant
+          postgresqlDatabase: home-assistant
+      persistence:
+        enabled: true
+        storageClass: "longhorn"
+    resources:
+      limits:
+        memory: 2500Mi
+      requests:
+        cpu: 35m
+        memory: 2000Mi
+    monitoring:
+      enabled: false
+  valueFileSecrets:
+  - kind: Secret
+    name: "home-assistant-values"
+    optional: false
