@@ -96,7 +96,7 @@ spec:
         memory: 2000Mi
     monitoring:
       enabled: false
-  valueFileSecrets:
+  valuesFrom:
   - kind: Secret
     name: "home-assistant-values"
     optional: false
