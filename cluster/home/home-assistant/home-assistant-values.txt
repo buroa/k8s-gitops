@@ -1,0 +1,8 @@
+postgresql:
+  global:
+    postgresql:
+      postgresqlPassword: $HASS_DB_PASSWORD
+vscode:
+  extraEnv:
+    HASS_SERVER: http://localhost:8123
+    HASS_TOKEN: $HASS_TOKEN
