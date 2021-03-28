@@ -1,0 +1,41 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: bitwarden
+  namespace: default
+spec:
+  releaseName: bitwarden
+  interval: 5m
+  chart:
+    spec:
+      chart: bitwardenrs
+      version: 2.0.0
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    image:
+      repository: bitwardenrs/server
+      tag: 1.19.0-alpine
+    bitwardenrs:
+      domain: https://bitwarden.donoso.family
+      admin:
+        existingSecret:
+          enabled: true
+          name: bitwarden-secrets
+          tokenKey: adminToken
+    ingress:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: nginx
+      hosts:
+        - host: bitwarden.donoso.family
+          paths:
+            - /
+    persistence:
+      enabled: true
+      storageClass: "longhorn"
+      accessMode: ReadWriteOnce
+      size: 5Gi
