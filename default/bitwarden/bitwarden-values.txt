@@ -1,7 +1,0 @@
-ingress:
-  hosts:
-    - bitwarden.$DOMAIN
-  tls: {}
-env:
-  DOMAIN: https://bitwarden.$DOMAIN
-  ADMIN_TOKEN: $BITWARDEN_ADMIN_TOKEN
