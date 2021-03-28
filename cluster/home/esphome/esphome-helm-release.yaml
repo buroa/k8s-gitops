@@ -1,20 +1,25 @@
 ---
-apiVersion: helm.fluxcd.io/v1
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: esphome
   namespace: home
-  annotations:
-    flux.weave.works/automated: "true"
 spec:
+  releaseName: esphome
+  interval: 5m
   chart:
-    repository: https://k8s-at-home.com/charts/
-    name: esphome
-    version: 6.0.1
+    spec:
+      chart: esphome
+      version: 6.0.1
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+      interval: 5m
   values:
     image:
       repository: esphome/esphome
-      tag: '2028362'
+      tag: 1.16.2
     env:
       TZ: "America/Santiago"
       ESPHOME_DASHBOARD_USE_PING: true
