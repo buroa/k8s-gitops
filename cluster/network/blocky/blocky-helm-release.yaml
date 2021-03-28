@@ -21,7 +21,7 @@ spec:
       tag: v0.13
     replicas: 3
     timeZone: "America/Santiago"
-    config:
+    config: |
       upstream:
         externalResolvers:
         - tcp+udp:8.8.8.8
