@@ -1,17 +1,21 @@
-apiVersion: helm.fluxcd.io/v1
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: metallb
   namespace: kube-system
-  annotations:
-    flux.weave.works/automated: "true"
 spec:
-  releaseName: metallb
-  helmVersion: v3
+  interval: 5m
   chart:
-    repository: https://charts.bitnami.com/bitnami
-    name: metallb
-    version: 1.1.0
+    spec:
+      # renovate: registryUrl=https://charts.bitnami.com/bitnami
+      chart: metallb
+      version: 1.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami-charts
+        namespace: flux-system
+      interval: 5m
   values:
     configInline:
       address-pools:
@@ -19,6 +23,8 @@ spec:
         protocol: layer2
         addresses:
         - 10.2.1.100-10.2.1.150
+    prometheusRule:
+      enabled: true
     prometheus:
       enabled: true
       serviceMonitor:
@@ -27,15 +33,17 @@ spec:
         enabled: true
     controller:
       image:
+        registry: docker.io
         repository: metallb/controller
-        tag: v0.9.5
+        tag: v0.9.6
       tolerations:
       - key: "arm"
         operator: "Exists"
     speaker:
       image:
+        registry: docker.io
         repository: metallb/speaker
-        tag: v0.9.5
+        tag: v0.9.6
       tolerations:
       - key: "arm"
         operator: "Exists"
