@@ -17,13 +17,14 @@ need "awk"
 # Path to Public Cert
 PUB_CERT="$REPO_ROOT/setup/pub-cert.pem"
 SECRETS_CACHE="$REPO_ROOT/.secrets_cache"
+CLUSTER_PATH="$REPO_ROOT/cluster"
 
 kseal() {
   name="$(basename -s .txt "$@")"
   namespace=$(echo "$@" | awk -F "/" '{print $1}')
   pubkey_checksum=$(cat $PUB_CERT | sha256sum | cut -d' ' -f1)
   path=$(dirname "$@")
-  if output=$(envsubst < "$REPO_ROOT/$*"); then
+  if output=$(envsubst < "$CLUSTER_PATH/$*"); then
     checksum="$(printf '%s %s' "$output" "$pubkey_checksum" | sha256sum)"
 
     if grep -q "$path/$name $checksum" $SECRETS_CACHE; then
@@ -43,7 +44,7 @@ kseal() {
       printf '%s' "$output" \
         | kubectl -n $namespace create secret generic $name --dry-run=client $input_arg -o yaml \
         | kubeseal --cert $PUB_CERT --format yaml \
-        > "$REPO_ROOT/$path/$name-secret.yaml"
+        > "$CLUSTER_PATH/$path/$name-secret.yaml"
     fi
   fi
 }
@@ -60,7 +61,7 @@ write_cache() {
 
 #kubeseal --fetch-cert --controller-name sealed-secrets --controller-namespace kube-system > setup/pub-cert.pem
 
-for value in $(find $REPO_ROOT -name *.txt); do
-  kseal $(realpath --relative-to=$REPO_ROOT $value)
+for value in $(find $CLUSTER_PATH -name *.txt); do
+  kseal $(realpath --relative-to=$CLUSTER_PATH $value)
 done
 
