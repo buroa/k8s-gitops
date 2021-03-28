@@ -1,0 +1,50 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: node-red
+  namespace: home
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: node-red
+      version: 7.0.1
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    image:
+      repository: nodered/node-red
+      tag: 1.2.9-12-minimal
+    env:
+      TZ: "America/Santiago"
+      FLOWS: "flows.json"
+      NODE_RED_ENABLE_PROJECTS: "true"
+      NODE_RED_ENABLE_SAFE_MODE: "false"
+    ingress:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: "nginx"
+        nginx.ingress.kubernetes.io/auth-url: "https://auth.donoso.family/oauth2/auth"
+        nginx.ingress.kubernetes.io/auth-signin: https://auth.donoso.family/oauth2/start
+      hosts:
+      - host: node-red.donoso.family
+        paths:
+        - path: /
+          pathType: Prefix
+    persistence:
+      data:
+        enabled: true
+        mountPath: /data
+        storageClass: "longhorn"
+        accessMode: ReadWriteOnce
+        size: "5Gi"
+    resources:
+      requests:
+        memory: 350Mi
+        cpu: 25m
+      limits:
+        memory: 500Mi
