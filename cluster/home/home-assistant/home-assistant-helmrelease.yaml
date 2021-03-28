@@ -50,7 +50,7 @@ spec:
     persistence:
       config:
         enabled: true
-        storageClass: "longhorn-static"
+        storageClass: "longhorn"
         accessMode: ReadWriteOnce
         size: "10Gi"
     addons:
