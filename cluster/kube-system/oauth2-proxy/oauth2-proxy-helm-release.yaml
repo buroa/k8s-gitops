@@ -17,7 +17,7 @@ spec:
       interval: 5m
   values:
     image:
-      repository: "quay.io/pusher/oauth2_proxy"
+      repository: "quay.io/oauth2-proxy/oauth2-proxy"
       tag: "v7.1.0"
     replicaCount: 2
     # tolerations:
