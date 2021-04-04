@@ -1,0 +1,116 @@
+{
+  "enabled": true,
+  "timezone": "America/Santiago",
+  "semanticCommits": "enabled",
+  "dependencyDashboard": true,
+  "dependencyDashboardTitle": "Renovate Dashboard",
+  "commitBody": "Signed-off-by: Juan Ignacio Donoso <blackjid@users.noreply.github.com>",
+  // do not notify on closed unmerged PRs
+  "suppressNotifications": ["prIgnoreNotification"],
+  // only rebase PRs when there's a conflict
+  "rebaseWhen": "conflicted",
+  "kubernetes": {
+    "fileMatch": ["cluster/.+\\.yaml$"],
+    "ignorePaths": [
+      "cluster/flux-system/",
+      ".github",
+    ]
+  },
+  "helm-values": {
+    "fileMatch": ["cluster/.+helm-release\\.yaml$"]
+  },
+  "regexManagers": [
+    // regexManager to read and process HelmRelease files
+    {
+      "fileMatch": ["cluster/.+helm-release\\.yaml$"],
+      "matchStrings": [
+        "registryUrl=(?<registryUrl>.*?)\n *chart: (?<depName>.*?)\n *version: (?<currentValue>.*)\n"
+      ],
+      "datasourceTemplate": "helm"
+    },
+  ],
+  "packageRules": [
+    // setup datasources
+    {
+      "matchDatasources": ["helm"],
+      "commitMessageTopic": "Helm chart {{depName}}",
+      "separateMinorPatch": true
+    },
+    // global docker datasource settings
+    {
+      "matchDatasources": ["docker"],
+      "enabled": true,
+      "commitMessageTopic": "Docker Image {{depName}}",
+      "commitMessageExtra": "to {{#if isSingleVersion}}v{{{newVersion}}}{{else}}{{{newValue}}}{{/if}}",
+      "matchUpdateTypes": ["major", "minor", "patch"],
+      "separateMinorPatch": true
+    },
+    // add labels according to package and update types
+    {
+      "matchDatasources": ["docker"],
+      "matchUpdateTypes": ["major"],
+      "labels": ["renovate/image", "dep/major"]
+    },
+    {
+      "matchDatasources": ["docker"],
+      "matchUpdateTypes": ["minor"],
+      "labels": ["renovate/image", "dep/minor"]
+    },
+    {
+      "matchDatasources": ["docker"],
+      "matchUpdateTypes": ["patch"],
+      "labels": ["renovate/image", "dep/patch"]
+    },
+    {
+      "matchDatasources": ["helm"],
+      "matchUpdateTypes": ["major"],
+      "labels": ["renovate/helm", "dep/major"]
+    },
+    {
+      "matchDatasources": ["helm"],
+      "matchUpdateTypes": ["minor"],
+      "labels": ["renovate/helm", "dep/minor"]
+    },
+    {
+      "matchDatasources": ["helm"],
+      "matchUpdateTypes": ["patch"],
+      "labels": ["renovate/helm", "dep/patch"]
+    },
+    // custom version schemes
+    {
+      "matchDatasources": ["docker"],
+      "versioning": "regex:^RELEASE\\.(?<major>\\d+)-(?<minor>\\d+)-(?<patch>\\d+)T.*Z(-(?<compatibility>.*))?$",
+      "matchPackageNames": ["minio/minio"]
+    },
+    // pin package versions
+    {
+      "matchDatasources": ["docker"],
+      "allowedVersions": "<13",
+      "matchPackageNames": [
+        "postgres",
+      ]
+    },
+    // version strategies
+    {
+      "matchDatasources": ["docker"],
+      "versioning": "loose",
+      "matchPackageNames": [
+        "ghcr.io/k8s-at-home/plex"
+      ]
+    },
+    // enable auto-merge
+    {
+      "matchDatasources": ["docker"],
+      "automerge": true,
+      "automergeType": "branch",
+      "requiredStatusChecks": null,
+      "matchUpdateTypes": ["minor", "patch"],
+      "matchPackageNames": [
+        "ghcr.io/k8s-at-home/jackett",
+        "ghcr.io/k8s-at-home/plex",
+        "ghcr.io/k8s-at-home/radarr",
+        "ghcr.io/k8s-at-home/sonarr"
+      ]
+    }
+  ]
+}
