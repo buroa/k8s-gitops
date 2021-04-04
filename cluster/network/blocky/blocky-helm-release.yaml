@@ -77,8 +77,7 @@ spec:
       - enabled: true
         nameSuffix: dns-tcp
         type: LoadBalancer
-        externalIPs:
-        - 10.2.1.150
+        loadBalancerIP: 10.2.1.150
         port:
           port: 53
           name: dns-tcp
@@ -88,8 +87,7 @@ spec:
       - enabled: true
         nameSuffix: dns-udp
         type: LoadBalancer
-        externalIPs:
-        - 10.2.1.150
+        loadBalancerIP: 10.2.1.150
         port:
           port: 53
           name: dns-udp
