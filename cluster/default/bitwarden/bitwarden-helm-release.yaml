@@ -18,7 +18,7 @@ spec:
   values:
     image:
       repository: bitwardenrs/server
-      tag: 1.19.0-alpine
+      tag: 1.20.0-alpine
     bitwardenrs:
       domain: https://bitwarden.donoso.family
       admin:
