@@ -78,6 +78,8 @@ spec:
         nameSuffix: dns-tcp
         type: LoadBalancer
         loadBalancerIP: 10.2.1.150
+        annotations:
+          metallb.universe.tf/allow-shared-ip: blocky
         port:
           port: 53
           name: dns-tcp
@@ -88,6 +90,8 @@ spec:
         nameSuffix: dns-udp
         type: LoadBalancer
         loadBalancerIP: 10.2.1.150
+        annotations:
+          metallb.universe.tf/allow-shared-ip: blocky
         port:
           port: 53
           name: dns-udp
