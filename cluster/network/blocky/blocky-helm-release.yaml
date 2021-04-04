@@ -77,6 +77,8 @@ spec:
       - enabled: true
         nameSuffix: dns-tcp
         type: LoadBalancer
+        annotations:
+          metallb.universe.tf/allow-shared-ip: blocky
         externalIPs:
         - 10.2.1.150
         port:
@@ -88,6 +90,8 @@ spec:
       - enabled: true
         nameSuffix: dns-udp
         type: LoadBalancer
+        annotations:
+          metallb.universe.tf/allow-shared-ip: blocky
         externalIPs:
         - 10.2.1.150
         port:
