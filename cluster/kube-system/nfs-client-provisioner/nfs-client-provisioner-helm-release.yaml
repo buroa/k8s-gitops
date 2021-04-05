@@ -22,6 +22,6 @@ spec:
       tag: v4.0.2
     nfs:
       server: "10.2.1.50"
-      path: "/volume1/kube/nfs-data"
+      path: "/volume1/data/nfs-client"
     storageClass:
       defaultClass: false
