@@ -45,7 +45,6 @@ spec:
           type: loki
           access: proxy
           url: http://loki:3100/
-          isDefault: true
     env:
       GF_EXPLORE_ENABLED: true
       GF_DISABLE_SANITIZE_HTML: true
