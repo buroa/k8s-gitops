@@ -89,7 +89,7 @@ spec:
       enabled: false
       sidecar:
         datasources:
-          enabled: false
+          enabled: true
   valuesFrom:
   - kind: Secret
     name: "loki-values"
