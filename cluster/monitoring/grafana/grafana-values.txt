@@ -1,0 +1,2 @@
+adminUser: jidonoso@gmail.com
+adminPassword: "$GRAFANA_PASSWORD"
