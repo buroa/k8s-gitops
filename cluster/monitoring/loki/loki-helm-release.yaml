@@ -88,8 +88,8 @@ spec:
     grafana:
       enabled: false
       sidecar:
-      datasources:
-        enabled: false
+        datasources:
+          enabled: false
   valuesFrom:
   - kind: Secret
     name: "loki-values"
