@@ -36,8 +36,7 @@ spec:
           namespaces:
             include:
               - all
-            ignore:
-              -
+            ignore: []
           events:
             - create
             - delete
@@ -46,8 +45,7 @@ spec:
           namespaces:
             include:
               - all
-            ignore:
-              -
+            ignore: []
           events:
             - create
             - update
@@ -61,8 +59,7 @@ spec:
           namespaces:
             include:
               - all
-            ignore:
-              -
+            ignore: []
           events:
             - create
             - update
@@ -76,8 +73,7 @@ spec:
           namespaces:
             include:
               - all
-            ignore:
-              -
+            ignore: []
           events:
             - create
             - delete
@@ -86,8 +82,7 @@ spec:
           namespaces:
             include:
               - all
-            ignore:
-              -
+            ignore: []
           events:
             - create
             - delete
@@ -96,8 +91,7 @@ spec:
           namespaces:
             include:
               - all
-            ignore:
-              -
+            ignore: []
           events:
             - create
             - delete
@@ -106,8 +100,7 @@ spec:
           namespaces:
             include:
               - all
-            ignore:
-              -
+            ignore: []
           events:
             - create
             - delete
@@ -116,8 +109,7 @@ spec:
           namespaces:
             include:
               - all
-            ignore:
-              -
+            ignore: []
           events:
             - create
             - delete
@@ -126,8 +118,7 @@ spec:
           namespaces:
             include:
               - all
-            ignore:
-              -
+            ignore: []
           events:
             - create
             - delete
@@ -136,8 +127,7 @@ spec:
           namespaces:
             include:
               - all
-            ignore:
-              -
+            ignore: []
           events:
             - delete
             - error
@@ -145,8 +135,7 @@ spec:
           namespaces:
             include:
               - all
-            ignore:
-              -
+            ignore: []
           events:
             - create
             - delete
@@ -176,8 +165,7 @@ spec:
           namespaces:
             include:
               - all
-            ignore:
-              -
+            ignore: []
           events:
             - create
             - delete
@@ -186,8 +174,7 @@ spec:
           namespaces:
             include:
               - all
-            ignore:
-              -
+            ignore: []
           events:
             - create
             - delete
@@ -196,8 +183,7 @@ spec:
           namespaces:
             include:
               - all
-            ignore:
-              -
+            ignore: []
           events:
             - create
             - delete
@@ -206,8 +192,7 @@ spec:
           namespaces:
             include:
               - all
-            ignore:
-              -
+            ignore: []
           events:
             - create
             - delete
