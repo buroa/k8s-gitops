@@ -1,7 +1,7 @@
 communications:
   discord:
     enabled: true
-    token: '$DISCORD_BOTKUBE_TOKEN'
-    botid: '$DISCORD_BOTKUBE_ID'
-    channel: '$DISCORD_BOTKUBE_CHANNEL_ID'
+    token: $DISCORD_BOTKUBE_TOKEN
+    botid: $DISCORD_BOTKUBE_ID
+    channel: $DISCORD_BOTKUBE_CHANNEL_ID
     notiftype: short
