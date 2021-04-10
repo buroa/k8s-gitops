@@ -28,11 +28,9 @@ spec:
     securityContext:
       privileged: true
     service:
-      port:
-        port: 8091
-        additionalPorts:
-        - name: websocket
-          port: 3000
+      additionalPorts:
+      - name: websocket
+        port: 3000
     affinity:
       nodeAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
