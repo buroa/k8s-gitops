@@ -27,6 +27,11 @@ spec:
       operator: "Exists"
     securityContext:
       privileged: true
+    service:
+      port:
+        additionalPorts:
+        - name: websocket
+          port: 3000
     affinity:
       nodeAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
