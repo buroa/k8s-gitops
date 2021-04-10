@@ -29,6 +29,7 @@ spec:
       privileged: true
     service:
       port:
+        port: 8091
         additionalPorts:
         - name: websocket
           port: 3000
