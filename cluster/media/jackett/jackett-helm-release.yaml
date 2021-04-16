@@ -21,7 +21,7 @@ spec:
     controllerType: deployment
     image:
       repository: ghcr.io/k8s-at-home/jackett
-      tag: v0.17.886
+      tag: v0.17.889
       pullPolicy: Always
     env:
       TZ: "America/Santiago"
