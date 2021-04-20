@@ -22,6 +22,10 @@ spec:
       tag: v0.9.4
     env:
       TZ: "America/Santiago"
+    podSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
     ingress:
       enabled: true
       annotations:
