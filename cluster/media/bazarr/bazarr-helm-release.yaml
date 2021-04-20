@@ -41,9 +41,6 @@ spec:
         enabled: true
         storageClass: "longhorn"
         size: 3Gi
-    podSecurityContext:
-      supplementalGroups:
-      - 100
     additionalVolumeMounts:
     - name: media
       mountPath: "/media"
