@@ -1,0 +1,59 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: bazarr
+  namespace: media
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://k8s-at-home.com/charts/
+      chart: bazarr
+      version: 7.3.1
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    image:
+      repository: ghcr.io/k8s-at-home/bazarr
+      tag: v0.9.4
+    env:
+      TZ: "America/Santiago"
+    ingress:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: "nginx"
+        nginx.ingress.kubernetes.io/auth-url: "https://auth.donoso.family/oauth2/auth"
+        nginx.ingress.kubernetes.io/auth-signin: https://auth.donoso.family/oauth2/start
+      hosts:
+      - host: bazarr.donoso.family
+        paths:
+        - path: /
+          pathType: Prefix
+      tls:
+      - hosts:
+        - bazarr.donoso.family
+    persistence:
+      config:
+        enabled: true
+        storageClass: "longhorn"
+        size: 3Gi
+    podSecurityContext:
+      supplementalGroups:
+      - 100
+    additionalVolumeMounts:
+    - name: media
+      mountPath: "/media"
+    additionalVolumes:
+    - name: media
+      persistentVolumeClaim:
+        claimName: nfs-media-pvc
+    resources:
+      requests:
+        memory: 250Mi
+        cpu: 500m
+      limits:
+        memory: 500Mi
