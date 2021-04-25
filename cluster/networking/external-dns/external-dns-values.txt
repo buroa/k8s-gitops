@@ -2,4 +2,4 @@ domainFilters: ["$DOMAIN"]
 cloudflare:
   apiToken: $CLOUDFLARE_API_TOKEN
   email: $CLOUDFLARE_EMAIL
-  proxied: false
+  proxied: true
