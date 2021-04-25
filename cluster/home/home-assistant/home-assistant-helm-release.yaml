@@ -31,6 +31,7 @@ spec:
       enabled: true
       annotations:
         kubernetes.io/ingress.class: "nginx"
+        external-dns.alpha.kubernetes.io/target: home.donoso.family
         monitor.stakater.com/enabled: "true"
       hosts:
       - host: hass.donoso.family
@@ -69,6 +70,8 @@ spec:
           enabled: true
           annotations:
             kubernetes.io/ingress.class: "nginx"
+            external-dns.alpha.kubernetes.io/target: home.donoso.family
+            external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
             nginx.ingress.kubernetes.io/auth-url: "https://auth.donoso.family/oauth2/auth"
             nginx.ingress.kubernetes.io/auth-signin: https://auth.donoso.family/oauth2/start
           hosts:
