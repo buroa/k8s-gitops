@@ -18,10 +18,8 @@ spec:
       interval: 5m
   values:
     logLevel: debug
-    provider: coredns
+    provider: cloudflare
     policy: sync
-    domainFilters:
-    - ${SECRET_CLUSTER_DOMAIN}
     createSecret: true
     crd:
       create: true
