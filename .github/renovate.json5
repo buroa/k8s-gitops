@@ -33,8 +33,7 @@
     // setup datasources
     {
       "matchDatasources": ["helm"],
-      "commitMessageTopic": "Helm chart {{depName}}",
-      "separateMinorPatch": true
+      "commitMessageTopic": "Helm chart {{depName}}"
     },
     // global docker datasource settings
     {
@@ -42,8 +41,7 @@
       "enabled": true,
       "commitMessageTopic": "Docker Image {{depName}}",
       "commitMessageExtra": "to {{#if isSingleVersion}}v{{{newVersion}}}{{else}}{{{newValue}}}{{/if}}",
-      "matchUpdateTypes": ["major", "minor", "patch"],
-      "separateMinorPatch": true
+      "matchUpdateTypes": ["major", "minor", "patch"]
     },
     // add labels according to package and update types
     {
