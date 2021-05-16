@@ -68,7 +68,7 @@ spec:
         storageClass: nfs-client
         accessMode: ReadWriteOnce
         size: 1Gi
-         mountPath: "/data"
+        mountPath: "/data"
     additionalVolumeMounts:
     - name: usb
       mountPath: /dev/serial/by-id/usb-1a86_USB_Serial-if00-port0
