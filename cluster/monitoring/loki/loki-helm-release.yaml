@@ -81,7 +81,7 @@ spec:
         operator: "Exists"
       affinity:
         podAntiAffinity:
-          preferedDuringSchedulingIgnoredDuringExecution:
+          preferredDuringSchedulingIgnoredDuringExecution:
           - labelSelector:
               matchExpressions:
               - key: app
