@@ -66,6 +66,7 @@ spec:
         gpu.intel.com/i915: 1
         memory: 4900Mi
       requests:
+        gpu.intel.com/i915: 1
         cpu: 763m
         memory: 1500Mi
   valuesFrom:
