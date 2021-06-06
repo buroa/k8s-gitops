@@ -54,8 +54,7 @@ spec:
     persistence:
       config:
         enabled: true
-        size: 1Gi
-        storageClass: longhorn
+        existingClaim: "qbittorrent-config"
     additionalVolumeMounts:
     - name: media
       mountPath: "/media"

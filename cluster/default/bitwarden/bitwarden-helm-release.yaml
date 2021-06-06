@@ -38,6 +38,4 @@ spec:
             - /
     persistence:
       enabled: true
-      storageClass: "longhorn"
-      accessMode: ReadWriteOnce
-      size: 5Gi
+      existingClaim: "bitwarden-bitwardenrs"
