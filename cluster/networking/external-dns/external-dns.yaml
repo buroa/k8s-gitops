@@ -22,7 +22,7 @@ spec:
     policy: sync
     createSecret: true
     crd:
-      create: true
+      create: false
     metrics:
       enabled: true
       serviceMonitor:
