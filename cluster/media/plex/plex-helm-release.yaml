@@ -33,8 +33,7 @@ spec:
     service:
       enabled: true
       type: LoadBalancer
-      externalIPs:
-      - 10.2.1.104
+      loadBalancerIP: 10.2.1.104
       externalTrafficPolicy: Local
       port:
         port: 32400
