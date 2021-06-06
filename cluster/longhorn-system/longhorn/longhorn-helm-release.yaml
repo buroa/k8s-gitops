@@ -24,7 +24,7 @@ spec:
       backupTargetCredentialSecret: longhorn-backup
       defaultReplicaCount: 2
     ingress:
-      enabled: true
+      enabled: false
       annotations:
         kubernetes.io/ingress.class: "nginx"
         external-dns.alpha.kubernetes.io/target: home.donoso.family
