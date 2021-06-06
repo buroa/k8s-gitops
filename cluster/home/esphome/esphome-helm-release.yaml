@@ -44,9 +44,7 @@ spec:
     persistence:
       config:
         enabled: true
-        storageClass: "longhorn"
-        accessMode: ReadWriteOnce
-        size: "1Gi"
+        existingClaim: "esphome-config"
     resources:
       requests:
         memory: 250Mi

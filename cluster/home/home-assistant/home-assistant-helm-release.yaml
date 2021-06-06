@@ -51,9 +51,7 @@ spec:
     persistence:
       config:
         enabled: true
-        storageClass: "longhorn"
-        accessMode: ReadWriteOnce
-        size: "10Gi"
+        existingClaim: "home-assistant-config"
     addons:
       codeserver:
         enabled: true
