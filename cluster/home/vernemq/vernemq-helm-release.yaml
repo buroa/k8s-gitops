@@ -17,13 +17,15 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
+    image:
+      repository: vernemq/vernemq
+      tag: 1.11.0-alpine
     replicaCount: 1
     serviceMonitor:
       create: true
     service:
       type: LoadBalancer
-      externalIPs:
-      - 10.2.1.101
+      loadBalancerIP: 10.2.1.101
       ws:
         enabled: true
       mqtt:
