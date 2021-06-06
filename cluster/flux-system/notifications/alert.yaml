@@ -26,7 +26,25 @@ spec:
   eventSeverity: error
   eventSources:
     - kind: HelmRelease
+      namespace: 'default'
+      name: '*'
+    - kind: HelmRelease
       namespace: 'home'
+      name: '*'
+    - kind: HelmRelease
+      namespace: 'media'
+      name: '*'
+    - kind: HelmRelease
+      namespace: 'logs'
+      name: '*'
+    - kind: HelmRelease
+      namespace: 'monitoring'
+      name: '*'
+    - kind: HelmRelease
+      namespace: 'networking'
+      name: '*'
+    - kind: HelmRelease
+      namespace: 'longhorn-system'
       name: '*'
     - kind: HelmRelease
       namespace: 'kube-system'
