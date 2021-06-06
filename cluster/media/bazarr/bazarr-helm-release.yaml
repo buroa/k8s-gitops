@@ -44,8 +44,7 @@ spec:
     persistence:
       config:
         enabled: true
-        storageClass: "longhorn"
-        size: 3Gi
+        existingClaim: "bazarr-config"
     additionalVolumeMounts:
     - name: media
       mountPath: "/media"

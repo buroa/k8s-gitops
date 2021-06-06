@@ -51,9 +51,7 @@ spec:
     persistence:
       config:
         enabled: true
-        storageClass: "longhorn"
-        accessMode: ReadWriteOnce
-        size: "21Gi"
+        existingClaim: "plex-config"
     additionalVolumeMounts:
     - name: media
       mountPath: "/data"

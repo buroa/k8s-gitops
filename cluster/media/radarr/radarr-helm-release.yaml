@@ -51,8 +51,7 @@ spec:
     persistence:
       config:
         enabled: true
-        storageClass: "longhorn"
-        size: 3Gi
+        existingClaim: "radarr-config"
     additionalVolumeMounts:
     - name: media
       mountPath: "/media"

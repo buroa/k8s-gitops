@@ -43,9 +43,7 @@ spec:
     persistence:
       config:
         enabled: true
-        storageClass: longhorn
-        accessMode: ReadWriteOnce
-        size: 2Gi
+        existingClaim: "jackett-config"
     resources:
       requests:
         memory: 350Mi
