@@ -31,6 +31,9 @@ spec:
             kubernetes.io/ingress.class: "nginx"
     compact:
       retentionResolution1h: 5y
+    sidecar:
+      selector:
+        app.kubernetes.io/name: prometheus
     objstore:
       type: S3
       config:
