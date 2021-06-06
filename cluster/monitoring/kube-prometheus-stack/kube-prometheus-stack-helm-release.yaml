@@ -35,7 +35,7 @@ spec:
       createCustomResource: true
     alertmanager:
       alertmanagerSpec:
-        replicas: 0
+        replicas: 1
         storage:
           volumeClaimTemplate:
             spec:
@@ -74,7 +74,7 @@ spec:
 
     prometheus:
       prometheusSpec:
-        replicas: 0
+        replicas: 1
         replicaExternalLabelName: "replica"
         ruleSelector: {}
         ruleNamespaceSelector: {}
