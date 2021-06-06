@@ -17,6 +17,9 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
+    image:
+      repository: quay.io/thanos/thanos
+      tag: v0.21.0
     query:
       replicaCount: 2
       replicaLabels:
