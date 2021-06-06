@@ -79,6 +79,16 @@ spec:
       tolerations:
       - key: "arm"
         operator: "Exists"
+      affinity:
+        podAntiAffinity:
+          preferedDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - loki
+            topologyKey: "kubernetes.io/hostname"
     promtail:
       serviceMonitor:
         enabled: true
