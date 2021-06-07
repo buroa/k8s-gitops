@@ -32,6 +32,9 @@ spec:
         limits:
           memory: 2000Mi
     prometheusOperator:
+      image:
+        repository: quay.io/prometheus-operator/prometheus-operator
+        tag: v0.48.1
       createCustomResource: true
     alertmanager:
       alertmanagerSpec:
