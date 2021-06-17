@@ -11,7 +11,7 @@ spec:
     spec:
       # renovate: registryUrl=https://k8s-at-home.com/charts/
       chart: plex
-      version: 4.4.0
+      version: 5.2.0
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home-charts
@@ -31,33 +31,35 @@ spec:
       - 44
       - 109
     service:
-      enabled: true
-      type: LoadBalancer
-      loadBalancerIP: 10.2.1.104
-      externalTrafficPolicy: Local
-      port:
-        port: 32400
+      main:
+        type: LoadBalancer
+        loadBalancerIP: 10.2.1.104
+        externalTrafficPolicy: Local
+        port:
+          port: 32400
     ingress:
-      enabled: true
-      annotations:
-        kubernetes.io/ingress.class: "nginx"
-        external-dns.alpha.kubernetes.io/target: home.donoso.family
-      hosts:
-      - host: plex.donoso.family
-        paths:
-        - path: /
-          pathType: Prefix
+      main:
+        enabled: true
+        annotations:
+          kubernetes.io/ingress.class: "nginx"
+          external-dns.alpha.kubernetes.io/target: home.donoso.family
+        hosts:
+        - host: plex.donoso.family
+          paths:
+          - path: /
+            pathType: Prefix
     persistence:
       config:
         enabled: true
         existingClaim: "plex-config"
-    additionalVolumeMounts:
-    - name: media
-      mountPath: "/data"
-    additionalVolumes:
-    - name: media
-      persistentVolumeClaim:
-        claimName: nfs-media-pvc
+      tmp:
+        enabled: true
+        type: emptyDir
+        medium: Memory
+      media:
+        enabled: true
+        mountPath: "/data"
+        existingClaim: nfs-media-pvc
     resources:
       limits:
         gpu.intel.com/i915: 1
