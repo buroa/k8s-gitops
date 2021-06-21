@@ -35,8 +35,6 @@ spec:
         type: LoadBalancer
         loadBalancerIP: 10.2.1.104
         externalTrafficPolicy: Local
-        port:
-          port: 32400
     ingress:
       main:
         enabled: true
