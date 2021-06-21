@@ -60,9 +60,8 @@ spec:
     persistence:
       usb:
         enabled: true
-        type: hostPath
         mountPath: /dev/serial/by-id/usb-0658_0200-if00
-        path: /dev/serial/by-id/usb-0658_0200-if00
+        hostPath: /dev/serial/by-id/usb-0658_0200-if00
       config:
         enabled: true
         storageClass: nfs-client
