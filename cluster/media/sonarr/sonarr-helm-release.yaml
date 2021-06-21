@@ -10,7 +10,7 @@ spec:
     spec:
       # renovate: registryUrl=https://k8s-at-home.com/charts/
       chart: sonarr
-      version: 11.1.0
+      version: 12.2.0
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home-charts
@@ -23,23 +23,23 @@ spec:
     env:
       TZ: "America/Santiago"
     ingress:
-      enabled: true
-      annotations:
-        kubernetes.io/ingress.class: "nginx"
-        external-dns.alpha.kubernetes.io/target: home.donoso.family
-        nginx.ingress.kubernetes.io/auth-url: "https://auth.donoso.family/oauth2/auth"
-        nginx.ingress.kubernetes.io/auth-signin: https://auth.donoso.family/oauth2/start
-      hosts:
-      - host: sonarr.donoso.family
-        paths:
-        - path: /
-          pathType: Prefix
-      tls:
-      - hosts:
-        - sonarr.donoso.family
-      additionalIngresses:
-      - enabled: true
-        nameSuffix: "api"
+      main:
+        enabled: true
+        annotations:
+          kubernetes.io/ingress.class: "nginx"
+          external-dns.alpha.kubernetes.io/target: home.donoso.family
+          nginx.ingress.kubernetes.io/auth-url: "https://auth.donoso.family/oauth2/auth"
+          nginx.ingress.kubernetes.io/auth-signin: https://auth.donoso.family/oauth2/start
+        hosts:
+        - host: sonarr.donoso.family
+          paths:
+          - path: /
+            pathType: Prefix
+        tls:
+        - hosts:
+          - sonarr.donoso.family
+      api:
+        enabled: true
         hosts:
         - host: sonarr.donoso.family
           paths:
@@ -52,15 +52,12 @@ spec:
       config:
         enabled: true
         existingClaim: "sonarr-config"
+      media:
+        enabled: true
+        existingClaim: nfs-media-pvc
+        mountPath: "/media"
     podSecurityContext:
       fsGroup: 568
-    additionalVolumeMounts:
-    - name: media
-      mountPath: "/media"
-    additionalVolumes:
-    - name: media
-      persistentVolumeClaim:
-        claimName: nfs-media-pvc
     resources:
       requests:
         memory: 350Mi
