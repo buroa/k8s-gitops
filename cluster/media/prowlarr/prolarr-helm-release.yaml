@@ -10,7 +10,7 @@ spec:
     spec:
       # renovate: registryUrl=https://k8s-at-home.com/charts/
       chart: prowlarr
-      version: 2.4.0
+      version: 3.2.0
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home-charts
@@ -23,20 +23,21 @@ spec:
     env:
       TZ: "America/Santiago"
     ingress:
-      enabled: true
-      annotations:
-        kubernetes.io/ingress.class: "nginx"
-        external-dns.alpha.kubernetes.io/target: home.donoso.family
-        nginx.ingress.kubernetes.io/auth-url: "https://auth.donoso.family/oauth2/auth"
-        nginx.ingress.kubernetes.io/auth-signin: https://auth.donoso.family/oauth2/start
-      hosts:
-      - host: prowlarr.donoso.family
-        paths:
-        - path: /
-          pathType: Prefix
-      tls:
-      - hosts:
-        - prowlarr.donoso.family
+      main:
+        enabled: true
+        annotations:
+          kubernetes.io/ingress.class: "nginx"
+          external-dns.alpha.kubernetes.io/target: home.donoso.family
+          nginx.ingress.kubernetes.io/auth-url: "https://auth.donoso.family/oauth2/auth"
+          nginx.ingress.kubernetes.io/auth-signin: https://auth.donoso.family/oauth2/start
+        hosts:
+        - host: prowlarr.donoso.family
+          paths:
+          - path: /
+            pathType: Prefix
+        tls:
+        - hosts:
+          - prowlarr.donoso.family
     persistence:
       config:
         enabled: true
