@@ -29,9 +29,10 @@ spec:
       privileged: true
     service:
       main:
-        additionalPorts:
-        - name: websocket
-          port: 3000
+        ports:
+          websockets:
+            enabled: true
+            port: 3000
     affinity:
       nodeAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
