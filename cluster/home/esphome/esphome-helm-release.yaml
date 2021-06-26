@@ -20,7 +20,7 @@ spec:
   values:
     image:
       repository: esphome/esphome
-      tag: 1.19.3
+      tag: 1.19.4
     env:
       TZ: "America/Santiago"
       ESPHOME_DASHBOARD_USE_PING: true
