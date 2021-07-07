@@ -34,7 +34,7 @@ spec:
     prometheusOperator:
       image:
         repository: quay.io/prometheus-operator/prometheus-operator
-        tag: v0.48.1
+        tag: v0.49.0
       createCustomResource: true
     alertmanager:
       alertmanagerSpec:
