@@ -31,6 +31,11 @@ spec:
       device_options:
         retain: true
       permit_join: false
+      mqtt:
+        base_topic: zigbee2mqtt
+        server: "mqtt://emqx"
+        user: "${SECRET_MQTT_USERNAME}"
+        password: "${SECRET_MQTT_PASSWORD}"
       serial:
         port: /dev/serial/by-id/usb-1a86_USB_Serial-if00-port0
       advanced:
@@ -79,7 +84,3 @@ spec:
               operator: In
               values:
               - "true"
-  valuesFrom:
-  - kind: Secret
-    name: "zigbee2mqtt-values"
-    optional: false
