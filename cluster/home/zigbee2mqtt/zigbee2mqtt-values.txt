@@ -1,0 +1,5 @@
+mqtt:
+  base_topic: zigbee2mqtt
+  server: "mqtt://emqx"
+  user: mqtt
+  password: "${EMQX_MQTT_USER_PASSWORD}"
