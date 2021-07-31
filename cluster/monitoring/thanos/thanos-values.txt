@@ -1,13 +1,8 @@
-query:
-  http:
-    ingress:
-      hosts: ["thanos.$DOMAIN"]
-      tls:
-      - hosts: ["thanos.$DOMAIN"]
-      annotations:
-        nginx.ingress.kubernetes.io/auth-url: "https://auth.$DOMAIN/oauth2/auth"
-        nginx.ingress.kubernetes.io/auth-signin: https://auth.$DOMAIN/oauth2/start
-objstore:
+objstoreConfig: |-
+  type: s3
   config:
+    bucket: thanos
+    endpoint: minio.default.svc:9000
     access_key: "${MINIO_ACCESS_KEY}"
     secret_key: "${MINIO_SECRET_KEY}"
+    insecure: true
