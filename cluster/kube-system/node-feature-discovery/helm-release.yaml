@@ -23,6 +23,7 @@ spec:
     worker:
       config: |-
         core:
+          sleepInterval: 60s
           sources:
             - custom
             - pci
