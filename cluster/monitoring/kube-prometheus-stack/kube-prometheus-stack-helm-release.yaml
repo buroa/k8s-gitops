@@ -95,7 +95,7 @@ spec:
         - hosts:
           - prom.donoso.family
       prometheusSpec:
-        replicas: 2
+        replicas: 1
         replicaExternalLabelName: "replica"
         ruleSelector: {}
         ruleNamespaceSelector: {}
