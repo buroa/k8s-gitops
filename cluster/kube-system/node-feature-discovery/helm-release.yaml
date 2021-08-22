@@ -10,13 +10,16 @@ spec:
     spec:
       # renovate: registryUrl=https://kubernetes-sigs.github.io/node-feature-discovery/charts
       chart: node-feature-discovery
-      version: 0.9.0
+      version: 0.8.2
       sourceRef:
         kind: HelmRepository
         name: kubernetes-sigs-nfd-charts
         namespace: flux-system
       interval: 5m
   values:
+    image:
+      repository: raspbernetes/node-feature-discovery
+      tag: "v0.8.1"
     worker:
       config: |-
         core:
@@ -60,12 +63,12 @@ spec:
           operator: Exists
         - key: "node-role.kubernetes.io/master"
           operator: "Exists"
+        - effect: "NoExecute"
+          operator: "Exists"
+        - effect: "NoSchedule"
+          operator: "Exists"
     master:
+      replicaCount: 1
       tolerations:
-        - key: "node-role.kubernetes.io/master"
-          operator: "Equal"
-          value: "true"
-          effect: "NoSchedule"
         - key: arm
           operator: Exists
-      replicaCount: 1
