@@ -20,7 +20,7 @@ spec:
   values:
     image:
       repository: esphome/esphome
-      tag: 2021.9.0
+      tag: 2021.9.2
     env:
       TZ: "America/Santiago"
       ESPHOME_DASHBOARD_USE_PING: true
