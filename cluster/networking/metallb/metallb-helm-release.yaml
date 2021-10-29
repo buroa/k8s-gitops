@@ -29,7 +29,7 @@ spec:
       image:
         registry: docker.io
         repository: metallb/controller
-        tag: v0.10.3
+        tag: v0.11.0
       prometheus:
         serviceMonitor:
           enabled: true
