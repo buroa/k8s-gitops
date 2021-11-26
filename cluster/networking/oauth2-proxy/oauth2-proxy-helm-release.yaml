@@ -8,12 +8,12 @@ spec:
   interval: 5m
   chart:
     spec:
-      # renovate: registryUrl=https://k8s-at-home.com/charts/
+      # renovate: registryUrl=https://oauth2-proxy.github.io/manifests
       chart: oauth2-proxy
-      version: 5.0.7
+      version: 4.2.2
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: oauth2-proxy-charts
         namespace: flux-system
       interval: 5m
   values:
@@ -27,11 +27,10 @@ spec:
     ingress:
       enabled: true
       annotations:
-        kubernetes.io/ingress.class: "nginx"
+        kubernetes.io/ingress.class: nginx
         external-dns.alpha.kubernetes.io/target: home.donoso.family
       path: /oauth2
-      hosts:
-      - auth.donoso.family
+      hosts: [auth.donoso.family]
       tls:
       - hosts:
         - auth.donoso.family
