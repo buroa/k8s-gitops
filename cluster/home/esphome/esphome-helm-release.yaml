@@ -52,3 +52,30 @@ spec:
         cpu: 500m
       limits:
         memory: 1000Mi
+    addons:
+      codeserver:
+        enabled: true
+        image:
+          repository: codercom/code-server
+          tag: 3.12.0
+        workingDir: "/config"
+        args:
+          - --user-data-dir
+          - "/config/.vscode"
+          - --auth
+          - "none"
+        ingress:
+          enabled: true
+          annotations:
+            kubernetes.io/ingress.class: "nginx"
+            external-dns.alpha.kubernetes.io/target: home.donoso.family
+            nginx.ingress.kubernetes.io/auth-url: "https://auth.donoso.family/oauth2/auth"
+            nginx.ingress.kubernetes.io/auth-signin: https://auth.donoso.family/oauth2/start
+          hosts:
+          - host: esphome-vscode.donoso.family
+            paths:
+            - path: /
+              pathType: Prefix
+        volumeMounts:
+        - name: config
+          mountPath: /config
