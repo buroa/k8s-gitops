@@ -41,10 +41,7 @@ spec:
     persistence:
       data:
         enabled: true
-        mountPath: /data
-        storageClass: "longhorn"
-        accessMode: ReadWriteOnce
-        size: "5Gi"
+        existingClaim: "node-red-data"
     podSecurityContext:
       runAsUser: 1000
       runAsGroup: 1000
