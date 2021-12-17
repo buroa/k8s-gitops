@@ -34,7 +34,8 @@ installFlux() {
     --owner=blackjid \
     --repository=k8s-gitops \
     --branch master \
-    --personal
+    --personal \
+    --path=cluster
 
   FLUX_INSTALLED=$?
   if [ $FLUX_INSTALLED != 0 ]; then
