@@ -1,140 +1,140 @@
----
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
-kind: HelmRelease
-metadata:
-  name: kube-prometheus-stack
-  namespace: monitoring
-spec:
-  interval: 5m
-  chart:
-    spec:
-      # renovate: registryUrl=https://prometheus-community.github.io/helm-charts
-      chart: kube-prometheus-stack
-      version: 23.2.0
-      sourceRef:
-        kind: HelmRepository
-        name: prometheus-community-charts
-        namespace: flux-system
-      interval: 5m
-  timeout: 20m
-  values:
-    # defaultRules:
-    #   rules:
-    #     kubeApiserverAvailability: true
-    #     kubeApiserver: true
-    server:
-      resources:
-        requests:
-          memory: 1500Mi
-          cpu: 25m
-        limits:
-          memory: 2000Mi
-    prometheusOperator:
-      createCustomResource: true
-      # prometheusConfigReloaderImage:
-      #   repository: quay.io/coreos/prometheus-config-reloader
-      #   tag: v0.39.0
-      # configmapReloadImage:
-      #   repository: jimmidyson/configmap-reload
-      #   tag: v0.4.0
-      configReloaderCpu: 200m
-      admissionWebhooks:
-        enabled: false
-    alertmanager:
-      alertmanagerSpec:
-        storage:
-          volumeClaimTemplate:
-            spec:
-              storageClassName: rook-ceph-block
-              resources:
-                requests:
-                  storage: 6Gi
-    nodeExporter:
-      serviceMonitor:
-        relabelings:
-        - sourceLabels: [__meta_kubernetes_pod_node_name]
-          targetLabel: instance
-          action: replace
-    # kubelet:
-    #   serviceMonitor:
-    #     metricRelabelings:
-    #     - action: replace
-    #       sourceLabels:
-    #       - node
-    #       targetLabel: instance
-    grafana:
-      enabled: false
-    kubeEtcd:
-      enabled: false
-    kubeControllerManager:
-      enabled: false
-    kubeScheduler:
-      enabled: false
-    kubeProxy:
-      enabled: false
-    prometheus-node-exporter:
-      tolerations:
-      - key: "arm"
-        operator: "Exists"
-      - key: "armhf"
-        operator: "Exists"
-      - key: "node-role.kubernetes.io/master"
-        operator: "Exists"
-    prometheus:
-      ingress:
-        enabled: true
-        pathType: Prefix
-        annotations:
-          kubernetes.io/ingress.class: "nginx"
-          external-dns.alpha.kubernetes.io/target: home.donoso.family
-          nginx.ingress.kubernetes.io/auth-url: "https://auth.donoso.family/oauth2/auth"
-          nginx.ingress.kubernetes.io/auth-signin: https://auth.donoso.family/oauth2/start
-        hosts:
-        - prom.donoso.family
-        tls:
-        - hosts:
-          - prom.donoso.family
-      prometheusSpec:
-        replicas: 1
-        replicaExternalLabelName: "replica"
-        ruleSelector: {}
-        ruleNamespaceSelector: {}
-        ruleSelectorNilUsesHelmValues: false
-        serviceMonitorSelector: {}
-        serviceMonitorNamespaceSelector: {}
-        serviceMonitorSelectorNilUsesHelmValues: false
-        podMonitorSelector: {}
-        podMonitorNamespaceSelector: {}
-        podMonitorSelectorNilUsesHelmValues: false
-        retention: 6h
-        enableAdminAPI: true
-        walCompression: true
-        storageSpec:
-          volumeClaimTemplate:
-            spec:
-              storageClassName: longhorn
-              resources:
-                requests:
-                  storage: 10Gi
-        thanos:
-          image: quay.io/thanos/thanos:v0.23.1
-          version: v0.21.1
-          objectStorageConfig:
-            name: thanos-objstore-secret
-            key: objstore.yml
-        affinity:
-          podAntiAffinity:
-            requiredDuringSchedulingIgnoredDuringExecution:
-            - labelSelector:
-                matchExpressions:
-                - key: app
-                  operator: In
-                  values:
-                  - prometheus
-              topologyKey: "kubernetes.io/hostname"
-      thanosService:
-        enabled: true
-  valuesFrom:
-  - kind: Secret
-    name: kube-prometheus-stack-values
-    optional: false
+# ---
+# apiVersion: helm.toolkit.fluxcd.io/v2beta1
+# kind: HelmRelease
+# metadata:
+#   name: kube-prometheus-stack
+#   namespace: monitoring
+# spec:
+#   interval: 5m
+#   chart:
+#     spec:
+#       # renovate: registryUrl=https://prometheus-community.github.io/helm-charts
+#       chart: kube-prometheus-stack
+#       version: 23.2.0
+#       sourceRef:
+#         kind: HelmRepository
+#         name: prometheus-community-charts
+#         namespace: flux-system
+#       interval: 5m
+#   timeout: 20m
+#   values:
+#     # defaultRules:
+#     #   rules:
+#     #     kubeApiserverAvailability: true
+#     #     kubeApiserver: true
+#     server:
+#       resources:
+#         requests:
+#           memory: 1500Mi
+#           cpu: 25m
+#         limits:
+#           memory: 2000Mi
+#     prometheusOperator:
+#       createCustomResource: true
+#       # prometheusConfigReloaderImage:
+#       #   repository: quay.io/coreos/prometheus-config-reloader
+#       #   tag: v0.39.0
+#       # configmapReloadImage:
+#       #   repository: jimmidyson/configmap-reload
+#       #   tag: v0.4.0
+#       configReloaderCpu: 200m
+#       admissionWebhooks:
+#         enabled: false
+#     alertmanager:
+#       alertmanagerSpec:
+#         storage:
+#           volumeClaimTemplate:
+#             spec:
+#               storageClassName: rook-ceph-block
+#               resources:
+#                 requests:
+#                   storage: 6Gi
+#     nodeExporter:
+#       serviceMonitor:
+#         relabelings:
+#         - sourceLabels: [__meta_kubernetes_pod_node_name]
+#           targetLabel: instance
+#           action: replace
+#     # kubelet:
+#     #   serviceMonitor:
+#     #     metricRelabelings:
+#     #     - action: replace
+#     #       sourceLabels:
+#     #       - node
+#     #       targetLabel: instance
+#     grafana:
+#       enabled: false
+#     kubeEtcd:
+#       enabled: false
+#     kubeControllerManager:
+#       enabled: false
+#     kubeScheduler:
+#       enabled: false
+#     kubeProxy:
+#       enabled: false
+#     prometheus-node-exporter:
+#       tolerations:
+#       - key: "arm"
+#         operator: "Exists"
+#       - key: "armhf"
+#         operator: "Exists"
+#       - key: "node-role.kubernetes.io/master"
+#         operator: "Exists"
+#     prometheus:
+#       ingress:
+#         enabled: true
+#         pathType: Prefix
+#         annotations:
+#           kubernetes.io/ingress.class: "nginx"
+#           external-dns.alpha.kubernetes.io/target: home.donoso.family
+#           nginx.ingress.kubernetes.io/auth-url: "https://auth.donoso.family/oauth2/auth"
+#           nginx.ingress.kubernetes.io/auth-signin: https://auth.donoso.family/oauth2/start
+#         hosts:
+#         - prom.donoso.family
+#         tls:
+#         - hosts:
+#           - prom.donoso.family
+#       prometheusSpec:
+#         replicas: 1
+#         replicaExternalLabelName: "replica"
+#         ruleSelector: {}
+#         ruleNamespaceSelector: {}
+#         ruleSelectorNilUsesHelmValues: false
+#         serviceMonitorSelector: {}
+#         serviceMonitorNamespaceSelector: {}
+#         serviceMonitorSelectorNilUsesHelmValues: false
+#         podMonitorSelector: {}
+#         podMonitorNamespaceSelector: {}
+#         podMonitorSelectorNilUsesHelmValues: false
+#         retention: 6h
+#         enableAdminAPI: true
+#         walCompression: true
+#         storageSpec:
+#           volumeClaimTemplate:
+#             spec:
+#               storageClassName: longhorn
+#               resources:
+#                 requests:
+#                   storage: 10Gi
+#         thanos:
+#           image: quay.io/thanos/thanos:v0.23.1
+#           version: v0.21.1
+#           objectStorageConfig:
+#             name: thanos-objstore-secret
+#             key: objstore.yml
+#         affinity:
+#           podAntiAffinity:
+#             requiredDuringSchedulingIgnoredDuringExecution:
+#             - labelSelector:
+#                 matchExpressions:
+#                 - key: app
+#                   operator: In
+#                   values:
+#                   - prometheus
+#               topologyKey: "kubernetes.io/hostname"
+#       thanosService:
+#         enabled: true
+#   valuesFrom:
+#   - kind: Secret
+#     name: kube-prometheus-stack-values
+#     optional: false
