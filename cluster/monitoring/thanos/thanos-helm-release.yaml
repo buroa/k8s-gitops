@@ -8,7 +8,7 @@ spec:
   interval: 5m
   chart:
     spec:
-      # renovate: registryUrl=https://charts.bitnami.com/bitnami
+      # renovate: registryUrl=https://bitnami-labs.github.io/sealed-secrets
       chart: thanos
       version: 8.2.1
       sourceRef:
