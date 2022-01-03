@@ -48,8 +48,8 @@ spec:
         existingClaim: "esphome-config"
     resources:
       requests:
-        memory: 1000Mi
-        cpu: "1"
+        memory: 500Mi
+        cpu: "500m"
       limits:
         memory: 1000Mi
     addons:
