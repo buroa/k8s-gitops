@@ -18,8 +18,8 @@ spec:
       interval: 5m
   values:
     image:
-      repository: k8sathome/radarr
-      tag: v3.0.2.4552
+      repository: ghcr.io/k8s-at-home/radarr-develop
+      tag: v4.0.3.5879
     env:
       TZ: "America/Santiago"
     ingress:
