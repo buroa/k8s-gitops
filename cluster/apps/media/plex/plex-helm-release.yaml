@@ -67,6 +67,15 @@ spec:
             path: /volume1/media
         mountPath: /media
         readOnly: true
+      backup:
+        enabled: true
+        type: custom
+        volumeSpec:
+          nfs:
+            server: "${NAS_ADDR}"
+            path: /volume1/data/backups/app/plex
+        mountPath: /config/backups
+        readOnly: false
     resources:
       limits:
         gpu.intel.com/i915: 1
