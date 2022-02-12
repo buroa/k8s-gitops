@@ -19,7 +19,7 @@ spec:
   values:
     image:
       repository: flaresolverr/flaresolverr
-      tag: v2.1.0
+      tag: v2.2.1
     env:
       TZ: "America/Santiago"
       LOG_LEVEL: "info"
