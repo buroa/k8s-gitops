@@ -7,5 +7,5 @@ resources:
   - grocy
   - home-assistant
   - node-red
-  - zigbee2mqtt
+  # - zigbee2mqtt
   - zwavejs2mqtt
