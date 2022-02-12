@@ -71,9 +71,8 @@ spec:
             path: /volume1/media
         mountPath: /media
     podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
+      supplementalGroups:
+        - 100
     resources:
       requests:
         memory: 250Mi
