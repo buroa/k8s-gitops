@@ -59,8 +59,6 @@ spec:
             path: /volume1/data/backups/apps/sonarr
         mountPath: /config/backups
         readOnly: false
-    podSecurityContext:
-      fsGroup: 568
     resources:
       requests:
         memory: 350Mi
