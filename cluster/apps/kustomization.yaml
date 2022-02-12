@@ -6,6 +6,6 @@ resources:
   - default
   - home
   - kube-system
-  # - media
+  - media
   - networking
   # - system-upgrade
