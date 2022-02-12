@@ -70,9 +70,6 @@ spec:
             server: "${NAS_ADDR}"
             path: /volume1/media
         mountPath: /media
-    podSecurityContext:
-      supplementalGroups:
-        - 100
     resources:
       requests:
         memory: 250Mi

@@ -51,8 +51,6 @@ spec:
             path: /volume1/data/backups/apps/prowlarr
         mountPath: /config/backups
         readOnly: false
-    podSecurityContext:
-      fsGroup: 568
     resources:
       requests:
         memory: 100Mi
