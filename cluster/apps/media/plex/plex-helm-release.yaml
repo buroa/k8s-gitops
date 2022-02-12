@@ -24,10 +24,12 @@ spec:
     env:
       TZ: "${TIMEZONE}"
     podSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
       supplementalGroups:
-        - 44
-        - 109
-        - 100
+      - 44
+      - 109
     service:
       main:
         type: LoadBalancer
