@@ -21,7 +21,7 @@ spec:
       repository: flaresolverr/flaresolverr
       tag: v2.1.0
     env:
-      TZ: "America/Santiago"
+      TZ: "${TIMEZONE}"
       LOG_LEVEL: "info"
     resources:
       requests:
