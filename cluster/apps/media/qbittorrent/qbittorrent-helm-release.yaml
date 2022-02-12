@@ -22,7 +22,9 @@ spec:
       repository: ghcr.io/k8s-at-home/qbittorrent
       tag: v4.3.9
     env:
-      TZ: America/Santiago
+      TZ: "${TIMEZONE}"
+    settings:
+      automaticPortSetup: false
     service:
       main:
         ports:
@@ -31,7 +33,8 @@ spec:
       bittorrent:
         enabled: true
         type: LoadBalancer
-        loadBalancerIP: 10.2.1.102
+        externalIPs:
+          - "${SVC_QBITTORRENT_ADDR}"
         ports:
           bittorrent:
             enabled: true
@@ -44,25 +47,29 @@ spec:
         enabled: true
         annotations:
           kubernetes.io/ingress.class: "nginx"
-          external-dns.alpha.kubernetes.io/target: home.donoso.family
-          nginx.ingress.kubernetes.io/auth-url: "https://auth.donoso.family/oauth2/auth"
-          nginx.ingress.kubernetes.io/auth-signin: https://auth.donoso.family/oauth2/start
+          external-dns.alpha.kubernetes.io/target: "home.${SECRET_PUBLIC_DOMAIN}"
+          nginx.ingress.kubernetes.io/auth-url: "https://auth.${SECRET_PUBLIC_DOMAIN}/oauth2/auth"
+          nginx.ingress.kubernetes.io/auth-signin: https://auth.${SECRET_PUBLIC_DOMAIN}/oauth2/start
         hosts:
-        - host: qb.donoso.family
+        - host: qb.${SECRET_PUBLIC_DOMAIN}
           paths:
           - path: /
             pathType: Prefix
         tls:
         - hosts:
-          - qb.donoso.family
+          - qb.${SECRET_PUBLIC_DOMAIN}
     persistence:
       config:
         enabled: true
         existingClaim: "qbittorrent-config"
       media:
         enabled: true
-        existingClaim: nfs-media-pvc
-        mountPath: "/media"
+        type: custom
+        volumeSpec:
+          nfs:
+            server: "expanse.${SECRET_PRIVATE_DOMAIN}"
+            path: /volume1/media
+        mountPath: /media
     podSecurityContext:
       runAsUser: 1000
       runAsGroup: 1000
