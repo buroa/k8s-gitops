@@ -73,7 +73,7 @@ spec:
         volumeSpec:
           nfs:
             server: "${NAS_ADDR}"
-            path: /volume1/data/backups/app/plex
+            path: /volume1/data/backups/apps/plex
         mountPath: /config/backups
         readOnly: false
     resources:
