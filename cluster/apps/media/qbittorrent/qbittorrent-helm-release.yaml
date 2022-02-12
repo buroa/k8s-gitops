@@ -67,7 +67,7 @@ spec:
         type: custom
         volumeSpec:
           nfs:
-            server: "expanse.${SECRET_PRIVATE_DOMAIN}"
+            server: "${NAS_ADDR}"
             path: /volume1/media
         mountPath: /media
     podSecurityContext:
