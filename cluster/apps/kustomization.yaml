@@ -5,7 +5,7 @@ resources:
   - cert-manager
   # - default
   # - home
-  # - kube-system
+  - kube-system
   # - media
   - networking
   # - system-upgrade
