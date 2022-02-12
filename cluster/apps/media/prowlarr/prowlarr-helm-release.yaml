@@ -49,7 +49,7 @@ spec:
           nfs:
             server: "${NAS_ADDR}"
             path: /volume1/data/backups/apps/prowlarr
-        mountPath: /config/backups
+        mountPath: /config/Backups
         readOnly: false
     resources:
       requests:
