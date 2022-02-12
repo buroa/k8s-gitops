@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./cluster/flux-system/helm-chart-repositories
+  path: ./cluster/base/flux-system/helm-chart-repositories
   prune: true
   sourceRef:
     kind: GitRepository
@@ -19,7 +19,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./cluster/flux-system/notifications
+  path: ./cluster/base/flux-system/notifications
   prune: true
   sourceRef:
     kind: GitRepository
