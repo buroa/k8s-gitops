@@ -9,3 +9,4 @@ data:
   TIMEZONE: America/Santiago
 
   SVC_PLEX_ADDR: 10.2.1.104
+  SVC_QBITTORRENT_ADDR: 10.2.1.102
