@@ -4,7 +4,6 @@ kind: Kustomization
 resources:
   - bazarr
   - flaresolverr
-  - jackett
   - plex
   - prowlarr
   - qbittorrent
