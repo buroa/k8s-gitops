@@ -57,7 +57,7 @@ spec:
           nfs:
             server: "${NAS_ADDR}"
             path: /volume1/data/backups/apps/radarr
-        mountPath: /config/Backups
+        mountPath: /config/backups
         readOnly: false
     resources:
       requests:
