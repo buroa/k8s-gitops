@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
   - cert-manager
   # - default
-  # - home
+  - home
   - kube-system
   # - media
   - networking
