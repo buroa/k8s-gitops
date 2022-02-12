@@ -4,4 +4,8 @@ kind: ConfigMap
 metadata:
   name: cluster-settings
   namespace: flux-system
-data: {}
+data:
+  NAS_ADDR: 10.2.1.50
+  TIMEZONE: America/Santiago
+
+  SVC_PLEX_ADDR: 10.2.1.104

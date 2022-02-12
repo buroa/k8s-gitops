@@ -22,27 +22,25 @@ spec:
       repository: ghcr.io/k8s-at-home/plex
       tag: v1.25.5.5492-12f6b8c83
     env:
-      TZ: "America/Santiago"
+      TZ: "${TIMEZONE}"
     podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
       supplementalGroups:
-      - 44
-      - 109
+        - 44
+        - 109
+        - 100
     service:
       main:
         type: LoadBalancer
-        loadBalancerIP: 10.2.1.104
+        loadBalancerIP: "${SVC_PLEX_ADDR}"
         externalTrafficPolicy: Local
     ingress:
       main:
         enabled: true
         annotations:
           kubernetes.io/ingress.class: "nginx"
-          external-dns.alpha.kubernetes.io/target: home.donoso.family
+          external-dns.alpha.kubernetes.io/target: "home.${SECRET_PUBLIC_DOMAIN}"
         hosts:
-        - host: plex.donoso.family
+        - host: "plex.${SECRET_PUBLIC_DOMAIN}"
           paths:
           - path: /
             pathType: Prefix
@@ -54,10 +52,19 @@ spec:
         enabled: true
         type: emptyDir
         medium: Memory
+      transcode:
+        enabled: true
+        type: emptyDir
+        medium: Memory
       media:
         enabled: true
-        mountPath: "/data"
-        existingClaim: nfs-media-pvc
+        type: custom
+        volumeSpec:
+          nfs:
+            server: "${NAS_ADDR}"
+            path: /volume1/media
+        mountPath: /media
+        readOnly: true
     resources:
       limits:
         gpu.intel.com/i915: 1
@@ -66,7 +73,3 @@ spec:
         gpu.intel.com/i915: 1
         cpu: 763m
         memory: 1500Mi
-  valuesFrom:
-  - kind: Secret
-    name: "plex-values"
-    optional: false
