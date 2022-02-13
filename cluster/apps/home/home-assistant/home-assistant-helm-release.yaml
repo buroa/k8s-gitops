@@ -19,7 +19,7 @@ spec:
   values:
     image:
       repository: homeassistant/home-assistant
-      tag: 2021.12.10
+      tag: 2022.2.6
     env:
       TZ: "${TIMEZONE}"
     hostNetwork: true
