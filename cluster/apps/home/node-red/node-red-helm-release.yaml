@@ -21,7 +21,7 @@ spec:
       repository: nodered/node-red
       tag: 2.1.6-12-minimal
     env:
-      TZ: "America/Santiago"
+      TZ: "${TIMEZONE}"
       FLOWS: "flows.json"
       NODE_RED_ENABLE_PROJECTS: "true"
       NODE_RED_ENABLE_SAFE_MODE: "false"
@@ -30,22 +30,19 @@ spec:
         enabled: true
         annotations:
           kubernetes.io/ingress.class: "nginx"
-          external-dns.alpha.kubernetes.io/target: home.donoso.family
-          nginx.ingress.kubernetes.io/auth-url: "https://auth.donoso.family/oauth2/auth"
-          nginx.ingress.kubernetes.io/auth-signin: https://auth.donoso.family/oauth2/start
+          external-dns.alpha.kubernetes.io/target: home.${SECRET_PUBLIC_DOMAIN}
+          nginx.ingress.kubernetes.io/auth-url: "https://auth.${SECRET_PUBLIC_DOMAIN}/oauth2/auth"
+          nginx.ingress.kubernetes.io/auth-signin: https://auth.${SECRET_PUBLIC_DOMAIN}/oauth2/start
         hosts:
-        - host: node-red.donoso.family
+        - host: node-red.${SECRET_PUBLIC_DOMAIN}
           paths:
           - path: /
             pathType: Prefix
     persistence:
-      data:
+      config:
         enabled: true
-        existingClaim: "node-red-data"
-    podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
+        existingClaim: "node-red-config"
+        mountPath: "/data"
     resources:
       requests:
         memory: 350Mi
