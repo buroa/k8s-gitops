@@ -22,6 +22,9 @@ spec:
       tag: 2022.2.6
     env:
       TZ: "${TIMEZONE}"
+    envFrom:
+      - secretRef:
+          name: home-assistant-secrets
     hostNetwork: true
     dnsPolicy: ClusterFirstWithHostNet
     service:
@@ -60,12 +63,18 @@ spec:
         image:
           repository: codercom/code-server
           tag: 4.0.2
+        env:
+          TZ: "${TIMEZONE}"
+        git:
+          deployKeySecret: code-server-secrets
         workingDir: "/config"
         args:
-          - --user-data-dir
-          - "/config/.vscode"
           - --auth
           - "none"
+          - --user-data-dir
+          - "/config/.vscode"
+          - --extensions-dir
+          - "/config/.vscode"
         ingress:
           enabled: true
           annotations:
