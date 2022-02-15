@@ -8,17 +8,17 @@ spec:
   interval: 5m
   chart:
     spec:
-      # renovate: registryUrl=https://kubernetes-sigs.github.io/descheduler
       chart: descheduler
       version: 0.23.1
       sourceRef:
         kind: HelmRepository
-        name: kubernetes-sigs-descheduler-charts
+        name: descheduler-charts
         namespace: flux-system
       interval: 5m
+  install:
+    createNamespace: true
   values:
-    podAnnotations:
-      botkube.io/disable: "true"
+    kind: Deployment
     deschedulerPolicy:
       strategies:
         RemoveDuplicates:
@@ -27,8 +27,14 @@ spec:
           enabled: true
           params:
             nodeAffinityType:
-            - requiredDuringSchedulingIgnoredDuringExecution
+              - requiredDuringSchedulingIgnoredDuringExecution
+        RemovePodsViolatingTopologySpreadConstraint:
+          enabled: true
+          params:
+            includeSoftConstraints: true
         RemovePodsViolatingInterPodAntiAffinity:
-          enabled: false
+          enabled: true
+          params:
+            nodeFit: true
         LowNodeUtilization:
           enabled: false
