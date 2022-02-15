@@ -12,7 +12,7 @@ spec:
       version: 0.23.1
       sourceRef:
         kind: HelmRepository
-        name: descheduler-charts
+        name: kubernetes-sigs-descheduler-charts
         namespace: flux-system
       interval: 5m
   install:
