@@ -27,15 +27,26 @@ spec:
       enabled: true
       serviceMonitor:
         enabled: true
+    env:
+      - name: CF_API_EMAIL
+        valueFrom:
+          secretKeyRef:
+            name: cloudflare-creds
+            key: email
+      - name: CF_API_KEY
+        valueFrom:
+          secretKeyRef:
+            name: cloudflare-creds
+            key: api-key
+    sources:
+      - ingress
+    domainFilters:
+      - "${SECRET_PUBLIC_DOMAIN}"
+    cloudflare:
+      proxied: true
     resources:
       requests:
         memory: 250Mi
         cpu: 25m
       limits:
         memory: 500Mi
-
-  valuesFrom:
-  - kind: Secret
-    name: external-dns-values
-    optional: false
-
