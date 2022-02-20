@@ -33,11 +33,11 @@ spec:
           secretKeyRef:
             name: cloudflare-creds
             key: email
-      - name: CF_API_KEY
+      - name: CF_API_TOKEN
         valueFrom:
           secretKeyRef:
             name: cloudflare-creds
-            key: api-key
+            key: api-token
     sources:
       - ingress
     domainFilters:
