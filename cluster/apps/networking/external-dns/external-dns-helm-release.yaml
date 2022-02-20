@@ -28,11 +28,6 @@ spec:
       serviceMonitor:
         enabled: true
     env:
-      - name: CF_API_EMAIL
-        valueFrom:
-          secretKeyRef:
-            name: cloudflare-creds
-            key: email
       - name: CF_API_TOKEN
         valueFrom:
           secretKeyRef:
