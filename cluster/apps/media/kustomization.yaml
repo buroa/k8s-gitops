@@ -10,5 +10,6 @@ resources:
   - prowlarr
   - qbittorrent
   - radarr
+  - readarr
   - sonarr
   - trash-updater
