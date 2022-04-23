@@ -47,7 +47,7 @@ spec:
           nginx.ingress.kubernetes.io/auth-url: "https://auth.${SECRET_PUBLIC_DOMAIN}/oauth2/auth"
           nginx.ingress.kubernetes.io/auth-signin: https://auth.${SECRET_PUBLIC_DOMAIN}/oauth2/start
         hosts:
-        - host: calibre.${SECRET_PUBLIC_DOMAIN}
+        - host: calibre-web.${SECRET_PUBLIC_DOMAIN}
           paths:
           - path: /
             pathType: Prefix
