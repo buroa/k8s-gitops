@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: bazarr-config
+  name: readarr-config
   namespace: media
 spec:
   accessModes:
