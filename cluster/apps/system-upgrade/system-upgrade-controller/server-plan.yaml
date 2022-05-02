@@ -18,7 +18,7 @@ spec:
       - key: k3s-upgrade
         operator: In
         values:
-          - "true"
+          - "enabled"
   tolerations:
     - key: "node-role.kubernetes.io/master"
       operator: "Exists"
