@@ -57,6 +57,15 @@ spec:
       config:
         enabled: true
         existingClaim: "home-assistant-config"
+      backup:
+        enabled: true
+        type: custom
+        volumeSpec:
+          nfs:
+            server: "${NAS_ADDR}"
+            path: /volume1/data/backups/apps/home-assistant
+        mountPath: /config/backups
+        readOnly: false
     addons:
       codeserver:
         enabled: true
@@ -65,6 +74,7 @@ spec:
           tag: 4.3.0
         env:
           TZ: "${TIMEZONE}"
+          HASS_SERVER: http://localhost:8123
         git:
           deployKeySecret: code-server-secrets
         workingDir: "/config"
@@ -96,8 +106,9 @@ spec:
         tag: 12.9.0-debian-10-r12
       global:
         postgresql:
-          postgresqlUsername: home-assistant
-          postgresqlDatabase: home-assistant
+          auth:
+            username: home-assistant
+            database: home-assistant
       persistence:
         enabled: true
         storageClass: "longhorn"
@@ -111,5 +122,10 @@ spec:
       enabled: false
   valuesFrom:
   - kind: Secret
-    name: "home-assistant-values"
-    optional: false
+    name: home-assistant-values
+    valuesKey: HASS_DB_PASSWORD
+    targetPath: postgresql.global.postgresql.auth.password
+  - kind: Secret
+    name: home-assistant-values
+    valuesKey: HASS_TOKEN
+    targetPath: addons.codeserver.env.HASS_TOKEN
