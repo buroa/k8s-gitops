@@ -6,4 +6,5 @@ resources:
   - secret-code-server.sops.yaml
   - secret-home-assistant.sops.yaml
   - secret-home-assistant-values.sops.yaml
+  - secret-home-assistant-postgresql.sops.yaml
   - home-assistant-helm-release.yaml

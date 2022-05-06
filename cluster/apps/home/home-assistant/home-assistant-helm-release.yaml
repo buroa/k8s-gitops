@@ -109,6 +109,7 @@ spec:
           auth:
             username: home-assistant
             database: home-assistant
+            existingSecret: home-assistant-postgres
       persistence:
         enabled: true
         storageClass: "longhorn"
@@ -121,10 +122,6 @@ spec:
     monitoring:
       enabled: false
   valuesFrom:
-  - kind: Secret
-    name: home-assistant-values
-    valuesKey: HASS_DB_PASSWORD
-    targetPath: postgresql.global.postgresql.auth.password
   - kind: Secret
     name: home-assistant-values
     valuesKey: HASS_TOKEN
