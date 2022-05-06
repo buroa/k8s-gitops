@@ -5,5 +5,5 @@ resources:
   - config-pvc.yaml
   - secret-code-server.sops.yaml
   - secret-home-assistant.sops.yaml
-  - home-assistant-values-secret.yaml
+  - secret-home-assistant-values.sops.yaml
   - home-assistant-helm-release.yaml
