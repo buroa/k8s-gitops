@@ -109,7 +109,7 @@ spec:
           auth:
             username: home-assistant
             database: home-assistant
-            existingSecret: home-assistant-postgres
+            existingSecret: home-assistant-postgresql
       persistence:
         enabled: true
         storageClass: "longhorn"
