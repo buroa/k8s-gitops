@@ -104,12 +104,10 @@ spec:
       enabled: true
       image:
         tag: 12.9.0-debian-10-r12
-      global:
-        postgresql:
-          auth:
-            username: home-assistant
-            database: home-assistant
-            existingSecret: home-assistant-postgresql
+      auth:
+        username: home-assistant
+        database: home-assistant
+        existingSecret: home-assistant-postgresql
       persistence:
         enabled: true
         storageClass: "longhorn"
