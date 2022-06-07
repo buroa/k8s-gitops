@@ -19,7 +19,7 @@ spec:
   values:
     image:
       repository: spx01/blocky
-      tag: v0.18
+      tag: v0.19
     replicas: 3
     env:
       TZ: "America/Santiago"
