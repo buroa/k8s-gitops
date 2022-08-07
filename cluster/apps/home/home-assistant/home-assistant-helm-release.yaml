@@ -75,6 +75,8 @@ spec:
         env:
           TZ: "${TIMEZONE}"
           HASS_SERVER: http://localhost:8123
+          EMAIL: jidonoso@gmail.com
+          GIT_AUTHOR_NAME: Juan Ignacio Donoso
         git:
           deployKeySecret: code-server-secrets
         workingDir: "/config"
