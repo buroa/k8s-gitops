@@ -6,5 +6,6 @@ resources:
   - esphome
   - home-assistant
   - node-red
-  # - zigbee2mqtt
+  - zigbee2mqtt
+  - wyze-bridge
   - zwavejs2mqtt
