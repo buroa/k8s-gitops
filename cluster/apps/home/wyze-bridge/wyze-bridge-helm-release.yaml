@@ -18,7 +18,7 @@ spec:
 
   values:
     image:
-      repository: mrlt8/wyze-bridge:latest
+      repository: mrlt8/wyze-bridge
       tag: 1.8.6
 
     env:
