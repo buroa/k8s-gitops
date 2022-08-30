@@ -2,8 +2,8 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: paperless-redis
-  namespace: selfhosted
+  name: wyze-bridge
+  namespace: home
 spec:
   interval: 15m
   chart:
