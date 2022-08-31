@@ -2,8 +2,8 @@ mqtt:
   host: emqx.home.svc
   port: 1883
   topic_prefix: frigate
-  user: "{SECRET_MQTT_USERNAME}"
-  password: "{SECRET_MQTT_PASSWORD}"
+  user: "{FRIGATE_MQTT_USERNAME}"
+  password: "{FRIGATE_MQTT_PASSWORD}"
 
 database:
   path: /data/frigate.db
