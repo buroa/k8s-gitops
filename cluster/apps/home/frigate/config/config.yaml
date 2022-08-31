@@ -1,0 +1,25 @@
+mqtt:
+  host: emqx.home.svc
+  port: 1883
+  topic_prefix: frigate
+  user: "{SECRET_MQTT_USERNAME}"
+  password: "{SECRET_MQTT_PASSWORD}"
+
+database:
+  path: /data/frigate.db
+
+# Global ffmpeg configuration
+ffmpeg:
+  hwaccel_args:
+    - -hwaccel
+    - vaapi
+    - -hwaccel_device
+    - /dev/dri/renderD128
+    - -hwaccel_output_format
+    - yuv420p
+
+# Specify camera's
+cameras:
+  living_room:
+    rtmp:
+      enabled: True

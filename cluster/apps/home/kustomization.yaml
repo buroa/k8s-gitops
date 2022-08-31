@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - emqx
   - esphome
+  - frigate
   - home-assistant
   - node-red
   - zigbee2mqtt
