@@ -3,7 +3,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: frigate-data
-  namespace: media
+  namespace: home
 spec:
   accessModes:
   - ReadWriteOnce
