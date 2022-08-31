@@ -21,5 +21,10 @@ ffmpeg:
 # Specify camera's
 cameras:
   living_room:
+    ffmpeg:
+      inputs:
+        - path: "rtsp://wyze-bridge.home.svc.cluster.local:8554/living-room-ceiling"
+          roles:
+            - rtmp
     rtmp:
       enabled: True
