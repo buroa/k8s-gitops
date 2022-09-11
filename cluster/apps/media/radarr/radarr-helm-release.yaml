@@ -19,7 +19,7 @@ spec:
   values:
     image:
       repository: ghcr.io/k8s-at-home/radarr-develop
-      tag: v4.2.2.6503
+      tag: v4.2.3.6575
     env:
       TZ:  "${TIMEZONE}"
     ingress:
