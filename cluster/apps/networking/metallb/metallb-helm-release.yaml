@@ -10,38 +10,20 @@ spec:
     spec:
       # renovate: registryUrl=https://metallb.github.io/metallb
       chart: metallb
-      version: 0.13.5
+      version: 0.13.6
       sourceRef:
         kind: HelmRepository
         name: metallb-charts
         namespace: flux-system
       interval: 5m
   values:
-    configInline:
-      address-pools:
-      - name: default
-        protocol: layer2
-        addresses:
-        - 10.2.1.100-10.2.1.150
-    prometheusRule:
+    crds:
       enabled: true
-    prometheus:
-      enabled: true
-      serviceMonitor:
-        enabled: true
-      prometheusRule:
-        enabled: true
     controller:
-      # image:
-      #   repository: quay.io/metallb/controller
-      #   tag: v0.10.1
       tolerations:
       - key: "arm"
         operator: "Exists"
     speaker:
-      # image:
-      #   repository: quay.io/metallb/speaker
-      #   tag: v0.10.1
       tolerations:
       - key: "arm"
         operator: "Exists"
