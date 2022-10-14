@@ -59,7 +59,7 @@ spec:
             server: "${NAS_ADDR}"
             path: /volume1/media
         mountPath: /media
-        readOnly: true
+        readOnly: false
       backup:
         enabled: true
         type: custom
