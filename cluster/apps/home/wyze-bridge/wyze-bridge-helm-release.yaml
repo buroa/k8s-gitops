@@ -19,7 +19,7 @@ spec:
   values:
     image:
       repository: mrlt8/wyze-bridge
-      tag: 1.8.8
+      tag: 1.8.10
 
     env:
       TZ: America/Santiago
