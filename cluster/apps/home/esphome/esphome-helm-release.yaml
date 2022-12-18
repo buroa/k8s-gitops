@@ -20,7 +20,7 @@ spec:
   values:
     image:
       repository: esphome/esphome
-      tag: 2022.11.5
+      tag: 2022.12.1
     env:
       TZ: "${TIMEZONE}"
       ESPHOME_DASHBOARD_USE_PING: true
