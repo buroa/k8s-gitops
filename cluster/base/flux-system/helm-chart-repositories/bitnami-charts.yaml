@@ -6,5 +6,5 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
-  url: https://bitnami-labs.github.io/sealed-secrets
+  url: https://charts.bitnami.com/bitnami
   timeout: 3m

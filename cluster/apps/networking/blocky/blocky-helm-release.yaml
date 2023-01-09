@@ -20,22 +20,16 @@ spec:
     image:
       repository: spx01/blocky
       tag: v0.20
-    replicas: 3
+    replicas: 2
     env:
       TZ: "America/Santiago"
     config: |
       upstream:
         externalResolvers:
-        - tcp+udp:8.8.8.8
-        - tcp+udp:8.8.4.4
-        - tcp+udp:1.1.1.1
-        - tcp-tls:1.0.0.1:853
         - https://cloudflare-dns.com/dns-query
       conditional:
         mapping:
-          lan: tcp+udp:10.2.0.1
-          local: tcp+udp:10.2.0.1
-          donoso.family: tcp+udp:10.2.0.1
+          cluster.local: tcp+udp:10.245.0.10
       blocking:
         blackLists:
           ads:
@@ -43,8 +37,6 @@ spec:
           - https://s3.amazonaws.com/lists.disconnect.me/simple_ad.txt
           - http://sysctl.org/cameleon/hosts
           - https://s3.amazonaws.com/lists.disconnect.me/simple_tracking.txt
-          kids:
-          - https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn/hosts
         whiteLists:
           ads:
           - https://raw.githubusercontent.com/anudeepND/whitelist/master/domains/whitelist.txt
@@ -53,7 +45,7 @@ spec:
           default:
           - ads
       clientLookup:
-        upstream: tcp+udp:10.2.0.1
+        upstream: tcp+udp:10.245.0.10
       prometheus:
         enable: true
         path: /metrics
@@ -76,58 +68,12 @@ spec:
           http:
             port: 4000
       dns-tcp:
-        enabled: true
-        type: LoadBalancer
-        loadBalancerIP: 10.2.1.150
-        annotations:
-          metallb.universe.tf/allow-shared-ip: blocky
-        ports:
-          dns-tcp:
-            enabled: true
-            port: 53
-            protocol: TCP
-            targetPort: 53
-        externalTrafficPolicy: Local
+        type: ClusterIP
       dns-udp:
-        enabled: true
-        nameSuffix: dns-udp
-        type: LoadBalancer
-        loadBalancerIP: 10.2.1.150
-        annotations:
-          metallb.universe.tf/allow-shared-ip: blocky
-        ports:
-          dns-udp:
-            enabled: true
-            port: 53
-            protocol: UDP
-            targetPort: 53
-        externalTrafficPolicy: Local
+        type: ClusterIP
     prometheus:
       serviceMonitor:
         enabled: true
-    tolerations:
-    - key: "arm"
-      operator: "Exists"
-    affinity:
-      podAntiAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-        - labelSelector:
-            matchExpressions:
-            - key: app.kubernetes.io/name
-              operator: In
-              values:
-              - blocky
-          topologyKey: "kubernetes.io/hostname"
-        preferredDuringSchedulingIgnoredDuringExecution:
-        - weight: 100
-          podAffinityTerm:
-            labelSelector:
-              matchExpressions:
-              - key: app.kubernetes.io/name
-                operator: In
-                values:
-                - blocky
-            topologyKey: "homelab.device/name"
     resources:
       requests:
         memory: 280Mi
