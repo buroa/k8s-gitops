@@ -34,10 +34,14 @@ spec:
           ingress.kubernetes.io/force-ssl-redirect: "true"
           projectcontour.io/websocket-routes: "/"
         hosts:
-          - host: "plex.${SECRET_PUBLIC_DOMAIN}"
+          - host: plex.${SECRET_PUBLIC_DOMAIN}
             paths:
               - path: /
                 pathType: Prefix
+        tls:
+          - secretName: plex-tls
+            hosts:
+              - usenet.${SECRET_PUBLIC_DOMAIN}
     persistence:
       config:
         enabled: true
