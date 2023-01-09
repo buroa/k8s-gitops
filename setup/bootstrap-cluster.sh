@@ -31,11 +31,11 @@ installFlux() {
     exit 1
   fi
   flux bootstrap github \
-    --owner=blackjid \
+    --owner=buroa \
     --repository=k8s-gitops \
     --branch master \
     --personal \
-    --path=cluster
+    --path=cluster/base
 
   FLUX_INSTALLED=$?
   if [ $FLUX_INSTALLED != 0 ]; then

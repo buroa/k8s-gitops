@@ -2,6 +2,5 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - descheduler
-  - reloader
-  - sealed-secrets
+  - config-pvc.yaml
+  - overseerr-helm-release.yaml
