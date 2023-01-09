@@ -44,7 +44,7 @@ spec:
             hosts:
               - torrent.${SECRET_PUBLIC_DOMAIN}
     podLabels:
-      vpn: "true"
+      vpn/ovpn: "true"
     persistence:
       config:
         enabled: true
