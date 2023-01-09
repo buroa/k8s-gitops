@@ -39,7 +39,8 @@ spec:
               - path: /
                 pathType: Prefix
         tls:
-          - hosts:
+          - secretName: bazarr-tls
+            hosts:
               - bazarr.${SECRET_PUBLIC_DOMAIN}
     persistence:
       config:
