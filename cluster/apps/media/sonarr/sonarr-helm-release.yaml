@@ -41,7 +41,7 @@ spec:
         tls:
           - secretName: sonarr-tls
             hosts:
-              - usenet.${SECRET_PUBLIC_DOMAIN}
+              - sonarr.${SECRET_PUBLIC_DOMAIN}
     persistence:
       config:
         enabled: true
