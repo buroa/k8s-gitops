@@ -20,7 +20,9 @@ spec:
     image:
       repository: spx01/blocky
       tag: v0.20
-    replicas: 2
+    controller:
+      strategy: RollingUpdate
+      replicas: 2
     env:
       TZ: "${TIMEZONE}"
     config: |
@@ -65,10 +67,27 @@ spec:
         initialDelaySeconds: 5
         failureThreshold: 30
         periodSeconds: 10
+    service:
       dns-tcp:
+        enabled: false
         type: ClusterIP
+        externalTrafficPolicy: Local
+        ports:
+          dns-tcp:
+            enabled: true
+            port: 53
+            protocol: TCP
+            targetPort: 53
       dns-udp:
+        enabled: false
         type: ClusterIP
+        externalTrafficPolicy: Local
+        ports:
+          dns-udp:
+            enabled: true
+            port: 53
+            protocol: UDP
+            targetPort: 53
     prometheus:
       serviceMonitor:
         enabled: true
