@@ -22,14 +22,14 @@ spec:
       tag: v0.20
     replicas: 2
     env:
-      TZ: "America/Santiago"
+      TZ: "${TIMEZONE}"
     config: |
       upstream:
-        externalResolvers:
-        - https://cloudflare-dns.com/dns-query
+        default:
+          - https://cloudflare-dns.com/dns-query
       conditional:
         mapping:
-          cluster.local: tcp+udp:10.245.0.10
+          cluster.local: tcp+udp:${CLUSTER_DNS_IP}
       blocking:
         blackLists:
           ads:
@@ -45,7 +45,10 @@ spec:
           default:
           - ads
       clientLookup:
-        upstream: tcp+udp:10.245.0.10
+        upstream: tcp+udp:${CLUSTER_DNS_IP}
+      caching:
+        minTime: 5m
+        prefetching: true
       prometheus:
         enable: true
         path: /metrics
@@ -62,11 +65,6 @@ spec:
         initialDelaySeconds: 5
         failureThreshold: 30
         periodSeconds: 10
-    service:
-      main:
-        ports:
-          http:
-            port: 4000
       dns-tcp:
         type: ClusterIP
       dns-udp:

@@ -42,6 +42,8 @@ spec:
           - secretName: prowlarr-tls
             hosts:
               - prowlarr.${SECRET_PUBLIC_DOMAIN}
+    podLabels:
+      vpn: "true"
     persistence:
       config:
         enabled: true

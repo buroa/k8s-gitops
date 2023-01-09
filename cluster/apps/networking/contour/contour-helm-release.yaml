@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       # renovate: registryUrl=https://charts.bitnami.com/bitnami
-      chart: bitnami-charts
+      chart: contour
       version: 10.1.3
       sourceRef:
         kind: HelmRepository
