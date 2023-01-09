@@ -18,10 +18,12 @@ spec:
       interval: 5m
   values:
     image:
-      repository: ghcr.io/sct/overseerr
-      tag: 1.31.0
+      repository: linuxserver/overseerr
+      tag: version-v1.31.0
     env:
       TZ: "${TIMEZONE}"
+      PUID: "1000"
+      PGID: "1000"
     ingress:
       main:
         enabled: true
