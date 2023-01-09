@@ -17,7 +17,7 @@ spec:
         - 0.0.0.0/0
       toPorts:
         - ports:
-            - port: "${VPN_TRAFFIC_PORT}"
+            - port: "9929"
               protocol: UDP
     - toEntities:
         - cluster
