@@ -5,3 +5,4 @@ resources:
   - blocky
   - cloudflared
   - contour
+  - pod-gateway
