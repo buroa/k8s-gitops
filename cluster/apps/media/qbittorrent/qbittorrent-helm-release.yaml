@@ -43,6 +43,7 @@ spec:
           - secretName: torrent-tls
             hosts:
               - torrent.${SECRET_PUBLIC_DOMAIN}
+    hostname: qbittorrent
     podLabels:
       vpn/ovpn: "true"
     persistence:
