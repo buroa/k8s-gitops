@@ -17,6 +17,8 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
+    contour:
+      manageCRDs: false
     envoy:
       service:
         type: ClusterIP
