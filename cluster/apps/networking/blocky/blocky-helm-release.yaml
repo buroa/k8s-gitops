@@ -32,6 +32,17 @@ spec:
       conditional:
         mapping:
           cluster.local: tcp+udp:${CLUSTER_DNS_IP}
+      customDNS:
+        mapping:
+          bazarr.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_CLUSTER_IP}
+          usenet.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_CLUSTER_IP}
+          requests.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_CLUSTER_IP}
+          plex.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_CLUSTER_IP}
+          prowlarr.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_CLUSTER_IP}
+          torrent.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_CLUSTER_IP}
+          radarr.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_CLUSTER_IP}
+          sonarr.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_CLUSTER_IP}
+          tautulli.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_CLUSTER_IP}
       blocking:
         blackLists:
           ads:
@@ -69,9 +80,9 @@ spec:
         periodSeconds: 10
     service:
       dns-tcp:
-        enabled: false
+        enabled: true
         type: ClusterIP
-        externalTrafficPolicy: Local
+        externalTrafficPolicy: ""
         ports:
           dns-tcp:
             enabled: true
@@ -79,9 +90,9 @@ spec:
             protocol: TCP
             targetPort: 53
       dns-udp:
-        enabled: false
+        enabled: true
         type: ClusterIP
-        externalTrafficPolicy: Local
+        externalTrafficPolicy: ""
         ports:
           dns-udp:
             enabled: true
