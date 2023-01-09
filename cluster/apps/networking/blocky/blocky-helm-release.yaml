@@ -29,11 +29,17 @@ spec:
       upstream:
         default:
           - https://cloudflare-dns.com/dns-query
+
       conditional:
         mapping:
           cluster.local: tcp+udp:${CLUSTER_DNS_IP}
+
       customDNS:
         mapping:
+          # home ns
+          nr.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_CLUSTER_IP}
+
+          # media ns
           bazarr.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_CLUSTER_IP}
           usenet.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_CLUSTER_IP}
           requests.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_CLUSTER_IP}
@@ -43,6 +49,7 @@ spec:
           radarr.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_CLUSTER_IP}
           sonarr.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_CLUSTER_IP}
           tautulli.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_CLUSTER_IP}
+
       blocking:
         blackLists:
           ads:
@@ -57,14 +64,18 @@ spec:
         clientGroupsBlock:
           default:
           - ads
+
       clientLookup:
         upstream: tcp+udp:${CLUSTER_DNS_IP}
+
       caching:
         minTime: 5m
         prefetching: true
+
       prometheus:
         enable: true
         path: /metrics
+
       httpPort: 4000
       logLevel: info
     probes:
@@ -92,6 +103,7 @@ spec:
       dns-udp:
         enabled: true
         type: ClusterIP
+        clusterIP: "${BLOCKY_CLUSTER_IP}"
         externalTrafficPolicy: ""
         ports:
           dns-udp:
