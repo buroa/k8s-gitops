@@ -5,4 +5,9 @@ metadata:
   name: cluster-settings
   namespace: flux-system
 data:
-  TIMEZONE: America/Santiago
+  TIMEZONE: America/Chicago
+  CLUSTER_SERVICE_IP_RANGE: 10.245.0.0/16
+  CLUSTER_POD_IP_RANGE: 10.244.0.0/16
+  CLUSTER_IP_RANGE: 10.116.0.0/20
+  VPN_TRAFFIC_PORT: 9929
+  QB_PUBLIC_PORT: 51311

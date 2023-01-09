@@ -43,6 +43,8 @@ spec:
           - secretName: torrent-tls
             hosts:
               - torrent.${SECRET_PUBLIC_DOMAIN}
+    podLabels:
+      vpn: "true"
     persistence:
       config:
         enabled: true
