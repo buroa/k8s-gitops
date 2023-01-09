@@ -6,8 +6,7 @@ metadata:
   namespace: home
 spec:
   accessModes:
-  - ReadWriteOnce
+    - ReadWriteOnce
   resources:
     requests:
       storage: 1Gi
-  storageClassName: longhorn
