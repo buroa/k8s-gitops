@@ -22,5 +22,5 @@ spec:
     envoy:
       service:
         type: ClusterIP
-        clusterIP: ${ENVOY_CLUSTER_IP}
+        clusterIP: "${ENVOY_CLUSTER_IP}"
         externalTrafficPolicy: ""
