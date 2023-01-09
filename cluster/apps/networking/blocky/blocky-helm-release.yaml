@@ -36,10 +36,10 @@ spec:
 
       customDNS:
         mapping:
-          # home ns
+          # ns: home
           nr.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_CLUSTER_IP}
 
-          # media ns
+          # ns: media
           bazarr.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_CLUSTER_IP}
           usenet.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_CLUSTER_IP}
           requests.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_CLUSTER_IP}
