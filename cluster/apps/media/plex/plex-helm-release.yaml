@@ -23,22 +23,20 @@ spec:
       tag: v1.29.2.6364-6d72b0cf6
     env:
       TZ: "${TIMEZONE}"
-    service:
-      main:
-        type: LoadBalancer
-        loadBalancerIP: "${SVC_PLEX_ADDR}"
-        externalTrafficPolicy: Local
     ingress:
       main:
         enabled: true
         annotations:
-          kubernetes.io/ingress.class: "nginx"
-          external-dns.alpha.kubernetes.io/target: "home.${SECRET_PUBLIC_DOMAIN}"
+          kubernetes.io/tls-acme: "true"
+          kubernetes.io/ingress.class: contour
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+          ingress.kubernetes.io/force-ssl-redirect: "true"
+          projectcontour.io/websocket-routes: "/"
         hosts:
-        - host: "plex.${SECRET_PUBLIC_DOMAIN}"
-          paths:
-          - path: /
-            pathType: Prefix
+          - host: "plex.${SECRET_PUBLIC_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
     persistence:
       config:
         enabled: true
@@ -46,34 +44,14 @@ spec:
       tmp:
         enabled: true
         type: emptyDir
-        medium: Memory
       transcode:
         enabled: true
         type: emptyDir
-        medium: Memory
       media:
-        enabled: true
-        type: custom
-        volumeSpec:
-          nfs:
-            server: "${NAS_ADDR}"
-            path: /volume1/media
-        mountPath: /media
-        readOnly: false
-      backup:
-        enabled: true
-        type: custom
-        volumeSpec:
-          nfs:
-            server: "${NAS_ADDR}"
-            path: /volume1/data/backups/apps/plex
-        mountPath: /config/backups
-        readOnly: false
+        enabled: false # todo
     resources:
       limits:
-        gpu.intel.com/i915: 1
-        memory: 4900Mi
+        memory: 2500Mi
       requests:
-        gpu.intel.com/i915: 1
         cpu: 763m
-        memory: 1500Mi
+        memory: 1000Mi
