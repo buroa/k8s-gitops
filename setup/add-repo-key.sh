@@ -8,7 +8,7 @@
 # 1. delete any existing repo keys
 # 2. add a new repo key from the input passed-in
 
-github_username=blackjid
+github_username=buroa
 
 if [ ! -n "$GITHUB_TOKEN" ]; then
   echo "GITHUB_TOKEN env variable needs to exist with a GitHub personal access token"
