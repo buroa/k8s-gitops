@@ -17,175 +17,10 @@ spec:
         name: prometheus-community-charts
         namespace: flux-system
   values:
-    fullnameOverride: prometheus
-    coreDns:
-      enabled: true
-
-    kubeApiServer:
-      enabled: true
-
-    kubeControllerManager:
-      enabled: false # todo
-
-    kubeEtcd:
-      enabled: true
-
-    kubelet:
-      enabled: true
-      serviceMonitor:
-        metricRelabelings:
-          - action: replace
-            sourceLabels:
-              - node
-            targetLabel: instance
-
-    kubeProxy:
-      enabled: false # todo
-
-    kubeScheduler:
-      enabled: false # todo
-
-    kubeStateMetrics:
-      enabled: true
-
-    prometheusOperator:
-      resources:
-        requests:
-          cpu: 35m
-          memory: 273M
-
-      prometheusConfigReloader:
-        resources:
-          requests:
-            cpu: 11m
-            memory: 24M
-
-    grafana:
-      enabled: true
-      forceDeployDashboards: true
-      sidecar:
-        dashboards:
-          multicluster:
-            global:
-              enabled: true
-      ingress:
-        enabled: true
-        pathType: Prefix
-        annotations:
-          kubernetes.io/tls-acme: "true"
-          kubernetes.io/ingress.class: contour
-          cert-manager.io/cluster-issuer: letsencrypt-prod
-          ingress.kubernetes.io/force-ssl-redirect: "true"
-          projectcontour.io/websocket-routes: "/"
-
-        hosts:
-          - host: grafana.${SECRET_PUBLIC_DOMAIN}
-            paths:
-              - path: /
-                pathType: Prefix
-        tls:
-          - secretName: grafana-tls
-            hosts:
-              - grafana.${SECRET_PUBLIC_DOMAIN}
-
-    kube-state-metrics:
-      metricLabelsAllowlist:
-        - "persistentvolumeclaims=[*]"
-      prometheus:
-        monitor:
-          enabled: true
-          relabelings:
-            - action: replace
-              regex: (.*)
-              replacement: $1
-              sourceLabels:
-                - __meta_kubernetes_pod_node_name
-              targetLabel: kubernetes_node
-
-    nodeExporter:
-      enabled: true
-      serviceMonitor:
-        relabelings:
-          - action: replace
-            regex: (.*)
-            replacement: $1
-            sourceLabels:
-              - __meta_kubernetes_pod_node_name
-            targetLabel: kubernetes_node
-
-    prometheus-node-exporter:
-      fullnameOverride: node-exporter
-      extraArgs:
-        - --collector.filesystem.ignored-mount-points=^/(dev|proc|sys|var)($|/)
-        - --collector.filesystem.ignored-fs-types=^(autofs|binfmt_misc|bpf|cgroup2?|configfs|debugfs|devpts|devtmpfs|fusectl|hugetlbfs|iso9660|mqueue|nsfs|overlay|proc|procfs|pstore|rpc_pipefs|securityfs|selinuxfs|squashfs|sysfs|tracefs|tmpfs)$
-      prometheus:
-        monitor:
-          enabled: true
-          relabelings:
-            - action: replace
-              regex: (.*)
-              replacement: $1
-              sourceLabels:
-                - __meta_kubernetes_pod_node_name
-              targetLabel: kubernetes_node
-
-      resources:
-        requests:
-          cpu: 23m
-          memory: 64M
-      tolerations:
-        - effect: "NoExecute"
-          operator: "Exists"
-        - effect: "NoSchedule"
-          operator: "Exists"
-
-    prometheus:
-      ingress:
-        enabled: true
-        pathType: Prefix
-        annotations:
-          kubernetes.io/tls-acme: "true"
-          kubernetes.io/ingress.class: contour
-          cert-manager.io/cluster-issuer: letsencrypt-prod
-          ingress.kubernetes.io/force-ssl-redirect: "true"
-          projectcontour.io/websocket-routes: "/"
-
-        hosts:
-          - host: prometheus.${SECRET_PUBLIC_DOMAIN}
-            paths:
-              - path: /
-                pathType: Prefix
-        tls:
-          - secretName: prometheus-tls
-            hosts:
-              - prometheus.${SECRET_PUBLIC_DOMAIN}
-
-      prometheusSpec:
-        replicas: 3
-        replicaExternalLabelName: __replica__
-        ruleSelectorNilUsesHelmValues: false
-        serviceMonitorSelectorNilUsesHelmValues: false
-        podMonitorSelectorNilUsesHelmValues: false
-        probeSelectorNilUsesHelmValues: false
-        retentionSize: "8GB"
-        retention: 14d
-        enableAdminAPI: true
-        walCompression: true
-        storageSpec:
-          volumeClaimTemplate:
-            spec:
-              resources:
-                requests:
-                  storage: 10Gi
-        resources:
-          requests:
-            cpu: 350m
-            memory: 2000M
-
     alertmanager:
       ingress:
         enabled: true
-        pathType: Prefix
+
         annotations:
           kubernetes.io/tls-acme: "true"
           kubernetes.io/ingress.class: contour
@@ -194,21 +29,56 @@ spec:
           projectcontour.io/websocket-routes: "/"
 
         hosts:
-          - host: am.${SECRET_PUBLIC_DOMAIN}
-            paths:
-              - path: /
-                pathType: Prefix
+          - am.${SECRET_PUBLIC_DOMAIN}
+
+        paths:
+          - /
+
         tls:
           - secretName: am-tls
             hosts:
               - am.${SECRET_PUBLIC_DOMAIN}
 
-      alertmanagerSpec:
-        replicas: 3
+    prometheus:
+      ingress:
+        enabled: true
 
-      resources:
-        requests:
-          cpu: 10m
-          memory: 50M
-        limits:
-          memory: 99M
+        annotations:
+          kubernetes.io/tls-acme: "true"
+          kubernetes.io/ingress.class: contour
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+          ingress.kubernetes.io/force-ssl-redirect: "true"
+          projectcontour.io/websocket-routes: "/"
+
+        hosts:
+          - prometheus.${SECRET_PUBLIC_DOMAIN}
+
+        paths:
+          - /
+
+        tls:
+          - secretName: prometheus-tls
+            hosts:
+              - prometheus.${SECRET_PUBLIC_DOMAIN}
+
+    grafana:
+      ingress:
+        enabled: true
+
+        annotations:
+          kubernetes.io/tls-acme: "true"
+          kubernetes.io/ingress.class: contour
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+          ingress.kubernetes.io/force-ssl-redirect: "true"
+          projectcontour.io/websocket-routes: "/"
+
+        hosts:
+          - grafana.${SECRET_PUBLIC_DOMAIN}
+
+        paths:
+          - /
+
+        tls:
+          - secretName: grafana-tls
+            hosts:
+              - grafana.${SECRET_PUBLIC_DOMAIN}
