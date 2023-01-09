@@ -19,29 +19,12 @@ spec:
       interval: 5m
   values:
     image:
-      repository: ghcr.io/k8s-at-home/qbittorrent
-      tag: v4.4.2
+      repository: linuxserver/qbittorrent
+      tag: 4.5.0
     env:
       TZ: "${TIMEZONE}"
-    settings:
-      automaticPortSetup: false
-    service:
-      main:
-        ports:
-          http:
-            port: 8080
-      bittorrent:
-        enabled: true
-        type: LoadBalancer
-        externalIPs:
-          - "${SVC_QBITTORRENT_ADDR}"
-        ports:
-          bittorrent:
-            enabled: true
-            port: 50413
-            protocol: TCP
-            targetPort: 50413
-        externalTrafficPolicy: Local
+      PUID: "1000"
+      PGID: "1000"
     ingress:
       main:
         enabled: true

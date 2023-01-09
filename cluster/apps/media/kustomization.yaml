@@ -2,13 +2,13 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - plex
-  - radarr
-  - sonarr
   - bazarr
-  - nzbget
-  - qbittorrent
-  - prowlarr
   - flaresolverr
+  - nzbget
   - overseerr
+  - plex
+  - prowlarr
+  - qbittorrent
+  - radarr
   - recyclarr
+  - sonarr
