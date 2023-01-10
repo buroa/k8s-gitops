@@ -50,7 +50,6 @@ spec:
               volumeMounts:
                 - name: shared
                   mountPath: /config
-                  readOnly: true
 
             - name: recyclarr-radarr
               image: ghcr.io/recyclarr/recyclarr:4.1.2
@@ -67,7 +66,6 @@ spec:
               volumeMounts:
                 - name: shared
                   mountPath: /config
-                  readOnly: true
 
           volumes:
             - name: config
