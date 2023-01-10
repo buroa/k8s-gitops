@@ -50,8 +50,13 @@ spec:
       config:
         enabled: true
         existingClaim: "qbittorrent-config"
+      downloads:
+        enabled: true
+        type: emptyDir
       media:
-        enabled: false # todo
+        enabled: true
+        existingClaim: media
+        mountPath: /media
     resources:
       requests:
         memory: 250Mi
