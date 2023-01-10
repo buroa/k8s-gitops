@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: autoscan-config
+  namespace: media
+stringData:
+  config.yml: ENC[AES256_GCM,data:nm4eUHdBsyzvZrTexqxfSRYAL87/bjay+XynSbDYUVWARSh7n1rUDIwra6GOmr5cg5c0ehnoLVN67NU3XvDsCzG3DfCqch6FjdkkOVyEWC1LUsOWtou/fQ79lvk2qEjGQvLvhnRshs13YgoXfEN6IZmm850PxqbmjFi1fVRpAJMmHHRpAZib4eveHWg/0qjOaHGjsp3MLsiQgyc7mDiIMYrR+eYW8AHO0NmydrmZ2C/K4MKOVsToXFY0Apb0MzFrTTM3LwfW5K3Yo3x2PQ0vOXtilB05ABCZCdClRr4yMTuWge0jfMz3gtC6nYveDDNoRpwrZkl5UZKVcyt0D1lWk1stUhX6TaxnYgQWnReXfHhp19EIXbZ98kfGIABIKJA0WTFeD4MHza2Mj5oMp2rrYgiGlNEqo12tuVcbYJatTj3e2drqhm1gjMDC/ya5dKbD4eqUJ9xlqmlqMdym4A==,iv:RA1ZxOFVasSrjaPyUa2fpqG8yXyhK6pYzAW6HbtnldU=,tag:Js4BkkROoveFvjLboY6jnQ==,type:str]
+sops:
+  kms: []
+  gcp_kms: []
+  azure_kv: []
+  hc_vault: []
+  age:
+    - recipient: age1tz8jjp5jwdx9qfwp0pl3kwl858s6mfm4wsz4wkz9xxg52zmdqddslz3q22
+      enc: |
+        -----BEGIN AGE ENCRYPTED FILE-----
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBRZ1A2YWE3RWxGbUtPUTVY
+        YUhzZ2owWHdVNnZrZkl3ZVduVWgxZEJhbVFBCk5KMVErQ3p1aGp6QXhjTXBoaStY
+        SExRUVZYWHpuTFBqMWJOU2Zxb1RuSkUKLS0tIC84Z0lReWpWK1RRcmwvcmUyVDAv
+        bzYrSURLOWV4NUc2TFVqNUM5V2c3V1EKnJikVVAHjk/eMWSy6WvJb+AiuGWUdmcD
+        o4D86R0bwPeOnGKbSvdLEFM+BApFHb3om8bhSCQcWZzJQi8fRHv5lw==
+        -----END AGE ENCRYPTED FILE-----
+  lastmodified: "2023-01-10T17:19:01Z"
+  mac: ENC[AES256_GCM,data:1QotJSqR//+k8/9N+OE77/eDE5UasUHtr9lGXoryHC3zeNUrUrR8FVrrhihDRkx2JMJgf1t5G4AdMeomyfO7Fua7+lDezoLXRWGdbIQNMCj9P9P/w3lEMEcwOBYSTdyU70bQrQE4GLl8rajh7X1PZPUzp2Ebb5EYPeI9kwNzCD4=,iv:588mVMHAltlAOuv32gc/8CDEATUI0MbxzX2cUgi9+sg=,tag:+tnGsxecD5weV0vagXy6Pw==,type:str]
+  pgp: []
+  encrypted_regex: ^(data|stringData)$
+  version: 3.7.3
