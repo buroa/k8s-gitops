@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: autoscan
+  namespace: media
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: autoscan
+      app.kubernetes.io/name: autoscan
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: autoscan
+        app.kubernetes.io/name: autoscan
+    spec:
+      containers:
+        - name: autoscan
+          image: cloudb0x/autoscan:1.3.0
+          env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+          ports:
+            - containerPort: 3030
+              name: autoscan
+          livenessProbe:
+            tcpSocket:
+              port: autoscan
+            failureThreshold: 1
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          volumeMounts:
+            - name: autoscan-config
+              mountPath: /config
+            - name: autoscan-config-file
+              mountPath: /config/config.yml
+              subPath: config.yml
+            - name: media
+              mountPath: /media
+      volumes:
+        - name: autoscan-config
+          persistentVolumeClaim:
+            claimName: autoscan-config
+        - name: autoscan-config-file
+          secret:
+            secretName: autoscan-config
+        - name: media
+          persistentVolumeClaim:
+            claimName: media
