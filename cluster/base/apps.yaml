@@ -41,3 +41,5 @@ spec:
                 name: cluster-settings
               - kind: Secret
                 name: cluster-secrets
+      target:
+        labelSelector: substitution.flux.cluster.local/enabled=true
