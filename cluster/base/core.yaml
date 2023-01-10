@@ -8,6 +8,7 @@ spec:
   interval: 10m0s
   dependsOn:
     - name: crds
+    - name: settings
   path: ./cluster/core
   prune: false
   sourceRef:
