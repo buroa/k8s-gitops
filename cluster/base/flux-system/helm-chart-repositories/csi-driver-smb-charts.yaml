@@ -2,9 +2,9 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
-  name: oauth2-proxy-charts
+  name: csi-driver-smb-charts
   namespace: flux-system
 spec:
   interval: 10m
-  url: https://oauth2-proxy.github.io/manifests
+  url: https://raw.githubusercontent.com/kubernetes-csi/csi-driver-smb/master/charts
   timeout: 3m
