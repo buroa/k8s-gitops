@@ -5,14 +5,11 @@ metadata:
   name: recyclarr-updater
   namespace: media
 spec:
-  schedule: "0 3 * * *"
-  concurrencyPolicy: "Forbid"
-  successfulJobsHistoryLimit: 3
-  failedJobsHistoryLimit: 5
+  schedule: "@daily"
   jobTemplate:
     spec:
       backoffLimit: 3
-      ttlSecondsAfterFinished: 300
+      ttlSecondsAfterFinished: 86400
       template:
         spec:
           restartPolicy: OnFailure
@@ -35,8 +32,8 @@ spec:
                   mountPath: /shared
 
           containers:
-            - name: recyclarr-sonarr
-              image: ghcr.io/recyclarr/recyclarr:4.1.2
+            - name: sonarr
+              image: ghcr.io/recyclarr/recyclarr:4.1.3
               imagePullPolicy: IfNotPresent
               env:
                 - name: TZ
@@ -45,14 +42,14 @@ spec:
                 - /app/recyclarr/recyclarr
               args:
                 - sonarr
-                - --config
-                - /config/recyclarr.yaml
               volumeMounts:
                 - name: shared
-                  mountPath: /config
+                  mountPath: /config/recyclarr.yml
+                  subPath: recyclarr.yml
+                  readOnly: true
 
-            - name: recyclarr-radarr
-              image: ghcr.io/recyclarr/recyclarr:4.1.2
+            - name: radarr
+              image: ghcr.io/recyclarr/recyclarr:4.1.3
               imagePullPolicy: IfNotPresent
               env:
                 - name: TZ
@@ -61,11 +58,11 @@ spec:
                 - /app/recyclarr/recyclarr
               args:
                 - radarr
-                - --config
-                - /config/recyclarr.yaml
               volumeMounts:
                 - name: shared
-                  mountPath: /config
+                  mountPath: /config/recyclarr.yml
+                  subPath: recyclarr.yml
+                  readOnly: true
 
           volumes:
             - name: config
