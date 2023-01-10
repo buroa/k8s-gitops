@@ -4,3 +4,5 @@ resources:
   - gotk-components.yaml
   - gotk-sync.yaml
   - gotk-custom-kustomizations.yaml
+patchesStrategicMerge:
+  - gotk-patches.yaml
