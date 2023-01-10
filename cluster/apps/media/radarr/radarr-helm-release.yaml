@@ -47,7 +47,9 @@ spec:
         enabled: true
         existingClaim: "radarr-config"
       media:
-        enabled: false # todo
+        enabled: true
+        existingClaim: media
+        mountPath: /media
     resources:
       requests:
         memory: 350Mi
