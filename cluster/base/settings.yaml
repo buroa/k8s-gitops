@@ -2,11 +2,11 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: flux-system
+  name: settings
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./cluster/base/deploy
+  path: ./cluster/base/settings
   prune: true
   sourceRef:
     kind: GitRepository
