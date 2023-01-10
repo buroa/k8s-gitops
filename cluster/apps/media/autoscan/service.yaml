@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/instance: autoscan
+    app.kubernetes.io/name: autoscan
+  name: autoscan
+  namespace: media
+spec:
+  ports:
+    - name: autoscan
+      port: 3030
+      protocol: TCP
+      targetPort: autoscan
+  selector:
+    app.kubernetes.io/instance: autoscan
+    app.kubernetes.io/name: autoscan
+  type: ClusterIP
