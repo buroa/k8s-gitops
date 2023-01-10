@@ -53,10 +53,12 @@ spec:
         enabled: true
         type: emptyDir
       media:
-        enabled: false # todo
+        enabled: true
+        existingClaim: media
+        mountPath: /media
     resources:
       limits:
-        memory: 2500Mi
+        memory: 4000Mi
       requests:
         cpu: 763m
         memory: 1000Mi
