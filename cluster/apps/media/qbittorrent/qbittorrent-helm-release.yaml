@@ -57,6 +57,8 @@ spec:
         enabled: true
         existingClaim: media
         mountPath: /media
+    nodeSelector:
+      doks.digitalocean.com/node-pool: k2-pool-89gsv47m4-cpu
     resources:
       requests:
         memory: 250Mi
