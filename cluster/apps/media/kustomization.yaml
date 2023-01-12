@@ -9,10 +9,11 @@ resources:
   - nzbget
   - overseerr
   - plex
-  # - pmm
+  - pmm
   - prowlarr
   - qbittorrent
   - radarr
   - recyclarr
   - sonarr
   - tautulli
+  # - tdarr

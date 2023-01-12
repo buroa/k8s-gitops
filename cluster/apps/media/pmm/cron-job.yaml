@@ -25,6 +25,8 @@ spec:
               volumeMounts:
                 - name: config
                   mountPath: /config
+          nodeSelector:
+            doks.digitalocean.com/node-pool: k2-pool-89gsv47m4-cpu
           volumes:
             - name: config
               persistentVolumeClaim:
