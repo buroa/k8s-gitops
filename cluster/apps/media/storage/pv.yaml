@@ -28,6 +28,7 @@ spec:
     volumeHandle: "${SECRET_SMB_PATH}#media#"
     volumeAttributes:
       source: "//${SECRET_SMB_PATH}"
+      subDir: "media"
     nodeStageSecretRef:
       name: smbcreds
       namespace: kube-system
