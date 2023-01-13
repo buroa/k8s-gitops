@@ -25,11 +25,9 @@ spec:
   csi:
     driver: smb.csi.k8s.io
     readOnly: false
-    # volumeHandle format: {smb-server-address}#{sub-dir-name}#{share-name}
-    # make sure this value is unique for every share in the cluster
-    volumeHandle: smb-server.default.svc.cluster.local/share##
+    volumeHandle: "${SECRET_SMB_PATH}#media#"
     volumeAttributes:
-      source: "${SECRET_SMB_PATH}"
+      source: "//${SECRET_SMB_PATH}"
     nodeStageSecretRef:
       name: smbcreds
       namespace: kube-system
