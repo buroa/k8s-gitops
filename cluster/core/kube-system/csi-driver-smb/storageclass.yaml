@@ -5,7 +5,7 @@ metadata:
   namespace: kube-system
 provisioner: smb.csi.k8s.io
 parameters:
-  source: "${SECRET_SMB_PATH}"
+  source: "//${SECRET_SMB_PATH}"
   csi.storage.k8s.io/provisioner-secret-name: "smbcreds"
   csi.storage.k8s.io/provisioner-secret-namespace: "kube-system"
   csi.storage.k8s.io/node-stage-secret-name: "smbcreds"
@@ -17,5 +17,8 @@ mountOptions:
   - file_mode=0777
   - uid=1000
   - gid=1000
+  - noperm
+  - mfsymlinks
   - cache=loose
+  - noserverino # required to prevent data corruption
   - vers=3.0
