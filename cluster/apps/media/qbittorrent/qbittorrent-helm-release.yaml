@@ -49,16 +49,16 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: "qbittorrent-config"
+        existingClaim: qbittorrent-config
       downloads:
         enabled: true
-        type: emptyDir
+        existingClaim: downloads
       media:
         enabled: true
         existingClaim: media
         mountPath: /media
     nodeSelector:
-      doks.digitalocean.com/node-pool: k2-pool-89gsv47m4-cpu
+      node.kubernetes.io/instance-type: s-8vcpu-16gb-amd
     resources:
       requests:
         memory: 250Mi

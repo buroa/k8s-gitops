@@ -45,7 +45,10 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: "sonarr-config"
+        existingClaim: sonarr-config
+      downloads:
+        enabled: true
+        existingClaim: downloads
       media:
         enabled: true
         existingClaim: media

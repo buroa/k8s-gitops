@@ -45,7 +45,7 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: "plex-config"
+        existingClaim: plex-config
       tmp:
         enabled: true
         type: emptyDir

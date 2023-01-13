@@ -16,3 +16,6 @@ spec:
         name: openebs-nfs-charts
         namespace: flux-system
       interval: 5m
+  values:
+    nfsStorageClass:
+      backendStorageClass: ${CLUSTER_STORAGE_CLASS}

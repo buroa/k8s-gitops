@@ -12,3 +12,16 @@ spec:
       storage: 20T
   volumeName: media
   storageClassName: smb
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: downloads
+  namespace: media
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 150Gi
+  storageClassName: nfs-rwx-storage
