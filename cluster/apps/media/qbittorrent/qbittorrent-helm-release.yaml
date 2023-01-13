@@ -50,9 +50,6 @@ spec:
       config:
         enabled: true
         existingClaim: qbittorrent-config
-      downloads:
-        enabled: true
-        existingClaim: downloads
       media:
         enabled: true
         existingClaim: media
