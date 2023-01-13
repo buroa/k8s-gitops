@@ -9,4 +9,5 @@ spec:
   resources:
     requests:
       storage: 20T
+  volumeName: pvc-a27e97ba-569a-4b29-8824-694ecc67315d # media
   storageClassName: smb
