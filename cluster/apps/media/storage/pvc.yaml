@@ -24,4 +24,4 @@ spec:
   resources:
     requests:
       storage: 150Gi
-  storageClassName: nfs-rwx-storage
+  storageClassName: openebs-kernel-nfs
