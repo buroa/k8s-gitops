@@ -48,6 +48,8 @@ spec:
       runAsGroup: 1000
       fsGroup: 1000
       fsGroupChangePolicy: "OnRootMismatch"
+    podLabels:
+      vpn/ovpn: "true"
     persistence:
       config:
         enabled: true
