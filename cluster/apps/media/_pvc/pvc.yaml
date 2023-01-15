@@ -5,10 +5,9 @@ metadata:
   name: media
   namespace: media
 spec:
+  storageClassName: ""
   accessModes:
     - ReadWriteMany
   resources:
     requests:
-      storage: 20T
-  volumeName: media
-  storageClassName: smb
+      storage: 50T
