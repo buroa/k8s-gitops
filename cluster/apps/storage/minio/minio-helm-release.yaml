@@ -17,6 +17,7 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
+    mode: standalone
     rootUser: "${SECRET_MINIO_ROOT_USER}"
     rootPassword: "${SECRET_MINIO_ROOT_PASSWORD}"
     mountPath: /cache
