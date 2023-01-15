@@ -9,4 +9,3 @@ resources:
   - media.yaml
   - monitoring.yaml
   - networking.yaml
-  - storage.yaml
