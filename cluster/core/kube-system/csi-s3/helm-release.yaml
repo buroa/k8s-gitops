@@ -18,9 +18,14 @@ spec:
       interval: 5m
   values:
     storageClass:
-      mounter: rclone
+      mounter: geesefs
+      singleBucket: k2-k8s-do
+      mountOptions: |
+        --no-checksum --memory-limit 2000 --max-flushers 32 --max-parallel-parts 32 --part-sizes 25
+        --file-mode=0666 --dir-mode=0777 --uid=1000
+        --cache /tmp
       reclaimPolicy: Retain
     secret:
-      accessKey: "${SECRET_MINIO_ROOT_USER}"
-      secretKey: "${SECRET_MINIO_ROOT_PASSWORD}"
-      endpoint: http://minio.storage.svc:9000
+      accessKey: ${SECRET_S3_GATEWAY_ACCESS_KEY}
+      secretKey: ${SECRET_S3_GATEWAY_ACCESS_SECRET}
+      endpoint: https://${SECRET_S3_GATEWAY_SERVICE_ENDPOINT}
