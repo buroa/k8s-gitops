@@ -33,10 +33,7 @@ spec:
         ingress.kubernetes.io/force-ssl-redirect: "true"
         projectcontour.io/websocket-routes: "/"
       hosts:
-        - host: s3.${SECRET_PUBLIC_DOMAIN}
-          paths:
-            - path: /
-              pathType: Prefix
+        - s3.${SECRET_PUBLIC_DOMAIN}
       tls:
         - secretName: s3-tls
           hosts:
@@ -51,10 +48,7 @@ spec:
         ingress.kubernetes.io/force-ssl-redirect: "true"
         projectcontour.io/websocket-routes: "/"
       hosts:
-        - host: console.s3.${SECRET_PUBLIC_DOMAIN}
-          paths:
-            - path: /
-              pathType: Prefix
+        - console.s3.${SECRET_PUBLIC_DOMAIN}
       tls:
         - secretName: console-tls
           hosts:
@@ -71,11 +65,11 @@ spec:
         cpu: 25m
       limits:
         memory: 1000Mi
-    s3gateway:
-      enabled: true
-      serviceEndpoint: "https://${SECRET_S3_GATEWAY_SERVICE_ENDPOINT}"
-      accessKey: "${SECRET_S3_GATEWAY_ACCESS_KEY}"
-      secretKey: "${SECRET_S3_GATEWAY_SECRET_KEY}"
+    #s3gateway:
+    #  enabled: true
+    #  serviceEndpoint: "https://${SECRET_S3_GATEWAY_SERVICE_ENDPOINT}"
+    #  accessKey: "${SECRET_S3_GATEWAY_ACCESS_KEY}"
+    #  secretKey: "${SECRET_S3_GATEWAY_SECRET_KEY}"
     environment:
       MINIO_CACHE: "on"
       MINIO_CACHE_DRIVES: /cache
