@@ -40,6 +40,7 @@ spec:
           nr.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_CLUSTER_IP}
 
           # ns: media
+          autobrr.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_CLUSTER_IP}
           bazarr.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_CLUSTER_IP}
           usenet.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_CLUSTER_IP}
           requests.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_CLUSTER_IP}
