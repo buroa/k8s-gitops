@@ -1,0 +1,35 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: media
+  namespace: media
+spec:
+  storageClassName: csi-s3
+  capacity:
+    storage: 50T
+  accessModes:
+    - ReadWriteMany
+  claimRef:
+    name: media
+    namespace: media
+  csi:
+    driver: ru.yandex.s3.csi
+    controllerPublishSecretRef:
+      name: csi-s3-secret
+      namespace: kube-system
+    nodePublishSecretRef:
+      name: csi-s3-secret
+      namespace: kube-system
+    nodeStageSecretRef:
+      name: csi-s3-secret
+      namespace: kube-system
+    volumeAttributes:
+      capacity: 50T
+      mounter: geesefs
+      bucket: ${SECRET_S3_BUCKET}
+      options: >-
+        --no-checksum --memory-limit 2000 --max-flushers 32 --max-parallel-parts 32 --part-sizes 25
+        --dir-mode 0777 --file-mode 0666 --cache-file-mode 0666 --cache /tmp
+        --list-type 2
+    volumeHandle: "${SECRET_S3_BUCKET}/media"
