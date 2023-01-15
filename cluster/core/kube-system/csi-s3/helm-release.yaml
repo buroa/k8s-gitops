@@ -27,5 +27,5 @@ spec:
       reclaimPolicy: Retain
     secret:
       accessKey: ${SECRET_S3_GATEWAY_ACCESS_KEY}
-      secretKey: ${SECRET_S3_GATEWAY_ACCESS_SECRET}
+      secretKey: ${SECRET_S3_GATEWAY_SECRET_KEY}
       endpoint: https://${SECRET_S3_GATEWAY_SERVICE_ENDPOINT}
