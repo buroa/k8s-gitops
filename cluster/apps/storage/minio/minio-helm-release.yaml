@@ -20,11 +20,17 @@ spec:
     mode: standalone
     rootUser: "${SECRET_MINIO_ROOT_USER}"
     rootPassword: "${SECRET_MINIO_ROOT_PASSWORD}"
-    mountPath: /cache
+    extraVolumeMounts:
+      - name: cache
+        mountPath: /cache
+    extraVolumes:
+      - name: cache
+        persistentVolumeClaim:
+          claimName: minio-cache
     replicas: 1
     persistence:
       enabled: true
-      existingClaim: minio-cache
+      existingClaim: minio-config
     ingress:
       enabled: true
       annotations:
