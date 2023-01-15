@@ -21,6 +21,7 @@ spec:
     rootUser: "${SECRET_MINIO_ROOT_USER}"
     rootPassword: "${SECRET_MINIO_ROOT_PASSWORD}"
     mountPath: /cache
+    replicas: 1
     persistence:
       enabled: true
       existingClaim: minio-cache
