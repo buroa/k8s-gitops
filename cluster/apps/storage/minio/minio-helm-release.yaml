@@ -26,9 +26,14 @@ spec:
         ingress.kubernetes.io/force-ssl-redirect: "true"
         projectcontour.io/websocket-routes: "/"
       hosts:
-        - s3.${SECRET_PUBLIC_DOMAIN}
+        - host: s3.${SECRET_PUBLIC_DOMAIN}
+          paths:
+            - path: /
+              pathType: Prefix
       tls:
-        - s3.${SECRET_PUBLIC_DOMAIN}
+        - secretName: minio-tls
+          hosts:
+            - s3.${SECRET_PUBLIC_DOMAIN}
     resources:
       requests:
         memory: 350Mi
