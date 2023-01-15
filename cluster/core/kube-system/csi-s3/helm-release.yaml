@@ -21,9 +21,9 @@ spec:
       mounter: geesefs
       singleBucket: k2-k8s-do
       mountOptions: |
-        --no-checksum --memory-limit 2000 --max-flushers 32 --max-parallel-parts 32 --part-sizes 25
-        --file-mode=0666 --dir-mode=0777 --uid=1000
-        --cache /tmp
+        --no-checksum --memory-limit 4000 --max-flushers 32 --max-parallel-parts 32 --part-sizes 25 
+        --dir-mode 0777 --file-mode 0666 
+        --list-type 2 --cache /tmp
       reclaimPolicy: Retain
     secret:
       accessKey: ${SECRET_S3_GATEWAY_ACCESS_KEY}
