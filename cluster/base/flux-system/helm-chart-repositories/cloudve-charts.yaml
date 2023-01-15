@@ -1,0 +1,10 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: cloudve-charts
+  namespace: flux-system
+spec:
+  interval: 10m
+  url: https://github.com/CloudVE/helm-charts/raw/master
+  timeout: 3m
