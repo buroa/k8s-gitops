@@ -17,23 +17,6 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
-    ingress:
-      enabled: true
-      annotations:
-        kubernetes.io/tls-acme: "true"
-        kubernetes.io/ingress.class: contour
-        cert-manager.io/cluster-issuer: letsencrypt-prod
-        ingress.kubernetes.io/force-ssl-redirect: "true"
-        projectcontour.io/websocket-routes: "/"
-      hosts:
-        - host: s3.${SECRET_PUBLIC_DOMAIN}
-          paths:
-            - path: /
-              pathType: Prefix
-      tls:
-        - secretName: minio-tls
-          hosts:
-            - s3.${SECRET_PUBLIC_DOMAIN}
     resources:
       requests:
         memory: 350Mi
