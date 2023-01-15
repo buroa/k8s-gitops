@@ -17,6 +17,54 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
+    rootUser: "${SECRET_MINIO_ROOT_USER}"
+    rootPassword: "${SECRET_MINIO_ROOT_PASSWORD}"
+    mountPath: /cache
+    persistence:
+      enabled: true
+      existingClaim: minio-cache
+    ingress:
+      enabled: true
+      apiVersion: networking.k8s.io/v1
+      annotations:
+        kubernetes.io/tls-acme: "true"
+        kubernetes.io/ingress.class: contour
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+        ingress.kubernetes.io/force-ssl-redirect: "true"
+        projectcontour.io/websocket-routes: "/"
+      hosts:
+        - host: s3.${SECRET_PUBLIC_DOMAIN}
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - secretName: s3-tls
+          hosts:
+            - s3.${SECRET_PUBLIC_DOMAIN}
+    consoleIngress:
+      enabled: true
+      apiVersion: networking.k8s.io/v1
+      annotations:
+        kubernetes.io/tls-acme: "true"
+        kubernetes.io/ingress.class: contour
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+        ingress.kubernetes.io/force-ssl-redirect: "true"
+        projectcontour.io/websocket-routes: "/"
+      hosts:
+        - host: console.s3.${SECRET_PUBLIC_DOMAIN}
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - secretName: console-tls
+          hosts:
+            - console.s3.${SECRET_PUBLIC_DOMAIN}
+    securityContext:
+      enabled: true
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: "OnRootMismatch"
     resources:
       requests:
         memory: 350Mi
@@ -29,23 +77,12 @@ spec:
       accessKey: "${SECRET_S3_GATEWAY_ACCESS_KEY}"
       secretKey: "${SECRET_S3_GATEWAY_SECRET_KEY}"
     environment:
-      MINIO_ROOT_USER: "${SECRET_MINIO_ROOT_USER}"
-      MINIO_ROOT_PASSWORD: "${SECRET_MINIO_ROOT_PASSWORD}"
       MINIO_CACHE: "on"
       MINIO_CACHE_DRIVES: /cache
       MINIO_CACHE_QUOTA: 80
       MINIO_CACHE_AFTER: 0
       MINIO_CACHE_WATERMARK_LOW: 70
       MINIO_CACHE_WATERMARK_HIGH: 90
-    mountPath: /cache
-    persistence:
-      enabled: true
-      existingClaim: minio-cache
-    securityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
-      fsGroupChangePolicy: "OnRootMismatch"
     metrics:
       serviceMonitor:
         enabled: true
