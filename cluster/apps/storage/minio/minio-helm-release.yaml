@@ -25,7 +25,7 @@ spec:
         memory: 1000Mi
     s3gateway:
       enabled: true
-      serviceEndpoint: "${SECRET_S3_GATEWAY_SERVICE_ENDPOINT}"
+      serviceEndpoint: "https://${SECRET_S3_GATEWAY_SERVICE_ENDPOINT}"
       accessKey: "${SECRET_S3_GATEWAY_ACCESS_KEY}"
       secretKey: "${SECRET_S3_GATEWAY_SECRET_KEY}"
     environment:
