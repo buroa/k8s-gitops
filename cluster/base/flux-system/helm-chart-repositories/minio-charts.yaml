@@ -6,5 +6,5 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
-  url: https://helm.min.io/
+  url: https://charts.min.io/
   timeout: 3m
