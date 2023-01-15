@@ -1,0 +1,58 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: minio
+  namespace: storage
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://helm.min.io/
+      chart: minio
+      version: 8.0.10
+      sourceRef:
+        kind: HelmRepository
+        name: minio-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    ingress:
+      enabled: true
+      annotations:
+        kubernetes.io/tls-acme: "true"
+        kubernetes.io/ingress.class: contour
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+        ingress.kubernetes.io/force-ssl-redirect: "true"
+        projectcontour.io/websocket-routes: "/"
+      hosts:
+        - s3.${SECRET_PUBLIC_DOMAIN}
+      tls:
+        - s3.${SECRET_PUBLIC_DOMAIN}
+    resources:
+      requests:
+        memory: 350Mi
+        cpu: 25m
+      limits:
+        memory: 1000Mi
+    s3gateway:
+      enabled: true
+      serviceEndpoint: "${SECRET_S3_GATEWAY_SERVICE_ENDPOINT}"
+      accessKey: "${SECRET_S3_GATEWAY_ACCESS_KEY}"
+      secretKey: "${SECRET_S3_GATEWAY_SECRET_KEY}"
+    environment:
+      MINIO_ROOT_USER: "${SECRET_MINIO_ROOT_USER}"
+      MINIO_ROOT_PASSWORD: "${SECRET_MINIO_ROOT_PASSWORD}"
+      MINIO_CACHE: "on"
+      MINIO_CACHE_DRIVES: /cache
+      MINIO_CACHE_QUOTA: 80
+      MINIO_CACHE_AFTER: 0
+      MINIO_CACHE_WATERMARK_LOW: 70
+      MINIO_CACHE_WATERMARK_HIGH: 90
+    mountPath: /cache
+    persistence:
+      enabled: true
+      existingClaim: minio-cache
+    metrics:
+      serviceMonitor:
+        enabled: true
