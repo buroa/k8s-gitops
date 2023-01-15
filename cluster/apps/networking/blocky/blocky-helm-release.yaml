@@ -56,6 +56,9 @@ spec:
           grafana.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_CLUSTER_IP}
           prometheus.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_CLUSTER_IP}
 
+          # ns: storage
+          s3.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_CLUSTER_IP}
+
       blocking:
         blackLists:
           ads:
