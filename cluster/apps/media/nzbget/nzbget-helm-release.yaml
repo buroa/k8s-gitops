@@ -49,7 +49,8 @@ spec:
         existingClaim: nzbget-config
       downloads:
         enabled: true
-        type: emptyDir
+        existingClaim: downloads
+        mountPath: /downloads
       media:
         enabled: true
         existingClaim: media
