@@ -35,6 +35,8 @@ spec:
             - name: creds
               mountPath: /etc/cloudflared/creds
               readOnly: true
+      nodeSelector:
+        node.kubernetes.io/instance-type: s-4vcpu-8gb-amd
       volumes:
         - name: creds
           secret:

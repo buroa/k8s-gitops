@@ -124,6 +124,8 @@ spec:
     prometheus:
       serviceMonitor:
         enabled: true
+    nodeSelector:
+      node.kubernetes.io/instance-type: s-4vcpu-8gb-amd
     resources:
       requests:
         memory: 280Mi
