@@ -9,5 +9,5 @@ spec:
     - ReadWriteMany
   resources:
     requests:
-      storage: 200Gi
+      storage: 250Gi
   storageClassName: openebs-kernel-nfs
