@@ -47,6 +47,10 @@ spec:
       config:
         enabled: true
         existingClaim: nzbget-config
+      incomplete:
+        enabled: true
+        type: emptyDir
+        mountPath: /incomplete
       downloads:
         enabled: true
         existingClaim: downloads
