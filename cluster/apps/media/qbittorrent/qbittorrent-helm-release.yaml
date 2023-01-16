@@ -51,10 +51,9 @@ spec:
         spec:
           exec:
             command:
-              - /usr/bin/ls
+              - ls
               - /media
-        failureThreshold: 5
-        initialDelaySeconds: 60
+        failureThreshold: 1
         periodSeconds: 10
         successThreshold: 1
         timeoutSeconds: 10
