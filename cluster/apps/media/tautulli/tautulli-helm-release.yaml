@@ -19,7 +19,7 @@ spec:
   values:
     image:
       repository: linuxserver/tautulli
-      tag: 2021.12.16
+      tag: v2.11.1-ls63
     env:
       TZ: "${TIMEZONE}"
       PUID: "1000"

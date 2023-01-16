@@ -20,7 +20,7 @@ spec:
   values:
     image:
       repository: linuxserver/qbittorrent
-      tag: 20.04.1
+      tag: 4.5.0-r1-ls240
     env:
       TZ: "${TIMEZONE}"
       PUID: "1000"
