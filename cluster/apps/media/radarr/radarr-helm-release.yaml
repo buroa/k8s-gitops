@@ -47,6 +47,10 @@ spec:
       config:
         enabled: true
         existingClaim: radarr-config
+      downloads:
+        enabled: true
+        existingClaim: downloads
+        mountPath: /downloads
       media:
         enabled: true
         existingClaim: media
