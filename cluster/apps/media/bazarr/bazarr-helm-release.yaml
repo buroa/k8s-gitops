@@ -43,6 +43,31 @@ spec:
           - secretName: bazarr-tls
             hosts:
               - bazarr.${SECRET_PUBLIC_DOMAIN}
+    probes:
+      liveness:
+        enabled: true
+        custom: true
+        spec:
+          exec:
+            command:
+              - /usr/bin/ls
+              - /media
+        failureThreshold: 5
+        initialDelaySeconds: 60
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 10
+      readiness:
+        enabled: true
+        custom: true
+        spec:
+          tcpSocket:
+            port: http
+        failureThreshold: 5
+        initialDelaySeconds: 60
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 10
     persistence:
       config:
         enabled: true
@@ -52,7 +77,7 @@ spec:
         existingClaim: media
         mountPath: /media
     nodeSelector:
-      node.kubernetes.io/instance-type: s-4vcpu-8gb-amd
+      node.kubernetes.io/instance-type: s-8vcpu-16gb-amd
     resources:
       requests:
         memory: 250Mi

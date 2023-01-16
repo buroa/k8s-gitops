@@ -44,13 +44,38 @@ spec:
           - secretName: torrent-tls
             hosts:
               - torrent.${SECRET_PUBLIC_DOMAIN}
+    probes:
+      liveness:
+        enabled: true
+        custom: true
+        spec:
+          exec:
+            command:
+              - /usr/bin/ls
+              - /media
+        failureThreshold: 5
+        initialDelaySeconds: 60
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 10
+      readiness:
+        enabled: true
+        custom: true
+        spec:
+          tcpSocket:
+            port: http
+        failureThreshold: 5
+        initialDelaySeconds: 60
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 10
     persistence:
       config:
         enabled: true
         existingClaim: qbittorrent-config
       downloads:
         enabled: true
-        type: emptyDir
+        existingClaim: qbittorrent-downloads
       media:
         enabled: true
         existingClaim: media
