@@ -55,10 +55,6 @@ spec:
         enabled: true
         existingClaim: downloads
         mountPath: /downloads
-      media:
-        enabled: true
-        existingClaim: media
-        mountPath: /media
     nodeSelector:
       node.kubernetes.io/instance-type: s-8vcpu-16gb-amd
     resources:
