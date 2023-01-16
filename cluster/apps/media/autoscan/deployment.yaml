@@ -40,6 +40,8 @@ spec:
               subPath: config.yml
             - name: media
               mountPath: /media
+      nodeSelector:
+        node.kubernetes.io/instance-type: s-8vcpu-16gb-amd
       volumes:
         - name: autoscan-config
           persistentVolumeClaim:

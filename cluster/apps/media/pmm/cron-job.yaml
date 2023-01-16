@@ -13,6 +13,7 @@ spec:
       template:
         spec:
           restartPolicy: OnFailure
+
           containers:
             - name: pmm
               image: linuxserver/plex-meta-manager:1.18.2
@@ -25,8 +26,10 @@ spec:
               volumeMounts:
                 - name: config
                   mountPath: /config
+
           nodeSelector:
             node.kubernetes.io/instance-type: s-8vcpu-16gb-amd
+
           volumes:
             - name: config
               persistentVolumeClaim:

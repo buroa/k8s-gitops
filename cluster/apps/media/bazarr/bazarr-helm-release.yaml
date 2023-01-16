@@ -51,6 +51,8 @@ spec:
         enabled: true
         existingClaim: media
         mountPath: /media
+    nodeSelector:
+      node.kubernetes.io/instance-type: s-4vcpu-8gb-amd
     resources:
       requests:
         memory: 250Mi

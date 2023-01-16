@@ -64,6 +64,9 @@ spec:
                   subPath: recyclarr.yml
                   readOnly: true
 
+          nodeSelector:
+            node.kubernetes.io/instance-type: s-4vcpu-8gb-amd
+
           volumes:
             - name: config
               configMap:
