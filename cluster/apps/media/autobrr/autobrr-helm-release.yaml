@@ -48,12 +48,14 @@ spec:
       runAsGroup: 1000
       fsGroup: 1000
       fsGroupChangePolicy: "OnRootMismatch"
-    podLabels:
-      vpn/ovpn: "true"
     persistence:
       config:
         enabled: true
         existingClaim: autobrr-config
+    nodeSelector:
+      node.kubernetes.io/instance-type: s-4vcpu-8gb-amd
+    podLabels:
+      vpn/ovpn: "true"
     resources:
       requests:
         memory: 350Mi

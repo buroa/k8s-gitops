@@ -43,12 +43,14 @@ spec:
           - secretName: prowlarr-tls
             hosts:
               - prowlarr.${SECRET_PUBLIC_DOMAIN}
-    podLabels:
-      vpn/ovpn: "true"
     persistence:
       config:
         enabled: true
         existingClaim: prowlarr-config
+    nodeSelector:
+      node.kubernetes.io/instance-type: s-4vcpu-8gb-amd
+    podLabels:
+      vpn/ovpn: "true"
     resources:
       requests:
         memory: 100Mi

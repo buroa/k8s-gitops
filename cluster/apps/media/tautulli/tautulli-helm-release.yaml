@@ -46,6 +46,8 @@ spec:
       config:
         enabled: true
         existingClaim: tautulli-config
+    nodeSelector:
+      node.kubernetes.io/instance-type: s-4vcpu-8gb-amd
     resources:
       requests:
         memory: 350Mi

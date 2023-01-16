@@ -23,6 +23,8 @@ spec:
     env:
       TZ: "${TIMEZONE}"
       LOG_LEVEL: "info"
+    nodeSelector:
+      node.kubernetes.io/instance-type: s-4vcpu-8gb-amd
     resources:
       requests:
         memory: 100Mi

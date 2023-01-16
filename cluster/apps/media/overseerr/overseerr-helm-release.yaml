@@ -47,6 +47,8 @@ spec:
         enabled: true
         mountPath: /config
         existingClaim: overseerr-config
+    nodeSelector:
+      node.kubernetes.io/instance-type: s-4vcpu-8gb-amd
     resources:
       requests:
         memory: 100Mi
