@@ -43,6 +43,11 @@ spec:
           - secretName: usenet-tls
             hosts:
               - usenet.${SECRET_PUBLIC_DOMAIN}
+    podSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: "OnRootMismatch"
     persistence:
       config:
         enabled: true
