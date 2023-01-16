@@ -22,8 +22,8 @@ spec:
       singleBucket: ${SECRET_S3_BUCKET}
       mountOptions: >-
         --no-checksum --max-flushers 32 --max-parallel-parts 32 --part-sizes 25
-        --read-ahead-large 20480 --cache /tmp --cache-file-mode 0666
-        --dir-mode 0777 --file-mode 0666 --list-type 2
+        --read-ahead-large 20480 --dir-mode 0777 --file-mode 0666 --list-type 2
+        --cache-file-mode 0666 --cache-to-disk-hits 0 --cache /tmp
       reclaimPolicy: Retain
     secret:
       accessKey: ${SECRET_S3_GATEWAY_ACCESS_KEY}
