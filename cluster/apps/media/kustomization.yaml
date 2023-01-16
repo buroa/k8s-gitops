@@ -7,7 +7,6 @@ resources:
   - autoscan
   - bazarr
   - flaresolverr
-  - nzbget
   - overseerr
   - plex
   - pmm
@@ -15,5 +14,6 @@ resources:
   - qbittorrent
   - radarr
   - recyclarr
+  - sabnzbd
   - sonarr
   - tautulli
