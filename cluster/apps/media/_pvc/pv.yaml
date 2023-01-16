@@ -29,7 +29,7 @@ spec:
       mounter: geesefs
       bucket: ${SECRET_S3_BUCKET}
       options: >-
-        --no-checksum --memory-limit 2000 --max-flushers 32 --max-parallel-parts 32 --part-sizes 25
-        --dir-mode 0777 --file-mode 0666 --cache-file-mode 0666 --cache /tmp
-        --list-type 2
+        --no-checksum --max-flushers 32 --max-parallel-parts 32 --part-sizes 25
+        --read-ahead-large 20480 --cache /tmp --cache-file-mode 0666
+        --dir-mode 0777 --file-mode 0666 --list-type 2
     volumeHandle: "${SECRET_S3_BUCKET}/media"
