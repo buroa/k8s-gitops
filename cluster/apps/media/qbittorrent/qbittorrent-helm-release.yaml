@@ -51,6 +51,10 @@ spec:
       config:
         enabled: true
         existingClaim: qbittorrent-config
+      incomplete:
+        enabled: true
+        type: emptyDir
+        mountPath: /incomplete
       downloads:
         enabled: true
         existingClaim: downloads
