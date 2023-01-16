@@ -74,7 +74,7 @@ spec:
         existingClaim: nzbget-config
       downloads:
         enabled: true
-        existingClaim: nzbget-downloads
+        existingClaim: downloads
       media:
         enabled: true
         existingClaim: media
