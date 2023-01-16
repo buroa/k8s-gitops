@@ -23,26 +23,20 @@ spec:
       tag:
 
     DNS: 172.17.0.1
-
     DNSPolicy: None
-
     clusterName: "cluster.local"
-
     routed_namespaces:
       - media
 
     settings:
       NOT_ROUTED_TO_GATEWAY_CIDRS: "${CLUSTER_POD_IP_RANGE} ${CLUSTER_SERVICE_IP_RANGE} ${CLUSTER_IP_RANGE}"
-
       VXLAN_ID: 42
       VXLAN_IP_NETWORK: "172.17.0"
       VXLAN_GATEWAY_FIRST_DYNAMIC_IP: 20
-
       VPN_INTERFACE: wg0
       VPN_BLOCK_OTHER_TRAFFIC: true
       VPN_TRAFFIC_PORT: 9929
       VPN_LOCAL_CIDRS: "${CLUSTER_POD_IP_RANGE} ${CLUSTER_SERVICE_IP_RANGE} ${CLUSTER_IP_RANGE}"
-
       DNS_LOCAL_CIDRS: "cluster.local"
 
     publicPorts:
@@ -67,16 +61,15 @@ spec:
         repository: ghcr.io/k8s-at-home/gateway-admision-controller
         pullPolicy: IfNotPresent
         tag: v3.6.0
-
       replicas: 1
-
       strategy:
         type: RollingUpdate
-
       namespaceSelector:
         type: label
-        label: "vpn"
-
+        label: vpn
       gatewayDefault: false
       gatewayLabel: vpn/ovpn
       gatewayAnnotation: vpn/ovpn
+
+    nodeSelector:
+      node.kubernetes.io/instance-type: s-8vcpu-16gb-amd
