@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: nzbget-config
+  name: sabnzbd-config
   namespace: media
 spec:
   accessModes:

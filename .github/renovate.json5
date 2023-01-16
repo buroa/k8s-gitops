@@ -99,7 +99,7 @@
       matchPackageNames: [
         "linuxserver/bazarr",
         "linuxserver/flaresolverr",
-        "linuxserver/nzbget",
+        "linuxserver/sabnzbd",
         "linuxserver/overseerr",
         "linuxserver/prowlarr",
         "linuxserver/qbittorrent",
