@@ -8,10 +8,10 @@ metadata:
   namespace: media
 spec:
   ports:
-    - name: autoscan
+    - name: http
       port: 3030
       protocol: TCP
-      targetPort: autoscan
+      targetPort: http
   selector:
     app.kubernetes.io/instance: autoscan
     app.kubernetes.io/name: autoscan

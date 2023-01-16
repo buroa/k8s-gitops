@@ -25,13 +25,25 @@ spec:
               value: "1000"
           ports:
             - containerPort: 3030
-              name: autoscan
+              name: http
           livenessProbe:
-            tcpSocket:
-              port: autoscan
-            failureThreshold: 1
-            initialDelaySeconds: 10
+            exec:
+              command:
+                - /bin/ls
+                - /media
+            failureThreshold: 5
+            initialDelaySeconds: 60
             periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 10
+          readinessProbe:
+            tcpSocket:
+              port: http
+            failureThreshold: 5
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 10
           volumeMounts:
             - name: autoscan-config
               mountPath: /config
@@ -41,7 +53,7 @@ spec:
             - name: media
               mountPath: /media
       nodeSelector:
-        node.kubernetes.io/instance-type: s-4vcpu-8gb-amd
+        node.kubernetes.io/instance-type: s-8vcpu-16gb-amd
       volumes:
         - name: autoscan-config
           persistentVolumeClaim:
@@ -49,6 +61,3 @@ spec:
         - name: autoscan-config-file
           secret:
             secretName: autoscan-config
-        - name: media
-          persistentVolumeClaim:
-            claimName: media
