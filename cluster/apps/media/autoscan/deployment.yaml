@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -26,23 +27,6 @@ spec:
           ports:
             - containerPort: 3030
               name: http
-          livenessProbe:
-            exec:
-              command:
-                - ls
-                - /media
-            failureThreshold: 1
-            periodSeconds: 10
-            successThreshold: 1
-            timeoutSeconds: 10
-          readinessProbe:
-            tcpSocket:
-              port: http
-            failureThreshold: 5
-            initialDelaySeconds: 60
-            periodSeconds: 10
-            successThreshold: 1
-            timeoutSeconds: 10
           volumeMounts:
             - name: autoscan-config
               mountPath: /config
