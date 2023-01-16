@@ -24,6 +24,7 @@ spec:
       TZ: "${TIMEZONE}"
       PUID: "1000"
       PGID: "1000"
+      HOST_WHITELIST_ENTRIES: "usenet.${SECRET_PUBLIC_DOMAIN}"
     ingress:
       main:
         enabled: true
