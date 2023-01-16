@@ -75,7 +75,7 @@ spec:
         existingClaim: qbittorrent-config
       downloads:
         enabled: true
-        existingClaim: qbittorrent-downloads
+        existingClaim: downloads
       media:
         enabled: true
         existingClaim: media
