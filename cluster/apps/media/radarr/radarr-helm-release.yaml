@@ -43,30 +43,6 @@ spec:
           - secretName: radarr-tls
             hosts:
               - radarr.${SECRET_PUBLIC_DOMAIN}
-    probes:
-      liveness:
-        enabled: true
-        custom: true
-        spec:
-          exec:
-            command:
-              - ls
-              - /media
-        failureThreshold: 1
-        periodSeconds: 10
-        successThreshold: 1
-        timeoutSeconds: 10
-      readiness:
-        enabled: true
-        custom: true
-        spec:
-          tcpSocket:
-            port: http
-        failureThreshold: 5
-        initialDelaySeconds: 60
-        periodSeconds: 10
-        successThreshold: 1
-        timeoutSeconds: 10
     persistence:
       config:
         enabled: true
