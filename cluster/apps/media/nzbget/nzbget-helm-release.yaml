@@ -19,7 +19,7 @@ spec:
   values:
     image:
       repository: linuxserver/nzbget
-      tag: testing-version-v21.2-r2333
+      tag: v21.1-ls137
     env:
       TZ: "${TIMEZONE}"
       PUID: "1000"
