@@ -35,7 +35,7 @@ spec:
         --buffer-size 16M
         --dir-cache-time 5m
         --vfs-cache-max-age 5m
-        --vfs-cache-max-size 250G
+        --vfs-cache-max-size 100G
         --vfs-read-chunk-size 64M
         --vfs-read-chunk-size-limit 2G
     volumeHandle: "${SECRET_S3_BUCKET}/media"
