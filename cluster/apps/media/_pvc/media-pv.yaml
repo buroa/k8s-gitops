@@ -26,10 +26,14 @@ spec:
       namespace: kube-system
     volumeAttributes:
       capacity: 50T
-      mounter: geesefs
+      mounter: rclone
       bucket: ${SECRET_S3_BUCKET}
       options: >-
-        --no-checksum --max-flushers 32 --max-parallel-parts 32 --part-sizes 25
-        --read-ahead-large 20480 --dir-mode 0777 --file-mode 0666 --list-type 2
-        --cache-file-mode 0666 --cache-to-disk-hits 0 --cache /tmp
+        --allow-other
+        --umask 002
+        --cache-dir=/tmp
+        --buffer-size 32M
+        --dir-cache-time 15m
+        --vfs-read-chunk-size 64M
+        --vfs-read-chunk-size-limit 2G
     volumeHandle: "${SECRET_S3_BUCKET}/media"
