@@ -82,3 +82,8 @@ spec:
           - secretName: grafana-tls
             hosts:
               - grafana.${SECRET_PUBLIC_DOMAIN}
+
+      persistence:
+        enabled: true
+        type: pvc
+        existingClaim: grafana-config
