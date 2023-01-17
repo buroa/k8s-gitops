@@ -16,7 +16,7 @@ spec:
 
           containers:
             - name: pmm
-              image: linuxserver/plex-meta-manager:1.18.2
+              image: linuxserver/plex-meta-manager:1.18.3
               imagePullPolicy: IfNotPresent
               env:
                 - name: TZ
