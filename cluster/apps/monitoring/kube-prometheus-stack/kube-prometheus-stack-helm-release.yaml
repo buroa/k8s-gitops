@@ -10,6 +10,7 @@ spec:
   timeout: 20m
   chart:
     spec:
+      # renovate: registryUrl=https://prometheus-community.github.io/helm-charts
       chart: kube-prometheus-stack
       version: 40.5.0
       sourceRef:
@@ -20,20 +21,16 @@ spec:
     alertmanager:
       ingress:
         enabled: true
-
         annotations:
           kubernetes.io/tls-acme: "true"
           kubernetes.io/ingress.class: contour
           cert-manager.io/cluster-issuer: letsencrypt-prod
           ingress.kubernetes.io/force-ssl-redirect: "true"
           projectcontour.io/websocket-routes: "/"
-
         hosts:
           - am.${SECRET_PUBLIC_DOMAIN}
-
         paths:
           - /
-
         tls:
           - secretName: am-tls
             hosts:
@@ -42,20 +39,16 @@ spec:
     prometheus:
       ingress:
         enabled: true
-
         annotations:
           kubernetes.io/tls-acme: "true"
           kubernetes.io/ingress.class: contour
           cert-manager.io/cluster-issuer: letsencrypt-prod
           ingress.kubernetes.io/force-ssl-redirect: "true"
           projectcontour.io/websocket-routes: "/"
-
         hosts:
           - prometheus.${SECRET_PUBLIC_DOMAIN}
-
         paths:
           - /
-
         tls:
           - secretName: prometheus-tls
             hosts:
@@ -64,25 +57,20 @@ spec:
     grafana:
       ingress:
         enabled: true
-
         annotations:
           kubernetes.io/tls-acme: "true"
           kubernetes.io/ingress.class: contour
           cert-manager.io/cluster-issuer: letsencrypt-prod
           ingress.kubernetes.io/force-ssl-redirect: "true"
           projectcontour.io/websocket-routes: "/"
-
         hosts:
           - grafana.${SECRET_PUBLIC_DOMAIN}
-
         paths:
           - /
-
         tls:
           - secretName: grafana-tls
             hosts:
               - grafana.${SECRET_PUBLIC_DOMAIN}
-
       persistence:
         enabled: true
         type: pvc
