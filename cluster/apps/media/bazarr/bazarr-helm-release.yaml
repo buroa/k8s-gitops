@@ -19,7 +19,7 @@ spec:
   values:
     image:
       repository: linuxserver/bazarr
-      tag: development-v1.1.5-beta.4-ls461
+      tag: v1.1.4-ls177
     env:
       TZ: "${TIMEZONE}"
       PUID: "1000"
