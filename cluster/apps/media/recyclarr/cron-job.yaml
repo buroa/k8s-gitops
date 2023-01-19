@@ -18,10 +18,10 @@ spec:
             - name: render-config
               image: ghcr.io/k8s-at-home/trash-updater:v1.8.2
               env:
-                - name: SONARR_APIKEY
-                  value: "${SONARR_APIKEY}"
-                - name: RADARR_APIKEY
-                  value: "${RADARR_APIKEY}"
+                - name: SECRET_SONARR_APIKEY
+                  value: "${SECRET_SONARR_APIKEY}"
+                - name: SECRET_RADARR_APIKEY
+                  value: "${SECRET_RADARR_APIKEY}"
               command:
                 - "/bin/bash"
                 - -c
