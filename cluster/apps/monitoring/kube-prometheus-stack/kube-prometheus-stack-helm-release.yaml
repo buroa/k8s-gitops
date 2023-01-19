@@ -53,18 +53,9 @@ spec:
             hosts:
               - prometheus.${SECRET_PUBLIC_DOMAIN}
       prometheusSpec:
-        ruleSelector:
-          matchExpressions:
-            - key: "non-existent-label"
-              operator: "DoesNotExist"
-        podMonitorSelector:
-          matchExpressions:
-            - key: "non-existent-label"
-              operator: "DoesNotExist"
-        serviceMonitorSelector:
-          matchExpressions:
-            - key: "non-existent-label"
-              operator: "DoesNotExist"
+        ruleSelectorNilUsesHelmValues: false
+        podMonitorSelectorNilUsesHelmValues: false
+        serviceMonitorSelectorNilUsesHelmValues: false
     grafana:
       ingress:
         enabled: true
