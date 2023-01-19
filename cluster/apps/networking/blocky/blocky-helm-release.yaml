@@ -121,9 +121,8 @@ spec:
             port: 53
             protocol: UDP
             targetPort: 53
-    prometheus:
-      serviceMonitor:
-        enabled: true
+    metrics:
+      enabled: true
     nodeSelector:
       node.kubernetes.io/instance-type: s-4vcpu-8gb-amd
     resources:
