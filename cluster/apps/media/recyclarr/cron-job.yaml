@@ -17,9 +17,11 @@ spec:
           initContainers:
             - name: render-config
               image: ghcr.io/k8s-at-home/trash-updater:v1.8.2
-              envFrom:
-                - secretRef:
-                    name: arr-apikeys
+              env:
+                - name: SONARR_APIKEY
+                  value: "${SONARR_APIKEY}"
+                - name: RADARR_APIKEY
+                  value: "${RADARR_APIKEY}"
               command:
                 - "/bin/bash"
                 - -c
