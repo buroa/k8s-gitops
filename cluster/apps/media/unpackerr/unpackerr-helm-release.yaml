@@ -25,12 +25,10 @@ spec:
       UN_SONARR_0_API_KEY: "${SECRET_SONARR_APIKEY}"
       UN_RADARR_0_URL: "http://radarr.media.svc:7878"
       UN_RADARR_0_API_KEY: "${SECRET_RADARR_APIKEY}"
-    podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
-      fsGroupChangePolicy: "OnRootMismatch"
     persistence:
+      config:
+        enabled: true
+        existingClaim: sonarr-config
       downloads:
         enabled: true
         existingClaim: downloads
