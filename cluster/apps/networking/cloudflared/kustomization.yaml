@@ -5,3 +5,4 @@ resources:
   - configmap.yaml
   - secrets.sops.yaml
   - deployment.yaml
+  - servicemonitor.yaml
