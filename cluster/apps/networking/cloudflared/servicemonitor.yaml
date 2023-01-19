@@ -3,16 +3,19 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   labels:
-    app: cloudflared
+    app.kubernetes.io/name: cloudflared
+    app.kubernetes.io/instance: cloudflared
   name: cloudflared
   namespace: networking
 spec:
   endpoints:
-    - port: metrics
-  jobLabel: app
+    - path: /metrics
+      port: metrics
+  jobLabel: app.kubernetes.io/name
   namespaceSelector:
     matchNames:
       - networking
   selector:
     matchLabels:
-      app: cloudflared
+      app.kubernetes.io/name: cloudflared
+      app.kubernetes.io/instance: cloudflared
