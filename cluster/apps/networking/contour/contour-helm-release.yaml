@@ -24,3 +24,6 @@ spec:
         type: ClusterIP
         clusterIP: "${ENVOY_CLUSTER_IP}"
         externalTrafficPolicy: ""
+    metrics:
+      serviceMonitor:
+        enabled: true
