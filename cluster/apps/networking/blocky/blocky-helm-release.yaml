@@ -100,6 +100,8 @@ spec:
         failureThreshold: 30
         periodSeconds: 10
     service:
+      main:
+        enabled: true
       dns-tcp:
         enabled: true
         type: ClusterIP
