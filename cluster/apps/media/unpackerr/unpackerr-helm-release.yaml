@@ -1,0 +1,45 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: unpackerr
+  namespace: media
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://k8s-at-home.com/charts/
+      chart: unpackerr
+      version: 5.4.2
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    image:
+      repository: hotio/unpackerr
+      tag: release-0.11.1
+    env:
+      UN_SONARR_0_URL: "http://sonarr.media.svc:8989"
+      UN_SONARR_0_API_KEY: "${SONARR_APIKEY}"
+      UN_RADARR_0_URL: "http://radarr.media.svc:7878"
+      UN_RADARR_0_API_KEY: "${RADARR_APIKEY}"
+    podSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: "OnRootMismatch"
+    persistence:
+      downloads:
+        enabled: true
+        existingClaim: downloads
+        mountPath: /downloads
+    nodeSelector:
+      node.kubernetes.io/instance-type: s-8vcpu-16gb-amd
+    resources:
+      requests:
+        memory: 350Mi
+        cpu: 25m
+      limits:
+        memory: 500Mi
