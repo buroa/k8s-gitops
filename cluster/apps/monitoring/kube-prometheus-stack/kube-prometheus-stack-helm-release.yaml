@@ -52,6 +52,9 @@ spec:
           - secretName: prometheus-tls
             hosts:
               - prometheus.${SECRET_PUBLIC_DOMAIN}
+      prometheusSpec:
+        podMonitorSelectorNilUsesHelmValues: false
+        serviceMonitorSelectorNilUsesHelmValues: false
     grafana:
       ingress:
         enabled: true
