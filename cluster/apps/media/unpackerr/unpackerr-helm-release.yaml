@@ -28,7 +28,7 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: unpackerr-config
+        type: emptyDir
       downloads:
         enabled: true
         existingClaim: downloads
