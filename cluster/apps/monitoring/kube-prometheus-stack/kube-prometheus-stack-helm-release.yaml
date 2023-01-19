@@ -53,17 +53,14 @@ spec:
             hosts:
               - prometheus.${SECRET_PUBLIC_DOMAIN}
       prometheusSpec:
-        ruleSelectorNilUsesHelmValues: false
         ruleSelector:
           matchExpressions:
             - key: "non-existent-label"
               operator: "DoesNotExist"
-        podMonitorSelectorNilUsesHelmValues: false
         podMonitorSelector:
           matchExpressions:
             - key: "non-existent-label"
               operator: "DoesNotExist"
-        serviceMonitorSelectorNilUsesHelmValues: false
         serviceMonitorSelector:
           matchExpressions:
             - key: "non-existent-label"
