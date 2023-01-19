@@ -5,6 +5,7 @@ metadata:
   labels:
     app.kubernetes.io/name: cloudflared
     app.kubernetes.io/instance: cloudflared
+    prometheus: monitoring
   name: cloudflared
   namespace: networking
 spec:

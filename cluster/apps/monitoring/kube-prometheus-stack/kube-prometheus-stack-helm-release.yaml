@@ -53,8 +53,18 @@ spec:
             hosts:
               - prometheus.${SECRET_PUBLIC_DOMAIN}
       prometheusSpec:
+        ruleSelectorNilUsesHelmValues: false
+        ruleSelector:
+          matchLabels:
+            prometheus: monitoring
         podMonitorSelectorNilUsesHelmValues: false
+        podMonitorSelector:
+          matchLabels:
+            prometheus: monitoring
         serviceMonitorSelectorNilUsesHelmValues: false
+        serviceMonitorSelector:
+          matchLabels:
+            prometheus: monitoring
     grafana:
       ingress:
         enabled: true
