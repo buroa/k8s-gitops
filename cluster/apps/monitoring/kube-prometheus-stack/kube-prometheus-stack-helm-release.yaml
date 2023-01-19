@@ -35,7 +35,6 @@ spec:
           - secretName: am-tls
             hosts:
               - am.${SECRET_PUBLIC_DOMAIN}
-
     prometheus:
       ingress:
         enabled: true
@@ -53,7 +52,6 @@ spec:
           - secretName: prometheus-tls
             hosts:
               - prometheus.${SECRET_PUBLIC_DOMAIN}
-
     grafana:
       ingress:
         enabled: true
@@ -71,6 +69,15 @@ spec:
           - secretName: grafana-tls
             hosts:
               - grafana.${SECRET_PUBLIC_DOMAIN}
+      grafana.ini:
+        auth.basic:
+          enabled: false
+        auth.proxy:
+          enabled: true
+          header_name: cf-access-authenticated-user-email
+          header_property: email
+          auto_sign_up: true
+          enable_login_token: false
       persistence:
         enabled: true
         type: pvc
