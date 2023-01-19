@@ -30,7 +30,7 @@ spec:
           volumeMounts:
             - name: omegabrr-config-file
               mountPath: /config/config.yaml
-              subPath: config.yml
+              subPath: config.yaml
       nodeSelector:
         node.kubernetes.io/instance-type: s-4vcpu-8gb-amd
       volumes:
