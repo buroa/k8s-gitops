@@ -7,6 +7,7 @@ resources:
   - autoscan
   - bazarr
   - flaresolverr
+  - omegabrr
   - overseerr
   - plex
   - pmm

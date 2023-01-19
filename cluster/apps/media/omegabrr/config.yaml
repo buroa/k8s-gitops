@@ -1,0 +1,30 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: omegabrr-config
+  namespace: media
+stringData:
+  config.yml: |
+    server:
+      host: 0.0.0.0
+      port: 7441
+      apiToken: ${SECRET_OMEGABRR_APIKEY}
+    schedule: "0 */6 * * *"
+    clients:
+      autobrr:
+        host: http://autobrr.media.svc:7474
+        apikey: ${SECRET_AUTOBRR_APIKEY}
+      arr:
+        - name: radarr
+          type: radarr
+          host: http://radarr.media.svc:7878
+          apikey: ${SECRET_RADARR_APIKEY}
+          filters:
+            - 1
+        - name: sonarr
+          type: sonarr
+          host: http://sonarr.media.svc:8989
+          apikey: ${SECRET_SONARR_APIKEY}
+          filters:
+            - 2
