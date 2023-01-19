@@ -28,7 +28,7 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: sonarr-config
+        existingClaim: unpackerr-config
       downloads:
         enabled: true
         existingClaim: downloads
