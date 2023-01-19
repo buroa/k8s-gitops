@@ -123,9 +123,6 @@ spec:
             targetPort: 53
     metrics:
       enabled: true
-      serviceMonitor:
-        labels:
-          prometheus: monitoring
     nodeSelector:
       node.kubernetes.io/instance-type: s-4vcpu-8gb-amd
     resources:
