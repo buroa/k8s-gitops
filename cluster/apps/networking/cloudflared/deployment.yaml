@@ -6,12 +6,14 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: cloudflared
+      app.kubernetes.io/name: cloudflared
+      app.kubernetes.io/instance: cloudflared
   replicas: 2
   template:
     metadata:
       labels:
-        app: cloudflared
+        app.kubernetes.io/name: cloudflared
+        app.kubernetes.io/instance: cloudflared
     spec:
       containers:
         - name: cloudflared
