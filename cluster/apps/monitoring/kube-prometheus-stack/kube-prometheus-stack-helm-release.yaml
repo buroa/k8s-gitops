@@ -55,16 +55,19 @@ spec:
       prometheusSpec:
         ruleSelectorNilUsesHelmValues: false
         ruleSelector:
-          matchLabels:
-            prometheus: monitoring
+          matchExpressions:
+            - key: "non-existent-label"
+              operator: "DoesNotExist"
         podMonitorSelectorNilUsesHelmValues: false
         podMonitorSelector:
-          matchLabels:
-            prometheus: monitoring
+          matchExpressions:
+            - key: "non-existent-label"
+              operator: "DoesNotExist"
         serviceMonitorSelectorNilUsesHelmValues: false
         serviceMonitorSelector:
-          matchLabels:
-            prometheus: monitoring
+          matchExpressions:
+            - key: "non-existent-label"
+              operator: "DoesNotExist"
     grafana:
       ingress:
         enabled: true
