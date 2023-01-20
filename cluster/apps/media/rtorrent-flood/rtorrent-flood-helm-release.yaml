@@ -20,7 +20,7 @@ spec:
   values:
     image:
       repository: jesec/rtorrent-flood
-      tag: latest@sha256:f0c894ec459e52d85bc69685247ddbd8e8fcf3709b50bf8ee8b0df3bf69b7b49
+      tag: latest@sha256:3ed619f32cae15dec9017cd6eefb21abfee48451ff4e09736847e8da2a06339f
     env:
       TZ: "${TIMEZONE}"
       PUID: "1000"
