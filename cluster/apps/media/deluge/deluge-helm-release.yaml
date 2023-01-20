@@ -56,7 +56,7 @@ spec:
       node.kubernetes.io/instance-type: s-8vcpu-16gb-amd
     podLabels:
       vpn/ovpn: "true"
-    hostname: deluge
+    hostname: torrent
     resources:
       requests:
         memory: 250Mi

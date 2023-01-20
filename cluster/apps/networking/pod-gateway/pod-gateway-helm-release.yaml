@@ -40,7 +40,7 @@ spec:
       DNS_LOCAL_CIDRS: "cluster.local"
 
     publicPorts:
-      - hostname: rtorrent-flood
+      - hostname: torrent
         IP: 10
         ports:
           - type: udp
