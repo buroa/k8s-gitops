@@ -63,6 +63,7 @@ spec:
       schedule2 = watch_start, 10, 10, ((load.start_verbose, (cat, (cfg.watch), "start/*.torrent")))
       dht.add_bootstrap = dht.transmissionbt.com:6881
       dht.add_bootstrap = dht.libtorrent.org:25401
+      dht.port.set = ${TORRENT_PUBLIC_PORT}
       throttle.max_uploads.set = 100
       throttle.max_uploads.global.set = 250
       throttle.min_peers.normal.set = 20
