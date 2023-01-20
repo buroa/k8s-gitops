@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: deluge-config
+  name: rtorrent-flood-config
   namespace: media
 spec:
   accessModes:

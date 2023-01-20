@@ -2,16 +2,16 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: deluge
+  name: rtorrent-flood
   namespace: media
 spec:
-  releaseName: deluge
+  releaseName: rtorrent-flood
   interval: 5m
   chart:
     spec:
       # renovate: registryUrl=https://k8s-at-home.com/charts/
-      chart: deluge
-      version: 5.4.2
+      chart: rtorrent-flood
+      version: 9.4.2
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home-charts
@@ -19,8 +19,8 @@ spec:
       interval: 5m
   values:
     image:
-      repository: linuxserver/deluge
-      tag: 2.1.1-r6-ls195
+      repository: jesec/rtorrent-flood
+      tag: latest@sha256:f0c894ec459e52d85bc69685247ddbd8e8fcf3709b50bf8ee8b0df3bf69b7b49
     env:
       TZ: "${TIMEZONE}"
       PUID: "1000"
@@ -47,7 +47,7 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: deluge-config
+        existingClaim: rtorrent-flood-config
       downloads:
         enabled: true
         existingClaim: downloads
@@ -56,7 +56,7 @@ spec:
       node.kubernetes.io/instance-type: s-8vcpu-16gb-amd
     podLabels:
       vpn/ovpn: "true"
-    hostname: deluge
+    hostname: rtorrent-flood
     resources:
       requests:
         memory: 250Mi

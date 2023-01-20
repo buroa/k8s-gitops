@@ -40,13 +40,13 @@ spec:
       DNS_LOCAL_CIDRS: "cluster.local"
 
     publicPorts:
-      - hostname: deluge
+      - hostname: torrent
         IP: 10
         ports:
           - type: udp
-            port: ${DELUGE_PUBLIC_PORT}
+            port: ${TORRENT_PUBLIC_PORT}
           - type: tcp
-            port: ${DELUGE_PUBLIC_PORT}
+            port: ${TORRENT_PUBLIC_PORT}
 
     addons:
       vpn:
