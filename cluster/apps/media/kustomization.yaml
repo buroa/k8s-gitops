@@ -6,7 +6,6 @@ resources:
   - autobrr
   - autoscan
   - bazarr
-  - deluge
   - flaresolverr
   - omegabrr
   - overseerr
