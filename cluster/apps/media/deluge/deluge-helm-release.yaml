@@ -2,16 +2,16 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: qbittorrent
+  name: deluge
   namespace: media
 spec:
-  releaseName: qbittorrent
+  releaseName: deluge
   interval: 5m
   chart:
     spec:
       # renovate: registryUrl=https://k8s-at-home.com/charts/
-      chart: qbittorrent
-      version: 13.5.2
+      chart: deluge
+      version: 5.4.2
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home-charts
@@ -19,8 +19,8 @@ spec:
       interval: 5m
   values:
     image:
-      repository: linuxserver/qbittorrent
-      tag: 4.5.0-r1-ls240
+      repository: linuxserver/deluge
+      tag: 2.1.1-r6-ls195
     env:
       TZ: "${TIMEZONE}"
       PUID: "1000"
@@ -47,7 +47,7 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: qbittorrent-config
+        existingClaim: deluge-config
       downloads:
         enabled: true
         existingClaim: downloads
@@ -56,7 +56,7 @@ spec:
       node.kubernetes.io/instance-type: s-8vcpu-16gb-amd
     podLabels:
       vpn/ovpn: "true"
-    hostname: qbittorrent
+    hostname: deluge
     resources:
       requests:
         memory: 250Mi

@@ -40,13 +40,13 @@ spec:
       DNS_LOCAL_CIDRS: "cluster.local"
 
     publicPorts:
-      - hostname: qbittorrent
+      - hostname: deluge
         IP: 10
         ports:
           - type: udp
-            port: ${QB_PUBLIC_PORT}
+            port: ${DELUGE_PUBLIC_PORT}
           - type: tcp
-            port: ${QB_PUBLIC_PORT}
+            port: ${DELUGE_PUBLIC_PORT}
 
     addons:
       vpn:
