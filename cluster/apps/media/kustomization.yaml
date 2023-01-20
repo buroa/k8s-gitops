@@ -15,6 +15,7 @@ resources:
   - prowlarr
   - radarr
   - recyclarr
+  - rtorrent-flood
   - sabnzbd
   - sonarr
   - tautulli
