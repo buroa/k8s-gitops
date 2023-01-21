@@ -31,8 +31,8 @@ spec:
         type: emptyDir
       downloads:
         enabled: true
-        existingClaim: downloads
-        mountPath: /downloads
+        type: hostPath
+        hostPath: /downloads
     nodeSelector:
       node.kubernetes.io/instance-type: s-8vcpu-16gb-amd
     resources:
