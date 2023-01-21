@@ -50,9 +50,8 @@ spec:
         existingClaim: sabnzbd-config
       downloads:
         enabled: true
-        type: hostDir
+        type: hostPath
         hostPath: /downloads
-        mountPath: /downloads
     nodeSelector:
       node.kubernetes.io/instance-type: s-8vcpu-16gb-amd
     resources:
