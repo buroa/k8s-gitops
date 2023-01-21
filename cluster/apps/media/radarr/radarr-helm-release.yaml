@@ -49,9 +49,8 @@ spec:
         existingClaim: radarr-config
       downloads:
         enabled: true
-        type: hostDir
+        type: hostPath
         hostPath: /downloads
-        mountPath: /downloads
       media:
         enabled: true
         existingClaim: media
