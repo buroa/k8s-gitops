@@ -50,7 +50,8 @@ spec:
         existingClaim: deluge-config
       downloads:
         enabled: true
-        existingClaim: downloads
+        type: hostDir
+        hostPath: /downloads
         mountPath: /downloads
     nodeSelector:
       node.kubernetes.io/instance-type: s-8vcpu-16gb-amd
