@@ -15,13 +15,14 @@ spec:
           restartPolicy: OnFailure
           containers:
             - name: pmm
-              image: linuxserver/plex-meta-manager:1.18.3
+              image: meisnate12/plex-meta-manager:v1.18.3
               imagePullPolicy: IfNotPresent
               env:
                 - name: TZ
                   value: "${TIMEZONE}"
               args:
                 - --run
+                - --read-only-config
               volumeMounts:
                 - name: config
                   mountPath: /config
