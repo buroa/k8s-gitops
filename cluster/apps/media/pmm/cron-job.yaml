@@ -13,7 +13,6 @@ spec:
       template:
         spec:
           restartPolicy: OnFailure
-
           containers:
             - name: pmm
               image: linuxserver/plex-meta-manager:1.18.3
@@ -26,11 +25,18 @@ spec:
               volumeMounts:
                 - name: config
                   mountPath: /config
-
+                - name: config-file
+                  mountPath: /config/config.yml
+                  subPath: config.yml
+                - name: config-file
+                  mountPath: /config/Pre-rolls.yml
+                  subPath: Pre-rolls.yml
           nodeSelector:
             node.kubernetes.io/instance-type: s-8vcpu-16gb-amd
-
           volumes:
             - name: config
               persistentVolumeClaim:
                 claimName: pmm-config
+            - name: config-file
+              secret:
+                secretName: pmm-config
