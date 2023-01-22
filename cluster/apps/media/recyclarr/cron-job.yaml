@@ -35,7 +35,7 @@ spec:
 
           containers:
             - name: sonarr
-              image: ghcr.io/recyclarr/recyclarr:4.2.0
+              image: ghcr.io/recyclarr/recyclarr:4.3.0
               imagePullPolicy: IfNotPresent
               env:
                 - name: TZ
@@ -51,7 +51,7 @@ spec:
                   readOnly: true
 
             - name: radarr
-              image: ghcr.io/recyclarr/recyclarr:4.2.0
+              image: ghcr.io/recyclarr/recyclarr:4.3.0
               imagePullPolicy: IfNotPresent
               env:
                 - name: TZ
