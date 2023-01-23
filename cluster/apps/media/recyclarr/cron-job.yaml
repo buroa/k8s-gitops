@@ -13,26 +13,6 @@ spec:
       template:
         spec:
           restartPolicy: OnFailure
-
-          initContainers:
-            - name: render-config
-              image: ghcr.io/k8s-at-home/trash-updater:v1.8.2
-              env:
-                - name: SECRET_SONARR_APIKEY
-                  value: "${SECRET_SONARR_APIKEY}"
-                - name: SECRET_RADARR_APIKEY
-                  value: "${SECRET_RADARR_APIKEY}"
-              command:
-                - "/bin/bash"
-                - -c
-              args:
-                - "envsubst < /config/recyclarr.yaml > /shared/recyclarr.yml"
-              volumeMounts:
-                - name: config
-                  mountPath: /config
-                - name: shared
-                  mountPath: /shared
-
           containers:
             - name: sonarr
               image: ghcr.io/recyclarr/recyclarr:4.3.0
@@ -45,11 +25,9 @@ spec:
               args:
                 - sonarr
               volumeMounts:
-                - name: shared
+                - name: autoscan-config-file
                   mountPath: /config/recyclarr.yml
                   subPath: recyclarr.yml
-                  readOnly: true
-
             - name: radarr
               image: ghcr.io/recyclarr/recyclarr:4.3.0
               imagePullPolicy: IfNotPresent
@@ -61,17 +39,12 @@ spec:
               args:
                 - radarr
               volumeMounts:
-                - name: shared
+                - name: autoscan-config-file
                   mountPath: /config/recyclarr.yml
                   subPath: recyclarr.yml
-                  readOnly: true
-
           nodeSelector:
             node.kubernetes.io/instance-type: s-4vcpu-8gb-amd
-
           volumes:
-            - name: config
-              configMap:
-                name: recyclarr-updater-config
-            - name: shared
-              emptyDir: {}
+            - name: recyclarr-config-file
+              secret:
+                secretName: recyclarr-config
