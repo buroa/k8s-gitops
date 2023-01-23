@@ -71,23 +71,11 @@
       matchUpdateTypes: ["patch"],
       labels: ["renovate/helm", "dep/patch"],
     },
-    // custom version schemes
-    {
-      matchDatasources: ["docker"],
-      versioning: "regex:^RELEASE\\.(?<major>\\d+)-(?<minor>\\d+)-(?<patch>\\d+)T.*Z(-(?<compatibility>.*))?$",
-      matchPackageNames: ["minio/minio"],
-    },
-    // pin package versions
-    {
-      matchDatasources: ["docker"],
-      allowedVersions: "<13",
-      matchPackageNames: ["postgres"],
-    },
     // version strategies
     {
       matchDatasources: ["docker"],
       versioning: "loose",
-      matchPackageNames: ["ghcr.io/k8s-at-home/plex"],
+      matchPackageNames: ["linuxserver/plex"],
     },
     // enable auto-merge
     {
@@ -97,15 +85,21 @@
       requiredStatusChecks: null,
       matchUpdateTypes: ["minor", "patch"],
       matchPackageNames: [
+        "ghcr.io/autobrr/autobrr",
+        "cloudb0x/autoscan",
         "linuxserver/bazarr",
+        "linuxserver/deluge",
         "linuxserver/flaresolverr",
-        "linuxserver/sabnzbd",
         "linuxserver/overseerr",
+        "meisnate12/plex-meta-manager",
         "linuxserver/prowlarr",
-        "linuxserver/qbittorrent",
         "linuxserver/radarr",
+        "ghcr.io/recyclarr/recyclarr",
+        "linuxserver/sabnzbd",
         "linuxserver/sonarr",
-        "k8s-at-home/trash-updater",
+        "linuxserver/tautulli",
+        "hotio/unpackerr",
+        "cloudflare/cloudflared",
       ],
     },
   ],
