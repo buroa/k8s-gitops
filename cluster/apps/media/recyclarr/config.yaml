@@ -127,7 +127,7 @@ stringData:
               - 82d40da2bc6923f41e14394075dd4b03 # No-RlsGroup
               - e1a997ddb54e3ecbfe06341ad323c458 # Obfuscated
               - 06d66ab109d4d2eddb2794d21526d140 # Retags
-              - 47435ece6b99a0b477caf360e79ba0bb # x265 (HD)
+              - 9b64dff695c2115facf1b6ea59c9bd07 # x265 (no HDR/DV)
             quality_profiles:
               - name: Web-1080p
                 reset_unmatched_scores: true
@@ -213,7 +213,7 @@ stringData:
               - ed38b889b31be83fda192888e2286d83 # BR-DISK
               - 90a6f9a284dff5103f6346090e6280c8 # LQ
               - b8cd450cbfa689c0259a01d9e29ba3d6 # 3D
-              - dc98083864ea246d05a42df0d05f81cc # x265
+              - dc98083864ea246d05a42df0d05f81cc # x265 (HD)
             quality_profiles:
               - name: Web-1080p
                 reset_unmatched_scores: true
@@ -257,8 +257,10 @@ stringData:
               - cc5e51a9e85a6296ceefe097a77f12f4 # BCORE
             quality_profiles:
               - name: Web-1080p
+                score: 1
                 reset_unmatched_scores: true
               - name: Remux-1080p
+                score: 1
                 reset_unmatched_scores: true
 
           # Misc
