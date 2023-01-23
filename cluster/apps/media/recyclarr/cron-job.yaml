@@ -25,7 +25,7 @@ spec:
               args:
                 - sonarr
               volumeMounts:
-                - name: autoscan-config-file
+                - name: recyclarr-config-file
                   mountPath: /config/recyclarr.yml
                   subPath: recyclarr.yml
             - name: radarr
@@ -39,7 +39,7 @@ spec:
               args:
                 - radarr
               volumeMounts:
-                - name: autoscan-config-file
+                - name: recyclarr-config-file
                   mountPath: /config/recyclarr.yml
                   subPath: recyclarr.yml
           nodeSelector:
