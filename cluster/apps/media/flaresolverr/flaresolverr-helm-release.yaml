@@ -25,6 +25,8 @@ spec:
       LOG_LEVEL: "info"
     nodeSelector:
       node.kubernetes.io/instance-type: s-4vcpu-8gb-amd
+    podLabels:
+      vpn/ovpn: "true"
     resources:
       requests:
         memory: 100Mi
