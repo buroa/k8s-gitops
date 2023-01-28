@@ -19,7 +19,7 @@ spec:
   values:
     image:
       repository: linuxserver/overseerr
-      tag: 1.32.2
+      tag: 2021.12.12
     env:
       TZ: "${TIMEZONE}"
       PUID: "1000"
