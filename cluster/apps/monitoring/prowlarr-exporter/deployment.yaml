@@ -1,0 +1,57 @@
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: &name prowlarr-exporter
+  namespace: monitoring
+  labels: &labels
+    app.kubernetes.io/name: *name
+    app.kubernetes.io/instance: *name
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels: *labels
+  template:
+    metadata:
+      labels: *labels
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "monitoring"
+    spec:
+      containers:
+        - name: prowlarr-exporter
+          image: ghcr.io/onedr0p/exportarr:v1.1.0
+          imagePullPolicy: IfNotPresent
+          args:
+            - p
+            - "--enable-additional-metrics"
+          env:
+            - name: PORT
+              value: "9707"
+            - name: URL
+              value: "http://prowlarr.media.svc:9696"
+            - name: APIKEY
+              value: "${SECRET_PROWLARR_APIKEY}"
+          ports:
+            - name: monitoring
+              containerPort: 9707
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: monitoring
+            failureThreshold: 5
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: monitoring
+            failureThreshold: 5
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: 100m
+              memory: 64Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
