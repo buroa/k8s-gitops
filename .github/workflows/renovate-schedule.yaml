@@ -10,18 +10,18 @@ jobs:
   renovate-helm-releases:
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 1
 
       - name: Renovate Helm Releases
-        uses: k8s-at-home/renovate-helm-releases@v1
+        uses: k8s-at-home/renovate-helm-releases@c465468aea461abd747f8cd72ec14031f8d1ed7b # v1
         with:
           cluster-path: "./cluster"
 
       - name: Create pull request for renovatebot helm-release annotations
-        uses: peter-evans/create-pull-request@v4
+        uses: peter-evans/create-pull-request@2b011faafdcbc9ceb11414d64d0573f37c774b04 # v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: renovate-annotations
