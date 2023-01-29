@@ -1,106 +1,61 @@
 {
-  enabled: true,
-  timezone: "America/Santiago",
-  semanticCommits: "enabled",
-  dependencyDashboard: true,
-  dependencyDashboardTitle: "Renovate Dashboard",
-  commitBody: "Signed-off-by: Steven Kreitzer <buroa@users.noreply.github.com>",
-  // do not notify on closed unmerged PRs
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  extends: [
+    "config:base",
+    "docker:enableMajor",
+    ":disableRateLimiting",
+    ":dependencyDashboard",
+    ":semanticCommits",
+    ":enablePreCommit",
+    ":automergeDigest",
+    ":automergeBranch",
+    "github>buroa/k8s-gitops//.github/renovate/allowedVersions.json5",
+    "github>buroa/k8s-gitops//.github/renovate/autoMerge.json5",
+    "github>buroa/k8s-gitops//.github/renovate/commitMessage.json5",
+    "github>buroa/k8s-gitops//.github/renovate/groups.json5",
+    "github>buroa/k8s-gitops//.github/renovate/labels.json5",
+    "github>buroa/k8s-gitops//.github/renovate/semanticCommits.json5",
+    "helpers:pinGitHubActionDigests",
+  ],
+  platform: "github",
+  onboarding: false,
+  requireConfig: "optional",
+  dependencyDashboardTitle: "Renovate Dashboard 🤖",
   suppressNotifications: ["prIgnoreNotification"],
-  // only rebase PRs when there's a conflict
   rebaseWhen: "conflicted",
-  kubernetes: {
-    fileMatch: ["cluster/.+\\.yaml$"],
-    ignorePaths: ["cluster/flux-system/", ".github"],
+  commitBodyTable: true,
+  flux: {
+    fileMatch: ["cluster/.+\\.ya?ml$"],
   },
   "helm-values": {
-    fileMatch: ["cluster/.+helm-release\\.yaml$"],
+    fileMatch: ["cluster/.+\\.ya?ml$"],
+  },
+  kubernetes: {
+    fileMatch: ["cluster/.+\\.ya?ml$"],
   },
   regexManagers: [
-    // regexManager to read and process HelmRelease files
     {
-      fileMatch: ["cluster/.+helm-release\\.yaml$"],
+      description: "Process custom dependencies",
+      fileMatch: ["cluster/.+\\.ya?ml$"],
       matchStrings: [
         "registryUrl=(?<registryUrl>.*?)\n *chart: (?<depName>.*?)\n *version: (?<currentValue>.*)\n",
       ],
-      datasourceTemplate: "helm",
+      datasourceTemplate: "{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}",
+      versioningTemplate: "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}",
     },
   ],
   packageRules: [
-    // setup datasources
     {
-      matchDatasources: ["helm"],
-      commitMessageTopic: "Helm chart {{depName}}",
-    },
-    // global docker datasource settings
-    {
-      matchDatasources: ["docker"],
-      enabled: true,
-      commitMessageTopic: "Docker Image {{depName}}",
-      commitMessageExtra: "to {{#if isSingleVersion}}v{{{newVersion}}}{{else}}{{{newValue}}}{{/if}}",
-      matchUpdateTypes: ["major", "minor", "patch"],
-    },
-    // add labels according to package and update types
-    {
-      matchDatasources: ["docker"],
-      matchUpdateTypes: ["major"],
-      labels: ["renovate/image", "dep/major"],
-    },
-    {
-      matchDatasources: ["docker"],
-      matchUpdateTypes: ["minor"],
-      labels: ["renovate/image", "dep/minor"],
-    },
-    {
-      matchDatasources: ["docker"],
-      matchUpdateTypes: ["patch"],
-      labels: ["renovate/image", "dep/patch"],
-    },
-    {
-      matchDatasources: ["helm"],
-      matchUpdateTypes: ["major"],
-      labels: ["renovate/helm", "dep/major"],
-    },
-    {
-      matchDatasources: ["helm"],
-      matchUpdateTypes: ["minor"],
-      labels: ["renovate/helm", "dep/minor"],
-    },
-    {
-      matchDatasources: ["helm"],
-      matchUpdateTypes: ["patch"],
-      labels: ["renovate/helm", "dep/patch"],
-    },
-    // version strategies
-    {
+      description: "Loose versioning for non-semver packages",
       matchDatasources: ["docker"],
       versioning: "loose",
-      matchPackageNames: ["linuxserver/plex"],
+      matchPackagePatterns: ["plex", "deluge", "sabnzbd"],
     },
-    // enable auto-merge
     {
+      description: "Use custom versioning for Minio",
       matchDatasources: ["docker"],
-      automerge: true,
-      automergeType: "branch",
-      requiredStatusChecks: null,
-      matchUpdateTypes: ["minor", "patch"],
-      matchPackageNames: [
-        "ghcr.io/autobrr/autobrr",
-        "cloudb0x/autoscan",
-        "linuxserver/bazarr",
-        "linuxserver/deluge",
-        "linuxserver/flaresolverr",
-        "linuxserver/overseerr",
-        "meisnate12/plex-meta-manager",
-        "linuxserver/prowlarr",
-        "linuxserver/radarr",
-        "ghcr.io/recyclarr/recyclarr",
-        "linuxserver/sabnzbd",
-        "linuxserver/sonarr",
-        "linuxserver/tautulli",
-        "hotio/unpackerr",
-        "cloudflare/cloudflared",
-      ],
+      versioning: "regex:^RELEASE\\.(?<major>\\d+)-(?<minor>\\d+)-(?<patch>\\d+)T.*Z$",
+      matchPackagePatterns: ["minio"],
     },
   ],
 }
