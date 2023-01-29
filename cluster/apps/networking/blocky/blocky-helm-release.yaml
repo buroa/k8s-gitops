@@ -23,6 +23,8 @@ spec:
     controller:
       strategy: RollingUpdate
       replicas: 2
+      labels:
+        reloader.stakater.com/auto: "true"
     env:
       TZ: "${TIMEZONE}"
     config: |
