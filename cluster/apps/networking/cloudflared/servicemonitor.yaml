@@ -10,6 +10,10 @@ metadata:
 spec:
   selector:
     matchLabels: *labels
+  namespaceSelector:
+    matchNames:
+      - networking
+  jobLabel: app.kubernetes.io/name
   endpoints:
     - port: monitoring
       interval: 30s
