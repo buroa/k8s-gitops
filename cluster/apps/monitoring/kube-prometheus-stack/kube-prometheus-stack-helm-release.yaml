@@ -28,13 +28,13 @@ spec:
           ingress.kubernetes.io/force-ssl-redirect: "true"
           projectcontour.io/websocket-routes: "/"
         hosts:
-          - am.${SECRET_PUBLIC_DOMAIN}
+          - &hosta am.${SECRET_PUBLIC_DOMAIN}
         paths:
           - /
         tls:
           - secretName: am-tls
             hosts:
-              - am.${SECRET_PUBLIC_DOMAIN}
+              - *hosta
     prometheus:
       ingress:
         enabled: true
@@ -45,13 +45,13 @@ spec:
           ingress.kubernetes.io/force-ssl-redirect: "true"
           projectcontour.io/websocket-routes: "/"
         hosts:
-          - prometheus.${SECRET_PUBLIC_DOMAIN}
+          - &hostp prometheus.${SECRET_PUBLIC_DOMAIN}
         paths:
           - /
         tls:
           - secretName: prometheus-tls
             hosts:
-              - prometheus.${SECRET_PUBLIC_DOMAIN}
+              - *hostp
       prometheusSpec:
         ruleSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false
@@ -66,13 +66,13 @@ spec:
           ingress.kubernetes.io/force-ssl-redirect: "true"
           projectcontour.io/websocket-routes: "/"
         hosts:
-          - grafana.${SECRET_PUBLIC_DOMAIN}
+          - &hostg grafana.${SECRET_PUBLIC_DOMAIN}
         paths:
           - /
         tls:
           - secretName: grafana-tls
             hosts:
-              - grafana.${SECRET_PUBLIC_DOMAIN}
+              - *hostg
       grafana.ini:
         auth.basic:
           enabled: false

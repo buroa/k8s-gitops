@@ -36,14 +36,14 @@ spec:
           projectcontour.io/websocket-routes: "/"
           projectcontour.io/response-timeout: "60s"
         hosts:
-          - host: torrent.${SECRET_PUBLIC_DOMAIN}
+          - host: &host torrent.${SECRET_PUBLIC_DOMAIN}
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - secretName: torrent-tls
             hosts:
-              - torrent.${SECRET_PUBLIC_DOMAIN}
+              - *host
     persistence:
       config:
         enabled: true

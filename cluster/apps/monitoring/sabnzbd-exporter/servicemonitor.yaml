@@ -2,16 +2,14 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: sabnzbd-exporter
+  name: &name sabnzbd-exporter
   namespace: monitoring
-  labels:
-    app.kubernetes.io/name: sabnzbd-exporter
-    app.kubernetes.io/instance: sabnzbd-exporter
+  labels: &labels
+    app.kubernetes.io/name: *name
+    app.kubernetes.io/instance: *name
 spec:
   selector:
-    matchLabels:
-      app.kubernetes.io/name: sabnzbd-exporter
-      app.kubernetes.io/instance: sabnzbd-exporter
+    matchLabels: *labels
   endpoints:
     - port: monitoring
       interval: 4m

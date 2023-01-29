@@ -1,19 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cloudflared
+  name: &name cloudflared
   namespace: networking
+  labels: &labels
+    app.kubernetes.io/name: *name
+    app.kubernetes.io/instance: *name
 spec:
   selector:
-    matchLabels:
-      app.kubernetes.io/name: cloudflared
-      app.kubernetes.io/instance: cloudflared
+    matchLabels: *labels
   replicas: 2
   template:
     metadata:
-      labels:
-        app.kubernetes.io/name: cloudflared
-        app.kubernetes.io/instance: cloudflared
+      labels: *labels
     spec:
       containers:
         - name: cloudflared

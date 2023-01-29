@@ -2,16 +2,14 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: tautulli-exporter
+  name: &name tautulli-exporter
   namespace: monitoring
-  labels:
-    app.kubernetes.io/name: tautulli-exporter
-    app.kubernetes.io/instance: tautulli-exporter
+  labels: &labels
+    app.kubernetes.io/name: *name
+    app.kubernetes.io/instance: *name
 spec:
   selector:
-    matchLabels:
-      app.kubernetes.io/name: tautulli-exporter
-      app.kubernetes.io/instance: tautulli-exporter
+    matchLabels: *labels
   endpoints:
     - port: monitoring
       interval: 4m
