@@ -12,4 +12,4 @@ spec:
   selector: *labels
   ports:
     - name: monitoring
-      port: 9354
+      port: 8011
