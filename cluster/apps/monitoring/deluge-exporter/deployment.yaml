@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
         - name: deluge-exporter
-          image: tobbez/deluge_exporter:2.1
+          image: tobbez/deluge_exporter:2.4
           imagePullPolicy: IfNotPresent
           env:
             - name: DELUGE_HOST
