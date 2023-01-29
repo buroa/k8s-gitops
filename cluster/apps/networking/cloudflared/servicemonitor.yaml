@@ -12,6 +12,6 @@ spec:
     matchLabels: *labels
   endpoints:
     - port: metrics
-      interval: 1m
+      interval: 30s
       scrapeTimeout: 90s
       path: /metrics
