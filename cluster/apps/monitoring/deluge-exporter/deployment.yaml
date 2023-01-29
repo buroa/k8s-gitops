@@ -31,18 +31,13 @@ spec:
           ports:
             - name: monitoring
               containerPort: 8011
-          livenessProbe:
+          livenessProbe: &probe
             httpGet:
               path: /
               port: monitoring
             failureThreshold: 5
             periodSeconds: 10
-          readinessProbe:
-            httpGet:
-              path: /
-              port: monitoring
-            failureThreshold: 5
-            periodSeconds: 10
+          readinessProbe: *probe
           resources:
             requests:
               cpu: 100m

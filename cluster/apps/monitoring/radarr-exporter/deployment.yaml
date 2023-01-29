@@ -36,18 +36,13 @@ spec:
           ports:
             - name: monitoring
               containerPort: 9707
-          livenessProbe:
+          livenessProbe: &probe
             httpGet:
               path: /healthz
               port: monitoring
             failureThreshold: 5
             periodSeconds: 10
-          readinessProbe:
-            httpGet:
-              path: /healthz
-              port: monitoring
-            failureThreshold: 5
-            periodSeconds: 10
+          readinessProbe: *probe
           resources:
             requests:
               cpu: 100m
