@@ -1,9 +1,17 @@
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+namespace: networking
 resources:
   - configmap.yaml
   - secrets.sops.yaml
   - deployment.yaml
   - service.yaml
   - servicemonitor.yaml
+configMapGenerator:
+  - name: cloudflared-grafana-dashboards
+    files:
+      - dashboards/cloudflared.json
+    options:
+      labels:
+        grafana_dashboard: "1"
