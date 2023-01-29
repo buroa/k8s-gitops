@@ -21,6 +21,9 @@ spec:
       repository: ghcr.io/k8s-at-home/pod-gateway
       pullPolicy: IfNotPresent
       tag:
+    controller:
+      labels:
+        reloader.stakater.com/auto: "true"
 
     DNS: 172.17.0.1
     DNSPolicy: None
