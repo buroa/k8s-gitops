@@ -73,6 +73,10 @@ spec:
           - secretName: grafana-tls
             hosts:
               - *hostg
+      sidecar:
+        dashboards:
+          labelValue: 1
+          searchNamespace: "ALL"
       grafana.ini:
         auth.basic:
           enabled: false
