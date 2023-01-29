@@ -2,16 +2,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: deluge-exporter
+  name: &name deluge-exporter
   namespace: monitoring
-  labels:
-    app.kubernetes.io/name: deluge-exporter
-    app.kubernetes.io/instance: deluge-exporter
+  labels: &labels
+    app.kubernetes.io/name: *name
+    app.kubernetes.io/instance: *name
 spec:
   clusterIP: None
-  selector:
-    app.kubernetes.io/name: deluge-exporter
-    app.kubernetes.io/instance: deluge-exporter
+  selector: *labels
   ports:
     - name: monitoring
       port: 9354

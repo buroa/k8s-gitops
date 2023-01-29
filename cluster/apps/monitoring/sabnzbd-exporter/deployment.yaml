@@ -2,23 +2,19 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: sabnzbd-exporter
+  name: &name sabnzbd-exporter
   namespace: monitoring
-  labels:
-    app.kubernetes.io/name: sabnzbd-exporter
-    app.kubernetes.io/instance: sabnzbd-exporter
+  labels: &labels
+    app.kubernetes.io/name: *name
+    app.kubernetes.io/instance: *name
 spec:
   replicas: 1
   revisionHistoryLimit: 3
   selector:
-    matchLabels:
-      app.kubernetes.io/name: sabnzbd-exporter
-      app.kubernetes.io/instance: sabnzbd-exporter
+    matchLabels: *labels
   template:
     metadata:
-      labels:
-        app.kubernetes.io/name: sabnzbd-exporter
-        app.kubernetes.io/instance: sabnzbd-exporter
+      labels: *labels
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/port: "monitoring"
