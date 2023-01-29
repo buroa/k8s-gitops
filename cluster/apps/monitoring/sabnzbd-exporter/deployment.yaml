@@ -1,0 +1,56 @@
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: sabnzbd-exporter
+  namespace: monitoring
+  labels:
+    app.kubernetes.io/name: sabnzbd-exporter
+    app.kubernetes.io/instance: sabnzbd-exporter
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: sabnzbd-exporter
+      app.kubernetes.io/instance: sabnzbd-exporter
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: sabnzbd-exporter
+        app.kubernetes.io/instance: sabnzbd-exporter
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "monitoring"
+    spec:
+      containers:
+        - name: sabnzbd-exporter
+          image: msroest/sabnzbd_exporter:0.1.60
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: SABNZBD_BASEURLS
+              value: "http://sabnzbd.media.svc:8080/sabnzbd"
+            - name: SABNZBD_APIKEYS
+              value: "${SECRET_SABNZBD_APIKEY}"
+          ports:
+            - name: monitoring
+              containerPort: 9387
+          livenessProbe:
+            httpGet:
+              path: /
+              port: monitoring
+            failureThreshold: 5
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: monitoring
+            failureThreshold: 5
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: 100m
+              memory: 64Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi

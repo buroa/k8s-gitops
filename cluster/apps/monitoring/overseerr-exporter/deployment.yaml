@@ -1,0 +1,56 @@
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: overseerr-exporter
+  namespace: monitoring
+  labels:
+    app.kubernetes.io/name: overseerr-exporter
+    app.kubernetes.io/instance: overseerr-exporter
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: overseerr-exporter
+      app.kubernetes.io/instance: overseerr-exporter
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: overseerr-exporter
+        app.kubernetes.io/instance: overseerr-exporter
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "monitoring"
+    spec:
+      containers:
+        - name: overseerr-exporter
+          image: ghcr.io/willfantom/overseerr-exporter:v1.2
+          imagePullPolicy: IfNotPresent
+          args:
+            - --overseerr.address
+            - "http://overseerr.media.svc:5055"
+            - --overseerr.api-key
+            - "${SECRET_OVERSEERR_APIKEY}"
+          ports:
+            - name: monitoring
+              containerPort: 9850
+          livenessProbe:
+            httpGet:
+              path: /
+              port: monitoring
+            failureThreshold: 5
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: monitoring
+            failureThreshold: 5
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: 100m
+              memory: 64Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
