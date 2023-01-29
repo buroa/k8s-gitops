@@ -1,5 +1,6 @@
-apiVersion: apps/v1
+---
 kind: Deployment
+apiVersion: apps/v1
 metadata:
   name: &name cloudflared
   namespace: networking
@@ -7,9 +8,10 @@ metadata:
     app.kubernetes.io/name: *name
     app.kubernetes.io/instance: *name
 spec:
+  replicas: 1
+  revisionHistoryLimit: 3
   selector:
     matchLabels: *labels
-  replicas: 2
   template:
     metadata:
       labels: *labels
@@ -26,9 +28,8 @@ spec:
             - /etc/cloudflared/config/config.yaml
             - run
           ports:
-            - containerPort: 2000
-              name: metrics
-              protocol: TCP
+            - name: metrics
+              containerPort: 2000
           livenessProbe:
             httpGet:
               path: /ready
