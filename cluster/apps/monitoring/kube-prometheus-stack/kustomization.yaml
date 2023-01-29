@@ -4,4 +4,3 @@ kind: Kustomization
 resources:
   - grafana-pvc.yaml
   - kube-prometheus-stack-helm-release.yaml
-  - dashboards
