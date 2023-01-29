@@ -11,5 +11,5 @@ spec:
   clusterIP: None
   selector: *labels
   ports:
-    - name: metrics
+    - name: monitoring
       port: 2000
