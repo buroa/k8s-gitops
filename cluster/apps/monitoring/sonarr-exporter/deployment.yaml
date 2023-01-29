@@ -50,3 +50,5 @@ spec:
             limits:
               cpu: 500m
               memory: 256Mi
+      nodeSelector:
+        node.kubernetes.io/instance-type: s-4vcpu-8gb-amd
