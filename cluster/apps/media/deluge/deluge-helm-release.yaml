@@ -20,7 +20,7 @@ spec:
   values:
     image:
       repository: linuxserver/deluge
-      tag: 2.1.1
+      tag: 922742a2-ls4
     env:
       TZ: "${TIMEZONE}"
       PUID: "1000"
