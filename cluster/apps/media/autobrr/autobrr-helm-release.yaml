@@ -35,14 +35,14 @@ spec:
           projectcontour.io/websocket-routes: "/"
           projectcontour.io/response-timeout: "120s"
         hosts:
-          - host: autobrr.${SECRET_PUBLIC_DOMAIN}
+          - host: &host autobrr.${SECRET_PUBLIC_DOMAIN}
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - secretName: autobrr-tls
             hosts:
-              - autobrr.${SECRET_PUBLIC_DOMAIN}
+              - *host
     podSecurityContext:
       runAsUser: 1000
       runAsGroup: 1000

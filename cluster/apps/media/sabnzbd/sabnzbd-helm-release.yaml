@@ -20,11 +20,6 @@ spec:
     image:
       repository: linuxserver/sabnzbd
       tag: nightly-f0819c33-ls129
-    env:
-      TZ: "${TIMEZONE}"
-      PUID: "1000"
-      PGID: "1000"
-      HOST_WHITELIST_ENTRIES: "usenet.${SECRET_PUBLIC_DOMAIN}"
     ingress:
       main:
         enabled: true
@@ -36,14 +31,19 @@ spec:
           projectcontour.io/websocket-routes: "/"
           projectcontour.io/response-timeout: "60s"
         hosts:
-          - host: usenet.${SECRET_PUBLIC_DOMAIN}
+          - host: &host usenet.${SECRET_PUBLIC_DOMAIN}
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - secretName: usenet-tls
             hosts:
-              - usenet.${SECRET_PUBLIC_DOMAIN}
+              - *host
+    env:
+      TZ: "${TIMEZONE}"
+      PUID: "1000"
+      PGID: "1000"
+      HOST_WHITELIST_ENTRIES: *host
     persistence:
       config:
         enabled: true

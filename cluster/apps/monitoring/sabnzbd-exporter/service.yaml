@@ -2,16 +2,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: sabnzbd-exporter
+  name: &name sabnzbd-exporter
   namespace: monitoring
-  labels:
-    app.kubernetes.io/name: sabnzbd-exporter
-    app.kubernetes.io/instance: sabnzbd-exporter
+  labels: &labels
+    app.kubernetes.io/name: *name
+    app.kubernetes.io/instance: *name
 spec:
   clusterIP: None
-  selector:
-    app.kubernetes.io/name: sabnzbd-exporter
-    app.kubernetes.io/instance: sabnzbd-exporter
+  selector: *labels
   ports:
     - name: monitoring
       port: 9387

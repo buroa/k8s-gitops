@@ -35,14 +35,14 @@ spec:
           projectcontour.io/websocket-routes: "/"
           projectcontour.io/response-timeout: "120s"
         hosts:
-          - host: bazarr.${SECRET_PUBLIC_DOMAIN}
+          - host: &host bazarr.${SECRET_PUBLIC_DOMAIN}
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - secretName: bazarr-tls
             hosts:
-              - bazarr.${SECRET_PUBLIC_DOMAIN}
+              - *host
     persistence:
       config:
         enabled: true

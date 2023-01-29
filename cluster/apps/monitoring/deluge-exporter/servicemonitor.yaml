@@ -2,16 +2,14 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: deluge-exporter
+  name: &name deluge-exporter
   namespace: monitoring
-  labels:
-    app.kubernetes.io/name: deluge-exporter
-    app.kubernetes.io/instance: deluge-exporter
+  labels: &labels
+    app.kubernetes.io/name: *name
+    app.kubernetes.io/instance: *name
 spec:
   selector:
-    matchLabels:
-      app.kubernetes.io/name: deluge-exporter
-      app.kubernetes.io/instance: deluge-exporter
+    matchLabels: *labels
   endpoints:
     - port: monitoring
       interval: 4m

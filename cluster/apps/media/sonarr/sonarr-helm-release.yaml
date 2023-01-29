@@ -35,14 +35,14 @@ spec:
           projectcontour.io/websocket-routes: "/"
           projectcontour.io/response-timeout: "120s"
         hosts:
-          - host: sonarr.${SECRET_PUBLIC_DOMAIN}
+          - host: &host sonarr.${SECRET_PUBLIC_DOMAIN}
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - secretName: sonarr-tls
             hosts:
-              - sonarr.${SECRET_PUBLIC_DOMAIN}
+              - *host
     persistence:
       config:
         enabled: true

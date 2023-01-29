@@ -35,14 +35,14 @@ spec:
           projectcontour.io/websocket-routes: "/"
           projectcontour.io/response-timeout: "120s"
         hosts:
-          - host: radarr.${SECRET_PUBLIC_DOMAIN}
+          - host: &host radarr.${SECRET_PUBLIC_DOMAIN}
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - secretName: radarr-tls
             hosts:
-              - radarr.${SECRET_PUBLIC_DOMAIN}
+              - *host
     persistence:
       config:
         enabled: true
