@@ -1,0 +1,19 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: radarr-exporter
+  namespace: monitoring
+  labels:
+    app.kubernetes.io/name: radarr-exporter
+    app.kubernetes.io/instance: radarr-exporter
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: radarr-exporter
+      app.kubernetes.io/instance: radarr-exporter
+  endpoints:
+    - port: monitoring
+      interval: 4m
+      scrapeTimeout: 90s
+      path: /metrics

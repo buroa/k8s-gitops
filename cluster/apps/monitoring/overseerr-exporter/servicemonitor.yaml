@@ -1,0 +1,19 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: overseerr-exporter
+  namespace: monitoring
+  labels:
+    app.kubernetes.io/name: overseerr-exporter
+    app.kubernetes.io/instance: overseerr-exporter
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: overseerr-exporter
+      app.kubernetes.io/instance: overseerr-exporter
+  endpoints:
+    - port: monitoring
+      interval: 4m
+      scrapeTimeout: 90s
+      path: /metrics
