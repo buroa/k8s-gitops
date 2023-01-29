@@ -21,20 +21,16 @@ spec:
     spec:
       containers:
         - name: deluge-exporter
-          image: tobbez/deluge_exporter:2.4
+          image: ngosang/deluge-exporter:1.0.1
           imagePullPolicy: IfNotPresent
           env:
-            - name: DELUGE_HOST
-              value: "deluge.media.svc"
-            - name: DELUGE_PORT
-              value: "8112"
-            - name: DELUGE_USER
-              value: "admin"
+            - name: DELUGE_URL
+              value: "http://deluge.media.svc:8112"
             - name: DELUGE_PASSWORD
               value: "${SECRET_DELUGE_PASSWORD}"
           ports:
             - name: monitoring
-              containerPort: 9354
+              containerPort: 8011
           livenessProbe:
             httpGet:
               path: /
