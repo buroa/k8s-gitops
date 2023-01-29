@@ -13,6 +13,9 @@ spec:
   template:
     metadata:
       labels: *labels
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "metrics"
     spec:
       containers:
         - name: cloudflared
