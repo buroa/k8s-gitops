@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - kube-prometheus-stack
   - overseerr-exporter
+  - prowlarr-exporter
   - radarr-exporter
   - sonarr-exporter
   - tautulli-exporter
