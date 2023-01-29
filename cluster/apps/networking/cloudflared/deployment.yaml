@@ -17,7 +17,7 @@ spec:
       labels: *labels
       annotations:
         prometheus.io/scrape: "true"
-        prometheus.io/port: "metrics"
+        prometheus.io/port: "monitoring"
     spec:
       containers:
         - name: cloudflared
@@ -28,14 +28,19 @@ spec:
             - /etc/cloudflared/config/config.yaml
             - run
           ports:
-            - name: metrics
+            - name: monitoring
               containerPort: 2000
           livenessProbe:
             httpGet:
               path: /ready
-              port: metrics
-            failureThreshold: 1
-            initialDelaySeconds: 10
+              port: monitoring
+            failureThreshold: 5
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: monitoring
+            failureThreshold: 5
             periodSeconds: 10
           volumeMounts:
             - name: config
