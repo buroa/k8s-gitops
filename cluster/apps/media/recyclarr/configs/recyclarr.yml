@@ -137,7 +137,7 @@ radarr:
       type: movie
 
     custom_formats:
-      # Audio Advanced #2
+      # Audio Advanced #1
       - trash_ids:
           - 496f355514737f7d83bf7aa4d24f8169 # TrueHD ATMOS
           - 2f22d89048b01681dde8afe203bf2e95 # DTS X
