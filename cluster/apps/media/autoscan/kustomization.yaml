@@ -1,8 +1,12 @@
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+namespace: media
 resources:
   - config-pvc.yaml
-  - config.yaml
   - deployment.yaml
   - service.yaml
+secretGenerator:
+  - name: autoscan-config
+    files:
+      - config.yml=configs/config.yml
