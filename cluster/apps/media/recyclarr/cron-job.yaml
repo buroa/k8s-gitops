@@ -48,5 +48,5 @@ spec:
             node.kubernetes.io/instance-type: s-4vcpu-8gb-amd
           volumes:
             - name: recyclarr-config-file
-              secret:
-                secretName: recyclarr-config
+              configMap:
+                name: recyclarr-config
