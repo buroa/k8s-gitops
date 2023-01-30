@@ -10,7 +10,7 @@ resources:
 configMapGenerator:
   - name: cloudflared-config
     files:
-      - config.yaml=configs/config.yaml
+      - configs/config.yaml
   - name: cloudflared-grafana-dashboards
     files:
       - dashboards/cloudflared.json
