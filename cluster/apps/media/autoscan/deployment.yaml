@@ -42,8 +42,8 @@ spec:
           persistentVolumeClaim:
             claimName: autoscan-config
         - name: autoscan-config-file
-          secret:
-            secretName: autoscan-config
+          configMap:
+            name: autoscan-config
         - name: media
           persistentVolumeClaim:
             claimName: media
