@@ -39,5 +39,5 @@ spec:
               persistentVolumeClaim:
                 claimName: pmm-config
             - name: config-file
-              secret:
-                secretName: pmm-config
+              configMap:
+                name: pmm-config
