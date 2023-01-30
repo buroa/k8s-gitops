@@ -1,3 +1,4 @@
+---
 minimum-age: 10m
 scan-delay: 15s
 scan-stats: 15m
@@ -17,4 +18,4 @@ triggers:
 targets:
   plex:
     - url: http://plex.media.svc:32400
-      token: "{SECRET_PLEX_APIKEY}"
+      token: ${SECRET_PLEX_APIKEY}
