@@ -78,6 +78,10 @@ spec:
           labelValue: 1
           searchNamespace: "ALL"
       grafana.ini:
+        auth:
+          disable_login_form: true
+          oauth_auto_login: true
+          disable_signout_menu: true
         auth.basic:
           enabled: false
         auth.generic_oauth:
@@ -86,7 +90,7 @@ spec:
           client_id: "${SECRET_AUTHENTIK_GRAFANA_CLIENT_ID}"
           client_secret: "${SECRET_AUTHENTIK_GRAFANA_CLIENT_SECRET}"
           scopes: openid email profile
-          auth_url: http://authentik.home.svc/application/o/authorize/
+          auth_url: https://auth.${SECRET_PUBLIC_DOMAIN}/application/o/authorize/
           token_url: http://authentik.home.svc/application/o/token/
           api_url: http://authentik.home.svc/application/o/userinfo/
           role_attribute_path: contains(groups[*], 'Grafana Admins') && 'Admin' || contains(groups[*], 'Grafana Editors') && 'Editor' || 'Viewer'
