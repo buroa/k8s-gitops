@@ -24,6 +24,8 @@ spec:
               value: "1000"
             - name: PGID
               value: "1000"
+            - name: SECRET_PLEX_APIKEY
+              value: "${SECRET_PLEX_APIKEY}"
           ports:
             - containerPort: 3030
               name: http
