@@ -78,6 +78,8 @@ spec:
           labelValue: 1
           searchNamespace: "ALL"
       grafana.ini:
+        domain: *hostg
+        root_url: https://grafana.${SECRET_PUBLIC_DOMAIN}
         auth:
           disable_login_form: true
           oauth_auto_login: true
