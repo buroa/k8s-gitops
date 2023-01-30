@@ -8,7 +8,7 @@ resources:
 configMapGenerator:
   - name: pmm-config
     files:
-      - config.yml=configs/config.yml
-      - Pre-rolls.yml=configs/Pre-rolls.yml
+      - configs/config.yml
+      - configs/Pre-rolls.yml
 generatorOptions:
   disableNameSuffixHash: true
