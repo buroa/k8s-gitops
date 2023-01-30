@@ -17,4 +17,4 @@ triggers:
 targets:
   plex:
     - url: http://plex.media.svc:32400
-      token: ${SECRET_PLEX_APIKEY}
+      token: "{SECRET_PLEX_APIKEY}"
