@@ -10,3 +10,7 @@ secretGenerator:
     files:
       - config.yml=configs/config.yml
       - Pre-rolls.yml=configs/Pre-rolls.yml
+generatorOptions:
+  disableNameSuffixHash: true
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled
