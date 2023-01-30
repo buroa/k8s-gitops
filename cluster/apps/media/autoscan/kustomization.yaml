@@ -10,3 +10,7 @@ secretGenerator:
   - name: autoscan-config
     files:
       - config.yml=configs/config.yml
+generatorOptions:
+  disableNameSuffixHash: true
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled

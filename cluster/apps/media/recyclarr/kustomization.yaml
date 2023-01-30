@@ -8,3 +8,7 @@ secretGenerator:
   - name: recyclarr-config
     files:
       - recyclarr.yml=configs/recyclarr.yml
+generatorOptions:
+  disableNameSuffixHash: true
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled
