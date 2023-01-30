@@ -18,7 +18,7 @@ spec:
       interval: 5m
   values:
     image:
-      repository: linuxserver/sabnzbd
+      repository: ghcr.io/linuxserver/sabnzbd
       tag: nightly-f0819c33-ls129
     ingress:
       main:
