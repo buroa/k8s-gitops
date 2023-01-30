@@ -18,7 +18,7 @@ spec:
       interval: 5m
   values:
     image:
-      repository: linuxserver/prowlarr
+      repository: ghcr.io/linuxserver/prowlarr
       tag: nightly-1.1.0.2322-ls518
     env:
       TZ: "${TIMEZONE}"

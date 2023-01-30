@@ -18,7 +18,7 @@ spec:
       interval: 5m
   values:
     image:
-      repository: linuxserver/overseerr
+      repository: ghcr.io/linuxserver/overseerr
       tag: 1.32.4
     env:
       TZ: "${TIMEZONE}"

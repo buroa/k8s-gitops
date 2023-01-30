@@ -18,7 +18,7 @@ spec:
       interval: 5m
   values:
     image:
-      repository: linuxserver/sonarr
+      repository: ghcr.io/linuxserver/sonarr
       tag: develop-4.0.0.356-ls388
     env:
       TZ: "${TIMEZONE}"
