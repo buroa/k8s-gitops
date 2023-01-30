@@ -47,7 +47,7 @@ spec:
               mountPath: /etc/cloudflared/creds
               readOnly: true
             - name: config
-              mountPath: /etc/cloudflared/config
+              mountPath: /etc/cloudflared/config/config.yaml
               subPath: config.yaml
               readOnly: true
       nodeSelector:
