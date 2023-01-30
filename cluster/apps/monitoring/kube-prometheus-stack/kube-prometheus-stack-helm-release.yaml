@@ -80,12 +80,16 @@ spec:
       grafana.ini:
         auth.basic:
           enabled: false
-        auth.proxy:
+        auth.generic_oauth:
           enabled: true
-          header_name: cf-access-authenticated-user-email
-          header_property: email
-          auto_sign_up: true
-          enable_login_token: false
+          name: authentik
+          client_id: "${SECRET_AUTHENTIK_GRAFANA_CLIENT_ID}"
+          client_secret: "${SECRET_AUTHENTIK_GRAFANA_CLIENT_SECRET}"
+          scopes: openid email profile
+          auth_url: http://authentik.home.svc/application/o/authorize/
+          token_url: http://authentik.home.svc/application/o/token/
+          api_url: http://authentik.home.svc/application/o/userinfo/
+          role_attribute_path: contains(groups[*], 'Grafana Admins') && 'Admin' || contains(groups[*], 'Grafana Editors') && 'Editor' || 'Viewer'
       persistence:
         enabled: true
         type: pvc
