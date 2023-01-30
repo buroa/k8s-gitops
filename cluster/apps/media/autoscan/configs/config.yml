@@ -1,0 +1,20 @@
+minimum-age: 10m
+scan-delay: 15s
+scan-stats: 15m
+
+triggers:
+  manual:
+    priority: 1
+
+  sonarr:
+    - name: sonarr
+      priority: 2
+
+  radarr:
+    - name: radarr
+      priority: 3
+
+targets:
+  plex:
+    - url: http://plex.media.svc:32400
+      token: ${SECRET_PLEX_APIKEY}
