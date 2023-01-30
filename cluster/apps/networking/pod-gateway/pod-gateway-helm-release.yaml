@@ -22,8 +22,9 @@ spec:
       pullPolicy: IfNotPresent
       tag: v1.8.1
     controller:
-      labels:
-        reloader.stakater.com/auto: "true"
+      annotations:
+        configmap.reloader.stakater.com/reload: "pod-gateway"
+        secret.reloader.stakater.com/reload: "pod-gateway-config"
     DNS: 172.17.0.1
     DNSPolicy: None
     clusterName: "cluster.local"

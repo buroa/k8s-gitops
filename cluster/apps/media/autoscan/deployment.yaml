@@ -4,17 +4,17 @@ kind: Deployment
 metadata:
   name: &name autoscan
   namespace: media
+  annotations:
+    reloader.stakater.com/auto: "true"
 spec:
   selector:
-    matchLabels:
+    matchLabels: &labels
       app.kubernetes.io/instance: *name
       app.kubernetes.io/name: *name
   replicas: 1
   template:
     metadata:
-      labels:
-        app.kubernetes.io/instance: *name
-        app.kubernetes.io/name: *name
+      labels: *labels
     spec:
       containers:
         - name: *name
