@@ -1,7 +1,12 @@
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+namespace: media
 resources:
   - config-pvc.yaml
-  - config.yaml
   - cron-job.yaml
+secretGenerator:
+  - name: pmm-config
+    files:
+      - config.yml=configs/config.yml
+      - Pre-rolls.yml=configs/Pre-rolls.yml
