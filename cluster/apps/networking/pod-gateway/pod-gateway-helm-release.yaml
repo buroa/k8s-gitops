@@ -18,30 +18,27 @@ spec:
       interval: 5m
   values:
     image:
-      repository: ghcr.io/k8s-at-home/pod-gateway
+      repository: ghcr.io/angelnu/pod-gateway
       pullPolicy: IfNotPresent
-      tag:
+      tag: v1.8.1
     controller:
       labels:
         reloader.stakater.com/auto: "true"
-
     DNS: 172.17.0.1
     DNSPolicy: None
     clusterName: "cluster.local"
     routed_namespaces:
       - media
-
     settings:
-      NOT_ROUTED_TO_GATEWAY_CIDRS: "${CLUSTER_POD_IP_RANGE} ${CLUSTER_SERVICE_IP_RANGE} ${CLUSTER_IP_RANGE}"
+      NOT_ROUTED_TO_GATEWAY_CIDRS: &cidrs "${CLUSTER_POD_IP_RANGE} ${CLUSTER_SERVICE_IP_RANGE} ${CLUSTER_IP_RANGE}"
       VXLAN_ID: 42
       VXLAN_IP_NETWORK: "172.17.0"
       VXLAN_GATEWAY_FIRST_DYNAMIC_IP: 20
       VPN_INTERFACE: wg0
       VPN_BLOCK_OTHER_TRAFFIC: true
       VPN_TRAFFIC_PORT: 9929
-      VPN_LOCAL_CIDRS: "${CLUSTER_POD_IP_RANGE} ${CLUSTER_SERVICE_IP_RANGE} ${CLUSTER_IP_RANGE}"
+      VPN_LOCAL_CIDRS: *cidrs
       DNS_LOCAL_CIDRS: "cluster.local"
-
     publicPorts:
       - hostname: torrent
         IP: 10
@@ -50,7 +47,6 @@ spec:
             port: ${TORRENT_PUBLIC_PORT}
           - type: tcp
             port: ${TORRENT_PUBLIC_PORT}
-
     addons:
       vpn:
         enabled: true
@@ -58,12 +54,11 @@ spec:
         configFileSecret: pod-gateway-config
         networkPolicy:
           enabled: false
-
     webhook:
       image:
-        repository: ghcr.io/k8s-at-home/gateway-admision-controller
+        repository: ghcr.io/angelnu/gateway-admision-controller
         pullPolicy: IfNotPresent
-        tag: v3.6.0
+        tag: v3.7.0
       replicas: 1
       strategy:
         type: RollingUpdate
@@ -73,6 +68,5 @@ spec:
       gatewayDefault: false
       gatewayLabel: vpn/ovpn
       gatewayAnnotation: vpn/ovpn
-
     nodeSelector:
       node.kubernetes.io/instance-type: s-8vcpu-16gb-amd
