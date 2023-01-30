@@ -39,6 +39,7 @@ spec:
       customDNS:
         mapping:
           # ns: home
+          auth.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_CLUSTER_IP}
           nr.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_CLUSTER_IP}
 
           # ns: media
