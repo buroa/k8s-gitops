@@ -1,3 +1,4 @@
+---
 sonarr:
   main:
     base_url: http://sonarr.media.svc:8989
