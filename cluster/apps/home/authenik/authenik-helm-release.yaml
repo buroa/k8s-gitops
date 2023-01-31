@@ -44,8 +44,12 @@ spec:
       persistence:
         enabled: true
         existingClaim: authentik-postgres-db
+      nodeSelector:
+        node.kubernetes.io/instance-type: s-4vcpu-8gb-amd
     redis:
       enabled: true
+      nodeSelector:
+        node.kubernetes.io/instance-type: s-4vcpu-8gb-amd
     prometheus:
       serviceMonitor:
         create: true
