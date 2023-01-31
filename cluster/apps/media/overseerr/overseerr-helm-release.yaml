@@ -19,7 +19,7 @@ spec:
   values:
     image:
       repository: ghcr.io/linuxserver/overseerr
-      tag: 1.32.4
+      tag: 1.32.5
     env:
       TZ: "${TIMEZONE}"
       PUID: "1000"
