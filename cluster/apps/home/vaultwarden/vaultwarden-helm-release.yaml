@@ -20,6 +20,14 @@ spec:
     image:
       repository: vaultwarden/server
       tag: 1.27.0
+    service:
+      main:
+        ports:
+          http:
+            port: 8080
+          websocket:
+            enabled: true
+            port: 3012
     ingress:
       main:
         enabled: true
