@@ -5,3 +5,12 @@ resources:
   - deployment.yaml
   - service.yaml
   - servicemonitor.yaml
+configMapGenerator:
+  - name: overseerr-grafana-dashboards
+    files:
+      - dashboards/overseerr.json
+    options:
+      labels:
+        grafana_dashboard: "1"
+generatorOptions:
+  disableNameSuffixHash: true
