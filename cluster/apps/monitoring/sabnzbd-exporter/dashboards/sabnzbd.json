@@ -24,7 +24,6 @@
     "editable": true,
     "fiscalYearStartMonth": 0,
     "graphTooltip": 0,
-    "id": 6,
     "links": [],
     "liveNow": false,
     "panels": [
@@ -33,10 +32,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": {
-          "type": "prometheus",
-          "uid": "000000001"
-        },
+        "datasource": {},
         "fill": 3,
         "fillGradient": 0,
         "gridPos": {
@@ -64,7 +60,7 @@
           "alertThreshold": true
         },
         "percentage": false,
-        "pluginVersion": "8.5.1",
+        "pluginVersion": "9.3.1",
         "pointradius": 5,
         "points": false,
         "renderer": "flot",
@@ -74,6 +70,11 @@
         "steppedLine": false,
         "targets": [
           {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
             "expr": "sabnzbd_queue_size",
             "format": "time_series",
             "instant": false,
@@ -119,7 +120,7 @@
         "dashes": false,
         "datasource": {
           "type": "prometheus",
-          "uid": "000000001"
+          "uid": "prometheus"
         },
         "fill": 1,
         "fillGradient": 0,
@@ -148,7 +149,7 @@
           "alertThreshold": true
         },
         "percentage": false,
-        "pluginVersion": "8.5.1",
+        "pluginVersion": "9.3.1",
         "pointradius": 5,
         "points": false,
         "renderer": "flot",
@@ -158,18 +159,30 @@
         "steppedLine": false,
         "targets": [
           {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
             "expr": "sabnzbd_queue_total_size_bytes",
             "format": "time_series",
             "interval": "",
             "intervalFactor": 2,
             "legendFormat": "queue total",
+            "range": true,
             "refId": "A"
           },
           {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
             "expr": "sabnzbd_queue_remaining_bytes",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "queue remaining",
+            "range": true,
             "refId": "B"
           }
         ],
@@ -209,10 +222,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": {
-          "type": "prometheus",
-          "uid": "000000001"
-        },
+        "datasource": {},
         "fill": 1,
         "fillGradient": 0,
         "gridPos": {
@@ -240,7 +250,7 @@
           "alertThreshold": true
         },
         "percentage": false,
-        "pluginVersion": "8.5.1",
+        "pluginVersion": "9.3.1",
         "pointradius": 5,
         "points": false,
         "renderer": "flot",
@@ -250,10 +260,16 @@
         "steppedLine": false,
         "targets": [
           {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
             "expr": "sabnzbd_queue_download_rate_bytes_per_second",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "download rate",
+            "range": true,
             "refId": "A"
           }
         ],
@@ -293,10 +309,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": {
-          "type": "prometheus",
-          "uid": "000000001"
-        },
+        "datasource": {},
         "fill": 1,
         "fillGradient": 0,
         "gridPos": {
@@ -324,7 +337,7 @@
           "alertThreshold": true
         },
         "percentage": false,
-        "pluginVersion": "8.5.1",
+        "pluginVersion": "9.3.1",
         "pointradius": 5,
         "points": false,
         "renderer": "flot",
@@ -334,10 +347,16 @@
         "steppedLine": false,
         "targets": [
           {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
             "expr": "sabnzbd_server_download_bytes{period=\"total\"}",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "{{server}}",
+            "range": true,
             "refId": "A"
           }
         ],
@@ -376,10 +395,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": {
-          "type": "prometheus",
-          "uid": "000000001"
-        },
+        "datasource": {},
         "fill": 1,
         "fillGradient": 0,
         "gridPos": {
@@ -407,7 +423,7 @@
           "alertThreshold": true
         },
         "percentage": false,
-        "pluginVersion": "8.5.1",
+        "pluginVersion": "9.3.1",
         "pointradius": 5,
         "points": false,
         "renderer": "flot",
@@ -417,10 +433,16 @@
         "steppedLine": false,
         "targets": [
           {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
             "expr": "sabnzbd_server_download_bytes{period=\"day\"}",
             "format": "time_series",
             "intervalFactor": 2,
             "legendFormat": "{{server}}",
+            "range": true,
             "refId": "A"
           }
         ],
@@ -459,10 +481,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": {
-          "type": "prometheus",
-          "uid": "000000001"
-        },
+        "datasource": {},
         "fill": 1,
         "fillGradient": 0,
         "gridPos": {
@@ -490,7 +509,7 @@
           "alertThreshold": true
         },
         "percentage": false,
-        "pluginVersion": "8.5.1",
+        "pluginVersion": "9.3.1",
         "pointradius": 5,
         "points": false,
         "renderer": "flot",
@@ -500,11 +519,17 @@
         "steppedLine": false,
         "targets": [
           {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
             "expr": "sabnzbd_server_download_bytes{period=\"week\"}",
             "format": "time_series",
             "interval": "",
             "intervalFactor": 2,
             "legendFormat": "{{server}}",
+            "range": true,
             "refId": "A"
           }
         ],
@@ -543,10 +568,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": {
-          "type": "prometheus",
-          "uid": "000000001"
-        },
+        "datasource": {},
         "fill": 1,
         "fillGradient": 0,
         "gridPos": {
@@ -574,7 +596,7 @@
           "alertThreshold": true
         },
         "percentage": false,
-        "pluginVersion": "8.5.1",
+        "pluginVersion": "9.3.1",
         "pointradius": 5,
         "points": false,
         "renderer": "flot",
@@ -584,11 +606,17 @@
         "steppedLine": false,
         "targets": [
           {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
             "expr": "sabnzbd_server_download_bytes{period=\"month\"}",
             "format": "time_series",
             "interval": "",
             "intervalFactor": 2,
             "legendFormat": "{{server}}",
+            "range": true,
             "refId": "A"
           }
         ],
@@ -624,7 +652,7 @@
       }
     ],
     "refresh": "1m",
-    "schemaVersion": 36,
+    "schemaVersion": 37,
     "style": "dark",
     "tags": [],
     "templating": {
@@ -662,6 +690,6 @@
     "timezone": "",
     "title": "SABnzbd",
     "uid": "000000006",
-    "version": 3,
+    "version": 1,
     "weekStart": ""
   }
