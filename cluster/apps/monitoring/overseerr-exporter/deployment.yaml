@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: overseerr-exporter
-          image: akreii/overseerr-exporter:latest@sha256:ab95b0a43b126099038577cfd315d2cf5ffb13ffdd941c9d9ab3e9ff824856e9
+          image: ghcr.io/willfantom/overseerr-exporter:1.2.1
           imagePullPolicy: IfNotPresent
           args:
             - --overseerr.address
