@@ -42,21 +42,17 @@ spec:
             paths:
               - path: /
                 pathType: Prefix
-                backend: &backend-http
-                  service:
-                    name: http
-                    port:
-                      number: 80
+                service: &http
+                  name: http
+                  port: 80
               - path: /notifications/hub/negotiate
                 pathType: Prefix
-                backend: *backend-http
+                service: *http
               - path: /notifications/hub
                 pathType: Prefix
-                backend:
-                  service:
-                    name: websocket
-                    port:
-                      number: 3012
+                service:
+                  name: websocket
+                  port: 3012
         tls:
           - secretName: vault-tls
             hosts:
