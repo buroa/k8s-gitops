@@ -24,6 +24,9 @@ spec:
       TZ: "${TIMEZONE}"
       PUID: "1000"
       PGID: "1000"
+      # /config/php/www2.conf
+      # [www]
+      # clear_env = no
       GROCY_REVERSE_PROXY_AUTH_HEADER: "Cf-Access-Authenticated-User-Email"
       GROCY_REVERSE_PROXY_AUTH_USE_ENV: "true"
     ingress:
