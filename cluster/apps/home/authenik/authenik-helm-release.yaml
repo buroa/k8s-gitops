@@ -57,10 +57,9 @@ spec:
         resources: *resources
     redis:
       enabled: true
-      persistence:
-        enabled: true
-        existingClaim: authentik-redis-db
       master:
+        persistence:
+          enabled: false
         nodeSelector: *nodeSelector
         resources: *resources
     prometheus:
