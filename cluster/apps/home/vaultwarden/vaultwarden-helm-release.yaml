@@ -43,7 +43,6 @@ spec:
               - path: /
                 pathType: Prefix
                 service: &http
-                  name: http
                   port: 80
               - path: /notifications/hub/negotiate
                 pathType: Prefix
@@ -51,7 +50,6 @@ spec:
               - path: /notifications/hub
                 pathType: Prefix
                 service:
-                  name: websocket
                   port: 3012
         tls:
           - secretName: vault-tls
