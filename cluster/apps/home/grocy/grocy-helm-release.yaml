@@ -28,7 +28,7 @@ spec:
       # [www]
       # clear_env = no
       GROCY_AUTH_CLASS: "Grocy\\Middleware\\ReverseProxyAuthMiddleware"
-      GROCY_REVERSE_PROXY_AUTH_HEADER: "Cf-Access-Authenticated-User-Email"
+      GROCY_REVERSE_PROXY_AUTH_HEADER: "HTTP_CF_ACCESS_AUTHENTICATED_USER_EMAIL"
       GROCY_REVERSE_PROXY_AUTH_USE_ENV: "true"
     ingress:
       main:
