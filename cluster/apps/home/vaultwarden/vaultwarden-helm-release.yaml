@@ -23,6 +23,7 @@ spec:
     env:
       DOMAIN: "https://vault.${SECRET_PUBLIC_DOMAIN}"
       SIGNUPS_ALLOWED: "false"
+      ADMIN_TOKEN: "${SECRET_VAULT_ADMIN_TOKEN}"
     service:
       main:
         ports:
