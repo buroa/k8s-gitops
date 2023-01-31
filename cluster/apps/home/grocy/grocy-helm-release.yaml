@@ -24,7 +24,8 @@ spec:
       TZ: "${TIMEZONE}"
       PUID: "1000"
       PGID: "1000"
-      DISABLE_AUTH: "true"
+      REVERSE_PROXY_AUTH_HEADER: "Cf-Access-Authenticated-User-Email"
+      REVERSE_PROXY_AUTH_USE_ENV: "true"
     ingress:
       main:
         enabled: true
