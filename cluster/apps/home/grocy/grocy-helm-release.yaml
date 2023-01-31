@@ -24,6 +24,7 @@ spec:
       TZ: "${TIMEZONE}"
       PUID: "1000"
       PGID: "1000"
+      DISABLE_AUTH: "true"
     ingress:
       main:
         enabled: true
