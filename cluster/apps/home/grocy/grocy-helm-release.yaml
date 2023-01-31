@@ -1,0 +1,61 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: grocy
+  namespace: home
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://k8s-at-home.com/charts/
+      chart: grocy
+      version: 8.5.2
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    image:
+      repository: ghcr.io/linuxserver/grocy
+      tag: v3.3.2-ls179
+    env:
+      TZ: "${TIMEZONE}"
+      PUID: "1000"
+      PGID: "1000"
+    ingress:
+      main:
+        enabled: true
+        annotations:
+          kubernetes.io/tls-acme: "true"
+          kubernetes.io/ingress.class: contour
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+          ingress.kubernetes.io/force-ssl-redirect: "true"
+          projectcontour.io/websocket-routes: "/"
+        hosts:
+          - host: &host grocy.${SECRET_PUBLIC_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - secretName: grocy-tls
+            hosts:
+              - *host
+    persistence:
+      config:
+        enabled: true
+        existingClaim: grocy-config
+        mountPath: /config
+      viewcache:
+        enabled: true
+        type: emptyDir
+        mountPath: /config/data/viewcache
+    nodeSelector:
+      node.kubernetes.io/instance-type: s-4vcpu-8gb-amd
+    resources:
+      requests:
+        memory: 350Mi
+        cpu: 25m
+      limits:
+        memory: 500Mi
