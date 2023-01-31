@@ -23,7 +23,13 @@ spec:
     env:
       DOMAIN: "https://vault.${SECRET_PUBLIC_DOMAIN}"
       SIGNUPS_ALLOWED: "false"
-      ADMIN_TOKEN: "${SECRET_VAULT_ADMIN_TOKEN}"
+      SMTP_HOST: "${SECRET_SMTP_HOST}"
+      SMTP_FROM: "vault@${SECRET_PUBLIC_DOMAIN}"
+      SMTP_FROM_NAME: "${SECRET_NAME}"
+      SMTP_SECURITY: "force_tls"
+      SMTP_PORT: "465"
+      SMTP_USERNAME: "vault@${SECRET_PUBLIC_DOMAIN}"
+      SMTP_PASSWORD: "${SECRET_VAULT_SMTP_PASSWORD}"
     service:
       main:
         ports:
