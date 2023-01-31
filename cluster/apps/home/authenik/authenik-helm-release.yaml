@@ -38,6 +38,14 @@ spec:
         - secretName: auth-tls
           hosts:
             - *host
+    nodeSelector: &nodeSelector
+      node.kubernetes.io/instance-type: s-4vcpu-8gb-amd
+    resources: &resources
+      requests:
+        memory: 350Mi
+        cpu: 25m
+      limits:
+        memory: 500Mi
     postgresql:
       enabled: true
       postgresqlPassword: "${SECRET_AUTHENTIK_POSTGRES_PASSWORD}"
@@ -45,24 +53,16 @@ spec:
         enabled: true
         existingClaim: authentik-postgres-db
       primary:
-        nodeSelector:
-          node.kubernetes.io/instance-type: s-4vcpu-8gb-amd
+        nodeSelector: *nodeSelector
+        resources: *resources
     redis:
       enabled: true
       persistence:
         enabled: true
         existingClaim: authentik-redis-db
       master:
-        nodeSelector:
-          node.kubernetes.io/instance-type: s-4vcpu-8gb-amd
+        nodeSelector: *nodeSelector
+        resources: *resources
     prometheus:
       serviceMonitor:
         create: true
-    nodeSelector:
-      node.kubernetes.io/instance-type: s-4vcpu-8gb-amd
-    resources:
-      requests:
-        memory: 350Mi
-        cpu: 25m
-      limits:
-        memory: 500Mi
