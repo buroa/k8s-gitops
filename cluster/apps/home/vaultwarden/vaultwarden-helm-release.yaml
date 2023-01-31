@@ -22,6 +22,7 @@ spec:
       tag: 1.27.0
     env:
       DOMAIN: "https://vault.${SECRET_PUBLIC_DOMAIN}"
+      ADMIN_TOKEN: "" # disable admin page
       SIGNUPS_ALLOWED: "false"
       SMTP_HOST: "${SECRET_SMTP_HOST}"
       SMTP_FROM: "vault@${SECRET_PUBLIC_DOMAIN}"
