@@ -22,6 +22,7 @@ spec:
       tag: 1.27.0
     env:
       DOMAIN: "https://vault.${SECRET_PUBLIC_DOMAIN}"
+      SIGNUPS_ALLOWED: "false"
     service:
       main:
         ports:
