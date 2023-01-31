@@ -20,6 +20,8 @@ spec:
     image:
       repository: vaultwarden/server
       tag: 1.27.0
+    env:
+      DOMAIN: "https://vault.${SECRET_PUBLIC_DOMAIN}"
     service:
       main:
         ports:
