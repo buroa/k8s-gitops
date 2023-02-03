@@ -1,0 +1,35 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: &name plexautolanguages
+  namespace: media
+spec:
+  selector:
+    matchLabels: &labels
+      app.kubernetes.io/instance: *name
+      app.kubernetes.io/name: *name
+  replicas: 1
+  template:
+    metadata:
+      labels: *labels
+    spec:
+      containers:
+        - name: *name
+          image: remirigal/plex-auto-languages:v1.2.0
+          env:
+            - name: TZ
+              value: "${TIMEZONE}"
+            - name: PLEX_URL
+              value: "http://plex.media.svc:32400"
+            - name: PLEX_TOKEN
+              value: "${SECRET_PLEX_APIKEY}"
+          resources:
+            requests:
+              cpu: 50m
+              memory: 100Mi
+            limits:
+              cpu: 500m
+              memory: 1Gi
+      nodeSelector:
+        node.kubernetes.io/instance-type: s-4vcpu-8gb-amd
