@@ -19,7 +19,7 @@ spec:
   values:
     image:
       repository: ghcr.io/linuxserver/radarr
-      tag: nightly-4.4.2.6941-ls447
+      tag: nightly-4.4.2.6942-ls448
     env:
       TZ: "${TIMEZONE}"
       PUID: "1000"
