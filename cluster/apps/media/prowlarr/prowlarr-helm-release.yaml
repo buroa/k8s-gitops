@@ -19,7 +19,7 @@ spec:
   values:
     image:
       repository: ghcr.io/linuxserver/prowlarr
-      tag: nightly-1.2.0.2556-ls556
+      tag: nightly-1.2.0.2561-ls557
     env:
       TZ: "${TIMEZONE}"
       PUID: "1000"
