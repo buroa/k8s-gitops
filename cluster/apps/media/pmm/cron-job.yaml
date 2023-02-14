@@ -5,7 +5,7 @@ metadata:
   name: pmm-updater
   namespace: media
 spec:
-  schedule: "@daily"
+  schedule: "0 3 * * *"
   jobTemplate:
     spec:
       backoffLimit: 3
