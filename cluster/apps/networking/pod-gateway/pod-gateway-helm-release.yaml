@@ -59,7 +59,7 @@ spec:
       image:
         repository: ghcr.io/angelnu/gateway-admision-controller
         pullPolicy: IfNotPresent
-        tag: v3.7.0
+        tag: v3.8.0
       replicas: 1
       strategy:
         type: RollingUpdate
