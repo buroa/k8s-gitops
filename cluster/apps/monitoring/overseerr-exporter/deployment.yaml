@@ -25,7 +25,7 @@ spec:
           imagePullPolicy: IfNotPresent
           args:
             - --overseerr.address
-            - "http://overseerr.media.svc:5055"
+            - "http://overseerr.media.svc.cluster.local:5055"
             - --overseerr.api-key
             - "${SECRET_OVERSEERR_APIKEY}"
           ports:

@@ -93,8 +93,8 @@ spec:
           client_secret: "${SECRET_AUTHENTIK_GRAFANA_CLIENT_SECRET}"
           scopes: openid email profile
           auth_url: https://auth.${SECRET_PUBLIC_DOMAIN}/application/o/authorize/
-          token_url: http://authentik.home.svc/application/o/token/
-          api_url: http://authentik.home.svc/application/o/userinfo/
+          token_url: http://authentik.home.svc.cluster.local/application/o/token/
+          api_url: http://authentik.home.svc.cluster.local/application/o/userinfo/
           role_attribute_path: contains(groups[*], 'Grafana Admins') && 'Admin' || contains(groups[*], 'Grafana Editors') && 'Editor' || 'Viewer'
       persistence:
         enabled: true

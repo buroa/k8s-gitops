@@ -30,7 +30,7 @@ spec:
             - name: PORT
               value: "9707"
             - name: URL
-              value: "http://prowlarr.media.svc:9696"
+              value: "http://prowlarr.media.svc.cluster.local:9696"
             - name: APIKEY
               value: "${SECRET_PROWLARR_APIKEY}"
           ports:
