@@ -56,7 +56,7 @@ spec:
         existingClaim: media
         mountPath: /media
     nodeSelector:
-      node.kubernetes.io/instance-type: s-8vcpu-16gb-amd
+      node.kubernetes.io/instance-type: c-8-intel
     resources:
       requests:
         memory: 350Mi
