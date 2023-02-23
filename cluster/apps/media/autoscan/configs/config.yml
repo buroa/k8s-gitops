@@ -1,5 +1,5 @@
 ---
-minimum-age: 1m
+minimum-age: 15s
 scan-delay: 15s
 scan-stats: 15m
 
