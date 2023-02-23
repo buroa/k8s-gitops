@@ -12,6 +12,8 @@ spec:
       app.kubernetes.io/instance: *name
       app.kubernetes.io/name: *name
   replicas: 1
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels: *labels
