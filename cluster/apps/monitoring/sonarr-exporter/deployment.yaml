@@ -30,7 +30,7 @@ spec:
             - name: PORT
               value: "9707"
             - name: URL
-              value: "http://sonarr.media.svc:8989"
+              value: "http://sonarr.media.svc.cluster.local:8989"
             - name: APIKEY
               value: "${SECRET_SONARR_APIKEY}"
           ports:

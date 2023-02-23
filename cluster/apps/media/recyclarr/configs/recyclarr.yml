@@ -1,7 +1,7 @@
 ---
 sonarr:
   main:
-    base_url: http://sonarr.media.svc:8989
+    base_url: http://sonarr.media.svc.cluster.local:8989
     api_key: ${SECRET_SONARR_APIKEY}
 
     delete_old_custom_formats: true
@@ -128,7 +128,7 @@ sonarr:
 
 radarr:
   main:
-    base_url: http://radarr.media.svc:7878
+    base_url: http://radarr.media.svc.cluster.local:7878
     api_key: ${SECRET_RADARR_APIKEY}
 
     delete_old_custom_formats: true

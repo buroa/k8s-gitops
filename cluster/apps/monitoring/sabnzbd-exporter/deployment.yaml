@@ -25,7 +25,7 @@ spec:
           imagePullPolicy: IfNotPresent
           env:
             - name: SABNZBD_BASEURLS
-              value: "http://sabnzbd.media.svc:8080/sabnzbd"
+              value: "http://sabnzbd.media.svc.cluster.local:8080/sabnzbd"
             - name: SABNZBD_APIKEYS
               value: "${SECRET_SABNZBD_APIKEY}"
           ports:
