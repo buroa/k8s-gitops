@@ -25,7 +25,7 @@ spec:
           imagePullPolicy: IfNotPresent
           env:
             - name: DELUGE_URL
-              value: "http://deluge.media.svc:8112"
+              value: "http://deluge.media.svc.cluster.local:8112"
             - name: DELUGE_PASSWORD
               value: "${SECRET_DELUGE_PASSWORD}"
           ports:

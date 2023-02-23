@@ -30,7 +30,7 @@ spec:
             - name: PORT
               value: "9707"
             - name: URL
-              value: "http://radarr.media.svc:7878"
+              value: "http://radarr.media.svc.cluster.local:7878"
             - name: APIKEY
               value: "${SECRET_RADARR_APIKEY}"
           ports:
