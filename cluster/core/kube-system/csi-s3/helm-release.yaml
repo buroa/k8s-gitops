@@ -21,15 +21,16 @@ spec:
       mounter: rclone
       singleBucket: ${SECRET_S3_BUCKET}
       mountOptions: >-
+        --umask=002
         --allow-other
-        --umask 002
         --cache-dir=/tmp
-        --buffer-size 16M
-        --dir-cache-time 15s
-        --vfs-cache-max-age 5m
-        --vfs-cache-max-size 100G
-        --vfs-read-chunk-size 64M
-        --vfs-read-chunk-size-limit 2G
+        --buffer-size=16M
+        --dir-cache-time=15s
+        --vfs-cache-mode=full
+        --vfs-cache-max-age=5m
+        --vfs-cache-max-size=100G
+        --vfs-read-chunk-size=64M
+        --vfs-read-chunk-size-limit=2G
       reclaimPolicy: Retain
     secret:
       accessKey: ${SECRET_S3_GATEWAY_ACCESS_KEY}
