@@ -24,7 +24,7 @@ spec:
       TZ: "${TIMEZONE}"
       LOG_LEVEL: "info"
     nodeSelector:
-      node.kubernetes.io/instance-type: s-4vcpu-8gb-amd
+      node.kubernetes.io/instance-type: ${INSTANCE_TYPE_DEFAULT}
     podLabels:
       vpn/ovpn: "true"
     resources:

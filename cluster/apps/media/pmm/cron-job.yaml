@@ -33,7 +33,7 @@ spec:
                   mountPath: /config/Pre-rolls.yml
                   subPath: Pre-rolls.yml
           nodeSelector:
-            node.kubernetes.io/instance-type: c-8-intel
+            node.kubernetes.io/instance-type: ${INSTANCE_TYPE_OPTIMIZED}
           volumes:
             - name: config
               persistentVolumeClaim:

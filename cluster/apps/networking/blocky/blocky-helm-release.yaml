@@ -127,7 +127,7 @@ spec:
     metrics:
       enabled: true
     nodeSelector:
-      node.kubernetes.io/instance-type: s-4vcpu-8gb-amd
+      node.kubernetes.io/instance-type: ${INSTANCE_TYPE_DEFAULT}
     resources:
       requests:
         memory: 280Mi

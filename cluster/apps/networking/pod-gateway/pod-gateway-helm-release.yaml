@@ -70,4 +70,4 @@ spec:
       gatewayLabel: vpn/ovpn
       gatewayAnnotation: vpn/ovpn
     nodeSelector:
-      node.kubernetes.io/instance-type: c-8-intel
+      node.kubernetes.io/instance-type: ${INSTANCE_TYPE_OPTIMIZED}
