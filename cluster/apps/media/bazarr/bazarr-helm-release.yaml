@@ -52,7 +52,7 @@ spec:
         existingClaim: media
         mountPath: /media
     nodeSelector:
-      node.kubernetes.io/instance-type: ${INSTANCE_TYPE_DEFAULT}
+      node.kubernetes.io/instance-type: ${INSTANCE_TYPE_OPTIMIZED}
     resources:
       requests:
         memory: 250Mi
