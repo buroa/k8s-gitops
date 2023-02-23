@@ -8,7 +8,6 @@ libraries:
       - file: config/Movies - Trakt (Unplayed) by Magic815.yml
     overlay_path:
       - remove_overlays: false
-      - file: config/Movies - Overlays - Audio.yml
       - file: config/Movies - Overlays - Charts.yml
       - file: config/Movies - Overlays - Oscars.yml
       - file: config/Movies - Overlays - Ratings.yml
@@ -51,7 +50,7 @@ libraries:
 
 settings:
   cache: true
-  cache_expiration: 60
+  cache_expiration: 3600
   asset_directory: config/assets
   asset_folders: false
   asset_depth: 0
@@ -100,7 +99,7 @@ plex:
 tmdb:
   apikey: ${SECRET_TMDB_APIKEY}
   language: en
-  cache_expiration: 60
+  cache_expiration: 3600
   region:
 
 tautulli:
@@ -109,11 +108,11 @@ tautulli:
 
 omdb:
   apikey: ${SECRET_OMDB_APIKEY}
-  cache_expiration: 60
+  cache_expiration: 3600
 
 mdblist:
   apikey: ${SECRET_MDBLIST_APIKEY}
-  cache_expiration: 60
+  cache_expiration: 3600
 
 radarr:
   url: http://radarr.media.svc.cluster.local:7878
