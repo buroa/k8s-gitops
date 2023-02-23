@@ -53,7 +53,7 @@ spec:
         type: hostPath
         hostPath: /downloads
     nodeSelector:
-      node.kubernetes.io/instance-type: c-8-intel
+      node.kubernetes.io/instance-type: ${INSTANCE_TYPE_OPTIMIZED}
     resources:
       requests:
         memory: 100Mi
