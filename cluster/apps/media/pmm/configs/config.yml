@@ -7,6 +7,7 @@ libraries:
       - file: config/Movies - Holidays by Drazzizzi.yml
       - file: config/Movies - Trakt (Unplayed) by Magic815.yml
     overlay_path:
+      - remove_overlays: false
       - file: config/Movies - Overlays - Audio.yml
       - file: config/Movies - Overlays - Charts.yml
       - file: config/Movies - Overlays - Oscars.yml
@@ -25,6 +26,7 @@ libraries:
     metadata_path:
       - file: config/TV Shows.yml
     overlay_path:
+      - remove_overlays: false
       - file: config/TV Shows - Overlays - Charts.yml
       - file: config/TV Shows - Overlays - Networks.yml
       - file: config/TV Shows - Overlays - Ratings.yml
@@ -90,7 +92,7 @@ settings:
 plex:
   url: http://plex.media.svc:32400
   token: ${SECRET_PLEX_APIKEY}
-  timeout: 300
+  timeout: 120
   clean_bundles: false
   empty_trash: false
   optimize: false
