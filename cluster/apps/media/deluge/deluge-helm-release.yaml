@@ -53,7 +53,7 @@ spec:
         type: hostPath
         hostPath: /downloads
     nodeSelector:
-      node.kubernetes.io/instance-type: s-8vcpu-16gb-amd
+      node.kubernetes.io/instance-type: c-8-intel
     podLabels:
       vpn/ovpn: "true"
     hostname: torrent
