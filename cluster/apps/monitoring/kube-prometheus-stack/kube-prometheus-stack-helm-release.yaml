@@ -57,6 +57,8 @@ spec:
         podMonitorSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
     grafana:
+      nodeSelector:
+        node.kubernetes.io/instance-type: ${INSTANCE_TYPE_DEFAULT}
       ingress:
         enabled: true
         annotations:
