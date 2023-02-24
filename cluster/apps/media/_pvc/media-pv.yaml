@@ -33,10 +33,9 @@ spec:
         --allow-other
         --cache-dir=/tmp
         --buffer-size=16M
-        --poll-interval=10s
-        --dir-cache-time=15s
+        --dir-cache-time=1m
         --vfs-cache-max-age=5m
         --vfs-cache-max-size=100G
-        --vfs-read-chunk-size=128M
-        --vfs-read-chunk-size-limit=512M
+        --vfs-read-chunk-size=64M
+        --vfs-read-chunk-size-limit=2G
     volumeHandle: "${SECRET_S3_BUCKET}/media"
