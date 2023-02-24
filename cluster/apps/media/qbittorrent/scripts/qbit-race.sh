@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sed -i 's/http\:\/\/dl-cdn.alpinelinux.org/http\:\/\/mirror.clarkson.edu/g' /etc/apk/repositories
+sed -i 's/dl-cdn.alpinelinux.org/mirror.clarkson.edu/g' /etc/apk/repositories
 
 echo "**** installing nodejs + git ****"
 apk add --update nodejs npm git

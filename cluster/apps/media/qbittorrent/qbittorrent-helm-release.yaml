@@ -53,7 +53,7 @@ spec:
         type: hostPath
         hostPath: /downloads
       qbit-race-script:
-        enable: true
+        enabled: true
         type: custom
         mountPath: /custom-cont-init.d/qbit-race.sh
         subPath: qbit-race.sh
