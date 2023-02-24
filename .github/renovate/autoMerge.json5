@@ -22,7 +22,7 @@
         "ghcr.io/flaresolverr/flaresolverr",
         "ghcr.io/hotio/unpackerr",
         "ghcr.io/linuxserver/bazarr",
-        "ghcr.io/linuxserver/deluge",
+        "ghcr.io/linuxserver/qbittorrent",
         "ghcr.io/linuxserver/overseerr",
         "ghcr.io/linuxserver/prowlarr",
         "ghcr.io/linuxserver/radarr",

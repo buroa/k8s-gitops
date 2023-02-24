@@ -2,7 +2,7 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: &name deluge-exporter
+  name: &name qbittorrent-exporter
   namespace: monitoring
   labels: &labels
     app.kubernetes.io/name: *name
@@ -20,17 +20,17 @@ spec:
         prometheus.io/port: "monitoring"
     spec:
       containers:
-        - name: deluge-exporter
-          image: ngosang/deluge-exporter:1.0.1
+        - name: qbittorrent-exporter
+          image: esanchezm/prometheus-qbittorrent-exporter
           imagePullPolicy: IfNotPresent
           env:
-            - name: DELUGE_URL
-              value: "http://deluge.media.svc.cluster.local:8112"
-            - name: DELUGE_PASSWORD
-              value: "${SECRET_DELUGE_PASSWORD}"
+            - name: QBITTORRENT_PORT
+              value: "8080"
+            - name: QBITTORRENT_HOST
+              value: "qbittorrent.media.svc.cluster.local"
           ports:
             - name: monitoring
-              containerPort: 8011
+              containerPort: 8000
           livenessProbe: &probe
             httpGet:
               path: /
