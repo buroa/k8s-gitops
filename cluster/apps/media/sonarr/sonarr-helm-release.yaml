@@ -19,7 +19,7 @@ spec:
   values:
     image:
       repository: ghcr.io/linuxserver/sonarr
-      tag: develop-4.0.0.390-ls412
+      tag: develop-4.0.0.391-ls413
     env:
       TZ: "${TIMEZONE}"
       PUID: "1000"
