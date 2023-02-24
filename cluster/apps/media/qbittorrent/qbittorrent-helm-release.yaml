@@ -20,7 +20,7 @@ spec:
   values:
     image:
       repository: ghcr.io/linuxserver/qbittorrent
-      tag: 4.5.1
+      tag: 20.04.1
     env:
       TZ: "${TIMEZONE}"
       PUID: "1000"
