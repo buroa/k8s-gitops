@@ -52,6 +52,12 @@ spec:
         enabled: true
         type: hostPath
         hostPath: /downloads
+      qbit-race-script:
+        enable: true
+        type: configMap
+        name: qbit-race-script
+        mountPath: /custom-cont-init.d
+        subPath: qbit-race.sh
     nodeSelector:
       node.kubernetes.io/instance-type: ${INSTANCE_TYPE_OPTIMIZED}
     podLabels:
