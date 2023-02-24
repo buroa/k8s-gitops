@@ -52,15 +52,16 @@ spec:
         enabled: true
         type: hostPath
         hostPath: /downloads
-      qbit-race-script:
-        enabled: true
-        type: custom
-        mountPath: /custom-cont-init.d/qbit-race.sh
-        subPath: qbit-race.sh
-        volumeSpec:
-          configMap:
-            name: qbit-race-script
-            defaultMode: 511
+    additionalContainers:
+      qbittools:
+        name: qbittools
+        image: registry.gitlab.com/alexkm/qbittools:0.10.2
+        imagePullPolicy: IfNotPresent
+        args:
+          - qbittools
+          - reannounce
+          - -s 127.0.0.1
+          - -p 8080
     nodeSelector:
       node.kubernetes.io/instance-type: ${INSTANCE_TYPE_OPTIMIZED}
     podLabels:
