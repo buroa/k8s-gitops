@@ -4,7 +4,7 @@ kind: Service
 metadata:
   name: &name autoscan
   namespace: media
-  labels:
+  labels: &labels
     app.kubernetes.io/instance: *name
     app.kubernetes.io/name: *name
 spec:
@@ -13,7 +13,5 @@ spec:
       port: 3030
       protocol: TCP
       targetPort: http
-  selector:
-    app.kubernetes.io/instance: *name
-    app.kubernetes.io/name: *name
+  selector: *labels
   type: ClusterIP
