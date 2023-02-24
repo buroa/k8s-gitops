@@ -58,10 +58,12 @@ spec:
         image: registry.gitlab.com/alexkm/qbittools:0.10.2
         imagePullPolicy: IfNotPresent
         args:
-          - qbittools
           - reannounce
-          - -s 127.0.0.1
-          - -p 8080
+          - --config=/config/qBittorrent/qBittorrent.conf
+        volumeMounts:
+          - name: config
+            mountPath: /config
+            readOnly: true
     nodeSelector:
       node.kubernetes.io/instance-type: ${INSTANCE_TYPE_OPTIMIZED}
     podLabels:
