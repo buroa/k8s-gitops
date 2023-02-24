@@ -7,9 +7,9 @@ resources:
   - service.yaml
   - servicemonitor.yaml
 configMapGenerator:
-  - name: deluge-grafana-dashboards
+  - name: qbittorrent-grafana-dashboards
     files:
-      - dashboards/deluge.json
+      - dashboards/qbittorrent.json
     options:
       labels:
         grafana_dashboard: "1"

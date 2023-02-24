@@ -2,7 +2,7 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: &name deluge-exporter
+  name: &name qbittorrent-exporter
   namespace: monitoring
   labels: &labels
     app.kubernetes.io/name: *name

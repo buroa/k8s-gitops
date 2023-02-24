@@ -6,13 +6,13 @@ resources:
   - autobrr
   - autoscan
   - bazarr
-  - deluge
   - flaresolverr
   - overseerr
   - pal
   - plex
   - pmm
   - prowlarr
+  - qbittorrent
   - radarr
   - recyclarr
   - sabnzbd
