@@ -19,7 +19,7 @@ spec:
   values:
     image:
       repository: ghcr.io/linuxserver/bazarr
-      tag: v1.1.4-ls177
+      tag: development-v1.1.5-beta.24-ls479
     env:
       TZ: "${TIMEZONE}"
       PUID: "1000"
