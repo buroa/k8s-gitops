@@ -37,6 +37,17 @@ spec:
               subPath: config.yml
             - name: media
               mountPath: /media
+        - name: autoscan-adapter
+          image: dantebarba/autoscan-adapter:0.0.4
+          env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: PLEX_URL
+              value: "http://plex.media.svc.cluster.local:32400"
+            - name: PLEX_TOKEN
+              value: "${SECRET_PLEX_APIKEY}"
       nodeSelector:
         node.kubernetes.io/instance-type: ${INSTANCE_TYPE_DEFAULT}
       volumes:
