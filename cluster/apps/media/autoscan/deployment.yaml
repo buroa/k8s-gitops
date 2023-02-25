@@ -52,7 +52,7 @@ spec:
               cpu: 250m
               memory: 250Mi
         - name: autoscan-adapter
-          image: akreii/autoscan-adapter:latest
+          image: akreii/autoscan-adapter:latest@sha256:a4b116abbec192671ab595ef56710351bc7b49d7e53c983618e8a1c70688f72b
           env:
             - name: PUID
               value: "1000"
