@@ -51,6 +51,14 @@ spec:
         enabled: true
         existingClaim: media
         mountPath: /media
+      bazarr-scripts:
+        enabled: true
+        type: custom
+        mountPath: /scripts
+        volumeSpec:
+          configMap:
+            name: bazarr-scripts
+            defaultMode: 511
     nodeSelector:
       node.kubernetes.io/instance-type: ${INSTANCE_TYPE_OPTIMIZED}
     resources:
