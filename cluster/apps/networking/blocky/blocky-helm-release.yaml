@@ -57,6 +57,7 @@ spec:
           tautulli.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_CLUSTER_IP}
 
           # ns: monitoring
+          goldilocks.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_CLUSTER_IP}
           am.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_CLUSTER_IP}
           grafana.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_CLUSTER_IP}
           prometheus.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_CLUSTER_IP}
