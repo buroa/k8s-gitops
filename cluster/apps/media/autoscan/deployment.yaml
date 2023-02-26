@@ -63,7 +63,7 @@ spec:
             - name: PLEX_TOKEN
               value: "${SECRET_PLEX_APIKEY}"
             - name: SLEEP_INTERVAL
-              value: "60"
+              value: "30"
           ports:
             - containerPort: 5000
               name: http-aa
