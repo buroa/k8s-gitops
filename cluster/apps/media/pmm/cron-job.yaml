@@ -20,9 +20,8 @@ spec:
               env:
                 - name: TZ
                   value: "${TIMEZONE}"
-              args:
-                - --run
-                - --read-only-config
+              command:
+                - /scripts/run.sh
               volumeMounts:
                 - name: config
                   mountPath: /config
@@ -32,6 +31,8 @@ spec:
                 - name: config-file
                   mountPath: /config/Pre-rolls.yml
                   subPath: Pre-rolls.yml
+                - name: scripts
+                  mountPath: /scripts
           nodeSelector:
             node.kubernetes.io/instance-type: ${INSTANCE_TYPE_OPTIMIZED}
           volumes:
@@ -41,3 +42,7 @@ spec:
             - name: config-file
               configMap:
                 name: pmm-config
+            - name: scripts
+              configMap:
+                name: pmm-scripts
+                defaultMode: 511
