@@ -52,7 +52,7 @@ spec:
               cpu: 250m
               memory: 250Mi
         - name: autoscan-adapter
-          image: akreii/autoscan-adapter:latest@sha256:613e1bce3088e94538ec6281fce0a9c3bbda9f24f58a63de0ea3106017520307
+          image: akreii/autoscan-adapter:latest@sha256:411c0bbdae1d2199b491c68f89466428c6f3c5a3a1fe492aeac63357bd6afa63
           env:
             - name: PUID
               value: "1000"
@@ -62,6 +62,8 @@ spec:
               value: "http://plex.media.svc.cluster.local:32400"
             - name: PLEX_TOKEN
               value: "${SECRET_PLEX_APIKEY}"
+            - name: SLEEP_INTERVAL
+              value: "15"
           ports:
             - containerPort: 5000
               name: http-aa
