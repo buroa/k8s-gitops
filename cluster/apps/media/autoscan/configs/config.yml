@@ -21,4 +21,4 @@ targets:
       token: ${SECRET_PLEX_APIKEY}
 
   autoscan:
-    - url: http://node-red.home.svc.cluster.local:1880/autoscan
+    - url: http://127.0.0.1:5000
