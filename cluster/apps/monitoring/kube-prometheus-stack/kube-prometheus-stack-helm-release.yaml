@@ -57,8 +57,8 @@ spec:
           - name: "null"
           - name: "telegram"
             telegram_configs:
-              bot_token: "${SECRET_TELEGRAM_BOT_TOKEN}"
-              chat_id: "${SECRET_TELEGRAM_CHAT_ID}"
+              - bot_token: "${SECRET_TELEGRAM_BOT_TOKEN}"
+                chat_id: "${SECRET_TELEGRAM_CHAT_ID}"
         templates:
           - "/etc/alertmanager/config/*.tmpl"
       ingress:
