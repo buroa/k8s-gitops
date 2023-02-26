@@ -26,10 +26,10 @@ spec:
               value: "${SECRET_PLEX_APIKEY}"
           resources:
             requests:
-              cpu: 50m
-              memory: 100Mi
+              cpu: 10m
+              memory: 250Mi
             limits:
               cpu: 500m
-              memory: 1Gi
+              memory: 500Mi
       nodeSelector:
         node.kubernetes.io/instance-type: ${INSTANCE_TYPE_DEFAULT}
