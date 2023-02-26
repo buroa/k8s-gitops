@@ -25,6 +25,8 @@ spec:
         limits:
           cpu: 500m
           memory: 200Mi
+      nodeSelector:
+        node.kubernetes.io/instance-type: ${INSTANCE_TYPE_DEFAULT}
     dashboard:
       replicaCount: 1
       ingress:
