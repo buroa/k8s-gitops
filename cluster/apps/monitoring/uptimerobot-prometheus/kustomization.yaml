@@ -1,0 +1,15 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: monitoring
+resources:
+  - uptimerobot-prometheus-helm-release.yaml
+configMapGenerator:
+  - name: uptimerobot-grafana-dashboards
+    files:
+      - dashboards/uptimerobot.json
+    options:
+      labels:
+        grafana_dashboard: "1"
+generatorOptions:
+  disableNameSuffixHash: true
