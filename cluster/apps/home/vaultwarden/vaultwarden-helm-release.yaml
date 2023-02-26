@@ -30,7 +30,7 @@ spec:
       SMTP_FROM_NAME: "${SECRET_NAME}"
       SMTP_SECURITY: "force_tls"
       SMTP_PORT: "465"
-      SMTP_USERNAME: "vault@${SECRET_PUBLIC_DOMAIN}"
+      SMTP_USERNAME: "apikey"
       SMTP_PASSWORD: "${SECRET_VAULT_SMTP_PASSWORD}"
     service:
       main:
