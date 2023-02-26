@@ -19,6 +19,36 @@ spec:
       labels: *labels
     spec:
       containers:
+        - name: autoscan-adapter
+          image: akreii/autoscan-adapter:latest@sha256:411c0bbdae1d2199b491c68f89466428c6f3c5a3a1fe492aeac63357bd6afa63
+          env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: PLEX_URL
+              value: "http://plex.media.svc.cluster.local:32400"
+            - name: PLEX_TOKEN
+              value: "${SECRET_PLEX_APIKEY}"
+            - name: SLEEP_INTERVAL
+              value: "60"
+          ports:
+            - containerPort: 5000
+              name: http-aa
+          livenessProbe: &probe-aa
+            httpGet:
+              path: /
+              port: http-aa
+            failureThreshold: 5
+            periodSeconds: 10
+          readinessProbe: *probe-aa
+          resources:
+            requests:
+              cpu: 10m
+              memory: 100Mi
+            limits:
+              cpu: 250m
+              memory: 250Mi
         - name: *name
           image: cloudb0x/autoscan:1.3.0
           env:
@@ -44,36 +74,6 @@ spec:
               subPath: config.yml
             - name: media
               mountPath: /media
-          resources:
-            requests:
-              cpu: 10m
-              memory: 100Mi
-            limits:
-              cpu: 250m
-              memory: 250Mi
-        - name: autoscan-adapter
-          image: akreii/autoscan-adapter:latest@sha256:411c0bbdae1d2199b491c68f89466428c6f3c5a3a1fe492aeac63357bd6afa63
-          env:
-            - name: PUID
-              value: "1000"
-            - name: PGID
-              value: "1000"
-            - name: PLEX_URL
-              value: "http://plex.media.svc.cluster.local:32400"
-            - name: PLEX_TOKEN
-              value: "${SECRET_PLEX_APIKEY}"
-            - name: SLEEP_INTERVAL
-              value: "15"
-          ports:
-            - containerPort: 5000
-              name: http-aa
-          livenessProbe: &probe-aa
-            httpGet:
-              path: /
-              port: http-aa
-            failureThreshold: 5
-            periodSeconds: 10
-          readinessProbe: *probe-aa
           resources:
             requests:
               cpu: 10m
