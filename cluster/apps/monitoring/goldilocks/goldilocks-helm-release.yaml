@@ -36,9 +36,10 @@ spec:
           ingress.kubernetes.io/force-ssl-redirect: "true"
           projectcontour.io/websocket-routes: "/"
         hosts:
-          - &host goldilocks.${SECRET_PUBLIC_DOMAIN}
-        paths:
-          - /
+          - host: &host goldilocks.${SECRET_PUBLIC_DOMAIN}
+            paths:
+              - path: /
+                type: Prefix
         tls:
           - secretName: goldilocks-tls
             hosts:
