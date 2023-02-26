@@ -5,3 +5,4 @@ metadata:
   name: media
   labels:
     vpn: "true"
+    goldilocks.fairwinds.com/enabled: "true"
