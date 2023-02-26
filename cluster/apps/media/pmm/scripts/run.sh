@@ -1,15 +1,14 @@
 #!/usr/bin/env bash
 
-echo "*** running pmm - movies ***"
-python3 plex_meta_manager.py \
-    --run \
-    -cache-libraries \
-    --read-only-config \
-    --run-libraries "Movies"
+pmm () {
+    echo "*** pmm: $1 ***"
 
-echo "*** running pmm - tv shows ***"
-python3 plex_meta_manager.py \
-    --run \
-    --cache-libraries \
-    --read-only-config \
-    --run-libraries "TV Shows"
+    python3 plex_meta_manager.py \
+        --run \
+        --cache-libraries \
+        --read-only-config \
+        --run-libraries "$1"
+}
+
+pmm "Movies"
+pmm "TV Shows"
