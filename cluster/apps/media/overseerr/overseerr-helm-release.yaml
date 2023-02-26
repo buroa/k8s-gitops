@@ -51,7 +51,7 @@ spec:
       node.kubernetes.io/instance-type: ${INSTANCE_TYPE_DEFAULT}
     resources:
       requests:
-        memory: 100Mi
-        cpu: 100m
+        memory: 250Mi
+        cpu: 10m
       limits:
         memory: 1024Mi

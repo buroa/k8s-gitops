@@ -63,7 +63,7 @@ spec:
       node.kubernetes.io/instance-type: ${INSTANCE_TYPE_OPTIMIZED}
     resources:
       requests:
-        memory: 500Mi
-        cpu: 1000m
+        memory: 250Mi
+        cpu: 10m
       limits:
-        memory: 2Gi
+        memory: 2048Mi
