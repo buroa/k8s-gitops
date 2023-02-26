@@ -29,4 +29,13 @@ spec:
         interval: 3m
         scrapeTimeout: 1m
       prometheusRule:
-        enabled: false
+        enabled: true
+        rules:
+          - alert: UptimeRobotExternalServiceDown
+            annotations:
+              description: "Uptime Robot has detected that {{ $labels.c1_name }} is down"
+              summary: "{{ $labels.c1_name }} is down"
+            expr: |
+              uptimerobot_status != 0
+            labels:
+              severity: critical
