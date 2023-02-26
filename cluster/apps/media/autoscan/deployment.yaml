@@ -51,6 +51,34 @@ spec:
             limits:
               cpu: 250m
               memory: 250Mi
+        - name: autoscan-adapter
+          image: akreii/autoscan-adapter:latest@sha256:613e1bce3088e94538ec6281fce0a9c3bbda9f24f58a63de0ea3106017520307
+          env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: PLEX_URL
+              value: "http://plex.media.svc.cluster.local:32400"
+            - name: PLEX_TOKEN
+              value: "${SECRET_PLEX_APIKEY}"
+          ports:
+            - containerPort: 5000
+              name: http-aa
+          livenessProbe: &probe-aa
+            httpGet:
+              path: /
+              port: http-aa
+            failureThreshold: 5
+            periodSeconds: 10
+          readinessProbe: *probe-aa
+          resources:
+            requests:
+              cpu: 10m
+              memory: 100Mi
+            limits:
+              cpu: 250m
+              memory: 250Mi
       nodeSelector:
         node.kubernetes.io/instance-type: ${INSTANCE_TYPE_DEFAULT}
       volumes:
