@@ -10,5 +10,8 @@ configMapGenerator:
     files:
       - configs/config.yml
       - configs/Pre-rolls.yml
+  - name: pmm-scripts
+    files:
+      - scripts/run.sh
 generatorOptions:
   disableNameSuffixHash: true
