@@ -19,6 +19,48 @@ spec:
         namespace: flux-system
   values:
     alertmanager:
+      config:
+        global:
+          resolve_timeout: 5m
+        inhibit_rules:
+          - source_matchers:
+              - "severity = critical"
+            target_matchers:
+              - "severity =~ warning|info"
+            equal:
+              - "namespace"
+              - "alertname"
+          - source_matchers:
+              - "severity = warning"
+            target_matchers:
+              - "severity = info"
+            equal:
+              - "namespace"
+              - "alertname"
+          - source_matchers:
+              - "alertname = InfoInhibitor"
+            target_matchers:
+              - "severity = info"
+            equal:
+              - "namespace"
+        route:
+          group_by: ["namespace"]
+          group_wait: 30s
+          group_interval: 5m
+          repeat_interval: 12h
+          receiver: "telegram"
+          routes:
+            - receiver: "null"
+              matchers:
+                - alertname =~ "InfoInhibitor|Watchdog"
+        receivers:
+          - name: "null"
+          - name: "telegram"
+            telegram_configs:
+              bot_token: "${SECRET_TELEGRAM_BOT_TOKEN}"
+              chat_id: "${SECRET_TELEGRAM_CHAT_ID}"
+        templates:
+          - "/etc/alertmanager/config/*.tmpl"
       ingress:
         enabled: true
         annotations:
