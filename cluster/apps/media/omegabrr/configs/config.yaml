@@ -23,4 +23,3 @@ clients:
       apikey: ${SECRET_SONARR_APIKEY}
       filters:
         - 2
-      excludeAlternateTitles: true
