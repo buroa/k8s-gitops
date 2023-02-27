@@ -29,8 +29,8 @@ spec:
               name: http
           volumeMounts:
             - name: omegabrr-config-file
-              mountPath: /config/config.yml
-              subPath: config.yml
+              mountPath: /config/config.yaml
+              subPath: config.yaml
       nodeSelector:
         node.kubernetes.io/instance-type: ${INSTANCE_TYPE_DEFAULT}
       volumes:
