@@ -22,10 +22,12 @@ spec:
       singleBucket: ${SECRET_S3_BUCKET}
       mountOptions: >-
         --umask=002
+        --no-modtime
         --allow-other
+        --transfers=32
         --cache-dir=/tmp
         --buffer-size=16M
-        --dir-cache-time=1m
+        --dir-cache-time=15s
         --vfs-cache-max-age=5m
         --vfs-cache-max-size=100G
         --vfs-read-chunk-size=64M
