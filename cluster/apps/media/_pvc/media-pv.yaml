@@ -30,11 +30,10 @@ spec:
       bucket: ${SECRET_S3_BUCKET}
       options: >-
         --umask=002
-        --no-modtime
         --allow-other
         --cache-dir=/tmp
         --buffer-size=16M
-        --dir-cache-time=15s
+        --dir-cache-time=1m
         --vfs-cache-max-age=5m
         --vfs-cache-max-size=100G
         --vfs-read-chunk-size=64M
