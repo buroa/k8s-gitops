@@ -40,7 +40,6 @@ spec:
         mapping:
           # ns: home
           auth.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_CLUSTER_IP}
-          grocy.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_CLUSTER_IP}
           nr.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_CLUSTER_IP}
           vault.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_CLUSTER_IP}
 
