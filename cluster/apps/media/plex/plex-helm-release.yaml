@@ -19,7 +19,7 @@ spec:
   values:
     image:
       repository: ghcr.io/linuxserver/plex
-      tag: 1.31.0.6654-02189b09f-ls152
+      tag: 1.31.1.6733-bc0674160-ls154
     env:
       TZ: "${TIMEZONE}"
       PUID: "1000"
