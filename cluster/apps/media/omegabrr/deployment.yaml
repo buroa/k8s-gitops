@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: omegabrr
-          image: ghcr.io/autobrr/omegabrr:v1.3.0
+          image: ghcr.io/autobrr/omegabrr:v1.6.1
           env:
             - name: PUID
               value: "1000"
