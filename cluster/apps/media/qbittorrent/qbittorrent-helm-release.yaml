@@ -55,7 +55,7 @@ spec:
     additionalContainers:
       qbittools:
         name: qbittools
-        image: akreii/qbittools:latest@sha256:ad43613af475d219563d55b6da39b3e78858856d678e6b7304cba9e732f192d2
+        image: akreii/qbittools:latest@sha256:015eb3d79e67925ffa5b9cb8cdba3b86747057b653ccfff68a87932a8e70dd16
         imagePullPolicy: IfNotPresent
         args:
           - reannounce
