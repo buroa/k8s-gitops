@@ -1,0 +1,37 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: &name omegabrr
+  namespace: media
+spec:
+  selector:
+    matchLabels: &labels
+      app.kubernetes.io/instance: *name
+      app.kubernetes.io/name: *name
+  replicas: 1
+  template:
+    metadata:
+      labels: *labels
+    spec:
+      containers:
+        - name: omegabrr
+          image: ghcr.io/autobrr/omegabrr:v1.3.0
+          env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+          ports:
+            - containerPort: 7441
+              name: http
+          volumeMounts:
+            - name: omegabrr-config-file
+              mountPath: /config/config.yml
+              subPath: config.yml
+      nodeSelector:
+        node.kubernetes.io/instance-type: ${INSTANCE_TYPE_DEFAULT}
+      volumes:
+        - name: omegabrr-config-file
+          configMap:
+            name: omegabrr-config
