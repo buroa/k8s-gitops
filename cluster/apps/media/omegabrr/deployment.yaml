@@ -4,6 +4,8 @@ kind: Deployment
 metadata:
   name: &name omegabrr
   namespace: media
+  annotations:
+    reloader.stakater.com/auto: "true"
 spec:
   selector:
     matchLabels: &labels
