@@ -35,7 +35,6 @@ spec:
         --cache-dir=/tmp
         --buffer-size=16M
         --dir-cache-time=15s
-        --vfs-fast-fingerprint
         --vfs-cache-max-age=5m
         --vfs-cache-max-size=100G
         --vfs-read-chunk-size=64M
