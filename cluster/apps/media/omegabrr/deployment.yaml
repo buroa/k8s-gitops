@@ -18,6 +18,8 @@ spec:
         - name: omegabrr
           image: ghcr.io/autobrr/omegabrr:v1.6.1
           env:
+            - name: TZ
+              value: "${TIMEZONE}"
             - name: PUID
               value: "1000"
             - name: PGID
