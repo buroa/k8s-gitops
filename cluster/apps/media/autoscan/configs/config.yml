@@ -1,6 +1,6 @@
 ---
-minimum-age: 1m
-scan-delay: 1m
+minimum-age: 2m
+scan-delay: 2m
 scan-stats: 15m
 
 triggers:
