@@ -1,6 +1,6 @@
 ---
-minimum-age: 2m
-scan-delay: 2m
+minimum-age: 1m
+scan-delay: 1m
 scan-stats: 15m
 
 triggers:
@@ -22,3 +22,4 @@ targets:
 
   autoscan:
     - url: http://127.0.0.1:5000
+    - url: http://node-red.home.svc.cluster.local:1880/autoscan
