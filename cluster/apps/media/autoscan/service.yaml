@@ -13,5 +13,9 @@ spec:
       port: 3030
       protocol: TCP
       targetPort: http
+    - name: http-aa
+      port: 5000
+      protocol: TCP
+      targetPort: http-aa
   selector: *labels
   type: ClusterIP
