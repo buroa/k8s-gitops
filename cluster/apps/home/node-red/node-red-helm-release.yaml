@@ -18,8 +18,8 @@ spec:
       interval: 5m
   values:
     image:
-      repository: nodered/node-red
-      tag: 2.2.3-12-minimal
+      repository: nodered/node-red-dev
+      tag: 3.0.0-beta.4-18-minimal
     env:
       TZ: "${TIMEZONE}"
       FLOWS: "flows.json"
