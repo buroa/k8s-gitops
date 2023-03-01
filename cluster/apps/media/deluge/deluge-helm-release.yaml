@@ -2,16 +2,16 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: transmission
+  name: deluge
   namespace: media
 spec:
-  releaseName: transmission
+  releaseName: deluge
   interval: 5m
   chart:
     spec:
       # renovate: registryUrl=https://k8s-at-home.com/charts/
-      chart: transmission
-      version: 8.4.3
+      chart: deluge
+      version: 5.4.2
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home-charts
@@ -19,13 +19,12 @@ spec:
       interval: 5m
   values:
     image:
-      repository: ghcr.io/linuxserver/transmission
-      tag: 4.0.1
+      repository: ghcr.io/linuxserver/deluge
+      tag: 2.1.1
     env:
       TZ: "${TIMEZONE}"
       PUID: "1000"
       PGID: "1000"
-      TRANSMISSION_WEB_HOME: ""
     ingress:
       main:
         enabled: true
@@ -48,7 +47,7 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: transmission-config
+        existingClaim: deluge-config
       downloads:
         enabled: true
         type: hostPath
@@ -61,6 +60,6 @@ spec:
     resources:
       requests:
         memory: 250Mi
-        cpu: 10m
+        cpu: 25m
       limits:
         memory: 6000Mi
