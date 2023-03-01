@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: *name
-          image: akreii/autoscan:latest@sha256:e8d48c5bf8fe18afc01c0448fcd3e92aa8220511ca136b5eabda92c10cb68a67
+          image: akreii/autoscan:latest@sha256:47861efd956769aceb18af028cae30f2eafc0759abaac6b2106131d900cc2605
           env:
             - name: PUID
               value: "1000"
