@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: qbittorrent-config
+  name: transmission-config
   namespace: media
 spec:
   accessModes:

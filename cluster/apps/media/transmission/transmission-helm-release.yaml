@@ -2,16 +2,16 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: qbittorrent
+  name: transmission
   namespace: media
 spec:
-  releaseName: qbittorrent
+  releaseName: transmission
   interval: 5m
   chart:
     spec:
       # renovate: registryUrl=https://k8s-at-home.com/charts/
-      chart: qbittorrent
-      version: 13.5.2
+      chart: transmission
+      version: 8.4.3
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home-charts
@@ -19,12 +19,18 @@ spec:
       interval: 5m
   values:
     image:
-      repository: ghcr.io/linuxserver/qbittorrent
-      tag: 4.5.2
+      repository: ghcr.io/linuxserver/transmission
+      tag: 4.0.1
     env:
       TZ: "${TIMEZONE}"
       PUID: "1000"
       PGID: "1000"
+      TRANSMISSION_CACHE_SIZE_MB: "4096"
+      TRANSMISSION_DOWNLOAD_DIR: "/downloads/torrent/complete"
+      TRANSMISSION_INCOMPLETE_DIR: "/downloads/torrent/incomplete"
+      TRANSMISSION_INCOMPLETE_DIR_ENABLED: "true"
+      TRANSMISSION_PEER_PORT: "${TORRENT_PUBLIC_PORT}"
+      TRANSMISSION_BIND_ADDRESS_IPV4: "${VPN_GW_SUBNET}.${TORRENT_PUBLIC_OCTET}"
     ingress:
       main:
         enabled: true
@@ -47,23 +53,11 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: qbittorrent-config
+        existingClaim: transmission-config
       downloads:
         enabled: true
         type: hostPath
         hostPath: /downloads
-    additionalContainers:
-      qbittools:
-        name: qbittools
-        image: akreii/qbittools:latest@sha256:0e72f892d2ae43cdd79fc78c10f020f5dea81fbcb8cdbf34ca1fc88de0f3ef29
-        imagePullPolicy: IfNotPresent
-        args:
-          - reannounce
-          - --config=/config/qBittorrent/qBittorrent.conf
-        volumeMounts:
-          - name: config
-            mountPath: /config
-            readOnly: true
     nodeSelector:
       node.kubernetes.io/instance-type: ${INSTANCE_TYPE_OPTIMIZED}
     podLabels:

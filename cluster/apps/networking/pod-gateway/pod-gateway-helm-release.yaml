@@ -25,7 +25,7 @@ spec:
       annotations:
         configmap.reloader.stakater.com/reload: "pod-gateway"
         secret.reloader.stakater.com/reload: "pod-gateway-config"
-    DNS: 172.17.0.1
+    DNS: ${VPN_GW_SUBNET}.1
     DNSPolicy: None
     clusterName: "cluster.local"
     routed_namespaces:
@@ -33,7 +33,7 @@ spec:
     settings:
       NOT_ROUTED_TO_GATEWAY_CIDRS: &cidrs "${CLUSTER_POD_IP_RANGE} ${CLUSTER_SERVICE_IP_RANGE} ${CLUSTER_IP_RANGE}"
       VXLAN_ID: 42
-      VXLAN_IP_NETWORK: "172.17.0"
+      VXLAN_IP_NETWORK: "${VPN_GW_SUBNET}"
       VXLAN_GATEWAY_FIRST_DYNAMIC_IP: 20
       VPN_INTERFACE: wg0
       VPN_BLOCK_OTHER_TRAFFIC: true
@@ -42,7 +42,7 @@ spec:
       DNS_LOCAL_CIDRS: "cluster.local"
     publicPorts:
       - hostname: torrent
-        IP: 10
+        IP: ${TORRENT_PUBLIC_OCTET}
         ports:
           - type: udp
             port: ${TORRENT_PUBLIC_PORT}

@@ -6,7 +6,6 @@ resources:
   - kube-prometheus-stack
   - overseerr-exporter
   - prowlarr-exporter
-  - qbittorrent-exporter
   - radarr-exporter
   - sabnzbd-exporter
   - sonarr-exporter
