@@ -25,6 +25,7 @@ spec:
       TZ: "${TIMEZONE}"
       PUID: "1000"
       PGID: "1000"
+      TRANSMISSION_WEB_HOME: /web
       TRANSMISSION_CACHE_SIZE_MB: "4096"
       TRANSMISSION_DOWNLOAD_DIR: "/downloads/torrent/complete"
       TRANSMISSION_INCOMPLETE_DIR: "/downloads/torrent/incomplete"
