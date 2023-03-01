@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: *name
-          image: akreii/autoscan:latest@sha256:47861efd956769aceb18af028cae30f2eafc0759abaac6b2106131d900cc2605
+          image: akreii/autoscan:latest@sha256:0262d6aeca9f866d8087cbd26d59e7164dce89eb65a5cc4320c05775d2d5517a
           env:
             - name: PUID
               value: "1000"
@@ -52,7 +52,7 @@ spec:
               cpu: 250m
               memory: 250Mi
         - name: autoscan-adapter
-          image: akreii/autoscan-adapter:latest@sha256:0262d6aeca9f866d8087cbd26d59e7164dce89eb65a5cc4320c05775d2d5517a
+          image: akreii/autoscan-adapter:latest@sha256:411c0bbdae1d2199b491c68f89466428c6f3c5a3a1fe492aeac63357bd6afa63
           env:
             - name: PUID
               value: "1000"
