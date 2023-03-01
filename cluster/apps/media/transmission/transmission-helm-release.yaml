@@ -25,13 +25,7 @@ spec:
       TZ: "${TIMEZONE}"
       PUID: "1000"
       PGID: "1000"
-      TRANSMISSION_WEB_HOME: /web
-      TRANSMISSION_CACHE_SIZE_MB: "4096"
-      TRANSMISSION_DOWNLOAD_DIR: "/downloads/torrent/complete"
-      TRANSMISSION_INCOMPLETE_DIR: "/downloads/torrent/incomplete"
-      TRANSMISSION_INCOMPLETE_DIR_ENABLED: "true"
-      TRANSMISSION_PEER_PORT: "${TORRENT_PUBLIC_PORT}"
-      TRANSMISSION_BIND_ADDRESS_IPV4: "${VPN_GW_SUBNET}.${TORRENT_PUBLIC_OCTET}"
+      TRANSMISSION_WEB_HOME: ""
     ingress:
       main:
         enabled: true
