@@ -6,6 +6,7 @@ resources:
   - autobrr
   - autoscan
   - bazarr
+  - deluge
   - flaresolverr
   - omegabrr
   - overseerr
@@ -18,5 +19,4 @@ resources:
   - sabnzbd
   - sonarr
   - tautulli
-  - transmission
   - unpackerr
