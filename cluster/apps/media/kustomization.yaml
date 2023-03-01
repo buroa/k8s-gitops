@@ -13,10 +13,10 @@ resources:
   - plex
   - pmm
   - prowlarr
-  - qbittorrent
   - radarr
   - recyclarr
   - sabnzbd
   - sonarr
   - tautulli
+  - transmission
   - unpackerr
