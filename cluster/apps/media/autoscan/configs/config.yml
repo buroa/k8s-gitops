@@ -1,7 +1,9 @@
 ---
-minimum-age: 15s
-scan-delay: 15s
+minimum-age: 1m
+scan-delay: 1m
 scan-stats: 15m
+scan-verify: true
+scan-max-age: 10m
 
 triggers:
   manual:
@@ -19,7 +21,6 @@ targets:
   plex:
     - url: http://plex.media.svc.cluster.local:32400
       token: ${SECRET_PLEX_APIKEY}
-      verify: true
 
   autoscan:
     - url: http://127.0.0.1:5000
