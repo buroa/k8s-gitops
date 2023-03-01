@@ -27,7 +27,7 @@ spec:
             - name: DELUGE_URL
               value: "http://deluge.media.svc.cluster.local:8112"
             - name: DELUGE_PASSWORD
-              value: "${SECRET_DELUGE_PASSWORD}"
+              value: "deluge"
           ports:
             - name: monitoring
               containerPort: 8011
