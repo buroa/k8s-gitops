@@ -4,3 +4,10 @@ kind: Kustomization
 resources:
   - config-pvc.yaml
   - deluge-helm-release.yaml
+configMapGenerator:
+  - name: deluge-plugins
+    files:
+      - plugins/ltConfig-2.0.0.egg
+      - plugins/AddTorrentCheck-0.2-py3.11.egg
+generatorOptions:
+  disableNameSuffixHash: true
