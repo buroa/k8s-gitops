@@ -12,3 +12,4 @@ resources:
   - sonarr-exporter
   - tautulli-exporter
   - uptimerobot-prometheus
+  - vpa
