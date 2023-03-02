@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: cloudflared
-          image: cloudflare/cloudflared:2023.2.2
+          image: cloudflare/cloudflared:2023.3.0
           args:
             - tunnel
             - --config
