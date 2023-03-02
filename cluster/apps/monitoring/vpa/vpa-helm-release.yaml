@@ -22,8 +22,8 @@ spec:
         prometheus-address: |
           http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local:9090
         storage: prometheus
-        nodeSelector:
-          node.kubernetes.io/instance-type: ${INSTANCE_TYPE_DEFAULT}
+      nodeSelector:
+        node.kubernetes.io/instance-type: ${INSTANCE_TYPE_DEFAULT}
     updater:
       enabled: false
     admissionController:
