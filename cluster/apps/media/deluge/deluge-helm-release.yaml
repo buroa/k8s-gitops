@@ -52,13 +52,6 @@ spec:
         enabled: true
         type: hostPath
         hostPath: /downloads
-      deluge-plugins:
-        enabled: true
-        type: custom
-        mountPath: /config/plugins
-        volumeSpec:
-          configMap:
-            name: deluge-plugins
     nodeSelector:
       node.kubernetes.io/instance-type: ${INSTANCE_TYPE_OPTIMIZED}
     podLabels:
