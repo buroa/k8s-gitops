@@ -18,6 +18,9 @@ spec:
       interval: 5m
   values:
     recommender:
+      image:
+        repository: k8s.gcr.io/autoscaling/vpa-recommender
+        tag: 0.13.0
       extraArgs:
         prometheus-address: |
           http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local:9090
