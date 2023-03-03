@@ -57,6 +57,17 @@ spec:
         enabled: true
         existingClaim: media
         mountPath: /media
+    additionalContainers:
+      plex-thing:
+        name: plex-thing
+        image: akreii/plex-thing:latest@sha256:8b058fbf6fec655ab4b95e015ec2ce53e0e159f0433c92f36dcaf82c584f2f84
+        imagePullPolicy: IfNotPresent
+        env:
+          PLEX_DB: "/config/Library/Application Support/Plex Media Server/Plug-in Support/Databases/com.plexapp.plugins.library.db"
+        volumeMounts:
+          - name: config
+            mountPath: /config
+            readOnly: true
     nodeSelector:
       node.kubernetes.io/instance-type: ${INSTANCE_TYPE_DEFAULT}
     resources:
