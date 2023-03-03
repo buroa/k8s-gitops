@@ -24,6 +24,11 @@ spec:
       TZ: "${TIMEZONE}"
       PUID: "1000"
       PGID: "1000"
+    service:
+      s3:
+        ports:
+          http:
+            port: 1234
     ingress:
       main:
         enabled: true
@@ -39,6 +44,10 @@ spec:
             paths:
               - path: /
                 pathType: Prefix
+              - path: /library/parts/*/*/*
+                pathType: Prefix
+                service:
+                  port: 1234
         tls:
           - secretName: plex-tls
             hosts:
