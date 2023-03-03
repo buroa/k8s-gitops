@@ -27,7 +27,7 @@ spec:
     service:
       s3:
         ports:
-          http:
+          s3:
             port: 1234
     ingress:
       main:
@@ -79,6 +79,10 @@ spec:
           AWS_S3_ACCESS_KEY_ID: "${SECRET_S3_GATEWAY_ACCESS_KEY}"
           AWS_S3_SECRET_ACCESS_KEY: "${SECRET_S3_GATEWAY_SECRET_KEY}"
           WEB_CONCURRENCY: "4"
+        ports:
+          - containerPort: 1234
+            name: s3
+            protocol: TCP
         volumeMounts:
           - name: config
             mountPath: /config
