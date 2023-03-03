@@ -60,10 +60,15 @@ spec:
     additionalContainers:
       plex-thing:
         name: plex-thing
-        image: akreii/plex-thing:latest@sha256:8b058fbf6fec655ab4b95e015ec2ce53e0e159f0433c92f36dcaf82c584f2f84
+        image: akreii/plex-thing:latest@sha256:c12de79f49feb148994982a22564a4b997334329ce5c62c710d7a6107f9824e8
         imagePullPolicy: IfNotPresent
         env:
           PLEX_DB: "/config/Library/Application Support/Plex Media Server/Plug-in Support/Databases/com.plexapp.plugins.library.db"
+          AWS_S3_BUCKET: "${SECRET_S3_BUCKET}"
+          AWS_S3_REGION: "us-east-1"
+          AWS_S3_ENDPOINT: "https://${SECRET_S3_GATEWAY_SERVICE_ENDPOINT}"
+          AWS_S3_ACCESS_KEY_ID: "${SECRET_S3_GATEWAY_ACCESS_KEY}"
+          AWS_S3_SECRET_ACCESS_KEY: "${SECRET_S3_GATEWAY_SECRET_KEY}"
         volumeMounts:
           - name: config
             mountPath: /config
