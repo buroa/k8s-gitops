@@ -45,7 +45,7 @@ spec:
               - path: /
                 pathType: Prefix
               - path: /library/parts/(.+)/(.+)/file.(.+)
-                pathType: Prefix
+                pathType: ImplementationSpecific
                 service:
                   port: 1234
         tls:
