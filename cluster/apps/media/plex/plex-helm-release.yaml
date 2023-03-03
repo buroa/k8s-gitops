@@ -69,6 +69,7 @@ spec:
           AWS_S3_ENDPOINT: "https://${SECRET_S3_GATEWAY_SERVICE_ENDPOINT}"
           AWS_S3_ACCESS_KEY_ID: "${SECRET_S3_GATEWAY_ACCESS_KEY}"
           AWS_S3_SECRET_ACCESS_KEY: "${SECRET_S3_GATEWAY_SECRET_KEY}"
+          WEB_CONCURRENCY: "4"
         volumeMounts:
           - name: config
             mountPath: /config
