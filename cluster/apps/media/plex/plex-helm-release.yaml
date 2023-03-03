@@ -44,7 +44,7 @@ spec:
             paths:
               - path: /
                 pathType: Prefix
-              - path: /library/parts/*/*/*
+              - path: /library/parts/(.+)/(.+)/file.(.+)
                 pathType: Prefix
                 service:
                   port: 1234
