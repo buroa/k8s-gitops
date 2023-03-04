@@ -69,7 +69,7 @@ spec:
     additionalContainers:
       plex-thing:
         name: plex-thing
-        image: akreii/plex-thing:latest@sha256:687cf45fae9840ed40b90e2a2f60b7f290d011822e683f3ebf29a835ab701829
+        image: akreii/plex-thing:latest@sha256:eb015ab63576531dd63e62eb96e9c66c2884439086e8c86e02aca8661acc89fe
         imagePullPolicy: IfNotPresent
         env:
           PLEX_DB: "/config/Library/Application Support/Plex Media Server/Plug-in Support/Databases/com.plexapp.plugins.library.db"
