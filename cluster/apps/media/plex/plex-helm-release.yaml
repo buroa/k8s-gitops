@@ -25,11 +25,8 @@ spec:
       PUID: "1000"
       PGID: "1000"
     service:
-      main:
-        primary: true
+      s3:
         ports:
-          http:
-            port: 32400
           s3:
             enabled: true
             port: &s3 5000
