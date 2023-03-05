@@ -25,9 +25,13 @@ spec:
       PUID: "1000"
       PGID: "1000"
     service:
-      s3:
+      main:
+        primary: true
         ports:
+          http:
+            port: 32400
           s3:
+            enabled: true
             port: &s3 5000
     ingress:
       main:
@@ -69,7 +73,7 @@ spec:
     additionalContainers:
       plex-s3:
         name: plex-s3
-        image: akreii/plex-s3:latest@sha256:24d95acf0de9175a779fa94759afe50526e6298372487fb4b28952b8e8903f80
+        image: akreii/plex-s3:latest@sha256:489721c358e836d227ea774dcd51a8eb7283d09d4b9ff37569d3f384eff2035b
         imagePullPolicy: IfNotPresent
         env:
           PLEX_URL: "http://localhost:32400"
