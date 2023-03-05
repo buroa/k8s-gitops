@@ -87,6 +87,13 @@ spec:
           - containerPort: *s3
             name: s3
             protocol: TCP
+        livenessProbe: &probe
+          httpGet:
+            path: /
+            port: s3
+          failureThreshold: 5
+          periodSeconds: 10
+        readinessProbe: *probe
         volumeMounts:
           - name: config
             mountPath: /config
