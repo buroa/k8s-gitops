@@ -25,10 +25,10 @@ spec:
       PUID: "1000"
       PGID: "1000"
     service:
-      s3:
+      main:
         ports:
           s3:
-            enabled: true
+            primary: false
             port: &s3 5000
     ingress:
       main:
