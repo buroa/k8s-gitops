@@ -6,7 +6,7 @@ collections:
 
   Regular:
     build_collection: false
-    server_preroll: /media/prerolls/Regular/Abstract Plex Pre-roll.mp4;/media/prerolls/Regular/Cartoon Ink Plex Pre-roll.mp4;/media/prerolls/Regular/Shape Filling Plex Pre-roll.mp4;/media/prerolls/Regular/Sleek Short Plex Pre-roll.mp4;/media/prerolls/Regular/Splash Cartoon Plex Pre-roll.mp4;/media/prerolls/Regular/Standard Plex Pre-roll with Chime.mp4
+    server_preroll: /media/prerolls/Regular/Piracy by Netflix.mp4;/media/prerolls/Regular/Netflix Love is Sharing.mp4;/media/prerolls/Regular/Netflix Colorful Lines Plex Pre-roll.mp4
     schedule:
       - range(01/01-01/31) # January
       - range(03/01-03/31) # March
