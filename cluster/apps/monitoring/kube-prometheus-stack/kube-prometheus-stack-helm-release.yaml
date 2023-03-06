@@ -101,6 +101,8 @@ spec:
     grafana:
       nodeSelector:
         node.kubernetes.io/instance-type: ${INSTANCE_TYPE_DEFAULT}
+      deploymentStrategy:
+        type: Recreate
       ingress:
         enabled: true
         annotations:
