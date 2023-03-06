@@ -39,7 +39,7 @@ collections:
 
   Valentine's Day:
     build_collection: false
-    server_preroll: /media/prerolls/Valentines/Valentines Hearts Plex Pre-roll.mp4
+    server_preroll: /media/prerolls/Valentines/Valentine's Day Flowers Plex Pre-roll.mp4
     schedule: yearly(02/14) # This changes yearly
 
   Easter:
