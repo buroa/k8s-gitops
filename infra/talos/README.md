@@ -36,6 +36,9 @@ sudo gdisk (macm disk)
 > t
 > 1
 > ef00 (efi code)
+> c
+> 1
+> EFI (change partition label)
 > w
 
 mount the efi macm partition
