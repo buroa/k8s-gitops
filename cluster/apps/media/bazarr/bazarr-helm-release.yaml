@@ -60,7 +60,7 @@ spec:
             name: bazarr-scripts
             defaultMode: 511
     nodeSelector:
-      node.kubernetes.io/instance-type: ${INSTANCE_TYPE_OPTIMIZED}
+      topology.kubernetes.io/region: w
     resources:
       requests:
         memory: 250Mi

@@ -31,5 +31,3 @@ spec:
             limits:
               cpu: 1000m
               memory: 500Mi
-      nodeSelector:
-        node.kubernetes.io/instance-type: ${INSTANCE_TYPE_DEFAULT}

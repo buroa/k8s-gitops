@@ -38,8 +38,6 @@ spec:
         - secretName: auth-tls
           hosts:
             - *host
-    nodeSelector: &nodeSelector
-      node.kubernetes.io/instance-type: ${INSTANCE_TYPE_DEFAULT}
     resources: &resources
       requests:
         memory: 350Mi
@@ -53,14 +51,12 @@ spec:
         enabled: true
         existingClaim: authentik-postgres-db
       primary:
-        nodeSelector: *nodeSelector
         resources: *resources
     redis:
       enabled: true
       master:
         persistence:
           enabled: false
-        nodeSelector: *nodeSelector
         resources: *resources
     prometheus:
       serviceMonitor:

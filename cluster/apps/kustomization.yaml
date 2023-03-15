@@ -9,3 +9,4 @@ resources:
   - media
   - monitoring
   - networking
+  - rook-ceph

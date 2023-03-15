@@ -99,8 +99,6 @@ spec:
         podMonitorSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
     grafana:
-      nodeSelector:
-        node.kubernetes.io/instance-type: ${INSTANCE_TYPE_DEFAULT}
       deploymentStrategy:
         type: Recreate
       ingress:

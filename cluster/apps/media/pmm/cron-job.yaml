@@ -34,7 +34,7 @@ spec:
                 - name: scripts
                   mountPath: /scripts
           nodeSelector:
-            node.kubernetes.io/instance-type: ${INSTANCE_TYPE_OPTIMIZED}
+            topology.kubernetes.io/region: w
           volumes:
             - name: config
               persistentVolumeClaim:

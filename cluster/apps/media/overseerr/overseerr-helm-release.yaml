@@ -47,8 +47,6 @@ spec:
         enabled: true
         mountPath: /config
         existingClaim: overseerr-config
-    nodeSelector:
-      node.kubernetes.io/instance-type: ${INSTANCE_TYPE_DEFAULT}
     resources:
       requests:
         memory: 250Mi
