@@ -22,7 +22,6 @@ spec:
       createPrometheusRules: true
     ingress:
       dashboard:
-        ingressClassName: nginx
         annotations:
           kubernetes.io/tls-acme: "true"
           kubernetes.io/ingress.class: contour
