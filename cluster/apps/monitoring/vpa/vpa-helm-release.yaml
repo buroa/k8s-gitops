@@ -19,7 +19,7 @@ spec:
   values:
     recommender:
       image:
-        repository: k8s.gcr.io/autoscaling/vpa-recommender
+        repository: registry.k8s.io/autoscaling/vpa-recommender
         tag: 0.13.0
       extraArgs:
         prometheus-address: |
