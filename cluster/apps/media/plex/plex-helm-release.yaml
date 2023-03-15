@@ -60,8 +60,10 @@ spec:
     nodeSelector:
       topology.kubernetes.io/region: w
     resources:
-      limits:
-        memory: 4096Mi
       requests:
+        gpu.intel.com/i915: 1
         cpu: 763m
         memory: 1024Mi
+      limits:
+        gpu.intel.com/i915: 1
+        memory: 4096Mi
