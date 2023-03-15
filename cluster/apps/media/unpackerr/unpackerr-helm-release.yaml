@@ -30,12 +30,12 @@ spec:
       config:
         enabled: true
         type: emptyDir
-      downloads:
+      media:
         enabled: true
-        type: hostPath
-        hostPath: /downloads
+        existingClaim: media
+        mountPath: /media
     nodeSelector:
-      node.kubernetes.io/instance-type: ${INSTANCE_TYPE_OPTIMIZED}
+      topology.kubernetes.io/region: w
     resources:
       requests:
         memory: 250Mi

@@ -1,0 +1,220 @@
+---
+clusterName: k8s
+
+clusterPodNets:
+  - 10.244.0.0/16
+clusterSvcNets:
+  - 10.245.0.0/16
+
+talosVersion: v1.4.0-alpha.2
+kubernetesVersion: 1.26.2
+endpoint: https://k8s.${domainName}:6443
+
+additionalApiServerCertSans:
+  - ${clusterEndpointIP}
+
+additionalMachineCertSans:
+  - ${clusterEndpointIP}
+  - k8s.${domainName}
+
+cniConfig:
+  name: none
+
+nodes:
+  # macm 2018 3.2GHz / 32GB / 256GB SSD / 1GBe
+  - hostname: m0.k8s.${domainName}
+    ipAddress: 10.0.0.10
+    installDisk: /dev/nvme0n1
+    controlPlane: true
+    disableSearchDomain: true
+    nameservers:
+      - ${gatewayIP}
+    networkInterfaces:
+      - interface: eth0
+        addresses:
+          - 10.0.0.10/24
+        mtu: 1500
+        routes:
+          - network: 0.0.0.0/0
+            gateway: ${gatewayIP}
+        vip:
+          ip: ${clusterEndpointIP}
+    nodeLabels:
+      topology.kubernetes.io/region: m
+      topology.kubernetes.io/zone: m0
+
+  # macm 2018 3.2GHz / 32GB / 256GB SSD / 1GBe
+  - hostname: m1.k8s.${domainName}
+    ipAddress: 10.0.0.11
+    installDisk: /dev/nvme0n1
+    controlPlane: true
+    disableSearchDomain: true
+    nameservers:
+      - ${gatewayIP}
+    networkInterfaces:
+      - interface: eth0
+        addresses:
+          - 10.0.0.11/24
+        mtu: 1500
+        routes:
+          - network: 0.0.0.0/0
+            gateway: ${gatewayIP}
+        vip:
+          ip: ${clusterEndpointIP}
+    nodeLabels:
+      topology.kubernetes.io/region: m
+      topology.kubernetes.io/zone: m1
+
+  # macm 2018 3.2GHz / 32GB / 256GB SSD / 1GBe
+  - hostname: m2.k8s.${domainName}
+    ipAddress: 10.0.0.12
+    installDisk: /dev/nvme0n1
+    controlPlane: true
+    disableSearchDomain: true
+    nameservers:
+      - ${gatewayIP}
+    networkInterfaces:
+      - interface: eth0
+        addresses:
+          - 10.0.0.12/24
+        mtu: 1500
+        routes:
+          - network: 0.0.0.0/0
+            gateway: ${gatewayIP}
+        vip:
+          ip: ${clusterEndpointIP}
+    nodeLabels:
+      topology.kubernetes.io/region: m
+      topology.kubernetes.io/zone: m2
+
+  # macm 2018 3.2GHz / 64GB / 1TB SSD / 10GBe
+  - hostname: w0.k8s.${domainName}
+    ipAddress: 10.0.0.20
+    installDisk: /dev/nvme0n1
+    controlPlane: false
+    disableSearchDomain: true
+    nameservers:
+      - ${gatewayIP}
+    networkInterfaces:
+      - interface: eth0
+        addresses:
+          - 10.0.0.20/24
+        mtu: 1500
+        routes:
+          - network: 0.0.0.0/0
+            gateway: ${gatewayIP}
+    nodeLabels:
+      topology.kubernetes.io/region: w
+      topology.kubernetes.io/zone: w0
+
+  # macm 2018 3.2GHz / 64GB / 1TB SSD / 10GBe
+  - hostname: w1.k8s.${domainName}
+    ipAddress: 10.0.0.21
+    installDisk: /dev/nvme0n1
+    controlPlane: false
+    disableSearchDomain: true
+    nameservers:
+      - ${gatewayIP}
+    networkInterfaces:
+      - interface: eth0
+        addresses:
+          - 10.0.0.21/24
+        mtu: 1500
+        routes:
+          - network: 0.0.0.0/0
+            gateway: ${gatewayIP}
+    nodeLabels:
+      topology.kubernetes.io/region: w
+      topology.kubernetes.io/zone: w1
+
+  # macm 2018 3.2GHz / 64GB / 1TB SSD / 10GBe
+  - hostname: w2.k8s.${domainName}
+    ipAddress: 10.0.0.22
+    installDisk: /dev/nvme0n1
+    controlPlane: false
+    disableSearchDomain: true
+    nameservers:
+      - ${gatewayIP}
+    networkInterfaces:
+      - interface: eth0
+        addresses:
+          - 10.0.0.22/24
+        mtu: 1500
+        routes:
+          - network: 0.0.0.0/0
+            gateway: ${gatewayIP}
+    nodeLabels:
+      topology.kubernetes.io/region: w
+      topology.kubernetes.io/zone: w2
+
+controlPlane:
+  inlinePatch:
+    cluster:
+      allowSchedulingOnMasters: true
+      controllerManager:
+        extraArgs:
+          feature-gates: MixedProtocolLBService=true,EphemeralContainers=True
+      proxy:
+        disabled: true
+        extraArgs:
+          feature-gates: MixedProtocolLBService=true,EphemeralContainers=True
+      scheduler:
+        extraArgs:
+          feature-gates: MixedProtocolLBService=true,EphemeralContainers=True
+      apiServer:
+        admissionControl: null
+      discovery:
+        registries:
+          service:
+            disabled: true
+    machine: &machine
+      install:
+        image: ghcr.io/buroa/talos-installer:v1.4.0-alpha.2-apple
+        extensions:
+          - image: ghcr.io/siderolabs/i915-ucode:20230210
+          - image: ghcr.io/siderolabs/intel-ucode:20230214
+          - image: ghcr.io/siderolabs/iscsi-tools:v0.1.4
+        legacyBIOSSupport: true
+      kernel:
+        modules:
+          - name: applesmc
+          - name: coretemp
+      sysfs:
+        devices.system.cpu.intel_pstate.no_turbo: 1
+        devices.system.cpu.cpu0.cpufreq.scaling_governor: performance
+        bus.acpi.drivers.applesmc.APP0001:00.fan1_manual: 1
+        bus.acpi.drivers.applesmc.APP0001:00.fan1_output: 4000
+      sysctls:
+        fs.inotify.max_user_watches: 1048576
+        fs.inotify.max_user_instances: 8192
+      udev:
+        rules:
+          - ACTION=="add", SUBSYSTEM=="thunderbolt", ATTR{authorized}=="0", ATTR{authorized}="1"
+      network:
+        extraHostEntries:
+          - ip: ${clusterEndpointIP}
+            aliases:
+              - k8s.${domainName}
+          - ip: 10.0.0.5
+            aliases:
+              - nas.${domainName}
+      time:
+        disabled: false
+        servers:
+          - time.cloudflare.com
+      kubelet:
+        extraArgs:
+          feature-gates: GracefulNodeShutdown=true,MixedProtocolLBService=true,EphemeralContainers=true
+          rotate-server-certificates: true
+      files:
+        - content: |
+            [plugins."io.containerd.grpc.v1.cri"]
+              enable_unprivileged_ports = true
+              enable_unprivileged_icmp = true
+          path: /etc/cri/conf.d/20-customization.part
+          op: create
+
+worker:
+  inlinePatch:
+    machine:
+      <<: *machine

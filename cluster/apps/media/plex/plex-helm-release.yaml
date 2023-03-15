@@ -24,12 +24,6 @@ spec:
       TZ: "${TIMEZONE}"
       PUID: "1000"
       PGID: "1000"
-    service:
-      main:
-        ports:
-          s3:
-            primary: false
-            port: &s3 5000
     ingress:
       main:
         enabled: true
@@ -45,10 +39,6 @@ spec:
             paths:
               - path: /
                 pathType: Prefix
-              - path: /library/parts/(.+)/(.+)/file.(.+)
-                pathType: ImplementationSpecific
-                service:
-                  port: *s3
         tls:
           - secretName: plex-tls
             hosts:
@@ -67,36 +57,8 @@ spec:
         enabled: true
         existingClaim: media
         mountPath: /media
-    additionalContainers:
-      plex-s3:
-        name: plex-s3
-        image: akreii/plex-s3:latest@sha256:489721c358e836d227ea774dcd51a8eb7283d09d4b9ff37569d3f384eff2035b
-        imagePullPolicy: IfNotPresent
-        env:
-          PLEX_URL: "http://localhost:32400"
-          PLEX_DB: "/config/Library/Application Support/Plex Media Server/Plug-in Support/Databases/com.plexapp.plugins.library.db"
-          AWS_S3_BUCKET: "${SECRET_S3_BUCKET}"
-          AWS_S3_REGION: "us-east-1"
-          AWS_S3_ENDPOINT: "https://s3.${SECRET_PUBLIC_DOMAIN}"
-          AWS_S3_ACCESS_KEY_ID: "${SECRET_S3_GATEWAY_ACCESS_KEY}"
-          AWS_S3_SECRET_ACCESS_KEY: "${SECRET_S3_GATEWAY_SECRET_KEY}"
-        ports:
-          - containerPort: *s3
-            name: s3
-            protocol: TCP
-        livenessProbe: &probe
-          httpGet:
-            path: /
-            port: s3
-          failureThreshold: 5
-          periodSeconds: 10
-        readinessProbe: *probe
-        volumeMounts:
-          - name: config
-            mountPath: /config
-            readOnly: true
     nodeSelector:
-      node.kubernetes.io/instance-type: ${INSTANCE_TYPE_DEFAULT}
+      topology.kubernetes.io/region: w
     resources:
       limits:
         memory: 4096Mi
