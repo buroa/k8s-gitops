@@ -2,11 +2,11 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: disk-wipe-w1
+  name: disk-wipe-w0
   namespace: rook-ceph
 spec:
   restartPolicy: Never
-  nodeName: w1
+  nodeName: w0
   containers:
     - name: disk-wipe
       image: cmd.cat/sgdisk/fdisk/dd/partprobe
@@ -14,7 +14,8 @@ spec:
         privileged: true
       command: ["sleep", "3600"]
       # args:
-      #   - sgdisk --zap-all /dev/nvme1n1;
-      #     dd if=/dev/zero of=/dev/nvme1n1 bs=4096k count=100 oflag=direct,dsync;
-      #     blkdiscard /dev/nvme1n1;
-      #     partprobe /dev/nvme1n1;
+      #     sgdisk --zap-all /dev/nvme0n1;
+      #     dd if=/dev/zero of=/dev/nvme0n1 bs=1M count=100 oflag=direct,dsync;
+      #     blkdiscard /dev/nvme0n1;
+      #     partprobe /dev/nvme0n1;
+      #     ls /dev/mapper/ceph-*
