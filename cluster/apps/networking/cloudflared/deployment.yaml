@@ -53,7 +53,7 @@ spec:
               subPath: config.yaml
               readOnly: true
       nodeSelector:
-        node.kubernetes.io/instance-type: ${INSTANCE_TYPE_DEFAULT}
+        topology.kubernetes.io/region: w
       volumes:
         - name: creds
           secret:
