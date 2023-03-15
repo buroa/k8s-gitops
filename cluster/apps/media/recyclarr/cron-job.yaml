@@ -44,8 +44,6 @@ spec:
                 - name: recyclarr-config-file
                   mountPath: /config/recyclarr.yml
                   subPath: recyclarr.yml
-          nodeSelector:
-            node.kubernetes.io/instance-type: ${INSTANCE_TYPE_DEFAULT}
           volumes:
             - name: recyclarr-config-file
               configMap:

@@ -46,8 +46,6 @@ spec:
       config:
         enabled: true
         existingClaim: tautulli-config
-    nodeSelector:
-      node.kubernetes.io/instance-type: ${INSTANCE_TYPE_DEFAULT}
     resources:
       requests:
         memory: 250Mi
