@@ -1,0 +1,156 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: disk-wipe-m0
+  namespace: rook-ceph
+spec:
+  restartPolicy: Never
+  nodeName: m0
+  containers:
+    - name: disk-wipe
+      image: cmd.cat/sgdisk/fdisk/dd/partprobe
+      securityContext:
+        privileged: true
+      command:
+        - rm
+        - -rf
+        - /var/lib/rook
+      volumeMounts:
+        - name: host-var
+          mountPath: /var
+  volumes:
+    - name: host-var
+      hostPath:
+        path: /var
+        type: ""
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: disk-wipe-m1
+  namespace: rook-ceph
+spec:
+  restartPolicy: Never
+  nodeName: m1
+  containers:
+    - name: disk-wipe
+      image: cmd.cat/sgdisk/fdisk/dd/partprobe
+      securityContext:
+        privileged: true
+      command:
+        - rm
+        - -rf
+        - /var/lib/rook
+      volumeMounts:
+        - name: host-var
+          mountPath: /var
+  volumes:
+    - name: host-var
+      hostPath:
+        path: /var
+        type: ""
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: disk-wipe-m2
+  namespace: rook-ceph
+spec:
+  restartPolicy: Never
+  nodeName: m2
+  containers:
+    - name: disk-wipe
+      image: cmd.cat/sgdisk/fdisk/dd/partprobe
+      securityContext:
+        privileged: true
+      command:
+        - rm
+        - -rf
+        - /var/lib/rook
+      volumeMounts:
+        - name: host-var
+          mountPath: /var
+  volumes:
+    - name: host-var
+      hostPath:
+        path: /var
+        type: ""
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: disk-wipe-w0
+  namespace: rook-ceph
+spec:
+  restartPolicy: Never
+  nodeName: w0
+  containers:
+    - name: disk-wipe
+      image: cmd.cat/sgdisk/fdisk/dd/partprobe
+      securityContext:
+        privileged: true
+      command:
+        - rm
+        - -rf
+        - /var/lib/rook
+      volumeMounts:
+        - name: host-var
+          mountPath: /var
+  volumes:
+    - name: host-var
+      hostPath:
+        path: /var
+        type: ""
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: disk-wipe-w1
+  namespace: rook-ceph
+spec:
+  restartPolicy: Never
+  nodeName: w1
+  containers:
+    - name: disk-wipe
+      image: cmd.cat/sgdisk/fdisk/dd/partprobe
+      securityContext:
+        privileged: true
+      command:
+        - rm
+        - -rf
+        - /var/lib/rook
+      volumeMounts:
+        - name: host-var
+          mountPath: /var
+  volumes:
+    - name: host-var
+      hostPath:
+        path: /var
+        type: ""
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: disk-wipe-w2
+  namespace: rook-ceph
+spec:
+  restartPolicy: Never
+  nodeName: w2
+  containers:
+    - name: disk-wipe
+      image: cmd.cat/sgdisk/fdisk/dd/partprobe
+      securityContext:
+        privileged: true
+      command:
+        - rm
+        - -rf
+        - /var/lib/rook
+      volumeMounts:
+        - name: host-var
+          mountPath: /var
+  volumes:
+    - name: host-var
+      hostPath:
+        path: /var
+        type: ""
