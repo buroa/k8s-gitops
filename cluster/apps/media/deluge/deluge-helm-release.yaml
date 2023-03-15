@@ -49,12 +49,12 @@ spec:
       config:
         enabled: true
         existingClaim: deluge-config
-      downloads:
+      media:
         enabled: true
-        type: hostPath
-        hostPath: /downloads
+        existingClaim: media
+        mountPath: /media
     nodeSelector:
-      node.kubernetes.io/instance-type: ${INSTANCE_TYPE_OPTIMIZED}
+      topology.kubernetes.io/region: w
     podLabels:
       vpn/ovpn: "true"
     hostname: torrent
