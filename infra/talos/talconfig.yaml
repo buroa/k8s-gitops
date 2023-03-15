@@ -1,5 +1,5 @@
 ---
-clusterName: k8s
+clusterName: &cluster k8s
 
 clusterPodNets:
   - 10.244.0.0/16
@@ -40,8 +40,8 @@ nodes:
         vip:
           ip: ${clusterEndpointIP}
     nodeLabels:
-      topology.kubernetes.io/region: m
-      topology.kubernetes.io/zone: m0
+      topology.kubernetes.io/region: *cluster
+      topology.kubernetes.io/zone: m
 
   # macm 2018 3.2GHz / 32GB / 256GB SSD / 1GBe
   - hostname: m1.k8s.${domainName}
@@ -62,8 +62,8 @@ nodes:
         vip:
           ip: ${clusterEndpointIP}
     nodeLabels:
-      topology.kubernetes.io/region: m
-      topology.kubernetes.io/zone: m1
+      topology.kubernetes.io/region: *cluster
+      topology.kubernetes.io/zone: m
 
   # macm 2018 3.2GHz / 32GB / 256GB SSD / 1GBe
   - hostname: m2.k8s.${domainName}
@@ -84,8 +84,8 @@ nodes:
         vip:
           ip: ${clusterEndpointIP}
     nodeLabels:
-      topology.kubernetes.io/region: m
-      topology.kubernetes.io/zone: m2
+      topology.kubernetes.io/region: *cluster
+      topology.kubernetes.io/zone: m
 
   # macm 2018 3.2GHz / 64GB / 1TB SSD / 10GBe
   - hostname: w0.k8s.${domainName}
@@ -104,8 +104,8 @@ nodes:
           - network: 0.0.0.0/0
             gateway: ${gatewayIP}
     nodeLabels:
-      topology.kubernetes.io/region: w
-      topology.kubernetes.io/zone: w0
+      topology.kubernetes.io/region: *cluster
+      topology.kubernetes.io/zone: w
 
   # macm 2018 3.2GHz / 64GB / 1TB SSD / 10GBe
   - hostname: w1.k8s.${domainName}
@@ -124,8 +124,8 @@ nodes:
           - network: 0.0.0.0/0
             gateway: ${gatewayIP}
     nodeLabels:
-      topology.kubernetes.io/region: w
-      topology.kubernetes.io/zone: w1
+      topology.kubernetes.io/region: *cluster
+      topology.kubernetes.io/zone: w
 
   # macm 2018 3.2GHz / 64GB / 1TB SSD / 10GBe
   - hostname: w2.k8s.${domainName}
@@ -144,8 +144,8 @@ nodes:
           - network: 0.0.0.0/0
             gateway: ${gatewayIP}
     nodeLabels:
-      topology.kubernetes.io/region: w
-      topology.kubernetes.io/zone: w2
+      topology.kubernetes.io/region: *cluster
+      topology.kubernetes.io/zone: w
 
 controlPlane:
   inlinePatch:
