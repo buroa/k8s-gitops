@@ -5,9 +5,10 @@ metadata:
   name: media
   namespace: media
 spec:
-  storageClassName: ""
   accessModes:
     - ReadWriteMany
+  storageClassName: nfs
   resources:
     requests:
-      storage: 50T
+      storage: 1Mi
+  volumeName: media

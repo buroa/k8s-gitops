@@ -52,8 +52,6 @@ spec:
       config:
         enabled: true
         existingClaim: autobrr-config
-    nodeSelector:
-      node.kubernetes.io/instance-type: ${INSTANCE_TYPE_DEFAULT}
     podLabels:
       vpn/ovpn: "true"
     resources:

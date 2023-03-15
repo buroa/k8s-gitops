@@ -53,8 +53,6 @@ spec:
         enabled: true
         existingClaim: node-red-config
         mountPath: /data
-    nodeSelector:
-      node.kubernetes.io/instance-type: ${INSTANCE_TYPE_DEFAULT}
     resources:
       requests:
         memory: 350Mi
