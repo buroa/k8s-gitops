@@ -57,7 +57,8 @@ spec:
         useAllNodes: false
         useAllDevices: false
         config:
-          osdsPerDevice: "1"
+          deviceClass: nvme
+          osdsPerDevice: "2"
         nodes:
           - name: w0
             devices:
