@@ -41,6 +41,8 @@ spec:
       [global]
       bdev_enable_discard = true
       bdev_async_discard = true
+      osd_pool_default_min_size = 2
+      osd_class_update_on_start = false
     cephClusterSpec:
       network:
         provider: host
@@ -57,7 +59,6 @@ spec:
         useAllNodes: false
         useAllDevices: false
         config:
-          deviceClass: nvme
           osdsPerDevice: "1"
         nodes:
           - name: w0
@@ -74,7 +75,7 @@ spec:
         spec:
           failureDomain: host
           replicated:
-            size: 2
+            size: 3
         storageClass:
           enabled: true
           name: ceph-block
@@ -96,7 +97,7 @@ spec:
         spec:
           metadataPool:
             replicated:
-              size: 2
+              size: 3
           dataPools:
             - failureDomain: host
               replicated:
@@ -132,7 +133,7 @@ spec:
           metadataPool:
             failureDomain: host
             replicated:
-              size: 2
+              size: 3
           dataPool:
             failureDomain: host
             erasureCoded:

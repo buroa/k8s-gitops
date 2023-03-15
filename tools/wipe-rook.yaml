@@ -1,5 +1,22 @@
 ---
 apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: wipe-script
+  namespace: rook-ceph
+data:
+  wipe.sh: |-
+    #!/bin/bash
+    apk add sgdisk
+
+    echo "Wiping $DISK ..."
+    sgdisk --zap-all $DISK
+    dd if=/dev/zero of=$DISK bs=1M count=100 oflag=direct,dsync
+    blkdiscard $DISK
+    partprobe $DISK
+    echo "Done"
+---
+apiVersion: v1
 kind: Pod
 metadata:
   name: disk-wipe-w0
@@ -12,10 +29,94 @@ spec:
       image: cmd.cat/sgdisk/fdisk/dd/partprobe
       securityContext:
         privileged: true
-      command: ["sleep", "3600"]
-      # args:
-      #     sgdisk --zap-all /dev/nvme0n1;
-      #     dd if=/dev/zero of=/dev/nvme0n1 bs=1M count=100 oflag=direct,dsync;
-      #     blkdiscard /dev/nvme0n1;
-      #     partprobe /dev/nvme0n1;
-      #     ls /dev/mapper/ceph-*
+      env:
+        - name: DISK
+          value: /dev/disk/by-id/nvme-KINGSTON_SNV2S2000G_50026B768635CAB3
+      command:
+        - /wipe.sh
+      volumeMounts:
+        - name: wipe-script
+          mountPath: /wipe.sh
+          readOnly: true
+          subPath: wipe.sh
+        - name: host-dev
+          mountPath: /dev
+  volumes:
+    - name: wipe-script
+      configMap:
+        defaultMode: 0700
+        name: wipe-script
+    - name: host-dev
+      hostPath:
+        path: /dev
+        type: ""
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: disk-wipe-w1
+  namespace: rook-ceph
+spec:
+  restartPolicy: Never
+  nodeName: w1
+  containers:
+    - name: disk-wipe
+      image: cmd.cat/sgdisk/fdisk/dd/partprobe
+      securityContext:
+        privileged: true
+      env:
+        - name: DISK
+          value: /dev/disk/by-id/nvme-KINGSTON_SNV2S2000G_50026B768635ABBA
+      command:
+        - /wipe.sh
+      volumeMounts:
+        - name: wipe-script
+          mountPath: /wipe.sh
+          readOnly: true
+          subPath: wipe.sh
+        - name: host-dev
+          mountPath: /dev
+  volumes:
+    - name: wipe-script
+      configMap:
+        defaultMode: 0700
+        name: wipe-script
+    - name: host-dev
+      hostPath:
+        path: /dev
+        type: ""
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: disk-wipe-w2
+  namespace: rook-ceph
+spec:
+  restartPolicy: Never
+  nodeName: w2
+  containers:
+    - name: disk-wipe
+      image: cmd.cat/sgdisk/fdisk/dd/partprobe
+      securityContext:
+        privileged: true
+      env:
+        - name: DISK
+          value: /dev/disk/by-id/nvme-KINGSTON_SNV2S2000G_50026B768635CA95
+      command:
+        - /wipe.sh
+      volumeMounts:
+        - name: wipe-script
+          mountPath: /wipe.sh
+          readOnly: true
+          subPath: wipe.sh
+        - name: host-dev
+          mountPath: /dev
+  volumes:
+    - name: wipe-script
+      configMap:
+        defaultMode: 0700
+        name: wipe-script
+    - name: host-dev
+      hostPath:
+        path: /dev
+        type: ""
