@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: debugger
+  namespace: rook-ceph
+spec:
+  restartPolicy: Never
+  nodeName: w0
+  containers:
+    - name: disk-wipe
+      image: cmd.cat/sgdisk/fdisk/dd/partprobe
+      securityContext:
+        privileged: true
+      command: ["sleep", "3600"]
