@@ -5,7 +5,7 @@ sops -e -i talsecret.sops.yaml
 
 talhelper genconfig
 
-export TALOSCONFIG=~/k8s-gitops/infra/talos/clusterconfig/talosconfig
+export TALOSCONFIG=~/k8s-gitops/talos/clusterconfig/talosconfig
 
 talosctl -n 10.0.0.10 apply-config --file clusterconfig/k8s-m0*.yaml --insecure
 talosctl -n 10.0.0.11 apply-config --file clusterconfig/k8s-m1*.yaml --insecure

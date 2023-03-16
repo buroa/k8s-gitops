@@ -9,7 +9,7 @@ helmCharts:
     releaseName: kubelet-csr-approver
     namespace: kube-system
     valuesInline:
-      providerRegex: ^k(master|worker)\d\d?$
+      providerRegex: ^k(m|w)\d\d?$
       bypassDnsResolution: true
 commonAnnotations:
   meta.helm.sh/release-name: kubelet-csr-approver
