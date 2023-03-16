@@ -4,3 +4,5 @@ kind: Kustomization
 resources:
   - cert-manager
   - namespaces
+  - networking
+  - rook-ceph
