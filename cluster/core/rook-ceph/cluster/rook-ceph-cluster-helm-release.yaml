@@ -41,7 +41,6 @@ spec:
       [global]
       bdev_enable_discard = true
       bdev_async_discard = true
-      osd_pool_default_min_size = 2
       osd_class_update_on_start = false
     cephClusterSpec:
       network:
@@ -55,18 +54,22 @@ spec:
       storage:
         useAllNodes: false
         useAllDevices: false
-        config:
-          osdsPerDevice: "1"
         nodes:
           - name: w0
             devices:
               - name: /dev/disk/by-id/nvme-KINGSTON_SNV2S2000G_50026B768635CAB3
+                config: # multiple osds can be created on high performance devices
+                  osdsPerDevice: "4"
           - name: w1
             devices:
               - name: /dev/disk/by-id/nvme-KINGSTON_SNV2S2000G_50026B768635ABBA
+                config: # multiple osds can be created on high performance devices
+                  osdsPerDevice: "4"
           - name: w2
             devices:
               - name: /dev/disk/by-id/nvme-KINGSTON_SNV2S2000G_50026B768635CA95
+                config: # multiple osds can be created on high performance devices
+                  osdsPerDevice: "4"
       placement:
         mgr:
           nodeAffinity: &nodeAffinity
@@ -84,7 +87,7 @@ spec:
         spec:
           failureDomain: host
           replicated:
-            size: 3
+            size: 2
         storageClass:
           enabled: true
           name: ceph-block
@@ -100,7 +103,7 @@ spec:
             csi.storage.k8s.io/controller-expand-secret-namespace: rook-ceph
             csi.storage.k8s.io/node-stage-secret-name: rook-csi-rbd-node
             csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
-            csi.storage.k8s.io/fstype: xfs
+            csi.storage.k8s.io/fstype: ext4
     cephFileSystems:
       - name: ceph-filesystem
         spec:
@@ -110,7 +113,7 @@ spec:
           dataPools:
             - failureDomain: host
               replicated:
-                size: 3
+                size: 2
               name: data0
           metadataServer:
             activeCount: 1
@@ -135,7 +138,7 @@ spec:
             csi.storage.k8s.io/controller-expand-secret-namespace: rook-ceph
             csi.storage.k8s.io/node-stage-secret-name: rook-csi-cephfs-node
             csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
-            csi.storage.k8s.io/fstype: xfs
+            csi.storage.k8s.io/fstype: ext4
     cephObjectStores:
       - name: ceph-objectstore
         spec:
