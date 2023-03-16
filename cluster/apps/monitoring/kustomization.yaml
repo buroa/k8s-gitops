@@ -4,6 +4,8 @@ kind: Kustomization
 resources:
   - exporters
   - goldilocks
+  - loki
+  - thanos
   - kube-prometheus-stack
   - uptimerobot-prometheus
   - vpa
