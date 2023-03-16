@@ -20,5 +20,8 @@ spec:
     - hard
     - noatime
     - nodiratime
-    - rsize=1048576
-    - wsize=1048576
+    - nocto
+    - noacl
+    - nconnect=8
+    - rsize=131072
+    - wsize=131072
