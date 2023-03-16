@@ -55,6 +55,10 @@ spec:
         configFileSecret: pod-gateway-config
         networkPolicy:
           enabled: false
+        securityContext:
+          capabilities:
+            add:
+              - NET_ADMIN
     webhook:
       image:
         repository: ghcr.io/angelnu/gateway-admision-controller

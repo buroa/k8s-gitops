@@ -17,7 +17,6 @@ spec:
       interval: 5m
   values:
     securityContext:
-      privileged: true
       capabilities:
         ciliumAgent:
           - CHOWN
