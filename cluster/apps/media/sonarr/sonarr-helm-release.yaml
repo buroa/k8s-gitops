@@ -47,10 +47,6 @@ spec:
       config:
         enabled: true
         existingClaim: sonarr-config
-      downloads:
-        enabled: true
-        type: hostPath
-        hostPath: /downloads
       media:
         enabled: true
         existingClaim: media
