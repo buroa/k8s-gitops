@@ -2,13 +2,13 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: disk-wipe-m0
+  name: data-wipe-m0
   namespace: rook-ceph
 spec:
   restartPolicy: Never
   nodeName: m0
   containers:
-    - name: disk-wipe
+    - name: data-wipe
       image: cmd.cat/sgdisk/fdisk/dd/partprobe
       securityContext:
         privileged: true
@@ -28,13 +28,13 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: disk-wipe-m1
+  name: data-wipe-m1
   namespace: rook-ceph
 spec:
   restartPolicy: Never
   nodeName: m1
   containers:
-    - name: disk-wipe
+    - name: data-wipe
       image: cmd.cat/sgdisk/fdisk/dd/partprobe
       securityContext:
         privileged: true
@@ -54,13 +54,13 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: disk-wipe-m2
+  name: data-wipe-m2
   namespace: rook-ceph
 spec:
   restartPolicy: Never
   nodeName: m2
   containers:
-    - name: disk-wipe
+    - name: data-wipe
       image: cmd.cat/sgdisk/fdisk/dd/partprobe
       securityContext:
         privileged: true
@@ -80,13 +80,13 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: disk-wipe-w0
+  name: data-wipe-w0
   namespace: rook-ceph
 spec:
   restartPolicy: Never
   nodeName: w0
   containers:
-    - name: disk-wipe
+    - name: data-wipe
       image: cmd.cat/sgdisk/fdisk/dd/partprobe
       securityContext:
         privileged: true
@@ -106,13 +106,13 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: disk-wipe-w1
+  name: data-wipe-w1
   namespace: rook-ceph
 spec:
   restartPolicy: Never
   nodeName: w1
   containers:
-    - name: disk-wipe
+    - name: data-wipe
       image: cmd.cat/sgdisk/fdisk/dd/partprobe
       securityContext:
         privileged: true
@@ -132,13 +132,13 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: disk-wipe-w2
+  name: data-wipe-w2
   namespace: rook-ceph
 spec:
   restartPolicy: Never
   nodeName: w2
   containers:
-    - name: disk-wipe
+    - name: data-wipe
       image: cmd.cat/sgdisk/fdisk/dd/partprobe
       securityContext:
         privileged: true
