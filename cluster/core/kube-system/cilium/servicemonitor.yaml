@@ -20,16 +20,19 @@ spec:
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: cilium
+  name: hubble
   namespace: kube-system
   labels:
     kustomize.toolkit.fluxcd.io/substitute: "disabled"
 spec:
+  selector:
+    matchLabels:
+      k8s-app: hubble
   namespaceSelector:
     matchNames:
       - kube-system
   endpoints:
-    - port: cilium-metrics
+    - port: hubble-metrics
       interval: 10s
       honorLabels: true
       path: /metrics
