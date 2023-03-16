@@ -52,8 +52,6 @@ spec:
               mountPath: /etc/cloudflared/config/config.yaml
               subPath: config.yaml
               readOnly: true
-      nodeSelector:
-        topology.kubernetes.io/region: w
       volumes:
         - name: creds
           secret:
