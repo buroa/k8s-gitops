@@ -77,6 +77,36 @@ spec:
           - secretName: am-tls
             hosts:
               - *hosta
+      alertmanagerSpec:
+        replicas: 3
+        podAntiAffinity: hard
+        storage:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: ceph-block
+              resources:
+                requests:
+                  storage: 1Gi
+    kubelet:
+      enabled: true
+      serviceMonitor:
+        metricRelabelings:
+          - action: replace
+            sourceLabels: ["node"]
+            targetLabel: instance
+    kube-state-metrics:
+      metricLabelsAllowlist: ["persistentvolumeclaims=[*]"]
+      prometheus:
+        monitor:
+          enabled: true
+          relabelings:
+            - action: replace
+              regex: (.*)
+              replacement: $1
+              sourceLabels: ["__meta_kubernetes_pod_node_name"]
+              targetLabel: kubernetes_node
+    kubeApiServer:
+      enabled: true
     prometheus:
       ingress:
         enabled: true
@@ -94,10 +124,50 @@ spec:
           - secretName: prometheus-tls
             hosts:
               - *hostp
+      thanos:
+        image: quay.io/thanos/thanos:v0.30.2@sha256:6b97f63c716781c487da88750850cf5a4e0a1c23af32764e97faefc1383432b1
+        objectStorageConfig:
+          name: thanos
+          key: objstore.yml
+        # renovate: datasource=docker depName=quay.io/thanos/thanos
+        version: "v0.30.2"
+      walCompression: true
+      thanosService:
+        enabled: true
+      thanosServiceMonitor:
+        enabled: true
       prometheusSpec:
+        replicas: 3
+        replicaExternalLabelName: __replica__ # must match with thanos value `.query.replicaLabel[0]`
+        # Breaks any metric that has an existing "cluster" label on a metric
+        # externalLabels:
+        #   cluster: home # must match with thanos value `.ruler.clusterName`
+        thanos:
+          image: quay.io/thanos/thanos:v0.30.2
+          # renovate: datasource=docker depName=quay.io/thanos/thanos
+          version: "v0.30.2"
+        podAntiAffinity: hard
         ruleSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
+        probeSelectorNilUsesHelmValues: false
+        retention: 2d
+        retentionSize: 6GB
+        enableAdminAPI: true
+        walCompression: true
+        storageSpec:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: ceph-block
+              resources:
+                requests:
+                  storage: 20Gi
+        resources:
+          requests:
+            cpu: 150m
+            memory: 2000Mi
+          limits:
+            memory: 7000Mi
     grafana:
       deploymentStrategy:
         type: Recreate
