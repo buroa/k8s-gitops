@@ -4,7 +4,6 @@ kind: Kustomization
 namespace: kube-system
 resources:
   - cilium-helm-release.yaml
-  - bgppeeringpolicy.yaml
   - servicemonitor.yaml
 configMapGenerator:
   - name: bgp-config

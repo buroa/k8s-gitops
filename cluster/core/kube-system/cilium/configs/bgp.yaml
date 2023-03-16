@@ -8,4 +8,4 @@ address-pools:
     protocol: bgp
     avoid-buggy-ips: true
     addresses:
-      - ${CILIUM_BGP_RANGE}
+      - ${CILIUM_BGP_CIDR}
