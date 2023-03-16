@@ -33,8 +33,8 @@ spec:
                   subPath: Pre-rolls.yml
                 - name: scripts
                   mountPath: /scripts
-          nodeSelector:
-            topology.kubernetes.io/region: w
+    nodeSelector:
+      topology.kubernetes.io/zone: w
           volumes:
             - name: config
               persistentVolumeClaim:
