@@ -11,7 +11,7 @@ spec:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
   nfs:
-    server: "nas.${SECRET_DOMAIN}"
+    server: "nas.${SECRET_PUBLIC_DOMAIN}"
     path: /volume1/media
   mountOptions:
     - nfsvers=4.1
