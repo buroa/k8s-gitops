@@ -52,7 +52,7 @@ spec:
     operator:
       rollOutPods: true
     autoDirectNodeRoutes: true
-    ipv4NativeRoutingCIDR: 10.244.0.0/16
+    ipv4NativeRoutingCIDR: "${CLUSTER_POD_IP_RANGE}"
     tunnel: "disabled"
     containerRuntime:
       integration: containerd
