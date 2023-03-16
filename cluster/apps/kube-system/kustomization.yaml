@@ -4,5 +4,6 @@ kind: Kustomization
 resources:
   - descheduler
   - intel-gpu-plugin
+  - kube-cleanup-operator
   - reloader
   - sealed-secrets
