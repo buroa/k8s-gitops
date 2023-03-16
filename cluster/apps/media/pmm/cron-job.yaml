@@ -33,8 +33,6 @@ spec:
                   subPath: Pre-rolls.yml
                 - name: scripts
                   mountPath: /scripts
-    nodeSelector:
-      topology.kubernetes.io/zone: w
           volumes:
             - name: config
               persistentVolumeClaim:
@@ -46,3 +44,5 @@ spec:
               configMap:
                 name: pmm-scripts
                 defaultMode: 511
+          nodeSelector:
+            topology.kubernetes.io/zone: w
