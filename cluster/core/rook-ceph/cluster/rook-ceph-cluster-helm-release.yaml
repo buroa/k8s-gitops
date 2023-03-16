@@ -54,22 +54,18 @@ spec:
       storage:
         useAllNodes: false
         useAllDevices: false
+        config:
+          osdsPerDevice: "1"
         nodes:
           - name: w0
             devices:
               - name: /dev/disk/by-id/nvme-KINGSTON_SNV2S2000G_50026B768635CAB3
-                config: # multiple osds can be created on high performance devices
-                  osdsPerDevice: "4"
           - name: w1
             devices:
               - name: /dev/disk/by-id/nvme-KINGSTON_SNV2S2000G_50026B768635ABBA
-                config: # multiple osds can be created on high performance devices
-                  osdsPerDevice: "4"
           - name: w2
             devices:
               - name: /dev/disk/by-id/nvme-KINGSTON_SNV2S2000G_50026B768635CA95
-                config: # multiple osds can be created on high performance devices
-                  osdsPerDevice: "4"
       placement:
         mgr:
           nodeAffinity: &nodeAffinity
