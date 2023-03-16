@@ -53,7 +53,7 @@ spec:
         existingClaim: media
         mountPath: /media
     nodeSelector:
-      topology.kubernetes.io/region: w
+      topology.kubernetes.io/zone: w
     resources:
       requests:
         memory: 250Mi
