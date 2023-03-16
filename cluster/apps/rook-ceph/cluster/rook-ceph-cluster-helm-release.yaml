@@ -46,9 +46,6 @@ spec:
     cephClusterSpec:
       network:
         provider: host
-        connections:
-          compression:
-            enabled: true
       crashCollector:
         disable: false
       dashboard:
@@ -70,6 +67,18 @@ spec:
           - name: w2
             devices:
               - name: /dev/disk/by-id/nvme-KINGSTON_SNV2S2000G_50026B768635CA95
+      placement:
+        mgr:
+          nodeAffinity: &nodeAffinity
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+                - matchExpressions:
+                    - key: role
+                      operator: In
+                      values:
+                        - control-plane
+        mon:
+          nodeAffinity: *nodeAffinity
     cephBlockPools:
       - name: ceph-blockpool
         spec:
