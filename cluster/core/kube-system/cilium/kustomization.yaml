@@ -8,6 +8,6 @@ resources:
 configMapGenerator:
   - name: bgp-config
     files:
-      - configs/bgp.yaml
+      - configs/config.yaml
 generatorOptions:
   disableNameSuffixHash: true
