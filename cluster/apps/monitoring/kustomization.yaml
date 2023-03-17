@@ -5,6 +5,7 @@ resources:
   - exporters
   - goldilocks
   - loki
+  - speedtest-exporter
   - thanos
   - unpoller
   - kube-prometheus-stack
