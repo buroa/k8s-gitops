@@ -20,8 +20,8 @@ spec:
     autoDirectNodeRoutes: true
     bgp:
       announce:
-        loadbalancerIP: false
-      enabled: false
+        loadbalancerIP: true
+      enabled: true
     endpointRoutes:
       enabled: true
     hubble:
@@ -58,11 +58,9 @@ spec:
     ipam:
       mode: kubernetes
     ipv4NativeRoutingCIDR: ${CLUSTER_POD_IP_RANGE}
-    ipv6:
-      enabled: true
     k8sServiceHost: k8s.${SECRET_PUBLIC_DOMAIN}
     k8sServicePort: 6443
-    kubeProxyReplacement: disabled
+    kubeProxyReplacement: strict
     kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
     localRedirectPolicy: true
     operator:

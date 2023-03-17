@@ -55,17 +55,20 @@ spec:
         useAllNodes: false
         useAllDevices: false
         config:
-          osdsPerDevice: "4"
+          osdsPerDevice: "1"
         nodes:
           - name: w0
             devices:
               - name: /dev/disk/by-id/nvme-KINGSTON_SNV2S2000G_50026B768635CAB3
+              # - name: /dev/disk/by-id/nvme-KINGSTON_SNV2S2000G_****************
           - name: w1
             devices:
               - name: /dev/disk/by-id/nvme-KINGSTON_SNV2S2000G_50026B768635ABBA
+              # - name: /dev/disk/by-id/nvme-KINGSTON_SNV2S2000G_****************
           - name: w2
             devices:
               - name: /dev/disk/by-id/nvme-KINGSTON_SNV2S2000G_50026B768635CA95
+              # - name: /dev/disk/by-id/nvme-KINGSTON_SNV2S2000G_****************
       placement:
         mgr:
           nodeAffinity: &nodeAffinity
