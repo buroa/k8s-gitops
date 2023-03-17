@@ -2,7 +2,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: pmm-updater
+  name: plex-meta-manager
   namespace: media
 spec:
   schedule: "0 6 * * *"
