@@ -99,7 +99,7 @@ nodes:
       - interface: eth0
         addresses:
           - 10.0.0.20/24
-        mtu: 1500
+        mtu: 9000
         routes:
           - network: 0.0.0.0/0
             gateway: ${gatewayIP}
@@ -120,7 +120,7 @@ nodes:
       - interface: eth0
         addresses:
           - 10.0.0.21/24
-        mtu: 1500
+        mtu: 9000
         routes:
           - network: 0.0.0.0/0
             gateway: ${gatewayIP}
@@ -138,7 +138,7 @@ nodes:
       - interface: eth0
         addresses:
           - 10.0.0.22/24
-        mtu: 1500
+        mtu: 9000
         routes:
           - network: 0.0.0.0/0
             gateway: ${gatewayIP}
