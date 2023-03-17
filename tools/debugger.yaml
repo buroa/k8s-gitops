@@ -6,7 +6,7 @@ metadata:
 spec:
   restartPolicy: Never
   nodeName: m0
-  # hostNetwork: true
+  hostNetwork: true
   containers:
     - name: ubuntu
       image: ubuntu:latest
@@ -21,7 +21,7 @@ metadata:
 spec:
   restartPolicy: Never
   nodeName: m1
-  # hostNetwork: true
+  hostNetwork: true
   containers:
     - name: ubuntu
       image: ubuntu:latest
@@ -36,7 +36,7 @@ metadata:
 spec:
   restartPolicy: Never
   nodeName: m2
-  # hostNetwork: true
+  hostNetwork: true
   containers:
     - name: ubuntu
       image: ubuntu:latest
@@ -51,7 +51,7 @@ metadata:
 spec:
   restartPolicy: Never
   nodeName: w0
-  # hostNetwork: true
+  hostNetwork: true
   containers:
     - name: ubuntu
       image: ubuntu:latest
@@ -66,7 +66,7 @@ metadata:
 spec:
   restartPolicy: Never
   nodeName: w1
-  # hostNetwork: true
+  hostNetwork: true
   containers:
     - name: ubuntu
       image: ubuntu:latest

@@ -17,7 +17,65 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
+    autoDirectNodeRoutes: true
+    bgp:
+      announce:
+        loadbalancerIP: false
+      enabled: false
+    endpointRoutes:
+      enabled: true
+    hubble:
+      enabled: true
+      metrics:
+        enabled:
+          - dns:query
+          - drop
+          - tcp
+          - flow
+          - port-distribution
+          - icmp
+          - http
+        serviceMonitor:
+          enabled: true
+      relay:
+        enabled: true
+      ui:
+        enabled: true
+        ingress:
+          enabled: true
+          annotations:
+            kubernetes.io/tls-acme: "true"
+            kubernetes.io/ingress.class: contour
+            cert-manager.io/cluster-issuer: letsencrypt-prod
+            ingress.kubernetes.io/force-ssl-redirect: "true"
+            projectcontour.io/websocket-routes: "/"
+          hosts:
+            - &host hubble.${SECRET_PUBLIC_DOMAIN}
+          tls:
+            - secretName: hubble-tls
+              hosts:
+                - *host
+    ipam:
+      mode: kubernetes
+    ipv4NativeRoutingCIDR: ${CLUSTER_POD_IP_RANGE}
+    ipv6:
+      enabled: true
+    k8sServiceHost: k8s.${SECRET_PUBLIC_DOMAIN}
+    k8sServicePort: 6443
+    kubeProxyReplacement: disabled
+    kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
+    localRedirectPolicy: true
+    operator:
+      prometheus:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+    prometheus:
+      enabled: true
+      serviceMonitor:
+        enabled: true
     securityContext:
+      privileged: true
       capabilities:
         ciliumAgent:
           - CHOWN
@@ -35,76 +93,4 @@ spec:
           - NET_ADMIN
           - SYS_ADMIN
           - SYS_RESOURCE
-    cgroup:
-      autoMount:
-        enabled: false
-      hostRoot: /sys/fs/cgroup
-    k8sServiceHost: "${CLUSTER_API_IP}"
-    k8sServicePort: 6443
-    rollOutCiliumPods: true
-    localRedirectPolicy: true
-    kubeProxyReplacement: "strict"
-    kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
-    loadBalancer:
-      algorithm: "maglev"
-      mode: "dsr"
-    ipam:
-      mode: "kubernetes"
-    operator:
-      rollOutPods: true
-    autoDirectNodeRoutes: true
-    ipv4NativeRoutingCIDR: "${CLUSTER_POD_IP_RANGE}"
-    tunnel: "disabled"
-    containerRuntime:
-      integration: containerd
-    hubble:
-      enabled: true
-      serviceMonitor:
-        enabled: true
-      dashboards:
-        enabled: true
-        label: grafana_dashboard
-        namespace: monitoring
-        labelValue: "1"
-        annotations: {}
-      metrics:
-        enabled:
-          - dns:query;ignoreAAAA
-          - drop
-          - tcp
-          - flow
-          - port-distribution
-          - icmp
-          - http
-      relay:
-        enabled: true
-        rollOutPods: true
-      ui:
-        enabled: true
-        rollOutPods: true
-        ingress:
-          enabled: true
-          annotations:
-            kubernetes.io/tls-acme: "true"
-            kubernetes.io/ingress.class: contour
-            cert-manager.io/cluster-issuer: letsencrypt-prod
-            ingress.kubernetes.io/force-ssl-redirect: "true"
-            projectcontour.io/websocket-routes: "/"
-          hosts:
-            - &host hubble.${SECRET_PUBLIC_DOMAIN}
-          tls:
-            - secretName: hubble-tls
-              hosts:
-                - *host
-    bpf:
-      hostRouting: true
-      lbBypassFIBLookup: true
-      masquerade: true
-      tproxy: true
-    bgpControlPlane:
-      enabled: true
-    bgp:
-      enabled: true
-      announce:
-        loadbalancerIP: true
-        podCIDR: true
+    tunnel: disabled
