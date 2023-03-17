@@ -96,6 +96,11 @@ spec:
             - secretName: hubble-tls
               hosts:
                 - *host
+    bpf:
+      hostRouting: false
+      lbBypassFIBLookup: true
+      masquerade: true
+      tproxy: true
     bgpControlPlane:
       enabled: true
     bgp:
