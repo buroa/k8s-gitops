@@ -14,7 +14,6 @@ resources:
   - plex
   - plex-auto-languages
   - plex-meta-manager
-  - pmm
   - prowlarr
   - radarr
   - recyclarr
