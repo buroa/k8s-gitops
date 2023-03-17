@@ -5,5 +5,7 @@ resources:
   - descheduler
   - intel-gpu-plugin
   - kube-cleanup-operator
+  - node-feature-discovery
   - reloader
   - sealed-secrets
+  - volsync

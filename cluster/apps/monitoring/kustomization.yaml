@@ -6,6 +6,7 @@ resources:
   - goldilocks
   - loki
   - thanos
+  - unpoller
   - kube-prometheus-stack
   - uptimerobot-prometheus
   - vpa
