@@ -21,9 +21,9 @@ spec:
       manageCRDs: false
     envoy:
       service:
-        type: ClusterIP
-        clusterIP: "${ENVOY_CLUSTER_IP}"
-        externalTrafficPolicy: ""
+        type: LoadBalancer
+        loadBalancerIP: ${ENVOY_LB_IP}
+        externalTrafficPolicy: Local
     metrics:
       serviceMonitor:
         enabled: true

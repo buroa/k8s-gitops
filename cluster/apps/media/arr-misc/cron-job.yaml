@@ -1,0 +1,30 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  namespace: media
+  name: arr-list-sync
+spec:
+  schedule: "*/45 * * * *"
+  jobTemplate:
+    spec:
+      backoffLimit: 3
+      ttlSecondsAfterFinished: 86400
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: arr-list-sync-sonarr
+              image: curlimages/curl
+              args:
+                - "/bin/sh"
+                - "-ec"
+                - |
+                  curl --fail -d '{"name": "ImportListSync"}' -H "Content-Type: application/json" -X POST http://sonarr.media.svc.cluster.local:8989/api/v3/command/?apikey=${SECRET_SONARR_APIKEY}
+            - name: arr-list-sync-radarr
+              image: curlimages/curl
+              args:
+                - "/bin/sh"
+                - "-ec"
+                - |
+                  curl --fail -d '{"name": "ImportListSync"}' -H "Content-Type: application/json" -X POST http://radarr.media.svc.cluster.local:7878/api/v3/command/?apikey=${SECRET_RADARR_APIKEY}
