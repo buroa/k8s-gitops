@@ -62,7 +62,7 @@ spec:
           prometheus.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_LB_IP}
           thanos.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_LB_IP}
           loki.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_LB_IP}
-          
+
       blocking:
         blackLists:
           ads:
@@ -107,9 +107,8 @@ spec:
         enabled: true
       dns-tcp:
         enabled: true
-        type: LoadBalancer
-        loadBalancerIP: ${BLOCKY_LB_IP}
-        externalTrafficPolicy: Local
+        type: ClusterIP
+        externalTrafficPolicy: ""
         ports:
           dns-tcp:
             enabled: true
