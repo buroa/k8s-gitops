@@ -19,7 +19,7 @@ spec:
   values:
     image:
       repository: ghcr.io/linuxserver/tautulli
-      tag: v2.12.1-ls71
+      tag: v2.12.2-ls71
     env:
       TZ: "${TIMEZONE}"
       PUID: "1000"
