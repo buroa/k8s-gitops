@@ -97,7 +97,7 @@ spec:
               hosts:
                 - *host
     bpf:
-      hostRouting: false
+      hostRouting: true
       lbBypassFIBLookup: true
       masquerade: true
       tproxy: true
