@@ -1,0 +1,70 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: speedtest-m0
+spec:
+  restartPolicy: Never
+  nodeName: m0
+  hostNetwork: true
+  containers:
+    - name: speedtest
+      image: openspeedtest/latest
+      securityContext:
+        privileged: true
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: speedtest-m1
+spec:
+  restartPolicy: Never
+  nodeName: m1
+  hostNetwork: true
+  containers:
+    - name: speedtest
+      image: openspeedtest/latest
+      securityContext:
+        privileged: true
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: speedtest-m2
+spec:
+  restartPolicy: Never
+  nodeName: m2
+  hostNetwork: true
+  containers:
+    - name: speedtest
+      image: openspeedtest/latest
+      securityContext:
+        privileged: true
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: speedtest-w0
+spec:
+  restartPolicy: Never
+  nodeName: w0
+  hostNetwork: true
+  containers:
+    - name: speedtest
+      image: openspeedtest/latest
+      securityContext:
+        privileged: true
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: speedtest-w1
+spec:
+  restartPolicy: Never
+  nodeName: w1
+  hostNetwork: true
+  containers:
+    - name: speedtest
+      image: openspeedtest/latest
+      securityContext:
+        privileged: true

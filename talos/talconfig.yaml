@@ -33,7 +33,7 @@ nodes:
       - interface: eth0
         addresses:
           - 10.0.0.10/24
-        mtu: 9000
+        mtu: 1500
         routes:
           - network: 0.0.0.0/0
             gateway: ${gatewayIP}
@@ -55,7 +55,7 @@ nodes:
       - interface: eth0
         addresses:
           - 10.0.0.11/24
-        mtu: 9000
+        mtu: 1500
         routes:
           - network: 0.0.0.0/0
             gateway: ${gatewayIP}
@@ -77,7 +77,7 @@ nodes:
       - interface: eth0
         addresses:
           - 10.0.0.12/24
-        mtu: 9000
+        mtu: 1500
         routes:
           - network: 0.0.0.0/0
             gateway: ${gatewayIP}
@@ -99,7 +99,7 @@ nodes:
       - interface: eth0
         addresses:
           - 10.0.0.20/24
-        mtu: 9000
+        mtu: 1500
         routes:
           - network: 0.0.0.0/0
             gateway: ${gatewayIP}
@@ -120,7 +120,7 @@ nodes:
       - interface: eth0
         addresses:
           - 10.0.0.21/24
-        mtu: 9000
+        mtu: 1500
         routes:
           - network: 0.0.0.0/0
             gateway: ${gatewayIP}
@@ -138,7 +138,7 @@ nodes:
       - interface: eth0
         addresses:
           - 10.0.0.22/24
-        mtu: 9000
+        mtu: 1500
         routes:
           - network: 0.0.0.0/0
             gateway: ${gatewayIP}
