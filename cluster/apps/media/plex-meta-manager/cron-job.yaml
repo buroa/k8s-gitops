@@ -44,5 +44,3 @@ spec:
               configMap:
                 name: pmm-scripts
                 defaultMode: 511
-          nodeSelector:
-            topology.kubernetes.io/zone: w

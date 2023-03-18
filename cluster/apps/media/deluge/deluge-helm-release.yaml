@@ -53,8 +53,6 @@ spec:
         enabled: true
         existingClaim: media
         mountPath: /media
-    nodeSelector:
-      topology.kubernetes.io/zone: w
     podLabels:
       vpn/ovpn: "true"
     hostname: torrent
