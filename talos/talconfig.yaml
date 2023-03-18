@@ -30,7 +30,7 @@ nodes:
     nameservers:
       - ${gatewayIP}
     networkInterfaces:
-      - interface: eth0
+      - interface: eth1
         addresses:
           - 10.0.0.10/24
         mtu: 9000
@@ -52,7 +52,7 @@ nodes:
     nameservers:
       - ${gatewayIP}
     networkInterfaces:
-      - interface: eth0
+      - interface: eth1
         addresses:
           - 10.0.0.11/24
         mtu: 9000
@@ -74,7 +74,7 @@ nodes:
     nameservers:
       - ${gatewayIP}
     networkInterfaces:
-      - interface: eth0
+      - interface: eth1
         addresses:
           - 10.0.0.12/24
         mtu: 9000

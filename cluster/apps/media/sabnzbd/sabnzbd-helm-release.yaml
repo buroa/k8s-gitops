@@ -52,8 +52,6 @@ spec:
         enabled: true
         existingClaim: media
         mountPath: /media
-    nodeSelector:
-      topology.kubernetes.io/zone: w
     resources:
       requests:
         memory: 250Mi

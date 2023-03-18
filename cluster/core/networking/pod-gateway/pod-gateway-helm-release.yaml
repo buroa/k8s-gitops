@@ -73,5 +73,3 @@ spec:
       gatewayDefault: false
       gatewayLabel: vpn/ovpn
       gatewayAnnotation: vpn/ovpn
-    nodeSelector:
-      topology.kubernetes.io/zone: w
