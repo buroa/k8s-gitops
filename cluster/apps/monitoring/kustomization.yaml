@@ -10,4 +10,5 @@ resources:
   - unpoller
   - kube-prometheus-stack
   - uptimerobot-prometheus
+  - vector
   - vpa
