@@ -190,7 +190,10 @@ spec:
       sidecar:
         dashboards:
           labelValue: 1
-          searchNamespace: "ALL"
+          searchNamespace: ALL
+        datasources:
+          enabled: true
+          searchNamespace: ALL
       grafana.ini:
         server:
           root_url: https://grafana.${SECRET_PUBLIC_DOMAIN}
@@ -209,7 +212,48 @@ spec:
           auth_url: https://auth.${SECRET_PUBLIC_DOMAIN}/application/o/authorize/
           token_url: http://authentik.home.svc.cluster.local/application/o/token/
           api_url: http://authentik.home.svc.cluster.local/application/o/userinfo/
-          role_attribute_path: contains(groups[*], 'Grafana Admins') && 'Admin' || contains(groups[*], 'Grafana Editors') && 'Editor' || 'Viewer'
+          role_attribute_path: contains(groups[*], 'authentik Admins') && 'Admin' || contains(groups[*], 'authentik Editor') && 'Editor' || 'Viewer'
+      datasources:
+        datasources.yaml:
+          apiVersion: 1
+          deleteDatasources:
+            - name: Loki
+              orgId: 1
+            - name: Alertmanager
+              orgId: 1
+          datasources:
+            - name: Prometheus
+              isDefault: true
+              type: prometheus
+              access: proxy
+              url: http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local:9090
+            - name: Alertmanager
+              type: alertmanager
+              access: proxy
+              url: http://kube-prometheus-stack-alertmanager.monitoring.svc.cluster.local:9093
+              jsonData:
+                implementation: prometheus
+            - name: Thanos
+              type: prometheus
+              access: proxy
+              url: http://thanos-query.monitoring.svc.cluster.local:9090
+            - name: Loki
+              type: loki
+              access: proxy
+              url: http://loki-gateway.monitoring.svc.cluster.local:80
+      plugins:
+        - grafana-piechart-panel
+        - grafana-worldmap-panel
+        - grafana-clock-panel
+      serviceMonitor:
+        enabled: true
+      imageRenderer:
+        enabled: true
+        replicas: 2
+        networkPolicy:
+          limitIngress: false
+        serviceMonitor:
+          enabled: true
       persistence:
         enabled: true
         type: pvc
