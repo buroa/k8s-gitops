@@ -7,3 +7,4 @@ resources:
   - kube-system
   - media
   - monitoring
+  - networking
