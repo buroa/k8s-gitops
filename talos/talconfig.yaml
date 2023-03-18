@@ -172,6 +172,12 @@ controlPlane:
           - image: ghcr.io/siderolabs/intel-ucode:20230214
           - image: ghcr.io/siderolabs/iscsi-tools:v0.1.4
         legacyBIOSSupport: true
+        extraKernelArgs:
+          - "talos.logging.kernel=udp://7.0.0.1:6050/"
+      logging:
+        destinations:
+          - endpoint: "udp://7.0.0.1:6051/"
+            format: json_lines
       kernel:
         modules:
           - name: applesmc
