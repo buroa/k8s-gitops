@@ -24,6 +24,7 @@ spec:
         type: LoadBalancer
         loadBalancerIP: ${ENVOY_LB_IP}
         externalTrafficPolicy: Local
+      useHostPort: false
     metrics:
       serviceMonitor:
         enabled: true

@@ -121,10 +121,6 @@ spec:
       targetPath: objstoreConfig.config.endpoint
     - kind: ConfigMap
       name: thanos-ceph-bucket
-      valuesKey: BUCKET_PORT
-      targetPath: objstoreConfig.config.port
-    - kind: ConfigMap
-      name: thanos-ceph-bucket
       valuesKey: BUCKET_REGION
       targetPath: objstoreConfig.config.region
     - kind: Secret
