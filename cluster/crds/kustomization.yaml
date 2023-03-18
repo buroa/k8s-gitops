@@ -8,3 +8,4 @@ resources:
   - node-feature-discovery
   - rook-ceph
   - sealed-secrets
+  - volsync
