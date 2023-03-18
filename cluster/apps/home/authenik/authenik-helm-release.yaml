@@ -35,8 +35,7 @@ spec:
             - path: /
               pathType: Prefix
       tls:
-        - secretName: auth-tls
-          hosts:
+        - hosts:
             - *host
     resources: &resources
       requests:

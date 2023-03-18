@@ -52,8 +52,7 @@ spec:
           hosts:
             - &host hubble.${SECRET_PUBLIC_DOMAIN}
           tls:
-            - secretName: hubble-tls
-              hosts:
+            - hosts:
                 - *host
     ipam:
       mode: kubernetes
