@@ -14,18 +14,6 @@ spec:
         kind: HelmRepository
         name: node-feature-discovery-charts
         namespace: flux-system
-  install:
-    createNamespace: true
-    crds: CreateReplace
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    crds: CreateReplace
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
   values:
     worker:
       config:
