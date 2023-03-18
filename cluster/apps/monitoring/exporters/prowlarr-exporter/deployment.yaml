@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: prowlarr-exporter
-          image: ghcr.io/onedr0p/exportarr:master@sha256:c7eb0294cdb7c20ab6891e440a8019d1dbe8016667e0ee90d8f7e93f7aa2cfa2
+          image: ghcr.io/onedr0p/exportarr:master@sha256:426a1fd9046fff72f7663cda4322075efce362c832f171cbc8731d031a7302c1
           imagePullPolicy: IfNotPresent
           args:
             - prowlarr
