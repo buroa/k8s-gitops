@@ -154,8 +154,8 @@ spec:
             port: 80
             resources:
               requests:
-                cpu: 100m
-                memory: 128M
+                cpu: 1000m
+                memory: 1Gi
               limits:
                 memory: 2Gi
             instances: 1
@@ -167,4 +167,4 @@ spec:
           name: ceph-bucket
           reclaimPolicy: Delete
           parameters:
-            region: object-store
+            region: ceph-objectstore
