@@ -142,7 +142,7 @@ spec:
           emptyDir: {}
     monitoring:
       serviceMonitor:
-        enabled: false
+        enabled: true
         metricsInstance:
           enabled: false
       selfMonitoring:
