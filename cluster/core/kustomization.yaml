@@ -5,5 +5,4 @@ resources:
   - _ns
   - cert-manager
   - kube-system
-  - networking
   - rook-ceph
