@@ -162,8 +162,6 @@ spec:
           healthCheck:
             bucket:
               interval: 60s
-          zone:
-            name: ceph-objectstore
         storageClass:
           enabled: true
           name: ceph-bucket
