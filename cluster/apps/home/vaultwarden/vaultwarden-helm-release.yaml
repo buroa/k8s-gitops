@@ -64,7 +64,8 @@ spec:
                 service:
                   port: 3012
         tls:
-          - hosts:
+          - secretName: vaultwarden-tls
+            hosts:
               - *host
     persistence:
       config:

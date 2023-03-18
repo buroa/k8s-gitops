@@ -40,7 +40,8 @@ spec:
               - path: /
                 pathType: Prefix
         tls:
-          - hosts:
+          - secretName: autobrr-tls
+            hosts:
               - *host
     podSecurityContext:
       runAsUser: 1000

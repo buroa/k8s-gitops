@@ -43,6 +43,9 @@ spec:
           nr.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_LB_IP}
           vault.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_LB_IP}
 
+          # ns: kube-system
+          hubble.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_LB_IP}
+
           # ns: media
           autobrr.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_LB_IP}
           bazarr.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_LB_IP}
