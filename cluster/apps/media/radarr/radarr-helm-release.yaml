@@ -40,8 +40,7 @@ spec:
               - path: /
                 pathType: Prefix
         tls:
-          - secretName: radarr-tls
-            hosts:
+          - hosts:
               - *host
     persistence:
       config:

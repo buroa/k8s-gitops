@@ -39,8 +39,7 @@ spec:
               - path: /
                 pathType: Prefix
         tls:
-          - secretName: requests-tls
-            hosts:
+          - hosts:
               - *host
     persistence:
       config:

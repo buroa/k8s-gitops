@@ -36,8 +36,7 @@ spec:
               - path: /
                 pathType: Prefix
         tls:
-          - secretName: usenet-tls
-            hosts:
+          - hosts:
               - *host
     env:
       TZ: "${TIMEZONE}"

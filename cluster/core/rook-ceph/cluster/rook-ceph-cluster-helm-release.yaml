@@ -32,8 +32,7 @@ spec:
           name: &host rook.${SECRET_PUBLIC_DOMAIN}
           path: /
         tls:
-          - secretName: rook-tls
-            hosts:
+          - hosts:
               - *host
     toolbox:
       enabled: true

@@ -40,8 +40,7 @@ spec:
               - path: /
                 pathType: Prefix
         tls:
-          - secretName: sonarr-tls
-            hosts:
+          - hosts:
               - *host
     persistence:
       config:
