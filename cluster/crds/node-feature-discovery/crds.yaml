@@ -1,0 +1,30 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: GitRepository
+metadata:
+  name: node-feature-discovery-source
+  namespace: flux-system
+spec:
+  interval: 30m
+  url: https://github.com/kubernetes-sigs/node-feature-discovery.git
+  ref:
+    # renovate: registryUrl=https://github.com/kubernetes-sigs/node-feature-discovery
+    tag: v0.12.1
+  ignore: |
+    # exclude all
+    /*
+    # include deploy crds dir
+    !/deployment/base/nfd-crds
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: node-feature-discovery-crds
+  namespace: flux-system
+spec:
+  interval: 15m
+  prune: false
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: node-feature-discovery-source
