@@ -158,10 +158,6 @@ spec:
       targetPath: loki.structuredConfig.common.storage.s3.endpoint
       name: loki-ceph-bucket
       valuesKey: BUCKET_HOST
-    - kind: ConfigMap
-      targetPath: loki.structuredConfig.common.storage.s3.port
-      name: loki-ceph-bucket
-      valuesKey: BUCKET_PORT
     - kind: Secret
       targetPath: loki.structuredConfig.common.storage.s3.access_key_id
       name: loki-ceph-bucket
