@@ -41,7 +41,8 @@ spec:
               - path: /
                 type: Prefix
         tls:
-          - hosts:
+          - secretName: goldilocks-tls
+            hosts:
               - *host
       resources:
         requests:
