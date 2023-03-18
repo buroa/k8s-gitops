@@ -42,7 +42,8 @@ spec:
               - path: /
                 pathType: Prefix
         tls:
-          - hosts:
+          - secretName: deluge-tls
+            hosts:
               - *host
     persistence:
       config:

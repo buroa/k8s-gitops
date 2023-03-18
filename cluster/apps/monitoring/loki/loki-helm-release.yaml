@@ -96,16 +96,20 @@ spec:
         tag: 1.23-alpine
       ingress:
         enabled: true
-        ingressClassName: nginx
         annotations:
-          hajimari.io/enable: "false"
+          kubernetes.io/tls-acme: "true"
+          kubernetes.io/ingress.class: contour
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+          ingress.kubernetes.io/force-ssl-redirect: "true"
+          projectcontour.io/websocket-routes: "/"
         hosts:
           - host: &host loki.${SECRET_PUBLIC_DOMAIN}
             paths:
               - path: /
                 pathType: Prefix
         tls:
-          - hosts:
+          - secretName: loki-tls
+            hosts:
               - *host
     read:
       replicas: 3

@@ -74,7 +74,8 @@ spec:
         paths:
           - /
         tls:
-          - hosts:
+          - secretName: alertmanager-tls
+            hosts:
               - *hosta
       alertmanagerSpec:
         replicas: 3
@@ -120,7 +121,8 @@ spec:
         paths:
           - /
         tls:
-          - hosts:
+          - secretName: prometheus-tls
+            hosts:
               - *hostp
       thanos:
         image: quay.io/thanos/thanos:v0.30.2@sha256:6b97f63c716781c487da88750850cf5a4e0a1c23af32764e97faefc1383432b1
@@ -182,7 +184,8 @@ spec:
         paths:
           - /
         tls:
-          - hosts:
+          - secretName: grafana-tls
+            hosts:
               - *hostg
       sidecar:
         dashboards:

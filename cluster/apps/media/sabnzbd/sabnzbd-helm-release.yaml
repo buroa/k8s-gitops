@@ -36,7 +36,8 @@ spec:
               - path: /
                 pathType: Prefix
         tls:
-          - hosts:
+          - secretName: sabnzbd-tls
+            hosts:
               - *host
     env:
       TZ: "${TIMEZONE}"
