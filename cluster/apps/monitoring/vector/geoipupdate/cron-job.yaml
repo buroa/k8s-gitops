@@ -35,9 +35,9 @@ spec:
                 - name: GEOIPUPDATE_VERBOSE
                   value: "true"
                 - name: GEOIPUPDATE_ACCOUNT_ID
-                  value: ${SECRET_MAXMIND_ACCOUNT_ID}
+                  value: "'${SECRET_MAXMIND_ACCOUNT_ID}'"
                 - name: GEOIPUPDATE_LICENSE_KEY
-                  value: ${SECRET_MAXMIND_LICENSE_KEY}
+                  value: "${SECRET_MAXMIND_LICENSE_KEY}"
               volumeMounts:
                 - name: vector-geoipupdate
                   mountPath: /usr/share/GeoIP
