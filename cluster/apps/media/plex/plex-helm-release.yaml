@@ -57,8 +57,6 @@ spec:
         enabled: true
         existingClaim: media
         mountPath: /media
-    nodeSelector:
-      topology.kubernetes.io/zone: w
     resources:
       requests:
         gpu.intel.com/i915: 1
