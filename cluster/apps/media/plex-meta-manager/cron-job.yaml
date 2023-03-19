@@ -20,6 +20,10 @@ spec:
               env:
                 - name: TZ
                   value: "${TIMEZONE}"
+                - name: PMM_IGNORE_SCHEDULES
+                  value: "true"
+                - name: PMM_READ_ONLY_CONFIG
+                  value: "true"
               command:
                 - /scripts/run.sh
               volumeMounts:
