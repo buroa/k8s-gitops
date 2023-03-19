@@ -73,6 +73,7 @@ spec:
       serviceMonitor:
         enabled: true
     securityContext:
+      privileged: true
       capabilities:
         ciliumAgent:
           - CHOWN
