@@ -7,6 +7,7 @@ pmm () {
         --run \
         --cache-libraries \
         --read-only-config \
+        --ignore-schedules \
         --run-libraries "$1"
 }
 
