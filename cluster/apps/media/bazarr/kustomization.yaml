@@ -5,6 +5,7 @@ namespace: media
 resources:
   - config-pvc.yaml
   - bazarr-helm-release.yaml
+  - volsync.yaml
 configMapGenerator:
   - name: bazarr-scripts
     files:

@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - config-pvc.yaml
   - node-red-helm-release.yaml
+  - volsync.yaml

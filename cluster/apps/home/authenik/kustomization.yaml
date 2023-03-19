@@ -5,6 +5,7 @@ namespace: home
 resources:
   - config-pvc.yaml
   - authenik-helm-release.yaml
+  - volsync.yaml
 configMapGenerator:
   - name: authentik-grafana-dashboards
     files:

@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - config-pvc.yaml
   - autobrr-helm-release.yaml
+  - volsync.yaml

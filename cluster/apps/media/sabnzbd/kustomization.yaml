@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - config-pvc.yaml
   - sabnzbd-helm-release.yaml
+  - volsync.yaml
