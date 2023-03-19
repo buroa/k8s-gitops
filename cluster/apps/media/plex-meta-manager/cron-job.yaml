@@ -14,16 +14,12 @@ spec:
         spec:
           restartPolicy: OnFailure
           containers:
-            - name: pmm
+            - name: plex-meta-manager
               image: meisnate12/plex-meta-manager:v1.18.3
               imagePullPolicy: IfNotPresent
               env:
                 - name: TZ
                   value: "${TIMEZONE}"
-                - name: PMM_IGNORE_SCHEDULES
-                  value: "true"
-                - name: PMM_READ_ONLY_CONFIG
-                  value: "true"
               command:
                 - /scripts/run.sh
               volumeMounts:
