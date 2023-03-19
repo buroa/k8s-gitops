@@ -1,0 +1,34 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: plex-restic-secret
+type: Opaque
+stringData:
+  RESTIC_REPOSITORY: s3:https://${SECRET_S3_GATEWAY_SERVICE_ENDPOINT}/${SECRET_PUBLIC_DOMAIN}/backups/plex
+  RESTIC_PASSWORD: ${SECRET_RESTIC_PASSWORD}
+  AWS_ACCESS_KEY_ID: ${SECRET_S3_GATEWAY_ACCESS_KEY}
+  AWS_SECRET_ACCESS_KEY: ${SECRET_S3_GATEWAY_SECRET_KEY}
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: plex
+spec:
+  sourcePVC: plex-config
+  trigger:
+    schedule: "0 0 * * *"
+  restic:
+    copyMethod: Snapshot
+    pruneIntervalDays: 10
+    repository: plex-restic-secret
+    cacheCapacity: 5Gi
+    volumeSnapshotClassName: csi-rbdplugin-snapclass
+    storageClassName: ${CLUSTER_STORAGE_CLASS}
+    moverSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+    retain:
+      daily: 10
+      within: 3d

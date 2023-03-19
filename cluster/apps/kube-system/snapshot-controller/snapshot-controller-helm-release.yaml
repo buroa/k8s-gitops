@@ -16,7 +16,7 @@ spec:
         namespace: flux-system
   values:
     volumeSnapshotClasses:
-      - name: csi-rbdplugin-snapclass
+      - name: ${CLUSTER_SNAPSHOT_CLASS}
         driver: rook-ceph.rbd.csi.ceph.com
         annotations:
           snapshot.storage.kubernetes.io/is-default-class: "true"

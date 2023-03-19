@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - config-pvc.yaml
   - plex-helm-release.yaml
+  - volsync.yaml
