@@ -42,7 +42,7 @@ spec:
           cpu: 15m
           memory: 64M
         limits:
-          memory: 99M
+          memory: 4096M
     queryFrontend:
       enabled: false
     bucketweb:
@@ -52,7 +52,7 @@ spec:
           cpu: 15m
           memory: 64M
         limits:
-          memory: 64M
+          memory: 4096M
     compactor:
       enabled: true
       extraFlags:
@@ -66,7 +66,7 @@ spec:
           cpu: 15m
           memory: 204M
         limits:
-          memory: 270M
+          memory: 4096M
       persistence:
         enabled: true
         storageClass: "ceph-block"
@@ -78,7 +78,7 @@ spec:
           cpu: 23m
           memory: 204M
         limits:
-          memory: 226M
+          memory: 4096M
       persistence:
         enabled: true
         storageClass: "ceph-block"
@@ -105,7 +105,7 @@ spec:
           cpu: 23m
           memory: 94M
         limits:
-          memory: 113M
+          memory: 4096M
     metrics:
       enabled: true
       serviceMonitor:
