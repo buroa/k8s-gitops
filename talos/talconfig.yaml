@@ -210,6 +210,9 @@ controlPlane:
           - ip: ${clusterEndpointIP}
             aliases:
               - k8s.${domainName}
+          - ip: ${gatewayIP}
+            aliases:
+              - unifi.${domainName}
           - ip: 10.0.0.5
             aliases:
               - nas.${domainName}
