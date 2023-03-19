@@ -73,7 +73,6 @@ spec:
       serviceMonitor:
         enabled: true
     securityContext:
-      privileged: true
       capabilities:
         ciliumAgent:
           - CHOWN
@@ -92,3 +91,8 @@ spec:
           - SYS_ADMIN
           - SYS_RESOURCE
     tunnel: disabled
+    bpf:
+      hostRouting: false
+      lbBypassFIBLookup: true
+      masquerade: true
+      tproxy: true
