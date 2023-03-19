@@ -1,5 +1,20 @@
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+namespace: monitoring
 resources:
   - unpoller-helm-release.yaml
+configMapGenerator:
+  - name: unpoller-grafana-dashboards
+    files:
+      - dashboards/unifi-poller-client-dpi-prometheus_rev5.json
+      - dashboards/unifi-poller-client-insights-prometheus_rev9.json
+      - dashboards/unifi-poller-network-sites-prometheus_rev5.json
+      - dashboards/unifi-poller-uap-insights-prometheus_rev10.json
+      - dashboards/unifi-poller-usg-insights-prometheus_rev9.json
+      - dashboards/unifi-poller-usw-insights-prometheus_rev9.json
+    options:
+      labels:
+        grafana_dashboard: "1"
+generatorOptions:
+  disableNameSuffixHash: true
