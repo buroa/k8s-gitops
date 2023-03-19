@@ -4,25 +4,25 @@ kind: Kustomization
 namespace: monitoring
 resources:
   - unpoller-helm-release.yaml
-configMapGenerator:
-  - name: unpoller-client-dpi-grafana-dashboard
-    files:
-      - dashboards/unifi-poller-client-dpi-prometheus_rev5.json
-  - name: unpoller-client-insights-grafana-dashboard
-    files:
-      - dashboards/unifi-poller-client-insights-prometheus_rev9.json
-  - name: unpoller-network-sites-grafana-dashboard
-    files:
-      - dashboards/unifi-poller-network-sites-prometheus_rev5.json
-  - name: unpoller-uap-insights-grafana-dashboard
-    files:
-      - dashboards/unifi-poller-uap-insights-prometheus_rev10.json
-  - name: unpoller-usg-insights-grafana-dashboard
-    files:
-      - dashboards/unifi-poller-usg-insights-prometheus_rev9.json
-  - name: unpoller-usw-insights-grafana-dashboard
-    files:
-      - dashboards/unifi-poller-usw-insights-prometheus_rev9.json
+# configMapGenerator:
+#   - name: unpoller-client-dpi-grafana-dashboard
+#     files:
+#       - dashboards/unifi-poller-client-dpi-prometheus_rev5.json
+#   - name: unpoller-client-insights-grafana-dashboard
+#     files:
+#       - dashboards/unifi-poller-client-insights-prometheus_rev9.json
+#   - name: unpoller-network-sites-grafana-dashboard
+#     files:
+#       - dashboards/unifi-poller-network-sites-prometheus_rev5.json
+#   - name: unpoller-uap-insights-grafana-dashboard
+#     files:
+#       - dashboards/unifi-poller-uap-insights-prometheus_rev10.json
+#   - name: unpoller-usg-insights-grafana-dashboard
+#     files:
+#       - dashboards/unifi-poller-usg-insights-prometheus_rev9.json
+#   - name: unpoller-usw-insights-grafana-dashboard
+#     files:
+#      - dashboards/unifi-poller-usw-insights-prometheus_rev9.json
 generatorOptions:
   disableNameSuffixHash: true
   annotations:
