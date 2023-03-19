@@ -1,8 +1,6 @@
 ---
-minimum-age: 2m
-scan-delay: 2m
-scan-verify: true # custom
-scan-max-age: 10m # custom
+minimum-age: 5s
+scan-delay: 5s
 
 triggers:
   manual:
