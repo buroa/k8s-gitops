@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - config-pvc.yaml
   - overseerr-helm-release.yaml
+  - volsync.yaml

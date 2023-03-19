@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - config-pvc.yaml
   - radarr-helm-release.yaml
+  - volsync.yaml

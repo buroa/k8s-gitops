@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - config-pvc.yaml
   - sonarr-helm-release.yaml
+  - volsync.yaml
