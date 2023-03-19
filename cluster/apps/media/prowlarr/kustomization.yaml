@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - config-pvc.yaml
   - prowlarr-helm-release.yaml
+  - volsync.yaml

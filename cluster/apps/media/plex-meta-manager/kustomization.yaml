@@ -5,6 +5,7 @@ namespace: media
 resources:
   - config-pvc.yaml
   - cron-job.yaml
+  - volsync.yaml
 configMapGenerator:
   - name: pmm-config
     files:
