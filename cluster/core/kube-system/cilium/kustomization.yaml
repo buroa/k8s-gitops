@@ -9,5 +9,11 @@ configMapGenerator:
   - name: bgp-config
     files:
       - configs/config.yaml
+  - name: cilium-grafana-dashboards
+    files:
+      - dashboards/hubble_rev1.json
+    options:
+      labels:
+        grafana_dashboard: "1"
 generatorOptions:
   disableNameSuffixHash: true
