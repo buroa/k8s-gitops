@@ -1,0 +1,70 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: debugger-m0
+spec:
+  restartPolicy: Never
+  nodeName: m0
+  containers:
+    - name: ubuntu
+      image: ubuntu:latest
+      command: ["sleep", "3600"]
+      securityContext:
+        privileged: true
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: debugger-m1
+spec:
+  restartPolicy: Never
+  nodeName: m1
+  containers:
+    - name: ubuntu
+      image: ubuntu:latest
+      command: ["sleep", "3600"]
+      securityContext:
+        privileged: true
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: debugger-m2
+spec:
+  restartPolicy: Never
+  nodeName: m2
+  containers:
+    - name: ubuntu
+      image: ubuntu:latest
+      command: ["sleep", "3600"]
+      securityContext:
+        privileged: true
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: debugger-w0
+spec:
+  restartPolicy: Never
+  nodeName: w0
+  containers:
+    - name: ubuntu
+      image: ubuntu:latest
+      command: ["sleep", "3600"]
+      securityContext:
+        privileged: true
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: debugger-w1
+spec:
+  restartPolicy: Never
+  nodeName: w1
+  containers:
+    - name: ubuntu
+      image: ubuntu:latest
+      command: ["sleep", "3600"]
+      securityContext:
+        privileged: true
