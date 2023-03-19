@@ -25,7 +25,7 @@ spec:
     pruneIntervalDays: 10
     repository: overseerr-restic-secret
     cacheCapacity: 5Gi
-    volumeSnapshotClassName: csi-rbdplugin-snapclass
+    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_CLASS}
     storageClassName: ${CLUSTER_STORAGE_CLASS}
     moverSecurityContext:
       runAsUser: 568
