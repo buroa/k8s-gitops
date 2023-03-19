@@ -222,8 +222,12 @@ spec:
             - name: Alertmanager
               orgId: 1
           datasources:
-            - name: Prometheus
+            - name: Thanos
+              type: prometheus
               isDefault: true
+              access: proxy
+              url: http://thanos-query.monitoring.svc.cluster.local:9090
+            - name: Prometheus
               type: prometheus
               access: proxy
               url: http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local:9090
@@ -233,10 +237,6 @@ spec:
               url: http://kube-prometheus-stack-alertmanager.monitoring.svc.cluster.local:9093
               jsonData:
                 implementation: prometheus
-            - name: Thanos
-              type: prometheus
-              access: proxy
-              url: http://thanos-query.monitoring.svc.cluster.local:9090
             - name: Loki
               type: loki
               access: proxy
