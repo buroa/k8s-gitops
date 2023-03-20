@@ -8,7 +8,6 @@ resources:
   - autoscan
   - bazarr
   - deluge
-  - fileflows
   - flaresolverr
   - omegabrr
   - overseerr
@@ -21,4 +20,5 @@ resources:
   - sabnzbd
   - sonarr
   - tautulli
+  - tdarr
   - unpackerr

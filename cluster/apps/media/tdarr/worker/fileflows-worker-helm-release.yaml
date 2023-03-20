@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: fileflows-worker
+  name: tdarr-worker
   namespace: media
 spec:
   chart:
@@ -20,24 +20,30 @@ spec:
       type: statefulset
       replicas: 5
     image:
-      repository: revenz/fileflows
-      tag: master@sha256:a4ae7a4f2b6813233c07abeac202831f57a6db8628784fb71622f15088c7d26a
+      repository: ghcr.io/haveagitgat/tdarr
+      tag: 2.00.19.1
     env:
       TZ: "${TIMEZONE}"
-      FFNODE: "1"
-      ServerUrl: "http://fileflows-server.media.svc.cluster.local:5000"
+      PUID: "1000"
+      PGID: "1000"
+      nodeName:
+        valueFrom:
+          fieldRef:
+            fieldPath: metadata.name
+      serverIP: "tdarr-server.media.svc.cluster.local"
+      serverPort: "8266"
     service:
       main:
         enabled: false
     persistence:
-      app:
+      config:
         enabled: true
-        existingClaim: fileflows-config
-        mountPath: /app/Data
-      temp:
+        existingClaim: tdarr-config
+        mountPath: /app/configs
+      cache:
         enabled: true
-        existingClaim: fileflows-cache
-        mounthPath: /temp
+        existingClaim: tdarr-cache
+        mounthPath: /cache
       media:
         enabled: true
         existingClaim: media
