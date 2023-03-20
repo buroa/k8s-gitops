@@ -21,8 +21,6 @@ spec:
       tag: master@sha256:a4ae7a4f2b6813233c07abeac202831f57a6db8628784fb71622f15088c7d26a
     env:
       TZ: "${TIMEZONE}"
-      PUID: "1000"
-      PGID: "1000"
     service:
       main:
         ports:
@@ -61,8 +59,6 @@ spec:
         existingClaim: media
         mountPath: /media
     podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
       fsGroup: 1000
       fsGroupChangePolicy: "OnRootMismatch"
       supplementalGroups: [44, 109, 10000]
