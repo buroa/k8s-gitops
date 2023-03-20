@@ -23,3 +23,6 @@ spec:
       pullPolicy: IfNotPresent
     securityContext:
       readOnlyRootFilesystem: true
+    args:
+      - -shared-dev-num
+      - "2"
