@@ -18,7 +18,7 @@ spec:
     adminUser:
       create: true
       username: admin
-      password: "${SECRET_WEAVE_GITOPS_PASSWORD}"
+      passwordHash: "${SECRET_WEAVE_GITOPS_PASSWORD_HASH}"
     ingress:
       enabled: true
       annotations:
