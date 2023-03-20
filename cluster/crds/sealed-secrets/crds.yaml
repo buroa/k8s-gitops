@@ -9,7 +9,7 @@ spec:
   url: https://github.com/bitnami-labs/sealed-secrets
   ref:
     # renovate: registryUrl=https://bitnami-labs.github.io/sealed-secrets
-    tag: v0.20.1
+    tag: v0.20.2
   ignore: |
     # exclude all
     /*
