@@ -23,7 +23,6 @@ spec:
       TZ: "${TIMEZONE}"
       PUID: "1000"
       PGID: "1000"
-      TempPathHost: "/cache"
     service:
       main:
         ports:
@@ -53,10 +52,10 @@ spec:
         enabled: true
         existingClaim: fileflows-config
         mountPath: /app/Data
-      cache:
+      temp:
         enabled: true
         existingClaim: fileflows-cache
-        mounthPath: /cache
+        mounthPath: /temp
       media:
         enabled: true
         existingClaim: media

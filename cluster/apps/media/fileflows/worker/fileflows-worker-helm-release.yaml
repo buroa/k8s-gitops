@@ -25,7 +25,6 @@ spec:
       TZ: "${TIMEZONE}"
       PUID: "1000"
       PGID: "1000"
-      TempPathHost: "/cache"
       FFNODE: "1"
       ServerUrl: "http://fileflows-server.media.svc.cluster.local:5000"
     service:
@@ -36,16 +35,11 @@ spec:
         enabled: true
         existingClaim: fileflows-config
         mountPath: /app/Data
-      cache:
+      temp:
         enabled: true
         existingClaim: fileflows-cache
-        mounthPath: /cache
+        mounthPath: /temp
       media:
         enabled: true
         existingClaim: media
         mountPath: /media
-    resources:
-      requests:
-        gpu.intel.com/i915: "1"
-      limits:
-        gpu.intel.com/i915: "1"
