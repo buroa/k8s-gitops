@@ -20,7 +20,7 @@ spec:
       type: statefulset
       replicas: 5
     image:
-      repository: ghcr.io/haveagitgat/tdarr
+      repository: ghcr.io/haveagitgat/tdarr_node
       tag: 2.00.19.1
     env:
       TZ: "${TIMEZONE}"
