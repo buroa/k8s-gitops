@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: fileflows-cache
+  name: tdarr-cache
   namespace: media
 spec:
   accessModes:
