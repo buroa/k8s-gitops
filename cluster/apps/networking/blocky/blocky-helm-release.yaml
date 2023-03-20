@@ -40,8 +40,14 @@ spec:
       customDNS:
         mapping:
           unifi.${SECRET_PUBLIC_DOMAIN}: ${GATEWAY_IP}
-          k8s.${SECRET_PUBLIC_DOMAIN}: ${CLUSTER_API_IP}
           nas.${SECRET_PUBLIC_DOMAIN}: ${NAS_IP}
+          k8s.${SECRET_PUBLIC_DOMAIN}: ${CLUSTER_API_IP}
+          m0.k8s.${SECRET_PUBLIC_DOMAIN}: 10.0.0.10
+          m1.k8s.${SECRET_PUBLIC_DOMAIN}: 10.0.0.11
+          m2.k8s.${SECRET_PUBLIC_DOMAIN}: 10.0.0.12
+          w0.k8s.${SECRET_PUBLIC_DOMAIN}: 10.0.0.20
+          w1.k8s.${SECRET_PUBLIC_DOMAIN}: 10.0.0.21
+          w2.k8s.${SECRET_PUBLIC_DOMAIN}: 10.0.0.22
 
       blocking:
         blackLists:
