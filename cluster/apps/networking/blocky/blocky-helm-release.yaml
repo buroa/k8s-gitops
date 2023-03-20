@@ -35,7 +35,7 @@ spec:
       conditional:
         mapping:
           cluster.local: ${CLUSTER_DNS_IP}
-          ${SECRET_PUBLIC_DOMAIN}: ${K8S_GATEWAY_LB_IP}
+          ${SECRET_PUBLIC_DOMAIN}: ${K8S_GATEWAY_IP}
 
       blocking:
         blackLists:
