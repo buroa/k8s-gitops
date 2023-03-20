@@ -1,0 +1,48 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: fileflows-worker
+  namespace: media
+spec:
+  chart:
+    spec:
+      chart: app-template
+      version: 1.3.2
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  interval: 30m
+  values:
+    controller:
+      type: daemonset
+    image:
+      repository: revenz/fileflows
+      tag: master@sha256:a4ae7a4f2b6813233c07abeac202831f57a6db8628784fb71622f15088c7d26a
+    env:
+      TZ: "${TIMEZONE}"
+      PUID: "1000"
+      PGID: "1000"
+      TempPathHost: "/cache"
+      FFNODE: "1"
+      ServerUrl: "http://fileflows.media.svc.cluster.local:5000"
+    persistence:
+      app:
+        enabled: true
+        existingClaim: fileflows-config
+        mountPath: /app
+      cache:
+        enabled: true
+        existingClaim: fileflows-cache
+        mounthPath: /cache
+      media:
+        enabled: true
+        existingClaim: media
+        mountPath: /media
+    resources:
+      requests:
+        gpu.intel.com/i915: "1"
+      limits:
+        gpu.intel.com/i915: "1"
