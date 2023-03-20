@@ -52,7 +52,7 @@ spec:
       app:
         enabled: true
         existingClaim: fileflows-config
-        mountPath: /app
+        mountPath: /app/Data
       cache:
         enabled: true
         existingClaim: fileflows-cache
