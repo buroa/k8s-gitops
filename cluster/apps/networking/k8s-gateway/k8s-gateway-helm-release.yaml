@@ -41,7 +41,9 @@ spec:
                 apex k8s-gateway.networking
                 resources Ingress Service
                 ttl 300
+                fallthrough ${SECRET_PUBLIC_DOMAIN}
               }
+              forward . /etc/resolv.conf
               prometheus 0.0.0.0:9153
               loop
               reload
