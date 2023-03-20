@@ -38,6 +38,9 @@ spec:
 
       customDNS:
         mapping:
+          # ns: kube-system
+          gitops.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_LB_IP}
+
           # ns: home
           auth.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_LB_IP}
           nr.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_LB_IP}
