@@ -3,6 +3,7 @@ apiVersion: nfd.k8s-sigs.io/v1alpha1
 kind: NodeFeatureRule
 metadata:
   name: google-coral-device
+  namespace: kube-system
 spec:
   rules:
     - # Google Coral USB Accelerator
