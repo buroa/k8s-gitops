@@ -28,11 +28,14 @@ spec:
       TempPathHost: "/cache"
       FFNODE: "1"
       ServerUrl: "http://fileflows.media.svc.cluster.local:5000"
+    service:
+      main:
+        enabled: false
     persistence:
       app:
         enabled: true
         existingClaim: fileflows-config
-        mountPath: /app
+        mountPath: /app/Data
       cache:
         enabled: true
         existingClaim: fileflows-cache
