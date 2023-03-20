@@ -46,7 +46,3 @@ spec:
         enabled: true
         type: hostPath
         hostPath: /dev/dri
-    podSecurityContext:
-      fsGroup: 1000
-      fsGroupChangePolicy: "OnRootMismatch"
-      supplementalGroups: [44, 109, 10000]

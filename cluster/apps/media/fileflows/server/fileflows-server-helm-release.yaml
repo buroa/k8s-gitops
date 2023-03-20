@@ -58,7 +58,3 @@ spec:
         enabled: true
         existingClaim: media
         mountPath: /media
-    podSecurityContext:
-      fsGroup: 1000
-      fsGroupChangePolicy: "OnRootMismatch"
-      supplementalGroups: [44, 109, 10000]
