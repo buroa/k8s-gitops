@@ -27,7 +27,7 @@ spec:
       PGID: "1000"
       TempPathHost: "/cache"
       FFNODE: "1"
-      ServerUrl: "http://fileflows.media.svc.cluster.local:5000"
+      ServerUrl: "http://fileflows-server.media.svc.cluster.local:5000"
     service:
       main:
         enabled: false
