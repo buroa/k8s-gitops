@@ -34,40 +34,8 @@ spec:
 
       conditional:
         mapping:
-          cluster.local: tcp+udp:${CLUSTER_DNS_IP}
-
-      customDNS:
-        mapping:
-          # ns: kube-system
-          gitops.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_LB_IP}
-
-          # ns: home
-          auth.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_LB_IP}
-          nr.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_LB_IP}
-          vault.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_LB_IP}
-
-          # ns: kube-system
-          hubble.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_LB_IP}
-
-          # ns: media
-          autobrr.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_LB_IP}
-          bazarr.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_LB_IP}
-          usenet.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_LB_IP}
-          requests.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_LB_IP}
-          plex.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_LB_IP}
-          prowlarr.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_LB_IP}
-          torrent.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_LB_IP}
-          radarr.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_LB_IP}
-          sonarr.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_LB_IP}
-          tautulli.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_LB_IP}
-
-          # ns: monitoring
-          goldilocks.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_LB_IP}
-          am.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_LB_IP}
-          grafana.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_LB_IP}
-          prometheus.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_LB_IP}
-          thanos.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_LB_IP}
-          loki.${SECRET_PUBLIC_DOMAIN}: ${ENVOY_LB_IP}
+          cluster.local: udp:${K8S_GATEWAY_LB_IP}
+          ${SECRET_PUBLIC_DOMAIN}: udp:${K8S_GATEWAY_LB_IP}
 
       blocking:
         blackLists:
@@ -85,7 +53,7 @@ spec:
           - ads
 
       clientLookup:
-        upstream: tcp+udp:${CLUSTER_DNS_IP}
+        upstream: udp:${K8S_GATEWAY_LB_IP}
 
       caching:
         minTime: 5m
