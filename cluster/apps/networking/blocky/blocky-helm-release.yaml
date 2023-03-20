@@ -34,7 +34,7 @@ spec:
 
       conditional:
         mapping:
-          cluster.local: ${K8S_GATEWAY_LB_IP}
+          cluster.local: ${CLUSTER_DNS_IP}
           ${SECRET_PUBLIC_DOMAIN}: ${K8S_GATEWAY_LB_IP}
 
       blocking:
@@ -53,7 +53,7 @@ spec:
           - ads
 
       clientLookup:
-        upstream: ${K8S_GATEWAY_LB_IP}
+        upstream: ${CLUSTER_DNS_IP}
 
       caching:
         minTime: 5m
