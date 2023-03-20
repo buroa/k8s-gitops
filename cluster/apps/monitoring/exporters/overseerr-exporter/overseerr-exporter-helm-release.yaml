@@ -1,0 +1,46 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: overseerr-exporter
+  namespace: monitoring
+spec:
+  chart:
+    spec:
+      chart: app-template
+      version: 1.3.2
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  interval: 30m
+  values:
+    image:
+      repository: ghcr.io/willfantom/overseerr-exporter
+      tag: 1.2.1
+    args:
+      - --overseerr.address
+      - "http://overseerr.media.svc.cluster.local:5055"
+      - --overseerr.api-key
+      - "${SECRET_OVERSEERR_APIKEY}"
+    service:
+      main:
+        ports:
+          http:
+            port: 9850
+    serviceMonitor:
+      main:
+        enabled: true
+        endpoints:
+          - port: http
+            scheme: http
+            path: /metrics
+            interval: 4m
+            scrapeTimeout: 30s
+    resources:
+      requests:
+        cpu: 10m
+        memory: 100Mi
+      limits:
+        memory: 500Mi
