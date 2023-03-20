@@ -45,6 +45,6 @@ spec:
         readOnly: true
       media:
         enabled: true
+        existingClaim: media
         mountPath: /media
         readOnly: true
-        accessMode: ReadWriteMany
