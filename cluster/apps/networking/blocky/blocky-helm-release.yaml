@@ -37,6 +37,12 @@ spec:
           cluster.local: ${CLUSTER_DNS_IP}
           ${SECRET_PUBLIC_DOMAIN}: ${K8S_GATEWAY_IP}
 
+      customDNS:
+        mapping:
+          unifi.${SECRET_PUBLIC_DOMAIN}: ${GATEWAY_IP}
+          k8s.${SECRET_PUBLIC_DOMAIN}: ${CLUSTER_API_IP}
+          nas.${SECRET_PUBLIC_DOMAIN}: ${NAS_IP}
+
       blocking:
         blackLists:
           ads:
@@ -62,9 +68,6 @@ spec:
       prometheus:
         enable: true
         path: /metrics
-
-      hostsFile:
-        filePath: /etc/hosts
 
       httpPort: 4000
       logLevel: info
