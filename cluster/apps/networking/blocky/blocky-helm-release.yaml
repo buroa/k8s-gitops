@@ -33,9 +33,6 @@ spec:
           - https://cloudflare-dns.com/dns-query
 
       conditional:
-        fallbackUpstream: true
-        rewrite:
-          ${SECRET_PUBLIC_DOMAIN}: ${SECRET_PUBLIC_DOMAIN}
         mapping:
           cluster.local: ${CLUSTER_DNS_IP}
           ${SECRET_PUBLIC_DOMAIN}: ${K8S_GATEWAY_IP}
@@ -65,6 +62,9 @@ spec:
       prometheus:
         enable: true
         path: /metrics
+
+      hostsFile:
+        filePath: /etc/hosts
 
       httpPort: 4000
       logLevel: info
