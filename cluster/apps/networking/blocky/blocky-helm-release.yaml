@@ -36,6 +36,7 @@ spec:
         mapping:
           cluster.local: ${CLUSTER_DNS_IP}
           ${SECRET_PUBLIC_DOMAIN}: ${K8S_GATEWAY_IP}
+          .: ${GATEWAY_IP}
 
       customDNS:
         mapping:
