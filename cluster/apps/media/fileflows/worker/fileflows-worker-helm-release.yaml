@@ -17,7 +17,8 @@ spec:
   interval: 30m
   values:
     controller:
-      type: daemonset
+      type: statefulset
+      replicas: 5
     image:
       repository: revenz/fileflows
       tag: master@sha256:a4ae7a4f2b6813233c07abeac202831f57a6db8628784fb71622f15088c7d26a
@@ -43,3 +44,7 @@ spec:
         enabled: true
         existingClaim: media
         mountPath: /media
+      dev-dri:
+        enabled: true
+        type: hostPath
+        hostPath: /dev/dri
