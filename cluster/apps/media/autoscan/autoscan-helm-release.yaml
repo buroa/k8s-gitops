@@ -47,3 +47,4 @@ spec:
         enabled: true
         mountPath: /media
         readOnly: true
+        accessMode: ReadWriteMany
