@@ -19,7 +19,7 @@ spec:
   values:
     image:
       repository: ghcr.io/autobrr/autobrr
-      tag: v1.19.0
+      tag: v1.20.0
     env:
       TZ: "${TIMEZONE}"
       PUID: "1000"
