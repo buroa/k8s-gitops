@@ -72,7 +72,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "Prometheus"
           },
           "editorMode": "code",
           "expr": "sabnzbd_queue_size",
@@ -120,7 +120,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "Prometheus"
       },
       "fill": 1,
       "fillGradient": 0,
@@ -161,7 +161,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "Prometheus"
           },
           "editorMode": "code",
           "expr": "sabnzbd_queue_total_size_bytes",
@@ -175,7 +175,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "Prometheus"
           },
           "editorMode": "code",
           "expr": "sabnzbd_queue_remaining_bytes",
@@ -262,7 +262,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "Prometheus"
           },
           "editorMode": "code",
           "expr": "sabnzbd_queue_download_rate_bytes_per_second",
@@ -349,7 +349,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "Prometheus"
           },
           "editorMode": "code",
           "expr": "sabnzbd_server_download_bytes{period=\"total\"}",
@@ -435,7 +435,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "Prometheus"
           },
           "editorMode": "code",
           "expr": "sabnzbd_server_download_bytes{period=\"day\"}",
@@ -521,7 +521,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "Prometheus"
           },
           "editorMode": "code",
           "expr": "sabnzbd_server_download_bytes{period=\"week\"}",
@@ -608,7 +608,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "Prometheus"
           },
           "editorMode": "code",
           "expr": "sabnzbd_server_download_bytes{period=\"month\"}",

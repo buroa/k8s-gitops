@@ -33,7 +33,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "Prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -100,7 +100,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "Prometheus"
           },
           "expr": "sum(envoy_server_live)",
           "format": "time_series",
@@ -116,7 +116,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "Prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -179,7 +179,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "Prometheus"
           },
           "expr": "avg(envoy_server_uptime)",
           "format": "time_series",
@@ -194,7 +194,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "Prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -257,7 +257,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "Prometheus"
           },
           "expr": "SUM(envoy_server_memory_allocated)",
           "format": "time_series",
@@ -272,7 +272,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "Prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -335,7 +335,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "Prometheus"
           },
           "expr": "SUM(envoy_server_memory_heap_size)",
           "format": "time_series",
@@ -350,7 +350,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "Prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -413,7 +413,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "Prometheus"
           },
           "expr": "(sum(envoy_cluster_membership_healthy)  - sum(envoy_cluster_membership_total))",
           "format": "time_series",
@@ -428,7 +428,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "Prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -506,7 +506,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "Prometheus"
           },
           "expr": "(sum(envoy_cluster_membership_total)-sum(envoy_cluster_membership_healthy)) == bool 0",
           "format": "time_series",
@@ -525,7 +525,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "Prometheus"
       },
       "fill": 1,
       "fillGradient": 0,
@@ -566,7 +566,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "Prometheus"
           },
           "expr": "envoy_cluster_upstream_cx_active{envoy_cluster_name=~\"$cluster\",host=~\"$hosts\"}",
           "format": "time_series",
@@ -612,7 +612,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "Prometheus"
       },
       "fill": 1,
       "fillGradient": 0,
@@ -653,7 +653,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "Prometheus"
           },
           "expr": "irate(envoy_cluster_upstream_rq_total{envoy_cluster_name=~\"$cluster\",host=~\"$hosts\"}[1m])",
           "format": "time_series",
@@ -699,7 +699,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "Prometheus"
       },
       "fill": 1,
       "fillGradient": 0,
@@ -740,7 +740,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "Prometheus"
           },
           "expr": "envoy_http_downstream_cx_active{envoy_http_conn_manager_prefix=~\"$cluster\",host=~\"$hosts\"}",
           "format": "time_series",
@@ -786,7 +786,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "Prometheus"
       },
       "fill": 1,
       "fillGradient": 0,
@@ -827,7 +827,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "Prometheus"
           },
           "expr": "irate(envoy_http_downstream_rq_total{envoy_http_conn_manager_prefix=~\"$cluster\",host=~\"$hosts\"}[1m])",
           "format": "time_series",
@@ -873,7 +873,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "Prometheus"
       },
       "fill": 1,
       "fillGradient": 0,
@@ -914,7 +914,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "Prometheus"
           },
           "expr": "irate(envoy_cluster_upstream_cx_rx_bytes_total{envoy_cluster_name=~\"$cluster\",host=~\"$hosts\"}[1m])",
           "format": "time_series",
@@ -925,7 +925,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "Prometheus"
           },
           "expr": "irate(envoy_cluster_upstream_cx_tx_bytes_total{envoy_cluster_name=~\"$cluster\",host=~\"$hosts\"}[1m])",
           "format": "time_series",
@@ -971,7 +971,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "Prometheus"
       },
       "fill": 1,
       "fillGradient": 0,
@@ -1012,7 +1012,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "Prometheus"
           },
           "expr": "irate(envoy_http_downstream_cx_rx_bytes_total{envoy_http_conn_manager_prefix=~\"$cluster\",host=~\"$hosts\"}[1m])",
           "format": "time_series",
@@ -1023,7 +1023,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "Prometheus"
           },
           "expr": "irate(envoy_http_downstream_cx_tx_bytes_total{envoy_http_conn_manager_prefix=~\"$cluster\",host=~\"$hosts\"}[1m])",
           "format": "time_series",
@@ -1069,7 +1069,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "Prometheus"
       },
       "fill": 1,
       "fillGradient": 0,
@@ -1110,7 +1110,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "Prometheus"
           },
           "expr": "sum(envoy_cluster_membership_healthy{envoy_cluster_name=\"$cluster\",host=~\"$hosts\"})/count(envoy_cluster_membership_healthy{envoy_cluster_name=\"$cluster\",host=~\"$hosts\"})",
           "format": "time_series",
@@ -1121,7 +1121,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "Prometheus"
           },
           "expr": "sum(envoy_cluster_membership_total{envoy_cluster_name=\"$cluster\",host=~\"$hosts\"})/count(envoy_cluster_membership_total{envoy_cluster_name=\"$cluster\",host=~\"$hosts\"})",
           "format": "time_series",
@@ -1175,7 +1175,7 @@
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "prometheus"
+          "uid": "Prometheus"
         },
         "definition": "",
         "hide": 0,
@@ -1205,7 +1205,7 @@
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "prometheus"
+          "uid": "Prometheus"
         },
         "definition": "",
         "hide": 0,
