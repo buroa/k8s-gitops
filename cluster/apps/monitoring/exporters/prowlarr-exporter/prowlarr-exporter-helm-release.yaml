@@ -18,7 +18,7 @@ spec:
   values:
     image:
       repository: ghcr.io/onedr0p/exportarr
-      tag: master@sha256:c66bbcfd54f5992c6b99ddc1347ad2f2b55277f5c324fdcf815be2ba58efc6aa
+      tag: master@sha256:99329fb3e7ce22acd3fb3df968f6cc20119df717e9877ec67c8cbc250d6fd726
     args:
       - prowlarr
       - "--enable-additional-metrics"
