@@ -30,7 +30,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "Prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -95,7 +95,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "Prometheus"
           },
           "expr": "radarr_system_status{job=\"$instance\"}",
           "format": "time_series",
@@ -111,7 +111,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "Prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -167,7 +167,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "Prometheus"
           },
           "expr": "radarr_movie_missing_total{job=\"$instance\"}",
           "format": "time_series",
@@ -184,7 +184,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "Prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -240,7 +240,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "Prometheus"
           },
           "expr": "radarr_queue_total{job=\"$instance\"}",
           "format": "time_series",
@@ -257,7 +257,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "Prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -313,7 +313,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "Prometheus"
           },
           "expr": "radarr_system_health_issues{job=\"$instance\"}",
           "format": "time_series",
@@ -330,7 +330,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "Prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -386,7 +386,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "Prometheus"
           },
           "expr": "radarr_movie_total{job=\"$instance\"}",
           "format": "time_series",
@@ -403,7 +403,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "Prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -459,7 +459,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "Prometheus"
           },
           "expr": "radarr_movie_wanted_total{job=\"$instance\"}",
           "format": "time_series",
@@ -475,7 +475,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "Prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -532,7 +532,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "Prometheus"
           },
           "expr": "sum(increase(radarr_movie_downloaded_total{job=\"$instance\"}[30d]))",
           "format": "time_series",
@@ -548,7 +548,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "Prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -604,7 +604,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "Prometheus"
           },
           "expr": "radarr_movie_monitored_total{job=\"$instance\"}",
           "format": "time_series",
@@ -621,7 +621,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "Prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -677,7 +677,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "Prometheus"
           },
           "expr": "radarr_movie_filesize_total{job=\"$instance\"}",
           "format": "time_series",
@@ -694,7 +694,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "Prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -751,7 +751,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "Prometheus"
           },
           "expr": "sum(increase(radarr_movie_downloaded_total{job=\"$instance\"}[7d]))",
           "format": "table",
@@ -767,7 +767,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "Prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -818,7 +818,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "Prometheus"
           },
           "expr": "sort_desc(sum(radarr_movie_quality_total{job=\"$instance\"}) by (quality))",
           "format": "time_series",
@@ -883,7 +883,7 @@
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "prometheus"
+          "uid": "Prometheus"
         },
         "definition": "label_values(radarr_system_status, job)",
         "hide": 0,

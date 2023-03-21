@@ -30,7 +30,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "Prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -95,7 +95,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "Prometheus"
           },
           "expr": "sonarr_system_status{job=\"$instance\"}",
           "format": "time_series",
@@ -111,7 +111,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "Prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -167,7 +167,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "Prometheus"
           },
           "expr": "sonarr_episode_missing_total{job=\"$instance\"}",
           "format": "time_series",
@@ -184,7 +184,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "Prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -240,7 +240,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "Prometheus"
           },
           "expr": "sonarr_queue_total{job=\"$instance\"}",
           "format": "time_series",
@@ -257,7 +257,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "Prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -313,7 +313,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "Prometheus"
           },
           "expr": "sonarr_system_health_issues{job=\"$instance\"}",
           "format": "time_series",
@@ -330,7 +330,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "Prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -386,7 +386,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "Prometheus"
           },
           "expr": "sonarr_series_total{job=\"$instance\"}",
           "format": "time_series",
@@ -403,7 +403,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "Prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -459,7 +459,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "Prometheus"
           },
           "expr": "sonarr_series_filesize_bytes{job=\"$instance\"}",
           "format": "time_series",
@@ -476,7 +476,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "Prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -533,7 +533,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "Prometheus"
           },
           "expr": "sum(increase(sonarr_episode_downloaded_total{job=\"$instance\"}[30d]))",
           "format": "time_series",
@@ -549,7 +549,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "Prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -605,7 +605,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "Prometheus"
           },
           "expr": "sonarr_series_monitored_total{job=\"$instance\"}",
           "format": "time_series",
@@ -622,7 +622,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "Prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -679,7 +679,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "Prometheus"
           },
           "expr": "sum(increase(sonarr_episode_downloaded_total{job=\"$instance\"}[7d]))",
           "format": "table",
@@ -695,7 +695,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "Prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -746,7 +746,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "Prometheus"
           },
           "expr": "sort_desc(sum(sonarr_episode_quality_total{job=\"$instance\"}) by (quality))",
           "format": "time_series",
@@ -811,7 +811,7 @@
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "prometheus"
+          "uid": "Prometheus"
         },
         "definition": "label_values(sonarr_system_status, job)",
         "hide": 0,
