@@ -69,7 +69,7 @@
       "columns": [],
       "datasource": {
         "type": "prometheus",
-        "uid": "P5DCFC7561CCDE821"
+        "uid": "Prometheus"
       },
       "editable": true,
       "error": false,
@@ -313,7 +313,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "expr": "sum by (ip,mac,model,name,serial,site_name,type,version,source) (unpoller_device_info{site_name=~\"$Site\", name=~\"$Gateway\"})",
           "format": "table",
@@ -325,7 +325,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "expr": "sum by (ip,mac,model,name,serial,site_name,type,version,source) (unpoller_device_uptime_seconds{site_name=~\"$Site\", name=~\"$Gateway\"})",
           "format": "table",
@@ -337,7 +337,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "expr": "sum by (ip,mac,model,name,serial,site_name,type,version,source) (unpoller_device_bytes_total{site_name=~\"$Site\", name=~\"$Gateway\"})",
           "format": "table",
@@ -367,7 +367,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "description": "",
           "fieldConfig": {
@@ -425,7 +425,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "unpoller_device_uptime_seconds{site_name=~\"$Site\", name=~\"$Gateway\"}",
               "instant": false,
@@ -441,7 +441,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "description": "",
           "fieldConfig": {
@@ -500,7 +500,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "unpoller_device_speedtest_upload{site_name=~\"$Site\", name=~\"$Gateway\"}",
               "instant": false,
@@ -511,7 +511,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "unpoller_device_speedtest_download{site_name=~\"$Site\", name=~\"$Gateway\"}",
               "instant": false,
@@ -527,7 +527,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "description": "",
           "fieldConfig": {
@@ -586,7 +586,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "sum by (name) (unpoller_device_speedtest_runtime_seconds{site_name=~\"$Site\", name=~\"$Gateway\"})",
               "instant": false,
@@ -597,7 +597,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "sum by (name) (unpoller_device_uplink_latency_seconds{site_name=~\"$Site\", name=~\"$Gateway\"})",
               "instant": false,
@@ -613,7 +613,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "fieldConfig": {
             "defaults": {
@@ -677,7 +677,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "unpoller_device_cpu_utilization_ratio{site_name=~\"$Site\", name=~\"$Gateway\"}",
               "instant": false,
@@ -688,7 +688,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "unpoller_device_memory_utilization_ratio{site_name=~\"$Site\", name=~\"$Gateway\"}",
               "instant": false,
@@ -704,7 +704,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "description": "WAN Port Speed",
           "fieldConfig": {
@@ -770,7 +770,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "unpoller_device_uplink_speed_mbps{site_name=~\"$Site\", name=~\"$Gateway\"}",
               "instant": true,
@@ -784,7 +784,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "fieldConfig": {
             "defaults": {
@@ -849,7 +849,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "unpoller_device_stations{site_name=~\"$Site\", name=~\"$Gateway\",station_type=\"desktop\"}",
               "instant": true,
@@ -864,7 +864,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "fieldConfig": {
             "defaults": {
@@ -929,7 +929,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "unpoller_device_stations{site_name=~\"$Site\", name=~\"$Gateway\",station_type=\"user\"}",
               "instant": true,
@@ -943,7 +943,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "fieldConfig": {
             "defaults": {
@@ -1008,7 +1008,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "unpoller_device_stations{site_name=~\"$Site\", name=~\"$Gateway\",station_type=\"mobile\"}",
               "instant": true,
@@ -1023,7 +1023,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "fieldConfig": {
             "defaults": {
@@ -1088,7 +1088,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "unpoller_device_stations{site_name=~\"$Site\", name=~\"$Gateway\",station_type=\"guest\"}",
               "instant": true,
@@ -1102,7 +1102,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "fieldConfig": {
             "defaults": {
@@ -1167,7 +1167,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "unpoller_device_stations{site_name=~\"$Site\", name=~\"$Gateway\",station_type=\"handheld\"}",
               "instant": true,
@@ -1189,7 +1189,7 @@
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "editable": true,
           "error": false,
@@ -1249,7 +1249,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "unpoller_device_load_average_1{site_name=~\"$Site\", name=~\"$Gateway\"}",
               "interval": "$Smooth",
@@ -1259,7 +1259,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "unpoller_device_load_average_5{site_name=~\"$Site\", name=~\"$Gateway\"}",
               "hide": true,
@@ -1270,7 +1270,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "unpoller_device_load_average_15{site_name=~\"$Site\", name=~\"$Gateway\"}",
               "interval": "$Smooth",
@@ -1320,7 +1320,7 @@
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "description": "Spikes on this graph that are missing from the LAN graph indicate gateway-originated traffic, like a scheduled speed test. Rx is on the negative axis.",
           "editable": true,
@@ -1378,7 +1378,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "rate(unpoller_device_wan_receive_bytes_total{site_name=~\"$Site\", name=~\"$Gateway\"}[$__interval])",
               "interval": "$Smooth",
@@ -1388,7 +1388,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "rate(unpoller_device_wan_transmit_bytes_total{site_name=~\"$Site\", name=~\"$Gateway\"}[$__interval])",
               "interval": "$Smooth",
@@ -1398,7 +1398,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "unpoller_device_wan_transmit_rate_bytes{site_name=~\"$Site\", name=~\"$Gateway\"}",
               "hide": true,
@@ -1409,7 +1409,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "unpoller_device_wan_receive_rate_bytes{site_name=~\"$Site\", name=~\"$Gateway\"}",
               "hide": true,
@@ -1461,7 +1461,7 @@
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "description": "Spikes on this graph that do not appear on the WAN graph indicate inter-VLAN-routing. Rx is on the negative axis.",
           "editable": true,
@@ -1519,7 +1519,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "rate(unpoller_device_lan_receive_bytes_total{site_name=~\"$Site\", name=~\"$Gateway\"}[$__interval])",
               "interval": "$Smooth",
@@ -1529,7 +1529,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "rate(unpoller_device_lan_transmit_bytes_total{site_name=~\"$Site\", name=~\"$Gateway\"}[$__interval])",
               "interval": "$Smooth",
@@ -1580,7 +1580,7 @@
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "description": "PPS on the WAN interface. Rx is on the negative axis.",
           "editable": true,
@@ -1640,7 +1640,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "rate(unpoller_device_wan_receive_packets_total{site_name=~\"$Site\", name=~\"$Gateway\"}[$__interval])",
               "interval": "$Smooth",
@@ -1650,7 +1650,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "rate(unpoller_device_wan_transmit_packets_total{site_name=~\"$Site\", name=~\"$Gateway\"}[$__interval])",
               "interval": "$Smooth",
@@ -1701,7 +1701,7 @@
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "description": "PPS on the LAN interface. Rx is on the negative axis.",
           "editable": true,
@@ -1761,7 +1761,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "rate(unpoller_device_lan_receive_packets_total{site_name=~\"$Site\", name=~\"$Gateway\"}[$__interval])",
               "interval": "$Smooth",
@@ -1771,7 +1771,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "rate(unpoller_device_lan_transmit_packets_total{site_name=~\"$Site\", name=~\"$Gateway\"}[$__interval])",
               "interval": "$Smooth",
@@ -1824,7 +1824,7 @@
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "decimals": 2,
           "description": "",
@@ -1884,7 +1884,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "rate(unpoller_device_wan_transmit_broadcast_total{site_name=~\"$Site\", name=~\"$Gateway\"}[$__interval])",
               "interval": "$Smooth",
@@ -1894,7 +1894,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "rate(unpoller_device_wan_receive_broadcast_total{site_name=~\"$Site\", name=~\"$Gateway\"}[$__interval])",
               "interval": "$Smooth",
@@ -1904,7 +1904,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "rate(unpoller_device_wan_receive_multicast_total{site_name=~\"$Site\", name=~\"$Gateway\"}[$__interval])",
               "interval": "$Smooth",
@@ -1914,7 +1914,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "rate(unpoller_device_wan_transmit_multicast_total{site_name=~\"$Site\", name=~\"$Gateway\"}[$__interval])",
               "interval": "$Smooth",
@@ -1966,7 +1966,7 @@
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "description": "May show problems with your WAN interface. Rx on negative axis.",
           "editable": true,
@@ -2024,7 +2024,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "rate(unpoller_device_wan_transmit_dropped_total{site_name=~\"$Site\", name=~\"$Gateway\"}[$__interval])",
               "interval": "$Smooth",
@@ -2034,7 +2034,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "rate(unpoller_device_wan_receive_dropped_total{site_name=~\"$Site\", name=~\"$Gateway\"}[$__interval])",
               "interval": "$Smooth",
@@ -2044,7 +2044,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "rate(unpoller_device_wan_transmit_errors_total{site_name=~\"$Site\", name=~\"$Gateway\"}[$__interval])",
               "interval": "$Smooth",
@@ -2054,7 +2054,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "rate(unpoller_device_wan_receive_errors_total{site_name=~\"$Site\", name=~\"$Gateway\"}[$__interval])",
               "interval": "$Smooth",
@@ -2103,7 +2103,7 @@
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "description": "",
           "editable": true,
@@ -2163,7 +2163,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "rate(unpoller_device_lan_receive_dropped_total{site_name=~\"$Site\", name=~\"$Gateway\"}[$__interval])",
               "hide": false,
@@ -2262,7 +2262,7 @@
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "P5DCFC7561CCDE821"
+          "uid": "Prometheus"
         },
         "definition": "label_values(unpoller_device_info{type=~\"udm|usg|ugw\"},source)",
         "hide": 2,
@@ -2291,7 +2291,7 @@
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "P5DCFC7561CCDE821"
+          "uid": "Prometheus"
         },
         "definition": "label_values(unpoller_device_info{source=~\"$Controller\", type=~\"udm|usg|ugw\"},site_name)",
         "hide": 0,
@@ -2320,7 +2320,7 @@
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "P5DCFC7561CCDE821"
+          "uid": "Prometheus"
         },
         "definition": "label_values(unpoller_device_info{site_name=~\"$Site\", type=~\"udm|usg|ugw\"},name)",
         "hide": 2,

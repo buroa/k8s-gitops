@@ -91,7 +91,7 @@
       "columns": [],
       "datasource": {
         "type": "prometheus",
-        "uid": "P5DCFC7561CCDE821"
+        "uid": "Prometheus"
       },
       "description": "If you have access points and gateways they will also show up here because they have switch ports.",
       "editable": true,
@@ -336,7 +336,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "expr": "sum by (ip,mac,model,name,serial,site_name,type,version,source) (unpoller_device_info{site_name=~\"$Site\", name=~\"$Switch\"})",
           "format": "table",
@@ -348,7 +348,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "expr": "sum by (ip,mac,model,name,serial,site_name,type,version,source) (unpoller_device_uptime_seconds{site_name=~\"$Site\", name=~\"$Switch\"})",
           "format": "table",
@@ -360,7 +360,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "expr": "sum by (ip,mac,model,name,serial,site_name,type,version,source) (unpoller_device_bytes_total{site_name=~\"$Site\", name=~\"$Switch\"})",
           "format": "table",
@@ -384,7 +384,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P5DCFC7561CCDE821"
+        "uid": "Prometheus"
       },
       "decimals": 1,
       "description": "",
@@ -442,7 +442,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "expr": "sum by (name,temp_area,temp_type) (unpoller_device_temperature_celsius{site_name=~\"$Site\",name=~\"$Switch\"})",
           "interval": "$Smooth",
@@ -452,7 +452,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "expr": "sum by (name,temp_area,temp_type) (unpoller_device_temperature_celsius{site_name=~\"$Site\",name=~\"$Switch\"}*9/5+32)",
           "hide": false,
@@ -508,7 +508,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P5DCFC7561CCDE821"
+        "uid": "Prometheus"
       },
       "decimals": 0,
       "description": "",
@@ -560,7 +560,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "expr": "unpoller_device_memory_utilization_ratio{type=\"usw\", site_name=~\"$Site\",name=~\"$Switch\",type=~\"usw|udm|udmp\"}",
           "interval": "$Smooth",
@@ -614,7 +614,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P5DCFC7561CCDE821"
+        "uid": "Prometheus"
       },
       "editable": true,
       "error": false,
@@ -679,7 +679,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "expr": "unpoller_device_load_average_1{site_name=~\"$Site\",name=~\"$Switch\"}",
           "interval": "$Smooth",
@@ -689,7 +689,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "expr": "unpoller_device_load_average_5{site_name=~\"$Site\",name=~\"$Switch\"}",
           "hide": true,
@@ -700,7 +700,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "expr": "unpoller_device_load_average_15{site_name=~\"$Site\",name=~\"$Switch\"}",
           "hide": false,
@@ -752,7 +752,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P5DCFC7561CCDE821"
+        "uid": "Prometheus"
       },
       "decimals": 0,
       "description": "",
@@ -804,7 +804,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "expr": "unpoller_device_cpu_utilization_ratio{site_name=~\"$Site\",name=~\"$Switch\",type=~\"usw|udm|udmp\"}",
           "interval": "$Smooth",
@@ -853,7 +853,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "P5DCFC7561CCDE821"
+        "uid": "Prometheus"
       },
       "description": "Shows data transferred for selected switch ports.",
       "fieldConfig": {
@@ -912,7 +912,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "expr": "rate(unpoller_device_port_transmit_bytes_total{site_name=~\"$Site\", name=~\"$Switch\", port_id=~\"$Port\"}[$__interval])",
           "interval": "$Smooth",
@@ -922,7 +922,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "expr": "rate(unpoller_device_port_receive_bytes_total{site_name=~\"$Site\", name=~\"$Switch\", port_id=~\"$Port\"}[$__interval])",
           "interval": "$Smooth",
@@ -966,7 +966,7 @@
       "columns": [],
       "datasource": {
         "type": "prometheus",
-        "uid": "P5DCFC7561CCDE821"
+        "uid": "Prometheus"
       },
       "description": "This panel displays lifetime totals and current data as of now.",
       "fieldConfig": {
@@ -1365,7 +1365,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "expr": "sum by (name,port_num,port_name,site_name,source) (unpoller_device_port_receive_bytes_total{site_name=~\"$Site\",name=~\"$Switch\"})",
           "format": "table",
@@ -1375,7 +1375,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "expr": "sum by (name,port_num,port_name,site_name,source) (unpoller_device_port_transmit_bytes_total{site_name=~\"$Site\",name=~\"$Switch\"})",
           "format": "table",
@@ -1386,7 +1386,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "expr": "sum by (name,port_num,port_name,site_name,source) (unpoller_device_port_receive_dropped_total{site_name=~\"$Site\",name=~\"$Switch\"})",
           "format": "table",
@@ -1397,7 +1397,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "expr": "sum by (name,port_num,port_name,site_name,source) (unpoller_device_port_transmit_dropped_total{site_name=~\"$Site\",name=~\"$Switch\"})",
           "format": "table",
@@ -1408,7 +1408,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "expr": "sum by (name,port_num,port_name,site_name,source) (unpoller_device_port_receive_broadcast_total{site_name=~\"$Site\",name=~\"$Switch\"})",
           "format": "table",
@@ -1419,7 +1419,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "expr": "sum by (name,port_num,port_name,site_name,source) (unpoller_device_port_transmit_broadcast_total{site_name=~\"$Site\",name=~\"$Switch\"})",
           "format": "table",
@@ -1430,7 +1430,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "expr": "sum by (name,port_num,port_name,site_name,source) (unpoller_device_port_receive_errors_total{site_name=~\"$Site\",name=~\"$Switch\"})",
           "format": "table",
@@ -1441,7 +1441,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "expr": "sum by (name,port_num,port_name,site_name,source) (unpoller_device_port_transmit_errors_total{site_name=~\"$Site\",name=~\"$Switch\"})",
           "format": "table",
@@ -1452,7 +1452,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "expr": "sum by (name,port_num,port_name,site_name,source) (unpoller_device_port_receive_packets_total{site_name=~\"$Site\",name=~\"$Switch\"})",
           "format": "table",
@@ -1463,7 +1463,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "expr": "sum by (name,port_num,port_name,site_name,source) (unpoller_device_port_transmit_packets_total{site_name=~\"$Site\",name=~\"$Switch\"})",
           "format": "table",
@@ -1474,7 +1474,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "expr": "sum by (name,port_num,port_name,site_name,source) (unpoller_device_port_poe_amperes{site_name=~\"$Site\",name=~\"$Switch\"})",
           "format": "table",
@@ -1485,7 +1485,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "expr": "sum by (name,port_num,port_name,site_name,source) (unpoller_device_port_poe_volts{site_name=~\"$Site\",name=~\"$Switch\"})",
           "format": "table",
@@ -1496,7 +1496,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "expr": "sum by (name,port_num,port_name,site_name,source) (unpoller_device_port_poe_watts{site_name=~\"$Site\",name=~\"$Switch\"})",
           "format": "table",
@@ -1527,7 +1527,7 @@
           "columns": [],
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "description": "These are total \"lifetime\" counters.",
           "fieldConfig": {
@@ -1704,7 +1704,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "unpoller_device_port_port_speed_bps{port_id=\"$Port\", site_name=~\"$Site\"}",
               "format": "time_series",
@@ -1716,7 +1716,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "unpoller_device_port_poe_amperes{port_id=\"$Port\", site_name=~\"$Site\"}",
               "format": "time_series",
@@ -1729,7 +1729,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "unpoller_device_port_poe_volts{port_id=\"$Port\", site_name=~\"$Site\"}",
               "format": "time_series",
@@ -1742,7 +1742,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "unpoller_device_port_poe_watts{port_id=\"$Port\", site_name=~\"$Site\"}",
               "format": "time_series",
@@ -1755,7 +1755,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "unpoller_device_port_transmit_broadcast_total{port_id=\"$Port\", site_name=~\"$Site\"}",
               "format": "time_series",
@@ -1767,7 +1767,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "unpoller_device_port_transmit_multicast_total{port_id=\"$Port\", site_name=~\"$Site\"}",
               "format": "time_series",
@@ -1779,7 +1779,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "unpoller_device_port_receive_dropped_total{port_id=\"$Port\", site_name=~\"$Site\"}",
               "format": "time_series",
@@ -1791,7 +1791,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "unpoller_device_port_transmit_dropped_total{port_id=\"$Port\", site_name=~\"$Site\"}",
               "format": "time_series",
@@ -1803,7 +1803,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "unpoller_device_port_transmit_errors_total+unpoller_device_port_receive_errors_total{port_id=\"$Port\", site_name=~\"$Site\"}",
               "format": "time_series",
@@ -1815,7 +1815,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "unpoller_device_port_receive_packets_total{port_id=\"$Port\", site_name=~\"$Site\"}",
               "format": "time_series",
@@ -1827,7 +1827,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "unpoller_device_port_transmit_packets_total{port_id=\"$Port\", site_name=~\"$Site\"}",
               "format": "time_series",
@@ -1840,7 +1840,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "unpoller_device_port_receive_bytes_total{port_id=\"$Port\", site_name=~\"$Site\"}",
               "format": "time_series",
@@ -1853,7 +1853,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "unpoller_device_port_transmit_bytes_total{port_id=\"$Port\", site_name=~\"$Site\"}",
               "format": "time_series",
@@ -1866,7 +1866,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "unpoller_device_port_satisfaction_percent{port_id=\"$Port\", site_name=~\"$Site\"}",
               "format": "time_series",
@@ -1888,7 +1888,7 @@
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "description": "Shows data transfer rate per second for Switch $Port. TX on positive axis and RX on negative axis.",
           "fieldConfig": {
@@ -1942,7 +1942,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "rate(unpoller_device_port_receive_bytes_total{site_name=~\"$Site\", port_id=~\"$Port\"}[$__interval])",
               "interval": "$Smooth",
@@ -1952,7 +1952,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "rate(unpoller_device_port_transmit_bytes_total{site_name=~\"$Site\", port_id=~\"$Port\"}[$__interval])",
               "interval": "$Smooth",
@@ -1998,7 +1998,7 @@
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "description": "Shows broadcast and multicast packets per second for Switch $Port. TX on positive axis and RX on negative axis.",
           "fieldConfig": {
@@ -2052,7 +2052,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "rate(unpoller_device_port_receive_broadcast_total{site_name=~\"$Site\", port_id=~\"$Port\"}[$__interval])",
               "interval": "$Smooth",
@@ -2062,7 +2062,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "rate(unpoller_device_port_transmit_broadcast_total{site_name=~\"$Site\", port_id=~\"$Port\"}[$__interval])",
               "interval": "$Smooth",
@@ -2072,7 +2072,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "rate(unpoller_device_port_receive_multicast_total{site_name=~\"$Site\", port_id=~\"$Port\"}[$__interval])",
               "interval": "$Smooth",
@@ -2082,7 +2082,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "rate(unpoller_device_port_transmit_multicast_total{site_name=~\"$Site\", port_id=~\"$Port\"}[$__interval])",
               "interval": "$Smooth",
@@ -2128,7 +2128,7 @@
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "description": "Shows errors and dropped packets for Switch $Port. RX on negative axis.",
           "fieldConfig": {
@@ -2183,7 +2183,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "rate(unpoller_device_port_receive_dropped_total{site_name=~\"$Site\", port_id=~\"$Port\"}[$__interval])",
               "interval": "$Smooth",
@@ -2193,7 +2193,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "rate(unpoller_device_port_transmit_dropped_total{site_name=~\"$Site\", port_id=~\"$Port\"}[$__interval])",
               "interval": "$Smooth",
@@ -2203,7 +2203,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "rate(unpoller_device_port_transmit_errors_total{site_name=~\"$Site\", port_id=~\"$Port\"}[$__interval])",
               "interval": "$Smooth",
@@ -2213,7 +2213,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "rate(unpoller_device_port_receive_errors_total{site_name=~\"$Site\", port_id=~\"$Port\"}[$__interval])",
               "interval": "$Smooth",
@@ -2261,7 +2261,7 @@
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "description": "Shows packet counters for Switch $Port. TX on positive axis and RX on negative axis.",
           "fieldConfig": {
@@ -2315,7 +2315,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "rate(unpoller_device_port_receive_packets_total{site_name=~\"$Site\", port_id=~\"$Port\"}[$__interval])",
               "interval": "$Smooth",
@@ -2325,7 +2325,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "rate(unpoller_device_port_transmit_packets_total{site_name=~\"$Site\", port_id=~\"$Port\"}[$__interval])",
               "interval": "$Smooth",
@@ -2371,7 +2371,7 @@
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "description": "Display POE Power for Switch $Port.",
           "fieldConfig": {
@@ -2420,7 +2420,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "unpoller_device_port_poe_watts{site_name=~\"$Site\", port_id=~\"$Port\"}",
               "interval": "$Smooth",
@@ -2467,7 +2467,7 @@
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "description": "Display POE Voltage for Switch $Port.",
           "fieldConfig": {
@@ -2517,7 +2517,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "unpoller_device_port_poe_volts{site_name=~\"$Site\", port_id=~\"$Port\"}",
               "interval": "$Smooth",
@@ -2564,7 +2564,7 @@
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "P5DCFC7561CCDE821"
+            "uid": "Prometheus"
           },
           "description": "Display POE Current for Switch $Port.",
           "fieldConfig": {
@@ -2613,7 +2613,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P5DCFC7561CCDE821"
+                "uid": "Prometheus"
               },
               "expr": "unpoller_device_port_poe_amperes{site_name=~\"$Site\", port_id=~\"$Port\"}",
               "interval": "$Smooth",
@@ -2710,7 +2710,7 @@
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "P5DCFC7561CCDE821"
+          "uid": "Prometheus"
         },
         "definition": "label_values(unpoller_device_info,source)",
         "hide": 2,
@@ -2781,7 +2781,7 @@
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "P5DCFC7561CCDE821"
+          "uid": "Prometheus"
         },
         "definition": "label_values(unpoller_device_info{source=~\"$Controller\"},site_name)",
         "hide": 0,
@@ -2811,7 +2811,7 @@
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "P5DCFC7561CCDE821"
+          "uid": "Prometheus"
         },
         "definition": "label_values(unpoller_device_info{site_name=~\"$Site\", type=~\"$Devices\"},name)",
         "hide": 0,
@@ -2841,7 +2841,7 @@
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "P5DCFC7561CCDE821"
+          "uid": "Prometheus"
         },
         "definition": "label_values(unpoller_device_port_port_speed_bps{site_name=~\"$Site\", name=~\"$Switch\"},port_id)",
         "hide": 0,
