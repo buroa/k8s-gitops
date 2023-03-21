@@ -39,7 +39,7 @@ nodes:
             gateway: ${gatewayIP}
         vip:
           ip: ${clusterEndpointIP}
-    nodeLabels:
+    nodeLabels: &masterLabels
       topology.kubernetes.io/region: *cluster
       topology.kubernetes.io/zone: m
 
@@ -61,9 +61,7 @@ nodes:
             gateway: ${gatewayIP}
         vip:
           ip: ${clusterEndpointIP}
-    nodeLabels:
-      topology.kubernetes.io/region: *cluster
-      topology.kubernetes.io/zone: m
+    nodeLabels: *masterLabels
 
   # macm 2018 3.2GHz / 32GB / 256GB SSD / 10GBt
   - hostname: m2.k8s.${domainName}
@@ -83,9 +81,7 @@ nodes:
             gateway: ${gatewayIP}
         vip:
           ip: ${clusterEndpointIP}
-    nodeLabels:
-      topology.kubernetes.io/region: *cluster
-      topology.kubernetes.io/zone: m
+    nodeLabels: *masterLabels
 
   # macm 2018 3.2GHz / 64GB / 1TB SSD / 10GBe
   - hostname: w0.k8s.${domainName}
@@ -103,8 +99,8 @@ nodes:
         routes:
           - network: 0.0.0.0/0
             gateway: ${gatewayIP}
-    nodeLabels: &workerRoles
-      node-role.kubernetes.io/worker: null
+    nodeLabels: &workerLabels
+      node-role.kubernetes.io/worker: worker
       topology.kubernetes.io/region: *cluster
       topology.kubernetes.io/zone: w
 
@@ -124,7 +120,7 @@ nodes:
         routes:
           - network: 0.0.0.0/0
             gateway: ${gatewayIP}
-    nodeLabels: *workerRoles
+    nodeLabels: *workerLabels
 
   # macm 2018 3.2GHz / 64GB / 1TB SSD / 10GBe
   - hostname: w2.k8s.${domainName}
@@ -142,7 +138,7 @@ nodes:
         routes:
           - network: 0.0.0.0/0
             gateway: ${gatewayIP}
-    nodeLabels: *workerRoles
+    nodeLabels: *workerLabels
 
 controlPlane:
   inlinePatch:
