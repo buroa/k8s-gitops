@@ -22,6 +22,8 @@ spec:
         insecure: true
     query:
       enabled: true
+      podAntiAffinityPreset: hard
+      replicaLabel: ["__replica__"] # must match with kube-prometheus-stack value `.prometheus.prometheusSpec.replicaExternalLabelName
       dnsDiscovery:
         sidecarsService: kube-prometheus-stack-thanos-discovery
         sidecarsNamespace: monitoring
