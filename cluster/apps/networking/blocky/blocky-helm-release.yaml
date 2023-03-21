@@ -32,16 +32,10 @@ spec:
         default:
           - https://cloudflare-dns.com/dns-query
 
-      customDNS:
-        mapping:
-          unifi.${SECRET_PUBLIC_DOMAIN}: ${GATEWAY_IP}
-          nas.${SECRET_PUBLIC_DOMAIN}: ${NAS_IP}
-
       conditional:
         mapping:
           cluster.local: ${CLUSTER_DNS_IP}
           ${SECRET_PUBLIC_DOMAIN}: ${K8S_GATEWAY_IP}
-          k8s.${SECRET_PUBLIC_DOMAIN}: ${GATEWAY_IP}
           .: ${GATEWAY_IP}
 
       blocking:
