@@ -59,11 +59,11 @@ spec:
           - name: w0
             devices:
               - name: /dev/disk/by-id/nvme-KINGSTON_SNV2S2000G_50026B768635CAB3
-              # - name: /dev/disk/by-id/nvme-KINGSTON_SNV2S2000G_****************
+              - name: /dev/disk/by-id/nvme-KINGSTON_SNV2S2000G_50026B7686374953
           - name: w1
             devices:
               - name: /dev/disk/by-id/nvme-KINGSTON_SNV2S2000G_50026B768635ABBA
-              # - name: /dev/disk/by-id/nvme-KINGSTON_SNV2S2000G_****************
+              - name: /dev/disk/by-id/nvme-KINGSTON_SNV2S2000G_50026B768635B1EB
           - name: w2
             devices:
               - name: /dev/disk/by-id/nvme-KINGSTON_SNV2S2000G_50026B768635CA95
