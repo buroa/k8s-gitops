@@ -82,7 +82,7 @@ sinks:
     type: loki
     inputs:
       - kubernetes_source
-    endpoint: http://loki-gateway.monitoring.svc.cluster.local:80
+    endpoint: http://loki-gateway.monitoring.svc.cluster.local
     encoding:
       codec: json
     batch:
@@ -103,7 +103,7 @@ sinks:
     type: loki
     inputs:
       - journald_source
-    endpoint: http://loki-gateway.monitoring.svc.cluster.local:80
+    endpoint: http://loki-gateway.monitoring.svc.cluster.local
     encoding:
       codec: json
     batch:
@@ -118,7 +118,7 @@ sinks:
     type: loki
     inputs:
       - talos_kernel_logs_xform
-    endpoint: http://loki-gateway.monitoring.svc.cluster.local:80
+    endpoint: http://loki-gateway.monitoring.svc.cluster.local
     encoding:
       codec: json
       except_fields:
@@ -134,7 +134,7 @@ sinks:
     type: loki
     inputs:
       - talos_service_logs_xform
-    endpoint: http://loki-gateway.monitoring.svc.cluster.local:80
+    endpoint: http://loki-gateway.monitoring.svc.cluster.local
     encoding:
       codec: json
       except_fields:
