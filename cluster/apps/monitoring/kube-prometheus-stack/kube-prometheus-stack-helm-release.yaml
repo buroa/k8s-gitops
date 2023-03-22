@@ -260,7 +260,7 @@ spec:
             revision: 1
             datasource: Prometheus
           cloudflared:
-            gnetId: 17457
+            gnetId: 18020
             revision: 1
             datasource: Prometheus
           envoy:
@@ -272,8 +272,8 @@ spec:
             revision: 1
             datasource: Prometheus
           blocky:
-            gnetId: 13768
-            revision: 3
+            gnetId: 18166
+            revision: 1
             datasource: Prometheus
           uptime-robot:
             gnetId: 9955
