@@ -23,8 +23,7 @@ spec:
       enabled: true
       type: LoadBalancer
       loadBalancerIP: ${VECTOR_LB_IP}
-      annotations:
-        coredns.io/hostname: vector.${SECRET_PUBLIC_DOMAIN}
+      externalTrafficPolicy: Local
     customConfig:
       data_dir: /vector-data-dir
       api:
