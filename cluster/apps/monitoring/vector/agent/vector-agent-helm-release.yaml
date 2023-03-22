@@ -32,11 +32,11 @@ spec:
           type: kubernetes_logs
         talos_kernel_logs:
           type: socket
-          mode: udp
+          mode: tcp
           address: 127.0.0.1:12000
         talos_service_logs:
           type: socket
-          mode: udp
+          mode: tcp
           address: 127.0.0.1:12001
       sinks:
         kubernetes_sink:
