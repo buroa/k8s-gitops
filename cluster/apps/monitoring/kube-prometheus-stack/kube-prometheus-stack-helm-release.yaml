@@ -418,11 +418,6 @@ spec:
         serviceMonitor:
           enabled: true
       persistence:
-        enabled: false
-      topologySpreadConstraints:
-        - maxSkew: 1
-          topologyKey: kubernetes.io/hostname
-          whenUnsatisfiable: DoNotSchedule
-          labelSelector:
-            matchLabels:
-              app.kubernetes.io/name: grafana
+        enabled: true
+        type: pvc
+        existingClaim: grafana-config
