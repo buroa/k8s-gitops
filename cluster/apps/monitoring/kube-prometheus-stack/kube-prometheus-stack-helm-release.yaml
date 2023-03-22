@@ -169,31 +169,12 @@ spec:
           limits:
             memory: 7000Mi
     grafana:
-      deploymentStrategy:
-        type: Recreate
-      ingress:
-        enabled: true
-        annotations:
-          kubernetes.io/tls-acme: "true"
-          kubernetes.io/ingress.class: contour
-          cert-manager.io/cluster-issuer: letsencrypt-prod
-          ingress.kubernetes.io/force-ssl-redirect: "true"
-          projectcontour.io/websocket-routes: "/"
-        hosts:
-          - &hostg grafana.${SECRET_PUBLIC_DOMAIN}
-        paths:
-          - /
-        tls:
-          - secretName: grafana-tls
-            hosts:
-              - *hostg
+      forceDeployDashboards: true
       sidecar:
         dashboards:
-          labelValue: 1
-          searchNamespace: ALL
-        datasources:
-          enabled: true
-          searchNamespace: ALL
+          multicluster:
+            etcd:
+              enabled: true
       grafana.ini:
         server:
           root_url: https://grafana.${SECRET_PUBLIC_DOMAIN}
@@ -258,7 +239,19 @@ spec:
           limitIngress: false
         serviceMonitor:
           enabled: true
-      persistence:
+      ingress:
         enabled: true
-        type: pvc
-        existingClaim: grafana-config
+        annotations:
+          kubernetes.io/tls-acme: "true"
+          kubernetes.io/ingress.class: contour
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+          ingress.kubernetes.io/force-ssl-redirect: "true"
+          projectcontour.io/websocket-routes: "/"
+        hosts:
+          - &hostg grafana.${SECRET_PUBLIC_DOMAIN}
+        paths:
+          - /
+        tls:
+          - secretName: grafana-tls
+            hosts:
+              - *hostg
