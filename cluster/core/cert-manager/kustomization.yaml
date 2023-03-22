@@ -1,16 +1,6 @@
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: cert-manager
 resources:
   - issuers
   - helm-release.yaml
-configMapGenerator:
-  - name: cert-manager-grafana-dashboards
-    files:
-      - dashboards/cert-manager.json
-    options:
-      labels:
-        grafana_dashboard: "1"
-generatorOptions:
-  disableNameSuffixHash: true
