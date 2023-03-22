@@ -209,18 +209,6 @@ spec:
           token_url: http://authentik.home.svc.cluster.local/application/o/token/
           api_url: http://authentik.home.svc.cluster.local/application/o/userinfo/
           role_attribute_path: contains(groups[*], 'authentik Admins') && 'Admin' || contains(groups[*], 'authentik Editor') && 'Editor' || 'Viewer'
-      dashboardProviders:
-        dashboardproviders.yaml:
-          apiVersion: 1
-          providers:
-            - name: "default"
-              orgId: 1
-              folder: ""
-              type: file
-              disableDeletion: false
-              allowUiUpdates: true
-              options:
-                path: /var/lib/grafana/dashboards/default
       datasources:
         datasources.yaml:
           apiVersion: 1
@@ -237,18 +225,18 @@ spec:
               access: proxy
               url: http://thanos-query.monitoring.svc.cluster.local:9090
               isDefault: true
-            - name: Loki
-              type: loki
-              access: proxy
-              url: http://loki-gateway.monitoring.svc.cluster.local
-              jsonData:
-                maxLines: 250
             - name: Alertmanager
               type: alertmanager
               access: proxy
               url: http://kube-prometheus-stack-alertmanager.monitoring.svc.cluster.local:9093
               jsonData:
                 implementation: prometheus
+            - name: Loki
+              type: loki
+              access: proxy
+              url: http://loki-gateway.monitoring.svc.cluster.local
+              jsonData:
+                maxLines: 250
       dashboards:
         default:
           1-node-exporter:
