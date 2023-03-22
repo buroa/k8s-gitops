@@ -396,6 +396,3 @@ spec:
           enabled: true
       persistence:
         enabled: false
-      topologySpreadConstraints:
-        - maxSkew: 1
-          topologyKey: kubernetes.io/hostname
