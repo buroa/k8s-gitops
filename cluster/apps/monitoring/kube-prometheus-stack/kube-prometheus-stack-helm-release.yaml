@@ -177,8 +177,19 @@ spec:
       replicas: 3
       rbac:
         pspEnabled: false
-      deploymentStrategy:
-        type: Recreate
+      testFramework:
+        enabled: false
+      env:
+        GF_ANALYTICS_CHECK_FOR_UPDATES: false
+        GF_DATE_FORMATS_USE_BROWSER_LOCALE: true
+        GF_EXPLORE_ENABLED: true
+        GF_GRAFANA_NET_URL: https://grafana.net
+        GF_LOG_FILTERS: rendering:debug
+        GF_LOG_MODE: console
+        GF_PANELS_DISABLE_SANITIZE_HTML: true
+        GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS: natel-discrete-panel,pr0ps-trackmap-panel,panodata-map-panel
+        GF_SECURITY_ALLOW_EMBEDDING: true
+        GF_SECURITY_COOKIE_SAMESITE: grafana
       grafana.ini:
         server:
           root_url: https://grafana.${SECRET_PUBLIC_DOMAIN}
@@ -198,44 +209,6 @@ spec:
           token_url: http://authentik.home.svc.cluster.local/application/o/token/
           api_url: http://authentik.home.svc.cluster.local/application/o/userinfo/
           role_attribute_path: contains(groups[*], 'authentik Admins') && 'Admin' || contains(groups[*], 'authentik Editor') && 'Editor' || 'Viewer'
-      env:
-        GF_ANALYTICS_CHECK_FOR_UPDATES: false
-        GF_DATE_FORMATS_USE_BROWSER_LOCALE: true
-        GF_EXPLORE_ENABLED: true
-        GF_GRAFANA_NET_URL: https://grafana.net
-        GF_LOG_FILTERS: rendering:debug
-        GF_LOG_MODE: console
-        GF_PANELS_DISABLE_SANITIZE_HTML: true
-        GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS: natel-discrete-panel,pr0ps-trackmap-panel,panodata-map-panel
-        GF_SECURITY_ALLOW_EMBEDDING: true
-        GF_SECURITY_COOKIE_SAMESITE: grafana
-      ingress:
-        enabled: true
-        annotations:
-          kubernetes.io/tls-acme: "true"
-          kubernetes.io/ingress.class: contour
-          cert-manager.io/cluster-issuer: letsencrypt-prod
-          ingress.kubernetes.io/force-ssl-redirect: "true"
-          projectcontour.io/websocket-routes: "/"
-        hosts:
-          - &hostg grafana.${SECRET_PUBLIC_DOMAIN}
-        paths:
-          - /
-        tls:
-          - secretName: grafana-tls
-            hosts:
-              - *hostg
-      plugins:
-        - grafana-clock-panel
-        - grafana-piechart-panel
-        - grafana-worldmap-panel
-        - natel-discrete-panel
-        - pr0ps-trackmap-panel
-        - vonage-status-panel
-      serviceMonitor:
-        enabled: true
-      serviceAccount:
-        autoMount: true
       dashboardProviders:
         dashboardproviders.yaml:
           apiVersion: 1
@@ -389,6 +362,31 @@ spec:
         dashboards:
           enabled: true
           searchNamespace: ALL
+      plugins:
+        - grafana-clock-panel
+        - grafana-piechart-panel
+        - grafana-worldmap-panel
+        - natel-discrete-panel
+        - pr0ps-trackmap-panel
+        - vonage-status-panel
+      serviceMonitor:
+        enabled: true
+      ingress:
+        enabled: true
+        annotations:
+          kubernetes.io/tls-acme: "true"
+          kubernetes.io/ingress.class: contour
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+          ingress.kubernetes.io/force-ssl-redirect: "true"
+          projectcontour.io/websocket-routes: "/"
+        hosts:
+          - &hostg grafana.${SECRET_PUBLIC_DOMAIN}
+        paths:
+          - /
+        tls:
+          - secretName: grafana-tls
+            hosts:
+              - *hostg
       imageRenderer:
         enabled: true
         replicas: 3
@@ -398,3 +396,10 @@ spec:
           enabled: true
       persistence:
         enabled: false
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/name: grafana
