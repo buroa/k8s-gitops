@@ -49,24 +49,27 @@ transforms:
     inputs:
       - talos_kernel_logs
     source: |-
-      .__host, .err = replace(.__host, "10.0.0.10", "m0")
-      .__host = replace(.__host, "10.0.0.11", "m1")
-      .__host = replace(.__host, "10.0.0.12", "m2")
-      .__host = replace(.__host, "10.0.0.20", "w0")
-      .__host = replace(.__host, "10.0.0.21", "w1")
-      .__host = replace(.__host, "10.0.0.22", "w2")
+      r1 = replace!(.__host, "10.0.0.10", "w0")
+      r2 = replace(r1, "10.0.0.11", "w1")
+      r3 = replace(r2, "10.0.0.12", "w2")
+      r4 = replace(r3, "10.0.0.20", "m0")
+      r5 = replace(r4, "10.0.0.21", "m1")
+      r6 = replace(r5, "10.0.0.22", "m2")
+      .node = r6
 
   talos_service_logs_xform:
     type: remap
     inputs:
       - talos_service_logs
     source: |-
-      .__host, .err = replace(.__host, "10.0.0.10", "m0")
-      .__host = replace(.__host, "10.0.0.11", "m1")
-      .__host = replace(.__host, "10.0.0.12", "m2")
-      .__host = replace(.__host, "10.0.0.20", "w0")
-      .__host = replace(.__host, "10.0.0.21", "w1")
-      .__host = replace(.__host, "10.0.0.22", "w2")
+      r1 = replace!(.__host, "10.0.0.10", "w0")
+      r2 = replace(r1, "10.0.0.11", "w1")
+      r3 = replace(r2, "10.0.0.12", "w2")
+      r4 = replace(r3, "10.0.0.20", "m0")
+      r5 = replace(r4, "10.0.0.21", "m1")
+      r6 = replace(r5, "10.0.0.22", "m2")
+      r7 = replace(r6, r'10.*', "talos")
+      .node = r7
 
   kubernetes_remap:
     type: remap
@@ -81,8 +84,8 @@ sinks:
   loki_kubernetes:
     type: loki
     inputs:
-      - kubernetes_source
-    endpoint: http://loki-gateway.monitoring.svc.cluster.local
+      - kubernetes_remap
+    endpoint: http://loki-gateway.monitoring.svc.cluster.local:80
     encoding:
       codec: json
     batch:
@@ -103,7 +106,7 @@ sinks:
     type: loki
     inputs:
       - journald_source
-    endpoint: http://loki-gateway.monitoring.svc.cluster.local
+    endpoint: http://loki-gateway.monitoring.svc.cluster.local:80
     encoding:
       codec: json
     batch:
@@ -118,13 +121,13 @@ sinks:
     type: loki
     inputs:
       - talos_kernel_logs_xform
-    endpoint: http://loki-gateway.monitoring.svc.cluster.local
+    endpoint: http://loki-gateway.monitoring.svc.cluster.local:80
     encoding:
       codec: json
       except_fields:
         - __host
     batch:
-      max_bytes: 1048576
+      max_bytes: 524288
     out_of_order_action: rewrite_timestamp
     labels:
       hostname: "{{ __host }}"
@@ -134,7 +137,7 @@ sinks:
     type: loki
     inputs:
       - talos_service_logs_xform
-    endpoint: http://loki-gateway.monitoring.svc.cluster.local
+    endpoint: http://loki-gateway.monitoring.svc.cluster.local:80
     encoding:
       codec: json
       except_fields:
