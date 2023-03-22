@@ -169,10 +169,10 @@ controlPlane:
           - image: ghcr.io/siderolabs/iscsi-tools:v0.1.4
         legacyBIOSSupport: true
         extraKernelArgs:
-          - "talos.logging.kernel=tcp://7.0.0.1:6050/"
+          - "talos.logging.kernel=udp://7.0.0.1:6001/"
       logging:
         destinations:
-          - endpoint: "tcp://7.0.0.1:6051/"
+          - endpoint: "udp://7.0.0.1:6002/"
             format: json_lines
       kernel:
         modules:
