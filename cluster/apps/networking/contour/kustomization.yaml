@@ -1,17 +1,5 @@
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: networking
 resources:
   - contour-helm-release.yaml
-configMapGenerator:
-  - name: contour-grafana-dashboards
-    files:
-      - dashboards/envoy-clusters.json
-      - dashboards/envoy-global.json
-      - dashboards/envoy-proxy.json
-    options:
-      labels:
-        grafana_dashboard: "1"
-generatorOptions:
-  disableNameSuffixHash: true
