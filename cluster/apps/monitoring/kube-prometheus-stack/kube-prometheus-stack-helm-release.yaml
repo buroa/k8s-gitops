@@ -127,7 +127,7 @@ spec:
       thanos:
         image: quay.io/thanos/thanos:v0.30.2@sha256:6b97f63c716781c487da88750850cf5a4e0a1c23af32764e97faefc1383432b1
         objectStorageConfig:
-          name: thanos
+          name: thanos-objstore-secret
           key: objstore.yml
         # renovate: datasource=docker depName=quay.io/thanos/thanos
         version: "v0.30.2"
