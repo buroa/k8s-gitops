@@ -34,21 +34,6 @@ spec:
         annotations:
           coredns.io/hostname: "vector.${SECRET_PUBLIC_DOMAIN}"
         externalTrafficPolicy: Local
-        ports:
-          http:
-            port: 8686
-          kubernetes-logs:
-            enabled: true
-            port: 6000
-          journald-logs:
-            enabled: true
-            port: 6002
-          talos-kernel:
-            enabled: true
-            port: 6050
-          talos-service:
-            enabled: true
-            port: 6051
     persistence:
       config:
         enabled: true
