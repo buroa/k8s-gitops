@@ -21,6 +21,13 @@ spec:
       repository: timberio/vector
       tag: 0.28.1-debian
     role: "Agent"
+    podMonitor:
+      enabled: true
+    service:
+      enabled: false
+    tolerations:
+      - key: node-role.kubernetes.io/control-plane
+        effect: NoSchedule
     podAnnotations:
       configmap.reloader.stakater.com/reload: vector-agent
     customConfig:
@@ -30,14 +37,6 @@ spec:
       sources:
         kubernetes_logs:
           type: kubernetes_logs
-        talos_kernel_logs:
-          type: socket
-          mode: tcp
-          address: 127.0.0.1:12000
-        talos_service_logs:
-          type: socket
-          mode: tcp
-          address: 127.0.0.1:12001
       sinks:
         kubernetes_sink:
           type: vector
@@ -45,22 +44,3 @@ spec:
             - kubernetes_logs
           address: "vector-aggregator.monitoring.svc.cluster.local:6000"
           version: "2"
-        talos_kernel_sink:
-          type: vector
-          inputs:
-            - talos_kernel_logs
-          address: "vector-aggregator.monitoring.svc.cluster.local:6050"
-          version: "2"
-        talos_service_sink:
-          type: vector
-          inputs:
-            - talos_service_logs
-          address: "vector-aggregator.monitoring.svc.cluster.local:6051"
-          version: "2"
-    podMonitor:
-      enabled: true
-    service:
-      enabled: false
-    tolerations:
-      - key: node-role.kubernetes.io/master
-        effect: NoSchedule
