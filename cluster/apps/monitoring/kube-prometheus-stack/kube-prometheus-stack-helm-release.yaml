@@ -169,6 +169,8 @@ spec:
           limits:
             memory: 7000Mi
     grafana:
+      deploymentStrategy:
+        type: Recreate
       annotations:
         configmap.reloader.stakater.com/reload: kube-prometheus-stack-grafana
       image:
