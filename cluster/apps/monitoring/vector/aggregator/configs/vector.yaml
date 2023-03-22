@@ -131,7 +131,8 @@ sinks:
     out_of_order_action: rewrite_timestamp
     labels:
       hostname: "{{ __host }}"
-      service: "{{ facility }}"
+      service: "talos-kernel"
+      namespace: "talos:kernel"
 
   talos_service:
     type: loki
