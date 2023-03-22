@@ -186,6 +186,18 @@ controlPlane:
       sysctls:
         fs.inotify.max_user_watches: 1048576
         fs.inotify.max_user_instances: 8192
+        kernel.randomize_va_space: 0
+        net.core.netdev_max_backlog: 25000
+        net.core.rmem_max: 4136960
+        net.core.wmem_max: 4136960
+        net.ipv4.tcp_congestion_control: cubic
+        net.ipv4.tcp_fin_timeout: 1
+        net.ipv4.tcp_limit_output_bytes: 131072
+        net.ipv4.tcp_low_latency: 0
+        net.ipv4.tcp_max_tw_buckets: 450000
+        net.ipv4.tcp_rmem: 4096 87380 4136960
+        net.ipv4.tcp_wmem: 4096 87380 4136960
+        net.ipv4.tcp_tw_reuse: 1
       udev:
         rules:
           - ACTION=="add", SUBSYSTEM=="thunderbolt", ATTR{authorized}=="0", ATTR{authorized}="1"
