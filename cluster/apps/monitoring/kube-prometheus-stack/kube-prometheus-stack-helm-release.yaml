@@ -200,10 +200,6 @@ spec:
           disable_signout_menu: true
         auth.basic:
           enabled: false
-        auth.anonymous:
-          enabled: true
-          org_id: 1
-          org_role: Viewer
         auth.generic_oauth:
           enabled: true
           name: authentik
