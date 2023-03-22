@@ -8,7 +8,6 @@ spec:
   interval: 15m
   chart:
     spec:
-      # renovate: registryUrl=https://helm.vector.dev
       chart: vector
       version: 0.20.1
       sourceRef:
@@ -17,9 +16,6 @@ spec:
         namespace: flux-system
       interval: 15m
   values:
-    image:
-      repository: timberio/vector
-      tag: 0.28.1-debian
     role: "Agent"
     podMonitor:
       enabled: true
@@ -28,8 +24,6 @@ spec:
     tolerations:
       - key: node-role.kubernetes.io/control-plane
         effect: NoSchedule
-    podAnnotations:
-      configmap.reloader.stakater.com/reload: vector-agent
     customConfig:
       data_dir: /vector-data-dir
       api:
@@ -37,8 +31,13 @@ spec:
       sources:
         kubernetes_logs:
           type: kubernetes_logs
+          pod_annotation_fields:
+            container_image: "image"
+            pod_annotations: "pod_annotations"
+            pod_labels: "pod_labels"
+            pod_name: "pod_name"
       sinks:
-        kubernetes_sink:
+        loki_kubernetes_sink:
           type: vector
           inputs:
             - kubernetes_logs
