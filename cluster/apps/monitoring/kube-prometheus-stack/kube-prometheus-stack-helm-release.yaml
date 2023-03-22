@@ -169,12 +169,16 @@ spec:
           limits:
             memory: 7000Mi
     grafana:
-      forceDeployDashboards: true
-      sidecar:
-        dashboards:
-          multicluster:
-            etcd:
-              enabled: true
+      annotations:
+        configmap.reloader.stakater.com/reload: kube-prometheus-stack-grafana
+      image:
+        repository: grafana/grafana
+        tag: 9.4.7
+      replicas: 3
+      rbac:
+        pspEnabled: false
+      deploymentStrategy:
+        type: Recreate
       grafana.ini:
         server:
           root_url: https://grafana.${SECRET_PUBLIC_DOMAIN}
@@ -194,51 +198,17 @@ spec:
           token_url: http://authentik.home.svc.cluster.local/application/o/token/
           api_url: http://authentik.home.svc.cluster.local/application/o/userinfo/
           role_attribute_path: contains(groups[*], 'authentik Admins') && 'Admin' || contains(groups[*], 'authentik Editor') && 'Editor' || 'Viewer'
-      datasources:
-        datasources.yaml:
-          apiVersion: 1
-          deleteDatasources:
-            - name: Thanos
-              orgId: 1
-            - name: Prometheus
-              orgId: 1
-            - name: Alertmanager
-              orgId: 1
-            - name: Loki
-              orgId: 1
-          datasources:
-            - name: Thanos
-              type: prometheus
-              isDefault: true
-              access: proxy
-              url: http://thanos-query.monitoring.svc.cluster.local:9090
-            - name: Prometheus
-              type: prometheus
-              access: proxy
-              url: http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local:9090
-            - name: Alertmanager
-              type: alertmanager
-              access: proxy
-              url: http://kube-prometheus-stack-alertmanager.monitoring.svc.cluster.local:9093
-              jsonData:
-                implementation: prometheus
-            - name: Loki
-              type: loki
-              access: proxy
-              url: http://loki-gateway.monitoring.svc.cluster.local:80
-      plugins:
-        - grafana-piechart-panel
-        - grafana-worldmap-panel
-        - grafana-clock-panel
-      serviceMonitor:
-        enabled: true
-      imageRenderer:
-        enabled: true
-        replicas: 2
-        networkPolicy:
-          limitIngress: false
-        serviceMonitor:
-          enabled: true
+      env:
+        GF_ANALYTICS_CHECK_FOR_UPDATES: false
+        GF_DATE_FORMATS_USE_BROWSER_LOCALE: true
+        GF_EXPLORE_ENABLED: true
+        GF_GRAFANA_NET_URL: https://grafana.net
+        GF_LOG_FILTERS: rendering:debug
+        GF_LOG_MODE: console
+        GF_PANELS_DISABLE_SANITIZE_HTML: true
+        GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS: natel-discrete-panel,pr0ps-trackmap-panel,panodata-map-panel
+        GF_SECURITY_ALLOW_EMBEDDING: true
+        GF_SECURITY_COOKIE_SAMESITE: grafana
       ingress:
         enabled: true
         annotations:
@@ -255,3 +225,177 @@ spec:
           - secretName: grafana-tls
             hosts:
               - *hostg
+      plugins:
+        - grafana-clock-panel
+        - grafana-piechart-panel
+        - grafana-worldmap-panel
+        - natel-discrete-panel
+        - pr0ps-trackmap-panel
+        - vonage-status-panel
+      serviceMonitor:
+        enabled: true
+      serviceAccount:
+        autoMount: true
+      dashboardProviders:
+        dashboardproviders.yaml:
+          apiVersion: 1
+          providers:
+            - name: "default"
+              orgId: 1
+              folder: ""
+              type: file
+              disableDeletion: false
+              allowUiUpdates: true
+              options:
+                path: /var/lib/grafana/dashboards/default
+      datasources:
+        datasources.yaml:
+          apiVersion: 1
+          deleteDatasources:
+            - name: Loki
+              orgId: 1
+            - name: Alertmanager
+              orgId: 1
+          datasources:
+            - name: Prometheus
+              type: prometheus
+              access: proxy
+              url: http://thanos-query.monitoring.svc.cluster.local:9090
+              isDefault: true
+            - name: Loki
+              type: loki
+              access: proxy
+              url: http://loki-gateway.monitoring.svc.cluster.local
+              jsonData:
+                maxLines: 250
+            - name: Alertmanager
+              type: alertmanager
+              access: proxy
+              url: http://kube-prometheus-stack-alertmanager.monitoring.svc.cluster.local:9093
+              jsonData:
+                implementation: prometheus
+      dashboards:
+        default:
+          1-node-exporter:
+            gnetId: 11074
+            revision: 9
+            datasource: Prometheus
+          node-exporter-full:
+            gnetId: 1860
+            revision: 30
+            datasource: Prometheus
+          cert-manager:
+            gnetId: 11001
+            revision: 1
+            datasource: Prometheus
+          cloudflared:
+            gnetId: 17457
+            revision: 1
+            datasource: Prometheus
+          envoy:
+            gnetId: 7250
+            revision: 1
+            datasource: Prometheus
+          envoy-global:
+            gnetId: 7253
+            revision: 1
+            datasource: Prometheus
+          blocky:
+            gnetId: 13768
+            revision: 3
+            datasource: Prometheus
+          uptime-robot:
+            gnetId: 9955
+            revision: 1
+            datasource: Prometheus
+          authentik:
+            gnetId: 14837
+            revision: 2
+            datasource: Prometheus
+          loki-metrics:
+            gnetId: 13407
+            revision: 1
+            datasource: Prometheus
+          rook-ceph-cluster:
+            gnetId: 2842
+            revision: 16
+            datasource: Prometheus
+          rook-ceph-osd:
+            gnetId: 5336
+            revision: 9
+            datasource: Prometheus
+          rook-ceph-pools:
+            gnetId: 5342
+            revision: 9
+            datasource: Prometheus
+          unifi-client-insights:
+            gnetId: 11315
+            revision: 9
+            datasource: Prometheus
+          unifi-network-sites:
+            gnetId: 11311
+            revision: 5
+            datasource: Prometheus
+          unifi-uap-insights:
+            gnetId: 11314
+            revision: 10
+            datasource: Prometheus
+          unifi-usw-insights:
+            gnetId: 11312
+            revision: 9
+            datasource: Prometheus
+          flux-cluster:
+            url: https://raw.githubusercontent.com/fluxcd/flux2/v0.41.2/manifests/monitoring/monitoring-config/dashboards/cluster.json
+            datasource: Prometheus
+          flux-control-plane:
+            url: https://raw.githubusercontent.com/fluxcd/flux2/v0.41.2/manifests/monitoring/monitoring-config/dashboards/control-plane.json
+            datasource: Prometheus
+          flux-logs:
+            url: https://raw.githubusercontent.com/fluxcd/flux2/v0.41.2/manifests/monitoring/monitoring-config/dashboards/logs.json
+            datasource: Prometheus
+          cilium-dashboard:
+            url: https://raw.githubusercontent.com/cilium/cilium/v1.13.1/examples/kubernetes/addons/prometheus/files/grafana-dashboards/cilium-dashboard.json
+            datasource: Prometheus
+          cilium-operator-dashboard:
+            url: https://raw.githubusercontent.com/cilium/cilium/v1.13.1/examples/kubernetes/addons/prometheus/files/grafana-dashboards/cilium-operator-dashboard.json
+            datasource: Prometheus
+          hubble-dashboard:
+            url: https://raw.githubusercontent.com/cilium/cilium/v1.13.1/examples/kubernetes/addons/prometheus/files/grafana-dashboards/hubble-dashboard.json
+            datasource: Prometheus
+          api-server:
+            url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-system-api-server.json
+            datasource: Prometheus
+          coredns:
+            url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-system-coredns.json
+            datasource: Prometheus
+          global:
+            url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-global.json
+            datasource: Prometheus
+          namespaces:
+            url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-namespaces.json
+            datasource: Prometheus
+          nodes:
+            url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-nodes.json
+            datasource: Prometheus
+          pods:
+            url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-pods.json
+            datasource: Prometheus
+      sidecar:
+        datasources:
+          enabled: true
+          searchNamespace: ALL
+        dashboards:
+          enabled: true
+          searchNamespace: ALL
+      imageRenderer:
+        enabled: true
+        replicas: 3
+        networkPolicy:
+          limitIngress: false
+        serviceMonitor:
+          enabled: true
+      persistence:
+        enabled: false
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
