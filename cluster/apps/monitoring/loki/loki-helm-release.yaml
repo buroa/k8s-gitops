@@ -34,8 +34,6 @@ spec:
           split_queries_by_interval: 15m
           ingestion_rate_mb: 8
           ingestion_burst_size_mb: 16
-          shard_streams:
-            enabled: true
         schema_config:
           configs:
             - from: "2021-08-01"
@@ -50,7 +48,7 @@ spec:
           replication_factor: 3
           storage:
             s3:
-              s3: null
+              bucketnames: loki
               insecure: true
               s3forcepathstyle: true
           ring:
@@ -59,7 +57,7 @@ spec:
         ruler:
           enable_api: true
           enable_alertmanager_v2: true
-          alertmanager_url: http://kube-prometheus-stack-alertmanager.monitoring.svc.cluster.local:9093
+          alertmanager_url: http://alertmanager-operated.monitoring.svc.cluster.local:9093
           storage:
             type: local
             local:
@@ -88,12 +86,27 @@ spec:
         analytics:
           reporting_enabled: false
     gateway:
-      replicas: 3
-      # TODO: https://github.com/grafana/loki/pull/8187
+      affinity: |
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 1
+              podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    {{- include "loki.gatewaySelectorLabels" . | nindent 12 }}
+                topologyKey: kubernetes.io/hostname
+      enabled: true
       image:
         registry: ghcr.io
         repository: nginxinc/nginx-unprivileged
         tag: 1.23-alpine
+      replicas: 3
+      verboseLogging: false
+      deploymentStrategy:
+        type: RollingUpdate
+        rollingUpdate:
+          maxUnavailable: 2
+          maxSurge: 0
       ingress:
         enabled: true
         annotations:
