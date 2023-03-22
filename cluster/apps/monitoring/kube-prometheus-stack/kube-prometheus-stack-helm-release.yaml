@@ -208,6 +208,18 @@ spec:
           token_url: http://authentik.home.svc.cluster.local/application/o/token/
           api_url: http://authentik.home.svc.cluster.local/application/o/userinfo/
           role_attribute_path: contains(groups[*], 'authentik Admins') && 'Admin' || contains(groups[*], 'authentik Editor') && 'Editor' || 'Viewer'
+      dashboardProviders:
+        dashboardproviders.yaml:
+          apiVersion: 1
+          providers:
+            - name: "default"
+              orgId: 1
+              folder: ""
+              type: file
+              disableDeletion: false
+              editable: true
+              options:
+                path: /var/lib/grafana/dashboards/default
       datasources:
         datasources.yaml:
           apiVersion: 1
@@ -221,6 +233,7 @@ spec:
               type: prometheus
               access: proxy
               url: http://thanos-query.monitoring.svc.cluster.local:9090
+              isDefault: true
             - name: Alertmanager
               type: alertmanager
               access: proxy
@@ -235,10 +248,6 @@ spec:
                 maxLines: 250
       dashboards:
         default:
-          1-node-exporter:
-            gnetId: 11074
-            revision: 9
-            datasource: Prometheus
           node-exporter-full:
             gnetId: 1860
             revision: 30
