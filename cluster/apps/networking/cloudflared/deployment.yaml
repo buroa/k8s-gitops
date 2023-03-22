@@ -21,6 +21,12 @@ spec:
         prometheus.io/scrape: "true"
         prometheus.io/port: "monitoring"
     spec:
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels: *labels
       containers:
         - name: cloudflared
           image: cloudflare/cloudflared:2023.3.1
