@@ -257,20 +257,12 @@ spec:
             gnetId: 11001
             revision: 1
             datasource: Prometheus
-          cloudflared:
-            gnetId: 18020
-            revision: 1
-            datasource: Prometheus
           envoy:
             gnetId: 7250
             revision: 1
             datasource: Prometheus
           envoy-global:
             gnetId: 7253
-            revision: 1
-            datasource: Prometheus
-          blocky:
-            gnetId: 18166
             revision: 1
             datasource: Prometheus
           uptime-robot:
