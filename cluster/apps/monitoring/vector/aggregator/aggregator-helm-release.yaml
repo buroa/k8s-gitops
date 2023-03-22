@@ -19,6 +19,7 @@ spec:
         namespace: flux-system
   interval: 30m
   values:
+    role: "Stateless-Aggregator"
     controller:
       strategy: RollingUpdate
       annotations:
@@ -26,14 +27,17 @@ spec:
     image:
       repository: docker.io/timberio/vector
       tag: 0.28.1-debian
-    args: ["--config", "/etc/vector/vector.yaml"]
+    args:
+      - --config
+      - /etc/vector/vector.yaml
+    podMonitor:
+      enabled: true
     service:
-      main:
-        type: LoadBalancer
-        loadBalancerIP: "${VECTOR_LB_IP}"
-        annotations:
-          coredns.io/hostname: "vector.${SECRET_PUBLIC_DOMAIN}"
-        externalTrafficPolicy: Local
+      enabled: true
+      type: LoadBalancer
+      loadBalancerIP: ${VECTOR_LB_IP}
+      annotations:
+        coredns.io/hostname: vector.${SECRET_PUBLIC_DOMAIN}
     persistence:
       config:
         enabled: true
