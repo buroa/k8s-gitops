@@ -8,6 +8,7 @@ spec:
   interval: 15m
   chart:
     spec:
+      # renovate: registryUrl=https://helm.vector.dev
       chart: vector
       version: 0.20.1
       sourceRef:
