@@ -48,7 +48,8 @@ spec:
         existingClaim: tautulli-config
     resources:
       requests:
-        memory: 250Mi
-        cpu: 10m
+        cpu: 23m
+        memory: 145M
       limits:
-        memory: 500Mi
+        cpu: 23m
+        memory: 145M

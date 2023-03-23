@@ -28,3 +28,10 @@ spec:
         ports:
           http:
             port: 5000
+    resources:
+      requests:
+        cpu: 15m
+        memory: 94M
+      limits:
+        cpu: 15m
+        memory: 94M
