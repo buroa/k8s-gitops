@@ -21,7 +21,7 @@ spec:
     deschedulerPolicy:
       strategies:
         RemoveDuplicates:
-          enabled: false
+          enabled: true
         RemovePodsViolatingNodeAffinity:
           enabled: true
           params:
@@ -36,4 +36,4 @@ spec:
           params:
             nodeFit: true
         LowNodeUtilization:
-          enabled: false
+          enabled: true
