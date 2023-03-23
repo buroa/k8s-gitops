@@ -65,3 +65,10 @@ spec:
         - name: config
           configMap:
             name: cloudflared-config
+      resources:
+        requests:
+          cpu: 23m
+          memory: 64M
+        limits:
+          cpu: 23m
+          memory: 64M
