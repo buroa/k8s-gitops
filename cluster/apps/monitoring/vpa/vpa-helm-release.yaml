@@ -31,7 +31,7 @@ spec:
         prometheus-cadvisor-job-name: kubelet
         pod-namespace-label: namespace
         pod-name-label: pod
-        container-name-label: container
+        container-name-label: name
         container-namespace-label: namespace
         container-pod-name-label: pod
         metric-for-pod-labels: kube_pod_labels{job="kube-state-metrics"}[8d]
