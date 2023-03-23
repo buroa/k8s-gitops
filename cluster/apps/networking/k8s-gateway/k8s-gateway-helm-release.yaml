@@ -102,3 +102,10 @@ spec:
             path: /ready
             port: 8181
             scheme: HTTP
+    resources:
+      requests:
+        cpu: 15m
+        memory: 64M
+      limits:
+        cpu: 15m
+        memory: 64M

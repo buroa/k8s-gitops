@@ -60,9 +60,10 @@ spec:
         readOnly: true
     resources:
       requests:
-        cpu: 763m
-        memory: 4096Mi
+        cpu: 323m
+        memory: 2049M
         gpu.intel.com/i915: 1
       limits:
-        memory: 4096Mi
+        cpu: 323m
+        memory: 4096M
         gpu.intel.com/i915: 1

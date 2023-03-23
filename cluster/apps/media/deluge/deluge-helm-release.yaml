@@ -58,7 +58,8 @@ spec:
     hostname: torrent
     resources:
       requests:
-        memory: 250Mi
-        cpu: 25m
+        cpu: 47m
+        memory: 1279M
       limits:
-        memory: 6000Mi
+        cpu: 2001m
+        memory: 19G
