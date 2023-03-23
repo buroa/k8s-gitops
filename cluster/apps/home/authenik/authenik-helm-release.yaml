@@ -38,6 +38,12 @@ spec:
         - secretName: authentik-tls
           hosts:
             - *host
+    resources: &resources
+      requests:
+        memory: 350Mi
+        cpu: 25m
+      limits:
+        memory: 500Mi
     postgresql:
       enabled: true
       postgresqlPassword: "${SECRET_AUTHENTIK_POSTGRES_PASSWORD}"
@@ -45,25 +51,13 @@ spec:
         enabled: true
         existingClaim: authentik-postgres-db
       primary:
-        resources:
-          requests:
-            cpu: 23m
-            memory: 105M
-          limits:
-            cpu: 23m
-            memory: 105M
+        resources: *resources
     redis:
       enabled: true
       master:
         persistence:
           enabled: false
-        resources:
-          requests:
-            cpu: 23m
-            memory: 105M
-          limits:
-            cpu: 23m
-            memory: 105M
+        resources: *resources
     prometheus:
       serviceMonitor:
         create: true
