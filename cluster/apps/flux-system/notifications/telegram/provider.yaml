@@ -10,3 +10,18 @@ spec:
   channel: "'${SECRET_TELEGRAM_CHAT_ID}'"
   secretRef:
     name: telegram-token
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta2
+kind: Alert
+metadata:
+  name: telegram
+  namespace: flux-system
+spec:
+  providerRef:
+    name: telegram
+  eventSeverity: info
+  eventSources:
+    - kind: Kustomization
+      name: "*"
+    - kind: HelmRelease
+      name: "*"
