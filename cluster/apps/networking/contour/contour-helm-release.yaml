@@ -19,26 +19,12 @@ spec:
   values:
     contour:
       manageCRDs: false
-      resources:
-        requests:
-          cpu: 23m
-          memory: 273M
-        limits:
-          cpu: 23m
-          memory: 273M
     envoy:
       service:
         type: LoadBalancer
         loadBalancerIP: ${ENVOY_LB_IP}
         externalTrafficPolicy: Local
       useHostPort: false
-      resources:
-        requests:
-          cpu: 11m
-          memory: 110M
-        limits:
-          cpu: 11m
-          memory: 110M
     metrics:
       serviceMonitor:
         enabled: true

@@ -61,8 +61,7 @@ spec:
             defaultMode: 511
     resources:
       requests:
-        cpu: 247m
-        memory: 4067M
+        memory: 250Mi
+        cpu: 500m
       limits:
-        cpu: 247m
-        memory: 4067M
+        memory: 4096Mi
