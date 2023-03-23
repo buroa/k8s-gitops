@@ -54,7 +54,8 @@ spec:
         mountPath: /media
     resources:
       requests:
-        memory: 250Mi
-        cpu: 10m
+        cpu: 15m
+        memory: 141M
       limits:
-        memory: 6000Mi
+        cpu: 154m
+        memory: 2027M
