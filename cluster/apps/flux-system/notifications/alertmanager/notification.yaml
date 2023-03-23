@@ -2,7 +2,7 @@
 apiVersion: notification.toolkit.fluxcd.io/v1beta2
 kind: Provider
 metadata:
-  name: alert-manager
+  name: alertmanager
   namespace: flux-system
 spec:
   type: alertmanager
@@ -12,11 +12,11 @@ spec:
 apiVersion: notification.toolkit.fluxcd.io/v1beta2
 kind: Alert
 metadata:
-  name: alert-manager
+  name: alertmanager
   namespace: flux-system
 spec:
   providerRef:
-    name: alert-manager
+    name: alertmanager
   eventSeverity: error
   eventSources:
     - kind: GitRepository
