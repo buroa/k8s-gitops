@@ -57,11 +57,12 @@ spec:
         enabled: true
         existingClaim: media
         mountPath: /media
+        readOnly: true
     resources:
       requests:
-        gpu.intel.com/i915: 1
         cpu: 763m
         memory: 1024Mi
-      limits:
         gpu.intel.com/i915: 1
+      limits:
         memory: 4096Mi
+        gpu.intel.com/i915: 1

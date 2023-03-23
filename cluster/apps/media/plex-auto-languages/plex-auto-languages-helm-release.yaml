@@ -27,8 +27,7 @@ spec:
         enabled: false
     resources:
       requests:
-        cpu: 250m
-        memory: 250Mi
+        cpu: 50m
+        memory: 100Mi
       limits:
-        cpu: 1000m
-        memory: 500Mi
+        memory: 1Gi
