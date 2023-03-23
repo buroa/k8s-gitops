@@ -48,3 +48,10 @@ spec:
         existingClaim: media
         mountPath: /media
         readOnly: true
+    resources:
+      requests:
+        cpu: 15m
+        memory: 64M
+      limits:
+        cpu: 15m
+        memory: 64M
