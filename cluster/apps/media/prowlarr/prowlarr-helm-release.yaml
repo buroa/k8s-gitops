@@ -51,8 +51,7 @@ spec:
       vpn/ovpn: "true"
     resources:
       requests:
-        cpu: 271m
-        memory: 164M
+        memory: 250Mi
+        cpu: 10m
       limits:
-        cpu: 271m
-        memory: 164M
+        memory: 500Mi
