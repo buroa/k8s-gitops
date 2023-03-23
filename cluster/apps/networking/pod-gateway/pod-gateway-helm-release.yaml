@@ -51,10 +51,10 @@ spec:
     resources:
       requests:
         cpu: 11m
-        memory: 32M
+        memory: 53M
       limits:
         cpu: 11m
-        memory: 32M
+        memory: 53M
     addons:
       vpn:
         enabled: true
@@ -69,10 +69,10 @@ spec:
         resources:
           requests:
             cpu: 11m
-            memory: 32M
+            memory: 53M
           limits:
             cpu: 11m
-            memory: 32M
+            memory: 53M
     webhook:
       image:
         repository: ghcr.io/angelnu/gateway-admision-controller
@@ -87,10 +87,3 @@ spec:
       gatewayDefault: false
       gatewayLabel: vpn/ovpn
       gatewayAnnotation: vpn/ovpn
-      resources:
-        requests:
-          cpu: 15m
-          memory: 64M
-        limits:
-          cpu: 15m
-          memory: 64M

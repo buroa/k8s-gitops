@@ -60,11 +60,11 @@ spec:
               readOnly: true
           resources:
             requests:
-              cpu: 23m
-              memory: 64M
+              cpu: 15m
+              memory: 105M
             limits:
-              cpu: 23m
-              memory: 64M
+              cpu: 15m
+              memory: 105M
       volumes:
         - name: creds
           secret:
