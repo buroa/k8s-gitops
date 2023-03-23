@@ -49,8 +49,7 @@ spec:
         existingClaim: overseerr-config
     resources:
       requests:
-        cpu: 15m
-        memory: 226M
+        cpu: 10m
+        memory: 250Mi
       limits:
-        cpu: 15m
-        memory: 226M
+        memory: 1500Mi
