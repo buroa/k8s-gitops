@@ -7,6 +7,6 @@ metadata:
 spec:
   type: telegram
   address: https://api.telegram.org
-  channel: "\"${SECRET_TELEGRAM_CHAT_ID}\""
+  channel: ${SECRET_TELEGRAM_CHAT_ID}
   secretRef:
     name: telegram-token
