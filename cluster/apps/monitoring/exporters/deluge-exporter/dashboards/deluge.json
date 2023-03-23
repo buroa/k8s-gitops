@@ -91,7 +91,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.8",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -172,7 +172,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.8",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -253,7 +253,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.8",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -334,7 +334,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.8",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -418,7 +418,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.8",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -502,7 +502,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.8",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -583,7 +583,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.8",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -663,7 +663,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.8",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -742,7 +742,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.8",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -789,7 +789,7 @@
             "uid": "P8E80F9AEF21F6940"
           },
           "editorMode": "code",
-          "expr": "{k8s_container=\"deluge\"} | json | line_format \"{{.message}}\"",
+          "expr": "{container=\"deluge\"} | json | line_format \"{{.message}}\"",
           "queryType": "range",
           "refId": "A"
         }
@@ -799,7 +799,8 @@
     }
   ],
   "refresh": "30s",
-  "schemaVersion": 37,
+  "revision": 1,
+  "schemaVersion": 38,
   "style": "dark",
   "tags": [
     "prometheus",
@@ -844,7 +845,7 @@
     ]
   },
   "time": {
-    "from": "now-15m",
+    "from": "now-6h",
     "to": "now"
   },
   "timepicker": {

@@ -24,6 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
+  "id": 227,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -90,7 +91,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.8",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -162,7 +163,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.8",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -235,7 +236,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.8",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -308,7 +309,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.8",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -381,7 +382,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.8",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -454,7 +455,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.8",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -527,7 +528,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.8",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -599,7 +600,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.8",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -672,7 +673,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.8",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -746,7 +747,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.8",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -813,7 +814,7 @@
           "valueSize": 10
         }
       },
-      "pluginVersion": "9.3.8",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
@@ -860,7 +861,7 @@
             "uid": "P8E80F9AEF21F6940"
           },
           "editorMode": "code",
-          "expr": "{k8s_container=\"radarr\"} | json | line_format \"{{.message}}\"",
+          "expr": "{container=\"radarr\"} | json | line_format \"{{.message}}\"",
           "queryType": "range",
           "refId": "A"
         }
@@ -870,7 +871,8 @@
     }
   ],
   "refresh": "1m",
-  "schemaVersion": 37,
+  "revision": 1,
+  "schemaVersion": 38,
   "style": "dark",
   "tags": [],
   "templating": {
