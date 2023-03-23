@@ -29,9 +29,13 @@ spec:
         prometheus-address: |-
           http://thanos-query.monitoring.svc.cluster.local:9090
         prometheus-cadvisor-job-name: kubelet
+        pod-namespace-label: namespace
         pod-name-label: pod
+        pod-label-prefix: ""
+        container-name-label: name
+        container-namespace-label: namespace
         container-pod-name-label: pod
-        container-name-label: container
+        metric-for-pod-labels: kube_pod_labels{job="kube-state-metrics"}[8d]
     updater:
       enabled: false
     admissionController:
