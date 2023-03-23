@@ -22,6 +22,8 @@ spec:
       strategies:
         RemoveDuplicates:
           enabled: true
+        RemovePodsViolatingNodeTaints:
+          enabled: true
         RemovePodsViolatingNodeAffinity:
           enabled: true
           params:
@@ -37,3 +39,9 @@ spec:
             nodeFit: true
         LowNodeUtilization:
           enabled: true
+        RemovePodsHavingTooManyRestarts:
+          enabled: true
+          params:
+            podsHavingTooManyRestarts:
+              podRestartThreshold: 100
+              includingInitContainers: true
