@@ -60,7 +60,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "9.3.8",
+      "pluginVersion": "9.4.7",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -149,7 +149,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "9.3.8",
+      "pluginVersion": "9.4.7",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -250,7 +250,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "9.3.8",
+      "pluginVersion": "9.4.7",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -337,7 +337,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "9.3.8",
+      "pluginVersion": "9.4.7",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -423,7 +423,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "9.3.8",
+      "pluginVersion": "9.4.7",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -509,7 +509,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "9.3.8",
+      "pluginVersion": "9.4.7",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -596,7 +596,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "9.3.8",
+      "pluginVersion": "9.4.7",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -679,7 +679,7 @@
             "uid": "P8E80F9AEF21F6940"
           },
           "editorMode": "code",
-          "expr": "{k8s_container=\"sabnzbd\"} | json | line_format \"{{.message}}\"",
+          "expr": "{container=\"sabnzbd\"} | json | line_format \"{{.message}}\"",
           "queryType": "range",
           "refId": "A"
         }
@@ -689,14 +689,15 @@
     }
   ],
   "refresh": "1m",
-  "schemaVersion": 37,
+  "revision": 1,
+  "schemaVersion": 38,
   "style": "dark",
   "tags": [],
   "templating": {
     "list": []
   },
   "time": {
-    "from": "now-12h",
+    "from": "now-24h",
     "to": "now"
   },
   "timepicker": {
