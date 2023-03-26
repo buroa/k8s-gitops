@@ -19,7 +19,7 @@ spec:
   values:
     image:
       repository: vaultwarden/server
-      tag: 1.27.0
+      tag: 1.28.0
     env:
       DOMAIN: "https://vault.${SECRET_PUBLIC_DOMAIN}"
       ADMIN_TOKEN: "" # disable admin page
