@@ -132,8 +132,28 @@ spec:
               replacement: $1
               sourceLabels: ["__meta_kubernetes_pod_node_name"]
               targetLabel: kubernetes_node
+    kubeProxy:
+      enabled: false
     kubeApiServer:
       enabled: true
+      serviceMonitor:
+        jobLabel: k8s-app
+        selector:
+          matchLabels:
+            k8s-app: kube-apiserver
+            tier: control-plane
+    kubeControllerManager:
+      enabled: true
+      service:
+        selector:
+          k8s-app: kube-controller-manager
+          tier: control-plane
+    kubeScheduler:
+      enabled: true
+      service:
+        selector:
+          k8s-app: kube-scheduler
+          tier: control-plane
     prometheus:
       ingress:
         enabled: true
