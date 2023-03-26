@@ -73,3 +73,18 @@ spec:
       command: ["sleep", "3600"]
       securityContext:
         privileged: true
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: debugger-w2
+spec:
+  restartPolicy: Never
+  nodeName: w2
+  hostNetwork: true
+  containers:
+    - name: ubuntu
+      image: ubuntu:latest
+      command: ["sleep", "3600"]
+      securityContext:
+        privileged: true

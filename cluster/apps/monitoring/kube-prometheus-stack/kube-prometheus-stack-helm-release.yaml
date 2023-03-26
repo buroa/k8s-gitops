@@ -22,45 +22,69 @@ spec:
       config:
         global:
           resolve_timeout: 5m
+        receivers:
+          - name: heartbeat
+            webhook_configs:
+              - url: "https://heartbeat.uptimerobot.com/${SECRET_ALERTMANAGER_UPTIMEROBOT_HEARTBEAT_TOKEN}"
+                send_resolved: true
+          - name: "null" # quote
+          - name: pushover
+            pushover_configs:
+              - url_title: View in Alertmanager
+                token: "${SECRET_ALERTMANAGER_PUSHOVER_TOKEN}"
+                user_key: "${SECRET_ALERTMANAGER_PUSHOVER_USER_KEY}"
+                send_resolved: true
+                html: true
+                sound: gamelan
+                priority: |-
+                  {{ if eq .Status "firing" }}1{{ else }}0{{ end }}
+                title: |-
+                  {{ .CommonLabels.alertname }} [{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}]
+                message: |-
+                  {{- range .Alerts }}
+                    {{- if ne .Annotations.description "" }}
+                      {{ .Annotations.description }}
+                    {{- else if ne .Annotations.summary "" }}
+                      {{ .Annotations.summary }}
+                    {{- else if ne .Annotations.message "" }}
+                      {{ .Annotations.message }}
+                    {{- else }}
+                      Alert description not available
+                    {{- end }}
+                    {{- if gt (len .Labels.SortedPairs) 0 }}
+                      <small>
+                      {{- range .Labels.SortedPairs }}
+                        <b>{{ .Name }}:</b> {{ .Value }}
+                      {{- end }}
+                      </small>
+                    {{- end }}
+                  {{- end }}
+        route:
+          group_by: ["alertname", "job"]
+          group_wait: 1m
+          group_interval: 10m
+          repeat_interval: 12h
+          receiver: pushover
+          routes:
+            - receiver: heartbeat
+              group_wait: 0s
+              group_interval: 2m
+              repeat_interval: 2m
+              matchers:
+                - alertname =~ "Watchdog"
+            - receiver: "null" # quote
+              matchers:
+                - alertname =~ "InfoInhibitor"
+            - receiver: pushover
+              matchers:
+                - severity = "critical"
+              continue: true
         inhibit_rules:
           - source_matchers:
-              - "severity = critical"
+              - severity = "critical"
             target_matchers:
-              - "severity =~ warning|info"
-            equal:
-              - "namespace"
-              - "alertname"
-          - source_matchers:
-              - "severity = warning"
-            target_matchers:
-              - "severity = info"
-            equal:
-              - "namespace"
-              - "alertname"
-          - source_matchers:
-              - "alertname = InfoInhibitor"
-            target_matchers:
-              - "severity = info"
-            equal:
-              - "namespace"
-        route:
-          group_by: ["namespace"]
-          group_wait: 30s
-          group_interval: 5m
-          repeat_interval: 12h
-          receiver: "telegram"
-          routes:
-            - receiver: "null"
-              matchers:
-                - alertname =~ "InfoInhibitor|Watchdog"
-        receivers:
-          - name: "null"
-          - name: "telegram"
-            telegram_configs:
-              - bot_token: "${SECRET_TELEGRAM_BOT_TOKEN}"
-                chat_id: ${SECRET_TELEGRAM_CHAT_ID}
-        templates:
-          - "/etc/alertmanager/config/*.tmpl"
+              - severity = "warning"
+            equal: ["alertname", "namespace"]
       ingress:
         enabled: true
         annotations:
