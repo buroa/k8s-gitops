@@ -7,6 +7,7 @@ resources:
   - kube-cleanup-operator
   - metrics-server
   - node-feature-discovery
+  - node-problem-detector
   - reloader
   - snapshot-controller
   - volsync
