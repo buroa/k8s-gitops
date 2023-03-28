@@ -16,3 +16,7 @@ configMapGenerator:
       - scripts/run.sh
 generatorOptions:
   disableNameSuffixHash: true
+labels:
+  - pairs:
+      app.kubernetes.io/name: plex-meta-manager
+      app.kubernetes.io/instance: plex-meta-manager
