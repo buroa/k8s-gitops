@@ -1,0 +1,497 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: kube-prometheus-stack
+  namespace: monitoring
+spec:
+  interval: 6h
+  chart:
+    spec:
+      # renovate: registryUrl=https://prometheus-community.github.io/helm-charts
+      chart: kube-prometheus-stack
+      version: 45.8.0
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community-charts
+        namespace: flux-system
+  maxHistory: 3
+  install:
+    createNamespace: true
+    crds: CreateReplace
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    crds: CreateReplace
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    cleanPrometheusOperatorObjectNames: true
+    alertmanager:
+      config:
+        global:
+          resolve_timeout: 5m
+        receivers:
+          - name: heartbeat
+            webhook_configs:
+              - url: "https://heartbeat.uptimerobot.com/${SECRET_ALERTMANAGER_UPTIMEROBOT_HEARTBEAT_TOKEN}"
+                send_resolved: true
+          - name: "null" # quote
+          - name: pushover
+            pushover_configs:
+              - url_title: View in Alertmanager
+                token: "${SECRET_ALERTMANAGER_PUSHOVER_TOKEN}"
+                user_key: "${SECRET_ALERTMANAGER_PUSHOVER_USER_KEY}"
+                send_resolved: true
+                html: true
+                sound: gamelan
+                priority: |-
+                  {{ if eq .Status "firing" }}1{{ else }}0{{ end }}
+                title: |-
+                  {{ .CommonLabels.alertname }} [{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}]
+                message: |-
+                  {{- range .Alerts }}
+                    {{- if ne .Annotations.description "" }}
+                      {{ .Annotations.description }}
+                    {{- else if ne .Annotations.summary "" }}
+                      {{ .Annotations.summary }}
+                    {{- else if ne .Annotations.message "" }}
+                      {{ .Annotations.message }}
+                    {{- else }}
+                      Alert description not available
+                    {{- end }}
+                    {{- if gt (len .Labels.SortedPairs) 0 }}
+                      <small>
+                      {{- range .Labels.SortedPairs }}
+                        <b>{{ .Name }}:</b> {{ .Value }}
+                      {{- end }}
+                      </small>
+                    {{- end }}
+                  {{- end }}
+        route:
+          group_by: ["alertname", "job"]
+          group_wait: 1m
+          group_interval: 10m
+          repeat_interval: 12h
+          receiver: pushover
+          routes:
+            - receiver: heartbeat
+              group_wait: 0s
+              group_interval: 2m
+              repeat_interval: 2m
+              matchers:
+                - alertname =~ "Watchdog"
+            - receiver: "null" # quote
+              matchers:
+                - alertname =~ "InfoInhibitor"
+            - receiver: pushover
+              matchers:
+                - severity = "critical"
+              continue: true
+        inhibit_rules:
+          - source_matchers:
+              - severity = "critical"
+            target_matchers:
+              - severity = "warning"
+            equal: ["alertname", "namespace"]
+      ingress:
+        enabled: true
+        annotations:
+          kubernetes.io/tls-acme: "true"
+          kubernetes.io/ingress.class: contour
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+          ingress.kubernetes.io/force-ssl-redirect: "true"
+          projectcontour.io/websocket-routes: "/"
+        hosts:
+          - &hosta am.${SECRET_PUBLIC_DOMAIN}
+        paths:
+          - /
+        tls:
+          - secretName: alertmanager-tls
+            hosts:
+              - *hosta
+      alertmanagerSpec:
+        replicas: 3
+        podAntiAffinity: hard
+        storage:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: ceph-block
+              resources:
+                requests:
+                  storage: 1Gi
+    kubelet:
+      enabled: true
+      serviceMonitor:
+        metricRelabelings:
+          - action: replace
+            sourceLabels: ["node"]
+            targetLabel: instance
+    kube-state-metrics:
+      metricLabelsAllowlist:
+        - "pods=[*]"
+        - "deployments=[*]"
+        - "persistentvolumeclaims=[*]"
+      prometheus:
+        monitor:
+          enabled: true
+          relabelings:
+            - action: replace
+              regex: (.*)
+              replacement: $1
+              sourceLabels: ["__meta_kubernetes_pod_node_name"]
+              targetLabel: kubernetes_node
+    kubeProxy:
+      enabled: false
+    kubeApiServer:
+      enabled: true
+    kubeControllerManager:
+      enabled: true
+      service:
+        selector:
+          k8s-app: kube-controller-manager
+          tier: control-plane
+    kubeScheduler:
+      enabled: true
+      service:
+        selector:
+          k8s-app: kube-scheduler
+          tier: control-plane
+    prometheus:
+      ingress:
+        enabled: true
+        annotations:
+          kubernetes.io/tls-acme: "true"
+          kubernetes.io/ingress.class: contour
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+          ingress.kubernetes.io/force-ssl-redirect: "true"
+          projectcontour.io/websocket-routes: "/"
+        hosts:
+          - &hostp prometheus.${SECRET_PUBLIC_DOMAIN}
+        paths:
+          - /
+        tls:
+          - secretName: prometheus-tls
+            hosts:
+              - *hostp
+      thanos:
+        image: quay.io/thanos/thanos:v0.31.0@sha256:e7d337d6ac2aea3f0f9314ec9830291789e16e2b480b9d353be02d05ce7f2a7e
+        objectStorageConfig:
+          name: thanos-objstore-secret
+          key: objstore.yml
+        # renovate: datasource=docker depName=quay.io/thanos/thanos
+        version: "v0.30.2"
+      walCompression: true
+      thanosService:
+        enabled: true
+      thanosServiceMonitor:
+        enabled: true
+      prometheusSpec:
+        replicas: 3
+        replicaExternalLabelName: __replica__ # must match with thanos value `.query.replicaLabel[0]`
+        # Breaks any metric that has an existing "cluster" label on a metric
+        # externalLabels:
+        #   cluster: home # must match with thanos value `.ruler.clusterName`
+        thanos:
+          image: quay.io/thanos/thanos:v0.31.0
+          # renovate: datasource=docker depName=quay.io/thanos/thanos
+          version: "v0.30.2"
+        podAntiAffinity: hard
+        ruleSelectorNilUsesHelmValues: false
+        podMonitorSelectorNilUsesHelmValues: false
+        serviceMonitorSelectorNilUsesHelmValues: false
+        probeSelectorNilUsesHelmValues: false
+        retention: 2d
+        retentionSize: 6GB
+        enableAdminAPI: true
+        walCompression: true
+        storageSpec:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: ceph-block
+              resources:
+                requests:
+                  storage: 20Gi
+        resources:
+          requests:
+            cpu: 150m
+            memory: 2000Mi
+          limits:
+            memory: 7000Mi
+    grafana:
+      deploymentStrategy:
+        type: Recreate
+      annotations:
+        configmap.reloader.stakater.com/reload: kube-prometheus-stack-grafana
+      image:
+        repository: grafana/grafana
+        tag: 9.4.7
+      rbac:
+        pspEnabled: false
+      testFramework:
+        enabled: false
+      env:
+        GF_ANALYTICS_CHECK_FOR_UPDATES: false
+        GF_DATE_FORMATS_USE_BROWSER_LOCALE: true
+        GF_EXPLORE_ENABLED: true
+        GF_GRAFANA_NET_URL: https://grafana.net
+        GF_LOG_FILTERS: rendering:debug
+        GF_LOG_MODE: console
+        GF_PANELS_DISABLE_SANITIZE_HTML: true
+        GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS: natel-discrete-panel,pr0ps-trackmap-panel,panodata-map-panel
+        GF_SECURITY_ALLOW_EMBEDDING: true
+        GF_SECURITY_COOKIE_SAMESITE: grafana
+      grafana.ini:
+        server:
+          root_url: https://grafana.${SECRET_PUBLIC_DOMAIN}
+        auth:
+          disable_login_form: true
+          oauth_auto_login: true
+          disable_signout_menu: true
+        auth.basic:
+          enabled: false
+        auth.generic_oauth:
+          enabled: true
+          name: authentik
+          client_id: "${SECRET_AUTHENTIK_GRAFANA_CLIENT_ID}"
+          client_secret: "${SECRET_AUTHENTIK_GRAFANA_CLIENT_SECRET}"
+          scopes: openid email profile
+          auth_url: https://auth.${SECRET_PUBLIC_DOMAIN}/application/o/authorize/
+          token_url: http://authentik.home.svc.cluster.local/application/o/token/
+          api_url: http://authentik.home.svc.cluster.local/application/o/userinfo/
+          role_attribute_path: contains(groups[*], 'authentik Admins') && 'Admin' || contains(groups[*], 'authentik Editor') && 'Editor' || 'Viewer'
+      dashboardProviders:
+        dashboardproviders.yaml:
+          apiVersion: 1
+          providers:
+            - name: "default"
+              orgId: 1
+              folder: ""
+              type: file
+              disableDeletion: false
+              editable: true
+              options:
+                path: /var/lib/grafana/dashboards/default
+      datasources:
+        datasources.yaml:
+          apiVersion: 1
+          deleteDatasources:
+            - name: Alertmanager
+              orgId: 1
+            - name: Loki
+              orgId: 1
+          datasources:
+            - name: Prometheus
+              type: prometheus
+              access: proxy
+              url: http://thanos-query.monitoring.svc.cluster.local:9090
+              isDefault: true
+            - name: Alertmanager
+              type: alertmanager
+              access: proxy
+              url: http://kube-prometheus-stack-alertmanager.monitoring.svc.cluster.local:9093
+              jsonData:
+                implementation: prometheus
+            - name: Loki
+              type: loki
+              access: proxy
+              url: http://loki-gateway.monitoring.svc.cluster.local
+              jsonData:
+                maxLines: 250
+      dashboards:
+        default:
+          node-exporter-full:
+            gnetId: 1860
+            revision: 30
+            datasource: Prometheus
+          cert-manager:
+            gnetId: 11001
+            revision: 1
+            datasource: Prometheus
+          envoy:
+            gnetId: 7250
+            revision: 1
+            datasource: Prometheus
+          envoy-global:
+            gnetId: 7253
+            revision: 1
+            datasource: Prometheus
+          uptime-robot:
+            gnetId: 9955
+            revision: 1
+            datasource: Prometheus
+          authentik:
+            gnetId: 14837
+            revision: 2
+            datasource: Prometheus
+          loki-metrics:
+            gnetId: 13407
+            revision: 1
+            datasource: Prometheus
+          loki-chunks:
+            url: https://raw.githubusercontent.com/grafana/loki/main/production/helm/loki/src/dashboards/loki-chunks.json
+            datasource: Prometheus
+          loki-deletion:
+            url: https://raw.githubusercontent.com/grafana/loki/main/production/helm/loki/src/dashboards/loki-deletion.json
+            datasource: Prometheus
+          loki-logs:
+            url: https://raw.githubusercontent.com/grafana/loki/main/production/helm/loki/src/dashboards/loki-logs.json
+            datasource: Prometheus
+          loki-mixin-recording-rules:
+            url: https://raw.githubusercontent.com/grafana/loki/main/production/helm/loki/src/dashboards/loki-mixin-recording-rules.json
+            datasource: Prometheus
+          loki-operational:
+            url: https://raw.githubusercontent.com/grafana/loki/main/production/helm/loki/src/dashboards/loki-operational.json
+            datasource: Prometheus
+          loki-reads-resources:
+            url: https://raw.githubusercontent.com/grafana/loki/main/production/helm/loki/src/dashboards/loki-reads-resources.json
+            datasource: Prometheus
+          loki-reads:
+            url: https://raw.githubusercontent.com/grafana/loki/main/production/helm/loki/src/dashboards/loki-reads.json
+            datasource: Prometheus
+          loki-retention:
+            url: https://raw.githubusercontent.com/grafana/loki/main/production/helm/loki/src/dashboards/loki-retention.json
+            datasource: Prometheus
+          loki-writes-resources:
+            url: https://raw.githubusercontent.com/grafana/loki/main/production/helm/loki/src/dashboards/loki-writes-resources.json
+            datasource: Prometheus
+          loki-writes:
+            url: https://raw.githubusercontent.com/grafana/loki/main/production/helm/loki/src/dashboards/loki-writes.json
+            datasource: Prometheus
+          rook-ceph-cluster:
+            gnetId: 2842
+            revision: 16
+            datasource: Prometheus
+          rook-ceph-osd:
+            gnetId: 5336
+            revision: 9
+            datasource: Prometheus
+          rook-ceph-pools:
+            gnetId: 5342
+            revision: 9
+            datasource: Prometheus
+          unifi-client-insights:
+            gnetId: 11315
+            revision: 9
+            datasource: Prometheus
+          unifi-network-sites:
+            gnetId: 11311
+            revision: 5
+            datasource: Prometheus
+          unifi-uap-insights:
+            gnetId: 11314
+            revision: 10
+            datasource: Prometheus
+          unifi-usw-insights:
+            gnetId: 11312
+            revision: 9
+            datasource: Prometheus
+          flux-cluster:
+            url: https://raw.githubusercontent.com/fluxcd/flux2/v0.41.2/manifests/monitoring/monitoring-config/dashboards/cluster.json
+            datasource: Prometheus
+          flux-control-plane:
+            url: https://raw.githubusercontent.com/fluxcd/flux2/v0.41.2/manifests/monitoring/monitoring-config/dashboards/control-plane.json
+            datasource: Prometheus
+          flux-logs:
+            url: https://raw.githubusercontent.com/fluxcd/flux2/v0.41.2/manifests/monitoring/monitoring-config/dashboards/logs.json
+            datasource: Prometheus
+          cilium-dashboard:
+            url: https://raw.githubusercontent.com/cilium/cilium/v1.13.1/examples/kubernetes/addons/prometheus/files/grafana-dashboards/cilium-dashboard.json
+            datasource: Prometheus
+          cilium-operator-dashboard:
+            url: https://raw.githubusercontent.com/cilium/cilium/v1.13.1/examples/kubernetes/addons/prometheus/files/grafana-dashboards/cilium-operator-dashboard.json
+            datasource: Prometheus
+          hubble-dashboard:
+            url: https://raw.githubusercontent.com/cilium/cilium/v1.13.1/examples/kubernetes/addons/prometheus/files/grafana-dashboards/hubble-dashboard.json
+            datasource: Prometheus
+          api-server:
+            url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-system-api-server.json
+            datasource: Prometheus
+          coredns:
+            url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-system-coredns.json
+            datasource: Prometheus
+          global:
+            url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-global.json
+            datasource: Prometheus
+          namespaces:
+            url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-namespaces.json
+            datasource: Prometheus
+          nodes:
+            url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-nodes.json
+            datasource: Prometheus
+          pods:
+            url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-pods.json
+            datasource: Prometheus
+          thanos-bucket-replicate:
+            url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/thanos/dashboards/bucket-replicate.json
+            datasource: Prometheus
+          thanos-compact:
+            url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/thanos/dashboards/compact.json
+            datasource: Prometheus
+          thanos-overview:
+            url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/thanos/dashboards/overview.json
+            datasource: Prometheus
+          thanos-query:
+            url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/thanos/dashboards/query.json
+            datasource: Prometheus
+          thanos-query-frontend:
+            url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/thanos/dashboards/query-frontend.json
+            datasource: Prometheus
+          thanos-receieve:
+            url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/thanos/dashboards/receive.json
+            datasource: Prometheus
+          thanos-rule:
+            url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/thanos/dashboards/rule.json
+            datasource: Prometheus
+          thanos-sidecar:
+            url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/thanos/dashboards/sidecar.json
+            datasource: Prometheus
+          thanos-store:
+            url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/thanos/dashboards/store.json
+            datasource: Prometheus
+      sidecar:
+        datasources:
+          enabled: true
+          searchNamespace: ALL
+        dashboards:
+          enabled: true
+          searchNamespace: ALL
+      plugins:
+        - grafana-clock-panel
+        - grafana-piechart-panel
+        - grafana-worldmap-panel
+        - natel-discrete-panel
+        - pr0ps-trackmap-panel
+        - vonage-status-panel
+      serviceMonitor:
+        enabled: true
+      ingress:
+        enabled: true
+        annotations:
+          kubernetes.io/tls-acme: "true"
+          kubernetes.io/ingress.class: contour
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+          ingress.kubernetes.io/force-ssl-redirect: "true"
+          projectcontour.io/websocket-routes: "/"
+        hosts:
+          - &hostg grafana.${SECRET_PUBLIC_DOMAIN}
+        paths:
+          - /
+        tls:
+          - secretName: grafana-tls
+            hosts:
+              - *hostg
+      imageRenderer:
+        enabled: true
+        replicas: 3
+        networkPolicy:
+          limitIngress: false
+        serviceMonitor:
+          enabled: true
+      persistence:
+        enabled: true
+        type: pvc
+        existingClaim: grafana-config

@@ -1,0 +1,67 @@
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: &name cloudflared
+  namespace: networking
+  labels: &labels
+    app.kubernetes.io/name: *name
+    app.kubernetes.io/instance: *name
+  annotations:
+    reloader.stakater.com/auto: "true"
+spec:
+  replicas: 3
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels: *labels
+  template:
+    metadata:
+      labels: *labels
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "monitoring"
+    spec:
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels: *labels
+      containers:
+        - name: cloudflared
+          image: cloudflare/cloudflared:2023.3.1
+          args:
+            - tunnel
+            - --config
+            - /etc/cloudflared/config/config.yaml
+            - run
+          ports:
+            - name: monitoring
+              containerPort: 2000
+          livenessProbe:
+            httpGet:
+              path: /ready
+              port: monitoring
+            failureThreshold: 5
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: monitoring
+            failureThreshold: 5
+            periodSeconds: 10
+          volumeMounts:
+            - name: creds
+              mountPath: /etc/cloudflared/creds
+              readOnly: true
+            - name: config
+              mountPath: /etc/cloudflared/config/config.yaml
+              subPath: config.yaml
+              readOnly: true
+      volumes:
+        - name: creds
+          secret:
+            secretName: cloudflared-tunnel-credentials
+        - name: config
+          configMap:
+            name: cloudflared-config

@@ -1,0 +1,23 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: cluster-apps-unpackerr
+  namespace: media
+spec:
+  dependsOn:
+    - name: cluster-apps-sonarr
+    - name: cluster-apps-radarr
+  path: ./kubernetes/apps/media/unpackerr/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: k8s-gitops
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      name: unpackerr
+      namespace: media
+  interval: 30m
+  retryInterval: 1m
+  timeout: 3m

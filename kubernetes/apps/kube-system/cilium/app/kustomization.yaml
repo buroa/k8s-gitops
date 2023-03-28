@@ -1,0 +1,13 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: kube-system
+resources:
+  - helmrelease.yaml
+  - servicemonitor.yaml
+configMapGenerator:
+  - name: bgp-config
+    files:
+      - configs/config.yaml
+generatorOptions:
+  disableNameSuffixHash: true

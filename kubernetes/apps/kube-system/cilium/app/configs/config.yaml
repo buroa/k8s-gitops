@@ -1,0 +1,11 @@
+---
+peers:
+  - peer-address: ${GATEWAY_IP}
+    peer-asn: 64513
+    my-asn: 64513
+address-pools:
+  - name: default
+    protocol: bgp
+    avoid-buggy-ips: true
+    addresses:
+      - ${CILIUM_BGP_CIDR}
