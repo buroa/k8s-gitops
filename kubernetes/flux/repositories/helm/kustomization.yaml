@@ -18,7 +18,6 @@ resources:
   - ./metrics-server-charts.yaml
   - ./minio-charts.yaml
   - ./node-feature-discovery-charts.yaml
-  - ./node-feature-discovery-charts.yaml
   - ./piraeus-charts.yaml
   - ./prometheus-community-charts.yaml
   - ./rook-ceph-charts.yaml
