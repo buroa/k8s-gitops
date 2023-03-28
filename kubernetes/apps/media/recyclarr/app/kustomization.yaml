@@ -10,3 +10,7 @@ configMapGenerator:
       - configs/recyclarr.yml
 generatorOptions:
   disableNameSuffixHash: true
+labels:
+  - pairs:
+      app.kubernetes.io/name: recyclarr
+      app.kubernetes.io/instance: recyclarr

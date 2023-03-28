@@ -13,3 +13,7 @@ configMapGenerator:
         grafana_dashboard: "1"
 generatorOptions:
   disableNameSuffixHash: true
+labels:
+  - pairs:
+      app.kubernetes.io/name: deluge-exporter
+      app.kubernetes.io/instance: deluge-exporter
