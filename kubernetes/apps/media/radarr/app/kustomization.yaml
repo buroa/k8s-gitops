@@ -1,8 +1,13 @@
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+namespace: media
 resources:
   - pvc.yaml
   - helmrelease.yaml
   - cronjob.yaml
   - volsync.yaml
+labels:
+  - pairs:
+      app.kubernetes.io/name: radarr
+      app.kubernetes.io/instance: radarr
