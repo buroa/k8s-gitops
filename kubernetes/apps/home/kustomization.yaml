@@ -3,6 +3,6 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - namespace.yaml
-  - authenik/ks.yaml
+  - authentik/ks.yaml
   - node-red/ks.yaml
   - vaultwarden/ks.yaml
