@@ -1,0 +1,46 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: plex-meta-manager
+  namespace: media
+spec:
+  schedule: "0 6 * * *"
+  jobTemplate:
+    spec:
+      backoffLimit: 3
+      ttlSecondsAfterFinished: 86400
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: plex-meta-manager
+              image: meisnate12/plex-meta-manager:v1.18.3
+              imagePullPolicy: IfNotPresent
+              env:
+                - name: TZ
+                  value: "${TIMEZONE}"
+              command:
+                - /scripts/run.sh
+              volumeMounts:
+                - name: config
+                  mountPath: /config
+                - name: config-file
+                  mountPath: /config/config.yml
+                  subPath: config.yml
+                - name: config-file
+                  mountPath: /config/Pre-rolls.yml
+                  subPath: Pre-rolls.yml
+                - name: scripts
+                  mountPath: /scripts
+          volumes:
+            - name: config
+              persistentVolumeClaim:
+                claimName: pmm-config
+            - name: config-file
+              configMap:
+                name: pmm-config
+            - name: scripts
+              configMap:
+                name: pmm-scripts
+                defaultMode: 511

@@ -1,0 +1,22 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: cluster-apps-prowlarr-exporter
+  namespace: monitoring
+spec:
+  dependsOn:
+    - name: cluster-apps-prowlarr
+  path: ./kubernetes/apps/monitoring/exporters/prowlarr-exporter/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: k8s-gitops
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      name: prowlarr-exporter
+      namespace: monitoring
+  interval: 30m
+  retryInterval: 1m
+  timeout: 3m

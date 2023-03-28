@@ -1,0 +1,56 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: vector-agent
+  namespace: monitoring
+spec:
+  interval: 15m
+  chart:
+    spec:
+      # renovate: registryUrl=https://helm.vector.dev
+      chart: vector
+      version: 0.20.1
+      sourceRef:
+        kind: HelmRepository
+        name: vector-charts
+        namespace: flux-system
+  maxHistory: 3
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    role: "Agent"
+    podMonitor:
+      enabled: true
+    service:
+      enabled: false
+    tolerations:
+      - key: node-role.kubernetes.io/control-plane
+        effect: NoSchedule
+    customConfig:
+      data_dir: /vector-data-dir
+      api:
+        enabled: false
+      sources:
+        kubernetes_logs:
+          type: kubernetes_logs
+          pod_annotation_fields:
+            container_image: "image"
+            pod_annotations: "pod_annotations"
+            pod_labels: "pod_labels"
+            pod_name: "pod_name"
+      sinks:
+        loki_kubernetes_sink:
+          type: vector
+          inputs:
+            - kubernetes_logs
+          address: "vector-aggregator.monitoring.svc.cluster.local:6000"
+          version: "2"

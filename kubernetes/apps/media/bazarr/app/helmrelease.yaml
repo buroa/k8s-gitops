@@ -1,0 +1,77 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: bazarr
+  namespace: media
+spec:
+  interval: 15m
+  chart:
+    spec:
+      # renovate: registryUrl=https://k8s-at-home.com/charts/
+      chart: bazarr
+      version: 10.6.2
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+  maxHistory: 3
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    image:
+      repository: ghcr.io/linuxserver/bazarr
+      tag: 1.1.5-development
+    env:
+      TZ: "${TIMEZONE}"
+      PUID: "1000"
+      PGID: "1000"
+    ingress:
+      main:
+        enabled: true
+        annotations:
+          kubernetes.io/tls-acme: "true"
+          kubernetes.io/ingress.class: contour
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+          ingress.kubernetes.io/force-ssl-redirect: "true"
+          projectcontour.io/websocket-routes: "/"
+          projectcontour.io/response-timeout: "120s"
+        hosts:
+          - host: &host bazarr.${SECRET_PUBLIC_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - secretName: bazarr-tls
+            hosts:
+              - *host
+    persistence:
+      config:
+        enabled: true
+        existingClaim: bazarr-config
+      media:
+        enabled: true
+        existingClaim: media
+        mountPath: /media
+      bazarr-scripts:
+        enabled: true
+        type: custom
+        mountPath: /scripts
+        volumeSpec:
+          configMap:
+            name: bazarr-scripts
+            defaultMode: 511
+    resources:
+      requests:
+        memory: 250Mi
+        cpu: 500m
+      limits:
+        memory: 4096Mi

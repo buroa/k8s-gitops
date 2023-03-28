@@ -1,0 +1,121 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: blocky
+  namespace: networking
+spec:
+  interval: 15m
+  chart:
+    spec:
+      # renovate: registryUrl=https://k8s-at-home.com/charts/
+      chart: blocky
+      version: 10.5.2
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+  maxHistory: 3
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    image:
+      repository: spx01/blocky
+      tag: v0.21
+    controller:
+      strategy: RollingUpdate
+      replicas: 2
+      annotations:
+        reloader.stakater.com/auto: "true"
+    env:
+      TZ: "${TIMEZONE}"
+    config: |
+      upstream:
+        default:
+          - https://cloudflare-dns.com/dns-query
+
+      conditional:
+        mapping:
+          cluster.local: ${CLUSTER_DNS_IP}
+          ${SECRET_PUBLIC_DOMAIN}: ${K8S_GATEWAY_IP}
+          .: ${GATEWAY_IP}
+
+      blocking:
+        blackLists:
+          ads:
+          - https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
+          - https://s3.amazonaws.com/lists.disconnect.me/simple_ad.txt
+          - http://sysctl.org/cameleon/hosts
+          - https://s3.amazonaws.com/lists.disconnect.me/simple_tracking.txt
+        whiteLists:
+          ads:
+          - https://raw.githubusercontent.com/anudeepND/whitelist/master/domains/whitelist.txt
+          - https://raw.githubusercontent.com/chadmayfield/my-pihole-blocklists/master/white.list
+        clientGroupsBlock:
+          default:
+          - ads
+
+      clientLookup:
+        upstream: ${CLUSTER_DNS_IP}
+
+      caching:
+        minTime: 5m
+        prefetching: true
+
+      prometheus:
+        enable: true
+        path: /metrics
+
+      httpPort: 4000
+      logLevel: info
+    probes:
+      liveness:
+        failureThreshold: 5
+        periodSeconds: 10
+      readiness:
+        failureThreshold: 5
+        periodSeconds: 10
+      startup:
+        initialDelaySeconds: 5
+        failureThreshold: 30
+        periodSeconds: 10
+    service:
+      main:
+        enabled: true
+      dns-tcp:
+        enabled: true
+        type: ClusterIP
+        externalTrafficPolicy: ""
+        ports:
+          dns-tcp:
+            enabled: true
+            port: 53
+            protocol: TCP
+            targetPort: 53
+      dns-udp:
+        enabled: true
+        type: LoadBalancer
+        loadBalancerIP: ${BLOCKY_LB_IP}
+        externalTrafficPolicy: Local
+        ports:
+          dns-udp:
+            enabled: true
+            port: 53
+            protocol: UDP
+            targetPort: 53
+    metrics:
+      enabled: true
+    resources:
+      requests:
+        memory: 280Mi
+        cpu: 50m
+      limits:
+        memory: 1024Mi
