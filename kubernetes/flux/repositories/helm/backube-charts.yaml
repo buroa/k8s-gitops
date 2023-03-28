@@ -7,4 +7,3 @@ metadata:
 spec:
   interval: 2h
   url: https://backube.github.io/helm-charts/
-  timeout: 3m
