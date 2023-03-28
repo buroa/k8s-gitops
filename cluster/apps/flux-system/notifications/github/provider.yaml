@@ -9,4 +9,4 @@ spec:
   address: https://github.com/buroa/k8s-gitops
   interval: 10m
   secretRef:
-    name: flux-system
+    name: github-token-secret
