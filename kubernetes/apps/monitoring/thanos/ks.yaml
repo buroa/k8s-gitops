@@ -15,7 +15,7 @@ spec:
       kind: HelmRelease
       name: thanos
       namespace: monitoring
-    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
+    - apiVersion: objectbucket.io/v1alpha1
       kind: ObjectBucketClaim
       name: thanos-ceph-bucket
       namespace: monitoring
