@@ -3,7 +3,7 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
   name: cluster-apps-overseerr-exporter
-  namespace: monitoring
+  namespace: flux-system
 spec:
   dependsOn:
     - name: cluster-apps-overseerr
