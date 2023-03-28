@@ -5,7 +5,7 @@ metadata:
   name: kube-prometheus-stack
   namespace: monitoring
 spec:
-  interval: 6h
+  interval: 15m
   chart:
     spec:
       # renovate: registryUrl=https://prometheus-community.github.io/helm-charts
