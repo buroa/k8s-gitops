@@ -4,9 +4,9 @@
 
 > GitOps state for my cluster using flux and helm-operator
 
-[![k8s](https://img.shields.io/badge/k8s-v1.25.4-orange?style=flat-square)](https://k3s.io/)
-[![GitHub stars](https://img.shields.io/github/stars/blackjid/k3s-gitops?color=green&style=flat-square)](https://github.com/buroa/k8s-gitops/stargazers)
-[![GitHub issues](https://img.shields.io/github/issues/buroa/k8s-gitops?style=flat-square)](https://github.com/buroa/k3s-gitops/issues)
+[![k8s](https://img.shields.io/badge/k8s-v1.26.2-orange?style=flat-square)](https://k8s.io/)
+[![GitHub stars](https://img.shields.io/github/stars/buroa/k8s-gitops?color=green&style=flat-square)](https://github.com/buroa/k8s-gitops/stargazers)
+[![GitHub issues](https://img.shields.io/github/issues/buroa/k8s-gitops?style=flat-square)](https://github.com/buroa/k8s-gitops/issues)
 [![GitHub last commit](https://img.shields.io/github/last-commit/buroa/k8s-gitops?color=purple&style=flat-square)](https://github.com/buroa/k8s-gitops/commits/master)
 
 <br/>
