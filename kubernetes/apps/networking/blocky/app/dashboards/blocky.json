@@ -41,7 +41,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "prometheus"
+          "uid": "Prometheus"
         },
         "description": "current service state",
         "fieldConfig": {
@@ -102,7 +102,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "prometheus"
+              "uid": "Prometheus"
             },
             "exemplar": false,
             "expr": "sum(up{job=\"blocky\"})",
@@ -120,7 +120,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "prometheus"
+          "uid": "Prometheus"
         },
         "description": "Is blocking enabled?",
         "fieldConfig": {
@@ -187,7 +187,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "prometheus"
+              "uid": "Prometheus"
             },
             "exemplar": false,
             "expr": "blocky_blocking_enabled",
@@ -204,7 +204,7 @@
       },
       {
         "datasource": {
-          "uid": "prometheus"
+          "uid": "Prometheus"
         },
         "description": "Enable Ad disable blocking",
         "gridPos": {
@@ -227,7 +227,7 @@
         "targets": [
           {
             "datasource": {
-              "uid": "prometheus"
+              "uid": "Prometheus"
             },
             "refId": "A"
           }
@@ -239,7 +239,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "prometheus"
+          "uid": "Prometheus"
         },
         "description": "Blocky [version](https://github.com/0xERR0R/blocky) number",
         "fieldConfig": {
@@ -288,7 +288,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "prometheus"
+              "uid": "Prometheus"
             },
             "exemplar": false,
             "expr": "blocky_build_info ",
@@ -315,7 +315,7 @@
       },
       {
         "datasource": {
-          "uid": "prometheus"
+          "uid": "Prometheus"
         },
         "description": "Average query response time for all query types",
         "fieldConfig": {
@@ -376,7 +376,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "prometheus"
+              "uid": "Prometheus"
             },
             "exemplar": true,
             "expr": "sum(increase(blocky_request_duration_ms_sum[$__range])) / sum(increase(blocky_request_duration_ms_count[$__range]))",
@@ -393,7 +393,7 @@
       },
       {
         "datasource": {
-          "uid": "prometheus"
+          "uid": "Prometheus"
         },
         "description": "Number of blacklist entries",
         "fieldConfig": {
@@ -450,7 +450,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "prometheus"
+              "uid": "Prometheus"
             },
             "exemplar": true,
             "expr": "sum(blocky_blacklist_cache) / sum(up{job=\"blocky\"})",
@@ -467,7 +467,7 @@
       },
       {
         "datasource": {
-          "uid": "prometheus"
+          "uid": "Prometheus"
         },
         "fieldConfig": {
           "defaults": {
@@ -524,7 +524,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "prometheus"
+              "uid": "Prometheus"
             },
             "exemplar": true,
             "expr": "sum(go_memstats_sys_bytes{job=\"blocky\"})/sum(up{job=\"blocky\"})",
@@ -541,7 +541,7 @@
       },
       {
         "datasource": {
-          "uid": "prometheus"
+          "uid": "Prometheus"
         },
         "description": "Percentage of blocked queries",
         "fieldConfig": {
@@ -605,7 +605,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "prometheus"
+              "uid": "Prometheus"
             },
             "exemplar": true,
             "expr": "sum(increase(blocky_response_total{response_type=\"BLOCKED\"}[$__range])) / sum(increase(blocky_query_total[$__range])) ",
@@ -622,7 +622,7 @@
       },
       {
         "datasource": {
-          "uid": "prometheus"
+          "uid": "Prometheus"
         },
         "description": "Number of all queries. Shows the last value",
         "fieldConfig": {
@@ -680,7 +680,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "prometheus"
+              "uid": "Prometheus"
             },
             "exemplar": true,
             "expr": "ceil(sum(increase(blocky_query_total[$__range]))) ",
@@ -697,7 +697,7 @@
       },
       {
         "datasource": {
-          "uid": "prometheus"
+          "uid": "Prometheus"
         },
         "description": "Number of entries in the cache. Shows the last value",
         "fieldConfig": {
@@ -741,7 +741,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "prometheus"
+              "uid": "Prometheus"
             },
             "exemplar": true,
             "expr": "sum(blocky_cache_entry_count)/ sum(up{job=\"blocky\"})",
@@ -758,7 +758,7 @@
       },
       {
         "datasource": {
-          "uid": "prometheus"
+          "uid": "Prometheus"
         },
         "description": "Cache Hit/Miss ratio. 100 % means, all queries could be answered from the cache, 0% - all queries must be resolved via external DNS",
         "fieldConfig": {
@@ -808,7 +808,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "prometheus"
+              "uid": "Prometheus"
             },
             "exemplar": true,
             "expr": "sum(increase(blocky_cache_hit_count[$__range])) / (sum(increase(blocky_cache_hit_count[$__range])) + sum(increase(blocky_cache_miss_count[$__range])))",
@@ -825,7 +825,7 @@
       },
       {
         "datasource": {
-          "uid": "prometheus"
+          "uid": "Prometheus"
         },
         "description": "Number of occured errors",
         "fieldConfig": {
@@ -890,7 +890,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "prometheus"
+              "uid": "Prometheus"
             },
             "exemplar": true,
             "expr": "sum(increase(blocky_error_total[$__range]))",
@@ -907,7 +907,7 @@
       },
       {
         "datasource": {
-          "uid": "prometheus"
+          "uid": "Prometheus"
         },
         "description": "Amount of performed DNS queries to prefetch cached queries",
         "fieldConfig": {
@@ -951,7 +951,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "prometheus"
+              "uid": "Prometheus"
             },
             "exemplar": true,
             "expr": "ceil(sum(increase(blocky_prefetch_count[$__range])))",
@@ -967,7 +967,7 @@
       },
       {
         "datasource": {
-          "uid": "prometheus"
+          "uid": "Prometheus"
         },
         "description": "Amount of prefetch queries per minute",
         "fieldConfig": {
@@ -1015,7 +1015,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "prometheus"
+              "uid": "Prometheus"
             },
             "exemplar": true,
             "expr": "sum(rate(blocky_prefetch_count[5m])) * 60",
@@ -1031,7 +1031,7 @@
       },
       {
         "datasource": {
-          "uid": "prometheus"
+          "uid": "Prometheus"
         },
         "description": "How many of cached entries were prefetched automatically",
         "fieldConfig": {
@@ -1081,7 +1081,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "prometheus"
+              "uid": "Prometheus"
             },
             "exemplar": true,
             "expr": "sum(increase(blocky_prefetch_hit_count[$__range])) / (sum(increase(blocky_cache_hit_count[$__range])))",
@@ -1099,7 +1099,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "prometheus"
+          "uid": "Prometheus"
         },
         "description": "Time since last list refresh",
         "fieldConfig": {
@@ -1145,7 +1145,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "prometheus"
+              "uid": "Prometheus"
             },
             "exemplar": false,
             "expr": "sum(time() -blocky_last_list_group_refresh)/ sum(up{job=\"blocky\"})",
@@ -1162,7 +1162,7 @@
       },
       {
         "datasource": {
-          "uid": "prometheus"
+          "uid": "Prometheus"
         },
         "description": "Amount of unique domains in the prefetched cache",
         "fieldConfig": {
@@ -1206,7 +1206,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "prometheus"
+              "uid": "Prometheus"
             },
             "exemplar": true,
             "expr": "sum(blocky_prefetch_domain_name_cache_count)/ sum(up{job=\"blocky\"})",
@@ -1223,7 +1223,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "prometheus"
+          "uid": "Prometheus"
         },
         "fieldConfig": {
           "defaults": {
@@ -1303,7 +1303,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "prometheus"
+              "uid": "Prometheus"
             },
             "exemplar": true,
             "expr": "sum(rate(blocky_query_total[5m])) * 60",
@@ -1321,7 +1321,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "prometheus"
+          "uid": "Prometheus"
         },
         "fieldConfig": {
           "defaults": {
@@ -1401,7 +1401,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "prometheus"
+              "uid": "Prometheus"
             },
             "exemplar": true,
             "expr": "sum by (client) (rate(blocky_query_total[5m])) * 60",
@@ -1428,7 +1428,7 @@
         "dataFormat": "tsbuckets",
         "datasource": {
           "type": "prometheus",
-          "uid": "prometheus"
+          "uid": "Prometheus"
         },
         "fieldConfig": {
           "defaults": {
@@ -1501,7 +1501,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "prometheus"
+              "uid": "Prometheus"
             },
             "exemplar": true,
             "expr": "sum(increase(blocky_request_duration_ms_bucket{response_type=\"RESOLVED\"}[$__range])) by (le)",
@@ -1532,7 +1532,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "prometheus"
+          "uid": "Prometheus"
         },
         "fieldConfig": {
           "defaults": {
@@ -1590,7 +1590,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "prometheus"
+              "uid": "Prometheus"
             },
             "exemplar": false,
             "expr": " sort_desc(sum by (type) (ceil(increase(blocky_query_total[$__range]))))",
@@ -1608,7 +1608,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "prometheus"
+          "uid": "Prometheus"
         },
         "fieldConfig": {
           "defaults": {
@@ -1666,7 +1666,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "prometheus"
+              "uid": "Prometheus"
             },
             "exemplar": false,
             "expr": "sort_desc(sum by (client) (ceil(increase(blocky_query_total[$__range]))))",
@@ -1684,7 +1684,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "prometheus"
+          "uid": "Prometheus"
         },
         "fieldConfig": {
           "defaults": {
@@ -1741,7 +1741,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "prometheus"
+              "uid": "Prometheus"
             },
             "exemplar": false,
             "expr": "topk(1, blocky_blacklist_cache) by (group)",
@@ -1759,7 +1759,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "prometheus"
+          "uid": "Prometheus"
         },
         "fieldConfig": {
           "defaults": {
@@ -1816,7 +1816,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "prometheus"
+              "uid": "Prometheus"
             },
             "exemplar": false,
             "expr": " sort_desc(sum by (reason) (ceil(increase(blocky_response_total[$__range]))))",
@@ -1834,7 +1834,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "prometheus"
+          "uid": "Prometheus"
         },
         "fieldConfig": {
           "defaults": {
@@ -1892,7 +1892,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "prometheus"
+              "uid": "Prometheus"
             },
             "exemplar": false,
             "expr": " sort_desc(sum by (response_type) (ceil(increase(blocky_response_total[$__range]))))",
@@ -1910,7 +1910,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "prometheus"
+          "uid": "Prometheus"
         },
         "fieldConfig": {
           "defaults": {
@@ -1967,7 +1967,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "prometheus"
+              "uid": "Prometheus"
             },
             "exemplar": false,
             "expr": " sort_desc(sum by (response_code) (ceil(increase(blocky_response_total[$__range]))))",
