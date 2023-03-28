@@ -19,6 +19,7 @@ resources:
   - ./minio-charts.yaml
   - ./node-feature-discovery-charts.yaml
   - ./piraeus-charts.yaml
+  - ./postfinance-charts.yaml
   - ./prometheus-community-charts.yaml
   - ./rook-ceph-charts.yaml
   - ./stakater-charts.yaml
