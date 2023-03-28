@@ -1,0 +1,27 @@
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta2
+kind: Alert
+metadata:
+  name: alertmanager
+  namespace: flux-system
+spec:
+  providerRef:
+    name: alertmanager
+  eventSeverity: error
+  eventSources:
+    - kind: GitRepository
+      name: "*"
+    - kind: HelmRelease
+      name: "*"
+    - kind: HelmRepository
+      name: "*"
+    - kind: Kustomization
+      name: "*"
+    - kind: OCIRepository
+      name: "*"
+  exclusionList:
+    - "error.*lookup github\\.com"
+    - "error.*lookup raw\\.githubusercontent\\.com"
+    - "dial.*tcp.*timeout"
+    - "waiting.*socket"
+  suspend: false

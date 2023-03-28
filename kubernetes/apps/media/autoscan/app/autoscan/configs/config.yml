@@ -1,0 +1,23 @@
+---
+minimum-age: 5s
+scan-delay: 5s
+
+triggers:
+  manual:
+    priority: 1
+
+  sonarr:
+    - name: sonarr
+      priority: 2
+
+  radarr:
+    - name: radarr
+      priority: 3
+
+targets:
+  plex:
+    - url: http://plex.media.svc.cluster.local:32400
+      token: ${SECRET_PLEX_APIKEY}
+
+  autoscan:
+    - url: http://autoscan-adapter.media.svc.cluster.local:5000

@@ -1,0 +1,50 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: recyclarr-updater
+  namespace: media
+spec:
+  schedule: "0 6 * * *"
+  jobTemplate:
+    spec:
+      backoffLimit: 3
+      ttlSecondsAfterFinished: 86400
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: sonarr
+              image: ghcr.io/recyclarr/recyclarr:4.3.0
+              imagePullPolicy: IfNotPresent
+              env:
+                - name: TZ
+                  value: "${TIMEZONE}"
+              command:
+                - /app/recyclarr/recyclarr
+              args:
+                - sync
+                - sonarr
+              volumeMounts:
+                - name: recyclarr-config-file
+                  mountPath: /config/recyclarr.yml
+                  subPath: recyclarr.yml
+            - name: radarr
+              image: ghcr.io/recyclarr/recyclarr:4.3.0
+              imagePullPolicy: IfNotPresent
+              env:
+                - name: TZ
+                  value: "${TIMEZONE}"
+              command:
+                - /app/recyclarr/recyclarr
+              args:
+                - sync
+                - radarr
+              volumeMounts:
+                - name: recyclarr-config-file
+                  mountPath: /config/recyclarr.yml
+                  subPath: recyclarr.yml
+          volumes:
+            - name: recyclarr-config-file
+              configMap:
+                name: recyclarr-config

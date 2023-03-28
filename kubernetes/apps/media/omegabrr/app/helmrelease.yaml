@@ -1,0 +1,51 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: omegabrr
+  namespace: media
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.3.2
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  maxHistory: 3
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controller:
+      annotations:
+        reloader.stakater.com/auto: "true"
+    image:
+      repository: ghcr.io/autobrr/omegabrr
+      tag: v1.6.1
+    env:
+      TZ: "${TIMEZONE}"
+      PUID: "1000"
+      PGID: "1000"
+    service:
+      main:
+        ports:
+          http:
+            port: 7441
+    persistence:
+      config:
+        enabled: true
+        type: configMap
+        name: omegabrr-config
+        subPath: config.yaml
+        mountPath: /config/config.yaml
+        readOnly: true

@@ -1,0 +1,10 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - namespace.yaml
+  - blocky/ks.yaml
+  - cloudflared/ks.yaml
+  - contour/ks.yaml
+  - k8s-gateway/ks.yaml
+  - pod-gateway/ks.yaml
