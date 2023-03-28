@@ -8,7 +8,7 @@ spec:
   interval: 30m
   url: ssh://git@github.com/buroa/k8s-gitops
   ref:
-    branch: main
+    branch: master
   secretRef:
     name: github-deploy-key
   ignore: |
