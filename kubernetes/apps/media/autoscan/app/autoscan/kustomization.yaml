@@ -11,3 +11,7 @@ configMapGenerator:
       - configs/config.yml
 generatorOptions:
   disableNameSuffixHash: true
+labels:
+  - pairs:
+      app.kubernetes.io/name: autoscan
+      app.kubernetes.io/instance: autoscan
