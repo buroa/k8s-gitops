@@ -1,24 +1,6 @@
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-metadata:
-  name: cluster-apps-autoscan
-  namespace: media
-spec:
-  path: ./kubernetes/apps/media/autoscan/app
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: k8s-gitops
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
-      kind: HelmRelease
-      name: autoscan
-      namespace: media
-    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
-      kind: HelmRelease
-      name: autoscan-adapter
-      namespace: media
-  interval: 30m
-  retryInterval: 1m
-  timeout: 3m
+resources:
+  - autoscan
+  - autoscan-adapter
