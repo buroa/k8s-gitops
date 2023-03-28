@@ -25,18 +25,18 @@
   rebaseWhen: "conflicted",
   commitBodyTable: true,
   flux: {
-    fileMatch: ["cluster/.+\\.ya?ml$"],
+    fileMatch: ["kubernetes/.+\\.ya?ml$"],
   },
   "helm-values": {
-    fileMatch: ["cluster/.+\\.ya?ml$"],
+    fileMatch: ["kubernetes/.+\\.ya?ml$"],
   },
   kubernetes: {
-    fileMatch: ["cluster/.+\\.ya?ml$"],
+    fileMatch: ["kubernetes/.+\\.ya?ml$"],
   },
   regexManagers: [
     {
       description: "Process custom dependencies",
-      fileMatch: ["cluster/.+\\.ya?ml$"],
+      fileMatch: ["kubernetes/.+\\.ya?ml$"],
       matchStrings: [
         "registryUrl=(?<registryUrl>.*?)\n *chart: (?<depName>.*?)\n *version: (?<currentValue>.*)\n",
       ],
