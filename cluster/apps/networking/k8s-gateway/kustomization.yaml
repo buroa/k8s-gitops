@@ -1,6 +1,0 @@
----
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-resources:
-  - k8s-gateway-helm-release.yaml
-  - rbac.yaml
