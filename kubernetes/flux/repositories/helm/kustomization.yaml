@@ -1,0 +1,27 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ./backube-charts.yaml
+  - ./bitnami-charts.yaml
+  - ./bjw-s-charts.yaml
+  - ./cilium-charts.yaml
+  - ./cloudve-charts.yaml
+  - ./deliveryhero-charts.yaml
+  - ./fairwinds-charts.yaml
+  - ./goauthentik-charts.yaml
+  - ./grafana-charts.yaml
+  - ./jetstack-charts.yaml
+  - ./k8s-at-home-charts.yaml
+  - ./kubernetes-sigs-descheduler-charts.yaml
+  - ./lwolf-charts.yaml
+  - ./metrics-server-charts.yaml
+  - ./minio-charts.yaml
+  - ./node-feature-discovery-charts.yaml
+  - ./node-feature-discovery-charts.yaml
+  - ./piraeus-charts.yaml
+  - ./prometheus-community-charts.yaml
+  - ./rook-ceph-charts.yaml
+  - ./stakater-charts.yaml
+  - ./vector-charts.yaml
+  - ./weave-gitops-charts.yaml
