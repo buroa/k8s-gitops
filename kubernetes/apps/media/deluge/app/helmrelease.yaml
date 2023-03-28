@@ -30,7 +30,7 @@ spec:
   values:
     image:
       repository: ghcr.io/linuxserver/deluge
-      tag: 2.1.1-r6-ls199
+      tag: 18.04.1
     env:
       TZ: "${TIMEZONE}"
       PUID: "1000"
