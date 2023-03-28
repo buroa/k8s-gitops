@@ -15,7 +15,7 @@ apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
   name: node-red
-  namespace: media
+  namespace: home
 spec:
   sourcePVC: node-red-config
   trigger:
