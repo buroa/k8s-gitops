@@ -10,3 +10,7 @@ configMapGenerator:
       - configs/config.yaml
 generatorOptions:
   disableNameSuffixHash: true
+labels:
+  - pairs:
+      app.kubernetes.io/name: omegabrr
+      app.kubernetes.io/instance: omegabrr

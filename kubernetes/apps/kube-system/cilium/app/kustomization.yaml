@@ -11,3 +11,7 @@ configMapGenerator:
       - configs/config.yaml
 generatorOptions:
   disableNameSuffixHash: true
+labels:
+  - pairs:
+      app.kubernetes.io/name: cilium
+      app.kubernetes.io/instance: cilium

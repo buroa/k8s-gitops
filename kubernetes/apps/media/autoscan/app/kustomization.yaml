@@ -1,6 +1,11 @@
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+namespace: media
 resources:
   - autoscan
   - autoscan-adapter
+labels:
+  - pairs:
+      app.kubernetes.io/name: autoscan
+      app.kubernetes.io/instance: autoscan

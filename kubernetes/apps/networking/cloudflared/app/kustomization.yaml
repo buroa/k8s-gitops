@@ -19,3 +19,7 @@ configMapGenerator:
         grafana_dashboard: "1"
 generatorOptions:
   disableNameSuffixHash: true
+labels:
+  - pairs:
+      app.kubernetes.io/name: cloudflared
+      app.kubernetes.io/instance: cloudflared
