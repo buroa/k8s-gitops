@@ -5,3 +5,4 @@ resources:
   - monitoring
   - notifications
   - weave-gitops
+  - webhooks
