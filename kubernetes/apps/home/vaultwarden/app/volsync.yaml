@@ -15,7 +15,7 @@ apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
   name: vaultwarden
-  namespace: media
+  namespace: home
 spec:
   sourcePVC: vaultwarden-config
   trigger:

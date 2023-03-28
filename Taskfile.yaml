@@ -1,0 +1,19 @@
+---
+version: "3"
+
+vars:
+  CLUSTER_DIR: "{{.ROOT_DIR}}/kubernetes"
+
+env:
+  TALOSCONFIG: ./talos/clusterconfig/talosconfig
+
+includes:
+  fx: .taskfiles/Flux/Tasks.yml
+  ku: .taskfiles/Kubernetes/Tasks.yml
+  ta: .taskfiles/Talos/Tasks.yml
+  vs: .taskfiles/VolSync/Tasks.yml
+
+tasks:
+  default:
+    silent: true
+    cmds: ["task -l"]
