@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - flux.yaml
   - cluster.yaml
+  - apps.yaml
