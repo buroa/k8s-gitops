@@ -4,5 +4,6 @@ kind: Namespace
 metadata:
   name: media
   labels:
+    vpn: "true"
     goldilocks.fairwinds.com/enabled: "true"
     kustomize.toolkit.fluxcd.io/prune: disabled

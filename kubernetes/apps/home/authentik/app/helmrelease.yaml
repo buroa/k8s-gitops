@@ -5,7 +5,7 @@ metadata:
   name: authentik
   namespace: home
 spec:
-  interval: 5m
+  interval: 15m
   chart:
     spec:
       # renovate: registryUrl=https://charts.goauthentik.io/
@@ -15,7 +15,17 @@ spec:
         kind: HelmRepository
         name: goauthentik-charts
         namespace: flux-system
-      interval: 5m
+  maxHistory: 3
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
   values:
     authentik:
       secret_key: "${SECRET_AUTHENTIK_SECRET_KEY}"

@@ -5,6 +5,5 @@ metadata:
   name: deliveryhero-charts
   namespace: flux-system
 spec:
-  interval: 10m
+  interval: 2h
   url: https://charts.deliveryhero.io/
-  timeout: 3m

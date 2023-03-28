@@ -5,6 +5,5 @@ metadata:
   name: bjw-s-charts
   namespace: flux-system
 spec:
-  interval: 10m
+  interval: 2h
   url: https://bjw-s.github.io/helm-charts/
-  timeout: 3m
