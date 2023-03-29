@@ -29,15 +29,6 @@ spec:
     fullnameOverride: *app
     image:
       repository: quay.io/prometheus/snmp-exporter
-    extraArgs:
-      - "--config.file=/config/snmp.yaml"
-    extraConfigmapMounts:
-      - name: *app
-        mountPath: /config/snmp.yaml
-        subPath: snmp.yaml
-        configMap: *app
-        readOnly: true
-        defaultMode: 420
     serviceMonitor:
       enabled: true
       namespace: monitoring
