@@ -2,7 +2,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: recyclarr-updater
+  name: recyclarr
   namespace: media
 spec:
   schedule: "0 6 * * *"
