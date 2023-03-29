@@ -16,7 +16,7 @@ spec:
   healthChecks:
     - apiVersion: batch/v1
       kind: CronJob
-      name: recyclarr-updater
+      name: recyclarr
       namespace: media
   interval: 30m
   retryInterval: 1m
