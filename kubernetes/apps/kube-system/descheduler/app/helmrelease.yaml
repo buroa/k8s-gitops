@@ -28,8 +28,30 @@ spec:
     keepHistory: false
   values:
     kind: Deployment
+    schedule: "*/5 * * * *"
     deschedulerPolicy:
       strategies:
+        RemovePodsHavingTooManyRestarts:
+          enabled: true
+          params:
+            podsHavingTooManyRestarts:
+              podRestartThreshold: 100
+              includingInitContainers: true
+        RemovePodsViolatingTopologySpreadConstraint:
+          enabled: true
+          params:
+            includeSoftConstraints: true
+        RemoveFailedPods:
+          enabled: true
+          params:
+            failedPods:
+              reasons:
+                - OutOfcpu
+                - CreateContainerConfigError
+              includingInitContainers: true
+              excludeOwnerKinds:
+                - Job
+              minPodLifetimeSeconds: 3600
         RemoveDuplicates:
           enabled: true
         RemovePodsViolatingNodeTaints:
@@ -39,19 +61,17 @@ spec:
           params:
             nodeAffinityType:
               - requiredDuringSchedulingIgnoredDuringExecution
-        RemovePodsViolatingTopologySpreadConstraint:
-          enabled: true
-          params:
-            includeSoftConstraints: true
         RemovePodsViolatingInterPodAntiAffinity:
           enabled: true
-          params:
-            nodeFit: true
         LowNodeUtilization:
           enabled: true
-        RemovePodsHavingTooManyRestarts:
-          enabled: true
           params:
-            podsHavingTooManyRestarts:
-              podRestartThreshold: 100
-              includingInitContainers: true
+            nodeResourceUtilizationThresholds:
+              thresholds:
+                cpu: 20
+                memory: 20
+                pods: 20
+              targetThresholds:
+                cpu: 50
+                memory: 50
+                pods: 50
