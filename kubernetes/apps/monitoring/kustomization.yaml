@@ -5,7 +5,6 @@ resources:
   - namespace.yaml
   - goldilocks/ks.yaml
   - loki/ks.yaml
-  - speedtest-exporter/ks.yaml
   - thanos/ks.yaml
   - unpoller/ks.yaml
   - kube-prometheus-stack/ks.yaml

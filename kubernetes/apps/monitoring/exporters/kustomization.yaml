@@ -8,4 +8,5 @@ resources:
   - radarr-exporter/ks.yaml
   - sabnzbd-exporter/ks.yaml
   - sonarr-exporter/ks.yaml
+  - speedtest-exporter/ks.yaml
   - tautulli-exporter/ks.yaml
