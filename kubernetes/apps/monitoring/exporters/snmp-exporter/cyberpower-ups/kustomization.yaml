@@ -4,6 +4,12 @@ kind: Kustomization
 namespace: monitoring
 resources:
   - helmrelease.yaml
+configMapGenerator:
+  - name: snmp-exporter-cyberpower-ups
+    files:
+      - configs/snmp.yaml
+generatorOptions:
+  disableNameSuffixHash: true
 labels:
   - pairs:
       app.kubernetes.io/name: snmp-exporter-cyberpower-ups

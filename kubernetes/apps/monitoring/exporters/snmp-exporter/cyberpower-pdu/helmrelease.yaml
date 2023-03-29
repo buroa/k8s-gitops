@@ -29,6 +29,15 @@ spec:
     fullnameOverride: *app
     image:
       repository: quay.io/prometheus/snmp-exporter
+    extraArgs:
+      - "--config.file=/config/snmp.yaml"
+    extraConfigmapMounts:
+      - name: *app
+        mountPath: /config/snmp.yaml
+        subPath: snmp.yaml
+        configMap: *app
+        readOnly: true
+        defaultMode: 420
     serviceMonitor:
       enabled: true
       namespace: monitoring
@@ -36,7 +45,7 @@ spec:
         - name: pdu
           module:
             - cyberpower
-          target: pdu.${SECRET_PUBLIC_DOMAIN}
+          target: ${PDU_IP}
       path: /snmp
       scrapeTimeout: 10s
       relabelings:
