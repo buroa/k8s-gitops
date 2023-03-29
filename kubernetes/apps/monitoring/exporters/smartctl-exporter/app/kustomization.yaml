@@ -4,6 +4,15 @@ kind: Kustomization
 namespace: monitoring
 resources:
   - helmrelease.yaml
+  - prometheusrule.yaml
+  - name: smartctl-exporter-dashboards
+    files:
+      - dashboards/smart-dashboard.json
+    options:
+      labels:
+        grafana_dashboard: "1"
+generatorOptions:
+  disableNameSuffixHash: true
 labels:
   - pairs:
       app.kubernetes.io/name: smartctl-exporter
