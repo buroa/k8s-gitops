@@ -5,6 +5,7 @@ namespace: monitoring
 resources:
   - helmrelease.yaml
   - prometheusrule.yaml
+configMapGenerator:
   - name: smartctl-exporter-dashboards
     files:
       - dashboards/smart-dashboard.json
