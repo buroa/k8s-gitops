@@ -8,6 +8,12 @@ configMapGenerator:
   - name: snmp-exporter-synology-nas
     files:
       - configs/snmp.yaml
+  - name: snmp-exporter-synology-nas-dashboards
+    files:
+      - dashboards/synology-snmp-dashboard.json
+    options:
+      labels:
+        grafana_dashboard: "1"
 generatorOptions:
   disableNameSuffixHash: true
 labels:

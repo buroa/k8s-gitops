@@ -8,6 +8,12 @@ configMapGenerator:
   - name: snmp-exporter-cyberpower-ups
     files:
       - configs/snmp.yaml
+  - name: snmp-exporter-cyberpower-ups-dashboards
+    files:
+      - dashboards/cyberpower-ups-dashboard.json
+    options:
+      labels:
+        grafana_dashboard: "1"
 generatorOptions:
   disableNameSuffixHash: true
 labels:
