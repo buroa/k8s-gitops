@@ -5,6 +5,9 @@ namespace: monitoring
 resources:
   - helmrelease.yaml
 configMapGenerator:
+  - name: snmp-exporter-cyberpower-ups
+    files:
+      - configs/snmp.yaml
   - name: snmp-exporter-cyberpower-ups-dashboards
     files:
       - dashboards/cyberpower-ups-dashboard.json
