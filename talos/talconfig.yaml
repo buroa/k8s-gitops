@@ -179,10 +179,10 @@ controlPlane:
           - name: applesmc
           - name: coretemp
       sysfs:
-        devices.system.cpu.intel_pstate.no_turbo: 1
-        devices.system.cpu.cpu0.cpufreq.scaling_governor: performance
+        devices.system.cpu.intel_pstate.no_turbo: 0
+        devices.system.cpu.cpu0.cpufreq.scaling_governor: powersave
         bus.acpi.drivers.applesmc.APP0001:00.fan1_manual: 1
-        bus.acpi.drivers.applesmc.APP0001:00.fan1_output: 4200
+        bus.acpi.drivers.applesmc.APP0001:00.fan1_output: 4000
       sysctls:
         fs.inotify.max_user_watches: 1048576
         fs.inotify.max_user_instances: 8192
@@ -212,6 +212,12 @@ controlPlane:
           - ip: 10.0.0.5
             aliases:
               - nas.${domainName}
+          - ip: 10.0.0.6
+            aliases:
+              - ups.${domainName}
+          - ip: 10.0.0.7
+            aliases:
+              - pdu.${domainName}
       time:
         disabled: false
         servers:
