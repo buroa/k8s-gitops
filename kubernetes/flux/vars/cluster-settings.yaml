@@ -23,3 +23,5 @@ data:
   GATEWAY_IP: "10.0.0.1"
   CILIUM_BGP_CIDR: "7.0.0.0/8"
   NAS_IP: "10.0.0.5"
+  UPS_IP: "10.0.0.6"
+  PDU_IP: "10.0.0.7"
