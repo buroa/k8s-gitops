@@ -3,7 +3,7 @@ name: "HelmRelease Diff"
 
 on:
   pull_request:
-    branches: ["main"]
+    branches: ["master"]
     paths: ["kubernetes/**/helmrelease.yaml"]
 
 env:
