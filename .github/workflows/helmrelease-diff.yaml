@@ -71,7 +71,7 @@ jobs:
 
       - name: Setup Tools
         run: |
-          brew install helm homeport/tap/dyff kustomize yq
+          brew install helm homeport/tap/dyff kustomize yq zx
 
       - name: Diff
         id: diff
