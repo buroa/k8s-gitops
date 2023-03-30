@@ -2,6 +2,7 @@
 name: "HelmRelease Diff"
 
 on:
+  workflow_dispatch: # testing
   pull_request:
     branches: ["main"]
     paths: ["kubernetes/**/helmrelease.yaml"]
