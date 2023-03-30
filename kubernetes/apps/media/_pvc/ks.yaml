@@ -11,6 +11,12 @@ spec:
     kind: GitRepository
     name: k8s-gitops
   healthChecks:
+    - apiVersion: storage.k8s.io/v1
+      kind: StorageClass
+      name: nfs
+    - apiVersion: v1
+      kind: PersistentVolume
+      name: media
     - apiVersion: v1
       kind: PersistentVolumeClaim
       name: media
