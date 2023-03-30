@@ -1,0 +1,109 @@
+---
+name: "HelmRelease Diff"
+
+on:
+  pull_request:
+    branches: ["main"]
+    paths: ["kubernetes/**/helmrelease.yaml"]
+
+env:
+  BOT_USERNAME: k8s-renovate
+  KUBERNETES_DIR: kubernetes/
+
+jobs:
+  changed-files:
+    name: Detect File Changes
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - name: Generate Token
+        uses: tibdex/github-app-token@b62528385c34dbc9f38e5f4225ac829252d1ea92 # v1.8.0
+        id: generate-token
+        with:
+          app_id: "${{ secrets.BOT_APP_ID }}"
+          private_key: "${{ secrets.BOT_APP_PRIVATE_KEY }}"
+
+      - name: Checkout
+        uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3.5.0
+        with:
+          token: "${{ steps.generate-token.outputs.token }}"
+
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@e9b5807e928fc8eea705c90da5524fd44b183ba1 # v35.7.8
+        with:
+          json: true
+          files: |
+            kubernetes/**/helmrelease.yaml
+
+      - id: set-matrix
+        run: echo "matrix={\"file\":${{ steps.changed-files.outputs.all_changed_files }}}" >> "${GITHUB_OUTPUT}"
+
+  diff:
+    name: Diff on Helm Releases
+    runs-on: ubuntu-latest
+    needs: [changed-files]
+    strategy:
+      matrix: ${{ fromJSON(needs.changed-files.outputs.matrix) }}
+    steps:
+      - name: Generate Token
+        uses: tibdex/github-app-token@b62528385c34dbc9f38e5f4225ac829252d1ea92 # v1.8.0
+        id: generate-token
+        with:
+          app_id: "${{ secrets.BOT_APP_ID }}"
+          private_key: "${{ secrets.BOT_APP_PRIVATE_KEY }}"
+
+      - name: Checkout
+        uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3.5.0
+        with:
+          token: "${{ steps.generate-token.outputs.token }}"
+
+      - name: Checkout default branch
+        uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3.5.0
+        with:
+          token: "${{ steps.generate-token.outputs.token }}"
+          ref: "${{ github.event.repository.default_branch }}"
+          path: default
+
+      - name: Setup Homebrew
+        uses: Homebrew/actions/setup-homebrew@master
+
+      - name: Setup Tools
+        run: |
+          brew install helm homeport/tap/dyff kustomize yq
+
+      - name: Diff
+        id: diff
+        run: |
+          diff=$(npx zx ./.github/scripts/helmReleaseDiff.mjs \
+            --current-release "default/${{ matrix.file }}" \
+            --incoming-release "${{ matrix.file }}" \
+            --kubernetes-dir ${{ env.KUBERNETES_DIR }})
+          echo "diff<<EOF" >> "${GITHUB_OUTPUT}"
+          echo "${diff}" >> "${GITHUB_OUTPUT}"
+          echo "EOF" >> "${GITHUB_OUTPUT}"
+
+      - name: Find Comment
+        if: ${{ always() && steps.diff.outputs.diff != '' }}
+        uses: peter-evans/find-comment@034abe94d3191f9c89d870519735beae326f2bdb # v2.3.0
+        id: find-comment
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: ${{ env.BOT_USERNAME }}
+          body-includes: ${{ matrix.file }}
+
+      - name: Create or update comment
+        if: ${{ always() && steps.diff.outputs.diff != '' }}
+        uses: peter-evans/create-or-update-comment@67dcc547d311b736a8e6c5c236542148a47adc3d # v2.1.1
+        with:
+          token: ${{ steps.generate-token.outputs.token }}
+          comment-id: ${{ steps.find-comment.outputs.comment-id }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            Helm Release: `${{ matrix.file }}`
+
+            ```
+            ${{ steps.diff.outputs.diff }}
+            ```
+          edit-mode: replace
