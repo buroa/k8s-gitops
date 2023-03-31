@@ -1,65 +1,76 @@
-# create talos cluster
+# Bootstrap
 
-talhelper gensecret > talsecret.sops.yaml  
+## Talos
+
+### Create Talos Secrets
+
+```
+talhelper gensecret > talsecret.sops.yaml
 sops -e -i talsecret.sops.yaml
-
 talhelper genconfig
-
 export TALOSCONFIG=~/k8s-gitops/talos/clusterconfig/talosconfig
+```
 
-talosctl -n 10.0.0.10 apply-config --file clusterconfig/k8s-m0*.yaml --insecure  
-talosctl -n 10.0.0.11 apply-config --file clusterconfig/k8s-m1*.yaml --insecure  
-talosctl -n 10.0.0.12 apply-config --file clusterconfig/k8s-m2*.yaml --insecure  
-talosctl -n 10.0.0.20 apply-config --file clusterconfig/k8s-w0*.yaml --insecure  
-talosctl -n 10.0.0.21 apply-config --file clusterconfig/k8s-w1*.yaml --insecure  
+```
+talosctl -n 10.0.0.10 apply-config --file clusterconfig/k8s-m0*.yaml --insecure
+talosctl -n 10.0.0.11 apply-config --file clusterconfig/k8s-m1*.yaml --insecure
+talosctl -n 10.0.0.12 apply-config --file clusterconfig/k8s-m2*.yaml --insecure
+talosctl -n 10.0.0.20 apply-config --file clusterconfig/k8s-w0*.yaml --insecure
+talosctl -n 10.0.0.21 apply-config --file clusterconfig/k8s-w1*.yaml --insecure
 talosctl -n 10.0.0.22 apply-config --file clusterconfig/k8s-w2*.yaml --insecure
+```
 
-# pre macm boot setup
+### Pre Mac Setup
 
-macs dont like the vfat efi partition talos creates  
-we need to reboot the mac into disk mode (hold T)  
-connect the thunderbolt cable from macm <> laptop and run the following
+_macs dont like the vfat efi partition talos creates_  
+_we need to reboot the mac into disk mode (hold T)_  
+_connect the thunderbolt cable from macm <> laptop and run the following_
 
-sudo gdisk (macm disk)
+`sudo gdisk (macm disk)`
 
-> d  
-> 1 (efi partition)  
-> n  
-> 1 (efi partition)  
-> 0700 (microsoft)  
+```
+> d
+> 1 (efi partition)
+> n
+> 1 (efi partition)
+> 0700 (microsoft)
 > w
+```
 
-open disk utility and erase the partition and re-format
+_open disk utility and erase the partition and re-format_
 
-sudo gdisk (macm disk)
+`sudo gdisk (macm disk)`
 
-> t  
-> 1  
-> ef00 (efi code)  
-> c  
-> 1  
-> EFI (change partition label)  
+```
+> t
+> 1
+> ef00 (efi code)
+> c
+> 1
+> EFI (change partition label)
 > w
+```
 
-mount the efi macm partition  
-add back \EFI\boot\bootx64.efi from original talos efi partition  
-reboot
+_mount the efi macm partition_  
+_add back \EFI\boot\bootx64.efi from original talos efi partition_  
+_reboot_  
+_use reFINd ensure macm boot order and delete other boot entries_
 
-using reFINd ensure macm boot order
+`bcfg boot add 0 fs1:\EFI\boot\boot64.efi "Talos"`
 
-> delete other boot entries  
-> bcfg boot add 0 fs1:\EFI\boot\boot64.efi "Talos"  
-> set default boot entry
+_set default as talos and reboot_
 
-reboot
+### Post Mac Setup
 
-# post macm boot setup
-
-talosctl -n 10.0.0.10 bootstrap  
-talosctl -n 10.0.0.10 kubeconfig -f  
+```
+talosctl -n 10.0.0.10 bootstrap
+talosctl -n 10.0.0.10 kubeconfig -f
 kubectl get no -o wide
+```
 
-# post talos cluster
+### Post Talos Setup
 
-kubectl kustomize --enable-helm ./cni | kubectl apply -f -  
+```
+kubectl kustomize --enable-helm ./cni | kubectl apply -f -
 kubectl kustomize --enable-helm ./kubelet-csr-approver | kubectl apply -f -
+```
