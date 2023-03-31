@@ -125,17 +125,7 @@ spec:
     service:
       main:
         enabled: true
-      dns-tcp:
-        enabled: true
-        type: ClusterIP
-        externalTrafficPolicy: ""
-        ports:
-          dns-tcp:
-            enabled: true
-            port: 53
-            protocol: TCP
-            targetPort: 53
-      dns-udp:
+      dns:
         enabled: true
         type: LoadBalancer
         loadBalancerIP: ${BLOCKY_LB_IP}
@@ -145,6 +135,11 @@ spec:
             enabled: true
             port: 53
             protocol: UDP
+            targetPort: 53
+          dns-tcp:
+            enabled: true
+            port: 53
+            protocol: TCP
             targetPort: 53
     metrics:
       enabled: true
