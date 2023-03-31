@@ -75,5 +75,7 @@ spec:
                 cpu: 45
                 memory: 45
                 pods: 45
+    service:
+      enabled: true
     serviceMonitor:
       enabled: true
