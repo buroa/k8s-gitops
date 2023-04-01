@@ -33,6 +33,7 @@ spec:
       TZ: "${TIMEZONE}"
       PUID: "1000"
       PGID: "1000"
+      ffmpegPath: "/usr/local/bin/ffmpeg"
     service:
       main:
         ports:
