@@ -27,8 +27,8 @@ spec:
     keepHistory: false
   values:
     image:
-      repository: haveagitgat/tdarr
-      tag: 2.00.19
+      repository: haveagitgat/tdarr_acc
+      tag: 2.00.20
     env:
       TZ: ${TIMEZONE}
     service:
