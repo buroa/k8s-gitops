@@ -30,7 +30,9 @@ spec:
       repository: haveagitgat/tdarr_acc
       tag: 2.00.20
     env:
-      TZ: ${TIMEZONE}
+      TZ: "${TIMEZONE}"
+      PUID: "1000"
+      PGID: "1000"
     service:
       main:
         ports:
@@ -76,6 +78,12 @@ spec:
         existingClaim: media
         mountPath: /media
     podSecurityContext:
+      runAsUser: 0
+      runAsGroup: 0
+      fsGroup: 0
+      capabilities:
+        add:
+          - CHOWN
       supplementalGroups:
         - 44
         - 109
