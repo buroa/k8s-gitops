@@ -30,8 +30,8 @@ spec:
       replicas: 3
       type: statefulset
     image:
-      repository: haveagitgat/tdarr_node
-      tag: 2.00.19
+      repository: haveagitgat/tdarr_node_acc
+      tag: 2.00.20
     env:
       TZ: ${TIMEZONE}
       serverIP: tdarr.media.svc.cluster.local
