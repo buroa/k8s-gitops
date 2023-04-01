@@ -1,0 +1,72 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: tdarr-node
+  namespace: media
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.3.2
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  maxHistory: 3
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controller:
+      replicas: 3
+      type: statefulset
+    image:
+      repository: haveagitgat/tdarr_node
+      tag: 2.00.19
+    env:
+      TZ: ${TIMEZONE}
+      serverIP: tdarr.media.svc.cluster.local
+      serverPort: 8266
+    service:
+      main:
+        enabled: false
+        ports:
+          enabled: false
+          http:
+            port: 8265
+    volumeClaimTemplates:
+      - name: config
+        mountPath: /app/configs
+        accessMode: ReadWriteOnce
+        size: 1Gi
+        storageClass: ${CLUSTER_STORAGE_CLASS}
+    persistence:
+      media:
+        enabled: true
+        existingClaim: media
+        mountPath: /media
+      cache:
+        enabled: true
+        existingClaim: tdarr-cache
+        mountPath: /cache
+    podSecurityContext:
+      supplementalGroups:
+        - 44
+        - 109
+    resources:
+      requests:
+        cpu: 10m
+        memory: 250Mi
+        gpu.intel.com/i915: 1
+      limits:
+        memory: 2000Mi
+        gpu.intel.com/i915: 1
