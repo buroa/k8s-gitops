@@ -42,6 +42,7 @@ spec:
             port: 8266
     ingress:
       main:
+        enabled: true
         annotations:
           kubernetes.io/tls-acme: "true"
           kubernetes.io/ingress.class: contour
