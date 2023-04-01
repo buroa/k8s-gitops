@@ -1,0 +1,45 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: cluster-apps-tdarr
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: cluster-apps-media-pvc
+    - name: cluster-apps-autoscan
+  path: ./kubernetes/apps/media/tdarr/tdarr
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: k8s-gitops
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      name: tdarr
+      namespace: media
+  interval: 30m
+  retryInterval: 1m
+  timeout: 3m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: cluster-apps-tdarr-node
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: cluster-apps-tdarr
+  path: ./kubernetes/apps/media/tdarr/tdarr-node
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: k8s-gitops
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      name: tdarr-node
+      namespace: media
+  interval: 30m
+  retryInterval: 1m
+  timeout: 3m
