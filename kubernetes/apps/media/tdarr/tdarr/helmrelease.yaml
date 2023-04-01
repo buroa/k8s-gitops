@@ -84,9 +84,6 @@ spec:
       capabilities:
         add:
           - CHOWN
-      supplementalGroups:
-        - 44
-        - 109
     resources:
       requests:
         cpu: 10m

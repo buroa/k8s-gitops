@@ -38,6 +38,7 @@ spec:
       PGID: "1000"
       serverIP: tdarr.media.svc.cluster.local
       serverPort: 8266
+      ffmpegPath: "/usr/local/bin/ffmpeg"
     service:
       main:
         enabled: false
@@ -69,7 +70,7 @@ spec:
           - CHOWN
       supplementalGroups:
         - 44
-        - 109
+        - 226
     resources:
       requests:
         cpu: 10m
