@@ -10,7 +10,7 @@ spec:
   resources:
     requests:
       storage: 2Gi
-  storageClassName: ceph-filesystem
+  storageClassName: ${CLUSTER_STORAGE_CLASS}
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
