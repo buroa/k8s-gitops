@@ -27,7 +27,7 @@ spec:
     keepHistory: false
   values:
     controller:
-      replicas: 5
+      replicas: 3
       type: statefulset
     image:
       repository: haveagitgat/tdarr_node_acc
@@ -78,3 +78,5 @@ spec:
         gpu.intel.com/i915: 1
       limits:
         gpu.intel.com/i915: 1
+    nodeSelector:
+      topology.kubernetes.io/zone: m
