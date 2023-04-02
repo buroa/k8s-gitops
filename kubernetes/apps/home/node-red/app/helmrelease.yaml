@@ -44,7 +44,7 @@ spec:
           cert-manager.io/cluster-issuer: letsencrypt-prod
           ingress.kubernetes.io/force-ssl-redirect: "true"
           projectcontour.io/websocket-routes: "/"
-          hajimari.io/icon: mdi:node-red
+          hajimari.io/icon: simple-icons:node-red
         hosts:
           - host: &host nr.${SECRET_PUBLIC_DOMAIN}
             paths:
