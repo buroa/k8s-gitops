@@ -4,5 +4,6 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - authentik/ks.yaml
+  - hajimari/ks.yaml
   - node-red/ks.yaml
   - vaultwarden/ks.yaml
