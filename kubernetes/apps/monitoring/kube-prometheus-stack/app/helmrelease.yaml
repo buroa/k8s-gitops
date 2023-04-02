@@ -153,9 +153,9 @@ spec:
     kubeControllerManager:
       enabled: true
       endpoints: &cp
-        - w0.k8s.${SECRET_PUBLIC_DOMAIN}
-        - w1.k8s.${SECRET_PUBLIC_DOMAIN}
-        - w2.k8s.${SECRET_PUBLIC_DOMAIN}
+        - 10.0.0.10
+        - 10.0.0.11
+        - 10.0.0.12
     kubeProxy:
       enabled: true
       endpoints: *cp
