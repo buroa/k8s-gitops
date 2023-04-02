@@ -31,6 +31,7 @@ spec:
       TZ: "${TIMEZONE}"
     hajimari:
       title: Apps
+      lightTheme: cloud
       darkTheme: espresso
       alwaysTargetBlank: true
       showGreeting: false
@@ -38,7 +39,7 @@ spec:
       showAppStatus: false
       showBookmarkGroups: false
       showGlobalBookmarks: false
-      showAppUrls: false
+      showAppUrls: true
       defaultEnable: true
       namespaceSelector:
         matchNames:
