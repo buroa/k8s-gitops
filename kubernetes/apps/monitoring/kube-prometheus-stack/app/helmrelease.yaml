@@ -123,13 +123,6 @@ spec:
               resources:
                 requests:
                   storage: 1Gi
-    kubelet:
-      enabled: true
-      serviceMonitor:
-        metricRelabelings:
-          - action: replace
-            sourceLabels: ["node"]
-            targetLabel: instance
     kube-state-metrics:
       metricLabelsAllowlist:
         - "pods=[*]"
@@ -144,22 +137,23 @@ spec:
               replacement: $1
               sourceLabels: ["__meta_kubernetes_pod_node_name"]
               targetLabel: kubernetes_node
-    kubeProxy:
-      enabled: false
+    kubelet:
+      enabled: true
+      serviceMonitor:
+        metricRelabelings:
+          - action: replace
+            sourceLabels: ["node"]
+            targetLabel: instance
     kubeApiServer:
       enabled: true
     kubeControllerManager:
-      enabled: true
-      service:
-        selector:
-          k8s-app: kube-controller-manager
-          tier: control-plane
+      enabled: false
+    kubeEtcd:
+      enabled: false
+    kubeProxy:
+      enabled: false
     kubeScheduler:
-      enabled: true
-      service:
-        selector:
-          k8s-app: kube-scheduler
-          tier: control-plane
+      enabled: false
     prometheus:
       ingress:
         enabled: true
