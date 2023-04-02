@@ -151,13 +151,24 @@ spec:
     kubeApiServer:
       enabled: true
     kubeControllerManager:
-      enabled: false
-    kubeEtcd:
-      enabled: false
+      enabled: true
+      endpoints: &cp
+        - w0.k8s.${SECRET_PUBLIC_DOMAIN}
+        - w1.k8s.${SECRET_PUBLIC_DOMAIN}
+        - w2.k8s.${SECRET_PUBLIC_DOMAIN}
     kubeProxy:
-      enabled: false
+      enabled: true
+      endpoints: *cp
     kubeScheduler:
-      enabled: false
+      enabled: true
+      endpoints: *cp
+    kubeEtcd:
+      enabled: true
+      endpoints: *cp
+      service:
+        enabled: true
+        port: 2381
+        targetPort: 2381
     prometheus:
       ingress:
         enabled: true
