@@ -58,6 +58,7 @@ spec:
           ingress.kubernetes.io/force-ssl-redirect: "true"
           projectcontour.io/websocket-routes: "/"
           projectcontour.io/response-timeout: "120s"
+          hajimari.io/enable: "false"
         hosts:
           - host: &host apps.${SECRET_PUBLIC_DOMAIN}
             paths:

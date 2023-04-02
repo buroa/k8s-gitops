@@ -126,6 +126,7 @@ spec:
           cert-manager.io/cluster-issuer: letsencrypt-prod
           ingress.kubernetes.io/force-ssl-redirect: "true"
           projectcontour.io/websocket-routes: "/"
+          hajimari.io/enable: "false"
         hosts:
           - host: &host loki.${SECRET_PUBLIC_DOMAIN}
             paths:
