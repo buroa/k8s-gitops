@@ -157,7 +157,7 @@ spec:
         - 10.0.0.11
         - 10.0.0.12
     kubeProxy:
-      enabled: true
+      enabled: false
       endpoints: *cp
     kubeScheduler:
       enabled: true
