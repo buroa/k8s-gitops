@@ -144,16 +144,22 @@ controlPlane:
   inlinePatch:
     cluster:
       allowSchedulingOnMasters: true
+      etcd:
+        extraArgs:
+          listen-metrics-urls: http://0.0.0.0:2381
       controllerManager:
         extraArgs:
           feature-gates: MixedProtocolLBService=true,EphemeralContainers=True
+          bind-address: 0.0.0.0
       proxy:
         disabled: true
         extraArgs:
           feature-gates: MixedProtocolLBService=true,EphemeralContainers=True
+          metrics-bind-address: 0.0.0.0:10249
       scheduler:
         extraArgs:
           feature-gates: MixedProtocolLBService=true,EphemeralContainers=True
+          bind-address: 0.0.0.0
       apiServer:
         admissionControl: null
       discovery:
