@@ -28,6 +28,10 @@ spec:
     keepHistory: false
   values:
     authentik:
+      email:
+        host: "smtp-relay.networking.svc.cluster.local"
+        port: 2525
+        from: "authentik@${SECRET_PUBLIC_DOMAIN}"
       secret_key: "${SECRET_AUTHENTIK_SECRET_KEY}"
       postgresql:
         password: "${SECRET_AUTHENTIK_POSTGRES_PASSWORD}"
