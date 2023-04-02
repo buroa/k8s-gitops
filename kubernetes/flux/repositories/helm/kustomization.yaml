@@ -11,6 +11,7 @@ resources:
   - ./fairwinds-charts.yaml
   - ./goauthentik-charts.yaml
   - ./grafana-charts.yaml
+  - ./hajimari-charts.yaml
   - ./jetstack-charts.yaml
   - ./k8s-at-home-charts.yaml
   - ./kubernetes-sigs-descheduler-charts.yaml
