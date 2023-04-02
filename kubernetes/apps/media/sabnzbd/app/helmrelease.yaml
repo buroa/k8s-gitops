@@ -40,6 +40,7 @@ spec:
           ingress.kubernetes.io/force-ssl-redirect: "true"
           projectcontour.io/websocket-routes: "/"
           projectcontour.io/response-timeout: "60s"
+          hajimari.io/icon: mdi:download
         hosts:
           - host: &host usenet.${SECRET_PUBLIC_DOMAIN}
             paths:

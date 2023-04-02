@@ -44,6 +44,7 @@ spec:
           ingress.kubernetes.io/force-ssl-redirect: "true"
           projectcontour.io/websocket-routes: "/"
           projectcontour.io/response-timeout: "120s"
+          hajimari.io/icon: mdi:subtitles-outline
         hosts:
           - host: &host bazarr.${SECRET_PUBLIC_DOMAIN}
             paths:
