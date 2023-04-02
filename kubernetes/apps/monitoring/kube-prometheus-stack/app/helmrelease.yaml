@@ -105,6 +105,7 @@ spec:
           cert-manager.io/cluster-issuer: letsencrypt-prod
           ingress.kubernetes.io/force-ssl-redirect: "true"
           projectcontour.io/websocket-routes: "/"
+          hajimari.io/appName: "Alert Manager"
           hajimari.io/icon: mdi:alert-decagram-outline
         hosts:
           - &hosta am.${SECRET_PUBLIC_DOMAIN}
@@ -166,6 +167,7 @@ spec:
           cert-manager.io/cluster-issuer: letsencrypt-prod
           ingress.kubernetes.io/force-ssl-redirect: "true"
           projectcontour.io/websocket-routes: "/"
+          hajimari.io/appName: Prometheus
           hajimari.io/icon: simple-icons:prometheus
         hosts:
           - &hostp prometheus.${SECRET_PUBLIC_DOMAIN}
@@ -474,6 +476,7 @@ spec:
           cert-manager.io/cluster-issuer: letsencrypt-prod
           ingress.kubernetes.io/force-ssl-redirect: "true"
           projectcontour.io/websocket-routes: "/"
+          hajimari.io/appName: Grafana
           hajimari.io/icon: simple-icons:grafana
         hosts:
           - &hostg grafana.${SECRET_PUBLIC_DOMAIN}

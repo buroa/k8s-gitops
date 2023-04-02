@@ -59,7 +59,8 @@ spec:
           cert-manager.io/cluster-issuer: letsencrypt-prod
           ingress.kubernetes.io/force-ssl-redirect: "true"
           projectcontour.io/websocket-routes: "/"
-          hajimari.io/icon: mdi:bitwarden
+          hajimari.io/appName: Bitwarden
+          hajimari.io/icon: simple-icons:bitwarden
         hosts:
           - host: &host vault.${SECRET_PUBLIC_DOMAIN}
             paths:
