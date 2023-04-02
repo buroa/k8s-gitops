@@ -123,6 +123,8 @@ spec:
               resources:
                 requests:
                   storage: 1Gi
+    kubeStateMetrics:
+      enabled: true
     kube-state-metrics:
       metricLabelsAllowlist:
         - "pods=[*]"
