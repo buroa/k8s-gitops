@@ -35,13 +35,11 @@ spec:
       ADMIN_TOKEN: "" # disable admin page
       SIGNUPS_ALLOWED: "false"
       INVITATIONS_ALLOWED: "true"
-      SMTP_HOST: "${SECRET_SMTP_HOST}"
+      SMTP_HOST: "smtp-relay.networking.svc.cluster.local"
       SMTP_FROM: "vault@${SECRET_PUBLIC_DOMAIN}"
       SMTP_FROM_NAME: "${SECRET_NAME}"
-      SMTP_SECURITY: "force_tls"
-      SMTP_PORT: "465"
-      SMTP_USERNAME: "apikey"
-      SMTP_PASSWORD: "${SECRET_VAULT_SMTP_PASSWORD}"
+      SMTP_PORT: "2525"
+      SMTP_SECURITY: "off"
     service:
       main:
         ports:
