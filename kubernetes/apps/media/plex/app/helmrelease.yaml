@@ -44,6 +44,7 @@ spec:
           ingress.kubernetes.io/force-ssl-redirect: "true"
           projectcontour.io/websocket-routes: "/"
           projectcontour.io/response-timeout: "infinity"
+          hajimari.io/icon: mdi:plex
         hosts:
           - host: &host plex.${SECRET_PUBLIC_DOMAIN}
             paths:
