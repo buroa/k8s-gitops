@@ -1,0 +1,9 @@
+---
+apiVersion: objectbucket.io/v1alpha1
+kind: ObjectBucketClaim
+metadata:
+  name: postgresql-ceph-bucket
+  namespace: databases
+spec:
+  bucketName: postgresql
+  storageClassName: ceph-bucket
