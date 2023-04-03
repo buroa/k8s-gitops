@@ -11,6 +11,8 @@ configMapGenerator:
   - name: authelia-configmap
     files:
       - config/configuration.yml
+generatorOptions:
+  disableNameSuffixHash: true
 labels:
   - pairs:
       app.kubernetes.io/name: authelia
