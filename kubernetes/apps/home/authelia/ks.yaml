@@ -2,14 +2,15 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: cluster-apps-authentik
+  name: cluster-apps-authelia
   namespace: flux-system
 spec:
   dependsOn:
-    - name: cluster-apps-rook-ceph-cluster
-    - name: cluster-apps-volsync
-    - name: cluster-apps-smtp-relay
-  path: ./kubernetes/apps/home/authentik/app
+    - name: cluster-apps-cloudnative-pg
+    - name: cluster-apps-glauth
+    - name: cluster-apps-external-secrets-stores
+    - name: cluster-apps-redis
+  path: ./kubernetes/apps/home/authelia/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -17,7 +18,7 @@ spec:
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2beta1
       kind: HelmRelease
-      name: authentik
+      name: authelia
       namespace: home
   interval: 30m
   retryInterval: 1m

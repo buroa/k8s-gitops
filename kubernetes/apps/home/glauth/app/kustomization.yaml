@@ -3,10 +3,9 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: home
 resources:
-  - pvc.yaml
+  - externalsecret.yaml
   - helmrelease.yaml
-  - volsync.yaml
 labels:
   - pairs:
-      app.kubernetes.io/name: authentik
-      app.kubernetes.io/instance: authentik
+      app.kubernetes.io/name: glauth
+      app.kubernetes.io/instance: glauth
