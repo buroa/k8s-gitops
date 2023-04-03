@@ -5,6 +5,8 @@ metadata:
   name: cluster-apps-pod-gateway
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: cluster-apps-external-secrets-stores
   path: ./kubernetes/apps/networking/pod-gateway/app
   prune: true
   sourceRef:
