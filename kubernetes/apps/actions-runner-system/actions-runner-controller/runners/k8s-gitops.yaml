@@ -1,0 +1,41 @@
+---
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: RunnerDeployment
+metadata:
+  name: k8s-gitops
+  namespace: actions-runner-system
+spec:
+  template:
+    spec:
+      image: ghcr.io/actions/actions-runner-controller/actions-runner-dind:v2.299.1-ubuntu-22.04
+      imagePullPolicy: IfNotPresent
+      dockerdWithinRunnerContainer: true
+      ephemeral: true
+      repository: buroa/k8s-gitops
+      labels: ["self-hosted"]
+      volumeMounts:
+        - name: cache-volume
+          mountPath: /cache
+      volumes:
+        - name: cache-volume
+          persistentVolumeClaim:
+            claimName: actions-runner-controller-cache
+---
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: HorizontalRunnerAutoscaler
+metadata:
+  name: k8s-gitops
+  namespace: actions-runner-system
+spec:
+  scaleTargetRef:
+    name: k8s-gitops
+  scaleUpTriggers:
+    - githubEvent:
+        workflowJob: {}
+      amount: 1
+      duration: 30m
+  minReplicas: 1
+  maxReplicas: 3
+  metrics:
+    - type: TotalNumberOfQueuedAndInProgressWorkflowRuns
+      repositoryNames: ["k8s-gitops"]
