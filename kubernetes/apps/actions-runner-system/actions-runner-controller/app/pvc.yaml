@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: actions-runner-controller-cache
+  namespace: actions-runner-system
+  labels:
+    excluded_from_alerts: "true"
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 8Gi
+  storageClassName: ceph-filesystem
