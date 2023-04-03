@@ -12,7 +12,7 @@ spec:
       version: 0.23.0
       sourceRef:
         kind: HelmRepository
-        name: actions-runner-controller
+        name: actions-runner-controller-charts
         namespace: flux-system
   maxHistory: 3
   install:
