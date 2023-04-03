@@ -12,7 +12,6 @@ resources:
   - ./deliveryhero-charts.yaml
   - ./external-secrets-charts.yaml
   - ./fairwinds-charts.yaml
-  - ./goauthentik-charts.yaml
   - ./grafana-charts.yaml
   - ./hajimari-charts.yaml
   - ./jetstack-charts.yaml
