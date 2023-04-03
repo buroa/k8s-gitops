@@ -334,10 +334,6 @@ spec:
             gnetId: 9955
             revision: 1
             datasource: Prometheus
-          authentik:
-            gnetId: 14837
-            revision: 2
-            datasource: Prometheus
           loki-metrics:
             gnetId: 13407
             revision: 1
