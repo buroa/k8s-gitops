@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - cilium/ks.yaml
   - descheduler/ks.yaml
+  - external-secrets/ks.yaml
   - intel-gpu-plugin/ks.yaml
   - kube-cleanup-operator/ks.yaml
   - kubelet-csr-approver/ks.yaml

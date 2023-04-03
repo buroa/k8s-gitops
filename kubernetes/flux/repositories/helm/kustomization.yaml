@@ -10,6 +10,7 @@ resources:
   - ./cloudnative-pg-charts.yaml
   - ./cloudve-charts.yaml
   - ./deliveryhero-charts.yaml
+  - ./external-secrets-charts.yaml
   - ./fairwinds-charts.yaml
   - ./goauthentik-charts.yaml
   - ./grafana-charts.yaml
