@@ -384,6 +384,10 @@ spec:
             gnetId: 5342
             revision: 9
             datasource: Prometheus
+          redis:
+            gnetId: 763
+            revision: 4
+            datasource: Prometheus
           unifi-client-insights:
             gnetId: 11315
             revision: 9
@@ -462,6 +466,9 @@ spec:
             datasource: Prometheus
           thanos-store:
             url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/thanos/dashboards/store.json
+            datasource: Prometheus
+          cloudnative-pg:
+            url: https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/main/docs/src/samples/monitoring/grafana-dashboard.json
             datasource: Prometheus
       sidecar:
         datasources:
