@@ -31,7 +31,7 @@ spec:
       tag: 2.1.3
     env:
       TZ: "${TIMEZONE}"
-      APP_URL: "https://wizarr.${SECRET_PUBLIC_DOMAIN}"
+      APP_URL: "https://invite.${SECRET_PUBLIC_DOMAIN}"
       DISABLE_BUILTIN_AUTH: "true"
     service:
       main:
