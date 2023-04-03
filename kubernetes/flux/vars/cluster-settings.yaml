@@ -24,6 +24,7 @@ data:
   ENVOY_LB_IP: "7.0.0.2"
   VECTOR_LB_IP: "7.0.0.3"
   BLOCKY_LB_IP: "7.0.0.53"
+  POSTGRES_LB_IP: "7.0.0.254"
 
   # Torrents
   VPN_GW_SUBNET: "172.17.0"
