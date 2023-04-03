@@ -8,6 +8,7 @@ spec:
   dependsOn:
     - name: cluster-apps-rook-ceph-cluster
     - name: cluster-apps-volsync
+    - name: cluster-apps-external-secrets-stores
   path: ./kubernetes/apps/media/wizarr/app
   prune: true
   sourceRef:
