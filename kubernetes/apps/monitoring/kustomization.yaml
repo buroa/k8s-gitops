@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - goldilocks/ks.yaml
+  - grafana/ks.yaml
   - loki/ks.yaml
   - thanos/ks.yaml
   - unpoller/ks.yaml
