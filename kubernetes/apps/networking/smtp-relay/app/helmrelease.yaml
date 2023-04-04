@@ -36,6 +36,7 @@ spec:
       tag: 0.6.3
     env:
       DEBUG: "true"
+      SMTP_DOMAIN: "mail.${SECRET_PUBLIC_DOMAIN}"
     envFrom:
       - secretRef:
           name: smtp-relay
