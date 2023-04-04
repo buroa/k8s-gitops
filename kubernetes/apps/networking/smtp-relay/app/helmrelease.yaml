@@ -29,6 +29,8 @@ spec:
     controller:
       replicas: 1
       strategy: RollingUpdate
+      annotations:
+        reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/foxcpp/maddy
       tag: 0.6.3
@@ -36,9 +38,11 @@ spec:
       DEBUG: "true"
       SMTP_SERVER: smtp.sendgrid.net
       SMTP_USERNAME: apikey
-      SMTP_PASSWORD: "${SECRET_SENDGRID_APIKEY_SMTP_RELAY}"
       SMTP_DOMAIN: "mail.${SECRET_PUBLIC_DOMAIN}"
       SMTP_PORT: "465"
+    envFrom:
+      - secretRef:
+          name: smtp-relay
     service:
       main:
         type: ClusterIP
