@@ -40,10 +40,10 @@ spec:
             severity: warning
         - alert: PGReplication
           annotations:
-            description: Standby is lagging behind by over 300 seconds (5 minutes)
+            description: Standby is lagging behind by over 900 seconds (15 minutes)
             summary: The standby is lagging behind the primary
           expr: |-
-            cnpg_pg_replication_lag > 300
+            cnpg_pg_replication_lag > 900
           for: 1m
           labels:
             severity: warning
