@@ -36,10 +36,6 @@ spec:
       tag: 0.6.3
     env:
       DEBUG: "true"
-      SMTP_SERVER: smtp.sendgrid.net
-      SMTP_USERNAME: apikey
-      SMTP_DOMAIN: "mail.${SECRET_PUBLIC_DOMAIN}"
-      SMTP_PORT: "465"
     envFrom:
       - secretRef:
           name: smtp-relay
