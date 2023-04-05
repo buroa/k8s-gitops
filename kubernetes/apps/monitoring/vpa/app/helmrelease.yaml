@@ -35,7 +35,7 @@ spec:
       extraArgs:
         storage: prometheus
         prometheus-address: |-
-          http://thanos-query.monitoring.svc.cluster.local:9090
+          http://thanos-query-frontend.monitoring.svc.cluster.local:9090
         prometheus-cadvisor-job-name: kubelet
         pod-namespace-label: namespace
         pod-name-label: pod
