@@ -30,7 +30,9 @@ nodes:
     nameservers:
       - ${gatewayIP}
     networkInterfaces:
-      - interface: eth1
+      - deviceSelector:
+          hardwareAddr: 00:30:93:12:31:78
+          driver: atlantic
         addresses:
           - 10.0.0.10/24
         mtu: 9000
@@ -52,7 +54,9 @@ nodes:
     nameservers:
       - ${gatewayIP}
     networkInterfaces:
-      - interface: eth1
+      - deviceSelector:
+          hardwareAddr: 00:30:93:12:31:74
+          driver: atlantic
         addresses:
           - 10.0.0.11/24
         mtu: 9000
@@ -72,7 +76,9 @@ nodes:
     nameservers:
       - ${gatewayIP}
     networkInterfaces:
-      - interface: eth1
+      - deviceSelector:
+          hardwareAddr: 00:30:93:12:2f:e5
+          driver: atlantic
         addresses:
           - 10.0.0.12/24
         mtu: 9000
@@ -92,7 +98,9 @@ nodes:
     nameservers:
       - ${gatewayIP}
     networkInterfaces:
-      - interface: eth0
+      - deviceSelector:
+          hardwareAddr: cc:2d:b7:0b:0c:40
+          driver: atlantic
         addresses:
           - 10.0.0.20/24
         mtu: 9000
@@ -113,7 +121,9 @@ nodes:
     nameservers:
       - ${gatewayIP}
     networkInterfaces:
-      - interface: eth0
+      - deviceSelector:
+          hardwareAddr: cc:2d:b7:07:c0:00
+          driver: atlantic
         addresses:
           - 10.0.0.21/24
         mtu: 9000
@@ -131,7 +141,9 @@ nodes:
     nameservers:
       - ${gatewayIP}
     networkInterfaces:
-      - interface: eth0
+      - deviceSelector:
+          hardwareAddr: cc:2d:b7:02:b9:b5
+          driver: atlantic
         addresses:
           - 10.0.0.22/24
         mtu: 9000
