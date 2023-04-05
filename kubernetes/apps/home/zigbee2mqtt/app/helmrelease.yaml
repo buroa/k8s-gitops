@@ -1,0 +1,121 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: zigbee2mqtt
+  namespace: home
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.3.2
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  maxHistory: 3
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controller:
+      annotations:
+        reloader.stakater.com/auto: "true"
+    image:
+      repository: ghcr.io/koenkk/zigbee2mqtt
+      tag: 1.30.3
+    env:
+      TZ: "${TIMEZONE}"
+      ZIGBEE2MQTT_DATA: /config
+      ZIGBEE2MQTT_CONFIG_ADVANCED_HOMEASSISTANT_DISCOVERY_TOPIC: homeassistant
+      ZIGBEE2MQTT_CONFIG_ADVANCED_HOMEASSISTANT_LEGACY_ENTITY_ATTRIBUTES: "false"
+      ZIGBEE2MQTT_CONFIG_ADVANCED_HOMEASSISTANT_LEGACY_TRIGGERS: "false"
+      ZIGBEE2MQTT_CONFIG_ADVANCED_HOMEASSISTANT_STATUS_TOPIC: homeassistant/status
+      ZIGBEE2MQTT_CONFIG_ADVANCED_LAST_SEEN: ISO_8601
+      ZIGBEE2MQTT_CONFIG_ADVANCED_LEGACY_API: "false"
+      ZIGBEE2MQTT_CONFIG_ADVANCED_LEGACY_AVAILABILITY_PAYLOAD: "false"
+      ZIGBEE2MQTT_CONFIG_ADVANCED_LOG_LEVEL: info # debug
+      ZIGBEE2MQTT_CONFIG_ADVANCED_LOG_OUTPUT: '["console"]'
+      ZIGBEE2MQTT_CONFIG_AVAILABILITY_ACTIVE_TIMEOUT: 60
+      ZIGBEE2MQTT_CONFIG_AVAILABILITY_PASSIVE_TIMEOUT: 2000
+      ZIGBEE2MQTT_CONFIG_DEVICE_OPTIONS_LEGACY: "false"
+      ZIGBEE2MQTT_CONFIG_DEVICE_OPTIONS_RETAIN: "true"
+      ZIGBEE2MQTT_CONFIG_EXPERIMENTAL_NEW_API: "true"
+      ZIGBEE2MQTT_CONFIG_FRONTEND_PORT: &port 80
+      ZIGBEE2MQTT_CONFIG_FRONTEND_URL: https://zigbee.${SECRET_PUBLIC_DOMAIN}
+      ZIGBEE2MQTT_CONFIG_HOMEASSISTANT: "true"
+      ZIGBEE2MQTT_CONFIG_MQTT_INCLUDE_DEVICE_INFORMATION: "true"
+      ZIGBEE2MQTT_CONFIG_MQTT_KEEPALIVE: 60
+      ZIGBEE2MQTT_CONFIG_MQTT_REJECT_UNAUTHORIZED: "true"
+      ZIGBEE2MQTT_CONFIG_MQTT_SERVER: mqtt://mosquitto.home.svc.cluster.local
+      ZIGBEE2MQTT_CONFIG_MQTT_VERSION: 5
+      ZIGBEE2MQTT_CONFIG_MQTT_USER:
+        valueFrom:
+          secretKeyRef:
+            name: mosquitto-secret
+            key: username
+      ZIGBEE2MQTT_CONFIG_MQTT_PASSWORD:
+        valueFrom:
+          secretKeyRef:
+            name: mosquitto-secret
+            key: password
+      ZIGBEE2MQTT_CONFIG_PERMIT_JOIN: "false"
+      ZIGBEE2MQTT_CONFIG_SERIAL_BAUDRATE: 115200
+      ZIGBEE2MQTT_CONFIG_SERIAL_DISABLE_LED: "false"
+      ZIGBEE2MQTT_CONFIG_SERIAL_PORT: &device /dev/serial/by-id/usb-dresden_elektronik_ingenieurtechnik_GmbH_ConBee_II_DE2218307-if00
+      ZIGBEE2MQTT_CONFIG_SERIAL_ADAPTER: deconz
+    envFrom:
+      - secretRef:
+          name: zigbee2mqtt-secret
+    service:
+      main:
+        ports:
+          http:
+            port: *port
+    ingress:
+      main:
+        enabled: true
+        annotations:
+          kubernetes.io/tls-acme: "true"
+          kubernetes.io/ingress.class: contour
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+          ingress.kubernetes.io/force-ssl-redirect: "true"
+          projectcontour.io/websocket-routes: "/"
+          hajimari.io/icon: mdi:zigbee
+        hosts:
+          - host: &host zigbee.${SECRET_PUBLIC_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - secretName: zigbee-tls
+            hosts:
+              - *host
+    podSecurityContext:
+      privileged: true
+    persistence:
+      config:
+        enabled: true
+        existingClaim: zigbee2mqtt-config
+        mountPath: /config
+      usb:
+        enabled: true
+        type: hostPath
+        hostPath: *device
+        hostPathType: CharDevice
+    resources:
+      requests:
+        cpu: 10m
+        memory: 100Mi
+      limits:
+        memory: 500Mi
+    nodeSelector:
+      zigbee.feature.node.kubernetes.io/conbee: "true"

@@ -40,7 +40,7 @@ spec:
       repository: ghcr.io/onedr0p/home-assistant
       tag: 2023.4.0@sha256:5808b56e006fe5f9fbd375c1b23e290a5684db27b5cd77960a1aa08c70148cba
     env:
-      TZ: America/New_York
+      TZ: "${TIMEZONE}"
       POSTGRES_HOST: postgres-rw.databases.svc.cluster.local
       POSTGRES_DB: home_assistant
     envFrom:
@@ -94,5 +94,3 @@ spec:
         memory: 100Mi
       limits:
         memory: 750Mi
-    nodeSelector:
-      zigbee.feature.node.kubernetes.io/conbee: "true"
