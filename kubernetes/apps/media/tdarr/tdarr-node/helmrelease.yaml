@@ -27,8 +27,7 @@ spec:
     keepHistory: false
   values:
     controller:
-      replicas: 6
-      type: statefulset
+      type: daemonset
     image:
       repository: haveagitgat/tdarr_node_acc
       tag: 2.00.20
@@ -46,12 +45,6 @@ spec:
           enabled: false
           http:
             port: 8265
-    volumeClaimTemplates:
-      - name: config
-        mountPath: /app/configs
-        accessMode: ReadWriteOnce
-        size: 1Gi
-        storageClass: ${CLUSTER_STORAGE_CLASS}
     persistence:
       media:
         enabled: true
