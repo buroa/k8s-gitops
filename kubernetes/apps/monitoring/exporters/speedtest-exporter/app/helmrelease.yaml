@@ -34,7 +34,7 @@ spec:
       enabled: true
       serviceMonitor:
         interval: 60m
-        scrapeTimeout: 1m
+        scrapeTimeout: 4m
       prometheusRule:
         enabled: true
         downloadLimit: 250
