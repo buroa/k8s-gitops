@@ -83,7 +83,7 @@ spec:
           memory: 4096Mi
       persistence:
         enabled: true
-        storageClass: "ceph-block"
+        storageClass: "${CLUSTER_STORAGE_CLASS}"
         size: 15Gi
     storegateway:
       enabled: true
@@ -95,7 +95,7 @@ spec:
           memory: 4096Mi
       persistence:
         enabled: true
-        storageClass: "ceph-block"
+        storageClass: "${CLUSTER_STORAGE_CLASS}"
         size: 512Mi
     ruler:
       enabled: true
@@ -112,7 +112,7 @@ spec:
         enabled: true
       persistence:
         enabled: true
-        storageClass: "ceph-block"
+        storageClass: "${CLUSTER_STORAGE_CLASS}"
         size: 512Mi
       resources:
         requests:
