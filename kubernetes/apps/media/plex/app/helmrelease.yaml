@@ -77,3 +77,5 @@ spec:
       limits:
         memory: 4096Mi
         gpu.intel.com/i915: 1
+    nodeSelector:
+      topology.kubernetes.io/zone: w
