@@ -78,5 +78,5 @@ spec:
         gpu.intel.com/i915: 1
       limits:
         gpu.intel.com/i915: 1
-    # nodeSelector:
-    #   topology.kubernetes.io/zone: m
+    nodeSelector:
+      topology.kubernetes.io/zone: m
