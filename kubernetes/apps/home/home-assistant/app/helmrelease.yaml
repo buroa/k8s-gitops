@@ -41,8 +41,7 @@ spec:
       tag: 2023.4.0@sha256:4c11671e62fc409ecb2988a18b6db8740fdb646540973a8bca02db6325027139
     env:
       TZ: "${TIMEZONE}"
-      POSTGRES_HOST: postgres-rw.databases.svc.cluster.local
-      POSTGRES_DB: home_assistant
+      HASS_TRUSTED_PROXIES: "${CLUSTER_POD_IP_RANGE}"
     envFrom:
       - secretRef:
           name: home-assistant-secret
@@ -94,3 +93,4 @@ spec:
         memory: 100Mi
       limits:
         memory: 750Mi
+    hostNetwork: true
