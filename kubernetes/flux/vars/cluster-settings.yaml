@@ -23,6 +23,7 @@ data:
   CILIUM_BGP_CIDR: "7.0.0.0/8"
   ENVOY_LB_IP: "7.0.0.2"
   VECTOR_LB_IP: "7.0.0.3"
+  HASS_LB_IP: "7.0.0.4"
   BLOCKY_LB_IP: "7.0.0.53"
   POSTGRES_LB_IP: "7.0.0.254"
 
