@@ -51,6 +51,15 @@
   ],
   packageRules: [
     {
+      description: "Loose versioning for non-semver packages",
+      matchDatasources: ["docker"],
+      versioning: "loose",
+      matchPackagePatterns: [
+        "^haveagitgat\\/tdarr_acc",
+        "^haveagitgat\\/tdarr_node_acc",
+      ],
+    },
+    {
       description: "Use custom versioning for sabnzbd",
       matchDatasources: ["docker"],
       versioning: "regex:^(?<compatibility>.*?)-(?<commit>.{8})-(?<update>ls\\d+)$",
