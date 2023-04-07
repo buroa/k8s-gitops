@@ -2,25 +2,25 @@
 server:
   host: 0.0.0.0
   port: 7441
-  apiToken: ${SECRET_OMEGABRR_APIKEY}
+  apiToken: "{{ .OMEGABRR_APIKEY }}"
 schedule: "0 */8 * * *"
 clients:
   autobrr:
     host: http://autobrr.media.svc.cluster.local:7474
-    apikey: ${SECRET_AUTOBRR_APIKEY}
+    apikey: "{{ .AUTOBRR_APIKEY }}"
 
   arr:
     - name: radarr
       type: radarr
       host: http://radarr.media.svc.cluster.local:7878
-      apikey: ${SECRET_RADARR_APIKEY}
+      apikey: "{{ .RADARR_APIKEY }}"
       filters:
         - 1
 
     - name: sonarr
       type: sonarr
       host: http://sonarr.media.svc.cluster.local:8989
-      apikey: ${SECRET_SONARR_APIKEY}
+      apikey: "{{ .SONARR_APIKEY }}"
       filters:
         - 2
       excludeAlternateTitles: true
