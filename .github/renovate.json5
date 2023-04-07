@@ -51,9 +51,9 @@
   ],
   packageRules: [
     {
-      description: "Loose versioning for non-semver packages",
+      description: "Use custom versioning for tdarr",
       matchDatasources: ["docker"],
-      versioning: "loose",
+      versioning: "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)\\.(?<build>\\d+)$",
       matchPackagePatterns: [
         "^haveagitgat\\/tdarr_acc",
         "^haveagitgat\\/tdarr_node_acc",
