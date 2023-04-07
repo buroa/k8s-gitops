@@ -15,7 +15,7 @@ spec:
           restartPolicy: OnFailure
           containers:
             - name: sonarr
-              image: ghcr.io/recyclarr/recyclarr:4.3.0
+              image: ghcr.io/recyclarr/recyclarr:4.4.0
               imagePullPolicy: IfNotPresent
               env:
                 - name: TZ
@@ -30,7 +30,7 @@ spec:
                   mountPath: /config/recyclarr.yml
                   subPath: recyclarr.yml
             - name: radarr
-              image: ghcr.io/recyclarr/recyclarr:4.3.0
+              image: ghcr.io/recyclarr/recyclarr:4.4.0
               imagePullPolicy: IfNotPresent
               env:
                 - name: TZ
