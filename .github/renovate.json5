@@ -57,6 +57,15 @@
       matchPackagePatterns: ["^ghcr.io\\/linuxserver\\/sabnzbd"],
     },
     {
+      description: "Use custom versioning for tdarr",
+      matchDatasources: ["docker"],
+      versioning: "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<build>\\d+)\\.(?<patch>\\d+)$",
+      matchPackagePatterns: [
+        "^haveagitgat\\/tdarr_acc",
+        "^haveagitgat\\/tdarr_node_acc",
+      ],
+    },
+    {
       description: "Use custom versioning for linuxserver",
       matchDatasources: ["docker"],
       versioning: "regex:^(?<compatibility>.*?)-?(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)\\.?(?<build>\\d+)?-?(?<commit>.{9})?-?(?<update>ls\\d+)?$",
