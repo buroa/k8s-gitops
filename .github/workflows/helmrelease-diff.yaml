@@ -7,7 +7,7 @@ on:
     paths: ["kubernetes/**/helmrelease.yaml"]
 
 env:
-  BOT_USERNAME: k8s-renovate
+  BOT_USERNAME: k8s-renovate[bot]
   KUBERNETES_DIR: kubernetes/
 
 jobs:
