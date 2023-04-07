@@ -4,9 +4,10 @@ kind: Kustomization
 namespace: media
 resources:
   - pvc.yaml
+  - externalsecret.yaml
   - helmrelease.yaml
 configMapGenerator:
-  - name: autoscan-config
+  - name: autoscan-config-tpl
     files:
       - configs/config.yml
 generatorOptions:

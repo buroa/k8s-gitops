@@ -26,6 +26,9 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    controller:
+      annotations:
+        secret.reloader.stakater.com/reload: &secret prowlarr-exporter-secret
     image:
       repository: ghcr.io/onedr0p/exportarr
       tag: master@sha256:885065e1ccae4531768adf10d8ef46f18f9836205f4c537166cbef3aee220c83
@@ -35,7 +38,9 @@ spec:
     env:
       PORT: "9707"
       URL: "http://prowlarr.media.svc.cluster.local:9696"
-      APIKEY: "${SECRET_PROWLARR_APIKEY}"
+    envFrom:
+      - secretRef:
+          name: *secret
     service:
       main:
         ports:

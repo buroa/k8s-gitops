@@ -4,12 +4,15 @@ kind: Kustomization
 namespace: media
 resources:
   - pvc.yaml
-  - cronjob.yaml
+  - externalsecret.yaml
+  - helmrelease.yaml
   - volsync.yaml
 configMapGenerator:
-  - name: pmm-config
+  - name: pmm-config-tpl
     files:
       - configs/config.yml
+  - name: pmm-prerolls
+    files:
       - configs/Pre-rolls.yml
   - name: pmm-scripts
     files:

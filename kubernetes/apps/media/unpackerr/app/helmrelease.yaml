@@ -27,15 +27,19 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    controller:
+      annotations:
+        secret.reloader.stakater.com/reload: &secret unpackerr-secret
     image:
       repository: hotio/unpackerr
       tag: release-0.11.1
     env:
       UN_INTERVAL: "1m"
       UN_SONARR_0_URL: "http://sonarr.media.svc.cluster.local:8989"
-      UN_SONARR_0_API_KEY: "${SECRET_SONARR_APIKEY}"
       UN_RADARR_0_URL: "http://radarr.media.svc.cluster.local:7878"
-      UN_RADARR_0_API_KEY: "${SECRET_RADARR_APIKEY}"
+    envFrom:
+      - secretRef:
+          name: *secret
     persistence:
       config:
         enabled: true

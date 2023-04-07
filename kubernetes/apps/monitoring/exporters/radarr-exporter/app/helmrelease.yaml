@@ -26,6 +26,9 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    controller:
+      annotations:
+        secret.reloader.stakater.com/reload: &secret radarr-exporter-secret
     image:
       repository: ghcr.io/onedr0p/exportarr
       tag: v1.2.6
@@ -35,7 +38,9 @@ spec:
     env:
       PORT: "9707"
       URL: "http://radarr.media.svc.cluster.local:7878"
-      APIKEY: "${SECRET_RADARR_APIKEY}"
+    envFrom:
+      - secretRef:
+          name: *secret
     service:
       main:
         ports:

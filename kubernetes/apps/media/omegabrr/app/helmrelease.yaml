@@ -28,7 +28,7 @@ spec:
   values:
     controller:
       annotations:
-        secret.reloader.stakater.com/auto: &secret omegabrr-secret
+        secret.reloader.stakater.com/reload: &secret omegabrr-secret
     image:
       repository: ghcr.io/autobrr/omegabrr
       tag: v1.6.1

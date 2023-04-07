@@ -26,13 +26,18 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    controller:
+      annotations:
+        secret.reloader.stakater.com/reload: &secret plex-auto-languages-secret
     image:
       repository: remirigal/plex-auto-languages
       tag: v1.2.0
     env:
       TZ: "${TIMEZONE}"
       PLEX_URL: "http://plex.media.svc.cluster.local:32400"
-      PLEX_TOKEN: "${SECRET_PLEX_APIKEY}"
+    envFrom:
+      - secretRef:
+          name: *secret
     service:
       main:
         enabled: false
