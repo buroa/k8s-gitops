@@ -8,6 +8,7 @@ spec:
   dependsOn:
     - name: cluster-apps-sonarr
     - name: cluster-apps-radarr
+    - name: cluster-apps-external-secrets-stores
   path: ./kubernetes/apps/media/unpackerr/app
   prune: true
   sourceRef:

@@ -26,6 +26,9 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    controller:
+      annotations:
+        secret.reloader.stakater.com/reload: &secret overseerr-exporter-secret
     image:
       repository: ghcr.io/willfantom/overseerr-exporter
       tag: 1.2.1
@@ -33,7 +36,10 @@ spec:
       - --overseerr.address
       - "http://overseerr.media.svc.cluster.local:5055"
       - --overseerr.api-key
-      - "${SECRET_OVERSEERR_APIKEY}"
+      - "$(OVERSEERR_APIKEY)"
+    envFrom:
+      - secretRef:
+          name: *secret
     service:
       main:
         ports:

@@ -30,8 +30,8 @@ spec:
       replicas: 3
       strategy: RollingUpdate
       annotations:
-        configmap.reloader.stakater.com/reload: cloudflared-config
-        secret.reloader.stakater.com/reload: cloudflared-tunnel-credentials
+        configmap.reloader.stakater.com/reload: &configmap cloudflared-config
+        secret.reloader.stakater.com/reload: &secret cloudflared-tunnel-credentials
     image:
       repository: cloudflare/cloudflared
       tag: 2023.3.1
@@ -73,14 +73,14 @@ spec:
       config:
         enabled: true
         type: configMap
-        name: cloudflared-config
+        name: *configmap
         subPath: config.yaml
         mountPath: /etc/cloudflared/config/config.yaml
         readOnly: true
       creds:
         enabled: true
         type: secret
-        name: cloudflared-tunnel-credentials
+        name: *secret
         mountPath: /etc/cloudflared/creds
         readOnly: true
     topologySpreadConstraints:

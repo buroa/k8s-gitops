@@ -26,12 +26,17 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    controller:
+      annotations:
+        secret.reloader.stakater.com/reload: &secret tautulli-exporter-secret
     image:
       repository: nwalke/tautulli_exporter
       tag: v0.1.0
     env:
       TAUTULLI_URI: "http://tautulli.media.svc.cluster.local:8181"
-      TAUTULLI_API_KEY: "${SECRET_TAUTULLI_APIKEY}"
+    envFrom:
+      - secretRef:
+          name: *secret
     service:
       main:
         ports:

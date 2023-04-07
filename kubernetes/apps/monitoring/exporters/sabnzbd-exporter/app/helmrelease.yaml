@@ -26,12 +26,17 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    controller:
+      annotations:
+        secret.reloader.stakater.com/reload: &secret sabnzbd-exporter-secret
     image:
       repository: msroest/sabnzbd_exporter
       tag: 0.1.60
     env:
       SABNZBD_BASEURLS: "http://sabnzbd.media.svc.cluster.local:8080/sabnzbd"
-      SABNZBD_APIKEYS: "${SECRET_SABNZBD_APIKEY}"
+    envFrom:
+      - secretRef:
+          name: *secret
     service:
       main:
         ports:
