@@ -38,6 +38,10 @@ spec:
       serverIP: tdarr.media.svc.cluster.local
       serverPort: 8266
       ffmpegPath: "/usr/local/bin/ffmpeg"
+      nodeName:
+        valueFrom:
+          fieldRef:
+            fieldPath: spec.nodeName
     service:
       main:
         enabled: false
