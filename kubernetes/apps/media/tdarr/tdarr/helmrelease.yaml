@@ -28,7 +28,7 @@ spec:
   values:
     image:
       repository: haveagitgat/tdarr_acc
-      tag: 2.00.20.1
+      tag: 2.00.16.3
     env:
       TZ: "${TIMEZONE}"
       PUID: "1000"
