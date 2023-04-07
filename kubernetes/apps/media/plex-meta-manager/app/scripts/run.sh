@@ -5,7 +5,6 @@ pmm () {
 
     python3 plex_meta_manager.py \
         --run \
-        --cache-libraries \
         --read-only-config \
         --run-libraries "$1"
 }
