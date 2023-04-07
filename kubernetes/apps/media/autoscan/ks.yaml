@@ -7,6 +7,7 @@ metadata:
 spec:
   dependsOn:
     - name: cluster-apps-plex
+    - name: cluster-apps-external-secrets-stores
   path: ./kubernetes/apps/media/autoscan/autoscan-adapter
   prune: true
   sourceRef:
@@ -32,6 +33,7 @@ spec:
     - name: cluster-apps-plex
     - name: cluster-apps-media-pvc
     - name: cluster-apps-autoscan-adapter
+    - name: cluster-apps-external-secrets-stores
   path: ./kubernetes/apps/media/autoscan/autoscan
   prune: true
   sourceRef:

@@ -33,8 +33,8 @@ spec:
       tag: v1.8.1
     controller:
       annotations:
-        configmap.reloader.stakater.com/reload: "pod-gateway"
-        secret.reloader.stakater.com/reload: "pod-gateway-config"
+        configmap.reloader.stakater.com/reload: pod-gateway
+        secret.reloader.stakater.com/reload: &secret pod-gateway-config
     DNS: ${VPN_GW_SUBNET}.1
     DNSPolicy: None
     clusterName: "cluster.local"
@@ -62,7 +62,7 @@ spec:
       vpn:
         enabled: true
         type: wireguard
-        configFileSecret: pod-gateway-config
+        configFileSecret: *secret
         networkPolicy:
           enabled: false
         securityContext:

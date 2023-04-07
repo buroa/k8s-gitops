@@ -84,33 +84,33 @@ settings:
 
 plex:
   url: http://plex.media.svc.cluster.local:32400
-  token: ${SECRET_PLEX_APIKEY}
+  token: {{ .PLEX_APIKEY }}
   timeout: 60
   clean_bundles: false
   empty_trash: false
   optimize: false
 
+tautulli:
+  url: http://tautulli.media.svc.cluster.local:8181
+  apikey: {{ .TAUTULLI_APIKEY }}
+
 tmdb:
-  apikey: ${SECRET_TMDB_APIKEY}
+  apikey: {{ .TMDB_APIKEY }}
   language: en
   cache_expiration: 60
   region:
 
-tautulli:
-  url: http://tautulli.media.svc.cluster.local:8181
-  apikey: ${SECRET_TAUTULLI_APIKEY}
-
 omdb:
-  apikey: ${SECRET_OMDB_APIKEY}
+  apikey: {{ .OMDB_APIKEY }}
   cache_expiration: 60
 
 mdblist:
-  apikey: ${SECRET_MDBLIST_APIKEY}
+  apikey: {{ .MDBLIST_APIKEY }}
   cache_expiration: 60
 
 radarr:
   url: http://radarr.media.svc.cluster.local:7878
-  token: ${SECRET_RADARR_APIKEY}
+  token: {{ .RADARR_APIKEY }}
   add_missing: false
   add_existing: false
   root_folder_path: /media/movies
@@ -125,7 +125,7 @@ radarr:
 
 sonarr:
   url: http://sonarr.media.svc.cluster.local:8989
-  token: ${SECRET_SONARR_APIKEY}
+  token: {{ .SONARR_APIKEY }}
   add_missing: false
   add_existing: false
   root_folder_path: /media/shows
@@ -142,13 +142,13 @@ sonarr:
   upgrade_existing: false
 
 trakt:
-  client_id: ${SECRET_TRAKT_CLIENT_ID}
-  client_secret: ${SECRET_TRAKT_CLIENT_SECRET}
+  client_id: {{ .TRAKT_CLIENT_ID }}
+  client_secret: {{ .TRAKT_CLIENT_SECRET }}
   authorization:
-    access_token: ${SECRET_TRAKT_ACCESS_TOKEN}
+    access_token: {{ .TRAKT_ACCESS_TOKEN }}
     token_type: Bearer
-    expires_in: ${SECRET_TRAKT_EXPIRES_IN}
-    refresh_token: ${SECRET_TRAKT_REFRESH_TOKEN}
+    expires_in: {{ .TRAKT_EXPIRES_IN }}
+    refresh_token: {{ .TRAKT_REFRESH_TOKEN }}
     scope: public
-    created_at: ${SECRET_TRAKT_CREATED_AT}
+    created_at: {{ .TRAKT_CREATED_AT }}
   pin:

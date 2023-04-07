@@ -30,7 +30,7 @@ spec:
       replicas: 2
       strategy: RollingUpdate
       annotations:
-        reloader.stakater.com/auto: "true"
+        secret.reloader.stakater.com/reload: &secret glauth-secret
     image:
       # https://github.com/glauth/glauth/issues/298
       repository: ghcr.io/onedr0p/glauth
@@ -56,7 +56,7 @@ spec:
       config:
         enabled: true
         type: secret
-        name: glauth-secret
+        name: *secret
         items:
           - key: server.toml
             path: server.toml

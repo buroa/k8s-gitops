@@ -8,14 +8,15 @@ spec:
   dependsOn:
     - name: cluster-apps-sonarr
     - name: cluster-apps-radarr
+    - name: cluster-apps-external-secrets-stores
   path: ./kubernetes/apps/media/recyclarr/app
   prune: true
   sourceRef:
     kind: GitRepository
     name: k8s-gitops
   healthChecks:
-    - apiVersion: batch/v1
-      kind: CronJob
+    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
       name: recyclarr
       namespace: media
   interval: 30m
