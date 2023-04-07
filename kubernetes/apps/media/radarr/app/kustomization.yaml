@@ -5,7 +5,6 @@ namespace: media
 resources:
   - pvc.yaml
   - helmrelease.yaml
-  - cronjob.yaml
   - volsync.yaml
 labels:
   - pairs:
