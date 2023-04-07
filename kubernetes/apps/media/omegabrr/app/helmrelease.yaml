@@ -28,7 +28,7 @@ spec:
   values:
     controller:
       annotations:
-        reloader.stakater.com/auto: "true"
+        secret.reloader.stakater.com/auto: &secret omegabrr-secret
     image:
       repository: ghcr.io/autobrr/omegabrr
       tag: v1.6.1
@@ -44,8 +44,8 @@ spec:
     persistence:
       config:
         enabled: true
-        type: configMap
-        name: omegabrr-config
+        type: secret
+        name: *secret
         subPath: config.yaml
         mountPath: /config/config.yaml
         readOnly: true
