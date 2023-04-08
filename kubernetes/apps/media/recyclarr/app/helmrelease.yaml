@@ -34,7 +34,7 @@ spec:
         schedule: 0 6 * * *
     image:
       repository: ghcr.io/recyclarr/recyclarr
-      tag: 4.4.0
+      tag: 4.4.1
     env:
       TZ: "${TIMEZONE}"
       PUID: "1000"
