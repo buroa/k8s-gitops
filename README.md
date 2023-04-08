@@ -72,7 +72,7 @@ Below is a a high level look at the layout of how my directory structure with Fl
 
 ```python
 # Key: <kind> :: <metadata.name>
-GitRepository :: home-ops-kubernetes
+GitRepository :: k8s-gitops
     Kustomization :: cluster
         Kustomization :: cluster-apps
             Kustomization :: cluster-apps-authelia
