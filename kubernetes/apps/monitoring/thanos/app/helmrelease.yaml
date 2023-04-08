@@ -46,6 +46,7 @@ spec:
           cert-manager.io/cluster-issuer: letsencrypt-prod
           ingress.kubernetes.io/force-ssl-redirect: "true"
           projectcontour.io/websocket-routes: "/"
+          projectcontour.io/response-timeout: "120s"
           hajimari.io/appName: Thanos
           hajimari.io/icon: material-symbols:health-metrics
         tls: true

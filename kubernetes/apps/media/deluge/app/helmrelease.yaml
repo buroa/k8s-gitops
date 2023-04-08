@@ -45,7 +45,6 @@ spec:
           cert-manager.io/cluster-issuer: letsencrypt-prod
           ingress.kubernetes.io/force-ssl-redirect: "true"
           projectcontour.io/websocket-routes: "/"
-          projectcontour.io/response-timeout: "60s"
           hajimari.io/icon: mdi:download
         hosts:
           - host: &host torrent.${SECRET_PUBLIC_DOMAIN}

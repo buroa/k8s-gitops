@@ -76,7 +76,6 @@ spec:
           cert-manager.io/cluster-issuer: letsencrypt-prod
           ingress.kubernetes.io/force-ssl-redirect: "true"
           projectcontour.io/websocket-routes: "/"
-          projectcontour.io/response-timeout: "120s"
           hajimari.io/enable: "false"
         hosts:
           - host: &host onepassword-connect.${SECRET_PUBLIC_DOMAIN}
