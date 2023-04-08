@@ -2,9 +2,9 @@
 
 <img src="https://camo.githubusercontent.com/5b298bf6b0596795602bd771c5bddbb963e83e0f/68747470733a2f2f692e696d6775722e636f6d2f7031527a586a512e706e67" align="center" width="144px" height="144px"/>
 
-### My home operations repository :octocat:
+### My homelab kubernetes cluster ☸
 
-_... managed by Flux, Renovate and GitHub Actions_ 🤖
+_... managed with Flux, Renovate and GitHub Actions_ 🤖
 
 </div>
 
@@ -32,18 +32,20 @@ This is a mono repository for my home infrastructure and Kubernetes cluster. It 
 
 ### Installation
 
-My cluster is [k8s](https://k8s.io/) provisioned overtop bare-metal [Talos](https://talos.dev). This is a semi hyper-converged cluster, workloads and block storage are sharing the same available resources on my nodes while I have a separate server for (NFS) file storage.
+The cluster is running on [Talos Linux](https://talos.dev), an immutable and ephemeral Linux distribution built around [Kubernetes](https://k8s.io), deployed on bare-metal [Apple Mac Mini's](https://apple.com/mac-mini). [Rook Ceph](https://rook.io) is providing my workloads with persistent block, object, and file storage; while a seperate server provides file storage for my media.
 
 🔸 _[Click here](./talos) to see my Talos configuration._
 
 ### Core Components
 
-- [sops](https://toolkit.fluxcd.io/guides/mozilla-sops/): Managed secrets for Kubernetes.
-- [rook](https://github.com/rook/rook): Distributed block storage for peristent storage.
+- [actions-runner-controller](https://github.com/actions/actions-runner-controller): Self-hosted Github runners.
+- [cert-manager](https://cert-manager.io/docs/): Creates SSL certificates for services in my Kubernetes cluster.
 - [cilium](https://cilium.io): Internal Kubernetes networking plugin.
 - [contour](https://projectcontour.io): Ingress controller.
+- [external-secrets](https://github.com/external-secrets/external-secrets/): Managed Kubernetes secrets using [1Password Connect](https://github.com/1Password/connect).
+- [rook](https://github.com/rook/rook): Distributed block storage for peristent storage.
+- [sops](https://toolkit.fluxcd.io/guides/mozilla-sops/): Managed secrets for Kubernetes.
 - [volsync](https://github.com/backube/volsync): Backup and recovery of persistent volume claims.
-- [cert-manager](https://cert-manager.io/docs/): Creates SSL certificates for services in my Kubernetes cluster.
 
 ### GitOps
 
@@ -62,6 +64,30 @@ This Git repository contains the following directories under [kubernetes](./kube
 ├─📁 bootstrap     # Flux installation
 ├─📁 flux          # Main Flux configuration of repository
 └─📁 apps          # Apps deployed into my cluster grouped by namespace (see below)
+```
+
+### Cluster layout
+
+Below is a a high level look at the layout of how my directory structure with Flux works. In this brief example you are able to see that `authelia` will not be able to run until `glauth` and `cloudnative-pg` are running. It also shows that the `Cluster` custom resource depends on the `cloudnative-pg` Helm chart. This is needed because `cloudnative-pg` installs the `Cluster` custom resource definition in the Helm chart.
+
+```python
+# Key: <kind> :: <metadata.name>
+GitRepository :: home-ops-kubernetes
+    Kustomization :: cluster
+        Kustomization :: cluster-apps
+            Kustomization :: cluster-apps-authelia
+                DependsOn:
+                    Kustomization :: cluster-apps-glauth
+                    Kustomization :: cluster-apps-cloudnative-pg-cluster
+                HelmRelease :: authelia
+            Kustomization :: cluster-apps-glauth
+                HelmRelease :: glauth
+            Kustomization :: cluster-apps-cloudnative-pg
+                HelmRelease :: cloudnative-pg
+            Kustomization :: cluster-apps-cloudnative-pg-cluster
+                DependsOn:
+                    Kustomization :: cluster-apps-cloudnative-pg
+                Cluster :: postgres
 ```
 
 ## ⭐ Stargazers
