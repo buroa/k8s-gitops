@@ -47,7 +47,6 @@ spec:
           cert-manager.io/cluster-issuer: letsencrypt-prod
           ingress.kubernetes.io/force-ssl-redirect: "true"
           projectcontour.io/websocket-routes: "/"
-          projectcontour.io/response-timeout: "infinity"
           hajimari.io/icon: mdi:account-question
         hosts:
           - host: &host invite.${SECRET_PUBLIC_DOMAIN}
