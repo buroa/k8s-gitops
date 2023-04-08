@@ -1,0 +1,20 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: cluster-apps-blackbox-exporter
+  namespace: flux-system
+spec:
+  path: ./kubernetes/apps/monitoring/exporters/blackbox-exporter/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: k8s-gitops
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      name: blackbox-exporter
+      namespace: monitoring
+  interval: 30m
+  retryInterval: 1m
+  timeout: 3m
