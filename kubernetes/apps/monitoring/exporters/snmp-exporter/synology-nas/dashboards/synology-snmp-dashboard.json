@@ -3110,8 +3110,8 @@
         {
           "current": {
             "selected": false,
-            "text": "10.0.0.5",
-            "value": "10.0.0.5"
+            "text": "All",
+            "value": "$__all"
           },
           "datasource": {
             "type": "prometheus",
