@@ -9,6 +9,7 @@ resources:
   - ./cilium-charts.yaml
   - ./cloudnative-pg-charts.yaml
   - ./cloudve-charts.yaml
+  - ./coredns-charts.yaml
   - ./deliveryhero-charts.yaml
   - ./external-secrets-charts.yaml
   - ./fairwinds-charts.yaml
