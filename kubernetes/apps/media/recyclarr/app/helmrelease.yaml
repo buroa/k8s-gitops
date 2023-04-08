@@ -33,8 +33,8 @@ spec:
       cronjob:
         schedule: 0 6 * * *
     image:
-      repository: ghcr.io/recyclarr/recyclarr:4.4.0
-      tag: v1.18.3
+      repository: ghcr.io/recyclarr/recyclarr
+      tag: 4.4.0
     env:
       TZ: "${TIMEZONE}"
       PUID: "1000"
