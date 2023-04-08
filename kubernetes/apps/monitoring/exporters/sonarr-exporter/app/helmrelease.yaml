@@ -31,7 +31,7 @@ spec:
         secret.reloader.stakater.com/reload: &secret sonarr-exporter-secret
     image:
       repository: ghcr.io/onedr0p/exportarr
-      tag: v1.2.6
+      tag: v1.3.0
     args:
       - sonarr
       - "--enable-additional-metrics"
