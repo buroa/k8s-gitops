@@ -186,6 +186,7 @@ spec:
           cert-manager.io/cluster-issuer: letsencrypt-prod
           ingress.kubernetes.io/force-ssl-redirect: "true"
           projectcontour.io/websocket-routes: "/"
+          projectcontour.io/response-timeout: "120s"
           hajimari.io/appName: Prometheus
           hajimari.io/icon: simple-icons:prometheus
         hosts:
