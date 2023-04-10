@@ -9,6 +9,7 @@ on:
 env:
   BOT_USERNAME: k8s-renovate[bot]
   KUBERNETES_DIR: kubernetes/
+  NODE_NO_WARNINGS: 1
 
 jobs:
   changed-files:
