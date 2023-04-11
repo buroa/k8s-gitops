@@ -28,7 +28,7 @@ spec:
   values:
     image:
       repository: ghcr.io/linuxserver/sabnzbd
-      tag: nightly-f0819c33-ls129
+      tag: 3.7.2-ls101
     ingress:
       main:
         enabled: true
