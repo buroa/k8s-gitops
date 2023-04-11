@@ -28,7 +28,7 @@ spec:
   values:
     image:
       repository: ghcr.io/linuxserver/sabnzbd
-      tag: 3.7.2-ls101
+      tag: 4.0.0-unstable
     ingress:
       main:
         enabled: true
