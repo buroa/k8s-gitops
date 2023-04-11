@@ -16,7 +16,7 @@
       automerge: true,
       automergeType: "branch",
       ignoreTests: true,
-      matchUpdateTypes: ["minor", "patch"],
+      matchUpdateTypes: ["minor", "patch", "digest"],
       matchPackageNames: [
         "ghcr.io/autobrr/autobrr",
         "cloudb0x/autoscan",

@@ -59,11 +59,5 @@
         "^haveagitgat\\/tdarr_node_acc$",
       ],
     },
-    {
-      description: "Use custom versioning for linuxserver",
-      matchDatasources: ["docker"],
-      versioning: "regex:^(?<compatibility>.*?)-?(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)\\.?(?<build>\\d+)?-?(?<commit>.{9})?-?(?<update>ls\\d+)?$",
-      matchPackagePatterns: ["^ghcr.io\\/linuxserver\\/.+$"],
-    },
   ],
 }
