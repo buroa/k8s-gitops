@@ -8,6 +8,7 @@ env:
   TALOSCONFIG: ./talos/clusterconfig/talosconfig
 
 includes:
+  es: .taskfiles/ExternalSecrets/Tasks.yml
   fx: .taskfiles/Flux/Tasks.yml
   ku: .taskfiles/Kubernetes/Tasks.yml
   ta: .taskfiles/Talos/Tasks.yml
