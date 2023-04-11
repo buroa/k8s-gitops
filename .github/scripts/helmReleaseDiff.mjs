@@ -79,7 +79,7 @@ async function helmTemplate(
 
   const manifestsFile = await $`mktemp`;
   const manifests =
-    await $`${helm} template --kube-version 1.24.8 --release-name ${releaseName} --include-crds=false ${registryName}/${chartName} --version ${chartVersion} --values ${valuesFile.stdout.trim()}`;
+    await $`${helm} template --kube-version 1.26.3 --release-name ${releaseName} --include-crds=false ${registryName}/${chartName} --version ${chartVersion} --values ${valuesFile.stdout.trim()}`;
 
   // Remove docs that are CustomResourceDefinition and keys which contain generated fields
   let documents = YAML.parseAllDocuments(manifests.stdout.trim());
@@ -146,5 +146,5 @@ const incomingManifests = await helmTemplate(
 
 // Print diff using dyff
 const diff =
-  await $`${dyff} --color=off --truecolor=off between --omit-header --ignore-order-changes --detect-kubernetes=true --output=human ${currentManifests} ${incomingManifests}`;
+  await $`${dyff} --color=on between --omit-header --ignore-order-changes --detect-kubernetes=true --output=human ${currentManifests} ${incomingManifests}`;
 echo(diff.stdout.trim());
