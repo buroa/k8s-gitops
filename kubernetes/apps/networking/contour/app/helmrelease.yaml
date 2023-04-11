@@ -9,7 +9,6 @@ spec:
   timeout: 1h
   chart:
     spec:
-      # renovate: registryUrl=https://charts.bitnami.com/bitnami
       chart: contour
       version: 11.1.3
       sourceRef:
