@@ -94,12 +94,12 @@ spec:
         clientGroupsBlock:
           default:
             - suspicious
-            - adds
+            - ads
             - trackers
             - misc
 
       clientLookup:
-        upstream: ${CLUSTER_DNS_IP}
+        upstream: ${GATEWAY_IP}
 
       caching:
         minTime: 5m
