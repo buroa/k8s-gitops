@@ -5,6 +5,12 @@ namespace: monitoring
 resources:
   - ./helmrelease.yaml
   - ./objectbucketclaim.yaml
+configMapGenerator:
+  - name: loki-alerting-rules
+    files:
+      - ./rules/loki-alerting-rules.yaml
+generatorOptions:
+  disableNameSuffixHash: true
 labels:
   - pairs:
       app.kubernetes.io/name: loki
