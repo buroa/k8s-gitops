@@ -35,3 +35,12 @@ spec:
     args:
       - -shared-dev-num
       - "3"
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: intel.feature.node.kubernetes.io/gpu
+                  operator: In
+                  values:
+                    - "true"

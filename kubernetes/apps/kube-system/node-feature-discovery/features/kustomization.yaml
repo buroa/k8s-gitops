@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - ./conbee-device.yaml
   - ./coral-device.yaml
+  - ./gpu-device.yaml

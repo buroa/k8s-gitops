@@ -78,3 +78,4 @@ spec:
         gpu.intel.com/i915: 1
     nodeSelector:
       topology.kubernetes.io/zone: w
+      intel.feature.node.kubernetes.io/gpu: "true"
