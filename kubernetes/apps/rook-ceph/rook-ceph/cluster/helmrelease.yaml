@@ -170,7 +170,7 @@ spec:
                 memory: 1Gi
               limits:
                 memory: 2Gi
-            instances: 1
+            instances: 2
           healthCheck:
             bucket:
               interval: 60s
