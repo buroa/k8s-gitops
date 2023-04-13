@@ -1,0 +1,67 @@
+---
+groups:
+  #
+  # zigbee2mqtt
+  #
+  - name: zigbee2mqtt
+    rules:
+      - alert: ZigbeeUnableToReachMQTT
+        expr: |
+          sum(count_over_time({app="zigbee2mqtt"} |~ "(?i)not connected to mqtt server"[2m])) > 0
+        for: 2m
+        labels:
+          severity: critical
+          category: logs
+        annotations:
+          summary: "Zigbee2mqtt is unable to reach MQTT"
+  #
+  # *arr
+  #
+  - name: arr
+    rules:
+      - alert: ArrDatabaseIsLocked
+        expr: |
+          sum by (app) (count_over_time({app=~".*arr"} |~ "(?i)database is locked"[2m])) > 0
+        for: 2m
+        labels:
+          severity: critical
+          category: logs
+        annotations:
+          summary: "{{ $labels.app }} is experiencing locked database issues"
+      - alert: ArrDatabaseIsMalformed
+        expr: |
+          sum by (app) (count_over_time({app=~".*arr"} |~ "(?i)database disk image is malformed"[2m])) > 0
+        for: 2m
+        labels:
+          severity: critical
+          category: logs
+        annotations:
+          summary: "{{ $labels.app }} is experiencing malformed database disk image issues"
+  #
+  # home-assistant
+  #
+  - name: home-assistant
+    rules:
+      - alert: HomeAssistantUnableToReachPostgresql
+        expr: |
+          sum by (app) (count_over_time({app="home-assistant"} |~ "(?i)error in database connectivity"[2m])) > 0
+        for: 2m
+        labels:
+          severity: critical
+          category: logs
+        annotations:
+          summary: "Home Assistant is unable to connect to postgresql"
+  #
+  # node-red
+  #
+  - name: node-red
+    rules:
+      - alert: NodeRedUnableToReachHomeAssistant
+        expr: |
+          sum by (app) (count_over_time({app="node-red"} |~ "(?i)home assistant.*connecting to undefined"[2m])) > 0
+        for: 2m
+        labels:
+          severity: critical
+          category: logs
+        annotations:
+          summary: "Node-Red is unable to connect to Home Assistant"
