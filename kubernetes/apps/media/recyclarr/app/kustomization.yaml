@@ -3,12 +3,12 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: media
 resources:
-  - externalsecret.yaml
-  - helmrelease.yaml
+  - ./externalsecret.yaml
+  - ./helmrelease.yaml
 configMapGenerator:
   - name: recyclarr-config-tpl
     files:
-      - configs/recyclarr.yml
+      - ./configs/recyclarr.yml
 generatorOptions:
   disableNameSuffixHash: true
 labels:
