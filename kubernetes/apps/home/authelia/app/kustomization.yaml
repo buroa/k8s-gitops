@@ -3,14 +3,14 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: home
 resources:
-  - externalsecret.yaml
-  - helmrelease.yaml
+  - ./externalsecret.yaml
+  - ./helmrelease.yaml
 patchesStrategicMerge:
-  - patches/env.yaml
+  - ./patches/env.yaml
 configMapGenerator:
   - name: authelia-configmap
     files:
-      - config/configuration.yml
+      - ./config/configuration.yml
 generatorOptions:
   disableNameSuffixHash: true
   annotations:

@@ -3,11 +3,11 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: monitoring
 resources:
-  - helmrelease.yaml
+  - ./helmrelease.yaml
 configMapGenerator:
   - name: snmp-exporter-cyberpower-pdu
     files:
-      - configs/snmp.yaml
+      - ./configs/snmp.yaml
 generatorOptions:
   disableNameSuffixHash: true
 labels:
