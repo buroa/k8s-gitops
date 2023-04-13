@@ -3,11 +3,11 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: monitoring
 resources:
-  - helmrelease.yaml
+  - ./helmrelease.yaml
 configMapGenerator:
   - name: deluge-grafana-dashboards
     files:
-      - dashboards/deluge.json
+      - ./dashboards/deluge.json
     options:
       labels:
         grafana_dashboard: "1"

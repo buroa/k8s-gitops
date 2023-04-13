@@ -3,9 +3,9 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: media
 resources:
-  - pvc.yaml
-  - helmrelease.yaml
-  - volsync.yaml
+  - ./pvc.yaml
+  - ./helmrelease.yaml
+  - ./volsync.yaml
 labels:
   - pairs:
       app.kubernetes.io/name: tdarr

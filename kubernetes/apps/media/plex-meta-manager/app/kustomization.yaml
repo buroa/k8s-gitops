@@ -3,20 +3,20 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: media
 resources:
-  - pvc.yaml
-  - externalsecret.yaml
-  - helmrelease.yaml
-  - volsync.yaml
+  - ./pvc.yaml
+  - ./externalsecret.yaml
+  - ./helmrelease.yaml
+  - ./volsync.yaml
 configMapGenerator:
   - name: pmm-config-tpl
     files:
-      - configs/config.yml
+      - ./configs/config.yml
   - name: pmm-prerolls
     files:
-      - configs/Pre-rolls.yml
+      - ./configs/Pre-rolls.yml
   - name: pmm-scripts
     files:
-      - scripts/run.sh
+      - ./scripts/run.sh
 generatorOptions:
   disableNameSuffixHash: true
 labels:
