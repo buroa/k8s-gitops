@@ -8,11 +8,11 @@ spec:
   interval: 15m
   chart:
     spec:
-      chart: plex
-      version: 6.4.3
+      chart: app-template
+      version: 1.4.0
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: bjw-s-charts
         namespace: flux-system
   maxHistory: 3
   install:
@@ -27,12 +27,15 @@ spec:
     keepHistory: false
   values:
     image:
-      repository: ghcr.io/linuxserver/plex
-      tag: latest@sha256:e4dd26c6e3a5a28f1001623c73b756754d2a471ad390f40151930fbca7d7fdb0
+      repository: ghcr.io/onedr0p/plex
+      tag: 1.32.0.6918-6f393eda1@sha256:1a7ca3a38bbe42d846f0e3cd812fba4db6c1eafc63478bb809643d04a3501dc0
     env:
       TZ: "${TIMEZONE}"
-      PUID: "1000"
-      PGID: "1000"
+    service:
+      main:
+        ports:
+          http:
+            port: 32400
     ingress:
       main:
         enabled: true
@@ -53,6 +56,12 @@ spec:
           - secretName: plex-tls
             hosts:
               - *host
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      fsGroupChangePolicy: OnRootMismatch
+      supplementalGroups: [44, 109, 10000]
     persistence:
       config:
         enabled: true
@@ -68,14 +77,14 @@ spec:
         existingClaim: media
         mountPath: /media
         readOnly: true
-    resources:
-      requests:
-        cpu: 763m
-        memory: 1024Mi
-        gpu.intel.com/i915: 1
-      limits:
-        memory: 4096Mi
-        gpu.intel.com/i915: 1
     nodeSelector:
       topology.kubernetes.io/zone: w
       intel.feature.node.kubernetes.io/gpu: "true"
+    resources:
+      requests:
+        gpu.intel.com/i915: 1
+        cpu: 100m
+        memory: 2000Mi
+      limits:
+        gpu.intel.com/i915: 1
+        memory: 10000Mi
