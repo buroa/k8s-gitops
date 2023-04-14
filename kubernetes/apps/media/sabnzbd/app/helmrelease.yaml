@@ -28,7 +28,7 @@ spec:
   values:
     image:
       repository: ghcr.io/linuxserver/sabnzbd
-      tag: nightly@sha256:f0acdd9b5855babf5febc37a009eb3d778d103639e5a20a7ed173a56e2cbe8a0
+      tag: nightly@sha256:b9ec9f3c538879b5935f4c0331c4fe3f0667ab9a9355e78d9fd555fe5a88645b
     ingress:
       main:
         enabled: true
