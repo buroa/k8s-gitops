@@ -8,11 +8,11 @@ spec:
   interval: 15m
   chart:
     spec:
-      chart: bazarr
-      version: 10.6.2
+      chart: app-template
+      version: 1.4.0
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: bjw-s-charts
         namespace: flux-system
   maxHistory: 3
   install:
@@ -26,13 +26,19 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    controller:
+      annotations:
+        reloader.stakater.com/auto: "true"
     image:
-      repository: ghcr.io/linuxserver/bazarr
-      tag: development@sha256:4d3e1882d2d8e1e6f4408aced357a231364af3e492822a8c7e6f7609bcb1a433
+      repository: ghcr.io/onedr0p/bazarr
+      tag: 1.2.0@sha256:b28859eb34c3d4710004cbdbd0117cc39e257786f4273a0b68f85ad56c0e6a7f
     env:
       TZ: "${TIMEZONE}"
-      PUID: "1000"
-      PGID: "1000"
+    service:
+      main:
+        ports:
+          http:
+            port: 6767
     ingress:
       main:
         enabled: true
@@ -53,6 +59,12 @@ spec:
           - secretName: bazarr-tls
             hosts:
               - *host
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      fsGroupChangePolicy: OnRootMismatch
+      supplementalGroups: [10000]
     persistence:
       config:
         enabled: true
@@ -61,17 +73,31 @@ spec:
         enabled: true
         existingClaim: media
         mountPath: /media
-      bazarr-scripts:
+      scripts:
         enabled: true
-        type: custom
-        mountPath: /scripts
-        volumeSpec:
-          configMap:
-            name: bazarr-scripts
-            defaultMode: 511
+        type: configMap
+        name: bazarr-scripts
+        defaultMode: 0775
+        readOnly: true
+      add-ons:
+        enabled: true
+        type: emptyDir
+        mountPath: /add-ons
     resources:
       requests:
+        cpu: 10m
         memory: 250Mi
-        cpu: 500m
       limits:
-        memory: 4096Mi
+        memory: 2000Mi
+    sidecars:
+      subcleaner:
+        image: registry.k8s.io/git-sync/git-sync:v3.6.5
+        imagePullPolicy: IfNotPresent
+        args:
+          - --repo=https://github.com/KBlixt/subcleaner.git
+          - --branch=master
+          - --depth=1
+          - --wait=21600 # 6 hours
+          - --root=/add-ons/subcleaner
+        volumeMounts:
+          - { name: add-ons, mountPath: /add-ons }
