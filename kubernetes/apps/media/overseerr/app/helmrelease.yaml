@@ -28,7 +28,7 @@ spec:
   values:
     image:
       repository: ghcr.io/linuxserver/overseerr
-      tag: latest@sha256:7a04b566a25d7a4904f97a03f14011234f70e5f67ad48025b040fcc831e13974
+      tag: 1.32.5
     env:
       TZ: "${TIMEZONE}"
       PUID: "1000"

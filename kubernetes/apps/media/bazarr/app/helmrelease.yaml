@@ -28,7 +28,7 @@ spec:
   values:
     image:
       repository: ghcr.io/linuxserver/bazarr
-      tag: development@sha256:4d3e1882d2d8e1e6f4408aced357a231364af3e492822a8c7e6f7609bcb1a433
+      tag: 1.2.0
     env:
       TZ: "${TIMEZONE}"
       PUID: "1000"
