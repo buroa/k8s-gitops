@@ -28,7 +28,7 @@ spec:
   values:
     image:
       repository: ghcr.io/linuxserver/sonarr
-      tag: develop@sha256:014c4bdaa173c489809e9467916642dff1092e2e91b904a778202f3059d4b368
+      tag: develop@sha256:6a310380458d65ddfbe3e845a3b139f509aa965a0ccee6dc43f08344fda7ac72
     env:
       TZ: "${TIMEZONE}"
       PUID: "1000"
