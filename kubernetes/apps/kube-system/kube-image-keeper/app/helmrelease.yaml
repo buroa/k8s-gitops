@@ -34,8 +34,15 @@ spec:
         repository: quay.io/enix/kube-image-keeper
     registry:
       image:
-        repository: registry
+        repository: public.ecr.aws/docker/library/registry
         tag: 2.8.1
+      env:
+        - name: REGISTRY_STORAGE_DELETE_ENABLED
+          value: "true"
+        - name: REGISTRY_STORAGE_CACHE_BLOBDESCRIPTOR
+          value: redis
+        - name: REGISTRY_REDIS_ADDR
+          value: redis.databases.svc.cluster.local:6379
       persistence:
         enabled: true
         storageClass: ceph-filesystem
