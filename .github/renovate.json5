@@ -51,6 +51,12 @@
   ],
   packageRules: [
     {
+      description: "Loose versioning for non-semver packages",
+      matchDatasources: ["docker"],
+      versioning: "loose",
+      matchPackagePatterns: ["plex"],
+    },
+    {
       description: "Use custom versioning for tdarr",
       matchDatasources: ["docker"],
       versioning: "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)\\.(?<build>\\d+)$",
