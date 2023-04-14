@@ -28,7 +28,7 @@ spec:
   values:
     image:
       repository: ghcr.io/linuxserver/tautulli
-      tag: develop@sha256:e44947cae343df88c671281de7599be4e3eca102909553b48af104e1a07f9c29
+      tag: develop@sha256:9d89c50cffb5ae3d88e9652a58a65d64677a4f7a1456db4c59223b8c85fe9a25
     env:
       TZ: "${TIMEZONE}"
       PUID: "1000"
