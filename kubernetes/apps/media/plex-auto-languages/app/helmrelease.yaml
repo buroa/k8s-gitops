@@ -35,6 +35,7 @@ spec:
     env:
       TZ: "${TIMEZONE}"
       PLEX_URL: "http://plex.media.svc.cluster.local:32400"
+      REFRESH_LIBRARY_ON_SCAN: "false"
     envFrom:
       - secretRef:
           name: *secret
