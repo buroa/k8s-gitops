@@ -8,11 +8,11 @@ spec:
   interval: 15m
   chart:
     spec:
-      chart: prowlarr
-      version: 4.5.2
+      chart: app-template
+      version: 1.4.0
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: bjw-s-charts
         namespace: flux-system
   maxHistory: 3
   install:
@@ -26,13 +26,41 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    controller:
+      annotations:
+        secret.reloader.stakater.com/reload: &secret prowlarr-secret
     image:
-      repository: ghcr.io/linuxserver/prowlarr
-      tag: nightly@sha256:c27fa006de47b53b25dd27e1b349f556b0ceba1806c8321b88460b6ddc82d1f8
+      repository: ghcr.io/onedr0p/prowlarr-develop
+      tag: 1.3.2.3006@sha256:ad888d1b44d87733a8d971b1d17ff4e0f117e033db0c0a0b10e1e8088e3cf7ba
     env:
       TZ: "${TIMEZONE}"
-      PUID: "1000"
-      PGID: "1000"
+      PROWLARR__INSTANCE_NAME: Prowlarr
+      PROWLARR__PORT: &port 9696
+      PROWLARR__LOG_LEVEL: info
+      PROWLARR__AUTHENTICATION_METHOD: External
+    envFrom:
+      - secretRef:
+          name: *secret
+    service:
+      main:
+        ports:
+          http:
+            port: *port
+    probes:
+      liveness: &probes
+        enabled: true
+        custom: true
+        spec:
+          httpGet:
+            path: /ping
+            port: *port
+          initialDelaySeconds: 0
+          periodSeconds: 10
+          timeoutSeconds: 1
+          failureThreshold: 3
+      readiness: *probes
+      startup:
+        enabled: false
     ingress:
       main:
         enabled: true
@@ -53,6 +81,11 @@ spec:
           - secretName: prowlarr-tls
             hosts:
               - *host
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      fsGroupChangePolicy: OnRootMismatch
     persistence:
       config:
         enabled: true
@@ -61,7 +94,7 @@ spec:
       vpn/ovpn: "true"
     resources:
       requests:
-        memory: 250Mi
         cpu: 10m
+        memory: 100Mi
       limits:
         memory: 500Mi
