@@ -34,7 +34,8 @@ spec:
         repository: quay.io/enix/kube-image-keeper
     registry:
       image:
-        repository: public.ecr.aws/docker/library/registry
+        repository: registry
+        tag: 2.8.1
       persistence:
         enabled: true
         storageClass: ceph-filesystem
