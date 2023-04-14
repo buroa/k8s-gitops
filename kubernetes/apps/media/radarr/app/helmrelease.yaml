@@ -8,11 +8,11 @@ spec:
   interval: 15m
   chart:
     spec:
-      chart: radarr
-      version: 16.3.2
+      chart: app-template
+      version: 1.4.0
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: bjw-s-charts
         namespace: flux-system
   maxHistory: 3
   install:
@@ -26,13 +26,41 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    controller:
+      annotations:
+        secret.reloader.stakater.com/reload: &secret radarr-secret
     image:
-      repository: ghcr.io/linuxserver/radarr
-      tag: nightly@sha256:e37e432f2bac3a177021e2bd4e14b419aedddccdbc914692b239ab96d2e2fd2d
+      repository: ghcr.io/onedr0p/radarr-develop
+      tag: 4.4.3.7030@sha256:b131745aa33f7a29826b2368160c629c51a5e6140cea9be96b81cbb724c78159
     env:
       TZ: "${TIMEZONE}"
-      PUID: "1000"
-      PGID: "1000"
+      RADARR__INSTANCE_NAME: Radarr
+      RADARR__PORT: &port 7878
+      RADARR__APPLICATION_URL: &host "https://radarr.${SECRET_PUBLIC_DOMAIN}"
+      RADARR__LOG_LEVEL: info
+    envFrom:
+      - secretRef:
+          name: *secret
+    service:
+      main:
+        ports:
+          http:
+            port: *port
+    probes:
+      liveness: &probes
+        enabled: true
+        custom: true
+        spec:
+          httpGet:
+            path: /ping
+            port: *port
+          initialDelaySeconds: 0
+          periodSeconds: 10
+          timeoutSeconds: 1
+          failureThreshold: 3
+      readiness: *probes
+      startup:
+        enabled: false
     ingress:
       main:
         enabled: true
@@ -45,7 +73,7 @@ spec:
           projectcontour.io/response-timeout: "120s"
           hajimari.io/icon: mdi:filmstrip
         hosts:
-          - host: &host radarr.${SECRET_PUBLIC_DOMAIN}
+          - host: *host
             paths:
               - path: /
                 pathType: Prefix
@@ -53,6 +81,12 @@ spec:
           - secretName: radarr-tls
             hosts:
               - *host
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      fsGroupChangePolicy: OnRootMismatch
+      supplementalGroups: [10000]
     persistence:
       config:
         enabled: true
@@ -63,7 +97,7 @@ spec:
         mountPath: /media
     resources:
       requests:
-        memory: 250Mi
         cpu: 10m
+        memory: 250Mi
       limits:
-        memory: 4096Mi
+        memory: 2000Mi
