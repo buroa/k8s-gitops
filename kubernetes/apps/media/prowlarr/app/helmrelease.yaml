@@ -28,7 +28,7 @@ spec:
   values:
     image:
       repository: ghcr.io/linuxserver/prowlarr
-      tag: nightly@sha256:dd4ced7703c70a4d259d4c84d627d303265ebaa593e737ed6b98ee5b8a3d4a63
+      tag: nightly@sha256:c27fa006de47b53b25dd27e1b349f556b0ceba1806c8321b88460b6ddc82d1f8
     env:
       TZ: "${TIMEZONE}"
       PUID: "1000"
