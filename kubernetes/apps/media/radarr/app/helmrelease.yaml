@@ -36,7 +36,7 @@ spec:
       TZ: "${TIMEZONE}"
       RADARR__INSTANCE_NAME: Radarr
       RADARR__PORT: &port 7878
-      RADARR__APPLICATION_URL: &host "https://radarr.${SECRET_PUBLIC_DOMAIN}"
+      RADARR__APPLICATION_URL: "https://radarr.${SECRET_PUBLIC_DOMAIN}"
       RADARR__LOG_LEVEL: info
     envFrom:
       - secretRef:
@@ -73,7 +73,7 @@ spec:
           projectcontour.io/response-timeout: "120s"
           hajimari.io/icon: mdi:filmstrip
         hosts:
-          - host: *host
+          - host: &host "radarr.${SECRET_PUBLIC_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
