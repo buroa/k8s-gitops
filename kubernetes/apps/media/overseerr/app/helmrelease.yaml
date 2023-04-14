@@ -8,11 +8,11 @@ spec:
   interval: 15m
   chart:
     spec:
-      chart: overseerr
-      version: 5.4.2
+      chart: app-template
+      version: 1.4.0
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: bjw-s-charts
         namespace: flux-system
   maxHistory: 3
   install:
@@ -27,12 +27,17 @@ spec:
     keepHistory: false
   values:
     image:
-      repository: ghcr.io/linuxserver/overseerr
-      tag: latest@sha256:7a04b566a25d7a4904f97a03f14011234f70e5f67ad48025b040fcc831e13974
+      repository: ghcr.io/sct/overseerr
+      tag: 1.32.5
     env:
       TZ: "${TIMEZONE}"
-      PUID: "1000"
-      PGID: "1000"
+      LOG_LEVEL: "info"
+      PORT: &port 5055
+    service:
+      main:
+        ports:
+          http:
+            port: *port
     ingress:
       main:
         enabled: true
@@ -52,10 +57,15 @@ spec:
           - secretName: overseerr-tls
             hosts:
               - *host
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      fsGroupChangePolicy: OnRootMismatch
     persistence:
       config:
         enabled: true
-        mountPath: /config
+        mountPath: /app/config
         existingClaim: overseerr-config
     resources:
       requests:
