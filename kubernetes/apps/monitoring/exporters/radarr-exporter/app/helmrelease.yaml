@@ -31,7 +31,7 @@ spec:
         secret.reloader.stakater.com/reload: &secret radarr-exporter-secret
     image:
       repository: ghcr.io/onedr0p/exportarr
-      tag: v1.3.0
+      tag: v1.3.1
     args:
       - radarr
       - "--enable-additional-metrics"
