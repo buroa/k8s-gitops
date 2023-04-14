@@ -28,7 +28,7 @@ spec:
   values:
     image:
       repository: ghcr.io/linuxserver/prowlarr
-      tag: 1.3.2
+      tag: 1.8.1259
     env:
       TZ: "${TIMEZONE}"
       PUID: "1000"
