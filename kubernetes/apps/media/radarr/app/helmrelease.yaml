@@ -28,7 +28,7 @@ spec:
   values:
     image:
       repository: ghcr.io/linuxserver/radarr
-      tag: nightly@sha256:d469bbaabd78e5df5cd2c4cf6d1a5b0069d795cd5d3050e8164ae1192b114c21
+      tag: nightly@sha256:4f5a254cf6f9f881048c40ef0188a670e6ab82f0df1119ecc0dc8cf2e5cdc9fa
     env:
       TZ: "${TIMEZONE}"
       PUID: "1000"
