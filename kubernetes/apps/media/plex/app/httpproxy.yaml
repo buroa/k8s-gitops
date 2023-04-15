@@ -1,0 +1,42 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: plex
+  namespace: media
+spec:
+  commonName: &host plex.${SECRET_PUBLIC_DOMAIN}
+  dnsNames:
+    - *host
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  secretName: plex-tls
+---
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  name: plex
+  namespace: media
+spec:
+  virtualhost:
+    fqdn: plex.${SECRET_PUBLIC_DOMAIN}
+    tls:
+      secretName: plex-tls
+  routes:
+    - conditions:
+        - prefix: /library/streams
+      services: &services
+        - name: plex
+          port: 32400
+      requestHeadersPolicy: # subtitle fix
+        remove:
+          - Range
+      timeoutPolicy: &timeoutPolicy
+        response: infinity
+        idle: infinity
+    - conditions:
+        - prefix: /
+      services: *services
+      timeoutPolicy: *timeoutPolicy
+      enableWebsockets: true
