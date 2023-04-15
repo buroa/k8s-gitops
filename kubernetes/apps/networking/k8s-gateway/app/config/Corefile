@@ -14,6 +14,7 @@
         ${NAS_IP} nas.${SECRET_PUBLIC_DOMAIN}
         ${UPS_IP} ups.${SECRET_PUBLIC_DOMAIN}
         ${PDU_IP} pdu.${SECRET_PUBLIC_DOMAIN}
+        ${ENVOY_LB_IP} plex.${SECRET_PUBLIC_DOMAIN}
         ttl 300
         fallthrough ${SECRET_PUBLIC_DOMAIN}
     }

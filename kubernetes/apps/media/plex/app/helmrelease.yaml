@@ -36,26 +36,6 @@ spec:
         ports:
           http:
             port: 32400
-    ingress:
-      main:
-        enabled: true
-        annotations:
-          kubernetes.io/tls-acme: "true"
-          kubernetes.io/ingress.class: contour
-          cert-manager.io/cluster-issuer: letsencrypt-prod
-          ingress.kubernetes.io/force-ssl-redirect: "true"
-          projectcontour.io/websocket-routes: "/"
-          projectcontour.io/response-timeout: "infinity"
-          hajimari.io/icon: mdi:plex
-        hosts:
-          - host: &host plex.${SECRET_PUBLIC_DOMAIN}
-            paths:
-              - path: /
-                pathType: Prefix
-        tls:
-          - secretName: plex-tls
-            hosts:
-              - *host
     podSecurityContext:
       runAsUser: 568
       runAsGroup: 568
