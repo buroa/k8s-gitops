@@ -6,6 +6,12 @@ resources:
   - ./pvc.yaml
   - ./helmrelease.yaml
   - ./volsync.yaml
+configMapGenerator:
+  - name: autobrr-configmap
+    files:
+      - ./configs/config.toml
+generatorOptions:
+  disableNameSuffixHash: true
 labels:
   - pairs:
       app.kubernetes.io/name: autobrr
