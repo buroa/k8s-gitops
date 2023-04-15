@@ -41,9 +41,7 @@ spec:
           name: *secret
     service:
       main:
-        ports:
-          http:
-            enabled: false
+        enabled: false
     persistence:
       config:
         enabled: true
