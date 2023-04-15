@@ -48,7 +48,6 @@ spec:
       config:
         enabled: true
         existingClaim: pmm-config
-        mountPath: /config
       config-file:
         enabled: true
         type: secret

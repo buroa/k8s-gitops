@@ -105,7 +105,6 @@ spec:
       config:
         enabled: true
         existingClaim: zigbee2mqtt-config
-        mountPath: /config
       usb:
         enabled: true
         type: hostPath
