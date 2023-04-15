@@ -85,7 +85,6 @@ spec:
       config:
         enabled: true
         existingClaim: home-assistant-config
-        mountPath: /config
     resources:
       requests:
         cpu: 10m

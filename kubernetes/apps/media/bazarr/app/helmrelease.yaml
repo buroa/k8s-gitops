@@ -72,7 +72,6 @@ spec:
       media:
         enabled: true
         existingClaim: media
-        mountPath: /media
       scripts:
         enabled: true
         type: configMap
@@ -82,7 +81,6 @@ spec:
       add-ons:
         enabled: true
         type: emptyDir
-        mountPath: /add-ons
     resources:
       requests:
         cpu: 10m

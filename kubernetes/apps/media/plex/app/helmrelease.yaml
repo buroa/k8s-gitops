@@ -55,7 +55,6 @@ spec:
       media:
         enabled: true
         existingClaim: media
-        mountPath: /media
         readOnly: true
     nodeSelector:
       topology.kubernetes.io/zone: w
