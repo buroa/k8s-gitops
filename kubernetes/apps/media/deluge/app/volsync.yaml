@@ -39,9 +39,9 @@ spec:
     volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_CLASS}
     storageClassName: ${CLUSTER_STORAGE_CLASS}
     moverSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
     retain:
       daily: 10
       within: 3d
