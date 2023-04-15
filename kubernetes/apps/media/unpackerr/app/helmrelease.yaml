@@ -39,6 +39,11 @@ spec:
     envFrom:
       - secretRef:
           name: *secret
+    service:
+      main:
+        ports:
+          http:
+            enabled: false
     persistence:
       config:
         enabled: true

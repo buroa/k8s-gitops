@@ -32,6 +32,11 @@ spec:
     env:
       TZ: "${TIMEZONE}"
       LOG_LEVEL: "info"
+    service:
+      main:
+        ports:
+          http:
+            port: 8191
     podLabels:
       vpn/ovpn: "true"
     resources:
