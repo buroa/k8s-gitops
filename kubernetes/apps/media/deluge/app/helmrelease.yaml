@@ -31,8 +31,8 @@ spec:
       tag: latest@sha256:a8b92f20913b60b2fcd04d563a8a6fd96318bedd252c67a790333cc7c4ef2aa0
     env:
       TZ: "${TIMEZONE}"
-      PUID: "568"
-      PGID: "568"
+      PUID: "1000"
+      PGID: "1000"
       DELUGE_LOGLEVEL: "info"
     service:
       main:
@@ -58,12 +58,6 @@ spec:
           - secretName: deluge-tls
             hosts:
               - *host
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: OnRootMismatch
-      supplementalGroups: [10000]
     persistence:
       config:
         enabled: true
