@@ -137,10 +137,6 @@ spec:
           gnetId: 7253
           revision: 1
           datasource: Prometheus
-        uptime-robot:
-          gnetId: 9955
-          revision: 1
-          datasource: Prometheus
         loki-metrics:
           gnetId: 13407
           revision: 1
