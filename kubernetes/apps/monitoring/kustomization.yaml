@@ -9,7 +9,6 @@ resources:
   - ./thanos/ks.yaml
   - ./unpoller/ks.yaml
   - ./kube-prometheus-stack/ks.yaml
-  - ./uptimerobot-prometheus/ks.yaml
   - ./vector/ks.yaml
   - ./vpa/ks.yaml
   - ./exporters
