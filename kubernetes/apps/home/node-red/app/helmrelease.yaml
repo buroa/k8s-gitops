@@ -8,11 +8,11 @@ spec:
   interval: 15m
   chart:
     spec:
-      chart: node-red
-      version: 10.3.2
+      chart: app-template
+      version: 1.4.0
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: bjw-s-charts
         namespace: flux-system
   maxHistory: 3
   install:
@@ -34,6 +34,11 @@ spec:
       FLOWS: "flows.json"
       NODE_RED_ENABLE_PROJECTS: "true"
       NODE_RED_ENABLE_SAFE_MODE: "false"
+    service:
+      main:
+        ports:
+          http:
+            port: 1880
     ingress:
       main:
         enabled: true
@@ -59,10 +64,9 @@ spec:
       fsGroup: 1000
       fsGroupChangePolicy: "OnRootMismatch"
     persistence:
-      config:
+      data:
         enabled: true
         existingClaim: node-red-config
-        mountPath: /data
     resources:
       requests:
         memory: 350Mi
