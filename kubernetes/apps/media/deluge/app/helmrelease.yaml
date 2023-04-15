@@ -5,15 +5,14 @@ metadata:
   name: deluge
   namespace: media
 spec:
-  releaseName: deluge
   interval: 15m
   chart:
     spec:
-      chart: deluge
-      version: 5.4.2
+      chart: app-template
+      version: 1.4.0
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: bjw-s-charts
         namespace: flux-system
   maxHistory: 3
   install:
@@ -35,6 +34,11 @@ spec:
       PUID: "1000"
       PGID: "1000"
       DELUGE_LOGLEVEL: "info"
+    service:
+      main:
+        ports:
+          http:
+            port: 8112
     ingress:
       main:
         enabled: true
@@ -54,6 +58,12 @@ spec:
           - secretName: deluge-tls
             hosts:
               - *host
+    podSecurityContext:
+      runAsUser: 0
+      runAsGroup: 0
+      fsGroup: 0
+      fsGroupChangePolicy: OnRootMismatch
+      supplementalGroups: [10000]
     persistence:
       config:
         enabled: true
@@ -61,7 +71,6 @@ spec:
       media:
         enabled: true
         existingClaim: media
-        mountPath: /media
     podLabels:
       vpn/ovpn: "true"
     hostname: torrent

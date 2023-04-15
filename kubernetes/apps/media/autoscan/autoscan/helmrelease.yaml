@@ -45,7 +45,6 @@ spec:
       config:
         enabled: true
         existingClaim: autoscan-config
-        mountPath: /config
       config-config:
         enabled: true
         type: secret
@@ -56,5 +55,4 @@ spec:
       media:
         enabled: true
         existingClaim: media
-        mountPath: /media
         readOnly: true

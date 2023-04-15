@@ -97,7 +97,6 @@ spec:
       media:
         enabled: true
         existingClaim: media
-        mountPath: /media
     resources:
       requests:
         cpu: 10m

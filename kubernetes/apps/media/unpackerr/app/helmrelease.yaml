@@ -49,7 +49,6 @@ spec:
       media:
         enabled: true
         existingClaim: media
-        mountPath: /media
     resources:
       requests:
         memory: 250Mi

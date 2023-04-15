@@ -74,11 +74,9 @@ spec:
       cache:
         enabled: true
         existingClaim: tdarr-cache
-        mountPath: /cache
       media:
         enabled: true
         existingClaim: media
-        mountPath: /media
     podSecurityContext:
       runAsUser: 0
       runAsGroup: 0
