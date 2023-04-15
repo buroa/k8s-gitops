@@ -6,5 +6,5 @@ metadata:
   namespace: flux-system
 spec:
   type: alertmanager
-  address: http://kube-prometheus-stack-alertmanager.monitoring.svc.cluster.local:9093/api/v2/alerts/
+  address: http://alertmanager-operated.monitoring.svc.cluster.local:9093/api/v2/alerts/
   interval: 10m
