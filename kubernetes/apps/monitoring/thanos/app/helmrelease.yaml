@@ -78,14 +78,14 @@ spec:
       persistence:
         enabled: true
         storageClass: "${CLUSTER_STORAGE_CLASS}"
-        size: 512Mi
+        size: 15Gi
     ruler:
       enabled: true
       replicaCount: 3
       replicaLabel: __replica__
       clusterName: k8s
       alertmanagers:
-        - http://kube-prometheus-stack-alertmanager.monitoring.svc.cluster.local:9093
+        - http://alertmanager-operated.monitoring.svc.cluster.local:9093
       extraFlags: ["--web.prefix-header=X-Forwarded-Prefix"]
       config: |-
         groups:
@@ -103,7 +103,7 @@ spec:
       persistence:
         enabled: true
         storageClass: "${CLUSTER_STORAGE_CLASS}"
-        size: 512Mi
+        size: 15Gi
     metrics:
       enabled: true
       serviceMonitor:
