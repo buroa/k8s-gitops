@@ -37,8 +37,6 @@ spec:
         repository: public.ecr.aws/docker/library/registry
         tag: 2.8.1
       env:
-        - name: REGISTRY_STORAGE_DELETE_ENABLED
-          value: "true"
         - name: REGISTRY_STORAGE_CACHE_BLOBDESCRIPTOR
           value: redis
         - name: REGISTRY_REDIS_ADDR
@@ -46,4 +44,4 @@ spec:
       persistence:
         enabled: true
         storageClass: ceph-filesystem
-        size: 20Gi
+        size: 100Gi
