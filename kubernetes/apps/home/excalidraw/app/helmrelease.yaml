@@ -30,13 +30,13 @@ spec:
       replicas: 2
       strategy: RollingUpdate
     image:
-      repository: docker.io/excalidraw/excalidraw
-      tag: latest@sha256:f4d071bc71a49967f7ec0afa104d489c7d58bc367efaa5b1ba8e8d6fb26162d2
+      repository: ghcr.io/onedr0p/excalidraw
+      tag: latest@sha256:eabef88580147571a84745b6aa6ce1cc0812624ba6b592d9545b2e4a06e3ff61
     service:
       main:
         ports:
           http:
-            port: 80
+            port: 8080
     ingress:
       main:
         enabled: true
