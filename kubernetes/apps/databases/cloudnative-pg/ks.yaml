@@ -5,9 +5,6 @@ metadata:
   name: cluster-apps-cloudnative-pg
   namespace: flux-system
 spec:
-  dependsOn:
-    - name: cluster-apps-rook-ceph-cluster
-    - name: cluster-apps-external-secrets-stores
   path: ./kubernetes/apps/databases/cloudnative-pg/app
   prune: true
   sourceRef:
@@ -17,10 +14,6 @@ spec:
     - apiVersion: helm.toolkit.fluxcd.io/v2beta1
       kind: HelmRelease
       name: cloudnative-pg
-      namespace: databases
-    - apiVersion: objectbucket.io/v1alpha1
-      kind: ObjectBucketClaim
-      name: postgresql-ceph-bucket
       namespace: databases
   interval: 30m
   retryInterval: 1m
@@ -34,11 +27,18 @@ metadata:
 spec:
   dependsOn:
     - name: cluster-apps-cloudnative-pg
+    - name: cluster-apps-rook-ceph-cluster
+    - name: cluster-apps-external-secrets-stores
   path: ./kubernetes/apps/databases/cloudnative-pg/cluster
   prune: true
   sourceRef:
     kind: GitRepository
     name: k8s-gitops
+  healthChecks:
+    - apiVersion: postgresql.cnpg.io/v1
+      kind: Cluster
+      name: postgres
+      namespace: databases
   wait: true
   interval: 30m
   retryInterval: 1m
