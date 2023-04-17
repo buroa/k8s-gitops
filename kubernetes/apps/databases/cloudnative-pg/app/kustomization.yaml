@@ -4,8 +4,6 @@ kind: Kustomization
 namespace: databases
 resources:
   - ./helmrelease.yaml
-  - ./objectbucketclaim.yaml
-  - ./externalsecret.yaml
 labels:
   - pairs:
       app.kubernetes.io/name: cloudnative-pg
