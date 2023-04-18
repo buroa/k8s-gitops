@@ -26,6 +26,7 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    fullnameOverride: kuik
     controllers:
       image:
         repository: quay.io/enix/kube-image-keeper
