@@ -26,6 +26,7 @@
         "ghcr.io/recyclarr/recyclarr",
         "ghcr.io/hotio/unpackerr",
         "cloudflare/cloudflared",
+        "ghcr.io/0xerr0r/blocky",
       ],
     },
     {
