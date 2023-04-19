@@ -6,8 +6,8 @@ clusterPodNets:
 clusterSvcNets:
   - 10.245.0.0/16
 
-talosVersion: v1.4.0-alpha.4
-kubernetesVersion: 1.26.3
+talosVersion: v1.4.0
+kubernetesVersion: 1.27.1
 endpoint: https://k8s.${domainName}:6443
 
 additionalApiServerCertSans:
@@ -180,9 +180,9 @@ controlPlane:
             disabled: true
     machine: &machine
       install:
-        image: ghcr.io/buroa/talos-installer:v1.4.0-alpha.4-apple
+        image: ghcr.io/buroa/talos-installer:v1.4.0-apple
         extensions:
-          - image: ghcr.io/siderolabs/i915-ucode:20230210
+          - image: ghcr.io/siderolabs/i915-ucode:20230310
           - image: ghcr.io/siderolabs/intel-ucode:20230214
           - image: ghcr.io/siderolabs/iscsi-tools:v0.1.4
         legacyBIOSSupport: true
