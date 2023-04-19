@@ -161,16 +161,16 @@ controlPlane:
           listen-metrics-urls: http://0.0.0.0:2381
       controllerManager:
         extraArgs:
-          feature-gates: MixedProtocolLBService=true,EphemeralContainers=True
+          feature-gates: MixedProtocolLBService=true
           bind-address: 0.0.0.0
       proxy:
         disabled: true
         extraArgs:
-          feature-gates: MixedProtocolLBService=true,EphemeralContainers=True
+          feature-gates: MixedProtocolLBService=true
           metrics-bind-address: 0.0.0.0:10249
       scheduler:
         extraArgs:
-          feature-gates: MixedProtocolLBService=true,EphemeralContainers=True
+          feature-gates: MixedProtocolLBService=true
           bind-address: 0.0.0.0
       apiServer:
         admissionControl: null
@@ -242,7 +242,7 @@ controlPlane:
           - time.cloudflare.com
       kubelet:
         extraArgs:
-          feature-gates: GracefulNodeShutdown=true,MixedProtocolLBService=true,EphemeralContainers=true
+          feature-gates: GracefulNodeShutdown=true,MixedProtocolLBService=true
           rotate-server-certificates: true
       files:
         - content: |
