@@ -290,6 +290,7 @@ spec:
       - natel-discrete-panel
       - pr0ps-trackmap-panel
       - vonage-status-panel
+      - isovalent-hubble-datasource
     serviceMonitor:
       enabled: true
     ingress:
