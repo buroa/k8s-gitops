@@ -9,10 +9,10 @@ spec:
   chart:
     spec:
       chart: pod-gateway
-      version: 6.5.0
+      version: 5.6.2
       sourceRef:
         kind: HelmRepository
-        name: angelnu-charts
+        name: k8s-at-home-charts
         namespace: flux-system
   maxHistory: 3
   install:
@@ -28,10 +28,12 @@ spec:
   values:
     image:
       repository: ghcr.io/angelnu/pod-gateway
-      tag: v1.8.1@sha256:690b6365728fe9012ad4cdfca38334992664596513dca187d1b93d2025205776
-    podAnnotations:
-      configmap.reloader.stakater.com/reload: pod-gateway
-      secret.reloader.stakater.com/reload: &secret pod-gateway-config
+      pullPolicy: IfNotPresent
+      tag: v1.8.1
+    controller:
+      annotations:
+        configmap.reloader.stakater.com/reload: pod-gateway
+        secret.reloader.stakater.com/reload: &secret pod-gateway-config
     DNS: ${VPN_GW_SUBNET}.1
     DNSPolicy: None
     clusterName: "cluster.local"
@@ -69,7 +71,11 @@ spec:
     webhook:
       image:
         repository: ghcr.io/angelnu/gateway-admision-controller
-        tag: v3.9.0@sha256:4e169da5af107a9c6c784d3e03c89da07fad45f18358ab5b7177662df12d955a
+        pullPolicy: IfNotPresent
+        tag: v3.9.0
+      replicas: 1
+      strategy:
+        type: RollingUpdate
       namespaceSelector:
         type: label
         label: vpn
