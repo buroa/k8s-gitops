@@ -6,9 +6,8 @@ resources:
   - ./coredns/ks.yaml
   - ./descheduler/ks.yaml
   - ./external-secrets/ks.yaml
-  - ./intel-gpu-plugin/ks.yaml
+  - ./intel-device-plugin/ks.yaml
   - ./kube-cleanup-operator/ks.yaml
-  - ./kube-image-keeper/ks.yaml
   - ./kubelet-csr-approver/ks.yaml
   - ./metrics-server/ks.yaml
   - ./node-feature-discovery/ks.yaml
