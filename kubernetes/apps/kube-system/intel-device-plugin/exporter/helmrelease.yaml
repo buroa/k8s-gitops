@@ -50,6 +50,8 @@ spec:
                 targetLabel: node
     securityContext:
       privileged: true
+    nodeSelector:
+      intel.feature.node.kubernetes.io/gpu: "true"
     resources:
       requests:
         gpu.intel.com/i915: 1
@@ -58,5 +60,3 @@ spec:
       limits:
         gpu.intel.com/i915: 1
         memory: 500Mi
-    nodeSelector:
-      intel.feature.node.kubernetes.io/gpu: "true"
