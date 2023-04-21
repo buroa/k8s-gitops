@@ -26,26 +26,23 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    cluster:
-      name: k8s
-      id: 1
     autoDirectNodeRoutes: true
     bgp:
       enabled: true
       announce:
         loadbalancerIP: true
-    endpointRoutes:
-      enabled: true
+        podCIDR: false
     cgroup:
       autoMount:
         enabled: false
       hostRoot: /sys/fs/cgroup
-    tunnel: disabled
-    bpf:
-      hostRouting: true
-      lbBypassFIBLookup: true
-      masquerade: true
-      tproxy: true
+    cluster:
+      name: k8s
+      id: 1
+    containerRuntime:
+      integration: containerd
+    endpointRoutes:
+      enabled: true
     hubble:
       enabled: true
       metrics:
@@ -79,6 +76,12 @@ spec:
               hosts:
                 - *host
         rollOutPods: true
+    prometheus:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+    ipam:
+      mode: kubernetes
     ipv4NativeRoutingCIDR: ${CLUSTER_POD_IP_RANGE}
     k8sServiceHost: k8s.${SECRET_PUBLIC_DOMAIN}
     k8sServicePort: 6443
@@ -86,12 +89,8 @@ spec:
     kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
     loadBalancer:
       algorithm: maglev
-      mode: dsr
-    ipam:
-      mode: kubernetes
-    containerRuntime:
-      integration: containerd
-    localRedirectPolicy: true
+      mode: hybrid
+    localRedirectPolicy: false
     operator:
       enabled: true
       rollOutPods: true
@@ -99,10 +98,6 @@ spec:
         enabled: true
         serviceMonitor:
           enabled: true
-    prometheus:
-      enabled: true
-      serviceMonitor:
-        enabled: true
     securityContext:
       privileged: false
       capabilities:
@@ -130,3 +125,9 @@ spec:
           - NET_ADMIN
           - SYS_ADMIN
           - SYS_RESOURCE
+    bpf:
+      hostRouting: true
+      lbBypassFIBLookup: true
+      masquerade: true
+      tproxy: true
+    tunnel: disabled
