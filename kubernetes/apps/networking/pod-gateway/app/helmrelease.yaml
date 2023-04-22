@@ -9,10 +9,10 @@ spec:
   chart:
     spec:
       chart: pod-gateway
-      version: 5.6.2
+      version: 6.5.0
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: angelnu-charts
         namespace: flux-system
   maxHistory: 3
   install:
@@ -26,59 +26,64 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    image:
-      repository: ghcr.io/angelnu/pod-gateway
-      pullPolicy: IfNotPresent
-      tag: v1.8.1
     controller:
       annotations:
-        configmap.reloader.stakater.com/reload: pod-gateway
-        secret.reloader.stakater.com/reload: &secret pod-gateway-config
+        reloader.stakater.com/auto: "true"
+    image:
+      repository: ghcr.io/angelnu/pod-gateway
+      tag: v1.8.1@sha256:690b6365728fe9012ad4cdfca38334992664596513dca187d1b93d2025205776
     DNS: ${VPN_GW_SUBNET}.1
-    DNSPolicy: None
-    clusterName: "cluster.local"
-    routed_namespaces:
-      - media
-    settings:
-      NOT_ROUTED_TO_GATEWAY_CIDRS: &cidrs "${CLUSTER_POD_IP_RANGE} ${CLUSTER_SERVICE_IP_RANGE} ${CLUSTER_IP_RANGE}"
-      VXLAN_ID: 42
-      VXLAN_IP_NETWORK: "${VPN_GW_SUBNET}"
-      VXLAN_GATEWAY_FIRST_DYNAMIC_IP: 20
-      VPN_INTERFACE: wg0
-      VPN_BLOCK_OTHER_TRAFFIC: true
-      VPN_TRAFFIC_PORT: 9929
-      VPN_LOCAL_CIDRS: *cidrs
-      DNS_LOCAL_CIDRS: "cluster.local"
+    addons:
+      netshoot:
+        enabled: true
+      vpn:
+        enabled: true
+        type: gluetun
+        image:
+          # TODO: Replace with ghcr.io/qdm12/gluetun when a versioned tag is available
+          repository: docker.io/qmcgaw/gluetun
+          tag: v3.33.0@sha256:b5e8048b58c88e32ae307d0f0a0dea5605b9f17390350ef2422da2a4782cf3c6
+        env:
+          - name: FIREWALL
+            value: "off"
+          - name: DOT
+            value: "off"
+          - name: LOG_LEVEL
+            value: debug
+        envFrom:
+          - secretRef:
+              name: pod-gateway-secret
+        securityContext:
+          capabilities:
+            add:
+              - NET_ADMIN
+        networkPolicy:
+          enabled: false
     publicPorts:
-      - hostname: torrent
-        IP: ${TORRENT_PUBLIC_OCTET}
+      - IP: ${TORRENT_PUBLIC_OCTET}
+        hostname: torrent
         ports:
           - type: udp
             port: ${TORRENT_PUBLIC_PORT}
           - type: tcp
             port: ${TORRENT_PUBLIC_PORT}
-    addons:
-      vpn:
-        enabled: true
-        type: wireguard
-        configFileSecret: *secret
-        networkPolicy:
-          enabled: false
-        securityContext:
-          capabilities:
-            add:
-              - NET_ADMIN
+    routed_namespaces:
+      - media
+    settings:
+      NOT_ROUTED_TO_GATEWAY_CIDRS: &cidrs "${CLUSTER_POD_IP_RANGE} ${CLUSTER_SERVICE_IP_RANGE} ${CLUSTER_IP_RANGE}"
+      VPN_BLOCK_OTHER_TRAFFIC: true
+      VPN_INTERFACE: wg0
+      VPN_LOCAL_CIDRS: *cidrs
+      VPN_TRAFFIC_PORT: "9929"
+      VXLAN_ID: 42
+      VXLAN_IP_NETWORK: ${VPN_GW_SUBNET}
     webhook:
-      image:
-        repository: ghcr.io/angelnu/gateway-admision-controller
-        pullPolicy: IfNotPresent
-        tag: v3.9.0
-      replicas: 1
-      strategy:
-        type: RollingUpdate
-      namespaceSelector:
-        type: label
-        label: vpn
       gatewayDefault: false
       gatewayLabel: vpn/ovpn
       gatewayAnnotation: vpn/ovpn
+      namespaceSelector:
+        type: label
+        label: vpn
+      image:
+        repository: ghcr.io/angelnu/gateway-admision-controller
+        tag: v3.9.0@sha256:4e169da5af107a9c6c784d3e03c89da07fad45f18358ab5b7177662df12d955a
