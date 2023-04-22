@@ -40,9 +40,8 @@ spec:
         enabled: true
         type: gluetun
         image:
-          # TODO: Replace with ghcr.io/qdm12/gluetun when a versioned tag is available
-          repository: docker.io/qmcgaw/gluetun
-          tag: v3.33.0@sha256:b5e8048b58c88e32ae307d0f0a0dea5605b9f17390350ef2422da2a4782cf3c6
+          repository: ghcr.io/qdm12/gluetun
+          tag: v3.33.0@sha256:cadc352ebed5988c9fbc750f2759ea703dc7587f969d70342cc5eff05282024b
         env:
           - name: FIREWALL
             value: "off"
