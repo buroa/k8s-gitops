@@ -31,7 +31,7 @@ spec:
         secret.reloader.stakater.com/reload: &secret plex-auto-languages-secret
     image:
       repository: remirigal/plex-auto-languages
-      tag: v1.2.0
+      tag: v1.2.1
     env:
       TZ: "${TIMEZONE}"
       PLEX_URL: "http://plex.media.svc.cluster.local:32400"
