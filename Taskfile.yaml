@@ -12,6 +12,7 @@ includes:
   externalsecrets: .taskfiles/externalsecrets/tasks.yaml
   flux: .taskfiles/flux/tasks.yaml
   k8s: .taskfiles/k8s/tasks.yaml
+  rook: .taskfiles/rook/tasks.yaml
   talos: .taskfiles/talos/tasks.yaml
   volsync: .taskfiles/volsync/tasks.yaml
 
