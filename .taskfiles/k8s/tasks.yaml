@@ -3,7 +3,7 @@ version: "3"
 
 tasks:
   mount:
-    desc: Mount a PersistentVolumeClaim to a pod temporarily
+    desc: Mount a PersistantVolumeClaim to a pod temporarily
     interactive: true
     vars:
       claim: '{{ or .claim (fail "PersistentVolumeClaim `claim` is required") }}'
@@ -45,3 +45,8 @@ tasks:
           }'
     preconditions:
       - kubectl -n {{.namespace}} get pvc {{.claim}}
+
+  delete-failed-pods:
+    desc: Deletes failed pods
+    cmds:
+      - kubectl delete pods --field-selector status.phase=Failed -A --ignore-not-found=true
