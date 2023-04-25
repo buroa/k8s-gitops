@@ -24,7 +24,8 @@ nodes:
   # macm 2018 3.2GHz / 32GB / 256GB SSD / 10GBt
   - hostname: m0.k8s.${domainName}
     ipAddress: 10.0.0.10
-    installDisk: /dev/nvme0n1
+    installDiskSelector:
+      serial: C0785130064JRQ5AA
     controlPlane: true
     disableSearchDomain: true
     nameservers:
@@ -48,7 +49,8 @@ nodes:
   # macm 2018 3.2GHz / 32GB / 256GB SSD / 10GBt
   - hostname: m1.k8s.${domainName}
     ipAddress: 10.0.0.11
-    installDisk: /dev/nvme0n1
+    installDiskSelector:
+      serial: H280463005RJRV2C6
     controlPlane: true
     disableSearchDomain: true
     nameservers:
@@ -70,7 +72,8 @@ nodes:
   # macm 2018 3.2GHz / 32GB / 256GB SSD / 10GBt
   - hostname: m2.k8s.${domainName}
     ipAddress: 10.0.0.12
-    installDisk: /dev/nvme0n1
+    installDiskSelector:
+      serial: C070234007KJRT9AZ
     controlPlane: true
     disableSearchDomain: true
     nameservers:
@@ -92,7 +95,8 @@ nodes:
   # macm 2018 3.2GHz / 64GB / 1TB SSD / 10GBe
   - hostname: w0.k8s.${domainName}
     ipAddress: 10.0.0.20
-    installDisk: /dev/nvme0n1
+    installDiskSelector:
+      serial: H281495002CJRVGDX
     controlPlane: false
     disableSearchDomain: true
     nameservers:
@@ -115,7 +119,8 @@ nodes:
   # macm 2018 3.2GHz / 64GB / 1TB SSD / 10GBe
   - hostname: w1.k8s.${domainName}
     ipAddress: 10.0.0.21
-    installDisk: /dev/nvme0n1
+    installDiskSelector:
+      serial: C070173002EJRVGAW
     controlPlane: false
     disableSearchDomain: true
     nameservers:
@@ -135,7 +140,8 @@ nodes:
   # macm 2018 3.2GHz / 64GB / 1TB SSD / 10GBe
   - hostname: w2.k8s.${domainName}
     ipAddress: 10.0.0.22
-    installDisk: /dev/nvme0n1
+    installDiskSelector:
+      serial: C07843600H7JRVGA8
     controlPlane: false
     disableSearchDomain: true
     nameservers:
