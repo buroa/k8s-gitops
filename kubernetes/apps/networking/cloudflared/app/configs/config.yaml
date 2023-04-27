@@ -8,6 +8,9 @@ metrics: 0.0.0.0:2000
 # autoupdate doesn't make sense in Kubernetes. However, outside of Kubernetes, we strongly
 # recommend using autoupdate.
 no-autoupdate: true
+# Specifies the protocol used to establish a connection between cloudflared and the global network.
+# Available values are auto, http2, h2mux, and quic.
+protocol: http2
 # The `ingress` block tells cloudflared which local service to route incoming
 # requests to. For more about ingress rules, see
 # https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/configuration/ingress
