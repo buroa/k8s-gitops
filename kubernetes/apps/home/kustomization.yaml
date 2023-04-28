@@ -11,4 +11,5 @@ resources:
   - ./mosquitto/ks.yaml
   - ./n8n/ks.yaml
   - ./node-red/ks.yaml
+  - ./syncthing/ks.yaml
   - ./zigbee2mqtt/ks.yaml
