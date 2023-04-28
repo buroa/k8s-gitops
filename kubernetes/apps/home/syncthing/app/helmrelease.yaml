@@ -27,7 +27,7 @@ spec:
   values:
     image:
       repository: syncthing/syncthing
-      tag: 1.23.0
+      tag: 1.23.4
     env:
       TZ: "${TIMEZONE}"
     service:
