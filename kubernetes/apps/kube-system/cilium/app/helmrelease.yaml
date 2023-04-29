@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: cilium
-      version: 1.13.2
+      version: v1.14.0-snapshot.2
       sourceRef:
         kind: HelmRepository
         name: cilium-charts
