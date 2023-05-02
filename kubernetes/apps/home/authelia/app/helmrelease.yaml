@@ -41,7 +41,7 @@ spec:
     image:
       repository: ghcr.io/authelia/authelia
       # TODO Switch to Authelia release tag on next release
-      tag: master@sha256:77df88271fbb06bf6de12f34aa61884a2dcecd83c81284a39c767a0f11692437
+      tag: master@sha256:d91af9fe1008b6bf7defe7dc545ddc13721babb53aa2553989947f7e2f262730
     args:
       [
         "--config",
