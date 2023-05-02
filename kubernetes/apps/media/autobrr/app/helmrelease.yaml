@@ -31,7 +31,7 @@ spec:
         configmap.reloader.stakater.com/reload: &configmap autobrr-configmap
     image:
       repository: ghcr.io/autobrr/autobrr
-      tag: v1.24.1
+      tag: v1.25.0
     env:
       TZ: "${TIMEZONE}"
     service:
