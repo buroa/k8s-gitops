@@ -2,9 +2,9 @@
 
 <img src="https://camo.githubusercontent.com/5b298bf6b0596795602bd771c5bddbb963e83e0f/68747470733a2f2f692e696d6775722e636f6d2f7031527a586a512e706e67" align="center" width="144px" height="144px"/>
 
-### My personal kubernetes cluster ☸
+### My _geeked_ homelab k8s cluster ☸
 
-_... managed with Flux, Renovate and GitHub Actions_ 🤖
+_... automated via [Flux](https://fluxcd.io/), [Renovate](https://github.com/renovatebot/renovate) and [GitHub Actions](https://github.com/features/actions)_ 🤖
 
 </div>
 
@@ -14,9 +14,9 @@ _... managed with Flux, Renovate and GitHub Actions_ 🤖
 [![Kubernetes](https://img.shields.io/badge/v1.27.1-blue?style=for-the-badge&logo=kubernetes&logoColor=white)](https://k8s.io/)
 [![Renovate](https://img.shields.io/github/actions/workflow/status/buroa/k8s-gitops/renovate.yaml?branch=master&label=&logo=renovatebot&style=for-the-badge&color=blue)](https://github.com/buroa/k8s-gitops/actions/workflows/renovate.yaml)
 
-[![Home-Internet](https://img.shields.io/uptimerobot/status/m794001384-01d2febd339773320ef5aae1?color=brightgreeen&label=Home%20Internet&style=for-the-badge&logo=v&logoColor=white)](https://uptimerobot.com)
-[![Plex](https://img.shields.io/uptimerobot/status/m793802743-0b6044ca7f1ec92851b9a495?color=brightgreeen&label=Plex&style=for-the-badge&logo=v&logoColor=white)](https://plex.tv)
-[![Overseerr](https://img.shields.io/uptimerobot/status/m793802757-ca314435a1d7b7dc1ca5dac9?color=brightgreeen&label=Overseerr&style=for-the-badge&logo=v&logoColor=white)](https://overseerr.dev)
+[![Home-Internet](https://img.shields.io/uptimerobot/status/m794001384-01d2febd339773320ef5aae1?color=brightgreeen&label=Home%20Internet&style=for-the-badge&logo=kubernetes&logoColor=white)](https://uptimerobot.com)
+[![Plex](https://img.shields.io/uptimerobot/status/m793802743-0b6044ca7f1ec92851b9a495?color=brightgreeen&label=Plex&style=for-the-badge&logo=plex&logoColor=white)](https://plex.tv)
+[![Requests](https://img.shields.io/uptimerobot/status/m793802757-ca314435a1d7b7dc1ca5dac9?color=brightgreeen&label=Requests&style=for-the-badge&logo=insomnia&logoColor=white)](https://overseerr.dev)
 
 </div>
 
