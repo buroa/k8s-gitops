@@ -33,6 +33,11 @@ spec:
       TZ: "${TIMEZONE}"
     service:
       main:
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: |
+            plex.${SECRET_PUBLIC_DOMAIN}
+          external-dns.alpha.kubernetes.io/target: |
+            ingress.${SECRET_PUBLIC_DOMAIN}
         ports:
           http:
             port: 32400
