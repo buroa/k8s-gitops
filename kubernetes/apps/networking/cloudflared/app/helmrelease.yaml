@@ -40,6 +40,13 @@ spec:
       - --config
       - /etc/cloudflared/config/config.yaml
       - run
+      - "$(CLOUDFLARE_TUNNEL_ID)"
+    env:
+      CLOUDFLARE_TUNNEL_ID:
+        valueFrom:
+          secretKeyRef:
+            name: *secret
+            key: CLOUDFLARE_TUNNEL_ID
     service:
       main:
         ports:
@@ -81,7 +88,8 @@ spec:
         enabled: true
         type: secret
         name: *secret
-        mountPath: /etc/cloudflared/creds
+        subPath: credentials.json
+        mountPath: /etc/cloudflared/creds/credentials.json
         readOnly: true
     topologySpreadConstraints:
       - maxSkew: 1
