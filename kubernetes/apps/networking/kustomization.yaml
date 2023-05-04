@@ -6,6 +6,7 @@ resources:
   - ./blocky/ks.yaml
   - ./cloudflared/ks.yaml
   - ./contour/ks.yaml
+  - ./external-dns/ks.yaml
   - ./k8s-gateway/ks.yaml
   - ./pod-gateway/ks.yaml
   - ./smtp-relay/ks.yaml
