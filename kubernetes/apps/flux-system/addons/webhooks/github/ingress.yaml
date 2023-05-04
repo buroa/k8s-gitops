@@ -11,6 +11,8 @@ metadata:
     ingress.kubernetes.io/force-ssl-redirect: "true"
     projectcontour.io/websocket-routes: "/"
     hajimari.io/enable: "false"
+    external-dns.alpha.kubernetes.io/target: |
+      ingress.${SECRET_PUBLIC_DOMAIN}
 spec:
   rules:
     - host: &host flux-webhook.${SECRET_PUBLIC_DOMAIN}

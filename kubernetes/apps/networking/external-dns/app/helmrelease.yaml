@@ -42,10 +42,13 @@ spec:
       - --cloudflare-proxied
       - --annotation-filter=external-dns.alpha.kubernetes.io/target
     policy: sync
-    sources: ["ingress"]
+    sources:
+      - service
+      - ingress
     txtOwnerId: default
     txtPrefix: k8s.
-    domainFilters: ["${SECRET_PUBLIC_DOMAIN}"]
+    domainFilters:
+      - "${SECRET_PUBLIC_DOMAIN}"
     serviceMonitor:
       enabled: true
     podAnnotations:
