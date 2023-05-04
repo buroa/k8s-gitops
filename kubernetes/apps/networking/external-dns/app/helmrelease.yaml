@@ -40,7 +40,7 @@ spec:
             key: api-key
     extraArgs:
       - --cloudflare-proxied
-      - --domain-filter=${SECRET_PUBLIC_DOMAIN}
+      - --zone-id-filter=${SECRET_CLOUDFLARE_ZONE_ID}
       - --annotation-filter=external-dns.alpha.kubernetes.io/target
     policy: sync
     sources:
