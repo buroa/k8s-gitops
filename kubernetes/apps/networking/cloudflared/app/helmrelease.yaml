@@ -40,9 +40,13 @@ spec:
       - --config
       - /etc/cloudflared/config/config.yaml
       - run
-      - "$(CLOUDFLARE_TUNNEL_ID)"
+      - "$(TUNNEL_ID)"
     env:
-      CLOUDFLARE_TUNNEL_ID:
+      NO_AUTOUPDATE: "true"
+      TUNNEL_CRED_FILE: /etc/cloudflared/creds/credentials.json
+      TUNNEL_METRICS: 0.0.0.0:2000
+      TUNNEL_TRANSPORT_PROTOCOL: auto
+      TUNNEL_ID:
         valueFrom:
           secretKeyRef:
             name: *secret
