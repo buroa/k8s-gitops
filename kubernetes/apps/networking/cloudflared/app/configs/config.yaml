@@ -1,6 +1,5 @@
 ---
-# Name of the tunnel you want to run
-tunnel: k8s
+# The cloudflare tunnel credentials file
 credentials-file: /etc/cloudflared/creds/credentials.json
 # Serves the metrics server under /metrics and the readiness server under /ready
 metrics: 0.0.0.0:2000
@@ -19,4 +18,4 @@ protocol: quic
 # from the internet to cloudflared, run `cloudflared tunnel route dns <tunnel> <hostname>`.
 # E.g. `cloudflared tunnel route dns example-tunnel tunnel.example.com`.
 ingress:
-  - service: http_status:404
+  - service: https://contour-envoy.networking.svc.cluster.local
