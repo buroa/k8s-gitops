@@ -41,6 +41,7 @@ spec:
     extraArgs:
       - --cloudflare-proxied
       - --annotation-filter=external-dns.alpha.kubernetes.io/target
+      - --log-level=debug
     policy: sync
     sources:
       - service
