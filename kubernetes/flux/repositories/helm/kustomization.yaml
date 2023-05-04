@@ -13,6 +13,7 @@ resources:
   - ./coredns-charts.yaml
   - ./deliveryhero-charts.yaml
   - ./enix-charts.yaml
+  - ./external-dns-charts.yaml
   - ./external-secrets-charts.yaml
   - ./fairwinds-charts.yaml
   - ./grafana-charts.yaml
