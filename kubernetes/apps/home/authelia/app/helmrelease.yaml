@@ -95,6 +95,8 @@ spec:
           ingress.kubernetes.io/force-ssl-redirect: "true"
           projectcontour.io/websocket-routes: "/"
           hajimari.io/icon: mdi:shield-account
+          external-dns.alpha.kubernetes.io/target: |
+            ingress.${SECRET_PUBLIC_DOMAIN}
         hosts:
           - host: &host auth.${SECRET_PUBLIC_DOMAIN}
             paths:
