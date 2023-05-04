@@ -1,3 +1,17 @@
 ---
+warp-routing:
+  enabled: true
+
+originRequest:
+  http2Origin: true
+
 ingress:
-  - service: https://contour-envoy.networking.svc.cluster.local
+  - hostname: "plex.${SECRET_PUBLIC_DOMAIN}"
+    service: &ingress https://contour-envoy.networking.svc.cluster.local
+    originRequest:
+      keepAliveTimeout: 15m
+
+  - hostname: "*.${SECRET_PUBLIC_DOMAIN}"
+    service: *ingress
+
+  - service: http_status:404
