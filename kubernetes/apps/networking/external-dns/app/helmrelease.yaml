@@ -46,6 +46,7 @@ spec:
     sources:
       - service
       - ingress
+      - contour-httpproxy
     txtOwnerId: k8s
     txtPrefix: k8s.
     domainFilters:
