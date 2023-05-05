@@ -18,6 +18,9 @@ kind: HTTPProxy
 metadata:
   name: plex
   namespace: media
+  annotations:
+    external-dns.alpha.kubernetes.io/target: |
+      ingress.${SECRET_PUBLIC_DOMAIN}
 spec:
   virtualhost:
     fqdn: plex.${SECRET_PUBLIC_DOMAIN}
