@@ -46,7 +46,7 @@ spec:
     sources:
       - service
       - ingress
-    txtOwnerId: default
+    txtOwnerId: k8s
     txtPrefix: k8s.
     domainFilters:
       - "${SECRET_PUBLIC_DOMAIN}"
