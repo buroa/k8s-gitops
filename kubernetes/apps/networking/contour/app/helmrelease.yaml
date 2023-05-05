@@ -37,11 +37,6 @@ spec:
         loadBalancerIP: ${ENVOY_LB_IP}
         externalTrafficPolicy: Local
       useHostPort: false
-    configInline:
-      tls:
-        fallback-certificate:
-          name: ingress-tls
-          namespace: networking
     metrics:
       serviceMonitor:
         enabled: true
