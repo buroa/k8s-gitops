@@ -60,8 +60,7 @@ spec:
               - path: /
                 pathType: Prefix
         tls:
-          - secretName: arc-webhook-tls
-            hosts:
+          - hosts:
               - *host
     metrics:
       serviceMonitor: true
