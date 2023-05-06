@@ -52,7 +52,7 @@ spec:
           ingress.kubernetes.io/force-ssl-redirect: "true"
           projectcontour.io/websocket-routes: "/"
           hajimari.io/enable: "false"
-          external-dns.alpha.kubernetes.io/target: |
+          external-dns.alpha.kubernetes.io/target: |-
             ingress.${SECRET_PUBLIC_DOMAIN}
         hosts:
           - host: &host arc-webhook.${SECRET_PUBLIC_DOMAIN}
