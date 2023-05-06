@@ -33,9 +33,8 @@ spec:
         configmap.reloader.stakater.com/reload: &configmap cloudflared-config
         secret.reloader.stakater.com/reload: &secret cloudflared-tunnel-credentials
     image:
-      # TODO: https://github.com/cloudflare/cloudflared/pull/967
-      repository: ghcr.io/buroa/cloudflared
-      tag: latest@sha256:9625ef4cfbe2fdece268b21cc93a818298c7727006a6b6d1cdca2ba8ca9e81f7
+      repository: cloudflare/cloudflared
+      tag: 2023.5.0
     args:
       - tunnel
       - --config
