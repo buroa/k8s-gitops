@@ -19,7 +19,7 @@ metadata:
   name: plex
   namespace: media
   annotations:
-    external-dns.alpha.kubernetes.io/target: |
+    external-dns.alpha.kubernetes.io/target: |-
       ingress.${SECRET_PUBLIC_DOMAIN}
 spec:
   virtualhost:
