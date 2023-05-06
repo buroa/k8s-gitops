@@ -44,7 +44,7 @@ spec:
             name: external-dns-cloudflare-secret
             key: zone-id
     extraArgs:
-      - --cloudflare-proxied
+      # - --cloudflare-proxied
       - "--zone-id-filter=$(CF_ZONE_ID)"
       - --annotation-filter=external-dns.alpha.kubernetes.io/target
     policy: sync
