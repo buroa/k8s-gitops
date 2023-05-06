@@ -5,13 +5,49 @@ warp-routing:
 originRequest:
   http2Origin: true
 
+# TODO: one ingress to rule them all
+# https://github.com/cloudflare/cloudflared/issues/541
+
 ingress:
-  - hostname: "*.${SECRET_PUBLIC_DOMAIN}"
+  - hostname: "arc-webhook.${SECRET_PUBLIC_DOMAIN}"
     service: &ingress https://contour-envoy.networking.svc.cluster.local
+    originRequest:
+      originServerName: "arc-webhook.${SECRET_PUBLIC_DOMAIN}"
+
+  - hostname: "flux-webhook.${SECRET_PUBLIC_DOMAIN}"
+    service: *ingress
+    originRequest:
+      originServerName: "flux-webhook.${SECRET_PUBLIC_DOMAIN}"
+
+  - hostname: "auth.${SECRET_PUBLIC_DOMAIN}"
+    service: *ingress
+    originRequest:
+      originServerName: "auth.${SECRET_PUBLIC_DOMAIN}"
+
+  - hostname: "requests.${SECRET_PUBLIC_DOMAIN}"
+    service: *ingress
+    originRequest:
+      originServerName: "requests.${SECRET_PUBLIC_DOMAIN}"
 
   - hostname: "plex.${SECRET_PUBLIC_DOMAIN}"
     service: *ingress
     originRequest:
+      originServerName: "plex.${SECRET_PUBLIC_DOMAIN}"
       keepAliveTimeout: 15m
+
+  - hostname: "tautulli.${SECRET_PUBLIC_DOMAIN}"
+    service: *ingress
+    originRequest:
+      originServerName: "tautulli.${SECRET_PUBLIC_DOMAIN}"
+
+  - hostname: "invite.${SECRET_PUBLIC_DOMAIN}"
+    service: *ingress
+    originRequest:
+      originServerName: "invite.${SECRET_PUBLIC_DOMAIN}"
+
+  - hostname: "grafana.${SECRET_PUBLIC_DOMAIN}"
+    service: *ingress
+    originRequest:
+      originServerName: "grafana.${SECRET_PUBLIC_DOMAIN}"
 
   - service: http_status:404
