@@ -35,7 +35,7 @@ spec:
     image:
       # TODO: https://github.com/cloudflare/cloudflared/pull/967
       repository: ghcr.io/buroa/cloudflared
-      tag: latest@sha256:9fea444eaab9111e1e24f637e113c30434cd49f54722ff9b8c9c61bdbc1105f3
+      tag: latest@sha256:9625ef4cfbe2fdece268b21cc93a818298c7727006a6b6d1cdca2ba8ca9e81f7
     args:
       - tunnel
       - --config
