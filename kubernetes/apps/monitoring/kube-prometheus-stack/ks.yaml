@@ -7,7 +7,6 @@ metadata:
 spec:
   dependsOn:
     - name: cluster-apps-rook-ceph-cluster
-    - name: cluster-apps-external-secrets-stores
   path: ./kubernetes/apps/monitoring/kube-prometheus-stack/app
   prune: true
   sourceRef:
