@@ -9,6 +9,12 @@ configMapGenerator:
   - name: alertmanager-config-tpl
     files:
       - config.tmpl=./configs/config.yml
+  - name: alertmanager-config
+    files:
+      - pushover.tmpl=./configs/pushover.yml
+    options:
+      labels:
+        alertmanager_config: "1"
 generatorOptions:
   disableNameSuffixHash: true
 labels:

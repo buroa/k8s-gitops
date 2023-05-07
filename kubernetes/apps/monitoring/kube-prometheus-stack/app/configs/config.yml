@@ -1,3 +1,4 @@
+---
 global:
   resolve_timeout: 5m
 
@@ -17,29 +18,6 @@ receivers:
         send_resolved: true
         html: true
         sound: gamelan
-        priority: |-
-          {{ if eq .Status "firing" }}1{{ else }}0{{ end }}
-        title: |-
-          {{ .CommonLabels.alertname }} [{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}]
-        message: |-
-          {{- range .Alerts }}
-            {{- if ne .Annotations.description "" }}
-              {{ .Annotations.description }}
-            {{- else if ne .Annotations.summary "" }}
-              {{ .Annotations.summary }}
-            {{- else if ne .Annotations.message "" }}
-              {{ .Annotations.message }}
-            {{- else }}
-              Alert description not available
-            {{- end }}
-            {{- if gt (len .Labels.SortedPairs) 0 }}
-              <small>
-              {{- range .Labels.SortedPairs }}
-                <b>{{ .Name }}:</b> {{ .Value }}
-              {{- end }}
-              </small>
-            {{- end }}
-          {{- end }}
 
 route:
   group_by: ["alertname", "job"]
@@ -63,7 +41,6 @@ route:
       matchers:
         - severity = "critical"
       continue: true
-
 inhibit_rules:
   - source_matchers:
       - severity = "critical"
