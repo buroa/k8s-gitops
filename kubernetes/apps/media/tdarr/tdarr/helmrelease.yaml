@@ -27,7 +27,7 @@ spec:
     keepHistory: false
   values:
     image:
-      repository: haveagitgat/tdarr_acc
+      repository: ghcr.io/haveagitgat/tdarr_acc
       tag: 2.00.20.1
     env:
       TZ: "${TIMEZONE}"
