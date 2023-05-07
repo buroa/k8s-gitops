@@ -8,7 +8,7 @@
       automergeType: "branch",
       ignoreTests: true,
       matchUpdateTypes: ["digest"],
-      matchPackagePattern: ["ghcr.io/onedr0p"],
+      matchPackagePatterns: ["ghcr.io/onedr0p"],
     },
     {
       description: "Auto merge containers",
