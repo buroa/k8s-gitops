@@ -29,7 +29,7 @@ spec:
     controller:
       type: daemonset
     image:
-      repository: haveagitgat/tdarr_node_acc
+      repository: ghcr.io/haveagitgat/tdarr_node_acc
       tag: 2.00.20.1
     env:
       TZ: "${TIMEZONE}"
