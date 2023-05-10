@@ -1,0 +1,17 @@
+---
+kind: Probe
+apiVersion: monitoring.coreos.com/v1
+metadata:
+  name: icmp
+  namespace: monitoring
+spec:
+  module: icmp
+  prober:
+    url: blackbox-exporter.monitoring.svc.cluster.local:9115
+  targets:
+    staticConfig:
+      static:
+        - unifi.${SECRET_PUBLIC_DOMAIN}
+        - nas.${SECRET_PUBLIC_DOMAIN}
+        - ups.${SECRET_PUBLIC_DOMAIN}
+        - pdu.${SECRET_PUBLIC_DOMAIN}
