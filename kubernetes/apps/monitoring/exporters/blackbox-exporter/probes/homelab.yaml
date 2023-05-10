@@ -2,7 +2,7 @@
 kind: Probe
 apiVersion: monitoring.coreos.com/v1
 metadata:
-  name: icmp
+  name: homelab
   namespace: monitoring
 spec:
   module: icmp
