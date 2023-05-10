@@ -73,7 +73,7 @@ spec:
       VPN_BLOCK_OTHER_TRAFFIC: true
       VPN_INTERFACE: wg0
       VPN_LOCAL_CIDRS: *cidrs
-      VPN_TRAFFIC_PORT: "9929"
+      VPN_TRAFFIC_PORT: "51820"
       VXLAN_ID: 42
       VXLAN_IP_NETWORK: ${VPN_GW_SUBNET}
     webhook:
