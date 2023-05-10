@@ -70,6 +70,11 @@ spec:
           timeout: 30s
           icmp:
             preferred_ip_protocol: "ip4"
+        tcp_connect:
+          prober: tcp
+          timeout: 5s
+          tcp:
+            preferred_ip_protocol: "ip4"
     serviceMonitor:
       enabled: true
       defaults:
@@ -77,19 +82,6 @@ spec:
           release: prometheus
         interval: 2m
         scrapeTimeout: 30s
-      targets:
-        - name: udm-icmp
-          module: icmp
-          url: unifi.${SECRET_PUBLIC_DOMAIN}
-        - name: nas-icmp
-          module: icmp
-          url: nas.${SECRET_PUBLIC_DOMAIN}
-        - name: ups-icmp
-          module: icmp
-          url: ups.${SECRET_PUBLIC_DOMAIN}
-        - name: pdu-icmp
-          module: icmp
-          url: pdu.${SECRET_PUBLIC_DOMAIN}
     prometheusRule:
       enabled: true
       additionalLabels:
