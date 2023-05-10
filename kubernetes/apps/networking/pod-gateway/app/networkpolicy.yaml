@@ -17,7 +17,7 @@ spec:
         - 0.0.0.0/0
       toPorts:
         - ports:
-            - port: "9929"
+            - port: "51820"
               protocol: UDP
     - toEntities:
         - cluster
