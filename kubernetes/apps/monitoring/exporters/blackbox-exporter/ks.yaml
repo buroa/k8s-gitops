@@ -25,6 +25,8 @@ metadata:
   name: cluster-apps-blackbox-exporter-probes
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: cluster-apps-blackbox-exporter
   path: ./kubernetes/apps/monitoring/exporters/blackbox-exporter/probes
   prune: true
   sourceRef:
