@@ -50,7 +50,7 @@ spec:
             command:
               - sh
               - -c
-              - curl -s https://ipv4.am.i.mullvad.net/port/${TORRENT_PUBLIC_PORT} | grep true
+              - curl -s https://ipv4.am.i.mullvad.net/port/${TORRENT_PUBLIC_PORT} | jq -e '.reachable'
       readiness: *probes
       startup:
         enabled: false
