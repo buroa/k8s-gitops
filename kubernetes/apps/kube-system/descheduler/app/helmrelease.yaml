@@ -5,7 +5,7 @@ metadata:
   name: descheduler
   namespace: kube-system
 spec:
-  interval: 30m
+  interval: 15m
   chart:
     spec:
       chart: descheduler

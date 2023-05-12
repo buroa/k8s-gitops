@@ -5,7 +5,7 @@ metadata:
   name: snapshot-validation-webhook
   namespace: kube-system
 spec:
-  interval: 30m
+  interval: 15m
   chart:
     spec:
       chart: snapshot-validation-webhook

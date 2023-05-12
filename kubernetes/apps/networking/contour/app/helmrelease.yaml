@@ -5,7 +5,7 @@ metadata:
   name: contour
   namespace: networking
 spec:
-  interval: 30m
+  interval: 15m
   timeout: 1h
   chart:
     spec:
