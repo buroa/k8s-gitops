@@ -10,11 +10,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: k8s-gitops
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
-      kind: HelmRelease
-      name: snmp-exporter-cyberpower-pdu
-      namespace: monitoring
+  wait: true
   interval: 30m
   retryInterval: 1m
   timeout: 3m
@@ -30,11 +26,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: k8s-gitops
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
-      kind: HelmRelease
-      name: snmp-exporter-cyberpower-ups
-      namespace: monitoring
+  wait: true
   interval: 30m
   retryInterval: 1m
   timeout: 3m
@@ -50,11 +42,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: k8s-gitops
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
-      kind: HelmRelease
-      name: snmp-exporter-synology-nas
-      namespace: monitoring
+  wait: true
   interval: 30m
   retryInterval: 1m
   timeout: 3m
