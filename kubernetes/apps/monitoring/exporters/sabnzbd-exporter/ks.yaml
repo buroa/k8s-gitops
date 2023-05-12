@@ -13,11 +13,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: k8s-gitops
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
-      kind: HelmRelease
-      name: sabnzbd-exporter
-      namespace: monitoring
+  wait: true
   interval: 30m
   retryInterval: 1m
   timeout: 3m

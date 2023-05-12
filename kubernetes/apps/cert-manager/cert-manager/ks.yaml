@@ -10,11 +10,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: k8s-gitops
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
-      kind: HelmRelease
-      name: cert-manager
-      namespace: cert-manager
+  wait: true
   interval: 30m
   retryInterval: 1m
   timeout: 3m
@@ -33,6 +29,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: k8s-gitops
+  wait: true
   interval: 30m
   retryInterval: 1m
   timeout: 3m

@@ -12,11 +12,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: k8s-gitops
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
-      kind: HelmRelease
-      name: intel-device-plugin-operator
-      namespace: kube-system
+  wait: true
   interval: 30m
   retryInterval: 1m
   timeout: 3m
@@ -35,11 +31,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: k8s-gitops
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
-      kind: HelmRelease
-      name: intel-device-plugin-gpu
-      namespace: kube-system
+  wait: true
   interval: 30m
   retryInterval: 1m
   timeout: 3m
@@ -57,11 +49,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: k8s-gitops
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
-      kind: HelmRelease
-      name: intel-gpu-exporter
-      namespace: kube-system
+  wait: true
   interval: 30m
   retryInterval: 1m
   timeout: 3m
