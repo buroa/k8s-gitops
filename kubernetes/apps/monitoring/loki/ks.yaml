@@ -21,6 +21,6 @@ spec:
       kind: ObjectBucketClaim
       name: loki-ceph-bucket
       namespace: monitoring
-  interval: 30m
+  interval: 15m
   retryInterval: 1m
   timeout: 3m
