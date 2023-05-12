@@ -5,7 +5,7 @@ metadata:
   name: cloudnative-pg
   namespace: databases
 spec:
-  interval: 30m
+  interval: 15m
   chart:
     spec:
       chart: cloudnative-pg

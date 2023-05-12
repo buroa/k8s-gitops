@@ -5,7 +5,7 @@ metadata:
   name: blocky
   namespace: networking
 spec:
-  interval: 30m
+  interval: 15m
   chart:
     spec:
       chart: app-template

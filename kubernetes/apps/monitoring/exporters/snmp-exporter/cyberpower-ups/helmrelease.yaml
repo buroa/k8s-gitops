@@ -5,7 +5,7 @@ metadata:
   name: &app snmp-exporter-cyberpower-ups
   namespace: monitoring
 spec:
-  interval: 30m
+  interval: 15m
   chart:
     spec:
       chart: prometheus-snmp-exporter
