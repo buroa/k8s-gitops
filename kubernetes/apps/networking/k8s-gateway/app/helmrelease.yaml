@@ -37,16 +37,24 @@ spec:
     args: ["-conf", "/etc/coredns/Corefile"]
     service:
       main:
-        type: ClusterIP
-        externalTrafficPolicy: ""
-        clusterIP: "${K8S_GATEWAY_IP}"
         ports:
           http:
             enabled: false
           metrics:
             enabled: true
             port: 9153
-          dns:
+      dns:
+        enabled: true
+        type: ClusterIP
+        externalTrafficPolicy: ""
+        clusterIP: "${K8S_GATEWAY_IP}"
+        ports:
+          dns-tcp:
+            enabled: true
+            port: 53
+            targetPort: 1053
+            protocol: TCP
+          dns-udp:
             enabled: true
             port: 53
             targetPort: 1053
