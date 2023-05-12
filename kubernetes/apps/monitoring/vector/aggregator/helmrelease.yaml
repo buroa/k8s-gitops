@@ -5,7 +5,7 @@ metadata:
   name: vector-aggregator
   namespace: monitoring
 spec:
-  interval: 30m
+  interval: 15m
   chart:
     spec:
       chart: vector
