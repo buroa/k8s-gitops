@@ -17,7 +17,7 @@ spec:
       kind: HelmRelease
       name: intel-device-plugin-operator
       namespace: kube-system
-  interval: 15m
+  interval: 30m
   retryInterval: 1m
   timeout: 3m
 ---
@@ -40,7 +40,7 @@ spec:
       kind: HelmRelease
       name: intel-device-plugin-gpu
       namespace: kube-system
-  interval: 15m
+  interval: 30m
   retryInterval: 1m
   timeout: 3m
 ---
@@ -62,6 +62,6 @@ spec:
       kind: HelmRelease
       name: intel-gpu-exporter
       namespace: kube-system
-  interval: 15m
+  interval: 30m
   retryInterval: 1m
   timeout: 3m

@@ -21,6 +21,6 @@ spec:
       kind: HelmRelease
       name: deluge
       namespace: media
-  interval: 15m
+  interval: 30m
   retryInterval: 1m
   timeout: 3m

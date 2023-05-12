@@ -5,7 +5,7 @@ metadata:
   name: autoscan-adapter
   namespace: media
 spec:
-  interval: 15m
+  interval: 30m
   chart:
     spec:
       chart: app-template

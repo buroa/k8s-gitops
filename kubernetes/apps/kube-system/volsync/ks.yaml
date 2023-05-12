@@ -17,6 +17,6 @@ spec:
       kind: HelmRelease
       name: volsync
       namespace: kube-system
-  interval: 15m
+  interval: 30m
   retryInterval: 1m
   timeout: 3m

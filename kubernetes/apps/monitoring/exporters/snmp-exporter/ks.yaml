@@ -15,7 +15,7 @@ spec:
       kind: HelmRelease
       name: snmp-exporter-cyberpower-pdu
       namespace: monitoring
-  interval: 15m
+  interval: 30m
   retryInterval: 1m
   timeout: 3m
 ---
@@ -35,7 +35,7 @@ spec:
       kind: HelmRelease
       name: snmp-exporter-cyberpower-ups
       namespace: monitoring
-  interval: 15m
+  interval: 30m
   retryInterval: 1m
   timeout: 3m
 ---
@@ -55,6 +55,6 @@ spec:
       kind: HelmRelease
       name: snmp-exporter-synology-nas
       namespace: monitoring
-  interval: 15m
+  interval: 30m
   retryInterval: 1m
   timeout: 3m
