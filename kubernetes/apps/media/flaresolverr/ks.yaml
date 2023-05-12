@@ -15,6 +15,6 @@ spec:
       kind: HelmRelease
       name: flaresolverr
       namespace: media
-  interval: 30m
+  interval: 15m
   retryInterval: 1m
   timeout: 3m
