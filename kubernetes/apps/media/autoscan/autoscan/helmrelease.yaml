@@ -30,8 +30,8 @@ spec:
       annotations:
         secret.reloader.stakater.com/reload: &secret autoscan-secret
     image:
-      repository: akreii/autoscan
-      tag: latest@sha256:0262d6aeca9f866d8087cbd26d59e7164dce89eb65a5cc4320c05775d2d5517a
+      repository: ghcr.io/buroa/autoscan
+      tag: latest@sha256:1b9f5043f84a5194e7360ed28e3b1b4a33c2235cb68559f803b7faf65b94b936
     env:
       TZ: "${TIMEZONE}"
       PUID: "1000"
