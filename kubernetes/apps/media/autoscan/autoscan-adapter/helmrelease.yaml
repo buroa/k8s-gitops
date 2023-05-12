@@ -30,8 +30,8 @@ spec:
       annotations:
         secret.reloader.stakater.com/reload: &secret autoscan-adapter-secret
     image:
-      repository: akreii/autoscan-adapter
-      tag: latest@sha256:92ade13459fc214c1144605539e393331ec3589b5129d16acc9df7e56b212ea8
+      repository: ghcr.io/buroa/autoscan-adapter
+      tag: latest@sha256:b5b4ede7df33571d229ff9d5d0a9662ac2840caf2d9b75c7b78906e0aa4a8ed4
     env:
       PLEX_URL: "http://plex.media.svc.cluster.local:32400"
       SLEEP_INTERVAL: "30"
