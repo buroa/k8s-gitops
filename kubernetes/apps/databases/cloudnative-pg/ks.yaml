@@ -15,7 +15,7 @@ spec:
       kind: HelmRelease
       name: cloudnative-pg
       namespace: databases
-  interval: 30m
+  interval: 15m
   retryInterval: 1m
   timeout: 3m
 ---
@@ -40,6 +40,6 @@ spec:
       name: postgres
       namespace: databases
   wait: true
-  interval: 30m
+  interval: 15m
   retryInterval: 1m
   timeout: 3m

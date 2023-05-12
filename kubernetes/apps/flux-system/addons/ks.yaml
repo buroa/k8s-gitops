@@ -11,7 +11,7 @@ spec:
     kind: GitRepository
     name: k8s-gitops
   wait: true
-  interval: 30m
+  interval: 15m
   retryInterval: 1m
   timeout: 3m
 ---
@@ -29,7 +29,7 @@ spec:
     kind: GitRepository
     name: k8s-gitops
   wait: true
-  interval: 30m
+  interval: 15m
   retryInterval: 1m
   timeout: 3m
 ---
@@ -47,6 +47,6 @@ spec:
     kind: GitRepository
     name: k8s-gitops
   wait: true
-  interval: 30m
+  interval: 15m
   retryInterval: 1m
   timeout: 3m

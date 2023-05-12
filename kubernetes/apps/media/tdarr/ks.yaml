@@ -19,7 +19,7 @@ spec:
       kind: HelmRelease
       name: tdarr
       namespace: media
-  interval: 30m
+  interval: 15m
   retryInterval: 1m
   timeout: 3m
 ---
@@ -42,6 +42,6 @@ spec:
       kind: HelmRelease
       name: tdarr-node
       namespace: media
-  interval: 30m
+  interval: 15m
   retryInterval: 1m
   timeout: 3m
