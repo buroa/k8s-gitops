@@ -34,18 +34,28 @@ spec:
           enabled: true
           params:
             podsHavingTooManyRestarts:
-              podRestartThreshold: 100
+              podRestartThreshold: 10
               includingInitContainers: true
         RemovePodsViolatingTopologySpreadConstraint:
           enabled: true
           params:
             includeSoftConstraints: true
+        PodLifeTime:
+          enabled: true
+          params:
+            podLifeTime:
+              states:
+                - Pending
+                - PodInitializing
+                - ContainerCreating
+              maxPodLifeTimeSeconds: 3600
         RemoveFailedPods:
           enabled: true
           params:
             failedPods:
               reasons:
-                - OutOfcpu
+                - NodeShutdown
+                - ImagePullBackOff
                 - CreateContainerConfigError
               includingInitContainers: true
               excludeOwnerKinds:
@@ -67,13 +77,13 @@ spec:
           params:
             nodeResourceUtilizationThresholds:
               thresholds:
-                cpu: 25
-                memory: 25
-                pods: 25
+                cpu: 35
+                memory: 35
+                pods: 35
               targetThresholds:
-                cpu: 45
-                memory: 45
-                pods: 45
+                cpu: 50
+                memory: 50
+                pods: 50
     service:
       enabled: true
     serviceMonitor:
