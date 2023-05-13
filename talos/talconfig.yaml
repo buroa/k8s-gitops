@@ -162,21 +162,16 @@ controlPlane:
   inlinePatch:
     cluster:
       allowSchedulingOnMasters: true
+      proxy:
+        disabled: true
       etcd:
         extraArgs:
           listen-metrics-urls: http://0.0.0.0:2381
       controllerManager:
         extraArgs:
-          feature-gates: MixedProtocolLBService=true
           bind-address: 0.0.0.0
-      proxy:
-        disabled: true
-        extraArgs:
-          feature-gates: MixedProtocolLBService=true
-          metrics-bind-address: 0.0.0.0:10249
       scheduler:
         extraArgs:
-          feature-gates: MixedProtocolLBService=true
           bind-address: 0.0.0.0
       apiServer:
         admissionControl: null
@@ -193,10 +188,10 @@ controlPlane:
           - image: ghcr.io/siderolabs/iscsi-tools:v0.1.4
         legacyBIOSSupport: true
         extraKernelArgs:
-          - "talos.logging.kernel=udp://7.0.0.3:6001/"
+          - talos.logging.kernel=udp://7.0.0.3:6001/
       logging:
         destinations:
-          - endpoint: "udp://7.0.0.3:6002/"
+          - endpoint: udp://7.0.0.3:6002/
             format: json_lines
       kernel:
         modules:
@@ -245,10 +240,10 @@ controlPlane:
       time:
         disabled: false
         servers:
-          - time.cloudflare.com
+          - unifi.${domainName}
       kubelet:
         extraArgs:
-          feature-gates: GracefulNodeShutdown=true,MixedProtocolLBService=true
+          feature-gates: GracefulNodeShutdown=true
           rotate-server-certificates: true
       files:
         - content: |
