@@ -30,7 +30,7 @@ metadata:
 spec:
   sourcePVC: tdarr-config
   trigger:
-    schedule: "0 0 * * *"
+    schedule: "0 8 * * *"
   restic:
     copyMethod: Snapshot
     pruneIntervalDays: 10
