@@ -27,7 +27,7 @@ spec:
     keepHistory: false
   values:
     image:
-      repository: ngosang/deluge-exporter
+      repository: docker.io/ngosang/deluge-exporter
       tag: 1.0.1
     env:
       DELUGE_URL: "http://deluge.media.svc.cluster.local:8112"
