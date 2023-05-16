@@ -77,9 +77,23 @@ spec:
       config:
         enabled: true
         existingClaim: deluge-config
+      state:
+        enabled: true
+        existingClaim: deluge-state
+        mountPath: /config/state
+        subPath: state
+      watch:
+        enabled: true
+        existingClaim: deluge-watch
       media:
         enabled: true
         existingClaim: media
+      scripts:
+        enabled: true
+        type: configMap
+        name: deluge-scripts
+        defaultMode: 0775
+        readOnly: true
     podLabels:
       vpn/ovpn: "true"
     hostname: torrent

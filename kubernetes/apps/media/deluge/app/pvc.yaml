@@ -11,3 +11,29 @@ spec:
     requests:
       storage: 2Gi
   storageClassName: ${CLUSTER_STORAGE_CLASS}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: deluge-state
+  namespace: media
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 2Gi
+  storageClassName: ceph-filesystem
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: deluge-watch
+  namespace: media
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 2Gi
+  storageClassName: ceph-filesystem
