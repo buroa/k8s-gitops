@@ -4,15 +4,15 @@ kind: Kustomization
 namespace: media
 resources:
   - ./pvc.yaml
+  - ./externalsecret.yaml
   - ./helmrelease.yaml
-  - ./volsync.yaml
 configMapGenerator:
-  - name: deluge-scripts
+  - name: cross-seed-config-tpl
     files:
-      - ./scripts/cross-seed.sh
+      - ./configs/config.js
 generatorOptions:
   disableNameSuffixHash: true
 labels:
   - pairs:
-      app.kubernetes.io/name: deluge
-      app.kubernetes.io/instance: deluge
+      app.kubernetes.io/name: cross-seed
+      app.kubernetes.io/instance: cross-seed
