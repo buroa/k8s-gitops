@@ -46,6 +46,6 @@ spec:
         enabled: true
         type: secret
         name: *secret
-        subPath: config.yaml
         mountPath: /config/config.yaml
+        subPath: config.yaml
         readOnly: true

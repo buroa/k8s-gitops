@@ -49,8 +49,8 @@ spec:
         enabled: true
         type: secret
         name: *secret
-        subPath: config.js
         mountPath: /config/config.js
+        subPath: config.js
         readOnly: true
       state:
         enabled: true

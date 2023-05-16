@@ -49,8 +49,8 @@ spec:
         enabled: true
         type: secret
         name: *secret
-        subPath: config.yml
         mountPath: /config/config.yml
+        subPath: config.yml
         readOnly: true
       media:
         enabled: true

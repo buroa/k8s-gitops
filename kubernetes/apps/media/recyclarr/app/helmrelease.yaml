@@ -51,6 +51,6 @@ spec:
         enabled: true
         type: secret
         name: *secret
-        subPath: recyclarr.yml
         mountPath: /config/recyclarr.yml
+        subPath: recyclarr.yml
         readOnly: true

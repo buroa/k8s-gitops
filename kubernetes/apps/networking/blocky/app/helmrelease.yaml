@@ -80,8 +80,8 @@ spec:
         enabled: true
         type: configMap
         name: *configmap
-        subPath: config.yml
         mountPath: /app/config.yml
+        subPath: config.yml
         readOnly: true
     affinity:
       podAntiAffinity:

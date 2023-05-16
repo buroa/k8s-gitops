@@ -52,15 +52,15 @@ spec:
         enabled: true
         type: secret
         name: *secret
-        subPath: config.yml
         mountPath: /config/config.yml
+        subPath: config.yml
         readOnly: true
       config-prerolls:
         enabled: true
         type: configMap
         name: pmm-prerolls
-        subPath: Pre-rolls.yml
         mountPath: /config/Pre-rolls.yml
+        subPath: Pre-rolls.yml
         readOnly: true
       scripts:
         enabled: true
