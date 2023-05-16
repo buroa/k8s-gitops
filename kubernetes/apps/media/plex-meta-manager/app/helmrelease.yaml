@@ -33,7 +33,7 @@ spec:
       cronjob:
         schedule: 0 6 * * *
     image:
-      repository: meisnate12/plex-meta-manager
+      repository: docker.io/meisnate12/plex-meta-manager
       tag: v1.19.0
     env:
       TZ: "${TIMEZONE}"
