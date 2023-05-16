@@ -85,15 +85,15 @@ spec:
         enabled: true
         type: configMap
         name: *configmap
-        subPath: config.yaml
         mountPath: /etc/cloudflared/config/config.yaml
+        subPath: config.yaml
         readOnly: true
       creds:
         enabled: true
         type: secret
         name: *secret
-        subPath: credentials.json
         mountPath: /etc/cloudflared/creds/credentials.json
+        subPath: credentials.json
         readOnly: true
     topologySpreadConstraints:
       - maxSkew: 1
