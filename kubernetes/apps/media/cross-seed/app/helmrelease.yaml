@@ -30,8 +30,8 @@ spec:
       annotations:
         secret.reloader.stakater.com/reload: &secret cross-seed-secret
     image:
-      repository: docker.io/crossseed/cross-seed
-      tag: latest@sha256:222f852d7e120faaf39942adc8fd222f0adb750c255fc42b7f4071bb11313b96
+      repository: ghcr.io/cross-seed/cross-seed
+      tag: latest@sha256:c3f3645e62653dad71c37d328d56da79ea09d42c0ad50abced2aa9c3e0434583
     args:
       - daemon
     env:
