@@ -1,0 +1,69 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: cross-seed
+  namespace: media
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.5.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  maxHistory: 3
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controller:
+      annotations:
+        secret.reloader.stakater.com/reload: &secret cross-seed-secret
+    image:
+      repository: docker.io/crossseed/cross-seed
+      tag: latest@sha256:222f852d7e120faaf39942adc8fd222f0adb750c255fc42b7f4071bb11313b96
+    args:
+      - daemon
+    env:
+      TZ: "${TIMEZONE}"
+    service:
+      main:
+        ports:
+          http:
+            port: 2468
+    persistence:
+      config:
+        enabled: true
+        existingClaim: cross-seed-config
+      config-config:
+        enabled: true
+        type: secret
+        name: *secret
+        subPath: config.js
+        mountPath: /config/config.js
+        readOnly: true
+      state:
+        enabled: true
+        existingClaim: deluge-state
+        readOnly: true
+      cross-seed:
+        enabled: true
+        existingClaim: deluge-watch
+        mountPath: /watch/cross-seed
+        subPath: cross-seed
+    resources:
+      requests:
+        cpu: 10m
+        memory: 250Mi
+      limits:
+        memory: 2000Mi
