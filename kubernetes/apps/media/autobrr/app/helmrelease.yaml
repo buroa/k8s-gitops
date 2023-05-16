@@ -72,8 +72,8 @@ spec:
         enabled: true
         type: configMap
         name: *configmap
-        subPath: config.toml
         mountPath: /config/config.toml
+        subPath: config.toml
         readOnly: true
     podLabels:
       vpn/ovpn: "true"
