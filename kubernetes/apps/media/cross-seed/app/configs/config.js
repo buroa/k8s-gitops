@@ -22,8 +22,7 @@ module.exports = {
     includeEpisodes: true,
     includeNonVideos: true,
     action: "save",
-    rssCadence: "15 minutes",
-    searchCadence: "1 week",
-    excludeRecentSearch: "1 week",
+    rssCadence: "10 minutes",
+    searchCadence: "2 weeks",
 
 };
