@@ -24,6 +24,6 @@ module.exports = {
     action: "save",
     rssCadence: "15 minutes",
     searchCadence: "1 week",
-    excludeRecentSearch: "2 weeks",
+    excludeRecentSearch: "1 week",
 
 };
