@@ -69,3 +69,5 @@ spec:
         memory: 250Mi
       limits:
         memory: 2000Mi
+    podLabels:
+      vpn/ovpn: "true"
