@@ -17,7 +17,7 @@ module.exports = {
     ],
 
     matchMode: "safe",
-    torrentDir: "/state",
+    torrentDir: "/config/state",
     outputDir: "/watch/cross-seed",
     includeEpisodes: true,
     includeNonVideos: true,
