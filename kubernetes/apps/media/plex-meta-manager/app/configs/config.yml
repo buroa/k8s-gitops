@@ -116,7 +116,7 @@ radarr:
   root_folder_path: /media/movies
   monitor: true
   availability: announced
-  quality_profile: Web-1080p
+  quality_profile: Remux-1080p
   tag:
   search: false
   radarr_path:
