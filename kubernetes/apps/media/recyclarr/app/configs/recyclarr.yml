@@ -149,8 +149,6 @@ radarr:
           - f9f847ac70a0af62ea4a08280b859636 # DTS-ES
           - 1c1a4c5e823891c75bc50380a6866f73 # DTS
         quality_profiles:
-          - name: Web-1080p
-            reset_unmatched_scores: true
           - name: Remux-1080p
             reset_unmatched_scores: true
 
@@ -162,8 +160,6 @@ radarr:
           - 240770601cc226190c367ef59aba7463 # AAC
           - c2998bd0d90ed5621d8df281e839436e # DD
         quality_profiles:
-          - name: Web-1080p
-            reset_unmatched_scores: true
           - name: Remux-1080p
             reset_unmatched_scores: true
 
@@ -180,8 +176,6 @@ radarr:
           - 08d6d8834ad9ec87b1dc7ec8148e7a1f # PQ
           - 9364dd386c9b4a1100dde8264690add7 # HLG
         quality_profiles:
-          - name: Web-1080p
-            reset_unmatched_scores: true
           - name: Remux-1080p
             reset_unmatched_scores: true
 
@@ -197,8 +191,6 @@ radarr:
           - 9f6cbff8cfe4ebbc1bde14c7b7bec0de # IMAX Enhanced
           - 09d9dd29a0fc958f9796e65c2a8864b4 # Open Matte
         quality_profiles:
-          - name: Web-1080p
-            reset_unmatched_scores: true
           - name: Remux-1080p
             reset_unmatched_scores: true
 
@@ -209,8 +201,6 @@ radarr:
           - b8cd450cbfa689c0259a01d9e29ba3d6 # 3D
           - dc98083864ea246d05a42df0d05f81cc # x265 (HD)
         quality_profiles:
-          - name: Web-1080p
-            reset_unmatched_scores: true
           - name: Remux-1080p
             reset_unmatched_scores: true
 
@@ -223,17 +213,11 @@ radarr:
           - e71939fae578037e7aed3ee219bbe7c1 # UDH BluRay Tier 03
           - ed27ebfef2f323e964fb1f61391bcb35 # HD BluRay Tier 01
           - c20c8647f2746a1f4c4262b0fbbeeeae # HD BluRay Tier 02
-        quality_profiles:
-          - name: Remux-1080p
-            reset_unmatched_scores: true
-
-      # HQ Release Groups
-      - trash_ids:
           - c20f169ef63c5f40c2def54abaf4438e # WEB Tier 01
           - 403816d65392c79236dcb6dd591aeda4 # WEB Tier 02
           - af94e0fe497124d1f9ce732069ec8c3b # WEB Tier 03
         quality_profiles:
-          - name: Web-1080p
+          - name: Remux-1080p
             reset_unmatched_scores: true
 
       # Streaming Services
@@ -250,9 +234,6 @@ radarr:
           - bf7e73dd1d85b12cc527dc619761c840 # PATHE
           - cc5e51a9e85a6296ceefe097a77f12f4 # BCORE
         quality_profiles:
-          - name: Web-1080p
-            score: 1
-            reset_unmatched_scores: true
           - name: Remux-1080p
             score: 1
             reset_unmatched_scores: true
@@ -262,8 +243,6 @@ radarr:
           - e7718d7a3ce595f289bfee26adc178f5 # Repack/Proper
           - ae43b294509409a6a13919dedd4764c4 # Repack2
         quality_profiles:
-          - name: Web-1080p
-            reset_unmatched_scores: true
           - name: Remux-1080p
             reset_unmatched_scores: true
 
@@ -278,7 +257,5 @@ radarr:
           - 5c44f52a8714fdd79bb4d98e2673be1f # Retags
           - 839bea857ed2c0a8e084f3cbdbd65ecb # x265 (no HDR/DV)
         quality_profiles:
-          - name: Web-1080p
-            reset_unmatched_scores: true
           - name: Remux-1080p
             reset_unmatched_scores: true
