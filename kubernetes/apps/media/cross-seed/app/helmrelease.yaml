@@ -57,6 +57,7 @@ spec:
         existingClaim: deluge-state
         mountPath: /config/state
         subPath: state
+        readOnly: true
       cross-seed:
         enabled: true
         existingClaim: deluge-watch
