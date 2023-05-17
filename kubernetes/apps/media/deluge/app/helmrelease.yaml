@@ -94,12 +94,12 @@ spec:
         name: deluge-scripts
         defaultMode: 0775
         readOnly: true
-    podLabels:
-      vpn/ovpn: "true"
-    hostname: torrent
     resources:
       requests:
         memory: 250Mi
         cpu: 25m
       limits:
         memory: 16Gi
+    podLabels:
+      vpn/ovpn: "true"
+    hostname: torrent

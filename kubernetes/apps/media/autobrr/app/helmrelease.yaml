@@ -75,11 +75,11 @@ spec:
         mountPath: /config/config.toml
         subPath: config.toml
         readOnly: true
-    podLabels:
-      vpn/ovpn: "true"
     resources:
       requests:
         memory: 250Mi
         cpu: 10m
       limits:
         memory: 500Mi
+    podLabels:
+      vpn/ovpn: "true"
