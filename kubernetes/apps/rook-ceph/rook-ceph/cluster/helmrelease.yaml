@@ -100,7 +100,7 @@ spec:
             size: 3
         storageClass:
           enabled: true
-          name: ceph-block
+          name: ${CLUSTER_STORAGE_BLOCK}
           isDefault: true
           reclaimPolicy: Delete
           allowVolumeExpansion: true
@@ -137,7 +137,7 @@ spec:
         storageClass:
           enabled: true
           isDefault: false
-          name: ceph-filesystem
+          name: ${CLUSTER_STORAGE_FILESYSTEM}
           pool: data0
           reclaimPolicy: Delete
           allowVolumeExpansion: true

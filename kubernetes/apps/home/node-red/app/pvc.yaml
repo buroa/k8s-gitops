@@ -10,4 +10,4 @@ spec:
   resources:
     requests:
       storage: 1Gi
-  storageClassName: ${CLUSTER_STORAGE_CLASS}
+  storageClassName: ${CLUSTER_STORAGE_BLOCK}
