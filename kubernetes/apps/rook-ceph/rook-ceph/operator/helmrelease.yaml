@@ -31,6 +31,8 @@ spec:
     csi:
       kubeletDirPath: /var/lib/kubelet
       enableCSIHostNetwork: true
+      serviceMonitor:
+        enabled: true
     monitoring:
       enabled: true
     resources:
