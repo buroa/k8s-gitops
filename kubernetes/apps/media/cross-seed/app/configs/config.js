@@ -17,13 +17,17 @@ module.exports = {
         "http://prowlarr.media.svc.cluster.local:9696/3/api?apikey={{ .PROWLARR_APIKEY }}",  // ipt
     ],
 
+    action: "save",
     matchMode: "safe",
-    torrentDir: "/config/state",
-    outputDir: "/watch/cross-seed",
+
     includeEpisodes: true,
     includeNonVideos: true,
-    action: "save",
-    rssCadence: "10 minutes",
-    searchCadence: "2 weeks",
+
+    torrentDir: "/config/state",
+    outputDir: "/watch/cross-seed",
+
+    // autobrr handles rss via irc
+    rssCadence: null,
+    searchCadence: "1 week",
 
 };
