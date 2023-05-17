@@ -70,14 +70,14 @@ spec:
       retentionResolution1h: 30d
       persistence:
         enabled: true
-        storageClass: "${CLUSTER_STORAGE_CLASS}"
+        storageClass: "${CLUSTER_STORAGE_BLOCK}"
         size: 15Gi
     storegateway:
       enabled: true
       replicaCount: 3
       persistence:
         enabled: true
-        storageClass: "${CLUSTER_STORAGE_CLASS}"
+        storageClass: "${CLUSTER_STORAGE_BLOCK}"
         size: 15Gi
     ruler:
       enabled: true
@@ -102,7 +102,7 @@ spec:
         enabled: true
       persistence:
         enabled: true
-        storageClass: "${CLUSTER_STORAGE_CLASS}"
+        storageClass: "${CLUSTER_STORAGE_BLOCK}"
         size: 15Gi
     metrics:
       enabled: true
