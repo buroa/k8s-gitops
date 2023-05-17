@@ -4,7 +4,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 module.exports = {
 
-    delay: 15,
+    delay: 30,
 
     torznab: [
         "http://prowlarr.media.svc.cluster.local:9696/11/api?apikey={{ .PROWLARR_APIKEY }}", // fl
