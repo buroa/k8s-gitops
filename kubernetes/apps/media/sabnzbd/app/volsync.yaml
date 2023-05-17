@@ -36,8 +36,8 @@ spec:
     pruneIntervalDays: 10
     repository: sabnzbd-restic-secret
     cacheCapacity: 5Gi
-    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_CLASS}
-    storageClassName: ${CLUSTER_STORAGE_CLASS}
+    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
+    storageClassName: ${CLUSTER_STORAGE_BLOCK}
     moverSecurityContext:
       runAsUser: 568
       runAsGroup: 568

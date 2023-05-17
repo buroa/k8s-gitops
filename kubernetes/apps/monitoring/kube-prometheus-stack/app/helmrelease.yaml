@@ -120,7 +120,7 @@ spec:
         storage:
           volumeClaimTemplate:
             spec:
-              storageClassName: ${CLUSTER_STORAGE_CLASS}
+              storageClassName: ${CLUSTER_STORAGE_BLOCK}
               resources:
                 requests:
                   storage: 1Gi
@@ -219,7 +219,7 @@ spec:
         storageSpec:
           volumeClaimTemplate:
             spec:
-              storageClassName: ${CLUSTER_STORAGE_CLASS}
+              storageClassName: ${CLUSTER_STORAGE_BLOCK}
               resources:
                 requests:
                   storage: 20Gi

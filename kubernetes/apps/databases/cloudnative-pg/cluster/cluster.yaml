@@ -15,7 +15,7 @@ spec:
   primaryUpdateStrategy: unsupervised
   storage:
     size: 20Gi
-    storageClass: ${CLUSTER_STORAGE_CLASS}
+    storageClass: ${CLUSTER_STORAGE_BLOCK}
   superuserSecret:
     name: cloudnative-pg-secret
   postgresql:

@@ -36,8 +36,8 @@ spec:
     pruneIntervalDays: 10
     repository: deluge-restic-secret
     cacheCapacity: 5Gi
-    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_CLASS}
-    storageClassName: ${CLUSTER_STORAGE_CLASS}
+    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
+    storageClassName: ${CLUSTER_STORAGE_BLOCK}
     moverSecurityContext:
       runAsUser: 1000
       runAsGroup: 1000
@@ -79,11 +79,12 @@ spec:
   trigger:
     schedule: "0 8 * * *"
   restic:
-    copyMethod: Clone
+    copyMethod: Snapshot
     pruneIntervalDays: 10
     repository: deluge-state-restic-secret
     cacheCapacity: 5Gi
-    storageClassName: ceph-filesystem
+    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_FILESYSTEM}
+    storageClassName: ${CLUSTER_STORAGE_FILESYSTEM}
     moverSecurityContext:
       runAsUser: 1000
       runAsGroup: 1000
