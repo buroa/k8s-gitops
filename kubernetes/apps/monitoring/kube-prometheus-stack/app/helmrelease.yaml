@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: kube-prometheus-stack
-      version: 45.28.0
+      version: 45.28.1
       sourceRef:
         kind: HelmRepository
         name: prometheus-community-charts
@@ -29,6 +29,9 @@ spec:
     keepHistory: false
   values:
     cleanPrometheusOperatorObjectNames: true
+    defaultRules: # 45.28.1 bug
+      additionalRuleLabels:
+        kubernetes_namespace: monitoring
     alertmanager:
       config:
         global:
