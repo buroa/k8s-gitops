@@ -7,7 +7,7 @@ clusterSvcNets:
   - 10.245.0.0/16
 
 talosVersion: v1.4.4
-kubernetesVersion: 1.27.1
+kubernetesVersion: 1.27.2
 endpoint: https://k8s.${domainName}:6443
 
 additionalApiServerCertSans:
