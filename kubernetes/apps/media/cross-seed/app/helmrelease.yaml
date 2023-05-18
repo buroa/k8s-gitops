@@ -31,7 +31,7 @@ spec:
         secret.reloader.stakater.com/reload: &secret cross-seed-secret
     image:
       repository: ghcr.io/cross-seed/cross-seed
-      tag: latest@sha256:c3f3645e62653dad71c37d328d56da79ea09d42c0ad50abced2aa9c3e0434583
+      tag: latest@sha256:7c8f6c0b8fe825ca510e033148bd88d18b9bb2df0748dca5586d222fea2ca51b
     args:
       - daemon
     env:
