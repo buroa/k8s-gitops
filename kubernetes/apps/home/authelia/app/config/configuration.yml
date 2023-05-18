@@ -32,6 +32,7 @@ identity_providers:
         - "revocation"
         - "introspection"
       allowed_origins_from_client_redirect_uris: true
+
     clients:
       - id: zt
         description: Zero Trust
@@ -47,6 +48,7 @@ identity_providers:
         redirect_uris:
           - "${ZEROTRUST_OAUTH_REDIRECT_URI}"
         userinfo_signing_algorithm: none
+
       - id: grafana
         description: Grafana
         secret: "${GRAFANA_OAUTH_CLIENT_SECRET}"
