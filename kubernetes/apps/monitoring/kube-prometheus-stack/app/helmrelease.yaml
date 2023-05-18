@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: kube-prometheus-stack
-      version: 45.28.0 # .1 -> failed to diff release against cluster resources
+      version: 45.28.1 # .1 -> failed to diff release against cluster resources
       sourceRef:
         kind: HelmRepository
         name: prometheus-community-charts
