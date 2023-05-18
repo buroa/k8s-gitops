@@ -7,7 +7,6 @@ resources:
   - ./autobrr/ks.yaml
   - ./autoscan/ks.yaml
   - ./bazarr/ks.yaml
-  - ./cross-seed/ks.yaml
   - ./deluge/ks.yaml
   - ./flaresolverr/ks.yaml
   - ./omegabrr/ks.yaml
