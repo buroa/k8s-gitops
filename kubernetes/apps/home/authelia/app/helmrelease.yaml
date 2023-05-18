@@ -72,7 +72,7 @@ spec:
     #         scrapeTimeout: 10s
     probes:
       liveness: &probes
-        enabled: true
+        enabled: false # TODO
         custom: true
         spec:
           httpGet:
