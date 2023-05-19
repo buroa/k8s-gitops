@@ -8,12 +8,12 @@ groups:
       - alert: ZigbeeUnableToReachMQTT
         expr: |
           sum(count_over_time({app="zigbee2mqtt"} |~ "(?i)not connected to mqtt server"[2m])) > 0
-        for: 2m
         labels:
           severity: critical
           category: logs
         annotations:
           summary: "Zigbee2mqtt is unable to reach MQTT"
+
   #
   # *arr
   #
@@ -22,21 +22,44 @@ groups:
       - alert: ArrDatabaseIsLocked
         expr: |
           sum by (app) (count_over_time({app=~".*arr"} |~ "(?i)database is locked"[2m])) > 0
-        for: 2m
         labels:
           severity: critical
           category: logs
         annotations:
           summary: "{{ $labels.app }} is experiencing locked database issues"
+
       - alert: ArrDatabaseIsMalformed
         expr: |
           sum by (app) (count_over_time({app=~".*arr"} |~ "(?i)database disk image is malformed"[2m])) > 0
-        for: 2m
         labels:
           severity: critical
           category: logs
         annotations:
           summary: "{{ $labels.app }} is experiencing malformed database disk image issues"
+
+      - alert: ArrTorrentAlreadyInSession
+        expr: |
+          sum by (app) (count_over_time({app=~".*arr"} |~ "(?i)Torrent already in session"[2m])) > 0
+        labels:
+          severity: warning
+          category: logs
+        annotations:
+          summary: "{{ $labels.app }} is adding a torrent already in session"
+
+  #
+  # autobrr
+  #
+  - name: autobrr
+    rules:
+      - alert: AutobrrIRCNetworkIsUnhealthy
+        expr: |
+          sum by (app) (count_over_time({app="autobrr"} |~ "(?i)network unhealthy"[2m])) > 0
+        labels:
+          severity: warning
+          category: logs
+        annotations:
+          summary: "{{ $labels.app }} has a unhealthy irc network"
+
   #
   # home-assistant
   #
@@ -45,12 +68,12 @@ groups:
       - alert: HomeAssistantUnableToReachPostgresql
         expr: |
           sum by (app) (count_over_time({app="home-assistant"} |~ "(?i)error in database connectivity"[2m])) > 0
-        for: 2m
         labels:
           severity: critical
           category: logs
         annotations:
           summary: "Home Assistant is unable to connect to postgresql"
+
   #
   # node-red
   #
@@ -59,7 +82,6 @@ groups:
       - alert: NodeRedUnableToReachHomeAssistant
         expr: |
           sum by (app) (count_over_time({app="node-red"} |~ "(?i)home assistant.*connecting to undefined"[2m])) > 0
-        for: 2m
         labels:
           severity: critical
           category: logs
