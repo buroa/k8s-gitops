@@ -40,18 +40,19 @@ spec:
           http:
             port: 8112
     probes:
-      liveness: &probes
+      liveness:
         custom: true
         spec:
-          initialDelaySeconds: 15
+          initialDelaySeconds: 60
           periodSeconds: 30
-          failureThreshold: 3
+          failureThreshold: 5
           exec:
             command:
               - sh
               - -c
               - curl -s https://ipv4.am.i.mullvad.net/port/${TORRENT_PUBLIC_PORT} | jq -e '.reachable'
-      readiness: *probes
+      readiness:
+        enabled: true
       startup:
         enabled: false
     ingress:
