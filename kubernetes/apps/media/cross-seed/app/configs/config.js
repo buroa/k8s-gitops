@@ -9,6 +9,7 @@ module.exports = {
         "http://prowlarr.media.svc.cluster.local:9696/15/api?apikey={{ .PROWLARR_APIKEY }}", // scenetime
         "http://prowlarr.media.svc.cluster.local:9696/14/api?apikey={{ .PROWLARR_APIKEY }}", // tl
         "http://prowlarr.media.svc.cluster.local:9696/19/api?apikey={{ .PROWLARR_APIKEY }}", // td
+        "http://prowlarr.media.svc.cluster.local:9696/20/api?apikey={{ .PROWLARR_APIKEY }}", // ts
         "http://prowlarr.media.svc.cluster.local:9696/3/api?apikey={{ .PROWLARR_APIKEY }}",  // ipt
     ],
 
