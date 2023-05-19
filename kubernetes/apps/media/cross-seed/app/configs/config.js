@@ -1,9 +1,4 @@
-// https://github.com/cross-seed/cross-seed
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 module.exports = {
-
     delay: 30,
 
     torznab: [
@@ -19,15 +14,8 @@ module.exports = {
 
     action: "save",
     matchMode: "safe",
-
     includeEpisodes: true,
     includeNonVideos: true,
-
     torrentDir: "/config/state",
     outputDir: "/watch/cross-seed",
-
-    // autobrr handles rss via irc
-    rssCadence: null,
-    searchCadence: "1 week",
-
 };
