@@ -46,6 +46,15 @@ groups:
         annotations:
           summary: "{{ $labels.app }} is adding a torrent already in session"
 
+      - alert: ArrNetworkIsUnhealthy
+        expr: |
+          sum by (app) (count_over_time({app="autobrr"} |~ "(?i)network unhealthy"[2m])) > 0
+        labels:
+          severity: warning
+          category: logs
+        annotations:
+          summary: "{{ $labels.app }} has a unhealthy network"
+
   #
   # deluge
   #
@@ -59,20 +68,6 @@ groups:
           category: logs
         annotations:
           summary: "{{ $labels.app }} has a torrent error"
-
-  #
-  # autobrr
-  #
-  - name: autobrr
-    rules:
-      - alert: AutobrrIRCNetworkIsUnhealthy
-        expr: |
-          sum by (app) (count_over_time({app="autobrr"} |~ "(?i)network unhealthy"[2m])) > 0
-        labels:
-          severity: warning
-          category: logs
-        annotations:
-          summary: "{{ $labels.app }} has a unhealthy irc network"
 
   #
   # home-assistant
