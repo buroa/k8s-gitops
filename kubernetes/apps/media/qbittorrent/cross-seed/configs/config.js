@@ -11,10 +11,13 @@ module.exports = {
         "http://prowlarr.media.svc.cluster.local:9696/3/api?apikey={{ .PROWLARR_APIKEY }}",  // ipt
     ],
 
-    action: "save",
+    action: "inject",
     matchMode: "safe",
+    skipRecheck: true,
     includeEpisodes: true,
     includeNonVideos: true,
-    torrentDir: "/config/state",
-    outputDir: "/watch/cross-seed",
+    duplicateCategories: true,
+    outputDir: "/cross-seeds",
+    torrentDir: "/config/qBittorrent/BT_backup",
+    qbittorrentUrl: "http://qbittorrent.media.svc.cluster.local:8080"
 };

@@ -5,9 +5,9 @@ namespace: monitoring
 resources:
   - ./helmrelease.yaml
 configMapGenerator:
-  - name: deluge-grafana-dashboards
+  - name: qbittorrent-grafana-dashboards
     files:
-      - ./dashboards/deluge.json
+      - ./dashboards/qbittorrent.json
     options:
       labels:
         grafana_dashboard: "1"
@@ -15,5 +15,5 @@ generatorOptions:
   disableNameSuffixHash: true
 labels:
   - pairs:
-      app.kubernetes.io/name: deluge-exporter
-      app.kubernetes.io/instance: deluge-exporter
+      app.kubernetes.io/name: qbittorrent-exporter
+      app.kubernetes.io/instance: qbittorrent-exporter

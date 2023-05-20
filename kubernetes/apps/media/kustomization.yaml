@@ -7,8 +7,6 @@ resources:
   - ./autobrr/ks.yaml
   - ./autoscan/ks.yaml
   - ./bazarr/ks.yaml
-  - ./cross-seed/ks.yaml
-  - ./deluge/ks.yaml
   - ./flaresolverr/ks.yaml
   - ./omegabrr/ks.yaml
   - ./overseerr/ks.yaml
@@ -16,6 +14,7 @@ resources:
   - ./plex-auto-languages/ks.yaml
   - ./plex-meta-manager/ks.yaml
   - ./prowlarr/ks.yaml
+  - ./qbittorrent/ks.yaml
   - ./radarr/ks.yaml
   - ./recyclarr/ks.yaml
   - ./sabnzbd/ks.yaml

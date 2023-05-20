@@ -2,15 +2,12 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-cross-seed
+  name: cluster-apps-qbittorrent-exporter
   namespace: flux-system
 spec:
   dependsOn:
-    - name: cluster-apps-rook-ceph-cluster
-    - name: cluster-apps-external-secrets-stores
-    - name: cluster-apps-prowlarr
-    - name: cluster-apps-deluge
-  path: ./kubernetes/apps/media/cross-seed/app
+    - name: cluster-apps-qbittorrent
+  path: ./kubernetes/apps/monitoring/exporters/qbittorrent-exporter/app
   prune: true
   sourceRef:
     kind: GitRepository

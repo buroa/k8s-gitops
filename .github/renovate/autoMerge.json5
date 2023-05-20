@@ -19,7 +19,6 @@
       matchUpdateTypes: ["minor", "patch", "digest"],
       matchPackageNames: [
         "ghcr.io/autobrr/autobrr",
-        "ghcr.io/linuxserver/deluge",
         "docker.io/remirigal/plex-auto-languages",
         "docker.io/meisnate12/plex-meta-manager",
         "ghcr.io/recyclarr/recyclarr",
