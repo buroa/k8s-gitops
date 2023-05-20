@@ -7,12 +7,12 @@ resources:
   - ./helmrelease.yaml
   - ./volsync.yaml
 configMapGenerator:
-  - name: deluge-scripts
+  - name: qbittorrent-scripts
     files:
       - ./scripts/cross-seed.sh
 generatorOptions:
   disableNameSuffixHash: true
 labels:
   - pairs:
-      app.kubernetes.io/name: deluge
-      app.kubernetes.io/instance: deluge
+      app.kubernetes.io/name: qbittorrent
+      app.kubernetes.io/instance: qbittorrent

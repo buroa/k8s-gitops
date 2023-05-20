@@ -52,17 +52,15 @@ spec:
         mountPath: /config/config.js
         subPath: config.js
         readOnly: true
-      state:
+      config-qbittorrent:
         enabled: true
-        existingClaim: deluge-state
-        mountPath: /config/state
-        subPath: state
+        existingClaim: qbittorrent-config
+        mountPath: /config/qBittorrent/BT_backup
+        subPath: qBittorrent/BT_backup
         readOnly: true
-      cross-seed:
+      cross-seeds:
         enabled: true
-        existingClaim: deluge-watch
-        mountPath: /watch/cross-seed
-        subPath: cross-seed
+        type: emptyDir
     resources:
       requests:
         cpu: 10m

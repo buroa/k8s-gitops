@@ -56,20 +56,6 @@ groups:
           summary: "{{ $labels.app }} has a unhealthy network"
 
   #
-  # deluge
-  #
-  - name: deluge
-    rules:
-      - alert: DelugeTorrentErrorDetected
-        expr: |
-          sum by (app) (count_over_time({app="deluge"} |~ "(?i)Restart deluge to clear this torrent error"[2m])) > 0
-        labels:
-          severity: warning
-          category: logs
-        annotations:
-          summary: "{{ $labels.app }} has a torrent error"
-
-  #
   # home-assistant
   #
   - name: home-assistant
