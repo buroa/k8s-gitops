@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: sabnzbd-exporter
+  name: qbittorrent-exporter
   namespace: monitoring
 spec:
   interval: 15m
@@ -26,22 +26,17 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    controller:
-      annotations:
-        secret.reloader.stakater.com/reload: &secret sabnzbd-exporter-secret
     image:
-      repository: docker.io/msroest/sabnzbd_exporter
-      tag: 0.1.60
+      repository: ghcr.io/k8s-at-home/prometheus-qbittorrent-exporter
+      tag: v1.2.0
     env:
-      SABNZBD_BASEURLS: "http://sabnzbd.media.svc.cluster.local:8080/sabnzbd"
-    envFrom:
-      - secretRef:
-          name: *secret
+      QBITTORRENT_HOST: "qbittorrent.media.svc.cluster.local"
+      QBITTORRENT_PORT: "8080"
     service:
       main:
         ports:
           http:
-            port: 9387
+            port: 8000
     serviceMonitor:
       main:
         enabled: true

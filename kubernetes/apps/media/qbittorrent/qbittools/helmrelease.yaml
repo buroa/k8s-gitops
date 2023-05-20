@@ -2,8 +2,8 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: deluge-exporter
-  namespace: monitoring
+  name: qbittools
+  namespace: media
 spec:
   interval: 15m
   chart:
@@ -27,28 +27,26 @@ spec:
     keepHistory: false
   values:
     image:
-      repository: docker.io/ngosang/deluge-exporter
-      tag: 1.0.1
-    env:
-      DELUGE_URL: "http://deluge.media.svc.cluster.local:8112"
-      DELUGE_PASSWORD: "deluge"
+      repository: ghcr.io/buroa/qbittools
+      tag: latest@sha256:bfb6de95867e06b653cec71a6ce0ff113828f134b63f9b6825e639680cd4bd8d
+    args:
+      - reannounce
+      - -s
+      - "qbittorrent.media.svc.cluster.local"
+      - -p
+      - "8080"
     service:
       main:
-        ports:
-          http:
-            port: 8011
-    serviceMonitor:
-      main:
-        enabled: true
-        endpoints:
-          - port: http
-            scheme: http
-            path: /metrics
-            interval: 4m
-            scrapeTimeout: 90s
+        enabled: false
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      fsGroupChangePolicy: OnRootMismatch
+      supplementalGroups: [10000]
     resources:
       requests:
-        cpu: 10m
-        memory: 100Mi
+        memory: 250Mi
+        cpu: 25m
       limits:
         memory: 500Mi

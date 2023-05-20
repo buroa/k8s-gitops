@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: deluge
+  name: qbittorrent
   namespace: media
 spec:
   interval: 15m
@@ -26,19 +26,23 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    hostname: torrent
     image:
-      repository: ghcr.io/linuxserver/deluge
-      tag: latest@sha256:1392128c8fc736d25ef328e3f20d028c6b81696bf3de1f44a923d5d514853842
+      repository: ghcr.io/onedr0p/qbittorrent
+      tag: 4.5.2@sha256:0efdd8d3ef3964d658d78ea7789efa285e9c01d1d436da2903cfde462a7fe67a
     env:
       TZ: "${TIMEZONE}"
-      PUID: "1000"
-      PGID: "1000"
-      DELUGE_LOGLEVEL: "info"
+      QBITTORRENT__PORT: &port 8080
+      QBITTORRENT__BT_PORT: ${TORRENT_PUBLIC_PORT}
+      QBT_Application__MemoryWorkingSetLimit: 12000
+      QBT_Preferences__WebUI__AuthSubnetWhitelistEnabled: "true"
+      QBT_Preferences__WebUI__AuthSubnetWhitelist: |-
+        ${CLUSTER_POD_IP_RANGE}, ${CLUSTER_SERVICE_IP_RANGE}, ${CLUSTER_IP_RANGE}
     service:
       main:
         ports:
           http:
-            port: 8112
+            port: *port
     probes:
       liveness:
         custom: true
@@ -64,35 +68,35 @@ spec:
           cert-manager.io/cluster-issuer: letsencrypt-prod
           ingress.kubernetes.io/force-ssl-redirect: "true"
           projectcontour.io/websocket-routes: "/"
-          hajimari.io/icon: arcticons:deluge
+          hajimari.io/icon: mdi:download
         hosts:
           - host: &host torrent.${SECRET_PUBLIC_DOMAIN}
             paths:
               - path: /
                 pathType: Prefix
         tls:
-          - secretName: deluge-tls
+          - secretName: torrent-tls
             hosts:
               - *host
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      fsGroupChangePolicy: OnRootMismatch
+      supplementalGroups: [10000]
     persistence:
       config:
         enabled: true
-        existingClaim: deluge-config
-      state:
-        enabled: true
-        existingClaim: deluge-state
-        mountPath: /config/state
-        subPath: state
-      watch:
-        enabled: true
-        existingClaim: deluge-watch
+        existingClaim: qbittorrent-config
       media:
         enabled: true
         existingClaim: media
       scripts:
         enabled: true
         type: configMap
-        name: deluge-scripts
+        name: qbittorrent-scripts
+        mountPath: /scripts/cross-seed.sh
+        subPath: cross-seed.sh
         defaultMode: 0775
         readOnly: true
     resources:
@@ -103,4 +107,3 @@ spec:
         memory: 16Gi
     podLabels:
       vpn/ovpn: "true"
-    hostname: torrent
