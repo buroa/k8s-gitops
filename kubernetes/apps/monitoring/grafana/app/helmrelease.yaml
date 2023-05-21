@@ -40,8 +40,8 @@ spec:
       enabled: false
     env:
       GF_ANALYTICS_CHECK_FOR_UPDATES: false
-      GF_AUTH_GENERIC_OAUTH_TOKEN_URL: http://authelia.home.svc.cluster.local/api/oidc/token
-      GF_AUTH_GENERIC_OAUTH_API_URL: http://authelia.home.svc.cluster.local/api/oidc/userinfo
+      GF_AUTH_GENERIC_OAUTH_TOKEN_URL: http://authelia.home.svc.cluster.local:9091/api/oidc/token
+      GF_AUTH_GENERIC_OAUTH_API_URL: http://authelia.home.svc.cluster.local:9091/api/oidc/userinfo
       GF_AUTH_GENERIC_OAUTH_AUTH_URL: https://auth.${SECRET_PUBLIC_DOMAIN}/api/oidc/authorization
       GF_AUTH_GENERIC_OAUTH_CLIENT_ID: grafana
       GF_DATE_FORMATS_USE_BROWSER_LOCALE: true
