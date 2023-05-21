@@ -19,5 +19,6 @@ module.exports = {
     duplicateCategories: true,
     outputDir: "/cross-seeds",
     torrentDir: "/config/qBittorrent/BT_backup",
-    qbittorrentUrl: "http://qbittorrent.media.svc.cluster.local:8080"
+    qbittorrentUrl: "http://qbittorrent.media.svc.cluster.local:8080",
+    rssCadence: "15 minutes" // autobrr doesnt get every announcement :-(
 };
