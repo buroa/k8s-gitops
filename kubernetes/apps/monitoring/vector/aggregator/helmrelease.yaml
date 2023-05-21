@@ -34,7 +34,6 @@ spec:
       annotations:
         io.cilium/lb-ipam-ips: ${VECTOR_LB_IP}
       type: LoadBalancer
-      externalTrafficPolicy: Cluster
     customConfig:
       data_dir: /vector-data-dir
       api:
