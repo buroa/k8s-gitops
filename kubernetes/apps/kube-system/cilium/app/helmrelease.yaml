@@ -27,11 +27,8 @@ spec:
     keepHistory: false
   values:
     autoDirectNodeRoutes: true
-    bgp:
+    bgpControlPlane:
       enabled: true
-      announce:
-        loadbalancerIP: true
-        podCIDR: false
     cgroup:
       autoMount:
         enabled: false

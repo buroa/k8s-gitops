@@ -45,7 +45,7 @@ spec:
         type: LoadBalancer
         annotations:
           io.cilium/lb-ipam-ips: ${BLOCKY_LB_IP}
-        externalTrafficPolicy: Local
+        externalTrafficPolicy: Cluster
         ports:
           dns-tcp:
             enabled: true
