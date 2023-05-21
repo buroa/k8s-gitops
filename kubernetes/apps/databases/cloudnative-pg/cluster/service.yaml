@@ -9,7 +9,7 @@ metadata:
     io.cilium/lb-ipam-ips: ${POSTGRES_LB_IP}
 spec:
   type: LoadBalancer
-  externalTrafficPolicy: Local
+  externalTrafficPolicy: Cluster
   ports:
     - name: postgres
       port: 5432

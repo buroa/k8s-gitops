@@ -4,14 +4,9 @@ kind: Kustomization
 namespace: kube-system
 resources:
   - ./helmrelease.yaml
-  - ./loadbalancerpool.yaml
+  - ./bgppeeringpolicy.yaml
+  - ./loadbalancerippool.yaml
   - ./servicemonitor.yaml
-configMapGenerator:
-  - name: bgp-config
-    files:
-      - ./configs/config.yaml
-generatorOptions:
-  disableNameSuffixHash: true
 labels:
   - pairs:
       app.kubernetes.io/name: cilium

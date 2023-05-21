@@ -36,7 +36,7 @@ spec:
         type: LoadBalancer
         annotations:
           io.cilium/lb-ipam-ips: ${ENVOY_LB_IP}
-        externalTrafficPolicy: Local
+        externalTrafficPolicy: Cluster
       useHostPort: false
     metrics:
       serviceMonitor:
