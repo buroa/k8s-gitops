@@ -34,7 +34,8 @@ spec:
     envoy:
       service:
         type: LoadBalancer
-        loadBalancerIP: ${ENVOY_LB_IP}
+        annotations:
+          io.cilium/lb-ipam-ips: ${ENVOY_LB_IP}
         externalTrafficPolicy: Local
       useHostPort: false
     metrics:
