@@ -31,7 +31,7 @@ spec:
         secret.reloader.stakater.com/reload: &secret sonarr-secret
     image:
       repository: ghcr.io/onedr0p/sonarr-develop
-      tag: 4.0.0.507@sha256:4b427f1eea09c1b18c33173bb4fc07056ad7da73a6a4be23abdaf1906ffa2188
+      tag: 4.0.0.513@sha256:63eb3a8c8eddf2bc5d6a945dc3171d207fb4d0aa6cbb7204de518b2729438e8b
     env:
       TZ: "${TIMEZONE}"
       SONARR__INSTANCE_NAME: Sonarr
