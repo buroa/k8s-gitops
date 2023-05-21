@@ -4,6 +4,7 @@ kind: Kustomization
 namespace: kube-system
 resources:
   - ./helmrelease.yaml
+  - ./loadbalancerpool.yaml
   - ./servicemonitor.yaml
 configMapGenerator:
   - name: bgp-config

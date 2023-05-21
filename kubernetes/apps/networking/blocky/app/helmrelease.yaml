@@ -43,7 +43,8 @@ spec:
       dns:
         enabled: true
         type: LoadBalancer
-        loadBalancerIP: ${BLOCKY_LB_IP}
+        annotations:
+          io.cilium/lb-ipam-ips: ${BLOCKY_LB_IP}
         externalTrafficPolicy: Local
         ports:
           dns-tcp:

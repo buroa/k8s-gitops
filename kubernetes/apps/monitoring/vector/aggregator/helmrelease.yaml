@@ -31,8 +31,9 @@ spec:
       enabled: true
     service:
       enabled: true
+      annotations:
+        io.cilium/lb-ipam-ips: ${VECTOR_LB_IP}
       type: LoadBalancer
-      loadBalancerIP: ${VECTOR_LB_IP}
       externalTrafficPolicy: Local
     customConfig:
       data_dir: /vector-data-dir
