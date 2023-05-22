@@ -29,9 +29,6 @@ spec:
     keepHistory: false
   values:
     cleanPrometheusOperatorObjectNames: true
-    defaultRules: # 45.28.1 bug
-      additionalRuleLabels:
-        kubernetes_namespace: monitoring
     alertmanager:
       config:
         global:
