@@ -5,7 +5,6 @@ namespace: actions-runner-system
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
-  - ./pvc.yaml
 labels:
   - pairs:
       app.kubernetes.io/name: actions-runner-controller
