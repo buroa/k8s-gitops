@@ -81,5 +81,3 @@ spec:
         cpu: 10m
       limits:
         memory: 500Mi
-    podLabels:
-      vpn/ovpn: "true"
