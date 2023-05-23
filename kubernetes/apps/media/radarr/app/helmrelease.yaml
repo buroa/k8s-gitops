@@ -26,9 +26,16 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    initContainers:
+      01-init-db:
+        image: ghcr.io/onedr0p/postgres-initdb:14.8
+        imagePullPolicy: IfNotPresent
+        envFrom:
+          - secretRef:
+              name: &secret radarr-secret
     controller:
       annotations:
-        secret.reloader.stakater.com/reload: &secret radarr-secret
+        secret.reloader.stakater.com/reload: *secret
     image:
       repository: ghcr.io/onedr0p/radarr-develop
       tag: 4.5.2.7318@sha256:821502cc07e2a222ac91b358b43a7974277fa8f2dfee34d8a0a70b6be45cb629
