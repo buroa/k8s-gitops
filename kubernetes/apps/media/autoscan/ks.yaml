@@ -8,7 +8,7 @@ spec:
   dependsOn:
     - name: cluster-apps-plex
     - name: cluster-apps-external-secrets-stores
-  path: ./kubernetes/apps/media/autoscan/autoscan-adapter
+  path: ./kubernetes/apps/media/autoscan/adapter
   prune: true
   sourceRef:
     kind: GitRepository
@@ -30,7 +30,7 @@ spec:
     - name: cluster-apps-media-pvc
     - name: cluster-apps-autoscan-adapter
     - name: cluster-apps-external-secrets-stores
-  path: ./kubernetes/apps/media/autoscan/autoscan
+  path: ./kubernetes/apps/media/autoscan/app
   prune: true
   sourceRef:
     kind: GitRepository
