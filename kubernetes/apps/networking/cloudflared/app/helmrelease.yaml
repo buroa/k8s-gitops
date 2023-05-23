@@ -34,7 +34,7 @@ spec:
         secret.reloader.stakater.com/reload: &secret cloudflared-tunnel-credentials
     image:
       repository: docker.io/cloudflare/cloudflared
-      tag: 2023.5.0
+      tag: 2023.5.1
     args:
       - tunnel
       - --config
