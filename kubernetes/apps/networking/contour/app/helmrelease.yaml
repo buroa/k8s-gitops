@@ -6,7 +6,6 @@ metadata:
   namespace: networking
 spec:
   interval: 15m
-  timeout: 1h
   chart:
     spec:
       chart: contour
