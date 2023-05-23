@@ -31,7 +31,7 @@ spec:
         secret.reloader.stakater.com/reload: &secret prowlarr-exporter-secret
     image:
       repository: ghcr.io/onedr0p/exportarr
-      tag: master@sha256:6f461b98c7a329e109207db4ff80f5fb17356f2052d69e866fe65e32a0c1d23e
+      tag: master@sha256:5436a643f224fb7acae035c66cc8c7c1ee6224e2a81402675817b68aca3f2f1f
     args:
       - prowlarr
       - "--enable-additional-metrics"
