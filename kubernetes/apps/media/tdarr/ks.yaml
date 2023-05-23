@@ -9,7 +9,7 @@ spec:
     - name: cluster-apps-media-pvc
     - name: cluster-apps-autoscan
     - name: cluster-apps-external-secrets-stores
-  path: ./kubernetes/apps/media/tdarr/tdarr
+  path: ./kubernetes/apps/media/tdarr/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -28,7 +28,7 @@ spec:
   dependsOn:
     - name: cluster-apps-tdarr
     - name: cluster-apps-intel-device-plugin-gpu
-  path: ./kubernetes/apps/media/tdarr/tdarr-node
+  path: ./kubernetes/apps/media/tdarr/node
   prune: true
   sourceRef:
     kind: GitRepository
