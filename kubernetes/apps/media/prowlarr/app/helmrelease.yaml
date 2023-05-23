@@ -26,9 +26,16 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    initContainers:
+      01-init-db:
+        image: ghcr.io/onedr0p/postgres-initdb:14.8
+        imagePullPolicy: IfNotPresent
+        envFrom:
+          - secretRef:
+              name: &secret prowlarr-secret
     controller:
       annotations:
-        secret.reloader.stakater.com/reload: &secret prowlarr-secret
+        secret.reloader.stakater.com/reload: *secret
     image:
       repository: ghcr.io/onedr0p/prowlarr-develop
       tag: 1.5.0.3390@sha256:4f973be3b24b7dcf6eecf68e8b6fae8720809e40c560154e79a390fba79c4cbf
@@ -89,12 +96,10 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: prowlarr-config
+        type: emptyDir
     resources:
       requests:
         cpu: 10m
         memory: 100Mi
       limits:
         memory: 500Mi
-    podLabels:
-      vpn/ovpn: "true"
