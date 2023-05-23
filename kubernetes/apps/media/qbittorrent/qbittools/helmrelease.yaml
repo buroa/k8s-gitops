@@ -28,7 +28,7 @@ spec:
   values:
     image:
       repository: ghcr.io/buroa/qbittools
-      tag: latest@sha256:bfb6de95867e06b653cec71a6ce0ff113828f134b63f9b6825e639680cd4bd8d
+      tag: latest@sha256:3bcd40b89732fb72e50fd4d4deb2129048210eb7ed84705e555fa9bb04e85130
     args:
       - reannounce
       - -s
