@@ -5,15 +5,11 @@ metadata:
   name: webhook-receiver
   namespace: flux-system
   annotations:
-    kubernetes.io/tls-acme: "true"
-    kubernetes.io/ingress.class: contour
-    cert-manager.io/cluster-issuer: letsencrypt-prod
-    ingress.kubernetes.io/force-ssl-redirect: "true"
-    projectcontour.io/websocket-routes: "/"
     hajimari.io/enable: "false"
     external-dns.alpha.kubernetes.io/target: |-
       ingress.${SECRET_PUBLIC_DOMAIN}
 spec:
+  ingressClassName: nginx
   rules:
     - host: &host flux-webhook.${SECRET_PUBLIC_DOMAIN}
       http:
@@ -26,6 +22,5 @@ spec:
                 port:
                   number: 80
   tls:
-    - secretName: flux-webhook-tls
-      hosts:
+    - hosts:
         - *host

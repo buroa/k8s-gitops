@@ -31,12 +31,8 @@ spec:
       username: admin
     ingress:
       enabled: true
+      className: nginx
       annotations:
-        kubernetes.io/tls-acme: "true"
-        kubernetes.io/ingress.class: contour
-        cert-manager.io/cluster-issuer: letsencrypt-prod
-        ingress.kubernetes.io/force-ssl-redirect: "true"
-        projectcontour.io/websocket-routes: "/"
         hajimari.io/icon: mdi:sawtooth-wave
       hosts:
         - host: &host gitops.${SECRET_PUBLIC_DOMAIN}
@@ -44,8 +40,7 @@ spec:
             - path: /
               pathType: Prefix
       tls:
-        - secretName: gitops-tls
-          hosts:
+        - hosts:
             - *host
     networkPolicy:
       create: true

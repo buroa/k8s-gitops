@@ -71,13 +71,8 @@ spec:
     ingress:
       main:
         enabled: true
+        ingressClassName: nginx
         annotations:
-          kubernetes.io/tls-acme: "true"
-          kubernetes.io/ingress.class: contour
-          cert-manager.io/cluster-issuer: letsencrypt-prod
-          ingress.kubernetes.io/force-ssl-redirect: "true"
-          projectcontour.io/websocket-routes: "/"
-          projectcontour.io/response-timeout: "120s"
           hajimari.io/icon: mdi:filmstrip
         hosts:
           - host: &host "radarr.${SECRET_PUBLIC_DOMAIN}"
@@ -85,8 +80,7 @@ spec:
               - path: /
                 pathType: Prefix
         tls:
-          - secretName: radarr-tls
-            hosts:
+          - hosts:
               - *host
     podSecurityContext:
       runAsUser: 568
