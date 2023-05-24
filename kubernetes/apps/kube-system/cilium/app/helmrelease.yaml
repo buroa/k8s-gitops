@@ -60,17 +60,11 @@ spec:
         enabled: true
         ingress:
           enabled: true
-          annotations:
-            kubernetes.io/tls-acme: "true"
-            kubernetes.io/ingress.class: contour
-            cert-manager.io/cluster-issuer: letsencrypt-prod
-            ingress.kubernetes.io/force-ssl-redirect: "true"
-            projectcontour.io/websocket-routes: "/"
+          className: nginx
           hosts:
             - &host hubble.${SECRET_PUBLIC_DOMAIN}
           tls:
-            - secretName: hubble-tls
-              hosts:
+            - hosts:
                 - *host
         rollOutPods: true
     prometheus:

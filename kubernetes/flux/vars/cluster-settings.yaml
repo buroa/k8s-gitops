@@ -23,7 +23,7 @@ data:
 
   # Cilium BGP Addresses
   CILIUM_BGP_CIDR: "7.0.0.0/8"
-  ENVOY_LB_IP: "7.0.0.2"
+  INGRESS_LB_IP: "7.0.0.2"
   VECTOR_LB_IP: "7.0.0.3"
   HASS_LB_IP: "7.0.0.4"
   BLOCKY_LB_IP: "7.0.0.53"

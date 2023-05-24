@@ -31,20 +31,15 @@ spec:
       createPrometheusRules: true
     ingress:
       dashboard:
+        ingressClassName: nginx
         annotations:
-          kubernetes.io/tls-acme: "true"
-          kubernetes.io/ingress.class: contour
-          cert-manager.io/cluster-issuer: letsencrypt-prod
-          ingress.kubernetes.io/force-ssl-redirect: "true"
-          projectcontour.io/websocket-routes: "/"
           hajimari.io/appName: "Rook"
           hajimari.io/icon: mdi:chess-rook
         host:
           name: &host rook.${SECRET_PUBLIC_DOMAIN}
           path: /
         tls:
-          - secretName: rook-tls
-            hosts:
+          - hosts:
               - *host
     toolbox:
       enabled: true

@@ -126,14 +126,6 @@ spec:
           gnetId: 1860
           revision: 30
           datasource: Prometheus
-        envoy:
-          gnetId: 7250
-          revision: 1
-          datasource: Prometheus
-        envoy-global:
-          gnetId: 7253
-          revision: 1
-          datasource: Prometheus
         redis:
           gnetId: 763
           revision: 4
@@ -237,13 +229,8 @@ spec:
       enabled: true
     ingress:
       enabled: true
+      ingressClassName: nginx
       annotations:
-        kubernetes.io/tls-acme: "true"
-        kubernetes.io/ingress.class: contour
-        cert-manager.io/cluster-issuer: letsencrypt-prod
-        ingress.kubernetes.io/force-ssl-redirect: "true"
-        projectcontour.io/websocket-routes: "/"
-        projectcontour.io/response-timeout: "120s"
         hajimari.io/appName: Grafana
         hajimari.io/icon: simple-icons:grafana
         external-dns.alpha.kubernetes.io/target: |-
@@ -253,8 +240,7 @@ spec:
       paths:
         - /
       tls:
-        - secretName: grafana-tls
-          hosts:
+        - hosts:
             - *hostg
     imageRenderer:
       enabled: true
