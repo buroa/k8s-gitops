@@ -98,21 +98,15 @@ spec:
             equal: ["alertname", "namespace"]
       ingress:
         enabled: true
+        ingressClassName: nginx
         annotations:
-          kubernetes.io/tls-acme: "true"
-          kubernetes.io/ingress.class: contour
-          cert-manager.io/cluster-issuer: letsencrypt-prod
-          ingress.kubernetes.io/force-ssl-redirect: "true"
-          projectcontour.io/websocket-routes: "/"
-          hajimari.io/appName: "Alert Manager"
           hajimari.io/icon: mdi:alert-decagram-outline
         hosts:
           - &hosta am.${SECRET_PUBLIC_DOMAIN}
         paths:
           - /
         tls:
-          - secretName: alertmanager-tls
-            hosts:
+          - hosts:
               - *hosta
       alertmanagerSpec:
         replicas: 3
@@ -179,13 +173,8 @@ spec:
     prometheus:
       ingress:
         enabled: true
+        ingressClassName: nginx
         annotations:
-          kubernetes.io/tls-acme: "true"
-          kubernetes.io/ingress.class: contour
-          cert-manager.io/cluster-issuer: letsencrypt-prod
-          ingress.kubernetes.io/force-ssl-redirect: "true"
-          projectcontour.io/websocket-routes: "/"
-          projectcontour.io/response-timeout: "120s"
           hajimari.io/appName: Prometheus
           hajimari.io/icon: simple-icons:prometheus
         hosts:
@@ -193,8 +182,7 @@ spec:
         paths:
           - /
         tls:
-          - secretName: prometheus-tls
-            hosts:
+          - hosts:
               - *hostp
       thanosService:
         enabled: true

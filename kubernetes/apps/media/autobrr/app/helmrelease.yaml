@@ -42,12 +42,8 @@ spec:
     ingress:
       main:
         enabled: true
+        ingressClassName: nginx
         annotations:
-          kubernetes.io/tls-acme: "true"
-          kubernetes.io/ingress.class: contour
-          cert-manager.io/cluster-issuer: letsencrypt-prod
-          ingress.kubernetes.io/force-ssl-redirect: "true"
-          projectcontour.io/websocket-routes: "/"
           hajimari.io/icon: mdi:bunny
         hosts:
           - host: &host autobrr.${SECRET_PUBLIC_DOMAIN}
@@ -55,8 +51,7 @@ spec:
               - path: /
                 pathType: Prefix
         tls:
-          - secretName: autobrr-tls
-            hosts:
+          - hosts:
               - *host
     podSecurityContext:
       runAsUser: 568

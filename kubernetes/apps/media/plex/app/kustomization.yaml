@@ -5,7 +5,6 @@ namespace: media
 resources:
   - ./pvc.yaml
   - ./helmrelease.yaml
-  - ./httpproxy.yaml
   - ./volsync.yaml
 labels:
   - pairs:
