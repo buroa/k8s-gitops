@@ -30,11 +30,12 @@ spec:
       annotations:
         secret.reloader.stakater.com/reload: &secret unpackerr-secret
     image:
-      repository: ghcr.io/onedr0p/unpackerr
-      tag: 0.11.2@sha256:05db8faac039716d8dc209023a30d30c9e73c2faf4e7fc092dfb1a70fa6f4c94
+      repository: docker.io/golift/unpackerr
+      tag: unstable
     env:
       TZ: "${TIMEZONE}"
       UN_INTERVAL: "1m"
+      UN_WEBSERVER_METRICS: "true"
       UN_SONARR_0_URL: "http://sonarr.media.svc.cluster.local:8989"
       UN_SONARR_0_PATHS_0: &path "/media/downloads/torrent/complete"
       UN_RADARR_0_URL: "http://radarr.media.svc.cluster.local:7878"
@@ -44,7 +45,12 @@ spec:
           name: *secret
     service:
       main:
-        enabled: false
+        ports:
+          http:
+            port: 5656
+    serviceMonitor:
+      main:
+        enabled: true
     podSecurityContext:
       runAsUser: 568
       runAsGroup: 568
