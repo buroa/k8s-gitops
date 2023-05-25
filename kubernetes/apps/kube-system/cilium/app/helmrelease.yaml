@@ -61,6 +61,8 @@ spec:
         ingress:
           enabled: true
           className: nginx
+          annotations:
+            hajimari.io/icon: mdi:router
           hosts:
             - &host hubble.${SECRET_PUBLIC_DOMAIN}
           tls:
