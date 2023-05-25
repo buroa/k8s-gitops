@@ -5,7 +5,7 @@ metadata:
   name: node-red
   namespace: home
 spec:
-  interval: 15m
+  interval: 30m
   chart:
     spec:
       chart: app-template
