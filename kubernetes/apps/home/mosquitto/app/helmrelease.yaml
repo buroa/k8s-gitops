@@ -72,8 +72,8 @@ spec:
         enabled: true
         type: secret
         name: mosquitto-secret
-        subPath: mosquitto_pwd
         mountPath: /data/mosquitto_secret/mosquitto_pwd
+        subPath: mosquitto_pwd
         readOnly: true
       external-config:
         enabled: true
