@@ -28,7 +28,7 @@ spec:
   values:
     controller:
       annotations:
-        secret.reloader.stakater.com/reload: &secret plex-auto-languages-secret
+        reloader.stakater.com/auto: "true"
     image:
       repository: docker.io/remirigal/plex-auto-languages
       tag: v1.2.1
@@ -38,7 +38,7 @@ spec:
       REFRESH_LIBRARY_ON_SCAN: "false"
     envFrom:
       - secretRef:
-          name: *secret
+          name: plex-auto-languages-secret
     service:
       main:
         enabled: false

@@ -31,12 +31,12 @@ spec:
       - name: CF_API_TOKEN
         valueFrom:
           secretKeyRef:
-            name: external-dns-cloudflare-secret
+            name: external-dns-secret
             key: api-token
       - name: CF_ZONE_ID
         valueFrom:
           secretKeyRef:
-            name: external-dns-cloudflare-secret
+            name: external-dns-secret
             key: zone-id
     extraArgs:
       - --cloudflare-proxied
@@ -53,4 +53,4 @@ spec:
     serviceMonitor:
       enabled: true
     podAnnotations:
-      secret.reloader.stakater.com/reload: external-dns-cloudflare-secret
+      reloader.stakater.com/auto: "true"

@@ -28,7 +28,7 @@ spec:
   values:
     controller:
       annotations:
-        secret.reloader.stakater.com/reload: &secret sonarr-exporter-secret
+        reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/onedr0p/exportarr
       tag: v1.3.2
@@ -40,7 +40,7 @@ spec:
       URL: "http://sonarr.media.svc.cluster.local:8989"
     envFrom:
       - secretRef:
-          name: *secret
+          name: sonarr-exporter-secret
     service:
       main:
         ports:

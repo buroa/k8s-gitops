@@ -33,7 +33,7 @@ spec:
       strategy: RollingUpdate
       replicas: 2
       annotations:
-        configmap.reloader.stakater.com/reload: &configmap blocky-config
+        reloader.stakater.com/auto: "true"
     service:
       main:
         enabled: true
@@ -79,7 +79,7 @@ spec:
       config:
         enabled: true
         type: configMap
-        name: *configmap
+        name: blocky-configmap
         mountPath: /app/config.yml
         subPath: config.yml
         readOnly: true

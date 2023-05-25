@@ -32,10 +32,10 @@ spec:
         imagePullPolicy: IfNotPresent
         envFrom:
           - secretRef:
-              name: &secret radarr-secret
+              name: radarr-secret
     controller:
       annotations:
-        secret.reloader.stakater.com/reload: *secret
+        reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/onedr0p/radarr-develop
       tag: 4.5.2.7318@sha256:821502cc07e2a222ac91b358b43a7974277fa8f2dfee34d8a0a70b6be45cb629
@@ -47,7 +47,7 @@ spec:
       RADARR__LOG_LEVEL: info
     envFrom:
       - secretRef:
-          name: *secret
+          name: radarr-secret
     service:
       main:
         ports:

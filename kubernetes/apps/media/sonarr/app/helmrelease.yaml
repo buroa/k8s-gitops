@@ -28,7 +28,7 @@ spec:
   values:
     controller:
       annotations:
-        secret.reloader.stakater.com/reload: &secret sonarr-secret
+        reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/onedr0p/sonarr-develop
       tag: 4.0.0.520@sha256:1879baff5b1155fc1dc40cadc0aa509a26d2c5afc3b234473d878e5573579f08
@@ -39,7 +39,7 @@ spec:
       SONARR__LOG_LEVEL: info
     envFrom:
       - secretRef:
-          name: *secret
+          name: sonarr-secret
     service:
       main:
         ports:
