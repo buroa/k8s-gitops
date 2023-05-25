@@ -5,7 +5,7 @@ namespace: networking
 resources:
   - ./helmrelease.yaml
 configMapGenerator:
-  - name: blocky-config
+  - name: blocky-configmap
     files:
       - ./configs/config.yml
   - name: blocky-grafana-dashboards

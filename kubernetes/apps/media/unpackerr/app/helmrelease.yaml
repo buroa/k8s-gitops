@@ -28,7 +28,7 @@ spec:
   values:
     controller:
       annotations:
-        secret.reloader.stakater.com/reload: &secret unpackerr-secret
+        reloader.stakater.com/auto: "true"
     image:
       repository: docker.io/golift/unpackerr
       tag: unstable
@@ -42,7 +42,7 @@ spec:
       UN_RADARR_0_PATHS_0: *path
     envFrom:
       - secretRef:
-          name: *secret
+          name: unpackerr-secret
     service:
       main:
         ports:

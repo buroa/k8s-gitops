@@ -28,7 +28,7 @@ spec:
   values:
     controller:
       annotations:
-        secret.reloader.stakater.com/reload: &secret overseerr-exporter-secret
+        reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/willfantom/overseerr-exporter
       tag: 1.2.1
@@ -39,7 +39,7 @@ spec:
       - "$(OVERSEERR_APIKEY)"
     envFrom:
       - secretRef:
-          name: *secret
+          name: overseerr-exporter-secret
     service:
       main:
         ports:

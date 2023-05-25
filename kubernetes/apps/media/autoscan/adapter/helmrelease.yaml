@@ -28,7 +28,7 @@ spec:
   values:
     controller:
       annotations:
-        secret.reloader.stakater.com/reload: &secret autoscan-adapter-secret
+        reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/buroa/autoscan-adapter
       tag: latest@sha256:b5b4ede7df33571d229ff9d5d0a9662ac2840caf2d9b75c7b78906e0aa4a8ed4
@@ -37,7 +37,7 @@ spec:
       SLEEP_INTERVAL: "30"
     envFrom:
       - secretRef:
-          name: *secret
+          name: autoscan-adapter-secret
     service:
       main:
         ports:

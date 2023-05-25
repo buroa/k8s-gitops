@@ -50,9 +50,9 @@ spec:
       create: true
       impersonationResourceNames: ["admin"]
     podAnnotations:
-      secret.reloader.stakater.com/reload: &secret weave-gitops-secret
+      reloader.stakater.com/auto: "true"
   valuesFrom:
     - kind: Secret
-      name: *secret
+      name: weave-gitops-secret
       valuesKey: adminPassword
       targetPath: adminUser.passwordHash
