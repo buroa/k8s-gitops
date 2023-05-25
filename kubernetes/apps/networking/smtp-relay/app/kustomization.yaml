@@ -6,7 +6,7 @@ resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
 configMapGenerator:
-  - name: smtp-relay
+  - name: smtp-relay-configmap
     files:
       - ./configs/maddy.conf
 generatorOptions:

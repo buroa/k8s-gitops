@@ -28,7 +28,7 @@ spec:
   values:
     controller:
       annotations:
-        secret.reloader.stakater.com/reload: &secret sabnzbd-secret
+        reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/onedr0p/sabnzbd
       tag: 4.0.1@sha256:a818edc4116fec8080ff539d3674b8a1e38489ca847bfa4a7b4724a842d5362d
@@ -44,7 +44,7 @@ spec:
         usenet.${SECRET_PUBLIC_DOMAIN}
     envFrom:
       - secretRef:
-          name: *secret
+          name: sabnzbd-secret
     service:
       main:
         ports:

@@ -29,7 +29,7 @@ spec:
     controller:
       type: cronjob
       annotations:
-        secret.reloader.stakater.com/reload: &secret recyclarr-secret
+        reloader.stakater.com/auto: "true"
       cronjob:
         schedule: 0 6 * * *
     image:
@@ -50,7 +50,7 @@ spec:
       config:
         enabled: true
         type: secret
-        name: *secret
+        name: recyclarr-secret
         mountPath: /config/recyclarr.yml
         subPath: recyclarr.yml
         readOnly: true

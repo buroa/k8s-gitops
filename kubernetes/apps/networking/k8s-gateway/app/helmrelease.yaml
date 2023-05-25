@@ -30,7 +30,7 @@ spec:
       replicas: 2
       strategy: RollingUpdate
       annotations:
-        configmap.reloader.stakater.com/reload: &configmap k8s-gateway-configmap
+        reloader.stakater.com/auto: "true"
     image:
       repository: quay.io/oriedge/k8s_gateway
       tag: v0.3.4
@@ -90,7 +90,7 @@ spec:
       config:
         enabled: true
         type: configMap
-        name: *configmap
+        name: k8s-gateway-configmap
         mountPath: /etc/coredns/Corefile
         subPath: Corefile
         readOnly: true

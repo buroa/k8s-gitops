@@ -28,7 +28,7 @@ spec:
   values:
     controller:
       annotations:
-        secret.reloader.stakater.com/reload: &secret sabnzbd-exporter-secret
+        reloader.stakater.com/auto: "true"
     image:
       repository: docker.io/msroest/sabnzbd_exporter
       tag: 0.1.60
@@ -36,7 +36,7 @@ spec:
       SABNZBD_BASEURLS: "http://sabnzbd.media.svc.cluster.local:8080/sabnzbd"
     envFrom:
       - secretRef:
-          name: *secret
+          name: sabnzbd-exporter-secret
     service:
       main:
         ports:
