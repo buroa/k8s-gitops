@@ -66,16 +66,16 @@ spec:
         nodes:
           - name: w0
             devices:
-              - name: /dev/disk/by-id/nvme-KINGSTON_SNV2S2000G_50026B768635CAB3
-              - name: /dev/disk/by-id/nvme-KINGSTON_SNV2S2000G_50026B7686374953
+              - name: /dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_2TB_S6S2NS0TC14873N
+              - name: /dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_2TB_S6S2NS0TC14865L
           - name: w1
             devices:
-              - name: /dev/disk/by-id/nvme-KINGSTON_SNV2S2000G_50026B768635ABBA
-              - name: /dev/disk/by-id/nvme-KINGSTON_SNV2S2000G_50026B768635B1EB
+              - name: /dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_2TB_S6S2NS0TC14871H
+              - name: /dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_2TB_S6S2NS0W122087H
           - name: w2
             devices:
-              - name: /dev/disk/by-id/nvme-KINGSTON_SNV2S2000G_50026B768635CA95
-              - name: /dev/disk/by-id/nvme-KINGSTON_SNV2S2000G_50026B768635C8FD
+              - name: /dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_2TB_S6S2NS0W120772T
+              - name: /dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_2TB_S6S2NS0TC14864B
       placement:
         mgr:
           nodeAffinity: &nodeAffinity
