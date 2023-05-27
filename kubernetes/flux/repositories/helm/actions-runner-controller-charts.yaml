@@ -7,4 +7,4 @@ metadata:
 spec:
   type: oci
   interval: 5m
-  url: oci://ghcr.io/actions
+  url: oci://ghcr.io/actions/actions-runner-controller-charts
