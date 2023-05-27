@@ -34,6 +34,8 @@ spec:
       enabled: true
       annotations:
         io.cilium/lb-ipam-ips: ${VECTOR_LB_IP}
+        external-dns.alpha.kubernetes.io/hostname: |-
+          vector.${SECRET_PUBLIC_DOMAIN}
       type: LoadBalancer
     customConfig:
       data_dir: /vector-data-dir
