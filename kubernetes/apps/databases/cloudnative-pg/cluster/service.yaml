@@ -5,8 +5,9 @@ metadata:
   name: postgres-lb
   namespace: databases
   annotations:
-    coredns.io/hostname: postgres.${SECRET_PUBLIC_DOMAIN}
     io.cilium/lb-ipam-ips: ${POSTGRES_LB_IP}
+    external-dns.alpha.kubernetes.io/hostname: |-
+      postgres.${SECRET_PUBLIC_DOMAIN}
 spec:
   type: LoadBalancer
   ports:
