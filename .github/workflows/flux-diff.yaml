@@ -28,6 +28,7 @@ jobs:
         with:
           path: ${{ matrix.path }}
           resource: ${{ matrix.resource }}
+          live-branch: master
 
       - name: Add comment
         uses: mshick/add-pr-comment@7c0890544fb33b0bdd2e59467fbacb62e028a096 # v2
