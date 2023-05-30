@@ -28,12 +28,8 @@ spec:
   values:
     crds:
       install: true
-    replicaCount: 3
     grafana:
       enabled: true
-    serviceMonitor:
-      enabled: true
-      interval: 1m
     backgroundController:
       serviceMonitor:
         enabled: true
@@ -46,10 +42,15 @@ spec:
       serviceMonitor:
         enabled: true
         interval: 1m
-    topologySpreadConstraints:
-      - maxSkew: 1
-        topologyKey: kubernetes.io/hostname
-        whenUnsatisfiable: DoNotSchedule
-        labelSelector:
-          matchLabels:
-            app.kubernetes.io/instance: kyverno
+    admissionController:
+      replicas: 3
+      serviceMonitor:
+        enabled: true
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/instance: kyverno
+              app.kubernetes.io/component: kyverno
