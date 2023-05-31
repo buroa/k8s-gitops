@@ -79,7 +79,7 @@ spec:
             sub_filter_once on;
           hajimari.io/icon: mdi:filmstrip
         hosts:
-          - host: &host "radarr.${SECRET_PUBLIC_DOMAIN}"
+          - host: &host radarr.${SECRET_PUBLIC_DOMAIN}
             paths:
               - path: /
                 pathType: Prefix

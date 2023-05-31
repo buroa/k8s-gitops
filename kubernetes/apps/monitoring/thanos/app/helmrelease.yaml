@@ -40,7 +40,7 @@ spec:
       replicaCount: 3
       ingress:
         enabled: true
-        hostname: &host "thanos.${SECRET_PUBLIC_DOMAIN}"
+        hostname: &host thanos.${SECRET_PUBLIC_DOMAIN}
         ingressClassName: nginx
         annotations:
           hajimari.io/appName: Thanos
