@@ -218,3 +218,5 @@ spec:
             memory: 2000Mi
           limits:
             memory: 7000Mi
+        nodeSelector:
+          topology.kubernetes.io/zone: w
