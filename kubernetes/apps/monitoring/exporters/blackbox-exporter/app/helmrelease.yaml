@@ -36,7 +36,7 @@ spec:
       annotations:
         hajimari.io/enable: "false"
       hosts:
-        - host: &host "blackbox.${SECRET_PUBLIC_DOMAIN}"
+        - host: &host blackbox.${SECRET_PUBLIC_DOMAIN}
           paths:
             - path: /
               pathType: Prefix
