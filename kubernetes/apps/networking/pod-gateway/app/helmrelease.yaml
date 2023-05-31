@@ -41,7 +41,7 @@ spec:
         type: gluetun
         image:
           repository: ghcr.io/qdm12/gluetun
-          tag: v3.34.2@sha256:f4235494704ac40ce4e552941a680e0fec6a61e704b60a9779741d171a447d17
+          tag: v3.34.3@sha256:3b4d498939ef1f9ceac9049a73598acfcda25a9e58010fcd991afed32cd16eac
         env:
           - name: FIREWALL
             value: "off"
