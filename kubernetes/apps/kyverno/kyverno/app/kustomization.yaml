@@ -4,7 +4,6 @@ kind: Kustomization
 namespace: kyverno
 resources:
   - ./helmrelease.yaml
-  - ./rbac.yaml
 labels:
   - pairs:
       app.kubernetes.io/name: kyverno
