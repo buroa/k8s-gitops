@@ -30,26 +30,8 @@ spec:
       install: true
     grafana:
       enabled: true
-    backgroundController:
-      serviceMonitor:
-        enabled: true
-      rbac:
-        clusterRole:
-          extraResources:
-            - apiGroups:
-                - ""
-              resources:
-                - pods
-    cleanupController:
-      serviceMonitor:
-        enabled: true
-    reportsController:
-      serviceMonitor:
-        enabled: true
     admissionController:
       replicas: 3
-      serviceMonitor:
-        enabled: true
       rbac:
         clusterRole:
           extraResources:
@@ -69,3 +51,21 @@ spec:
             matchLabels:
               app.kubernetes.io/instance: kyverno
               app.kubernetes.io/component: kyverno
+      serviceMonitor:
+        enabled: true
+    backgroundController:
+      rbac:
+        clusterRole:
+          extraResources:
+            - apiGroups:
+                - ""
+              resources:
+                - pods
+      serviceMonitor:
+        enabled: true
+    cleanupController:
+      serviceMonitor:
+        enabled: true
+    reportsController:
+      serviceMonitor:
+        enabled: true
