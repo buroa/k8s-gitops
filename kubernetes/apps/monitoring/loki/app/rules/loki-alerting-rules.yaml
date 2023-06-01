@@ -40,15 +40,15 @@ groups:
         annotations:
           summary: "{{ $labels.app }} is experiencing malformed database disk image issues"
 
-      - alert: ArrTorrentAlreadyInSession
+      - alert: ArrFailedToAddTorrent
         expr: |
-          sum by (app) (count_over_time({app=~".*arr"} |~ "(?i)Torrent already in session"[15m])) > 0
+          sum by (app) (count_over_time({app=~".*arr"} |~ "(?i)failed to add torrent"[15m])) > 0
         for: 2m
         labels:
           severity: warning
           category: logs
         annotations:
-          summary: "{{ $labels.app }} is adding a torrent already in session"
+          summary: "{{ $labels.app }} is failing to add a torrent"
 
       - alert: ArrNetworkIsUnhealthy
         expr: |
@@ -59,6 +59,16 @@ groups:
           category: logs
         annotations:
           summary: "{{ $labels.app }} has a unhealthy network"
+
+      - alert: ArrJobRaisedException
+        expr: |
+          sum by (app) (count_over_time({app="bazarr"} |~ "(?i)Job(.+)Update(.+)from(.+)raised an exception"[15m])) > 0
+        for: 2m
+        labels:
+          severity: warning
+          category: logs
+        annotations:
+          summary: "{{ $labels.app }} is raising job exceptions"
 
   #
   # plex
