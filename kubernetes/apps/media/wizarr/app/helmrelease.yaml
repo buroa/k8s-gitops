@@ -44,6 +44,11 @@ spec:
         ingressClassName: nginx
         annotations:
           hajimari.io/icon: mdi:account-question
+          nginx.ingress.kubernetes.io/auth-method: GET
+          nginx.ingress.kubernetes.io/auth-url: http://authelia.home.svc.cluster.local:9091/api/verify
+          nginx.ingress.kubernetes.io/auth-signin: https://auth.${SECRET_PUBLIC_DOMAIN}?rm=$request_method
+          nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
+          nginx.ingress.kubernetes.io/auth-snippet: proxy_set_header X-Forwarded-Method $request_method;
           external-dns.alpha.kubernetes.io/target: |-
             ingress.${SECRET_PUBLIC_DOMAIN}
         hosts:
