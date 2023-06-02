@@ -39,6 +39,8 @@ spec:
       QBT_Preferences__WebUI__AuthSubnetWhitelistEnabled: "true"
       QBT_Preferences__WebUI__AuthSubnetWhitelist: |-
         ${CLUSTER_POD_IP_RANGE}, ${CLUSTER_SERVICE_IP_RANGE}, ${CLUSTER_IP_RANGE}
+      QBT_Preferences__WebUI__AlternativeUIEnabled: "true"
+      QBT_Preferences__WebUI__RootFolder: /add-ons/VueTorrent
     service:
       main:
         ports:
@@ -65,13 +67,6 @@ spec:
         enabled: true
         ingressClassName: nginx
         annotations:
-          nginx.ingress.kubernetes.io/configuration-snippet: |
-            proxy_hide_header "x-webkit-csp";
-            proxy_hide_header "content-security-policy";
-            proxy_hide_header "X-Frame-Options";
-            proxy_set_header Accept-Encoding "";
-            sub_filter '</head>' '<link rel="stylesheet" type="text/css" href="https://theme-park.${SECRET_PUBLIC_DOMAIN}/css/base/qbittorrent/nord.css"></head>';
-            sub_filter_once on;
           hajimari.io/icon: mdi:download
         hosts:
           - host: &host torrent.${SECRET_PUBLIC_DOMAIN}
@@ -102,6 +97,9 @@ spec:
         subPath: cross-seed.sh
         defaultMode: 0775
         readOnly: true
+      add-ons:
+        enabled: true
+        type: emptyDir
     resources:
       requests:
         memory: 250Mi
@@ -110,3 +108,14 @@ spec:
         memory: 16Gi
     podLabels:
       vpn/ovpn: "true"
+    sidecars:
+      vuetorrent:
+        image: registry.k8s.io/git-sync/git-sync:v3.6.6
+        imagePullPolicy: IfNotPresent
+        args:
+          - --repo=https://github.com/WDaan/VueTorrent
+          - --branch=latest-release
+          - --wait=86400 # 1 day
+          - --root=/add-ons
+        volumeMounts:
+          - { name: add-ons, mountPath: /add-ons }
