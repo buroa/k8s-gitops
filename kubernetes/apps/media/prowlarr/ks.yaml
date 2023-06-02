@@ -6,6 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
+    - name: cluster-apps-cloudnative-pg
     - name: cluster-apps-pod-gateway
     - name: cluster-apps-external-secrets-stores
   path: ./kubernetes/apps/media/prowlarr/app
