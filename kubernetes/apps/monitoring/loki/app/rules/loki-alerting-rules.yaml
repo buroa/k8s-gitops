@@ -42,7 +42,7 @@ groups:
 
       - alert: ArrFailedToAddTorrent
         expr: |
-          sum by (app) (count_over_time({app=~".*arr"} |~ "(?i)failed to add torrent"[15m])) > 0
+          sum by (app) (count_over_time({app=~".*arr"} |~ "(?i)failed to add torrent"[1h])) > 0
         for: 2m
         labels:
           severity: warning
@@ -62,7 +62,7 @@ groups:
 
       - alert: ArrJobRaisedException
         expr: |
-          sum by (app) (count_over_time({app="bazarr"} |~ "(?i)Job(.+)Update(.+)from(.+)raised an exception"[15m])) > 0
+          sum by (app) (count_over_time({app="bazarr"} |~ "(?i)Job(.+)Update(.+)from(.+)raised an exception"[1h])) > 0
         for: 2m
         labels:
           severity: warning
