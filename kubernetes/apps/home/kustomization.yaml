@@ -11,5 +11,6 @@ resources:
   - ./mosquitto/ks.yaml
   - ./n8n/ks.yaml
   - ./node-red/ks.yaml
+  - ./thelounge/ks.yaml
   - ./theme-park/ks.yaml
   - ./zigbee2mqtt/ks.yaml
