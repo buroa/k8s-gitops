@@ -8,7 +8,6 @@ resources:
   - ./autoscan/ks.yaml
   - ./bazarr/ks.yaml
   - ./flaresolverr/ks.yaml
-  - ./omegabrr/ks.yaml
   - ./overseerr/ks.yaml
   - ./plex/ks.yaml
   - ./plex-auto-languages/ks.yaml
