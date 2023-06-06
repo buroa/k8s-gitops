@@ -1,0 +1,7 @@
+---
+endpoints:
+  - name: grafana
+    url: https://grafana.${SECRET_PUBLIC_DOMAIN}
+    interval: 1m
+    conditions: ["[STATUS] == 200"]
+    alerts: [{ type: pushover }]

@@ -1,0 +1,31 @@
+---
+web:
+  port: ${CUSTOM_WEB_PORT}
+storage:
+  type: postgres
+  path: postgres://${INIT_POSTGRES_USER}:${INIT_POSTGRES_PASS}@${INIT_POSTGRES_HOST}:5432/${INIT_POSTGRES_DBNAME}?sslmode=disable
+metrics: true
+ui:
+  title: Status | Gatus
+  header: Status
+alerting:
+  pushover:
+    application-token: ${CUSTOM_PUSHOVER_APP_TOKEN}
+    user-key: ${CUSTOM_PUSHOVER_USER_KEY}
+    default-alert:
+      description: healthcheck failed
+      send-on-resolved: true
+      failure-threshold: 3
+      success-threshold: 5
+connectivity:
+  checker:
+    target: 1.1.1.1:53
+    interval: 1m
+client:
+  dns-resolver: tcp://1.1.1.1:53
+endpoints:
+  - name: status
+    url: https://status.${SECRET_PUBLIC_DOMAIN}
+    interval: 1m
+    conditions: ["[STATUS] == 200"]
+    alerts: [{ type: pushover }]

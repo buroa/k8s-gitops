@@ -4,17 +4,13 @@ kind: Kustomization
 namespace: monitoring
 resources:
   - ./externalsecret.yaml
+  - ./rbac.yaml
   - ./helmrelease.yaml
 configMapGenerator:
-  - name: grafana-gatus-ep
+  - name: gatus-configmap
     files:
-      - ./configs/gatus.yaml
-    options:
-      labels:
-        gatus.io/enabled: "true"
+      - ./config/config.yaml
 generatorOptions:
   disableNameSuffixHash: true
-labels:
-  - pairs:
-      app.kubernetes.io/name: grafana
-      app.kubernetes.io/instance: grafana
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled
