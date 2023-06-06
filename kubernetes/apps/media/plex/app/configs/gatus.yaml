@@ -2,6 +2,8 @@
 endpoints:
   - name: plex
     url: https://plex.${SECRET_PUBLIC_DOMAIN}/web/index.html
+    client:
+      dns-resolver: "tcp://1.1.1.1:53"
     interval: 1m
     conditions: ["[STATUS] == 200"]
     alerts: [{ type: pushover }]
