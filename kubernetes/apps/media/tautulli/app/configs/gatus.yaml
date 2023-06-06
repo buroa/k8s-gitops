@@ -1,0 +1,7 @@
+---
+endpoints:
+  - name: tautulli
+    url: https://tautulli.${SECRET_PUBLIC_DOMAIN}/status
+    interval: 1m
+    conditions: ["[STATUS] == 200"]
+    alerts: [{ type: pushover }]

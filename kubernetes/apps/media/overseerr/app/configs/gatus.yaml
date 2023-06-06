@@ -1,0 +1,7 @@
+---
+endpoints:
+  - name: requests
+    url: https://requests.${SECRET_PUBLIC_DOMAIN}/api/v1/status
+    interval: 1m
+    conditions: ["[STATUS] == 200"]
+    alerts: [{ type: pushover }]
