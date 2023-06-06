@@ -1,7 +1,7 @@
 ---
 endpoints:
   - name: grafana
-    url: https://grafana.${SECRET_PUBLIC_DOMAIN}
+    url: https://grafana.${SECRET_PUBLIC_DOMAIN}/api/health
     client:
       dns-resolver: "tcp://1.1.1.1:53"
     interval: 1m
