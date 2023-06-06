@@ -10,6 +10,12 @@ configMapGenerator:
   - name: gatus-configmap
     files:
       - ./configs/config.yaml
+  - name: gatus-grafana-dashboards
+    files:
+      - ./dashboards/gatus.json
+    options:
+      labels:
+        grafana_dashboard: "1"
 generatorOptions:
   disableNameSuffixHash: true
   annotations:
