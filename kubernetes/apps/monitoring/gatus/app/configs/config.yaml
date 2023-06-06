@@ -29,3 +29,4 @@ endpoints:
     interval: 1m
     conditions: ["[STATUS] == 200"]
     alerts: [{ type: pushover }]
+debug: true
