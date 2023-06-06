@@ -10,7 +10,7 @@ resources:
 configMapGenerator:
   - name: mosquitto-configmap
     files:
-      - ./config/mosquitto.conf
+      - ./configs/mosquitto.conf
 configurations:
   - ./patches/kustomizeconfig.yaml
 labels:

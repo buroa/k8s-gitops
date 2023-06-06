@@ -1,6 +1,6 @@
 ---
 endpoints:
-  - name: invite
+  - name: wizarr
     url: https://invite.${SECRET_PUBLIC_DOMAIN}/setup
     interval: 1m
     conditions: ["[STATUS] == 200"]
