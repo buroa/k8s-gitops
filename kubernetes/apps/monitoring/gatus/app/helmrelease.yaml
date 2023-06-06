@@ -40,7 +40,7 @@ spec:
       repository: ghcr.io/twin/gatus
       tag: v5.4.0
     env:
-      TZ: America/New_York
+      TZ: "${TIMEZONE}"
       GATUS_CONFIG_PATH: /config
       CUSTOM_WEB_PORT: &port 80
     envFrom:

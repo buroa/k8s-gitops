@@ -8,7 +8,7 @@ resources:
 configMapGenerator:
   - name: k8s-gateway-configmap
     files:
-      - ./config/Corefile
+      - ./configs/Corefile
 generatorOptions:
   disableNameSuffixHash: true
 configurations:
