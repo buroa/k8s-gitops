@@ -21,12 +21,11 @@ connectivity:
   checker:
     target: 1.1.1.1:53
     interval: 1m
-client:
-  dns-resolver: tcp://1.1.1.1:53
 endpoints:
   - name: status
     url: https://status.${SECRET_PUBLIC_DOMAIN}
+    client:
+      dns-resolver: "tcp://1.1.1.1:53"
     interval: 1m
     conditions: ["[STATUS] == 200"]
     alerts: [{ type: pushover }]
-debug: true
