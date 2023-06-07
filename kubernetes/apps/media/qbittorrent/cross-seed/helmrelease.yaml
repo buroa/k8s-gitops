@@ -31,7 +31,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/cross-seed/cross-seed
-      tag: latest@sha256:7c8f6c0b8fe825ca510e033148bd88d18b9bb2df0748dca5586d222fea2ca51b
+      tag: latest@sha256:dd1de4ed5dcebcf85e228d39bf3553942c3bf29d5469479fe033e6487e96fe95
     args:
       - daemon
     env:
