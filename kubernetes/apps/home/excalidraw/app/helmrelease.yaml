@@ -31,7 +31,7 @@ spec:
       strategy: RollingUpdate
     image:
       repository: ghcr.io/onedr0p/excalidraw
-      tag: latest@sha256:d104365e990ee6ebda0ce228e247b205c7a9e70db47cb08f15ba91f1fd9a01d6
+      tag: latest@sha256:b8159538cf3cf40a84e5bf48146a6dda0d94f606e8c884745f56fbb838ef8856
     service:
       main:
         ports:
