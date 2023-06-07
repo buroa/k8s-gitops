@@ -12,7 +12,7 @@ spec:
   secretRef:
     name: github-webhook-token-secret
   resources:
-    - apiVersion: source.toolkit.fluxcd.io/v1beta2
+    - apiVersion: source.toolkit.fluxcd.io/v1
       kind: GitRepository
       name: k8s-gitops
       namespace: flux-system
