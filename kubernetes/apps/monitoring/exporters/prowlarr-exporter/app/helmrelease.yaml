@@ -31,7 +31,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/onedr0p/exportarr
-      tag: master@sha256:4f128bd5c0072b045f01796044a96b11d7e490b4678f5a382376bb6b574bd3eb
+      tag: master@sha256:26bcc8ca1fb24a1f7ff06e205d6ff8be3b6e0bb28b2551bee47ff6d71e6601a0
     args:
       - prowlarr
       - "--enable-additional-metrics"
