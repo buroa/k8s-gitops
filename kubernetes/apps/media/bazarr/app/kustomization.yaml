@@ -10,7 +10,7 @@ resources:
 configMapGenerator:
   - name: bazarr-scripts
     files:
-      - ./scripts/scan.sh
+      - ./scripts/post-process.sh
 generatorOptions:
   disableNameSuffixHash: true
 labels:
