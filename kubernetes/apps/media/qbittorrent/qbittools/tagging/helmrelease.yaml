@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: qbittools
+  name: qbittools-tagging
   namespace: media
 spec:
   interval: 30m
@@ -26,11 +26,22 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    controller:
+      type: cronjob
+      cronjob:
+        schedule: 0 6 * * *
     image:
       repository: ghcr.io/buroa/qbittools
       tag: latest@sha256:3bcd40b89732fb72e50fd4d4deb2129048210eb7ed84705e555fa9bb04e85130
     args:
-      - reannounce
+      - tagging
+      - --move-unregistered
+      - --not-working
+      - --unregistered
+      - --added-on
+      - --last-activity
+      - --trackers
+      - --tracker-down
       - -s
       - "qbittorrent.media.svc.cluster.local"
       - -p
