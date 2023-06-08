@@ -19,6 +19,7 @@ module.exports = {
   skipRecheck: true,
   includeEpisodes: true,
   includeNonVideos: true,
+  duplicateCategories: true,
   outputDir: "/cross-seeds",
   torrentDir: "/config/qBittorrent/BT_backup",
   qbittorrentUrl: "http://qbittorrent.media.svc.cluster.local:8080",
