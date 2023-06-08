@@ -7,7 +7,6 @@ metadata:
 spec:
   dependsOn:
     - name: cluster-apps-media-pvc
-    - name: cluster-apps-autoscan
     - name: cluster-apps-external-secrets-stores
   path: ./kubernetes/apps/media/tdarr/app
   prune: true
