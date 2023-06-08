@@ -32,7 +32,7 @@ spec:
         schedule: 0 6 * * *
     image:
       repository: ghcr.io/buroa/qbittools
-      tag: master@sha256:e056b6a7df5c556d06e7f0fb0ef42025bc4fa169162f24177d9a386b2f577905
+      tag: latest@sha256:358a8198638690bf489a3f9298f39eb415dd5876d9dce9b5550668427338159b
     args:
       - tagging
       - --not-working
