@@ -31,7 +31,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/onedr0p/exportarr
-      tag: v1.4.0
+      tag: v1.5.0
     args:
       - sonarr
       - "--enable-additional-metrics"
