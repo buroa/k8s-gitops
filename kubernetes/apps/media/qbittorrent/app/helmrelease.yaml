@@ -26,10 +26,8 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    hostname: torrent
     image:
       repository: ghcr.io/onedr0p/qbittorrent
-      # TODO: verify our trackers whitelisted the incoming client version
       tag: 4.5.3@sha256:5f97e1e998a498cc27ba08abcdad5be61bd396f833157c6b6c1f3d672915f2fa
     env:
       TZ: "${TIMEZONE}"
@@ -39,13 +37,27 @@ spec:
       QBT_Preferences__WebUI__AuthSubnetWhitelistEnabled: "true"
       QBT_Preferences__WebUI__AuthSubnetWhitelist: |-
         ${CLUSTER_POD_IP_RANGE}, ${CLUSTER_SERVICE_IP_RANGE}, ${CLUSTER_IP_RANGE}
-      QBT_Preferences__WebUI__AlternativeUIEnabled: "false"
-      QBT_Preferences__WebUI__RootFolder: ""
     service:
       main:
         ports:
           http:
             port: *port
+      bittorrent:
+        enabled: true
+        type: LoadBalancer
+        annotations:
+          io.cilium/lb-ipam-ips: ${TORRENT_LB_IP}
+        ports:
+          bittorrent-tcp:
+            enabled: true
+            port: ${TORRENT_PUBLIC_PORT}
+            protocol: TCP
+            targetPort: ${TORRENT_PUBLIC_PORT}
+          bittorrent-udp:
+            enabled: true
+            port: ${TORRENT_PUBLIC_PORT}
+            protocol: UDP
+            targetPort: ${TORRENT_PUBLIC_PORT}
     probes:
       liveness:
         custom: true
@@ -110,5 +122,3 @@ spec:
         cpu: 25m
       limits:
         memory: 16Gi
-    podLabels:
-      vpn/ovpn: "true"
