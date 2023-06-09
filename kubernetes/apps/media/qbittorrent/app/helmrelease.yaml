@@ -26,6 +26,10 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    controller:
+      annotations:
+        configmap.reloader.stakater.com/reload: qbittorrent-scripts
+        secret.reloader.stakater.com/reload: cross-seed-secret
     image:
       repository: ghcr.io/onedr0p/qbittorrent
       tag: 4.5.3@sha256:5f97e1e998a498cc27ba08abcdad5be61bd396f833157c6b6c1f3d672915f2fa
@@ -42,6 +46,8 @@ spec:
         ports:
           http:
             port: *port
+          xseed:
+            port: 2468
       bittorrent:
         enabled: true
         type: LoadBalancer
@@ -112,9 +118,16 @@ spec:
         enabled: true
         type: configMap
         name: qbittorrent-scripts
-        mountPath: /scripts/cross-seed.sh
-        subPath: cross-seed.sh
+        mountPath: /scripts/xseed.sh
+        subPath: xseed.sh
         defaultMode: 0775
+        readOnly: true
+      xseed:
+        enabled: true
+        type: secret
+        name: cross-seed-secret
+        mountPath: /config/config.js
+        subPath: config.js
         readOnly: true
     resources:
       requests:
@@ -122,3 +135,16 @@ spec:
         cpu: 25m
       limits:
         memory: 16Gi
+    sidecars:
+      xseed:
+        image: ghcr.io/cross-seed/cross-seed:latest@sha256:dd1de4ed5dcebcf85e228d39bf3553942c3bf29d5469479fe033e6487e96fe95
+        imagePullPolicy: IfNotPresent
+        args:
+          - daemon
+        volumeMounts:
+          - name: config
+            mountPath: /config
+          - name: xseed
+            mountPath: /config/config.js
+            subPath: config.js
+            readOnly: true

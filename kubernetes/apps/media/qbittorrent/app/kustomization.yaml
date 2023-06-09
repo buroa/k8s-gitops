@@ -4,12 +4,16 @@ kind: Kustomization
 namespace: media
 resources:
   - ./pvc.yaml
+  - ./externalsecret.yaml
   - ./helmrelease.yaml
   - ./volsync.yaml
 configMapGenerator:
   - name: qbittorrent-scripts
     files:
-      - ./scripts/cross-seed.sh
+      - ./scripts/xseed.sh
+  - name: cross-seed-config-tpl
+    files:
+      - ./configs/config.js
 generatorOptions:
   disableNameSuffixHash: true
 labels:
