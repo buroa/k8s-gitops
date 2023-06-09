@@ -6,8 +6,8 @@ metadata:
   namespace: media
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   resources:
     requests:
       storage: 2Gi
-  storageClassName: ${CLUSTER_STORAGE_FILESYSTEM}
+  storageClassName: ${CLUSTER_STORAGE_BLOCK}

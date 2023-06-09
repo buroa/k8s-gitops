@@ -36,8 +36,8 @@ spec:
     pruneIntervalDays: 10
     repository: qbittorrent-restic-secret
     cacheCapacity: 5Gi
-    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_FILESYSTEM}
-    storageClassName: ${CLUSTER_STORAGE_FILESYSTEM}
+    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
+    storageClassName: ${CLUSTER_STORAGE_BLOCK}
     moverSecurityContext:
       runAsUser: 1000
       runAsGroup: 1000
