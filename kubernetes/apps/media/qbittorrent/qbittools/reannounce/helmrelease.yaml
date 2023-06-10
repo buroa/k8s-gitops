@@ -32,7 +32,7 @@ spec:
     args:
       - reannounce
       - -s
-      - "qbittorrent.media.svc.cluster.local"
+      - qbittorrent.media.svc.cluster.local
       - -p
       - "8080"
     service:
@@ -41,9 +41,6 @@ spec:
     podSecurityContext:
       runAsUser: 568
       runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: OnRootMismatch
-      supplementalGroups: [10000]
     resources:
       requests:
         memory: 250Mi
