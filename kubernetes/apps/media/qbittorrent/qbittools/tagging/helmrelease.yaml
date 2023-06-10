@@ -29,7 +29,7 @@ spec:
     controller:
       type: cronjob
       cronjob:
-        schedule: 0 6 * * *
+        schedule: "@hourly"
     image:
       repository: ghcr.io/buroa/qbittools
       tag: latest@sha256:358a8198638690bf489a3f9298f39eb415dd5876d9dce9b5550668427338159b
