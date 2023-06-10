@@ -1,7 +1,5 @@
 module.exports = {
   delay: 30,
-  rssCadence: "15 minutes", // autobrr doesnt get every announcement
-  qbittorrentUrl: "http://localhost:8080",
 
   torznab: [
     "http://prowlarr.media.svc.cluster.local:9696/3/api?apikey={{ .PROWLARR_APIKEY }}", // ipt
@@ -17,16 +15,13 @@ module.exports = {
   ],
 
   action: "inject",
+  matchMode: "safe",
+  skipRecheck: true,
   includeEpisodes: true,
   includeNonVideos: true,
   duplicateCategories: true,
-
-  matchMode: "risky",
-  skipRecheck: false,
-  linkType: "symlink",
-  linkDir: "/media/downloads/torrent/xseeds",
-  dataDirs: ["/media/downloads/torrent/complete"],
-
   outputDir: "/config/xseeds",
   torrentDir: "/config/qBittorrent/BT_backup",
+  qbittorrentUrl: "http://localhost:8080",
+  rssCadence: "15 minutes", // autobrr doesnt get every announcement
 };
