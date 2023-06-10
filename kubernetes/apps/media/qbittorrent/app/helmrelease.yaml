@@ -148,3 +148,5 @@ spec:
             mountPath: /config/config.js
             subPath: config.js
             readOnly: true
+          - name: media
+            mountPath: /media
