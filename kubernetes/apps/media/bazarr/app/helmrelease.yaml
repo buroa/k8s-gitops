@@ -49,6 +49,8 @@ spec:
         ports:
           http:
             port: 6767
+          whisper:
+            port: 9000
     ingress:
       main:
         enabled: true
@@ -89,11 +91,19 @@ spec:
       add-ons:
         enabled: true
         type: emptyDir
+      cache:
+        enabled: true
+        type: emptyDir
+        mountPath: /.cache
+    nodeSelector:
+      intel.feature.node.kubernetes.io/gpu: "true"
     resources:
       requests:
+        gpu.intel.com/i915: 1
         cpu: 10m
         memory: 250Mi
       limits:
+        gpu.intel.com/i915: 1
         memory: 2000Mi
     sidecars:
       subcleaner:
@@ -106,3 +116,15 @@ spec:
           - --root=/add-ons
         volumeMounts:
           - { name: add-ons, mountPath: /add-ons }
+      whisper:
+        image: docker.io/onerahmet/openai-whisper-asr-webservice:v1.1.1-gpu
+        imagePullPolicy: IfNotPresent
+        env:
+          - name: ASR_MODEL
+            value: base
+        volumeMounts:
+          - name: cache
+            mountPath: /.cache
+          - name: media
+            mountPath: /media
+            readOnly: true
