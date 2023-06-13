@@ -30,13 +30,13 @@ spec:
       wal:
         compression: bzip2
         maxParallel: 8
-      destinationPath: s3://postgresql/
-      endpointURL: http://rook-ceph-rgw-ceph-objectstore.rook-ceph.svc.cluster.local
+      destinationPath: s3://barman-u7z9m76w/
+      endpointURL: https://${SECRET_CLOUDFLARE_ACCOUNT_ID}.r2.cloudflarestorage.com
       serverName: postgres
       s3Credentials:
         accessKeyId:
-          name: postgresql-ceph-bucket
+          name: cloudnative-pg-s3-secret
           key: AWS_ACCESS_KEY_ID
         secretAccessKey:
-          name: postgresql-ceph-bucket
+          name: cloudnative-pg-s3-secret
           key: AWS_SECRET_ACCESS_KEY
