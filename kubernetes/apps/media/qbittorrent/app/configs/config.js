@@ -21,7 +21,7 @@ module.exports = {
   includeNonVideos: true,
   duplicateCategories: true,
 
-  matchMode: "risky",
+  matchMode: "safe",
   skipRecheck: true,
   linkType: "symlink",
   linkDir: "/media/downloads/torrents/xseeds",
