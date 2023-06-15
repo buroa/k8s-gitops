@@ -21,7 +21,7 @@ module.exports = {
   includeNonVideos: true,
   duplicateCategories: true,
 
-  matchMode: "safe",
+  matchMode: "risky",
   skipRecheck: true,
   linkType: "symlink",
   linkDir: "/media/downloads/torrents/xseeds",
@@ -32,4 +32,5 @@ module.exports = {
   ],
 
   outputDir: "/config/xseeds",
+  torrentDir: "/config/qBittorrent/BT_backup",
 };
