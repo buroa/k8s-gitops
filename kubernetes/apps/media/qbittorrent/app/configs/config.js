@@ -32,7 +32,7 @@ module.exports = {
   linkDir: "/media/downloads/torrents/xseeds",
 
   // I have sonarr, radarr, and prowlarr categories set in qBittorrent
-  // The save paths fpr them are set to the following:
+  // The save paths for them are set to the following:
   dataDirs: [
     "/media/downloads/torrents/sonarr",
     "/media/downloads/torrents/radarr",
