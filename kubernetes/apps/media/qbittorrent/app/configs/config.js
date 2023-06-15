@@ -1,6 +1,5 @@
 module.exports = {
   delay: 30,
-  rssCadence: "15 minutes", // autobrr doesnt get every announcement
   qbittorrentUrl: "http://localhost:8080",
 
   torznab: [
@@ -29,8 +28,8 @@ module.exports = {
   dataDirs: [
     "/media/downloads/torrents/sonarr",
     "/media/downloads/torrents/radarr",
+    "/media/downloads/torrents/prowlarr",
   ],
 
   outputDir: "/config/xseeds",
-  torrentDir: "/config/qBittorrent/BT_backup",
 };
