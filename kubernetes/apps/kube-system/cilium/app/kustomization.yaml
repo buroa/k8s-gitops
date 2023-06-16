@@ -4,7 +4,6 @@ kind: Kustomization
 namespace: kube-system
 resources:
   - ./helmrelease.yaml
-  - ./l2announcementpolicy.yaml
   - ./bgppeeringpolicy.yaml
   - ./loadbalancerippool.yaml
   - ./servicemonitor.yaml
