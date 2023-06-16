@@ -26,10 +26,6 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    l2announcements:
-      enabled: true
-    externalIPs:
-      enabled: true
     autoDirectNodeRoutes: true
     bgpControlPlane:
       enabled: true
