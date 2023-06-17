@@ -37,6 +37,3 @@ data:
   # LAN
   CLUSTER_IP_RANGE: "10.0.0.0/24"
   GATEWAY_IP: "10.0.0.1"
-  NAS_IP: "10.0.0.5"
-  UPS_IP: "10.0.0.6"
-  PDU_IP: "10.0.0.7"

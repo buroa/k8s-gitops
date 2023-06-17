@@ -10,10 +10,6 @@
     prometheus :9153
     hosts {
         ${CLUSTER_API_IP} k8s.${SECRET_PUBLIC_DOMAIN}
-        ${GATEWAY_IP} unifi.${SECRET_PUBLIC_DOMAIN}
-        ${NAS_IP} nas.${SECRET_PUBLIC_DOMAIN}
-        ${UPS_IP} ups.${SECRET_PUBLIC_DOMAIN}
-        ${PDU_IP} pdu.${SECRET_PUBLIC_DOMAIN}
         ttl 300
         fallthrough ${SECRET_PUBLIC_DOMAIN}
     }
@@ -23,11 +19,7 @@
         ttl 300
         fallthrough ${SECRET_PUBLIC_DOMAIN}
     }
-    forward k8s.${SECRET_PUBLIC_DOMAIN} ${GATEWAY_IP}
-    forward . tls://1.1.1.1 tls://1.0.0.1 {
-        tls_servername cloudflare-dns.com
-        health_check 5s
-    }
+    forward ${SECRET_PUBLIC_DOMAIN} ${GATEWAY_IP}
     cache 300
     loop
     reload
