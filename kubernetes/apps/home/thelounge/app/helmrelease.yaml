@@ -28,7 +28,7 @@ spec:
   values:
     image:
       repository: ghcr.io/thelounge/thelounge
-      tag: 4.4.0
+      tag: 4.4.1
     env:
       THELOUNGE_HOME: /config
     service:
