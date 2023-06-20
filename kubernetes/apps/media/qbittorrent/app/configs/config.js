@@ -22,7 +22,7 @@ module.exports = {
 
   action: "inject",
   includeEpisodes: true,
-  includeNonVideos: false,
+  includeNonVideos: true,
   duplicateCategories: true,
 
   matchMode: "safe",
