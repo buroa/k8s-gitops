@@ -5,9 +5,14 @@ sonarr:
     api_key: {{ .SONARR_APIKEY }}
 
     delete_old_custom_formats: true
+    replace_existing_custom_formats: true
 
     quality_definition:
       type: series
+
+    quality_profiles:
+      - name: Web-1080p
+        reset_unmatched_scores: true
 
     custom_formats:
       # Audio Advanced #1
@@ -23,7 +28,6 @@ sonarr:
           - 5964f2a8b3be407d083498e4459d05d0 # DTS
         quality_profiles:
           - name: Web-1080p
-            reset_unmatched_scores: true
 
       # Audio Advanced #2
       - trash_ids:
@@ -34,7 +38,6 @@ sonarr:
           - dbe00161b08a25ac6154c55f95e6318d # DD
         quality_profiles:
           - name: Web-1080p
-            reset_unmatched_scores: true
 
       # HDR Formats
       - trash_ids:
@@ -50,7 +53,6 @@ sonarr:
           - 17e889ce13117940092308f48b48b45b # HLG
         quality_profiles:
           - name: Web-1080p
-            reset_unmatched_scores: true
 
       # Series Versions
       - trash_ids:
@@ -58,7 +60,6 @@ sonarr:
           - b735f09d3c025cbb7d75a5d38325b73b # Remaster
         quality_profiles:
           - name: Web-1080p
-            reset_unmatched_scores: true
 
       # Unwanted
       - trash_ids:
@@ -67,7 +68,6 @@ sonarr:
           - 47435ece6b99a0b477caf360e79ba0bb # x265 (HD)
         quality_profiles:
           - name: Web-1080p
-            reset_unmatched_scores: true
 
       # HQ Source Groups
       - trash_ids:
@@ -77,7 +77,6 @@ sonarr:
           - d0c516558625b04b363fa6c5c2c7cfd4 # WEB Scene
         quality_profiles:
           - name: Web-1080p
-            reset_unmatched_scores: true
 
       # Streaming Services
       - trash_ids:
@@ -102,7 +101,6 @@ sonarr:
           - b0d6195c23ae254932da00512db7e8a8 # RTBF
         quality_profiles:
           - name: Web-1080p
-            reset_unmatched_scores: true
 
       # Misc
       - trash_ids:
@@ -111,7 +109,6 @@ sonarr:
           - 44e7c4de10ae50265753082e5dc76047 # Repack v3
         quality_profiles:
           - name: Web-1080p
-            reset_unmatched_scores: true
 
       # Optional
       - trash_ids:
@@ -124,7 +121,6 @@ sonarr:
           - 9b64dff695c2115facf1b6ea59c9bd07 # x265 (no HDR/DV)
         quality_profiles:
           - name: Web-1080p
-            reset_unmatched_scores: true
 
 radarr:
   main:
@@ -132,9 +128,14 @@ radarr:
     api_key: {{ .RADARR_APIKEY }}
 
     delete_old_custom_formats: true
+    replace_existing_custom_formats: true
 
     quality_definition:
       type: movie
+
+    quality_profiles:
+      - name: Remux-1080p
+        reset_unmatched_scores: true
 
     custom_formats:
       # Audio Advanced #1
@@ -150,7 +151,6 @@ radarr:
           - 1c1a4c5e823891c75bc50380a6866f73 # DTS
         quality_profiles:
           - name: Remux-1080p
-            reset_unmatched_scores: true
 
       # Audio Advanced #2
       - trash_ids:
@@ -161,7 +161,6 @@ radarr:
           - c2998bd0d90ed5621d8df281e839436e # DD
         quality_profiles:
           - name: Remux-1080p
-            reset_unmatched_scores: true
 
       # HDR Formats
       - trash_ids:
@@ -177,7 +176,6 @@ radarr:
           - 9364dd386c9b4a1100dde8264690add7 # HLG
         quality_profiles:
           - name: Remux-1080p
-            reset_unmatched_scores: true
 
       # Movie Versions
       - trash_ids:
@@ -192,7 +190,6 @@ radarr:
           - 09d9dd29a0fc958f9796e65c2a8864b4 # Open Matte
         quality_profiles:
           - name: Remux-1080p
-            reset_unmatched_scores: true
 
       # Unwanted
       - trash_ids:
@@ -202,7 +199,6 @@ radarr:
           - dc98083864ea246d05a42df0d05f81cc # x265 (HD)
         quality_profiles:
           - name: Remux-1080p
-            reset_unmatched_scores: true
 
       # HQ Release Groups
       - trash_ids:
@@ -218,7 +214,6 @@ radarr:
           - af94e0fe497124d1f9ce732069ec8c3b # WEB Tier 03
         quality_profiles:
           - name: Remux-1080p
-            reset_unmatched_scores: true
 
       # Streaming Services
       - trash_ids:
@@ -235,8 +230,6 @@ radarr:
           - cc5e51a9e85a6296ceefe097a77f12f4 # BCORE
         quality_profiles:
           - name: Remux-1080p
-            score: 1
-            reset_unmatched_scores: true
 
       # Misc
       - trash_ids:
@@ -244,7 +237,6 @@ radarr:
           - ae43b294509409a6a13919dedd4764c4 # Repack2
         quality_profiles:
           - name: Remux-1080p
-            reset_unmatched_scores: true
 
       # Optional
       - trash_ids:
@@ -258,4 +250,3 @@ radarr:
           - 839bea857ed2c0a8e084f3cbdbd65ecb # x265 (no HDR/DV)
         quality_profiles:
           - name: Remux-1080p
-            reset_unmatched_scores: true
