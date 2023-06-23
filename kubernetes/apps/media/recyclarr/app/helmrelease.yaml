@@ -35,19 +35,25 @@ spec:
     image:
       repository: ghcr.io/recyclarr/recyclarr
       tag: 5.0.0
-    env:
-      TZ: "${TIMEZONE}"
-      PUID: "1000"
-      PGID: "1000"
     command:
       - /app/recyclarr/recyclarr
     args:
       - sync
+    env:
+      TZ: "${TIMEZONE}"
     service:
       main:
         enabled: false
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      fsGroupChangePolicy: OnRootMismatch
     persistence:
       config:
+        enabled: true
+        existingClaim: recyclarr-config
+      config-file:
         enabled: true
         type: secret
         name: recyclarr-secret
