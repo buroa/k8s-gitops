@@ -34,7 +34,7 @@ spec:
         schedule: 0 6 * * *
     image:
       repository: ghcr.io/recyclarr/recyclarr
-      tag: 5.0.3
+      tag: 5.1.0
     command:
       - /app/recyclarr/recyclarr
     args:
