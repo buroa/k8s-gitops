@@ -30,7 +30,7 @@ spec:
       type: daemonset
     image:
       repository: ghcr.io/haveagitgat/tdarr_node_acc
-      tag: 2.00.20.1
+      tag: 2.00.21
     env:
       TZ: "${TIMEZONE}"
       PUID: "1000"
