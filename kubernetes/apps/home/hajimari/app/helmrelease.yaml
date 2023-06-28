@@ -42,6 +42,7 @@ spec:
       defaultEnable: true
       namespaceSelector:
         matchNames:
+          - default
           - flux-system
           - home
           - kube-system
@@ -49,6 +50,7 @@ spec:
           - monitoring
           - networking
           - rook-ceph
+          - security
     ingress:
       main:
         enabled: true
