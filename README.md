@@ -91,6 +91,47 @@ GitRepository :: k8s-gitops
                 Cluster :: postgres
 ```
 
+### Networking
+
+| Name                                         | CIDR            |
+| -------------------------------------------- | --------------- |
+| Kubernetes Nodes VLAN                        | `10.0.0.0/24`   |
+| Kubernetes external services (Cilium w/ BGP) | `7.0.0.0/8`     |
+| Kubernetes pods                              | `10.244.0.0/16` |
+| Kubernetes services                          | `10.245.0.0/16` |
+
+- [Cilium](https://cilium.io) is configured with the `io.cilium/lb-ipam-ips` annotation to expose Kubernetes services with their own IP over BGP which is configured on my router.
+- [cloudflared](https://github.com/cloudflare/cloudflared) provides a [secure tunnel](https://www.cloudflare.com/products/tunnel/) for [Cloudflare](https://www.cloudflare.com/) to ingress traffic from the Internet into my Kubernetes cluster.
+
+---
+
+## 🌐 DNS
+
+### Internal DNS
+
+[blocky](https://github.com/0xERR0R/blocky) provides the first hop of DNS resolution inside my network. DNS requests to my public domain are forwarded to [k8s-gateway](https://github.com/ori-edge/k8s_gateway) which checks to see if it's present in my cluster; if not, it talks out to [1.1.1.1](https://1.1.1.1) which is configured as my primary DNS provider.
+
+### External DNS
+
+[external-dns](https://github.com/kubernetes-sigs/external-dns) is deployed in my cluster and configured to sync DNS records to [Cloudflare](https://www.cloudflare.com/). The only ingresses this `external-dns` instance looks at to gather DNS records to put in `Cloudflare` are ones that have an annotation of `external-dns.alpha.kubernetes.io/target`.
+
+---
+
+## 🔧 Hardware
+
+| Device                      | Count | OS Disk Size | Data Disk Size           | Ram  | Operating System | Purpose            |
+| --------------------------- | ----- | ------------ | ------------------------ | ---- | ---------------- | ------------------ |
+| Unifi UDM Pro               | 1     | -            | -                        | -    | -                | Router             |
+| Unifi USW 48 Port PoE       | 1     | -            | -                        | -    | -                | Switch             |
+| Unifi USW Aggregation (10G) | 1     | -            | -                        | -    | -                | Switch             |
+| Apple Mac Mini (18' 3.2GHz) | 3     | 512GB NVMe   | -                        | 32GB | Talos            | Kubernetes Masters |
+| Apple Mac Mini (18' 3.2Ghz) | 3     | 1TB NVMe     | 2x 2TB NVMe (rook-ceph)  | 64GB | Talos            | Kubernetes Workers |
+| Synology NAS RS820+         | 1     | -            | 4x16TB w/ 2TB NVMe cache | 16GB | -                | NFS                |
+| CyberPower ATS PDU          | 1     | -            | -                        | -    | -                | PDU                |
+| CyberPower UPS              | 1     | -            | -                        | -    | -                | PSU                |
+
+---
+
 ## ⭐ Stargazers
 
 <div align="center">
@@ -103,9 +144,7 @@ GitRepository :: k8s-gitops
 
 ## 🤝 Gratitude and Thanks
 
-- [billimek/k8s-gitops](https://github.com/billimek/k8s-gitops)
-- [carpenike/k8s-gitops](https://github.com/carpenike/k8s-gitops)
-- [onedr0p/home-ops](https://github.com/onedr0p/home-ops)
+Thanks to all the people who donate their time to the [Kubernetes @Home](https://discord.gg/k8s-at-home) Discord community. A lot of inspiration for my cluster comes from the people that have shared their clusters using the [k8s-at-home](https://github.com/topics/k8s-at-home) GitHub topic. Be sure to check out the [Kubernetes @Home search](https://nanne.dev/k8s-at-home-search/) for ideas on how to deploy applications or get ideas on what you can deploy.
 
 ---
 
