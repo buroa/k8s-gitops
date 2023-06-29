@@ -150,6 +150,10 @@ spec:
           gnetId: 7587
           revision: 3
           datasource: Prometheus
+        speedtest-exporter:
+          gnetId: 13665
+          revision: 4
+          datasource: Prometheus
         flux-cluster:
           url: https://raw.githubusercontent.com/fluxcd/flux2/v0.41.2/manifests/monitoring/monitoring-config/dashboards/cluster.json
           datasource: Prometheus
