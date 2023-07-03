@@ -2,6 +2,41 @@
 version: "3"
 
 tasks:
+  privileged:
+    desc: Run a privileged pod
+    interactive: true
+    vars:
+      node: "{{.node | default nil}}"
+      namespace: '{{.namespace | default "default"}}'
+      hostnetwork: "{{.hostnetwork | default false}}"
+    cmds:
+      - |
+        kubectl run -n {{.namespace}} debug-privileged -i --tty --rm --image=null --privileged --overrides='
+          {
+            "apiVersion": "v1",
+            "spec": {
+              "containers": [
+                {
+                  "name": "debug",
+                  "image": "ghcr.io/onedr0p/alpine:rolling",
+                  "command": [
+                    "/bin/bash"
+                  ],
+                  "stdin": true,
+                  "stdinOnce": true,
+                  "tty": true
+                }
+              ],
+              {{- if .node }}
+              "nodeName": "{{.node}}",
+              {{- end }}
+              {{- if .hostnetwork }}
+              "hostNetwork": true,
+              {{- end }}
+              "restartPolicy": "Never"
+            }
+          }'
+
   mount:
     desc: Mount a PersistantVolumeClaim to a pod temporarily
     interactive: true
