@@ -35,7 +35,7 @@ spec:
     copyMethod: Snapshot
     pruneIntervalDays: 10
     repository: zigbee2mqtt-restic-secret
-    cacheCapacity: 2Gi
+    cacheCapacity: 10Gi
     volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
     storageClassName: ${CLUSTER_STORAGE_BLOCK}
     moverSecurityContext:
