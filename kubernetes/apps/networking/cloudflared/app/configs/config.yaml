@@ -1,7 +1,4 @@
 ---
-warp-routing:
-  enabled: true
-
 originRequest:
   http2Origin: true
 
