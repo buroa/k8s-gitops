@@ -37,7 +37,8 @@ spec:
       TS_KUBE_SECRET: tailscale-state
       SA_NAME: tailscale
       TS_USERSPACE: "true"
-      TS_ROUTES: "${CLUSTER_IP_RANGE},${CILIUM_BGP_CIDR}"
+      TS_ROUTES: |-
+        ${CLUSTER_IP_RANGE},${CILIUM_BGP_CIDR}
     envFrom:
       - secretRef:
           name: tailscale-secret
