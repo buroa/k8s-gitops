@@ -37,7 +37,7 @@ spec:
       TZ: "${TIMEZONE}"
       QBITTORRENT__PORT: &port 8080
       QBITTORRENT__BT_PORT: ${TORRENT_PUBLIC_PORT}
-      QBT_Application__MemoryWorkingSetLimit: 14000
+      QBT_Application__MemoryWorkingSetLimit: 16384
       QBT_Preferences__WebUI__AuthSubnetWhitelistEnabled: "true"
       QBT_Preferences__WebUI__AuthSubnetWhitelist: |-
         ${CLUSTER_POD_IP_RANGE}, ${CLUSTER_SERVICE_IP_RANGE}, ${CLUSTER_IP_RANGE}
@@ -129,12 +129,14 @@ spec:
         mountPath: /config/config.js
         subPath: config.js
         readOnly: true
+    nodeSelector:
+      topology.kubernetes.io/zone: w
     resources:
       requests:
         memory: 250Mi
         cpu: 25m
       limits:
-        memory: 16Gi
+        memory: 32Gi
     sidecars:
       xseed:
         image: ghcr.io/cross-seed/cross-seed:5.3.1@sha256:1e4f4710d51cb458a0ad913d7d5467a64aaf40b3bc471cc41d697c25747bc1ec
