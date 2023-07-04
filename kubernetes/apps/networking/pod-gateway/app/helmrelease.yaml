@@ -69,7 +69,8 @@ spec:
     routed_namespaces:
       - media
     settings:
-      NOT_ROUTED_TO_GATEWAY_CIDRS: &cidrs "${CLUSTER_POD_IP_RANGE} ${CLUSTER_SERVICE_IP_RANGE} ${CLUSTER_IP_RANGE}"
+      NOT_ROUTED_TO_GATEWAY_CIDRS: &cidrs |-
+        ${CLUSTER_POD_IP_RANGE} ${CLUSTER_SERVICE_IP_RANGE} ${CLUSTER_IP_RANGE}
       VPN_BLOCK_OTHER_TRAFFIC: true
       VPN_INTERFACE: wg0
       VPN_LOCAL_CIDRS: *cidrs
