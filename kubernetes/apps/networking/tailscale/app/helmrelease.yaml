@@ -34,6 +34,7 @@ spec:
       tag: v1.44.0
     env:
       TZ: "${TIMEZONE}"
+      PORT: &port 41641
       TS_KUBE_SECRET: tailscale-state
       SA_NAME: tailscale
       TS_USERSPACE: "true"
@@ -45,8 +46,26 @@ spec:
     service:
       main:
         enabled: false
+      tailnet:
+        enabled: true
+        type: LoadBalancer
+        annotations:
+          io.cilium/lb-ipam-ips: ${TAILSCALE_LB_IP}
+        ports:
+          tailnet:
+            enabled: true
+            port: *port
+            protocol: UDP
+            targetPort: *port
     ingress:
       main:
+        enabled: false
+    probes:
+      liveness:
+        enabled: false
+      readiness:
+        enabled: false
+      startup:
         enabled: false
     podSecurityContext:
       runAsUser: 568
