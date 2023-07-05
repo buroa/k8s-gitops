@@ -34,7 +34,7 @@ spec:
       tag: v1.44.0
     env:
       TZ: "${TIMEZONE}"
-      PORT: &port 41641
+      PORT: &port ${TAILNET_PUBLIC_PORT}
       TS_KUBE_SECRET: tailscale-state
       SA_NAME: tailscale
       TS_USERSPACE: "true"
