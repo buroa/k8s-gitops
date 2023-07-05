@@ -36,7 +36,7 @@ spec:
     env:
       TZ: "${TIMEZONE}"
       QBITTORRENT__PORT: &port 8080
-      QBITTORRENT__BT_PORT: ${TORRENT_PUBLIC_PORT}
+      QBITTORRENT__BT_PORT: &port-bt ${TORRENT_PUBLIC_PORT}
       QBT_Application__MemoryWorkingSetLimit: 16384
       QBT_Preferences__WebUI__AuthSubnetWhitelistEnabled: "true"
       QBT_Preferences__WebUI__AuthSubnetWhitelist: |-
@@ -56,14 +56,14 @@ spec:
         ports:
           bittorrent-tcp:
             enabled: true
-            port: ${TORRENT_PUBLIC_PORT}
+            port: *port-bt
             protocol: TCP
-            targetPort: ${TORRENT_PUBLIC_PORT}
+            targetPort: *port-bt
           bittorrent-udp:
             enabled: true
-            port: ${TORRENT_PUBLIC_PORT}
+            port: *port-bt
             protocol: UDP
-            targetPort: ${TORRENT_PUBLIC_PORT}
+            targetPort: *port-bt
     probes:
       liveness:
         custom: true

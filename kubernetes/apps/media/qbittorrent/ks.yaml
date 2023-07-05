@@ -9,7 +9,6 @@ spec:
     - name: cluster-apps-rook-ceph-cluster
     - name: cluster-apps-volsync
     - name: cluster-apps-media-pvc
-    - name: cluster-apps-pod-gateway
     - name: cluster-apps-external-secrets-stores
   path: ./kubernetes/apps/media/qbittorrent/app
   prune: true
