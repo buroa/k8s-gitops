@@ -157,13 +157,13 @@ spec:
           revision: 4
           datasource: Prometheus
         flux-cluster:
-          url: https://raw.githubusercontent.com/fluxcd/flux2/v2.0.0-rc.5/manifests/monitoring/monitoring-config/dashboards/cluster.json
+          url: https://raw.githubusercontent.com/fluxcd/flux2/v2.0.0/manifests/monitoring/monitoring-config/dashboards/cluster.json
           datasource: Prometheus
         flux-control-plane:
-          url: https://raw.githubusercontent.com/fluxcd/flux2/v2.0.0-rc.5/manifests/monitoring/monitoring-config/dashboards/control-plane.json
+          url: https://raw.githubusercontent.com/fluxcd/flux2/v2.0.0/manifests/monitoring/monitoring-config/dashboards/control-plane.json
           datasource: Prometheus
         flux-logs:
-          url: https://raw.githubusercontent.com/fluxcd/flux2/v2.0.0-rc.5/manifests/monitoring/monitoring-config/dashboards/logs.json
+          url: https://raw.githubusercontent.com/fluxcd/flux2/v2.0.0/manifests/monitoring/monitoring-config/dashboards/logs.json
           datasource: Prometheus
         api-server:
           url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-system-api-server.json
