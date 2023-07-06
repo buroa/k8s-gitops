@@ -150,7 +150,7 @@ Thanks to all the people who donate their time to the [Kubernetes @Home](https:/
 
 ## 📜 Changelog
 
-See my _shitty_ [commit history](https://github.com/buroa/k8s-ops/commits/master)
+See my _shitty_ [commit history](https://github.com/buroa/k8s-gitops/commits/master)
 
 ---
 
