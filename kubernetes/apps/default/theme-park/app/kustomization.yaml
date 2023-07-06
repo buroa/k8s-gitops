@@ -4,3 +4,12 @@ kind: Kustomization
 namespace: default
 resources:
   - ./helmrelease.yaml
+configMapGenerator:
+  - name: theme-park-gatus-ep
+    files:
+      - ./configs/gatus.yaml
+    options:
+      labels:
+        gatus.io/enabled: "true"
+generatorOptions:
+  disableNameSuffixHash: true
