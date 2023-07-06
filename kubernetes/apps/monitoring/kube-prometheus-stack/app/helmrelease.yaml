@@ -101,6 +101,7 @@ spec:
         enabled: true
         ingressClassName: nginx
         annotations:
+          hajimari.io/appName: Alertmanager
           hajimari.io/icon: mdi:alert-decagram-outline
         hosts:
           - &hosta am.${SECRET_PUBLIC_DOMAIN}
