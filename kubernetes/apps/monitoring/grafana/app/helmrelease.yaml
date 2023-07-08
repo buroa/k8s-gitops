@@ -61,6 +61,7 @@ spec:
       auth:
         signout_redirect_url: https://auth.${SECRET_PUBLIC_DOMAIN}/logout
         oauth_auto_login: true
+        oauth_allow_insecure_email_lookup: true # https://github.com/grafana/grafana/issues/70203
       auth.generic_oauth:
         enabled: true
         name: Authelia
