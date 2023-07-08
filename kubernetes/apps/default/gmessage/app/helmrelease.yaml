@@ -29,6 +29,10 @@ spec:
     image:
       repository: docker.io/drbh/gmessage
       tag: v0.0.0
+    env:
+      TZ: "${TIMEZONE}"
+      HOME: /config
+      MODEL_TYPE: LlamaCpp
     service:
       main:
         ports:
@@ -49,20 +53,17 @@ spec:
           - hosts:
               - *host
     podSecurityContext:
-      runAsUser: 0
-      runAsGroup: 0
-      fsGroup: 0
-      capabilities:
-        add:
-          - CHOWN
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: "OnRootMismatch"
     persistence:
-      cache:
+      config:
         enabled: true
-        existingClaim: gmessage-cache
-        mountPath: /.cache
+        existingClaim: gmessage-config
     resources:
       requests:
         cpu: 5m
         memory: 50Mi
       limits:
-        memory: 8Gi
+        memory: 16Gi
