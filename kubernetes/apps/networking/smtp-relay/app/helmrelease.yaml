@@ -35,8 +35,7 @@ spec:
       repository: ghcr.io/foxcpp/maddy
       tag: 0.7.0
     env:
-      DEBUG: "true"
-      SMTP_DOMAIN: "mail.${SECRET_PUBLIC_DOMAIN}"
+      DEBUG: "false"
     envFrom:
       - secretRef:
           name: smtp-relay-secret
