@@ -14,8 +14,8 @@ spec:
       kube-image-keeper.enix.io/image-caching-policy: ignore
   primaryUpdateStrategy: unsupervised
   storage:
-    size: 20Gi
-    storageClass: ${CLUSTER_STORAGE_BLOCK}
+    size: 25Gi
+    storageClass: democratic-csi-local-hostpath
   superuserSecret:
     name: cloudnative-pg-secret
   postgresql:
@@ -32,11 +32,11 @@ spec:
         maxParallel: 8
       destinationPath: s3://barman-u7z9m76w/
       endpointURL: https://${SECRET_CLOUDFLARE_ACCOUNT_ID}.r2.cloudflarestorage.com
-      serverName: postgres
+      serverName: postgres-v1
       s3Credentials:
         accessKeyId:
-          name: cloudnative-pg-s3-secret
+          name: cloudnative-pg-secret
           key: AWS_ACCESS_KEY_ID
         secretAccessKey:
-          name: cloudnative-pg-s3-secret
+          name: cloudnative-pg-secret
           key: AWS_SECRET_ACCESS_KEY
