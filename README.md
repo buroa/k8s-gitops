@@ -122,8 +122,7 @@ GitRepository :: k8s-gitops
 | Device                      | Count | OS Disk Size | Data Disk Size           | Ram  | Operating System | Purpose            |
 | --------------------------- | ----- | ------------ | ------------------------ | ---- | ---------------- | ------------------ |
 | Unifi UDM Pro               | 1     | -            | -                        | -    | -                | Router             |
-| Unifi USW 48 Port PoE       | 1     | -            | -                        | -    | -                | Switch             |
-| Unifi USW Aggregation (10G) | 1     | -            | -                        | -    | -                | Switch             |
+| Unifi USW Enterprise XG 24  | 1     | -            | -                        | -    | -                | Switch             |
 | Apple Mac Mini (18' 3.2GHz) | 3     | 512GB NVMe   | -                        | 32GB | Talos            | Kubernetes Masters |
 | Apple Mac Mini (18' 3.2Ghz) | 3     | 1TB NVMe     | 2x 2TB NVMe (rook-ceph)  | 64GB | Talos            | Kubernetes Workers |
 | Synology NAS RS820+         | 1     | -            | 4x16TB w/ 2TB NVMe cache | 16GB | -                | NFS                |

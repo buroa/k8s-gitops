@@ -21,7 +21,7 @@ cniConfig:
   name: none
 
 nodes:
-  # macm 2018 3.2GHz / 32GB / 256GB SSD / 10GBt
+  # macm 2018 3.2GHz / 32GB / 256GB SSD / 10GbE via Thunderbolt 3
   - hostname: m0.k8s.${domainName}
     ipAddress: 10.0.0.10
     installDiskSelector:
@@ -32,7 +32,7 @@ nodes:
       - ${gatewayIP}
     networkInterfaces:
       - deviceSelector:
-          hardwareAddr: 00:30:93:12:31:78
+          hardwareAddr: 00:30:93:10:5c:f1
           driver: atlantic
         addresses:
           - 10.0.0.10/24
@@ -46,7 +46,7 @@ nodes:
       topology.kubernetes.io/region: *cluster
       topology.kubernetes.io/zone: m
 
-  # macm 2018 3.2GHz / 32GB / 256GB SSD / 10GBt
+  # macm 2018 3.2GHz / 32GB / 256GB SSD / 10GbE via Thunderbolt 3
   - hostname: m1.k8s.${domainName}
     ipAddress: 10.0.0.11
     installDiskSelector:
@@ -57,7 +57,7 @@ nodes:
       - ${gatewayIP}
     networkInterfaces:
       - deviceSelector:
-          hardwareAddr: 00:30:93:12:31:74
+          hardwareAddr: 00:30:93:10:5c:f6
           driver: atlantic
         addresses:
           - 10.0.0.11/24
@@ -69,7 +69,7 @@ nodes:
           ip: ${clusterEndpointIP}
     nodeLabels: *masterLabels
 
-  # macm 2018 3.2GHz / 32GB / 256GB SSD / 10GBt
+  # macm 2018 3.2GHz / 32GB / 256GB SSD / 10GbE via Thunderbolt 3
   - hostname: m2.k8s.${domainName}
     ipAddress: 10.0.0.12
     installDiskSelector:
@@ -80,7 +80,7 @@ nodes:
       - ${gatewayIP}
     networkInterfaces:
       - deviceSelector:
-          hardwareAddr: 00:30:93:12:2f:e5
+          hardwareAddr: 00:30:93:10:5c:ee
           driver: atlantic
         addresses:
           - 10.0.0.12/24
@@ -92,7 +92,7 @@ nodes:
           ip: ${clusterEndpointIP}
     nodeLabels: *masterLabels
 
-  # macm 2018 3.2GHz / 64GB / 1TB SSD / 10GBe
+  # macm 2018 3.2GHz / 64GB / 1TB SSD / 10GbE
   - hostname: w0.k8s.${domainName}
     ipAddress: 10.0.0.20
     installDiskSelector:
@@ -116,7 +116,7 @@ nodes:
       topology.kubernetes.io/region: *cluster
       topology.kubernetes.io/zone: w
 
-  # macm 2018 3.2GHz / 64GB / 1TB SSD / 10GBe
+  # macm 2018 3.2GHz / 64GB / 1TB SSD / 10GbE
   - hostname: w1.k8s.${domainName}
     ipAddress: 10.0.0.21
     installDiskSelector:
@@ -137,7 +137,7 @@ nodes:
             gateway: ${gatewayIP}
     nodeLabels: *workerLabels
 
-  # macm 2018 3.2GHz / 64GB / 1TB SSD / 10GBe
+  # macm 2018 3.2GHz / 64GB / 1TB SSD / 10GbE
   - hostname: w2.k8s.${domainName}
     ipAddress: 10.0.0.22
     installDiskSelector:
