@@ -33,6 +33,8 @@ spec:
           io.cilium/lb-ipam-ips: ${INGRESS_LB_IP}
           external-dns.alpha.kubernetes.io/hostname: |-
             ingress.${SECRET_PUBLIC_DOMAIN}
+        labels:
+          io.cilium/l2-announce: "true"
       ingressClassResource:
         default: true
       config:

@@ -53,6 +53,8 @@ spec:
         type: LoadBalancer
         annotations:
           io.cilium/lb-ipam-ips: ${TORRENT_LB_IP}
+        labels:
+          io.cilium/l2-announce: "true"
         ports:
           bittorrent-tcp:
             enabled: true

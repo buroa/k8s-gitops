@@ -21,7 +21,7 @@ cniConfig:
   name: none
 
 nodes:
-  # macm 2018 3.2GHz / 32GB / 256GB SSD / 10GbE via Thunderbolt 3
+  # macm 2018 3.2GHz / 32GB / 256GB SSD / 10GbE via TB3
   - hostname: m0.k8s.${domainName}
     ipAddress: 10.0.0.10
     installDiskSelector:
@@ -29,7 +29,7 @@ nodes:
     controlPlane: true
     disableSearchDomain: true
     nameservers:
-      - ${gatewayIP}
+      - 192.168.0.1
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: 00:30:93:10:5c:f1
@@ -39,14 +39,14 @@ nodes:
         mtu: 9000
         routes:
           - network: 0.0.0.0/0
-            gateway: ${gatewayIP}
+            gateway: 10.0.0.1
         vip:
           ip: ${clusterEndpointIP}
     nodeLabels: &masterLabels
       topology.kubernetes.io/region: *cluster
       topology.kubernetes.io/zone: m
 
-  # macm 2018 3.2GHz / 32GB / 256GB SSD / 10GbE via Thunderbolt 3
+  # macm 2018 3.2GHz / 32GB / 256GB SSD / 10GbE via TB3
   - hostname: m1.k8s.${domainName}
     ipAddress: 10.0.0.11
     installDiskSelector:
@@ -54,7 +54,7 @@ nodes:
     controlPlane: true
     disableSearchDomain: true
     nameservers:
-      - ${gatewayIP}
+      - 192.168.0.1
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: 00:30:93:10:5c:f6
@@ -64,12 +64,12 @@ nodes:
         mtu: 9000
         routes:
           - network: 0.0.0.0/0
-            gateway: ${gatewayIP}
+            gateway: 10.0.0.1
         vip:
           ip: ${clusterEndpointIP}
     nodeLabels: *masterLabels
 
-  # macm 2018 3.2GHz / 32GB / 256GB SSD / 10GbE via Thunderbolt 3
+  # macm 2018 3.2GHz / 32GB / 256GB SSD / 10GbE via TB3
   - hostname: m2.k8s.${domainName}
     ipAddress: 10.0.0.12
     installDiskSelector:
@@ -77,7 +77,7 @@ nodes:
     controlPlane: true
     disableSearchDomain: true
     nameservers:
-      - ${gatewayIP}
+      - 192.168.0.1
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: 00:30:93:10:5c:ee
@@ -87,7 +87,7 @@ nodes:
         mtu: 9000
         routes:
           - network: 0.0.0.0/0
-            gateway: ${gatewayIP}
+            gateway: 10.0.0.1
         vip:
           ip: ${clusterEndpointIP}
     nodeLabels: *masterLabels
@@ -100,7 +100,7 @@ nodes:
     controlPlane: false
     disableSearchDomain: true
     nameservers:
-      - ${gatewayIP}
+      - 192.168.0.1
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: cc:2d:b7:0b:0c:40
@@ -110,7 +110,7 @@ nodes:
         mtu: 9000
         routes:
           - network: 0.0.0.0/0
-            gateway: ${gatewayIP}
+            gateway: 10.0.0.1
     nodeLabels: &workerLabels
       node-role.kubernetes.io/worker: worker
       topology.kubernetes.io/region: *cluster
@@ -124,7 +124,7 @@ nodes:
     controlPlane: false
     disableSearchDomain: true
     nameservers:
-      - ${gatewayIP}
+      - 192.168.0.1
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: cc:2d:b7:07:c0:00
@@ -134,7 +134,7 @@ nodes:
         mtu: 9000
         routes:
           - network: 0.0.0.0/0
-            gateway: ${gatewayIP}
+            gateway: 10.0.0.1
     nodeLabels: *workerLabels
 
   # macm 2018 3.2GHz / 64GB / 1TB SSD / 10GbE
@@ -145,7 +145,7 @@ nodes:
     controlPlane: false
     disableSearchDomain: true
     nameservers:
-      - ${gatewayIP}
+      - 192.168.0.1
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: cc:2d:b7:02:b9:b5
@@ -155,7 +155,7 @@ nodes:
         mtu: 9000
         routes:
           - network: 0.0.0.0/0
-            gateway: ${gatewayIP}
+            gateway: 10.0.0.1
     nodeLabels: *workerLabels
 
 controlPlane:
@@ -188,10 +188,10 @@ controlPlane:
           - image: ghcr.io/siderolabs/iscsi-tools:v0.1.4
         legacyBIOSSupport: true
         extraKernelArgs:
-          - talos.logging.kernel=udp://7.0.0.3:6001/
+          - talos.logging.kernel=udp://10.0.0.253:6001/
       logging:
         destinations:
-          - endpoint: udp://7.0.0.3:6002/
+          - endpoint: udp://10.0.0.253:6002/
             format: json_lines
       kernel:
         modules:
@@ -225,7 +225,7 @@ controlPlane:
           - ip: ${clusterEndpointIP}
             aliases:
               - k8s.${domainName}
-          - ip: ${gatewayIP}
+          - ip: 192.168.0.1
             aliases:
               - unifi.${domainName}
           - ip: 10.0.0.5

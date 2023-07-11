@@ -123,4 +123,9 @@ spec:
       lbBypassFIBLookup: true
       masquerade: true
       tproxy: true
+    l2announcements:
+      enabled: true
+      leaseDuration: 30s
+      leaseRenewDeadline: 10s
+      leaseRetryPeriod: 4s
     tunnel: disabled
