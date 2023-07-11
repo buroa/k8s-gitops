@@ -34,7 +34,7 @@ spec:
           enabled: true
           params:
             podsHavingTooManyRestarts:
-              podRestartThreshold: 10
+              podRestartThreshold: 5
               includingInitContainers: true
         RemovePodsViolatingTopologySpreadConstraint:
           enabled: true
@@ -79,11 +79,9 @@ spec:
               thresholds:
                 cpu: 35
                 memory: 35
-                pods: 35
               targetThresholds:
-                cpu: 50
-                memory: 50
-                pods: 50
+                cpu: 40
+                memory: 40
     service:
       enabled: true
     serviceMonitor:
