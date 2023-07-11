@@ -11,6 +11,7 @@ spec:
     - name: cluster-apps-external-secrets-stores
     - name: cluster-apps-rook-ceph-cluster
     - name: cluster-apps-volsync
+    - name: cluster-apps-multus-configs
   path: ./kubernetes/apps/home/home-assistant/app
   prune: true
   sourceRef:
