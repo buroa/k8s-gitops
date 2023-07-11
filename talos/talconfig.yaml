@@ -34,14 +34,24 @@ nodes:
       - deviceSelector:
           hardwareAddr: 00:30:93:10:5c:f1
           driver: atlantic
-        addresses:
-          - 10.0.0.10/24
+        dhcp: false
         mtu: 9000
-        routes:
-          - network: 0.0.0.0/0
-            gateway: 10.0.0.1
-        vip:
-          ip: ${clusterEndpointIP}
+        vlans:
+          - vlanId: 10
+            dhcp: false
+            addresses:
+              - 10.0.0.10/24
+            mtu: 9000
+            routes:
+              - network: 0.0.0.0/0
+                gateway: 10.0.0.1
+            vip:
+              ip: ${clusterEndpointIP}
+          - vlanId: 12
+            dhcp: false
+            addresses:
+              - 10.0.2.10/24
+            mtu: 1500
     nodeLabels: &masterLabels
       topology.kubernetes.io/region: *cluster
       topology.kubernetes.io/zone: m
@@ -59,14 +69,24 @@ nodes:
       - deviceSelector:
           hardwareAddr: 00:30:93:10:5c:f6
           driver: atlantic
-        addresses:
-          - 10.0.0.11/24
+        dhcp: false
         mtu: 9000
-        routes:
-          - network: 0.0.0.0/0
-            gateway: 10.0.0.1
-        vip:
-          ip: ${clusterEndpointIP}
+        vlans:
+          - vlanId: 10
+            dhcp: false
+            addresses:
+              - 10.0.0.11/24
+            mtu: 9000
+            routes:
+              - network: 0.0.0.0/0
+                gateway: 10.0.0.1
+            vip:
+              ip: ${clusterEndpointIP}
+          - vlanId: 12
+            dhcp: false
+            addresses:
+              - 10.0.2.11/24
+            mtu: 1500
     nodeLabels: *masterLabels
 
   # macm 2018 3.2GHz / 32GB / 256GB SSD / 10GbE via TB3
@@ -82,14 +102,24 @@ nodes:
       - deviceSelector:
           hardwareAddr: 00:30:93:10:5c:ee
           driver: atlantic
-        addresses:
-          - 10.0.0.12/24
+        dhcp: false
         mtu: 9000
-        routes:
-          - network: 0.0.0.0/0
-            gateway: 10.0.0.1
-        vip:
-          ip: ${clusterEndpointIP}
+        vlans:
+          - vlanId: 10
+            dhcp: false
+            addresses:
+              - 10.0.0.12/24
+            mtu: 9000
+            routes:
+              - network: 0.0.0.0/0
+                gateway: 10.0.0.1
+            vip:
+              ip: ${clusterEndpointIP}
+          - vlanId: 12
+            dhcp: false
+            addresses:
+              - 10.0.2.12/24
+            mtu: 1500
     nodeLabels: *masterLabels
 
   # macm 2018 3.2GHz / 64GB / 1TB SSD / 10GbE
@@ -105,12 +135,22 @@ nodes:
       - deviceSelector:
           hardwareAddr: cc:2d:b7:0b:0c:40
           driver: atlantic
-        addresses:
-          - 10.0.0.20/24
+        dhcp: false
         mtu: 9000
-        routes:
-          - network: 0.0.0.0/0
-            gateway: 10.0.0.1
+        vlans:
+          - vlanId: 10
+            dhcp: false
+            addresses:
+              - 10.0.0.20/24
+            mtu: 9000
+            routes:
+              - network: 0.0.0.0/0
+                gateway: 10.0.0.1
+          - vlanId: 12
+            dhcp: false
+            addresses:
+              - 10.0.2.20/24
+            mtu: 1500
     nodeLabels: &workerLabels
       node-role.kubernetes.io/worker: worker
       topology.kubernetes.io/region: *cluster
@@ -129,12 +169,22 @@ nodes:
       - deviceSelector:
           hardwareAddr: cc:2d:b7:07:c0:00
           driver: atlantic
-        addresses:
-          - 10.0.0.21/24
+        dhcp: false
         mtu: 9000
-        routes:
-          - network: 0.0.0.0/0
-            gateway: 10.0.0.1
+        vlans:
+          - vlanId: 10
+            dhcp: false
+            addresses:
+              - 10.0.0.21/24
+            mtu: 9000
+            routes:
+              - network: 0.0.0.0/0
+                gateway: 10.0.0.1
+          - vlanId: 12
+            dhcp: false
+            addresses:
+              - 10.0.2.21/24
+            mtu: 1500
     nodeLabels: *workerLabels
 
   # macm 2018 3.2GHz / 64GB / 1TB SSD / 10GbE
@@ -150,12 +200,22 @@ nodes:
       - deviceSelector:
           hardwareAddr: cc:2d:b7:02:b9:b5
           driver: atlantic
-        addresses:
-          - 10.0.0.22/24
+        dhcp: false
         mtu: 9000
-        routes:
-          - network: 0.0.0.0/0
-            gateway: 10.0.0.1
+        vlans:
+          - vlanId: 10
+            dhcp: false
+            addresses:
+              - 10.0.0.22/24
+            mtu: 9000
+            routes:
+              - network: 0.0.0.0/0
+                gateway: 10.0.0.1
+          - vlanId: 12
+            dhcp: false
+            addresses:
+              - 10.0.2.22/24
+            mtu: 1500
     nodeLabels: *workerLabels
 
 controlPlane:
@@ -167,6 +227,8 @@ controlPlane:
       etcd:
         extraArgs:
           listen-metrics-urls: http://0.0.0.0:2381
+        advertisedSubnets:
+          - 10.0.0.0/24
       controllerManager:
         extraArgs:
           bind-address: 0.0.0.0
@@ -245,6 +307,9 @@ controlPlane:
         extraArgs:
           feature-gates: GracefulNodeShutdown=true
           rotate-server-certificates: true
+        nodeIP:
+          validSubnets:
+            - 10.0.0.0/24
       files:
         - content: |
             [plugins."io.containerd.grpc.v1.cri"]

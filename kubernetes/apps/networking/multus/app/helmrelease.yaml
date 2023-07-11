@@ -28,7 +28,7 @@ spec:
   values:
     image:
       repository: ghcr.io/k8snetworkplumbingwg/multus-cni
-      tag: v4.0.1-thick
+      tag: v4.0.2-thick
     cni:
       image:
         repository: ghcr.io/angelnu/cni-plugins
@@ -39,8 +39,8 @@ spec:
     resources:
       requests:
         cpu: 5m
-        memory: 70M
+        memory: 64M
       limits:
-        memory: 150M
+        memory: 64M
     hostPaths:
       netns: /var/run/netns
