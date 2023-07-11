@@ -51,6 +51,8 @@ spec:
         type: LoadBalancer
         annotations:
           io.cilium/lb-ipam-ips: ${TAILSCALE_LB_IP}
+        labels:
+          io.cilium/l2-announce: "true"
         ports:
           tailnet:
             enabled: true

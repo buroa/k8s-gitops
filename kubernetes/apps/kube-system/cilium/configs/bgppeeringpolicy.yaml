@@ -11,8 +11,8 @@ spec:
     - localASN: 64513
       exportPodCIDR: false
       serviceSelector:
-        matchExpressions:
-          - { key: somekey, operator: NotIn, values: ["never-used-value"] }
+        matchLabels:
+          io.cilium/l3-announce: "true"
       neighbors:
         - peerAddress: ${GATEWAY_IP}/32
           peerASN: 64513
