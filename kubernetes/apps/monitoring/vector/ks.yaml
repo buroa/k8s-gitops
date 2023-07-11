@@ -7,6 +7,7 @@ metadata:
 spec:
   dependsOn:
     - name: cluster-apps-loki
+    - name: cluster-apps-external-secrets-stores
   path: ./kubernetes/apps/monitoring/vector/aggregator
   prune: true
   sourceRef:
