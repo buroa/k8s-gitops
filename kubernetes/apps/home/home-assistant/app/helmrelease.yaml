@@ -76,6 +76,13 @@ spec:
       runAsGroup: 568
       fsGroup: 568
       fsGroupChangePolicy: OnRootMismatch
+    podAnnotations:
+      k8s.v1.cni.cncf.io/networks: |
+        [{
+          "name":"multus-iot",
+          "namespace": "networking",
+          "ips": ["10.0.2.253/24"]
+        }]
     persistence:
       config:
         enabled: true
@@ -86,4 +93,3 @@ spec:
         memory: 100Mi
       limits:
         memory: 750Mi
-    hostNetwork: true
