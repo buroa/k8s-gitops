@@ -1,0 +1,21 @@
+---
+data_dir: /vector-data-dir
+
+sources:
+  kubernetes_logs:
+    type: kubernetes_logs
+    use_apiserver_cache: true
+    pod_annotation_fields:
+      container_image: container_image
+      container_name: container_name
+      pod_annotations: pod_annotations
+      pod_labels: pod_labels
+      pod_name: pod_name
+
+sinks:
+  kubernetes:
+    type: vector
+    inputs:
+      - kubernetes_logs
+    address: "vector-aggregator.monitoring.svc.cluster.local:6000"
+    version: "2"
