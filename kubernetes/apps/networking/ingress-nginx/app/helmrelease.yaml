@@ -34,7 +34,7 @@ spec:
           external-dns.alpha.kubernetes.io/hostname: |-
             ingress.${SECRET_PUBLIC_DOMAIN}
         labels:
-          io.cilium/l2-announce: "true"
+          io.cilium/lb-ipam-layer: layer2
       ingressClassResource:
         default: true
       config:

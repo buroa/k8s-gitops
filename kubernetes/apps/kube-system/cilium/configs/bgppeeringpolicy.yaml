@@ -12,7 +12,7 @@ spec:
       exportPodCIDR: false
       serviceSelector:
         matchLabels:
-          io.cilium/l3-announce: "true"
+          io.cilium/lb-ipam-layer: layer3
       neighbors:
         - peerAddress: ${GATEWAY_IP}/32
           peerASN: 64513

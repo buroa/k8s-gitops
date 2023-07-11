@@ -54,7 +54,7 @@ spec:
         annotations:
           io.cilium/lb-ipam-ips: ${TORRENT_LB_IP}
         labels:
-          io.cilium/l2-announce: "true"
+          io.cilium/lb-ipam-layer: layer2
         ports:
           bittorrent-tcp:
             enabled: true
