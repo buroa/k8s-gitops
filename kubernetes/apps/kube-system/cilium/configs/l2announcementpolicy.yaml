@@ -13,3 +13,11 @@ spec:
   serviceSelector:
     matchLabels:
       io.cilium/lb-ipam-layer: layer2
+---
+apiVersion: cilium.io/v2alpha1
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: l2-pool
+spec:
+  cidrs:
+    - cidr: ${CILIUM_L2_CIDR}

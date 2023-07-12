@@ -172,7 +172,7 @@ spec:
               interval: 60s
         storageClass:
           enabled: true
-          name: ceph-bucket
+          name: ${CLUSTER_STORAGE_BUCKET}
           reclaimPolicy: Delete
           parameters:
             region: ceph-objectstore

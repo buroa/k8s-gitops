@@ -4,7 +4,6 @@ kind: Kustomization
 namespace: kube-system
 resources:
   - ./bgppeeringpolicy.yaml
-  - ./loadbalancerippool.yaml
   - ./l2announcementpolicy.yaml
 labels:
   - pairs:
