@@ -1,5 +1,5 @@
 ---
-apiVersion: "k8s.cni.cncf.io/v1"
+apiVersion: k8s.cni.cncf.io/v1
 kind: NetworkAttachmentDefinition
 metadata:
   name: multus-iot
@@ -20,8 +20,9 @@ spec:
           "ipam": {
             "type": "static",
             "routes": [
-              { "dst": "10.0.2.0/24", "gw": "10.0.2.1" },
-              { "dst": "192.168.0.0/24", "gw": "10.0.2.1" }
+              { "dst": "${LAN_TRUSTED_IP_CIDR}", "gw": "${LAN_IOT_GATEWAY_IP}" },
+              { "dst": "${LAN_SERVER_IP_CIDR}", "gw": "${LAN_IOT_GATEWAY_IP}" },
+              { "dst": "${LAN_IOT_IP_CIDR}", "gw": "${LAN_IOT_GATEWAY_IP}" }
             ]
           }
         }

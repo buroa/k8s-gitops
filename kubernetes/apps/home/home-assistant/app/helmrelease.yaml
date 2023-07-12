@@ -41,7 +41,7 @@ spec:
       tag: 2023.7.1@sha256:53a01ba5ee421bc6ba3ab89d63ba20d40cb6684cb2230000cf72f524d262ba82
     env:
       TZ: "${TIMEZONE}"
-      HASS_TRUSTED_PROXIES: "${CLUSTER_POD_IP_RANGE}"
+      HASS_TRUSTED_PROXIES: "${CLUSTER_POD_IP_CIDR}"
     envFrom:
       - secretRef:
           name: home-assistant-secret
@@ -81,7 +81,7 @@ spec:
         [{
           "name":"multus-iot",
           "namespace": "networking",
-          "ips": ["10.0.2.253/24"]
+          "ips": ["10.0.2.254/24"]
         }]
     persistence:
       config:
