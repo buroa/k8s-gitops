@@ -39,7 +39,7 @@ spec:
       SA_NAME: tailscale
       TS_USERSPACE: "true"
       TS_ROUTES: |-
-        ${CLUSTER_IP_RANGE},${CILIUM_BGP_CIDR}
+        ${LAN_SERVER_IP_CIDR},${CILIUM_BGP_CIDR}
     envFrom:
       - secretRef:
           name: tailscale-secret

@@ -14,5 +14,5 @@ spec:
         matchLabels:
           io.cilium/lb-ipam-layer: layer3
       neighbors:
-        - peerAddress: ${GATEWAY_IP}/32
+        - peerAddress: ${LAN_TRUSTED_GATEWAY_IP}/32
           peerASN: 64513

@@ -40,7 +40,7 @@ spec:
       QBT_Application__MemoryWorkingSetLimit: 16384
       QBT_Preferences__WebUI__AuthSubnetWhitelistEnabled: "true"
       QBT_Preferences__WebUI__AuthSubnetWhitelist: |-
-        ${CLUSTER_POD_IP_RANGE}, ${CLUSTER_SERVICE_IP_RANGE}, ${CLUSTER_IP_RANGE}
+        ${CLUSTER_POD_IP_CIDR}, ${CLUSTER_SERVICE_IP_CIDR}, ${LAN_SERVER_IP_CIDR}
     service:
       main:
         ports:
