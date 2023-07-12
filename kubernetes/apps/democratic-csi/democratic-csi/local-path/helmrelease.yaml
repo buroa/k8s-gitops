@@ -31,13 +31,13 @@ spec:
       storageCapacity: false
       fsGroupPolicy: File
     storageClasses:
-      - name: democratic-csi-local-hostpath
+      - name: ${CLUSTER_STORAGE_HOSTPATH}
         defaultClass: false
         reclaimPolicy: Retain
         volumeBindingMode: WaitForFirstConsumer
         allowVolumeExpansion: false
     volumeSnapshotClasses:
-      - name: democratic-csi-local-hostpath
+      - name: ${CLUSTER_SNAPSHOT_HOSTPATH}
         deletionPolicy: Delete
         parameters:
           cluster: k8s
