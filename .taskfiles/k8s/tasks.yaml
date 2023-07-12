@@ -85,3 +85,8 @@ tasks:
     desc: Deletes failed pods
     cmds:
       - kubectl delete pods --field-selector status.phase=Failed -A --ignore-not-found=true
+
+  delete-succeeded-pods:
+    desc: Deletes succeeded pods
+    cmds:
+      - kubectl delete pods --field-selector status.phase=Succeeded -A --ignore-not-found=true
