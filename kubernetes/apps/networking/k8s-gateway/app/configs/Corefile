@@ -19,7 +19,7 @@
         ttl 300
         fallthrough ${SECRET_PUBLIC_DOMAIN}
     }
-    forward ${SECRET_PUBLIC_DOMAIN} ${GATEWAY_IP}
+    forward ${SECRET_PUBLIC_DOMAIN} ${LAN_TRUSTED_GATEWAY_IP}
     cache 300
     loop
     reload
