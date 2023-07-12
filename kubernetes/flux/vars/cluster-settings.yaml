@@ -12,6 +12,9 @@ data:
   CLUSTER_SNAPSHOT_BLOCK: "csi-rbdplugin-snapclass"
   CLUSTER_STORAGE_FILESYSTEM: "ceph-filesystem"
   CLUSTER_SNAPSHOT_FILESYSTEM: "csi-filesystemplugin-snapclass"
+  CLUSTER_STORAGE_BUCKET: "ceph-bucket"
+  CLUSTER_STORAGE_HOSTPATH: "democratic-csi-local-hostpath"
+  CLUSTER_SNAPSHOT_HOSTPATH: "democratic-csi-local-hostpath"
 
   # K8s
   CLUSTER_SERVICE_IP_CIDR: "10.245.0.0/16"
@@ -21,10 +24,7 @@ data:
   SMTP_RELAY_IP: "10.245.0.25"
   K8S_GATEWAY_IP: "10.245.0.53"
 
-  # Cilium BGP Addresses
-  CILIUM_BGP_CIDR: "7.0.0.0/8"
-
-  # Cilium L2 Addresses (LAN)
+  # Cilium L2 (LAN) Addresses
   CILIUM_L2_CIDR: "10.0.0.192/26"
   BLOCKY_LB_IP: "10.0.0.254"
   VECTOR_LB_IP: "10.0.0.253"
@@ -32,9 +32,8 @@ data:
   TAILSCALE_LB_IP: "10.0.0.251"
   INGRESS_LB_IP: "10.0.0.250"
 
-  # Shh :-)
-  TORRENT_PUBLIC_PORT: "45271"
-  TAILNET_PUBLIC_PORT: "41642"
+  # Cilium L3 (BGP) Addresses
+  CILIUM_BGP_CIDR: "7.0.0.0/8"
 
   # LAN
   LAN_TRUSTED_IP_CIDR: "192.168.0.0/24"
@@ -43,3 +42,7 @@ data:
   LAN_SERVER_GATEWAY_IP: "10.0.0.1"
   LAN_IOT_IP_CIDR: "10.0.2.0/24"
   LAN_IOT_GATEWAY_IP: "10.0.2.1"
+
+  # Shh :-)
+  TORRENT_PUBLIC_PORT: "45271"
+  TAILNET_PUBLIC_PORT: "41642"

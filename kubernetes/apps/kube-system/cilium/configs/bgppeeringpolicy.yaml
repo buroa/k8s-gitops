@@ -2,7 +2,7 @@
 apiVersion: cilium.io/v2alpha1
 kind: CiliumBGPPeeringPolicy
 metadata:
-  name: peering-policy
+  name: l3-policy
 spec:
   nodeSelector:
     matchLabels:
@@ -16,3 +16,11 @@ spec:
       neighbors:
         - peerAddress: ${LAN_TRUSTED_GATEWAY_IP}/32
           peerASN: 64513
+---
+apiVersion: cilium.io/v2alpha1
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: l3-pool
+spec:
+  cidrs:
+    - cidr: ${CILIUM_BGP_CIDR}
