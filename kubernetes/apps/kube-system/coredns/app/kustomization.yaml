@@ -5,7 +5,7 @@ namespace: kube-system
 configMapGenerator:
   - name: coredns
     files:
-      - configs/Corefile
+      - ./configs/Corefile
 generatorOptions:
   disableNameSuffixHash: true
 labels:
