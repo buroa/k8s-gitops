@@ -4,11 +4,14 @@ upstream:
     - https://1.1.1.1/dns-query
     - https://1.0.0.1/dns-query
 
+bootstrapDns:
+  - https://1.1.1.1/dns-query
+  - https://1.0.0.1/dns-query
+
 conditional:
   mapping:
     cluster.local: ${CLUSTER_DNS_IP}
     ${SECRET_PUBLIC_DOMAIN}: ${K8S_GATEWAY_IP}
-    .: ${LAN_TRUSTED_GATEWAY_IP}
 
 blocking:
   blackLists:
@@ -67,12 +70,10 @@ blocking:
       - trackers
       - misc
 
-clientLookup:
-  upstream: ${LAN_TRUSTED_GATEWAY_IP}
-
 caching:
   minTime: 5m
   prefetching: true
+  prefetchExpires: 2h
 
 redis:
   required: true
@@ -86,5 +87,10 @@ prometheus:
   enable: true
   path: /metrics
 
-httpPort: 4000
-logLevel: info
+ports:
+  dns: 53
+  http: 4000
+
+log:
+  level: info
+  format: json
