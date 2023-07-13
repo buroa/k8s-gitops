@@ -85,7 +85,7 @@ spec:
     loadBalancer:
       algorithm: maglev
       mode: dsr
-    localRedirectPolicy: false
+    localRedirectPolicy: true
     operator:
       enabled: true
       rollOutPods: true
@@ -127,7 +127,7 @@ spec:
       tproxy: true
     l2announcements:
       enabled: true
-      leaseDuration: 30s
-      leaseRenewDeadline: 10s
-      leaseRetryPeriod: 4s
+      leaseDuration: 120s
+      leaseRenewDeadline: 60s
+      leaseRetryPeriod: 1s
     tunnel: disabled
