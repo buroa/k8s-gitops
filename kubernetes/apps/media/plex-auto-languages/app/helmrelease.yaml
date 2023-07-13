@@ -31,7 +31,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: docker.io/remirigal/plex-auto-languages
-      tag: v1.2.1
+      tag: v1.2.2
     env:
       TZ: "${TIMEZONE}"
       PLEX_URL: "http://plex.media.svc.cluster.local:32400"
