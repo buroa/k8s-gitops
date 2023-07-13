@@ -58,7 +58,6 @@ spec:
             enabled: true
             port: *port
             protocol: UDP
-            targetPort: *port
     ingress:
       main:
         enabled: false

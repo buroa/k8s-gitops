@@ -60,12 +60,10 @@ spec:
             enabled: true
             port: *port-bt
             protocol: TCP
-            targetPort: *port-bt
           bittorrent-udp:
             enabled: true
             port: *port-bt
             protocol: UDP
-            targetPort: *port-bt
     probes:
       liveness:
         custom: true
