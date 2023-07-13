@@ -94,6 +94,11 @@ spec:
         mountPath: /etc/coredns/Corefile
         subPath: Corefile
         readOnly: true
+      hosts:
+        enabled: true
+        type: hostPath
+        hostPath: /etc/hosts
+        readOnly: true
     topologySpreadConstraints:
       - maxSkew: 1
         topologyKey: kubernetes.io/hostname
