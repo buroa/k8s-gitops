@@ -40,7 +40,7 @@ spec:
       QBT_Application__MemoryWorkingSetLimit: 16384
       QBT_Preferences__WebUI__AuthSubnetWhitelistEnabled: true
       QBT_Preferences__WebUI__AuthSubnetWhitelist: |-
-        ${CLUSTER_POD_IP_CIDR}, ${CLUSTER_SERVICE_IP_CIDR}, ${LAN_SERVER_IP_CIDR}
+        ${CLUSTER_POD_IP_CIDR}, ${LAN_SERVER_IP_CIDR}
     service:
       main:
         ports:
@@ -64,22 +64,6 @@ spec:
             enabled: true
             port: *port-bt
             protocol: UDP
-    probes:
-      liveness:
-        custom: true
-        spec:
-          initialDelaySeconds: 60
-          periodSeconds: 30
-          failureThreshold: 5
-          exec:
-            command:
-              - sh
-              - -c
-              - curl -s https://ipv4.am.i.mullvad.net/port/${TORRENT_PUBLIC_PORT} | jq -e '.reachable'
-      readiness:
-        enabled: true
-      startup:
-        enabled: false
     ingress:
       main:
         enabled: true
