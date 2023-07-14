@@ -30,9 +30,9 @@ spec:
       repository: ghcr.io/wizarrrr/wizarr
       tag: 2.2.0
     env:
-      TZ: "${TIMEZONE}"
-      APP_URL: "https://invite.${SECRET_PUBLIC_DOMAIN}"
-      DISABLE_BUILTIN_AUTH: "true"
+      TZ: ${TIMEZONE}
+      APP_URL: https://invite.${SECRET_PUBLIC_DOMAIN}
+      DISABLE_BUILTIN_AUTH: true
     service:
       main:
         ports:

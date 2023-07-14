@@ -40,7 +40,7 @@ spec:
       repository: ghcr.io/onedr0p/radarr-develop
       tag: 4.7.0.7588@sha256:2cd821b4ecf67a69ae16e49cc3321e867c274efdd42096d1fef3bd92dfcf2f46
     env:
-      TZ: "${TIMEZONE}"
+      TZ: ${TIMEZONE}
       RADARR__INSTANCE_NAME: Radarr
       RADARR__PORT: &port 7878
       RADARR__APPLICATION_URL: "https://radarr.${SECRET_PUBLIC_DOMAIN}"

@@ -33,11 +33,11 @@ spec:
       repository: ghcr.io/tailscale/tailscale
       tag: v1.44.0
     env:
-      TZ: "${TIMEZONE}"
+      TZ: ${TIMEZONE}
       PORT: &port ${TAILNET_PUBLIC_PORT}
       TS_KUBE_SECRET: tailscale-state
       SA_NAME: tailscale
-      TS_USERSPACE: "true"
+      TS_USERSPACE: true
       TS_ROUTES: |-
         ${LAN_SERVER_IP_CIDR},${CILIUM_BGP_CIDR}
     envFrom:

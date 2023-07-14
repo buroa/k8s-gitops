@@ -33,7 +33,7 @@ spec:
       repository: docker.io/msroest/sabnzbd_exporter
       tag: 0.1.60
     env:
-      SABNZBD_BASEURLS: "http://sabnzbd.media.svc.cluster.local:8080/sabnzbd"
+      SABNZBD_BASEURLS: http://sabnzbd.media.svc.cluster.local:8080/sabnzbd
     envFrom:
       - secretRef:
           name: sabnzbd-exporter-secret

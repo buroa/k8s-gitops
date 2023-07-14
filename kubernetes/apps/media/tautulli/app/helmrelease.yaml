@@ -30,7 +30,7 @@ spec:
       repository: ghcr.io/onedr0p/tautulli
       tag: 2.12.5@sha256:d0757cd22196df22e251b9be8db9e729493fb573a07d4d957b553c6676e64440
     env:
-      TZ: "${TIMEZONE}"
+      TZ: ${TIMEZONE}
     service:
       main:
         ports:

@@ -30,10 +30,10 @@ spec:
       repository: ghcr.io/haveagitgat/tdarr_acc
       tag: 2.00.21
     env:
-      TZ: "${TIMEZONE}"
-      PUID: "1000"
-      PGID: "1000"
-      ffmpegPath: "/usr/local/bin/ffmpeg"
+      TZ: ${TIMEZONE}
+      PUID: 1000
+      PGID: 1000
+      ffmpegPath: /usr/local/bin/ffmpeg
     service:
       main:
         ports:

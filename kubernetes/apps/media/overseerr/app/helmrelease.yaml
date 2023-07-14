@@ -30,7 +30,7 @@ spec:
       repository: ghcr.io/sct/overseerr
       tag: 1.33.0
     env:
-      TZ: "${TIMEZONE}"
+      TZ: ${TIMEZONE}
       LOG_LEVEL: "info"
       PORT: &port 5055
     service:

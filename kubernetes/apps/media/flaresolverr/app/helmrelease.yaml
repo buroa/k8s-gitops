@@ -30,7 +30,7 @@ spec:
       repository: ghcr.io/flaresolverr/flaresolverr
       tag: v3.2.1
     env:
-      TZ: "${TIMEZONE}"
+      TZ: ${TIMEZONE}
       LOG_LEVEL: "info"
     service:
       main:
