@@ -36,9 +36,9 @@ spec:
       repository: docker.io/meisnate12/plex-meta-manager
       tag: v1.19.0
     env:
-      TZ: "${TIMEZONE}"
-      PUID: "1000"
-      PGID: "1000"
+      TZ: ${TIMEZONE}
+      PUID: 1000
+      PGID: 1000
     command:
       - /scripts/run.sh
     service:

@@ -33,7 +33,7 @@ spec:
       repository: ghcr.io/onedr0p/sabnzbd
       tag: 4.0.3@sha256:aff676e3c234f7a4493c75813e296c347c02b6e5374acd1858f8244ea44f2b4a
     env:
-      TZ: "${TIMEZONE}"
+      TZ: ${TIMEZONE}
       SABNZBD__PORT: &port 8080
       SABNZBD__HOST_WHITELIST_ENTRIES: >-
         sabnzbd,

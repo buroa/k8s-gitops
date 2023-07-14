@@ -27,7 +27,7 @@ spec:
     keepHistory: false
   values:
     env:
-      TZ: "${TIMEZONE}"
+      TZ: ${TIMEZONE}
     hajimari:
       title: Apps
       lightTheme: cloud

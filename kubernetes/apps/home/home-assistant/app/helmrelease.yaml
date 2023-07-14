@@ -40,8 +40,8 @@ spec:
       repository: ghcr.io/onedr0p/home-assistant
       tag: 2023.7.2@sha256:d6627e982c70dc963b4e15f223f56efb33d4b353c6ad9927b6f5be0c45f94a3b
     env:
-      TZ: "${TIMEZONE}"
-      HASS_TRUSTED_PROXIES: "${CLUSTER_POD_IP_CIDR}"
+      TZ: ${TIMEZONE}
+      HASS_TRUSTED_PROXIES: ${CLUSTER_POD_IP_CIDR}
     envFrom:
       - secretRef:
           name: home-assistant-secret
