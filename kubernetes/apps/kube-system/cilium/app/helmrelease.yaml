@@ -26,6 +26,7 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    rollOutCiliumPods: true
     autoDirectNodeRoutes: true
     cni:
       exclusive: false
