@@ -35,7 +35,7 @@ spec:
       repository: ghcr.io/foxcpp/maddy
       tag: 0.7.0
     env:
-      DEBUG: "false"
+      DEBUG: false
     envFrom:
       - secretRef:
           name: smtp-relay-secret
@@ -43,7 +43,7 @@ spec:
       main:
         type: ClusterIP
         externalTrafficPolicy: ""
-        clusterIP: "${SMTP_RELAY_IP}"
+        clusterIP: ${SMTP_RELAY_IP}
         ports:
           http:
             port: 2525

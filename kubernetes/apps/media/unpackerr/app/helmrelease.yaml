@@ -33,9 +33,9 @@ spec:
       repository: docker.io/golift/unpackerr
       tag: unstable
     env:
-      TZ: "${TIMEZONE}"
-      UN_INTERVAL: "1m"
-      UN_WEBSERVER_METRICS: "true"
+      TZ: ${TIMEZONE}
+      UN_INTERVAL: 1m
+      UN_WEBSERVER_METRICS: true
       UN_SONARR_0_URL: http://sonarr.media.svc.cluster.local:8989
       UN_SONARR_0_PATHS_0: /media/downloads/torrents/sonarr
       UN_RADARR_0_URL: http://radarr.media.svc.cluster.local:7878

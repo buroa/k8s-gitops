@@ -32,9 +32,9 @@ spec:
       repository: ghcr.io/haveagitgat/tdarr_node_acc
       tag: 2.00.21
     env:
-      TZ: "${TIMEZONE}"
-      PUID: "1000"
-      PGID: "1000"
+      TZ: ${TIMEZONE}
+      PUID: 1000
+      PGID: 1000
       serverIP: tdarr.media.svc.cluster.local
       serverPort: 8266
       ffmpegPath: "/usr/local/bin/ffmpeg"

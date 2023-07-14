@@ -33,9 +33,9 @@ spec:
       repository: docker.io/remirigal/plex-auto-languages
       tag: v1.2.2
     env:
-      TZ: "${TIMEZONE}"
-      PLEX_URL: "http://plex.media.svc.cluster.local:32400"
-      REFRESH_LIBRARY_ON_SCAN: "false"
+      TZ: ${TIMEZONE}
+      PLEX_URL: http://plex.media.svc.cluster.local:32400
+      REFRESH_LIBRARY_ON_SCAN: false
     envFrom:
       - secretRef:
           name: plex-auto-languages-secret

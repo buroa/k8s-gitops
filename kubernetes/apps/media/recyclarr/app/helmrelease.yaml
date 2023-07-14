@@ -40,7 +40,7 @@ spec:
     args:
       - sync
     env:
-      TZ: "${TIMEZONE}"
+      TZ: ${TIMEZONE}
     service:
       main:
         enabled: false

@@ -40,7 +40,7 @@ spec:
       repository: ghcr.io/autobrr/autobrr
       tag: v1.27.1
     env:
-      AUTOBRR__CHECKFORUPDATES: "false"
+      AUTOBRR__CHECKFORUPDATES: false
       AUTOBRR__HOST: 0.0.0.0
       AUTOBRR__PORT: &port 7474
       AUTOBRR__LOGLEVEL: TRACE

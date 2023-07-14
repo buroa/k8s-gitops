@@ -30,10 +30,10 @@ spec:
       repository: docker.io/nodered/node-red-dev
       tag: 3.0.0-beta.4-18-minimal
     env:
-      TZ: "${TIMEZONE}"
-      FLOWS: "flows.json"
-      NODE_RED_ENABLE_PROJECTS: "true"
-      NODE_RED_ENABLE_SAFE_MODE: "false"
+      TZ: ${TIMEZONE}
+      FLOWS: flows.json
+      NODE_RED_ENABLE_PROJECTS: true
+      NODE_RED_ENABLE_SAFE_MODE: false
     service:
       main:
         ports:

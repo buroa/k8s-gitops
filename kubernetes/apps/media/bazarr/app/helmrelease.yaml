@@ -40,7 +40,7 @@ spec:
       repository: ghcr.io/onedr0p/bazarr
       tag: 1.2.3@sha256:133029981e9a93eeb823f36dbfc6ad0c84fd82648ef013d8a613c538647008bc
     env:
-      TZ: "${TIMEZONE}"
+      TZ: ${TIMEZONE}
     envFrom:
       - secretRef:
           name: bazarr-secret

@@ -30,7 +30,7 @@ spec:
       repository: docker.io/drbh/gmessage
       tag: v0.0.0
     env:
-      TZ: "${TIMEZONE}"
+      TZ: ${TIMEZONE}
       HOME: /config
       MODEL_TYPE: LlamaCpp
     service:

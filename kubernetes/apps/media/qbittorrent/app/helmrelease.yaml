@@ -34,11 +34,11 @@ spec:
       repository: ghcr.io/onedr0p/qbittorrent
       tag: 4.5.4@sha256:f0a74313d750bc437ba2ad34f3412de5ab9a978f3f5b74227a1bda69271fef3e
     env:
-      TZ: "${TIMEZONE}"
+      TZ: ${TIMEZONE}
       QBITTORRENT__PORT: &port 8080
       QBITTORRENT__BT_PORT: &port-bt ${TORRENT_PUBLIC_PORT}
       QBT_Application__MemoryWorkingSetLimit: 16384
-      QBT_Preferences__WebUI__AuthSubnetWhitelistEnabled: "true"
+      QBT_Preferences__WebUI__AuthSubnetWhitelistEnabled: true
       QBT_Preferences__WebUI__AuthSubnetWhitelist: |-
         ${CLUSTER_POD_IP_CIDR}, ${CLUSTER_SERVICE_IP_CIDR}, ${LAN_SERVER_IP_CIDR}
     service:

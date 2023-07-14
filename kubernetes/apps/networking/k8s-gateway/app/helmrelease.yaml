@@ -47,7 +47,7 @@ spec:
         enabled: true
         type: ClusterIP
         externalTrafficPolicy: ""
-        clusterIP: "${K8S_GATEWAY_IP}"
+        clusterIP: ${K8S_GATEWAY_IP}
         ports:
           dns-tcp:
             enabled: true

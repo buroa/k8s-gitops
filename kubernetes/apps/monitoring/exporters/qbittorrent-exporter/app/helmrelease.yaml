@@ -30,8 +30,8 @@ spec:
       repository: ghcr.io/k8s-at-home/prometheus-qbittorrent-exporter
       tag: v1.2.0
     env:
-      QBITTORRENT_HOST: "qbittorrent.media.svc.cluster.local"
-      QBITTORRENT_PORT: "8080"
+      QBITTORRENT_HOST: qbittorrent.media.svc.cluster.local
+      QBITTORRENT_PORT: 8080
     service:
       main:
         ports:
