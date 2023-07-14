@@ -73,7 +73,7 @@ spec:
       defaults:
         labels:
           release: prometheus
-        interval: 2m
+        interval: 30s
         scrapeTimeout: 30s
     prometheusRule:
       enabled: true

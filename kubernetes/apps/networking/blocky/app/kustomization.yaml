@@ -8,12 +8,6 @@ configMapGenerator:
   - name: blocky-configmap
     files:
       - ./configs/config.yml
-  - name: blocky-grafana-dashboards
-    files:
-      - ./dashboards/blocky.json
-    options:
-      labels:
-        grafana_dashboard: "1"
 generatorOptions:
   disableNameSuffixHash: true
 labels:

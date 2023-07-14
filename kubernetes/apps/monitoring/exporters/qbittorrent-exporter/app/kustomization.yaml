@@ -4,15 +4,6 @@ kind: Kustomization
 namespace: monitoring
 resources:
   - ./helmrelease.yaml
-configMapGenerator:
-  - name: qbittorrent-grafana-dashboards
-    files:
-      - ./dashboards/qbittorrent.json
-    options:
-      labels:
-        grafana_dashboard: "1"
-generatorOptions:
-  disableNameSuffixHash: true
 labels:
   - pairs:
       app.kubernetes.io/name: qbittorrent-exporter

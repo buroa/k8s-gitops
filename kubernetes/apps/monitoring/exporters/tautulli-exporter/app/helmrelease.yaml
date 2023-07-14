@@ -30,7 +30,7 @@ spec:
       annotations:
         reloader.stakater.com/auto: "true"
     image:
-      repository: nwalke/tautulli_exporter
+      repository: docker.io/nwalke/tautulli_exporter
       tag: v0.1.0
     env:
       TAUTULLI_URI: http://tautulli.media.svc.cluster.local:8181
@@ -49,7 +49,7 @@ spec:
           - port: http
             scheme: http
             path: /metrics
-            interval: 4m
+            interval: 30s
             scrapeTimeout: 30s
     resources:
       requests:
