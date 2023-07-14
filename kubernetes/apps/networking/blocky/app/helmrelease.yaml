@@ -26,14 +26,16 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    image:
-      repository: ghcr.io/0xerr0r/blocky
-      tag: v0.21
     controller:
       strategy: RollingUpdate
       replicas: 2
       annotations:
         reloader.stakater.com/auto: "true"
+    image:
+      repository: ghcr.io/0xerr0r/blocky
+      tag: v0.21
+    env:
+      TZ: ${TIMEZONE}
     service:
       main:
         enabled: true
@@ -76,10 +78,11 @@ spec:
       main:
         enabled: true
         endpoints:
-          - interval: 30s
+          - port: http
+            scheme: http
             path: /metrics
-            port: http
-            scrapeTimeout: 10s
+            interval: 30s
+            scrapeTimeout: 30s
     probes:
       liveness:
         failureThreshold: 5

@@ -30,10 +30,13 @@ spec:
       annotations:
         reloader.stakater.com/auto: "true"
     image:
-      repository: docker.io/msroest/sabnzbd_exporter
-      tag: 0.1.60
+      repository: ghcr.io/onedr0p/exportarr
+      tag: v1.5.3
+    args:
+      - sabnzbd
     env:
-      SABNZBD_BASEURLS: http://sabnzbd.media.svc.cluster.local:8080/sabnzbd
+      PORT: 9712
+      URL: http://sabnzbd.media.svc.cluster.local:8080
     envFrom:
       - secretRef:
           name: sabnzbd-exporter-secret
@@ -41,7 +44,7 @@ spec:
       main:
         ports:
           http:
-            port: 9387
+            port: 9712
     serviceMonitor:
       main:
         enabled: true

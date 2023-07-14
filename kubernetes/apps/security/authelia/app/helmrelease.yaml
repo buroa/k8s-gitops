@@ -67,8 +67,8 @@ spec:
           - port: metrics
             scheme: http
             path: /metrics
-            interval: 1m
-            scrapeTimeout: 10s
+            interval: 30s
+            scrapeTimeout: 30s
     probes:
       liveness: &probes
         enabled: true

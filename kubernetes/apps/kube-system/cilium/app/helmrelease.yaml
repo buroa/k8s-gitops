@@ -56,11 +56,17 @@ spec:
           - http
         serviceMonitor:
           enabled: true
+        dashboards:
+          enabled: true
       relay:
         enabled: true
         rollOutPods: true
+        prometheus:
+          serviceMonitor:
+            enabled: true
       ui:
         enabled: true
+        rollOutPods: true
         ingress:
           enabled: true
           className: nginx
@@ -71,11 +77,12 @@ spec:
           tls:
             - hosts:
                 - *host
-        rollOutPods: true
     prometheus:
       enabled: true
       serviceMonitor:
         enabled: true
+    dashboards:
+      enabled: true
     ipam:
       mode: kubernetes
     ipv4NativeRoutingCIDR: ${CLUSTER_POD_IP_CIDR}
@@ -94,6 +101,8 @@ spec:
         enabled: true
         serviceMonitor:
           enabled: true
+      dashboards:
+        enabled: true
     securityContext:
       privileged: false
       capabilities:
