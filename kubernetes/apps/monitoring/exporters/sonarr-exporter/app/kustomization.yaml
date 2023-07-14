@@ -5,15 +5,6 @@ namespace: monitoring
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
-configMapGenerator:
-  - name: sonarr-grafana-dashboards
-    files:
-      - ./dashboards/sonarr.json
-    options:
-      labels:
-        grafana_dashboard: "1"
-generatorOptions:
-  disableNameSuffixHash: true
 labels:
   - pairs:
       app.kubernetes.io/name: sonarr-exporter

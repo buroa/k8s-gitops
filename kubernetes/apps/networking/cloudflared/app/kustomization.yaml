@@ -5,18 +5,6 @@ namespace: networking
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
-configMapGenerator:
-  - name: cloudflared-configmap
-    files:
-      - ./configs/config.yaml
-  - name: cloudflared-grafana-dashboards
-    files:
-      - ./dashboards/cloudflared.json
-    options:
-      labels:
-        grafana_dashboard: "1"
-generatorOptions:
-  disableNameSuffixHash: true
 labels:
   - pairs:
       app.kubernetes.io/name: cloudflared

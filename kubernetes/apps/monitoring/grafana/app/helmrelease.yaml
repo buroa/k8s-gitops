@@ -111,27 +111,46 @@ spec:
             jsonData:
               prometheusType: Thanos
             isDefault: true
+            uid: prometheus
           - name: Alertmanager
             type: alertmanager
             access: proxy
             url: http://alertmanager-operated.monitoring.svc.cluster.local:9093
             jsonData:
               implementation: prometheus
+            uid: alertmanager
           - name: Loki
             type: loki
             access: proxy
             url: http://loki-gateway.monitoring.svc.cluster.local
             jsonData:
               maxLines: 250
+            uid: loki
     dashboards:
       default:
+        coredns:
+          gnetId: 14981
+          revision: 2
+          datasource: Prometheus
+        volumes:
+          gnetId: 11454
+          revision: 14
+          datasource: Prometheus
         node-exporter-full:
           gnetId: 1860
-          revision: 30
+          revision: 31
           datasource: Prometheus
         redis:
           gnetId: 763
-          revision: 4
+          revision: 5
+          datasource: Prometheus
+        kyverno:
+          gnetId: 15987
+          revision: 2
+          datasource: Prometheus
+        external-dns:
+          gnetId: 15038
+          revision: 1
           datasource: Prometheus
         unifi-client-insights:
           gnetId: 11315
@@ -149,6 +168,18 @@ spec:
           gnetId: 11312
           revision: 9
           datasource: Prometheus
+        blocky:
+          gnetId: 13768
+          revision: 3
+          datasource:
+            - name: DS_PROMETHEUS
+              value: Prometheus
+        cloudflared:
+          gnetId: 17457
+          revision: 6
+          datasource:
+            - name: DS_PROMETHEUS
+              value: Prometheus
         blackbox-exporter:
           gnetId: 7587
           revision: 3
@@ -156,6 +187,25 @@ spec:
         speedtest-exporter:
           gnetId: 13665
           revision: 4
+          datasource:
+            - name: DS_PROMETHEUS
+              value: Prometheus
+        qbittorrent-exporter:
+          url: https://raw.githubusercontent.com/esanchezm/prometheus-qbittorrent-exporter/master/grafana/dashboard.json
+          datasource: Prometheus
+        exportarr:
+          url: https://raw.githubusercontent.com/onedr0p/exportarr/master/examples/grafana/dashboard2.json
+          datasource:
+            - name: DS_PROMETHEUS
+              value: Prometheus
+        overseerr-exporter:
+          url: https://raw.githubusercontent.com/WillFantom/overseerr-exporter/main/grafana/dashboard.json
+          datasource: Prometheus
+        ingress-nginx:
+          url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json
+          datasource: Prometheus
+        ingress-nginx-request-handling-performance:
+          url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/request-handling-performance.json
           datasource: Prometheus
         flux-cluster:
           url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/monitoring-config/dashboards/cluster.json
@@ -169,9 +219,6 @@ spec:
         api-server:
           url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-system-api-server.json
           datasource: Prometheus
-        coredns:
-          url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-system-coredns.json
-          datasource: Prometheus
         global:
           url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-global.json
           datasource: Prometheus
@@ -183,6 +230,9 @@ spec:
           datasource: Prometheus
         pods:
           url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-pods.json
+          datasource: Prometheus
+        prometheus:
+          url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-addons-prometheus.json
           datasource: Prometheus
         thanos-bucket-replicate:
           url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/thanos/dashboards/bucket-replicate.json
@@ -231,7 +281,6 @@ spec:
       - natel-discrete-panel
       - pr0ps-trackmap-panel
       - vonage-status-panel
-      - isovalent-hubble-datasource
     serviceMonitor:
       enabled: true
     ingress:
