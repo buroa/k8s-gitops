@@ -37,7 +37,7 @@ spec:
       PGID: 1000
       serverIP: tdarr.media.svc.cluster.local
       serverPort: 8266
-      ffmpegPath: "/usr/local/bin/ffmpeg"
+      ffmpegPath: /usr/local/bin/ffmpeg
       nodeName:
         valueFrom:
           fieldRef:
