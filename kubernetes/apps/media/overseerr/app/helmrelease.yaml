@@ -31,7 +31,7 @@ spec:
       tag: 1.33.0
     env:
       TZ: ${TIMEZONE}
-      LOG_LEVEL: "info"
+      LOG_LEVEL: info
       PORT: &port 5055
     service:
       main:
