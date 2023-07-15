@@ -1,4 +1,6 @@
 ---
+connectIPVersion: v4
+
 upstream:
   default:
     - https://1.1.1.1/dns-query
