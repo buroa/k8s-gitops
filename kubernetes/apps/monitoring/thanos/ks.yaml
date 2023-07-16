@@ -5,6 +5,9 @@ metadata:
   name: cluster-apps-thanos
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: cluster-apps-rook-ceph-cluster
+    - name: cluster-apps-democratic-csi-local-hostpath
   path: ./kubernetes/apps/monitoring/thanos/app
   prune: true
   sourceRef:
