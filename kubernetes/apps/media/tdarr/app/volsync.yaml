@@ -37,7 +37,8 @@ spec:
     repository: tdarr-restic-secret
     cacheCapacity: 8Gi
     volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
-    storageClassName: ${CLUSTER_STORAGE_HOSTPATH}
+    storageClassName: ${CLUSTER_STORAGE_BLOCK}
+    cacheStorageClassName: ${CLUSTER_STORAGE_HOSTPATH}
     moverSecurityContext:
       runAsUser: 568
       runAsGroup: 568
@@ -84,7 +85,8 @@ spec:
     repository: tdarr-data-restic-secret
     cacheCapacity: 8Gi
     volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
-    storageClassName: ${CLUSTER_STORAGE_HOSTPATH}
+    storageClassName: ${CLUSTER_STORAGE_BLOCK}
+    cacheStorageClassName: ${CLUSTER_STORAGE_HOSTPATH}
     moverSecurityContext:
       runAsUser: 568
       runAsGroup: 568
