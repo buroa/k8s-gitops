@@ -116,7 +116,7 @@ spec:
         storage:
           volumeClaimTemplate:
             spec:
-              storageClassName: ${CLUSTER_STORAGE_BLOCK}
+              storageClassName: ${CLUSTER_STORAGE_HOSTPATH}
               resources:
                 requests:
                   storage: 1Gi
@@ -209,7 +209,7 @@ spec:
         storageSpec:
           volumeClaimTemplate:
             spec:
-              storageClassName: ${CLUSTER_STORAGE_BLOCK}
+              storageClassName: ${CLUSTER_STORAGE_HOSTPATH}
               resources:
                 requests:
                   storage: 20Gi
@@ -219,5 +219,3 @@ spec:
             memory: 2000Mi
           limits:
             memory: 7000Mi
-        nodeSelector:
-          topology.kubernetes.io/zone: w
