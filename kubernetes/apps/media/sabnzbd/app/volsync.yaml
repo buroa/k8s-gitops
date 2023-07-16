@@ -35,9 +35,9 @@ spec:
     copyMethod: Snapshot
     pruneIntervalDays: 10
     repository: sabnzbd-restic-secret
-    cacheCapacity: 10Gi
+    cacheCapacity: 8Gi
     volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
-    storageClassName: ${CLUSTER_STORAGE_BLOCK}
+    storageClassName: ${CLUSTER_STORAGE_HOSTPATH}
     moverSecurityContext:
       runAsUser: 568
       runAsGroup: 568
