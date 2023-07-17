@@ -50,16 +50,18 @@ spec:
           external-dns.alpha.kubernetes.io/hostname: |-
             dns.${SECRET_PUBLIC_DOMAIN}
         labels:
-          io.cilium/lb-ipam-layer: layer2
+          io.cilium/lb-ipam-layer: layer3
         ports:
           dns-tcp:
             enabled: true
             port: 53
             protocol: TCP
+            tagetPort: 53
           dns-udp:
             enabled: true
             port: 53
             protocol: UDP
+            tagetPort: 53
     ingress:
       main:
         enabled: true

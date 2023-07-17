@@ -52,6 +52,11 @@ nodes:
             addresses:
               - 10.0.2.10/24
             mtu: 1500
+          - vlanId: 13
+            dhcp: false
+            addresses:
+              - 10.0.3.10/24
+            mtu: 1500
     nodeLabels: &masterLabels
       topology.kubernetes.io/region: *cluster
       topology.kubernetes.io/zone: m
@@ -87,6 +92,11 @@ nodes:
             addresses:
               - 10.0.2.11/24
             mtu: 1500
+          - vlanId: 13
+            dhcp: false
+            addresses:
+              - 10.0.3.11/24
+            mtu: 1500
     nodeLabels: *masterLabels
 
   # macm 2018 3.2GHz / 32GB / 256GB SSD / 10GbE via TB3
@@ -120,6 +130,11 @@ nodes:
             addresses:
               - 10.0.2.12/24
             mtu: 1500
+          - vlanId: 13
+            dhcp: false
+            addresses:
+              - 10.0.3.12/24
+            mtu: 1500
     nodeLabels: *masterLabels
 
   # macm 2018 3.2GHz / 64GB / 1TB SSD / 10GbE
@@ -150,6 +165,11 @@ nodes:
             dhcp: false
             addresses:
               - 10.0.2.20/24
+            mtu: 1500
+          - vlanId: 13
+            dhcp: false
+            addresses:
+              - 10.0.3.20/24
             mtu: 1500
     nodeLabels: &workerLabels
       node-role.kubernetes.io/worker: worker
@@ -185,6 +205,11 @@ nodes:
             addresses:
               - 10.0.2.21/24
             mtu: 1500
+          - vlanId: 13
+            dhcp: false
+            addresses:
+              - 10.0.3.21/24
+            mtu: 1500
     nodeLabels: *workerLabels
 
   # macm 2018 3.2GHz / 64GB / 1TB SSD / 10GbE
@@ -215,6 +240,11 @@ nodes:
             dhcp: false
             addresses:
               - 10.0.2.22/24
+            mtu: 1500
+          - vlanId: 13
+            dhcp: false
+            addresses:
+              - 10.0.3.22/24
             mtu: 1500
     nodeLabels: *workerLabels
 

@@ -54,16 +54,18 @@ spec:
         annotations:
           io.cilium/lb-ipam-ips: ${TORRENT_LB_IP}
         labels:
-          io.cilium/lb-ipam-layer: layer2
+          io.cilium/lb-ipam-layer: layer3
         ports:
           bittorrent-tcp:
             enabled: true
             port: *port-bt
             protocol: TCP
+            targetPort: *port-bt
           bittorrent-udp:
             enabled: true
             port: *port-bt
             protocol: UDP
+            targetPort: *port-bt
     ingress:
       main:
         enabled: true
