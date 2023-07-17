@@ -29,6 +29,7 @@ spec:
     csiDriver:
       name: "local-hostpath.democratic-csi.k8s.home.arpa"
       storageCapacity: true
+      attachRequired: false
       fsGroupPolicy: File
     storageClasses:
       - name: ${CLUSTER_STORAGE_HOSTPATH}
@@ -55,6 +56,8 @@ spec:
           - --enable-capacity=true
           - --capacity-ownerref-level=1
       externalResizer:
+        enabled: false
+      externalAttacher:
         enabled: false
       externalSnapshotter:
         enabled: true
