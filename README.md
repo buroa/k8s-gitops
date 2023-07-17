@@ -93,12 +93,12 @@ GitRepository :: k8s-gitops
 
 ### Networking
 
-| Name                                              | CIDR                         |
-| ------------------------------------------------- | ---------------------------- |
-| Kubernetes nodes                                  | `10.0.0.0/24`                |
-| Kubernetes pods                                   | `10.244.0.0/16`              |
-| Kubernetes services                               | `10.245.0.0/16`              |
-| Kubernetes external services (L2 or L3 w/ Cilium) | `10.0.0.192/26`, `7.0.0.0/8` |
+| Name                                              | CIDR                           |
+| ------------------------------------------------- | ------------------------------ |
+| Kubernetes nodes                                  | `10.0.0.0/24`                  |
+| Kubernetes pods                                   | `10.244.0.0/16`                |
+| Kubernetes services                               | `10.245.0.0/16`                |
+| Kubernetes external services (L2 or L3 w/ Cilium) | `10.0.0.192/26`, `10.0.3.0/24` |
 
 - [Cilium](https://cilium.io) is configured with the `io.cilium/lb-ipam-ips` annotation and `io.cilium/lb-ipam-layer` label to expose Kubernetes services with their own IP over L2 or L3 (BGP) which is configured on my router.
 - [cloudflared](https://github.com/cloudflare/cloudflared) provides a [secure tunnel](https://www.cloudflare.com/products/tunnel/) for [Cloudflare](https://www.cloudflare.com/) to ingress traffic from the Internet into my Kubernetes cluster.

@@ -52,12 +52,13 @@ spec:
         annotations:
           io.cilium/lb-ipam-ips: ${TAILSCALE_LB_IP}
         labels:
-          io.cilium/lb-ipam-layer: layer2
+          io.cilium/lb-ipam-layer: layer3
         ports:
           tailnet:
             enabled: true
             port: *port
             protocol: UDP
+            targetPort: *port
     ingress:
       main:
         enabled: false

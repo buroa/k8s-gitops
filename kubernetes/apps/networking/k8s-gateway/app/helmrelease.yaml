@@ -52,13 +52,13 @@ spec:
           dns-tcp:
             enabled: true
             port: 53
-            targetPort: 1053
             protocol: TCP
+            targetPort: 1053
           dns-udp:
             enabled: true
             port: 53
-            targetPort: 1053
             protocol: UDP
+            targetPort: 1053
     serviceMonitor:
       main:
         enabled: true
