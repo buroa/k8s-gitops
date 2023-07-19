@@ -42,6 +42,11 @@ spec:
     service:
       main:
         enabled: false
+    persistence:
+      local:
+        enabled: true
+        type: emptyDir
+        mountPath: /.local
     resources:
       requests:
         cpu: 50m
