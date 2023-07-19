@@ -21,7 +21,7 @@ tasks:
     vars:
       node: "{{.node | default nil}}"
     cmds:
-      - talosctl -n {{.node}} apply-config -f ./talos/clusterconfig/k8s-{{.node}}.yaml
+      - talosctl -n {{.node}} apply-config -f ./clusterconfig/k8s-{{.node}}.yaml
 
   upgrade-talos:
     desc: Upgrade talos on a node
