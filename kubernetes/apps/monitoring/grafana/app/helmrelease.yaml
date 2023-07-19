@@ -168,6 +168,11 @@ spec:
           gnetId: 11312
           revision: 9
           datasource: Prometheus
+        kepler:
+          url: https://raw.githubusercontent.com/sustainable-computing-io/kepler/main/grafana-dashboards/Kepler-Exporter.json
+          datasource:
+            - name: datasource
+              value: Prometheus
         blocky:
           gnetId: 13768
           revision: 3

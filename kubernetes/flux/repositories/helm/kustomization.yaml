@@ -19,6 +19,7 @@ resources:
   - ./ingress-nginx-charts.yaml
   - ./intel-charts.yaml
   - ./jetstack-charts.yaml
+  - ./kelper-charts.yaml
   - ./kubernetes-sigs-descheduler-charts.yaml
   - ./kyverno-charts.yaml
   - ./lwolf-charts.yaml
