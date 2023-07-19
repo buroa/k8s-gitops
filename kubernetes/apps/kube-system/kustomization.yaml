@@ -9,6 +9,7 @@ resources:
   - ./intel-device-plugin/ks.yaml
   - ./kube-cleanup-operator/ks.yaml
   - ./kubelet-csr-approver/ks.yaml
+  - ./mbpfan/ks.yaml
   - ./metrics-server/ks.yaml
   - ./node-feature-discovery/ks.yaml
   - ./node-problem-detector/ks.yaml
