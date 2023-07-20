@@ -4,12 +4,10 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./gatus/ks.yaml
-  - ./goldilocks/ks.yaml
   - ./grafana/ks.yaml
   - ./loki/ks.yaml
   - ./thanos/ks.yaml
   - ./unpoller/ks.yaml
   - ./kube-prometheus-stack/ks.yaml
   - ./vector/ks.yaml
-  - ./vpa/ks.yaml
   - ./exporters
