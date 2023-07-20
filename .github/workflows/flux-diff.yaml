@@ -29,6 +29,7 @@ jobs:
         id: diff
         with:
           live-branch: master
+          sources: k8s-gitops
           path: "${{ matrix.path }}"
           resource: "${{ matrix.resource }}"
 
