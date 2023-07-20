@@ -32,7 +32,7 @@ This is a mono repository for my home infrastructure and Kubernetes cluster. It 
 
 ### Installation
 
-The cluster is running on [Talos Linux](https://talos.dev), an immutable and ephemeral Linux distribution built around [Kubernetes](https://k8s.io), deployed on bare-metal [Apple Mac Mini's](https://apple.com/mac-mini). [Rook Ceph](https://rook.io) is providing my workloads with persistent block, object, and file storage; while a seperate server provides file storage for my media.
+This semi hyper-converged cluster runs [Talos Linux](https://talos.dev), an immutable and ephemeral Linux distribution built for [Kubernetes](https://k8s.io), deployed on bare-metal [Apple Mac Mini's](https://apple.com/mac-mini). [Rook](https://rook.io) then provides my workloads with persistent block, object, and file storage; while a seperate server provides file storage for my media.
 
 🔸 _[Click here](./talos) to see my Talos configuration._
 
