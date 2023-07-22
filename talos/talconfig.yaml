@@ -280,10 +280,10 @@ controlPlane:
           - image: ghcr.io/siderolabs/iscsi-tools:v0.1.4
         legacyBIOSSupport: true
         extraKernelArgs:
-          - talos.logging.kernel=udp://10.0.0.253:6001/
+          - talos.logging.kernel=udp://vector.${domainName}:6001/
       logging:
         destinations:
-          - endpoint: udp://10.0.0.253:6002/
+          - endpoint: udp://vector.${domainName}:6002/
             format: json_lines
       kernel:
         modules:
@@ -327,6 +327,9 @@ controlPlane:
           - ip: 10.0.0.7
             aliases:
               - pdu.${domainName}
+          - ip: 10.0.0.253
+            aliases:
+              - vector.${domainName}
       time:
         disabled: false
         servers:
