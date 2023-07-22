@@ -14,9 +14,8 @@ spec:
         kind: HelmRepository
         name: node-feature-discovery-charts
         namespace: flux-system
-  maxHistory: 3
+  maxHistory: 2
   install:
-    createNamespace: true
     crds: CreateReplace
     remediation:
       retries: 3
