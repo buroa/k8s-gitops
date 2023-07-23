@@ -273,11 +273,10 @@ controlPlane:
             disabled: true
     machine: &machine
       install:
-        image: ghcr.io/buroa/talos-installer:v1.4.6-9517b09-apple
+        image: ghcr.io/buroa/talos-installer:v1.4.6-738d23b-apple
         extensions:
-          - image: ghcr.io/siderolabs/i915-ucode:20230310
-          - image: ghcr.io/siderolabs/intel-ucode:20230214
-          - image: ghcr.io/siderolabs/iscsi-tools:v0.1.4
+          - image: ghcr.io/siderolabs/i915-ucode:20230625
+          - image: ghcr.io/siderolabs/intel-ucode:20230613
         legacyBIOSSupport: true
         extraKernelArgs:
           - talos.logging.kernel=udp://vector.${domainName}:6001/
