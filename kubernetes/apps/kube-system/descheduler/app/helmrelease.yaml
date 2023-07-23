@@ -25,6 +25,7 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    replicas: 2
     kind: Deployment
     schedule: "*/5 * * * *"
     deschedulerPolicy:
@@ -76,12 +77,14 @@ spec:
           params:
             nodeResourceUtilizationThresholds:
               thresholds:
-                cpu: 35
-                memory: 35
-              targetThresholds:
                 cpu: 40
-                memory: 40
+                pods: 30
+              targetThresholds:
+                cpu: 45
+                pods: 45
     service:
       enabled: true
     serviceMonitor:
+      enabled: true
+    leaderElection:
       enabled: true
