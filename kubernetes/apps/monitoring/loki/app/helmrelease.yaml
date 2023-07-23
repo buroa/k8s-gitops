@@ -172,6 +172,9 @@ spec:
         - name: scratch
           emptyDir: {}
     monitoring:
+      dashboards:
+        annotations:
+          grafana_folder: Loki
       serviceMonitor:
         enabled: true
         metricsInstance:
