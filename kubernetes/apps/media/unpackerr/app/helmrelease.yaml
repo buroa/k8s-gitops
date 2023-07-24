@@ -29,12 +29,11 @@ spec:
       annotations:
         reloader.stakater.com/auto: "true"
     image:
-      repository: docker.io/golift/unpackerr
-      tag: unstable
+      repository: ghcr.io/onedr0p/unpackerr
+      tag: 0.11.2@sha256:74d53999ade288a9980945d6f93028e177ef635f5aee02439b9d62fb7dcdbfd1
     env:
       TZ: ${TIMEZONE}
       UN_INTERVAL: 1m
-      UN_WEBSERVER_METRICS: true
       UN_SONARR_0_URL: http://sonarr.media.svc.cluster.local:8989
       UN_SONARR_0_PATHS_0: /media/downloads/torrents/sonarr
       UN_RADARR_0_URL: http://radarr.media.svc.cluster.local:7878
@@ -44,12 +43,7 @@ spec:
           name: unpackerr-secret
     service:
       main:
-        ports:
-          http:
-            port: 5656
-    serviceMonitor:
-      main:
-        enabled: true
+        enabled: false
     podSecurityContext:
       runAsUser: 568
       runAsGroup: 568
@@ -65,4 +59,4 @@ spec:
         memory: 250Mi
         cpu: 10m
       limits:
-        memory: 1024Mi
+        memory: 2048Mi
