@@ -5,5 +5,4 @@ resources:
   - ./namespace.yaml
   - ./excalidraw/ks.yaml
   - ./libreddit/ks.yaml
-  - ./rag-stack/ks.yaml
   - ./theme-park/ks.yaml
