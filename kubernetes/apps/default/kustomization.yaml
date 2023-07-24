@@ -4,6 +4,6 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./excalidraw/ks.yaml
-  - ./gmessage/ks.yaml
   - ./libreddit/ks.yaml
+  - ./rag-stack/ks.yaml
   - ./theme-park/ks.yaml

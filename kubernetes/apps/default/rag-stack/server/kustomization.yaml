@@ -3,9 +3,8 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: default
 resources:
-  - ./pvc.yaml
   - ./helmrelease.yaml
 labels:
   - pairs:
-      app.kubernetes.io/name: gmessage
-      app.kubernetes.io/instance: gmessage
+      app.kubernetes.io/name: rag-stack
+      app.kubernetes.io/instance: rag-stack
