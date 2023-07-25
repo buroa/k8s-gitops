@@ -1,7 +1,7 @@
 ---
 endpoints:
-  - name: nostr
-    url: https://nostr.${SECRET_PUBLIC_DOMAIN}
+  - name: nostr-relay
+    url: https://nostr-relay.${SECRET_PUBLIC_DOMAIN}
     interval: 1m
     client:
       dns-resolver: tcp://1.1.1.1:53

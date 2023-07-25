@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: nostr
+  name: nostr-relay
   namespace: default
 spec:
   interval: 30m
@@ -31,7 +31,7 @@ spec:
         imagePullPolicy: IfNotPresent
         envFrom:
           - secretRef:
-              name: nostr-secret
+              name: nostr-relay-secret
     controller:
       annotations:
         reloader.stakater.com/auto: "true"
@@ -48,11 +48,11 @@ spec:
         enabled: true
         ingressClassName: nginx
         annotations:
+          hajimari.io/enable: "false"
           external-dns.alpha.kubernetes.io/target: |-
             ingress.${SECRET_PUBLIC_DOMAIN}
-          hajimari.io/icon: simple-icons:reddit
         hosts:
-          - host: &host nostr.${SECRET_PUBLIC_DOMAIN}
+          - host: &host nostr-relay.${SECRET_PUBLIC_DOMAIN}
             paths:
               - path: /
                 pathType: Prefix
@@ -63,7 +63,7 @@ spec:
       config:
         enabled: true
         type: secret
-        name: nostr-secret
+        name: nostr-relay-secret
         mountPath: /usr/src/app/config.toml
         subPath: config.toml
         readOnly: true

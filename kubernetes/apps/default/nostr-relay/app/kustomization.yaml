@@ -6,10 +6,10 @@ resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
 configMapGenerator:
-  - name: nostr-config-tpl
+  - name: nostr-relay-config-tpl
     files:
       - ./configs/config.toml
-  - name: nostr-gatus-ep
+  - name: nostr-relay-gatus-ep
     files:
       - ./configs/gatus.yaml
     options:
@@ -19,5 +19,5 @@ generatorOptions:
   disableNameSuffixHash: true
 labels:
   - pairs:
-      app.kubernetes.io/name: nostr
-      app.kubernetes.io/instance: nostr
+      app.kubernetes.io/name: nostr-relay
+      app.kubernetes.io/instance: nostr-relay
