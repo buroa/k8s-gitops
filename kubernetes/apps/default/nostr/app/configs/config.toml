@@ -1,0 +1,27 @@
+# Nostr-rs-relay configuration
+
+[info]
+relay_url = "wss://nostr.${SECRET_PUBLIC_DOMAIN}/"
+name = "buroa's nostr relay"
+description = "Hosted with ❤️ by buroa"
+pubkey = "{{ .NOSTR_PUBLICKEY }}"
+contact = "mailto:${SECRET_EMAIL}"
+
+[database]
+engine = "postgres"
+connection = "postgresql://{{ .NOSTR_POSTGRESUSER }}:{{ .NOSTR_POSTGRESPASS }}@postgres-rw.databases.svc.cluster.local:5432/nostr"
+
+[network]
+address = "0.0.0.0"
+port = 8080
+remote_ip_header = "x-forwarded-for"
+ping_interval = 300
+
+[options]
+reject_future_seconds = 1800
+
+[limits]
+messages_per_sec = 5
+subscriptions_per_min = 10
+broadcast_buffer = 16384
+event_persist_buffer = 4096
