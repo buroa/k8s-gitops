@@ -5,6 +5,9 @@ metadata:
   name: cluster-apps-blocky
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: cluster-apps-cloudnative-pg-cluster
+    - name: cluster-apps-external-secrets-stores
   path: ./kubernetes/apps/networking/blocky/app
   prune: true
   sourceRef:
