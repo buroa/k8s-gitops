@@ -25,6 +25,13 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    initContainers:
+      01-init-db:
+        image: ghcr.io/onedr0p/postgres-init:14.8
+        imagePullPolicy: IfNotPresent
+        envFrom:
+          - secretRef:
+              name: blocky-secret
     controller:
       strategy: RollingUpdate
       replicas: 2
@@ -98,8 +105,8 @@ spec:
     persistence:
       config:
         enabled: true
-        type: configMap
-        name: blocky-configmap
+        type: secret
+        name: blocky-secret
         mountPath: /app/config.yml
         subPath: config.yml
         readOnly: true

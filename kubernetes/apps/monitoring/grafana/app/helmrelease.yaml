@@ -70,11 +70,13 @@ spec:
         role_attribute_path: |
           contains(groups[*], 'admins') && 'Admin' || contains(groups[*], 'people') && 'Viewer'
       auth.basic:
-        enabled: false
+        enabled: true
       auth.anonymous:
         enabled: false
       news:
         news_feed_enabled: false
+    admin:
+      existingSecret: *secret
     dashboardProviders:
       dashboardproviders.yaml:
         apiVersion: 1
@@ -183,10 +185,6 @@ spec:
           gnetId: 763
           revision: 5
           datasource: Prometheus
-        kyverno:
-          gnetId: 15987
-          revision: 2
-          datasource: Prometheus
         external-dns:
           gnetId: 15038
           revision: 1
@@ -201,6 +199,11 @@ spec:
           datasource:
             - name: DS_PROMETHEUS
               value: Prometheus
+        blocky-query:
+          url: https://raw.githubusercontent.com/0xERR0R/blocky/main/docs/blocky-query-grafana-postgres.json
+          datasource:
+            - name: DS_POSTGRES
+              value: Blocky
         cloudflared:
           gnetId: 17457
           revision: 6
@@ -346,6 +349,7 @@ spec:
         enabled: true
         searchNamespace: ALL
         labelValue: ""
+        label: grafana_datasource
     plugins:
       - grafana-clock-panel
       - grafana-piechart-panel

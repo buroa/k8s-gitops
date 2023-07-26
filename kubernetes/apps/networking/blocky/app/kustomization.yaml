@@ -3,11 +3,15 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: networking
 resources:
+  - ./externalsecret.yaml
   - ./helmrelease.yaml
 configMapGenerator:
-  - name: blocky-configmap
+  - name: blocky-config-tpl
     files:
       - ./configs/config.yml
+  - name: blocky-datasource-tpl
+    files:
+      - ./configs/datasource.yaml
 generatorOptions:
   disableNameSuffixHash: true
 labels:
