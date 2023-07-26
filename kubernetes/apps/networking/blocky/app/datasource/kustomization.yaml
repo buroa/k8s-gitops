@@ -4,12 +4,10 @@ kind: Kustomization
 namespace: networking
 resources:
   - ./externalsecret.yaml
-  - ./helmrelease.yaml
-  - ./datasource
 configMapGenerator:
-  - name: blocky-config-tpl
+  - name: blocky-datasource-tpl
     files:
-      - ./configs/config.yml
+      - ./datasource.yaml
 generatorOptions:
   disableNameSuffixHash: true
 labels:
