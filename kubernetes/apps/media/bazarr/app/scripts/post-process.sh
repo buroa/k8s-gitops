@@ -1,24 +1,17 @@
 #!/usr/bin/env bash
 
-echo "Cleaning subtitles for $1..."
+printf "Cleaning subtitles for '%s' ...\n" "$1"
 python3 /add-ons/subcleaner/subcleaner.py "$1" -s
 
-get_section () {
-    if [[ "$1" = "/media/movies"* ]]; then
-        echo "1"
-    elif [[ "$1" == "/media/shows"* ]]; then
-        echo "2"
-    else
-        echo "Unknown section: $1"
-        exit 1
-    fi
-}
+case $1 in
+    *movies*) section="1";;
+    *shows*) section="2";;
+esac
 
-directory=$(dirname "$1")
-section=$(get_section "$1")
-
-echo "Refreshing Plex library for $directory..."
-/usr/bin/curl -X PUT -G \
-    --data-urlencode "path=$directory" \
-    --data-urlencode "X-Plex-Token=$2" \
-        http://plex.media.svc.cluster.local:32400/library/sections/$section/refresh
+if [[ -n "$section" ]]; then
+    printf "Refreshing Plex section '%s' for '%s' ...\n" "$section" "$(dirname "$1")"
+    /usr/bin/curl -X PUT -G \
+        --data-urlencode "path=$(dirname "$1")" \
+        --data-urlencode "X-Plex-Token=$2" \
+            "http://plex.media.svc.cluster.local:32400/library/sections/$section/refresh"
+fi
