@@ -27,7 +27,7 @@ spec:
   values:
     image:
       repository: docker.io/nodered/node-red-dev
-      tag: 3.0.0-beta.4-18-minimal
+      tag: 3.1.0-beta.4-18-minimal
     env:
       TZ: ${TIMEZONE}
       FLOWS: flows.json
