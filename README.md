@@ -109,11 +109,16 @@ GitRepository :: k8s-gitops
 
 ### Internal DNS
 
-[blocky](https://github.com/0xERR0R/blocky) provides the first hop of DNS resolution inside my network. DNS requests to my public domain are forwarded to [k8s-gateway](https://github.com/ori-edge/k8s_gateway) which checks to see if it's present in my cluster; if not, it talks out to [1.1.1.1](https://1.1.1.1) which is configured as my primary DNS provider.
+The UDM Pro resolves DNS queries via [blocky](https://github.com/0xERR0R/blocky), which provides first-hop DNS resolution for my network. Blocky forwards requests targeted towards my public domain via [k8s-gateway](https://github.com/ori-edge/k8s_gateway). Last-hop resolution resolves via [1.1.1.1](https://1.1.1.1), which is configured as my primary DNS upstream provider. If for any reason blocky becomes unavailable, the UDM Pro is configured to fallback to 1.1.1.1 until blocky becomes available again.
+
+The configuration for `blocky` and `k8s-gateway` can be found below:
+
+- [blocky config](./kubernetes/apps/networking/blocky/app/configs/config.yml)
+- [k8s-gateway config](./kubernetes/apps/networking/k8s-gateway/app/configs/Corefile)
 
 ### External DNS
 
-[external-dns](https://github.com/kubernetes-sigs/external-dns) is deployed in my cluster and configured to sync DNS records to [Cloudflare](https://www.cloudflare.com/). The only ingresses this `external-dns` instance looks at to gather DNS records to put in `Cloudflare` are ones that have an annotation of `external-dns.alpha.kubernetes.io/target`.
+[external-dns](https://github.com/kubernetes-sigs/external-dns) is deployed in my cluster and configured to sync DNS records to [Cloudflare](https://www.cloudflare.com/) using ingresses `external-dns.alpha.kubernetes.io/target` annotation.
 
 ---
 
