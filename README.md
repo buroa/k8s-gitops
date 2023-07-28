@@ -43,7 +43,7 @@ This semi hyper-converged cluster runs [Talos Linux](https://talos.dev), an immu
 - [cert-manager](https://cert-manager.io): Creates SSL certificates for services in my Kubernetes cluster.
 - [external-dns](https://github.com/kubernetes-sigs/external-dns): Automatically manages DNS records from my cluster in a cloud DNS provider.
 - [external-secrets](https://external-secrets.io): Managed Kubernetes secrets using [1Password Connect](https://github.com/1Password/connect).
-- [ingress-nginx](https://github.com/kubernetes/ingress-nginx): Ingress controller to expose HTTP traffic to pods over DNS.
+- [ingress-nginx](https://github.com/kubernetes/ingress-nginx): Ingress controller for Kubernetes using NGINX as a reverse proxy and load balancer.
 - [rook](https://rook.io): Distributed block storage for peristent storage.
 - [sops](https://github.com/getsops/sops): Managed secrets for Kubernetes, Ansible and Terraform which are commited to Git.
 - [volsync](https://github.com/backube/volsync) and [snapscheduler](https://github.com/backube/snapscheduler): Backup and recovery of persistent volume claims.
@@ -111,7 +111,7 @@ GitRepository :: k8s-gitops
 
 ### Internal DNS
 
-The UDM Pro resolves DNS queries via [blocky](https://github.com/0xERR0R/blocky), which provides first-hop DNS resolution for my network. `Blocky` forwards requests targeted towards my public domain via [k8s-gateway](https://github.com/ori-edge/k8s_gateway). Last-hop DNS resolution resolves via [1.1.1.1](https://1.1.1.1), which is configured as my primary DNS upstream provider. If for any reason `blocky` becomes unavailable, the UDM Pro is configured to fallback to `1.1.1.1` until blocky becomes available again.
+The UDM Pro resolves DNS queries via [blocky](https://github.com/0xERR0R/blocky), which provides first-hop DNS resolution for my network. `Blocky` forwards requests targeted towards my public domain via [k8s-gateway](https://github.com/ori-edge/k8s_gateway). Last-hop DNS resolution resolves via [1.1.1.1](https://1.1.1.1/dns/), which is configured as my primary DNS upstream provider. If for any reason `blocky` becomes unavailable, the UDM Pro is configured to fallback to `1.1.1.1` until blocky becomes available again.
 
 🔸 _[Click here](./kubernetes/apps/networking/blocky/app/configs/config.yml) to see my `blocky` configuration or [here](./kubernetes/apps/networking/k8s-gateway/app/configs/Corefile) to see my `k8s-gateway` configuration._
 
