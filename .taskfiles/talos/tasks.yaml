@@ -9,8 +9,6 @@ tasks:
     desc: Generate talos config
     interactive: true
     dir: ./talos
-    vars:
-      node: "{{.node | default nil}}"
     cmds:
       - talhelper genconfig
 
@@ -22,6 +20,8 @@ tasks:
       node: "{{.node | default nil}}"
     cmds:
       - talosctl -n {{.node}} apply-config -f ./clusterconfig/k8s-{{.node}}.yaml
+    preconditions:
+      - talosctl -n {{.node}} get mc
 
   upgrade-talos:
     desc: Upgrade talos on a node
@@ -32,6 +32,8 @@ tasks:
       image: "{{.image | default nil}}"
     cmds:
       - talosctl -n {{.node}} upgrade --image {{.image}} --preserve=true
+    preconditions:
+      - talosctl -n {{.node}} get mc
 
   upgrade-k8s:
     desc: Upgrade k8s on a node
@@ -42,3 +44,5 @@ tasks:
       to: "{{.to | default nil}}"
     cmds:
       - talosctl -n {{.node}} upgrade-k8s --to {{.to}}
+    preconditions:
+      - talosctl -n {{.node}} get mc
