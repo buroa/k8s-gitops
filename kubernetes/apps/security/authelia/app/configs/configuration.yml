@@ -42,3 +42,13 @@ identity_providers:
         redirect_uris:
           - "https://grafana.${SECRET_PUBLIC_DOMAIN}/login/generic_oauth"
         userinfo_signing_algorithm: none
+      - id: nodered
+        description: Node-RED
+        secret: "${NODE_RED_OAUTH_CLIENT_SECRET}"
+        public: false
+        authorization_policy: two_factor
+        pre_configured_consent_duration: 1y
+        scopes: ["openid", "profile", "groups", "email"]
+        redirect_uris:
+          - "https://nr.${SECRET_PUBLIC_DOMAIN}/auth/strategy/callback"
+        userinfo_signing_algorithm: none

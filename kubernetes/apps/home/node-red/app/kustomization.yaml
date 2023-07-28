@@ -4,8 +4,17 @@ kind: Kustomization
 namespace: home
 resources:
   - ./pvc.yaml
+  - ./externalsecret.yaml
   - ./helmrelease.yaml
   - ./volsync.yaml
+configMapGenerator:
+  - name: node-red-configmap
+    files:
+      - ./configs/settings.js
+generatorOptions:
+  disableNameSuffixHash: true
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled
 labels:
   - pairs:
       app.kubernetes.io/name: node-red

@@ -25,14 +25,22 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    controller:
+      annotations:
+        reloader.stakater.com/auto: "true"
     image:
-      repository: docker.io/nodered/node-red-dev
-      tag: 3.1.0-beta.4-18-minimal
+      repository: docker.io/nodered/node-red
+      tag: 3.0.2@sha256:e2cd6b89e18361593276e3ef5282b403e0879040c96d3099c15e8f0200a36339
     env:
       TZ: ${TIMEZONE}
-      FLOWS: flows.json
-      NODE_RED_ENABLE_PROJECTS: true
-      NODE_RED_ENABLE_SAFE_MODE: false
+      NODE_RED_OAUTH_ISSUER_URL: https://auth.${SECRET_PUBLIC_DOMAIN}
+      NODE_RED_OAUTH_AUTH_URL: https://auth.${SECRET_PUBLIC_DOMAIN}/api/oidc/authorization
+      NODE_RED_OAUTH_CALLBACK_URL: https://nr.${SECRET_PUBLIC_DOMAIN}/auth/strategy/callback
+      NODE_RED_OAUTH_TOKEN_URL: http://authelia.security.svc.cluster.local:9091/api/oidc/token
+      NODE_RED_OAUTH_USER_URL: http://authelia.security.svc.cluster.local:9091/api/oidc/userinfo
+    envFrom:
+      - secretRef:
+          name: node-red-secret
     service:
       main:
         ports:
@@ -61,9 +69,16 @@ spec:
       data:
         enabled: true
         existingClaim: node-red-config
+      settings:
+        enabled: true
+        type: configMap
+        name: node-red-configmap
+        mountPath: /data/settings.js
+        subPath: settings.js
+        readOnly: true
     resources:
       requests:
-        memory: 350Mi
-        cpu: 25m
+        memory: 512Mi
+        cpu: 5m
       limits:
-        memory: 500Mi
+        memory: 512Mi
