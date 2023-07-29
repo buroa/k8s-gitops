@@ -180,7 +180,7 @@ spec:
             type: loki
             uid: loki
             access: proxy
-            url: http://loki-gateway.monitoring.svc.cluster.local
+            url: http://loki-gateway.monitoring.svc.cluster.local:80
             jsonData:
               maxLines: 250
     dashboards:
