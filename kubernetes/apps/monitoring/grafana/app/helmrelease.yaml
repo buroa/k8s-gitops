@@ -186,29 +186,29 @@ spec:
     dashboards:
       default:
         node-exporter-full:
-          gnetId: 1860
+          gnetId: 1860 # https://grafana.com/grafana/dashboards/1860?tab=revisions
           revision: 31
           datasource: Prometheus
         redis:
-          gnetId: 763
+          gnetId: 763 # https://grafana.com/grafana/dashboards/763?tab=revisions
           revision: 5
           datasource: Prometheus
         external-dns:
-          gnetId: 15038
+          gnetId: 15038 # https://grafana.com/grafana/dashboards/15038?tab=revisions
           revision: 1
           datasource: Prometheus
         blackbox-exporter:
-          gnetId: 7587
+          gnetId: 7587 # https://grafana.com/grafana/dashboards/7587?tab=revisions
           revision: 3
           datasource: Prometheus
         cloudflared:
-          gnetId: 17457
+          gnetId: 17457 # https://grafana.com/grafana/dashboards/17457?tab=revisions
           revision: 6
           datasource:
             - name: DS_PROMETHEUS
               value: Prometheus
         speedtest-exporter:
-          gnetId: 13665
+          gnetId: 13665 # https://grafana.com/grafana/dashboards/13665?tab=revisions
           revision: 4
           datasource:
             - name: DS_PROMETHEUS
@@ -265,7 +265,7 @@ spec:
           url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-pods.json
           datasource: Prometheus
         kubernetes-volumes:
-          gnetId: 11454
+          gnetId: 11454 # https://grafana.com/grafana/dashboards/11454?tab=revisions
           revision: 14
           datasource: Prometheus
       nginx:
@@ -277,7 +277,7 @@ spec:
           datasource: Prometheus
       blocky:
         blocky:
-          gnetId: 13768
+          gnetId: 13768 # https://grafana.com/grafana/dashboards/13768?tab=revisions
           revision: 3
           datasource:
             - name: DS_PROMETHEUS
@@ -341,6 +341,12 @@ spec:
           datasource: Prometheus
         exportarr:
           url: https://raw.githubusercontent.com/onedr0p/exportarr/master/examples/grafana/dashboard2.json
+          datasource:
+            - name: DS_PROMETHEUS
+              value: Prometheus
+        unpackerr:
+          gnetId: 18817 # https://grafana.com/grafana/dashboards/18817?tab=revisions
+          revision: 1
           datasource:
             - name: DS_PROMETHEUS
               value: Prometheus

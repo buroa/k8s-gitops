@@ -34,6 +34,7 @@ spec:
     env:
       TZ: ${TIMEZONE}
       UN_INTERVAL: 1m
+      UN_WEBSERVER_METRICS: true
       UN_SONARR_0_URL: http://sonarr.media.svc.cluster.local:8989
       UN_SONARR_0_PATHS_0: /media/downloads/torrents/sonarr
       UN_RADARR_0_URL: http://radarr.media.svc.cluster.local:7878
@@ -43,7 +44,12 @@ spec:
           name: unpackerr-secret
     service:
       main:
-        enabled: false
+        ports:
+          http:
+            port: 5656
+    serviceMonitor:
+      main:
+        enabled: true
     podSecurityContext:
       runAsUser: 568
       runAsGroup: 568
