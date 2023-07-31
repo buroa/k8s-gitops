@@ -64,7 +64,7 @@ spec:
         enabled: true
         ingressClassName: nginx
         annotations:
-          hajimari.io/icon: mdi:list-status
+          hajimari.io/icon: material-symbols:detector-status
           external-dns.alpha.kubernetes.io/target: |-
             ingress.${SECRET_PUBLIC_DOMAIN}
         hosts:
