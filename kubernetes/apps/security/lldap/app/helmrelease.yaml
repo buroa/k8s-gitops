@@ -47,6 +47,11 @@ spec:
       LLDAP_HTTP_URL: https://lldap.${SECRET_PUBLIC_DOMAIN}
       LLDAP_LDAP_PORT: &ldap-port 389
       LLDAP_LDAP_BASE_DN: dc=home,dc=arpa
+      LLDAP_SMTP_OPTIONS__ENABLE_PASSWORD_RESET: true
+      LLDAP_SMTP_OPTIONS__SERVER: smtp-relay.networking.svc.cluster.local
+      LLDAP_SMTP_OPTIONS__PORT: 2525
+      LLDAP_SMTP_OPTIONS__SMTP_ENCRYPTION: NONE
+      LLDAP_SMTP_OPTIONS__FROM: LLDAP Admin <lldap@${SECRET_PUBLIC_DOMAIN}>
     envFrom:
       - secretRef:
           name: lldap-secret
