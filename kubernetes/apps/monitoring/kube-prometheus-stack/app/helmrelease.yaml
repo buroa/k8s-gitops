@@ -37,12 +37,12 @@ spec:
           hajimari.io/appName: Alertmanager
           hajimari.io/icon: mdi:alert-decagram-outline
         hosts:
-          - &hosta am.${SECRET_PUBLIC_DOMAIN}
+          - &am-host am.${SECRET_PUBLIC_DOMAIN}
         paths:
           - /
         tls:
           - hosts:
-              - *hosta
+              - *am-host
       alertmanagerSpec:
         replicas: 3
         useExistingSecret: true
@@ -115,12 +115,12 @@ spec:
           hajimari.io/appName: Prometheus
           hajimari.io/icon: simple-icons:prometheus
         hosts:
-          - &hostp prometheus.${SECRET_PUBLIC_DOMAIN}
+          - &prometheus-host prometheus.${SECRET_PUBLIC_DOMAIN}
         paths:
           - /
         tls:
           - hosts:
-              - *hostp
+              - *prometheus-host
       thanosService:
         enabled: true
       thanosServiceMonitor:

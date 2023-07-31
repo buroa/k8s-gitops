@@ -34,8 +34,8 @@ spec:
       tag: 4.5.4@sha256:f0a74313d750bc437ba2ad34f3412de5ab9a978f3f5b74227a1bda69271fef3e
     env:
       TZ: ${TIMEZONE}
-      QBITTORRENT__PORT: &port 8080
-      QBITTORRENT__BT_PORT: &port-bt ${TORRENT_PUBLIC_PORT}
+      QBITTORRENT__PORT: &http-port 8080
+      QBITTORRENT__BT_PORT: &bt-port ${TORRENT_PUBLIC_PORT}
       QBT_Application__MemoryWorkingSetLimit: 16384
       QBT_Preferences__WebUI__AuthSubnetWhitelistEnabled: true
       QBT_Preferences__WebUI__AuthSubnetWhitelist: |-
@@ -44,7 +44,7 @@ spec:
       main:
         ports:
           http:
-            port: *port
+            port: *http-port
           xseed:
             port: 2468
       bittorrent:
@@ -57,14 +57,14 @@ spec:
         ports:
           bittorrent-tcp:
             enabled: true
-            port: *port-bt
+            port: *bt-port
             protocol: TCP
-            targetPort: *port-bt
+            targetPort: *bt-port
           bittorrent-udp:
             enabled: true
-            port: *port-bt
+            port: *bt-port
             protocol: UDP
-            targetPort: *port-bt
+            targetPort: *bt-port
     ingress:
       main:
         enabled: true
