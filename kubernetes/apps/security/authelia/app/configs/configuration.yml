@@ -53,3 +53,10 @@ identity_providers:
         redirect_uris:
           - "https://nr.${SECRET_PUBLIC_DOMAIN}/auth/strategy/callback"
         userinfo_signing_algorithm: none
+
+webauthn:
+  disable: false
+  display_name: Authelia
+  attestation_conveyance_preference: indirect
+  user_verification: preferred
+  timeout: 60s
