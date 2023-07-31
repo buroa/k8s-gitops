@@ -7,5 +7,5 @@ resources:
   - ./helmrelease.yaml
 labels:
   - pairs:
-      app.kubernetes.io/name: glauth
-      app.kubernetes.io/instance: glauth
+      app.kubernetes.io/name: lldap
+      app.kubernetes.io/instance: lldap

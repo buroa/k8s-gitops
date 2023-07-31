@@ -7,9 +7,9 @@ metadata:
 spec:
   dependsOn:
     - name: cluster-apps-cloudnative-pg-cluster
-    - name: cluster-apps-glauth
     - name: cluster-apps-external-secrets-stores
     - name: cluster-apps-redis
+    - name: cluster-apps-lldap
   path: ./kubernetes/apps/security/authelia/app
   prune: true
   sourceRef:
