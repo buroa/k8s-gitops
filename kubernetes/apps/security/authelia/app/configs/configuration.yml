@@ -58,5 +58,5 @@ webauthn:
   disable: false
   display_name: Authelia
   attestation_conveyance_preference: indirect
-  user_verification: preferred
+  user_verification: discouraged
   timeout: 60s
