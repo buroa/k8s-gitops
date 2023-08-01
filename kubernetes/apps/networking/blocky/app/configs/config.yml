@@ -88,6 +88,7 @@ redis:
 queryLog:
   type: postgresql
   target: postgresql://{{ .BLOCKY_POSTGRESUSER }}:{{ .BLOCKY_POSTGRESPASS }}@postgres-rw.databases.svc.cluster.local:5432/blocky
+  logRetentionDays: 10
 
 prometheus:
   enable: true
@@ -98,5 +99,5 @@ ports:
   http: 4000
 
 log:
-  level: info
-  format: json
+  level: debug
+  format: text
