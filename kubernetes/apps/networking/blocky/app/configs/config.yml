@@ -65,6 +65,9 @@ blocking:
       - https://raw.githubusercontent.com/anudeepND/whitelist/master/domains/whitelist.txt
     misc:
       - https://raw.githubusercontent.com/anudeepND/whitelist/master/domains/whitelist.txt
+      - |
+        # inline definition with YAML literal block scalar style
+        login.microsoftonline.us
   clientGroupsBlock:
     default:
       - suspicious
