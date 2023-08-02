@@ -5,6 +5,7 @@ resources:
   - ./namespace.yaml
   - ./gatus/ks.yaml
   - ./grafana/ks.yaml
+  - ./karma/ks.yaml
   - ./loki/ks.yaml
   - ./thanos/ks.yaml
   - ./unpoller/ks.yaml

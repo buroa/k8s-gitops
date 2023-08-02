@@ -1,0 +1,18 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cluster-apps-karma
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: cluster-apps-kube-prometheus-stack
+  path: ./kubernetes/apps/monitoring/karma/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: k8s-gitops
+  wait: true
+  interval: 30m
+  retryInterval: 1m
+  timeout: 15m
