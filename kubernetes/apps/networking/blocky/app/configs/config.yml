@@ -56,14 +56,19 @@ blocking:
   whiteLists:
     suspicious:
       - https://raw.githubusercontent.com/anudeepND/whitelist/master/domains/whitelist.txt
+      - https://raw.githubusercontent.com/buroa/k8s-gitops/master/kubernetes/apps/networking/blocky/app/configs/whitelist.yaml
     ads:
       - https://raw.githubusercontent.com/anudeepND/whitelist/master/domains/whitelist.txt
+      - https://raw.githubusercontent.com/buroa/k8s-gitops/master/kubernetes/apps/networking/blocky/app/configs/whitelist.yaml
     trackers:
       - https://raw.githubusercontent.com/anudeepND/whitelist/master/domains/whitelist.txt
+      - https://raw.githubusercontent.com/buroa/k8s-gitops/master/kubernetes/apps/networking/blocky/app/configs/whitelist.yaml
     misc:
       - https://raw.githubusercontent.com/anudeepND/whitelist/master/domains/whitelist.txt
+      - https://raw.githubusercontent.com/buroa/k8s-gitops/master/kubernetes/apps/networking/blocky/app/configs/whitelist.yaml
     other:
       - https://raw.githubusercontent.com/anudeepND/whitelist/master/domains/whitelist.txt
+      - https://raw.githubusercontent.com/buroa/k8s-gitops/master/kubernetes/apps/networking/blocky/app/configs/whitelist.yaml
   clientGroupsBlock:
     default:
       - suspicious
