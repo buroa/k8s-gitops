@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: redis
-      version: 17.14.4
+      version: 17.14.5
       sourceRef:
         kind: HelmRepository
         name: bitnami-charts
