@@ -55,7 +55,7 @@ spec:
         annotations:
           io.cilium/lb-ipam-ips: ${VECTOR_LB_IP}
           external-dns.alpha.kubernetes.io/hostname: |-
-            vector.${SECRET_PUBLIC_DOMAIN}
+            vector.${PUBLIC_DOMAIN}
         labels:
           io.cilium/lb-ipam-layer: layer2
         ports:

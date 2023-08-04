@@ -31,7 +31,7 @@ spec:
         annotations:
           io.cilium/lb-ipam-ips: ${INGRESS_LB_IP}
           external-dns.alpha.kubernetes.io/hostname: |-
-            ingress.${SECRET_PUBLIC_DOMAIN}
+            ingress.${PUBLIC_DOMAIN}
         labels:
           io.cilium/lb-ipam-layer: layer2
       ingressClassResource:

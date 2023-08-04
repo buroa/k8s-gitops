@@ -56,7 +56,7 @@ spec:
         annotations:
           hajimari.io/icon: mdi:home-assistant
         hosts:
-          - host: &host hass.${SECRET_PUBLIC_DOMAIN}
+          - host: &host hass.${PUBLIC_DOMAIN}
             paths:
               - path: /
                 pathType: Prefix

@@ -1,7 +1,7 @@
 ---
 endpoints:
   - name: tautulli
-    url: https://tautulli.${SECRET_PUBLIC_DOMAIN}/status
+    url: https://tautulli.${PUBLIC_DOMAIN}/status
     interval: 1m
     client:
       dns-resolver: tcp://1.1.1.1:53

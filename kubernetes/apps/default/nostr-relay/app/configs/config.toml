@@ -1,9 +1,9 @@
 [info]
-relay_url = "wss://nostr-relay.${SECRET_PUBLIC_DOMAIN}/"
+relay_url = "wss://nostr-relay.${PUBLIC_DOMAIN}/"
 name = "buroa's nostr relay"
 description = "Hosted with ❤️ by buroa"
 pubkey = "{{ .NOSTR_PUBLICKEY }}"
-contact = "mailto:${SECRET_EMAIL}"
+contact = "mailto:${PUBLIC_EMAIL}"
 
 [database]
 engine = "postgres"

@@ -73,7 +73,7 @@ spec:
         annotations:
           hajimari.io/enable: "false"
         hosts:
-          - host: &host onepassword-connect.${SECRET_PUBLIC_DOMAIN}
+          - host: &host onepassword-connect.${PUBLIC_DOMAIN}
             paths:
               - path: /
                 pathType: Prefix

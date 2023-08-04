@@ -41,13 +41,13 @@ spec:
     command: ["n8n"]
     env:
       GENERIC_TIMEZONE: ${TIMEZONE}
-      WEBHOOK_URL: https://n8n.${SECRET_PUBLIC_DOMAIN}
+      WEBHOOK_URL: https://n8n.${PUBLIC_DOMAIN}
       N8N_USER_FOLDER: /config
       N8N_PORT: &port 80
       N8N_EMAIL_MODE: smtp
       N8N_SMTP_HOST: smtp-relay.networking.svc.cluster.local
       N8N_SMTP_PORT: 2525
-      N8N_SMTP_SENDER: n8n@${SECRET_PUBLIC_DOMAIN}
+      N8N_SMTP_SENDER: n8n@${PUBLIC_DOMAIN}
       N8N_METRICS: true
     envFrom:
       - secretRef:
@@ -79,7 +79,7 @@ spec:
         annotations:
           hajimari.io/icon: mdi:workflow
         hosts:
-          - host: &host n8n.${SECRET_PUBLIC_DOMAIN}
+          - host: &host n8n.${PUBLIC_DOMAIN}
             paths:
               - path: /
                 pathType: Prefix

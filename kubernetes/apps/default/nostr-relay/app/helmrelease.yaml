@@ -49,10 +49,9 @@ spec:
         ingressClassName: nginx
         annotations:
           hajimari.io/enable: "false"
-          external-dns.alpha.kubernetes.io/target: |-
-            ingress.${SECRET_PUBLIC_DOMAIN}
+          external-dns.alpha.kubernetes.io/target: ingress.${PUBLIC_DOMAIN}
         hosts:
-          - host: &host nostr-relay.${SECRET_PUBLIC_DOMAIN}
+          - host: &host nostr-relay.${PUBLIC_DOMAIN}
             paths:
               - path: /
                 pathType: Prefix

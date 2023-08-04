@@ -31,7 +31,7 @@ spec:
     env:
       TZ: ${TIMEZONE}
       UP_UNIFI_DEFAULT_ROLE: home-ops
-      UP_UNIFI_DEFAULT_URL: https://unifi.${SECRET_PUBLIC_DOMAIN}
+      UP_UNIFI_DEFAULT_URL: https://unifi.${PUBLIC_DOMAIN}
       UP_UNIFI_DEFAULT_VERIFY_SSL: false
       UP_UNIFI_DEFAULT_USER: unifipoller
       UP_UNIFI_DEFAULT_PASS: 1nternalUseOnly

@@ -64,17 +64,17 @@ spec:
       AUTHELIA_AUTHENTICATION_BACKEND_LDAP_USERS_FILTER: (&({username_attribute}={input})(objectClass=person))
       AUTHELIA_AUTHENTICATION_BACKEND_PASSWORD_RESET_DISABLE: true
       AUTHELIA_AUTHENTICATION_BACKEND_REFRESH_INTERVAL: 1m
-      AUTHELIA_DEFAULT_REDIRECTION_URL: https://auth.${SECRET_PUBLIC_DOMAIN}
+      AUTHELIA_DEFAULT_REDIRECTION_URL: https://auth.${PUBLIC_DOMAIN}
       AUTHELIA_DUO_API_DISABLE: true
       AUTHELIA_LOG_LEVEL: info
       AUTHELIA_NOTIFIER_DISABLE_STARTUP_CHECK: true
       AUTHELIA_NOTIFIER_SMTP_DISABLE_REQUIRE_TLS: true
       AUTHELIA_NOTIFIER_SMTP_HOST: smtp-relay.networking.svc.cluster.local
       AUTHELIA_NOTIFIER_SMTP_PORT: 2525
-      AUTHELIA_NOTIFIER_SMTP_SENDER: Authelia <authelia@${SECRET_PUBLIC_DOMAIN}>
+      AUTHELIA_NOTIFIER_SMTP_SENDER: Authelia <authelia@${PUBLIC_DOMAIN}>
       AUTHELIA_SERVER_DISABLE_HEALTHCHECK: true
       AUTHELIA_SERVER_PORT: &port 9091
-      AUTHELIA_SESSION_DOMAIN: ${SECRET_PUBLIC_DOMAIN}
+      AUTHELIA_SESSION_DOMAIN: ${PUBLIC_DOMAIN}
       AUTHELIA_SESSION_NAME: authelia-k8s-gitops
       AUTHELIA_SESSION_REDIS_DATABASE_INDEX: 14
       AUTHELIA_SESSION_REDIS_HOST: redis.databases.svc.cluster.local
@@ -124,10 +124,9 @@ spec:
         ingressClassName: nginx
         annotations:
           hajimari.io/icon: mdi:shield-account
-          external-dns.alpha.kubernetes.io/target: |-
-            ingress.${SECRET_PUBLIC_DOMAIN}
+          external-dns.alpha.kubernetes.io/target: ingress.${PUBLIC_DOMAIN}
         hosts:
-          - host: &host auth.${SECRET_PUBLIC_DOMAIN}
+          - host: &host auth.${PUBLIC_DOMAIN}
             paths:
               - path: /
                 pathType: Prefix

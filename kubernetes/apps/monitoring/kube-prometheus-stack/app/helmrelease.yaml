@@ -37,7 +37,7 @@ spec:
           hajimari.io/appName: Alertmanager
           hajimari.io/icon: mdi:alert-decagram-outline
         hosts:
-          - &am-host am.${SECRET_PUBLIC_DOMAIN}
+          - &am-host am.${PUBLIC_DOMAIN}
         paths:
           - /
         tls:
@@ -115,7 +115,7 @@ spec:
           hajimari.io/appName: Prometheus
           hajimari.io/icon: simple-icons:prometheus
         hosts:
-          - &prometheus-host prometheus.${SECRET_PUBLIC_DOMAIN}
+          - &prometheus-host prometheus.${PUBLIC_DOMAIN}
         paths:
           - /
         tls:

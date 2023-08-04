@@ -44,7 +44,7 @@ spec:
         - name: pdu
           module:
             - cyberpower
-          target: pdu.${SECRET_PUBLIC_DOMAIN}
+          target: pdu.${PUBLIC_DOMAIN}
       path: /snmp
       scrapeTimeout: 10s
       relabelings:

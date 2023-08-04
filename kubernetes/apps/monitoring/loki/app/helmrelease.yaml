@@ -105,7 +105,7 @@ spec:
         annotations:
           hajimari.io/enable: "false"
         hosts:
-          - host: &host loki.${SECRET_PUBLIC_DOMAIN}
+          - host: &host loki.${PUBLIC_DOMAIN}
             paths:
               - path: /
                 pathType: Prefix

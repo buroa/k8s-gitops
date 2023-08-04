@@ -54,7 +54,7 @@ spec:
         annotations:
           io.cilium/lb-ipam-ips: ${BLOCKY_LB_IP}
           external-dns.alpha.kubernetes.io/hostname: |-
-            dns.${SECRET_PUBLIC_DOMAIN}
+            dns.${PUBLIC_DOMAIN}
         labels:
           io.cilium/lb-ipam-layer: layer3
         ports:
@@ -75,7 +75,7 @@ spec:
         annotations:
           hajimari.io/enable: "false"
         hosts:
-          - host: &host blocky.${SECRET_PUBLIC_DOMAIN}
+          - host: &host blocky.${PUBLIC_DOMAIN}
             paths:
               - path: /
                 pathType: Prefix

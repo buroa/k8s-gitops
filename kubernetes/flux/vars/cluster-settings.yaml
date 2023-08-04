@@ -7,6 +7,10 @@ metadata:
 data:
   TIMEZONE: America/Chicago
 
+  # Domains
+  PUBLIC_DOMAIN: ktwo.io
+  PUBLIC_EMAIL: skre@skre.me
+
   # Storage
   CLUSTER_STORAGE_BLOCK: "ceph-block"
   CLUSTER_SNAPSHOT_BLOCK: "csi-rbdplugin-snapclass"

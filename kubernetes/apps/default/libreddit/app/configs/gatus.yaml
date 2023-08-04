@@ -1,7 +1,7 @@
 ---
 endpoints:
   - name: libreddit
-    url: https://fuckspez.${SECRET_PUBLIC_DOMAIN}
+    url: https://fuckspez.${PUBLIC_DOMAIN}
     interval: 1m
     client:
       dns-resolver: tcp://1.1.1.1:53

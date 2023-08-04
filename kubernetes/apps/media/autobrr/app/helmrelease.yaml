@@ -58,7 +58,7 @@ spec:
         annotations:
           hajimari.io/icon: mdi:bunny
         hosts:
-          - host: &host autobrr.${SECRET_PUBLIC_DOMAIN}
+          - host: &host autobrr.${PUBLIC_DOMAIN}
             paths:
               - path: /
                 pathType: Prefix

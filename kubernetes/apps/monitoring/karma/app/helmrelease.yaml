@@ -51,7 +51,7 @@ spec:
         annotations:
           hajimari.io/icon: file-icons:karma
         hosts:
-          - host: &host karma.${SECRET_PUBLIC_DOMAIN}
+          - host: &host karma.${PUBLIC_DOMAIN}
             paths:
               - path: /
                 pathType: Prefix

@@ -1,7 +1,7 @@
 ---
 endpoints:
   - name: overseerr
-    url: https://requests.${SECRET_PUBLIC_DOMAIN}/api/v1/status
+    url: https://requests.${PUBLIC_DOMAIN}/api/v1/status
     interval: 1m
     client:
       dns-resolver: tcp://1.1.1.1:53

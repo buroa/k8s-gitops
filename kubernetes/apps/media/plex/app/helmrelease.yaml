@@ -40,12 +40,11 @@ spec:
         enabled: true
         ingressClassName: nginx
         annotations:
-          nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
           hajimari.io/icon: mdi:plex
-          external-dns.alpha.kubernetes.io/target: |-
-            ingress.${SECRET_PUBLIC_DOMAIN}
+          nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+          external-dns.alpha.kubernetes.io/target: ingress.${PUBLIC_DOMAIN}
         hosts:
-          - host: &host plex.${SECRET_PUBLIC_DOMAIN}
+          - host: &host plex.${PUBLIC_DOMAIN}
             paths:
               - path: /
                 pathType: Prefix

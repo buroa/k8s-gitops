@@ -43,10 +43,9 @@ spec:
         ingressClassName: nginx
         annotations:
           hajimari.io/icon: mdi:eye-circle
-          external-dns.alpha.kubernetes.io/target: |-
-            ingress.${SECRET_PUBLIC_DOMAIN}
+          external-dns.alpha.kubernetes.io/target: ingress.${PUBLIC_DOMAIN}
         hosts:
-          - host: &host requests.${SECRET_PUBLIC_DOMAIN}
+          - host: &host requests.${PUBLIC_DOMAIN}
             paths:
               - path: /
                 pathType: Prefix

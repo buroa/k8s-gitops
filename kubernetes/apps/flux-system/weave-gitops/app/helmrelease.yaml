@@ -34,7 +34,7 @@ spec:
       annotations:
         hajimari.io/icon: mdi:sawtooth-wave
       hosts:
-        - host: &host gitops.${SECRET_PUBLIC_DOMAIN}
+        - host: &host gitops.${PUBLIC_DOMAIN}
           paths:
             - path: /
               pathType: Prefix

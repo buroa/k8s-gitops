@@ -35,7 +35,7 @@ spec:
         - name: nas
           module:
             - synology
-          target: nas.${SECRET_PUBLIC_DOMAIN}
+          target: nas.${PUBLIC_DOMAIN}
       path: /snmp
       scrapeTimeout: 10s
       relabelings:

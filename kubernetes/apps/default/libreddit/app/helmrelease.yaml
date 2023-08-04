@@ -42,11 +42,10 @@ spec:
         enabled: true
         ingressClassName: nginx
         annotations:
-          external-dns.alpha.kubernetes.io/target: |-
-            ingress.${SECRET_PUBLIC_DOMAIN}
           hajimari.io/icon: simple-icons:reddit
+          external-dns.alpha.kubernetes.io/target: ingress.${PUBLIC_DOMAIN}
         hosts:
-          - host: &host fuckspez.${SECRET_PUBLIC_DOMAIN}
+          - host: &host fuckspez.${PUBLIC_DOMAIN}
             paths:
               - path: /
                 pathType: Prefix

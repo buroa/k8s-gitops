@@ -40,7 +40,7 @@ spec:
         sabnzbd.media.svc,
         sabnzbd.media.svc.cluster,
         sabnzbd.media.svc.cluster.local,
-        usenet.${SECRET_PUBLIC_DOMAIN}
+        usenet.${PUBLIC_DOMAIN}
     envFrom:
       - secretRef:
           name: sabnzbd-secret
@@ -71,11 +71,11 @@ spec:
         annotations:
           nginx.ingress.kubernetes.io/configuration-snippet: |
             proxy_set_header Accept-Encoding "";
-            sub_filter '</head>' '<link rel="stylesheet" type="text/css" href="https://theme-park.${SECRET_PUBLIC_DOMAIN}/css/base/sabnzbd/space-gray.css"></head>';
+            sub_filter '</head>' '<link rel="stylesheet" type="text/css" href="https://theme-park.${PUBLIC_DOMAIN}/css/base/sabnzbd/space-gray.css"></head>';
             sub_filter_once on;
           hajimari.io/icon: mdi:download
         hosts:
-          - host: &host usenet.${SECRET_PUBLIC_DOMAIN}
+          - host: &host usenet.${PUBLIC_DOMAIN}
             paths:
               - path: /
                 pathType: Prefix

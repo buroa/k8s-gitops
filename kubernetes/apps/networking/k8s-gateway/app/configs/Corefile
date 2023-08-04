@@ -9,20 +9,20 @@
     }
     prometheus :9153
     hosts {
-        10.0.0.10 m0.k8s.${SECRET_PUBLIC_DOMAIN}
-        10.0.0.11 m1.k8s.${SECRET_PUBLIC_DOMAIN}
-        10.0.0.12 m2.k8s.${SECRET_PUBLIC_DOMAIN}
-        10.0.0.20 w0.k8s.${SECRET_PUBLIC_DOMAIN}
-        10.0.0.21 w1.k8s.${SECRET_PUBLIC_DOMAIN}
-        10.0.0.22 w2.k8s.${SECRET_PUBLIC_DOMAIN}
-        fallthrough ${SECRET_PUBLIC_DOMAIN}
+        10.0.0.10 m0.k8s.${PUBLIC_DOMAIN}
+        10.0.0.11 m1.k8s.${PUBLIC_DOMAIN}
+        10.0.0.12 m2.k8s.${PUBLIC_DOMAIN}
+        10.0.0.20 w0.k8s.${PUBLIC_DOMAIN}
+        10.0.0.21 w1.k8s.${PUBLIC_DOMAIN}
+        10.0.0.22 w2.k8s.${PUBLIC_DOMAIN}
+        fallthrough ${PUBLIC_DOMAIN}
     }
-    k8s_gateway ${SECRET_PUBLIC_DOMAIN} {
+    k8s_gateway ${PUBLIC_DOMAIN} {
         apex k8s-gateway.networking
         resources Ingress Service
-        fallthrough ${SECRET_PUBLIC_DOMAIN}
+        fallthrough ${PUBLIC_DOMAIN}
     }
-    forward ${SECRET_PUBLIC_DOMAIN} tls://1.1.1.1 tls://1.0.0.1 {
+    forward ${PUBLIC_DOMAIN} tls://1.1.1.1 tls://1.0.0.1 {
         tls_servername cloudflare-dns.com
         health_check 5s
     }

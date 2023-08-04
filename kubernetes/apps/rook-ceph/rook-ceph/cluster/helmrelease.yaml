@@ -36,7 +36,7 @@ spec:
           hajimari.io/appName: Rook
           hajimari.io/icon: mdi:chess-rook
         host:
-          name: &host rook.${SECRET_PUBLIC_DOMAIN}
+          name: &host rook.${PUBLIC_DOMAIN}
           path: /
         tls:
           - hosts:

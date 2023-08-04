@@ -57,7 +57,7 @@ spec:
         annotations:
           hajimari.io/enable: "false"
         hosts:
-          - host: &host apps.${SECRET_PUBLIC_DOMAIN}
+          - host: &host apps.${PUBLIC_DOMAIN}
             paths:
               - path: /
                 pathType: Prefix

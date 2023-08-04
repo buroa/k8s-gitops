@@ -36,14 +36,14 @@ spec:
     env:
       GF_AUTH_GENERIC_OAUTH_TOKEN_URL: http://authelia.security.svc.cluster.local:9091/api/oidc/token
       GF_AUTH_GENERIC_OAUTH_API_URL: http://authelia.security.svc.cluster.local:9091/api/oidc/userinfo
-      GF_AUTH_GENERIC_OAUTH_AUTH_URL: https://auth.${SECRET_PUBLIC_DOMAIN}/api/oidc/authorization
+      GF_AUTH_GENERIC_OAUTH_AUTH_URL: https://auth.${PUBLIC_DOMAIN}/api/oidc/authorization
       GF_AUTH_GENERIC_OAUTH_CLIENT_ID: grafana
       GF_DATE_FORMATS_USE_BROWSER_LOCALE: true
       GF_EXPLORE_ENABLED: true
       GF_FEATURE_TOGGLES_ENABLE: publicDashboards
       GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS: natel-discrete-panel,pr0ps-trackmap-panel,panodata-map-panel
       GF_SECURITY_COOKIE_SAMESITE: grafana
-      GF_SERVER_ROOT_URL: https://grafana.${SECRET_PUBLIC_DOMAIN}
+      GF_SERVER_ROOT_URL: https://grafana.${PUBLIC_DOMAIN}
     envFromSecrets:
       - name: *secret
     grafana.ini:
@@ -52,7 +52,7 @@ spec:
         check_for_plugin_updates: false
         reporting_enabled: false
       auth:
-        signout_redirect_url: https://auth.${SECRET_PUBLIC_DOMAIN}/logout
+        signout_redirect_url: https://auth.${PUBLIC_DOMAIN}/logout
         oauth_auto_login: true
         oauth_allow_insecure_email_lookup: true # https://github.com/grafana/grafana/issues/70203
       auth.generic_oauth:
@@ -380,10 +380,9 @@ spec:
       annotations:
         hajimari.io/appName: Grafana
         hajimari.io/icon: simple-icons:grafana
-        external-dns.alpha.kubernetes.io/target: |-
-          ingress.${SECRET_PUBLIC_DOMAIN}
+        external-dns.alpha.kubernetes.io/target: ingress.${PUBLIC_DOMAIN}
       hosts:
-        - &hostg grafana.${SECRET_PUBLIC_DOMAIN}
+        - &hostg grafana.${PUBLIC_DOMAIN}
       paths:
         - /
       tls:

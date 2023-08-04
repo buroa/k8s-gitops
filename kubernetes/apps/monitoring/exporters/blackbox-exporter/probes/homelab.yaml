@@ -11,7 +11,7 @@ spec:
   targets:
     staticConfig:
       static:
-        - unifi.${SECRET_PUBLIC_DOMAIN}
-        - nas.${SECRET_PUBLIC_DOMAIN}
-        - ups.${SECRET_PUBLIC_DOMAIN}
-        - pdu.${SECRET_PUBLIC_DOMAIN}
+        - unifi.${PUBLIC_DOMAIN}
+        - nas.${PUBLIC_DOMAIN}
+        - ups.${PUBLIC_DOMAIN}
+        - pdu.${PUBLIC_DOMAIN}
