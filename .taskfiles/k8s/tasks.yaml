@@ -11,7 +11,7 @@ tasks:
       hostnetwork: "{{.hostnetwork | default false}}"
     cmds:
       - |
-        kubectl run -n {{.namespace}} debug-privileged -i --tty --rm --image=null --privileged --overrides='
+        kubectl run -n {{.namespace}} debug-privileged -i --tty --rm --image=null --overrides='
           {
             "apiVersion": "v1",
             "spec": {
@@ -24,7 +24,10 @@ tasks:
                   ],
                   "stdin": true,
                   "stdinOnce": true,
-                  "tty": true
+                  "tty": true,
+                  "securityContext": {
+                    "privileged": true
+                  }
                 }
               ],
               {{- if .node }}
@@ -45,7 +48,7 @@ tasks:
       namespace: '{{.namespace | default "default"}}'
     cmds:
       - |
-        kubectl run -n {{.namespace}} debug-{{.claim}} -i --tty --rm --image=null --privileged --overrides='
+        kubectl run -n {{.namespace}} debug-{{.claim}} -i --tty --rm --image=null --overrides='
           {
             "apiVersion": "v1",
             "spec": {
