@@ -2,14 +2,29 @@
 apiVersion: cilium.io/v2alpha1
 kind: CiliumL2AnnouncementPolicy
 metadata:
-  name: l2-policy
+  name: l2-policy-masters
+spec:
+  loadBalancerIPs: true
+  interfaces:
+    - eth1.10
+  nodeSelector:
+    matchLabels:
+      topology.kubernetes.io/zone: m
+  serviceSelector:
+    matchLabels:
+      io.cilium/lb-ipam-layer: layer2
+---
+apiVersion: cilium.io/v2alpha1
+kind: CiliumL2AnnouncementPolicy
+metadata:
+  name: l2-policy-workers
 spec:
   loadBalancerIPs: true
   interfaces:
     - eth0.10
   nodeSelector:
     matchLabels:
-      kubernetes.io/os: linux
+      topology.kubernetes.io/zone: w
   serviceSelector:
     matchLabels:
       io.cilium/lb-ipam-layer: layer2
