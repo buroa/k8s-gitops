@@ -57,13 +57,23 @@ spec:
         annotations:
           hajimari.io/enable: "false"
         hosts:
-          - host: &host apps.${PUBLIC_DOMAIN}
+          - host: &host ${PUBLIC_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+          - host: &host2 www.${PUBLIC_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+          - host: &host3 apps.${PUBLIC_DOMAIN}
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - hosts:
               - *host
+              - *host2
+              - *host3
     podAnnotations:
       configmap.reloader.stakater.com/reload: hajimari-settings
     persistence:

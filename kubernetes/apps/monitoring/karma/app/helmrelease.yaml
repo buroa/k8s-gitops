@@ -49,7 +49,7 @@ spec:
         enabled: true
         ingressClassName: nginx
         annotations:
-          hajimari.io/icon: file-icons:karma
+          hajimari.io/icon: line-md:alert-twotone
         hosts:
           - host: &host karma.${PUBLIC_DOMAIN}
             paths:

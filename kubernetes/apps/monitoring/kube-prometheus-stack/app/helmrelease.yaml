@@ -35,7 +35,7 @@ spec:
         ingressClassName: nginx
         annotations:
           hajimari.io/appName: Alertmanager
-          hajimari.io/icon: mdi:alert-decagram-outline
+          hajimari.io/icon: fluent:alert-16-filled
         hosts:
           - &am-host am.${PUBLIC_DOMAIN}
         paths:
