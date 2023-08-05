@@ -3,9 +3,10 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: default
 resources:
+  - ./externalsecret.yaml
   - ./helmrelease.yaml
 configMapGenerator:
-  - name: theme-park-gatus-ep
+  - name: shlink-gatus-ep
     files:
       - ./configs/gatus.yaml
     options:
@@ -15,5 +16,5 @@ generatorOptions:
   disableNameSuffixHash: true
 labels:
   - pairs:
-      app.kubernetes.io/name: theme-park
-      app.kubernetes.io/instance: theme-park
+      app.kubernetes.io/name: shlink
+      app.kubernetes.io/instance: shlink
