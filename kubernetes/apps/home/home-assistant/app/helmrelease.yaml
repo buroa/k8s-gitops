@@ -82,8 +82,6 @@ spec:
           "namespace": "networking",
           "ips": ["10.0.2.254/24"]
         }]
-    nodeSelector:
-      topology.kubernetes.io/zone: w
     persistence:
       config:
         enabled: true

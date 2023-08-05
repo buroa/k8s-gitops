@@ -31,9 +31,12 @@ nodes:
     nameservers:
       - 192.168.0.1
     networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: 00:30:93:10:5c:f1
-          driver: atlantic
+      - interface: bond0
+        bond:
+          mode: 802.3ad
+          deviceSelectors:
+            - hardwareAddr: 00:30:93:10:5c:f1
+              driver: atlantic
         dhcp: false
         mtu: 9000
         vlans:
@@ -71,9 +74,12 @@ nodes:
     nameservers:
       - 192.168.0.1
     networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: 00:30:93:10:5c:f6
-          driver: atlantic
+      - interface: bond0
+        bond:
+          mode: 802.3ad
+          deviceSelectors:
+            - hardwareAddr: 00:30:93:10:5c:f6
+              driver: atlantic
         dhcp: false
         mtu: 9000
         vlans:
@@ -109,9 +115,12 @@ nodes:
     nameservers:
       - 192.168.0.1
     networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: 00:30:93:10:5c:ee
-          driver: atlantic
+      - interface: bond0
+        bond:
+          mode: 802.3ad
+          deviceSelectors:
+            - hardwareAddr: 00:30:93:10:5c:ee
+              driver: atlantic
         dhcp: false
         mtu: 9000
         vlans:
@@ -147,9 +156,12 @@ nodes:
     nameservers:
       - 192.168.0.1
     networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: cc:2d:b7:0b:0c:40
-          driver: atlantic
+      - interface: bond0
+        bond:
+          mode: 802.3ad
+          deviceSelectors:
+            - hardwareAddr: cc:2d:b7:0b:0c:40
+              driver: atlantic
         dhcp: false
         mtu: 9000
         vlans:
@@ -186,9 +198,12 @@ nodes:
     nameservers:
       - 192.168.0.1
     networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: cc:2d:b7:07:c0:00
-          driver: atlantic
+      - interface: bond0
+        bond:
+          mode: 802.3ad
+          deviceSelectors:
+            - hardwareAddr: cc:2d:b7:07:c0:00
+              driver: atlantic
         dhcp: false
         mtu: 9000
         vlans:
@@ -222,9 +237,12 @@ nodes:
     nameservers:
       - 192.168.0.1
     networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: cc:2d:b7:02:b9:b5
-          driver: atlantic
+      - interface: bond0
+        bond:
+          mode: 802.3ad
+          deviceSelectors:
+            - hardwareAddr: cc:2d:b7:02:b9:b5
+              driver: atlantic
         dhcp: false
         mtu: 9000
         vlans:
