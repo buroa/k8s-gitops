@@ -44,6 +44,7 @@ spec:
       PROWLARR__PORT: &port 9696
       PROWLARR__LOG_LEVEL: info
       PROWLARR__AUTHENTICATION_METHOD: External
+      PROWLARR__THEME: dark
     envFrom:
       - secretRef:
           name: prowlarr-secret

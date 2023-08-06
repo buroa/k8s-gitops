@@ -44,6 +44,7 @@ spec:
       RADARR__PORT: &port 7878
       RADARR__APPLICATION_URL: https://radarr.${PUBLIC_DOMAIN}
       RADARR__LOG_LEVEL: info
+      RADARR__THEME: dark
     envFrom:
       - secretRef:
           name: radarr-secret
