@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: libreddit
+  name: &app libreddit
   namespace: default
 spec:
   interval: 30m
@@ -26,6 +26,7 @@ spec:
     keepHistory: false
   values:
     controller:
+      replicas: 2
       strategy: RollingUpdate
     image:
       repository: ghcr.io/auricom/libreddit
@@ -52,6 +53,13 @@ spec:
         tls:
           - hosts:
               - *host
+    topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: DoNotSchedule
+        labelSelector:
+          matchLabels:
+            app.kubernetes.io/name: *app
     resources:
       requests:
         cpu: 5m
