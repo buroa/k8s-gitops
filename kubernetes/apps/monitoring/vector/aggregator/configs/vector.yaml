@@ -15,6 +15,7 @@ sources:
     address: 0.0.0.0:6000
     type: vector
     version: "2"
+
   talos_kernel_logs:
     address: 0.0.0.0:6001
     type: socket
@@ -23,6 +24,7 @@ sources:
     decoding:
       codec: json
     host_key: __host
+
   talos_service_logs:
     address: 0.0.0.0:6002
     type: socket
@@ -32,14 +34,21 @@ sources:
       codec: json
     host_key: __host
 
+  unifi_kernel_logs:
+    address: 0.0.0.0:6003
+    type: syslog
+    mode: udp
+    max_length: 102400
+
 transforms:
-  kubernetes_remap:
+  kubernetes_transform:
     type: remap
     inputs:
       - kubernetes_logs
     source: |-
       .custom_app_name = .pod_labels."app.kubernetes.io/name" || .pod_labels.app || .pod_labels."k8s-app" || "unknown"
-  kernel_hostname_transform:
+
+  talos_kernel_transform:
     type: remap
     inputs:
       - talos_kernel_logs
@@ -51,7 +60,8 @@ transforms:
       r5 = replace(r4, "10.0.0.21", "w1")
       r6 = replace(r5, "10.0.0.22", "w2")
       .node = r6
-  service_hostname_transform:
+
+  talos_service_transform:
     type: remap
     inputs:
       - talos_service_logs
@@ -65,11 +75,18 @@ transforms:
       r7 = replace(r6, r'10.*', "talos")
       .node = r7
 
+  unifi_kernel_transform:
+    type: remap
+    inputs:
+      - unifi_kernel_logs
+    source: |-
+      .custom_app_name = "unifi"
+
 sinks:
   loki_kubernetes:
     type: loki
     inputs:
-      - kubernetes_remap
+      - kubernetes_transform
     endpoint: http://loki-gateway.monitoring.svc.cluster.local:80
     encoding:
       codec: json
@@ -87,7 +104,7 @@ sinks:
   talos_kernel:
     type: loki
     inputs:
-      - kernel_hostname_transform
+      - talos_kernel_transform
     endpoint: http://loki-gateway.monitoring.svc.cluster.local:80
     encoding:
       codec: json
@@ -104,7 +121,7 @@ sinks:
   talos_service:
     type: loki
     inputs:
-      - service_hostname_transform
+      - talos_service_transform
     endpoint: http://loki-gateway.monitoring.svc.cluster.local:80
     encoding:
       codec: json
@@ -117,3 +134,14 @@ sinks:
       node: "{{ node }}"
       talos_service: '{{ "talos-service" }}'
       namespace: "talos:service"
+
+  unifi_kernel:
+    type: loki
+    inputs:
+      - unifi_kernel_transform
+    endpoint: http://loki-gateway.monitoring.svc.cluster.local:80
+    encoding:
+      codec: json
+    out_of_order_action: rewrite_timestamp
+    labels:
+      namespace: "unifi:kernel"

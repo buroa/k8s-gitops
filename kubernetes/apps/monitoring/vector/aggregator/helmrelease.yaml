@@ -72,6 +72,10 @@ spec:
             enabled: true
             port: 6002
             protocol: UDP
+          unifikernel:
+            enabled: true
+            port: 6003
+            protocol: UDP
     persistence:
       config:
         enabled: true
