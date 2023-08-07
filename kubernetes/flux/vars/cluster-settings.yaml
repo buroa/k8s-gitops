@@ -31,13 +31,13 @@ data:
   # Cilium L2 (LAN) Addresses
   CILIUM_L2_CIDR: "10.0.0.192/26"
   INGRESS_LB_IP: "10.0.0.254"
-  VECTOR_LB_IP: "10.0.0.253"
 
   # Cilium L3 (BGP) Addresses
   CILIUM_BGP_CIDR: "10.0.3.0/24"
   CILIUM_BGP_PEER: "10.0.3.1"
   TORRENT_LB_IP: "10.0.3.2"
   TAILSCALE_LB_IP: "10.0.3.3"
+  VECTOR_LB_IP: "10.0.3.4"
   BLOCKY_LB_IP: "10.0.3.53"
 
   # LAN

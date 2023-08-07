@@ -344,7 +344,7 @@ controlPlane:
           - ip: 10.0.0.7
             aliases:
               - pdu.${domainName}
-          - ip: 10.0.0.253
+          - ip: 10.0.3.4
             aliases:
               - vector.${domainName}
       time:
