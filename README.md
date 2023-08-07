@@ -93,14 +93,14 @@ GitRepository :: k8s-gitops
 
 ### Networking
 
-| Name                                              | CIDR                           |
-| ------------------------------------------------- | ------------------------------ |
-| Kubernetes nodes                                  | `10.0.0.0/24`                  |
-| Kubernetes pods                                   | `10.244.0.0/16`                |
-| Kubernetes services                               | `10.245.0.0/16`                |
-| Kubernetes external services (L2 or L3 w/ Cilium) | `10.0.0.192/26`, `10.0.3.0/24` |
+| Name                         | CIDR            |
+| ---------------------------- | --------------- |
+| Kubernetes nodes             | `10.0.0.0/24`   |
+| Kubernetes pods              | `10.244.0.0/16` |
+| Kubernetes services          | `10.245.0.0/16` |
+| Kubernetes external services | `10.0.3.0/24`   |
 
-- [cilium](https://github.com/cilium/cilium) is configured with the `io.cilium/lb-ipam-ips` annotation and `io.cilium/lb-ipam-layer` label to expose Kubernetes services with their own IP over L2 or L3 (BGP) which is configured on my router.
+- [cilium](https://github.com/cilium/cilium) is configured with the `io.cilium/lb-ipam-ips` annotation to expose Kubernetes services with their own IP over L3 (BGP), which is configured on my router. L2 (ARP) can also be announced in addition to L3 via the `io.cilium/lb-ipam-layer2` label.
 - [cloudflared](https://github.com/cloudflare/cloudflared) provides a [secure tunnel](https://www.cloudflare.com/products/tunnel) for [Cloudflare](https://www.cloudflare.com) to ingress into [ingress-nginx](https://github.com/kubernetes/ingress-nginx), my ingress controller.
 
 🔸 _[Click here](./kubernetes/apps/networking/cloudflared/app/configs/config.yaml) to see my `cloudflared` configuration._

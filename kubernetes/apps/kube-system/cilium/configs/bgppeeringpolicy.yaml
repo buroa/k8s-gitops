@@ -11,16 +11,12 @@ spec:
     - localASN: 64513
       exportPodCIDR: false
       serviceSelector:
-        matchLabels:
-          io.cilium/lb-ipam-layer: layer3
+        matchExpressions:
+          - {
+              key: thisFakeSelector,
+              operator: NotIn,
+              values: ["will-match-and-announce-all-services"],
+            }
       neighbors:
         - peerAddress: ${CILIUM_BGP_PEER}/32
           peerASN: 64513
----
-apiVersion: cilium.io/v2alpha1
-kind: CiliumLoadBalancerIPPool
-metadata:
-  name: l3-pool
-spec:
-  cidrs:
-    - cidr: ${CILIUM_BGP_CIDR}

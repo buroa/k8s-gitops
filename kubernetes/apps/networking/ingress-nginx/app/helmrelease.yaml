@@ -30,10 +30,9 @@ spec:
       service:
         annotations:
           io.cilium/lb-ipam-ips: ${INGRESS_LB_IP}
-          external-dns.alpha.kubernetes.io/hostname: |-
-            ingress.${PUBLIC_DOMAIN}
+          external-dns.alpha.kubernetes.io/hostname: ingress.${PUBLIC_DOMAIN}
         labels:
-          io.cilium/lb-ipam-layer: layer2
+          io.cilium/lb-ipam-layer2: "true"
       ingressClassResource:
         default: true
       config:

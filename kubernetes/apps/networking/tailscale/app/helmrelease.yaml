@@ -38,7 +38,7 @@ spec:
       SA_NAME: tailscale
       TS_USERSPACE: true
       TS_ROUTES: |-
-        ${LAN_SERVER_IP_CIDR},${CILIUM_BGP_CIDR}
+        ${LAN_SERVER_IP_CIDR},${CILIUM_LB_CIDR}
     envFrom:
       - secretRef:
           name: tailscale-secret
@@ -51,7 +51,7 @@ spec:
         annotations:
           io.cilium/lb-ipam-ips: ${TAILSCALE_LB_IP}
         labels:
-          io.cilium/lb-ipam-layer: layer3
+          io.cilium/lb-ipam-layer2: "true"
         ports:
           tailnet:
             enabled: true
