@@ -72,7 +72,6 @@ spec:
         existingClaim: media
         readOnly: true
     nodeSelector:
-      topology.kubernetes.io/zone: w
       intel.feature.node.kubernetes.io/gpu: "true"
     resources:
       requests:
