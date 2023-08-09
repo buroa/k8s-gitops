@@ -37,7 +37,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/n8n-io/n8n
-      tag: 1.2.0
+      tag: 1.2.1
     command: ["n8n"]
     env:
       GENERIC_TIMEZONE: ${TIMEZONE}
