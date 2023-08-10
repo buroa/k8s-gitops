@@ -30,7 +30,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/onedr0p/sonarr-develop
-      tag: 4.0.0.605@sha256:6c2f65c6110fda4f0faff8e3a9d6ae92332ca3728cf671ca5952f9ec8a84ae84
+      tag: 4.0.0.609@sha256:a932381b65102811a62254fca905cb14776ed922ebcaef8aa61d847f3f833084
     env:
       TZ: ${TIMEZONE}
       SONARR__INSTANCE_NAME: Sonarr
