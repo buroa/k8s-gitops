@@ -15,7 +15,7 @@ spec:
             email: *email
             apiTokenSecretRef:
               name: cloudflare-secret
-              key: CLOUDFLARE_APITOKEN
+              key: api-token
         selector:
           dnsZones:
             - ${PUBLIC_DOMAIN}

@@ -1,0 +1,11 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: flux-system
+resources:
+  - ./externalsecret.yaml
+  - ./helmrelease.yaml
+labels:
+  - pairs:
+      app.kubernetes.io/name: tf-controller
+      app.kubernetes.io/instance: tf-controller

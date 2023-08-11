@@ -19,6 +19,8 @@ spec:
       name: "*"
     - kind: OCIRepository
       name: "*"
+    - kind: Terraform
+      name: "*"
   exclusionList:
     - "error.*lookup github\\.com"
     - "error.*lookup raw\\.githubusercontent\\.com"

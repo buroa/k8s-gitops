@@ -1,6 +1,7 @@
 {
   "files.associations": {
     "*.json5": "jsonc",
+    "**/terraform/**/*.tf": "terraform",
     "**/kubernetes/**/*.sops.toml": "plaintext"
   },
   "material-icon-theme.folders.associations": {
@@ -9,6 +10,7 @@
     "charts": "kubernetes",
     "hack": "scripts",
     "repositories": "database",
+    "terraforms": "terraform",
     "talos": "core",
     "vars": "other",
     // namespaces
