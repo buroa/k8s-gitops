@@ -7,7 +7,7 @@ datasources:
     uid: blocky
     access: proxy
     url: postgres-ro.databases.svc.cluster.local:5432
-    user: {{ .BLOCKY_POSTGRESUSER }}
+    user: {{ .POSTGRES_USER }}
     jsonData:
       database: blocky
       sslmode: "disable"
@@ -18,4 +18,4 @@ datasources:
       postgresVersion: 1500
       timescaledb: false
     secureJsonData:
-      password: "{{ .BLOCKY_POSTGRESPASS }}"
+      password: "{{ .POSTGRES_PASS }}"
