@@ -6,8 +6,8 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: cluster-apps-rook-ceph-cluster
     - name: cluster-apps-volsync
+    - name: cluster-apps-rook-ceph-cluster
   path: ./kubernetes/apps/home/thelounge/app
   prune: true
   sourceRef:

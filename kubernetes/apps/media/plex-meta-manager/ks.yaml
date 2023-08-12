@@ -6,12 +6,12 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: cluster-apps-rook-ceph-cluster
-    - name: cluster-apps-volsync
     - name: cluster-apps-plex
-    - name: cluster-apps-tautulli
-    - name: cluster-apps-radarr
     - name: cluster-apps-sonarr
+    - name: cluster-apps-radarr
+    - name: cluster-apps-volsync
+    - name: cluster-apps-tautulli
+    - name: cluster-apps-rook-ceph-cluster
     - name: cluster-apps-external-secrets-stores
   path: ./kubernetes/apps/media/plex-meta-manager/app
   prune: true

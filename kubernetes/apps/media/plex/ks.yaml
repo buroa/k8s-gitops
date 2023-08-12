@@ -6,9 +6,9 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: cluster-apps-rook-ceph-cluster
     - name: cluster-apps-volsync
     - name: cluster-apps-media-pvc
+    - name: cluster-apps-rook-ceph-cluster
     - name: cluster-apps-external-secrets-stores
     - name: cluster-apps-intel-device-plugin-gpu
   path: ./kubernetes/apps/media/plex/app

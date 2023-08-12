@@ -6,9 +6,9 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
+    - name: cluster-apps-smtp-relay
     - name: cluster-apps-cloudnative-pg-cluster
     - name: cluster-apps-external-secrets-stores
-    - name: cluster-apps-smtp-relay
   path: ./kubernetes/apps/security/lldap/app
   prune: true
   sourceRef:

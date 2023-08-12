@@ -6,12 +6,12 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
+    - name: cluster-apps-volsync
     - name: cluster-apps-mosquitto
+    - name: cluster-apps-multus-configs
+    - name: cluster-apps-rook-ceph-cluster
     - name: cluster-apps-cloudnative-pg-cluster
     - name: cluster-apps-external-secrets-stores
-    - name: cluster-apps-rook-ceph-cluster
-    - name: cluster-apps-volsync
-    - name: cluster-apps-multus-configs
   path: ./kubernetes/apps/home/home-assistant/app
   prune: true
   sourceRef:

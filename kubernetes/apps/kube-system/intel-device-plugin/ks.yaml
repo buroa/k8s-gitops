@@ -24,8 +24,8 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: cluster-apps-intel-device-plugin-operator
     - name: cluster-apps-node-feature-discovery
+    - name: cluster-apps-intel-device-plugin-operator
   path: ./kubernetes/apps/kube-system/intel-device-plugin/gpu
   prune: true
   sourceRef:

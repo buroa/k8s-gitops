@@ -6,10 +6,10 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
+    - name: cluster-apps-volsync
+    - name: cluster-apps-rook-ceph-cluster
     - name: cluster-apps-cloudnative-pg-cluster
     - name: cluster-apps-external-secrets-stores
-    - name: cluster-apps-rook-ceph-cluster
-    - name: cluster-apps-volsync
   path: ./kubernetes/apps/home/n8n/app
   prune: true
   sourceRef:
