@@ -2,12 +2,12 @@
 relay_url = "wss://nostr-relay.${PUBLIC_DOMAIN}/"
 name = "buroa's nostr relay"
 description = "Hosted with ❤️ by buroa"
-pubkey = "{{ .NOSTR_PUBLICKEY }}"
+pubkey = "{{ .PUBLIC_KEY }}"
 contact = "mailto:${PUBLIC_EMAIL}"
 
 [database]
 engine = "postgres"
-connection = "postgresql://{{ .NOSTR_POSTGRESUSER }}:{{ .NOSTR_POSTGRESPASS }}@postgres-rw.databases.svc.cluster.local:5432/nostr"
+connection = "postgresql://{{ .POSTGRES_USER }}:{{ .POSTGRES_PASS }}@postgres-rw.databases.svc.cluster.local:5432/nostr"
 
 [network]
 address = "0.0.0.0"
