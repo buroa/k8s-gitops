@@ -1,11 +1,10 @@
-# WAF
-
 # Block Countries
 resource "cloudflare_filter" "block_countries" {
   zone_id     = data.cloudflare_zone.domain.id
   description = "Expression to block countries"
   expression  = "(not ip.geoip.country in {\"US\" \"CA\" \"GB\" \"NZ\" \"AU\"})"
 }
+
 resource "cloudflare_firewall_rule" "block_countries" {
   zone_id     = data.cloudflare_zone.domain.id
   description = "Firewall rule to block countries"
@@ -19,6 +18,7 @@ resource "cloudflare_filter" "bots" {
   description = "Expression to block bots determined by CF"
   expression  = "(cf.client.bot) or (cf.threat_score gt 14)"
 }
+
 resource "cloudflare_firewall_rule" "bots" {
   zone_id     = data.cloudflare_zone.domain.id
   description = "Firewall rule to block bots determined by CF"
@@ -32,6 +32,7 @@ resource "cloudflare_filter" "plex_notifications" {
   description = "Expression to block Plex notifications"
   expression  = "(http.host eq \"plex.ktwo.io\" and http.request.uri.path contains \"/:/eventsource/notifications\")"
 }
+
 resource "cloudflare_firewall_rule" "plex_notifications" {
   zone_id     = data.cloudflare_zone.domain.id
   description = "Firewall rule to block Plex notifications"
@@ -45,6 +46,7 @@ resource "cloudflare_filter" "domain_github_flux_webhook" {
   description = "Allow GitHub flux API"
   expression  = "(http.host eq \"flux-webhook.ktwo.io\" and ip.geoip.asnum eq 36459)"
 }
+
 resource "cloudflare_firewall_rule" "domain_github_flux_webhook" {
   zone_id     = data.cloudflare_zone.domain.id
   description = "Allow GitHub flux API"
@@ -52,10 +54,25 @@ resource "cloudflare_firewall_rule" "domain_github_flux_webhook" {
   action      = "allow"
 }
 
+# Accept nostr-relay
+resource "cloudflare_filter" "domain_nostr_relay" {
+  zone_id     = data.cloudflare_zone.domain.id
+  description = "Allow nostr-relay"
+  expression  = "(http.host eq \"nostr-relay.ktwo.io\")"
+}
+
+resource "cloudflare_firewall_rule" "domain_nostr_relay" {
+  zone_id     = data.cloudflare_zone.domain.id
+  description = "Allow nostr-relay"
+  filter_id   = cloudflare_filter.domain_nostr_relay.id
+  action      = "allow"
+}
+
 # Accept UptimeRobot Addresses
 data "http" "uptimerobot_ips" {
   url = "https://uptimerobot.com/inc/files/ips/IPv4.txt"
 }
+
 resource "cloudflare_list" "uptimerobot" {
   account_id  = module.onepassword_item.fields["account-id"]
   name        = "uptimerobot"
@@ -71,6 +88,7 @@ resource "cloudflare_list" "uptimerobot" {
     }
   }
 }
+
 resource "cloudflare_filter" "uptimerobot" {
   zone_id     = data.cloudflare_zone.domain.id
   description = "Expression to allow UptimeRobot IP addresses"
@@ -79,22 +97,10 @@ resource "cloudflare_filter" "uptimerobot" {
     cloudflare_list.uptimerobot,
   ]
 }
+
 resource "cloudflare_firewall_rule" "uptimerobot" {
   zone_id     = data.cloudflare_zone.domain.id
   description = "Firewall rule to allow UptimeRobot IP addresses"
   filter_id   = cloudflare_filter.uptimerobot.id
-  action      = "allow"
-}
-
-# Accept no-str relay
-resource "cloudflare_filter" "domain_nostr_relay" {
-  zone_id     = data.cloudflare_zone.domain.id
-  description = "Allow nostr-relay"
-  expression  = "(http.host eq \"nostr-relay.ktwo.io\")"
-}
-resource "cloudflare_firewall_rule" "domain_nostr_relay" {
-  zone_id     = data.cloudflare_zone.domain.id
-  description = "Allow nostr-relay"
-  filter_id   = cloudflare_filter.domain_nostr_relay.id
   action      = "allow"
 }

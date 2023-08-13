@@ -1,13 +1,11 @@
-# Init
-
 terraform {
   cloud {
-    hostname     = "app.terraform.io"
     organization = "buroa"
     workspaces {
       name = "terraform-cloudflare"
     }
   }
+
   required_providers {
     cloudflare = {
       source  = "cloudflare/cloudflare"
@@ -18,6 +16,7 @@ terraform {
       version = "3.4.0"
     }
   }
+
   required_version = ">= 1.3.0"
 }
 
