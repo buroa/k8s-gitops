@@ -31,8 +31,7 @@ spec:
       enabled: true
       className: nginx
       annotations:
-        hajimari.io/appName: Blackbox
-        hajimari.io/icon: material-symbols:network-ping
+        hajimari.io/enable: "false"
       hosts:
         - host: &host blackbox.${PUBLIC_DOMAIN}
           paths:

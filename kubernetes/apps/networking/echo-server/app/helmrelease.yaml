@@ -56,7 +56,7 @@ spec:
         enabled: true
         ingressClassName: nginx
         annotations:
-          hajimari.io/icon: video-input-antenna
+          hajimari.io/enable: "false"
           external-dns.alpha.kubernetes.io/target: ingress.${PUBLIC_DOMAIN}
         hosts:
           - host: &host echo-server.${PUBLIC_DOMAIN}
