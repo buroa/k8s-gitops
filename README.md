@@ -30,6 +30,8 @@ This is a mono repository for my home infrastructure and Kubernetes cluster. It 
 
 ## ⛵ Kubernetes
 
+There is a template over at [onedr0p/flux-cluster-template](https://github.com/onedr0p/flux-cluster-template) if you wanted to try and follow along with some of the practices I use here.
+
 ### Installation
 
 This semi hyper-converged cluster runs [Talos Linux](https://talos.dev), an immutable and ephemeral Linux distribution built for [Kubernetes](https://k8s.io), deployed on bare-metal [Apple Mac Mini's](https://apple.com/mac-mini). [Rook](https://rook.io) then provides my workloads with persistent block, object, and file storage; while a seperate server provides file storage for my media.
@@ -77,19 +79,21 @@ Below is a a high level look at the layout of how my directory structure with Fl
 GitRepository :: k8s-gitops
     Kustomization :: cluster
         Kustomization :: cluster-apps
-            Kustomization :: cluster-apps-authelia
-                DependsOn:
-                    Kustomization :: cluster-apps-lldap
-                    Kustomization :: cluster-apps-cloudnative-pg-cluster
-                HelmRelease :: authelia
-            Kustomization :: cluster-apps-lldap
-                HelmRelease :: lldap
             Kustomization :: cluster-apps-cloudnative-pg
                 HelmRelease :: cloudnative-pg
             Kustomization :: cluster-apps-cloudnative-pg-cluster
                 DependsOn:
                     Kustomization :: cluster-apps-cloudnative-pg
                 Cluster :: postgres
+            Kustomization :: cluster-apps-lldap
+                HelmRelease :: lldap
+                DependsOn:
+                    Kustomization :: cluster-apps-cloudnative-pg-cluster
+            Kustomization :: cluster-apps-authelia
+                DependsOn:
+                    Kustomization :: cluster-apps-lldap
+                    Kustomization :: cluster-apps-cloudnative-pg-cluster
+                HelmRelease :: authelia
 ```
 
 ### Networking
