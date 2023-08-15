@@ -18,6 +18,7 @@ module.exports = {
     "http://prowlarr.media.svc.cluster.local:9696/15/api?apikey={{ .PROWLARR_APIKEY }}", // st
     "http://prowlarr.media.svc.cluster.local:9696/16/api?apikey={{ .PROWLARR_APIKEY }}", // blu
     "http://prowlarr.media.svc.cluster.local:9696/17/api?apikey={{ .PROWLARR_APIKEY }}", // ptp
+    "http://prowlarr.media.svc.cluster.local:9696/43/api?apikey={{ .PROWLARR_APIKEY }}", // hds
   ],
 
   action: "inject",
