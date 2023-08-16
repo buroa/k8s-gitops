@@ -69,7 +69,8 @@ spec:
       ZIGBEE2MQTT_CONFIG_PERMIT_JOIN: false
       ZIGBEE2MQTT_CONFIG_SERIAL_BAUDRATE: 115200
       ZIGBEE2MQTT_CONFIG_SERIAL_DISABLE_LED: false
-      ZIGBEE2MQTT_CONFIG_SERIAL_PORT: /dev/ttyACM0
+      ZIGBEE2MQTT_CONFIG_SERIAL_PORT: &device |-
+        /dev/serial/by-id/usb-dresden_elektronik_ingenieurtechnik_GmbH_ConBee_II_DE2218307-if00
       ZIGBEE2MQTT_CONFIG_SERIAL_ADAPTER: deconz
     envFrom:
       - secretRef:
@@ -102,13 +103,13 @@ spec:
       usb:
         enabled: true
         type: hostPath
-        hostPath: /dev/ttyACM0
+        hostPath: *device
         hostPathType: CharDevice
+    nodeSelector:
+      zigbee.feature.node.kubernetes.io/conbee: "true"
     resources:
       requests:
         cpu: 10m
         memory: 100Mi
       limits:
         memory: 500Mi
-    nodeSelector:
-      zigbee.feature.node.kubernetes.io/conbee: "true"
