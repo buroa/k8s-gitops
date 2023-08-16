@@ -3,7 +3,7 @@ apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
   name: thelounge-restic
-  namespace: media
+  namespace: home
 spec:
   secretStoreRef:
     kind: ClusterSecretStore
@@ -26,7 +26,7 @@ apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
   name: thelounge
-  namespace: media
+  namespace: home
 spec:
   sourcePVC: thelounge-config
   trigger:
