@@ -30,6 +30,7 @@ spec:
       tag: v0.2.0@sha256:c77b4e263ff9da9a5054d9f1720f934e68ab202e00891da230b63c4c8c8e5d42
     args:
       - reannounce
+      - --process-seeding
       - -s
       - qbittorrent.media.svc.cluster.local
       - -p
