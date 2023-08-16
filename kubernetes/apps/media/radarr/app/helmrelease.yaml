@@ -99,6 +99,15 @@ spec:
       media:
         enabled: true
         existingClaim: media
+    affinity:
+      podAntiAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+                - key: app.kubernetes.io/name
+                  operator: In
+                  values: ["sonarr"]
+            topologyKey: kubernetes.io/hostname
     resources:
       requests:
         cpu: 10m

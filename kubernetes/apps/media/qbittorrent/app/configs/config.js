@@ -28,7 +28,7 @@ module.exports = {
 
   matchMode: "safe",
   skipRecheck: true,
-  linkType: "symlink",
+  linkType: "hardlink",
   linkDir: "/media/downloads/torrents/xseeds",
 
   // I have sonarr, radarr, and prowlarr categories set in qBittorrent

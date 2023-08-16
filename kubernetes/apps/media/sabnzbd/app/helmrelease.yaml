@@ -95,6 +95,20 @@ spec:
       media:
         enabled: true
         existingClaim: media
+      incomplete:
+        enabled: true
+        type: emptyDir
+    nodeSelector:
+      topology.kubernetes.io/zone: w
+    affinity:
+      podAntiAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+                - key: app.kubernetes.io/name
+                  operator: In
+                  values: ["qbittorrent"]
+            topologyKey: kubernetes.io/hostname
     resources:
       requests:
         cpu: 10m

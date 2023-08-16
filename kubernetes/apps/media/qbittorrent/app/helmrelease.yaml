@@ -99,6 +99,9 @@ spec:
       media:
         enabled: true
         existingClaim: media
+      incomplete:
+        enabled: true
+        type: emptyDir
       scripts:
         enabled: true
         type: configMap
@@ -114,6 +117,17 @@ spec:
         mountPath: /config/config.js
         subPath: config.js
         readOnly: true
+    nodeSelector:
+      topology.kubernetes.io/zone: w
+    affinity:
+      podAntiAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+                - key: app.kubernetes.io/name
+                  operator: In
+                  values: ["sabnzbd"]
+            topologyKey: kubernetes.io/hostname
     resources:
       requests:
         memory: 250Mi
