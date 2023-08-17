@@ -21,6 +21,9 @@ module.exports = {
     "http://prowlarr.media.svc.cluster.local:9696/43/api?apikey={{ .PROWLARR_APIKEY }}", // hds
   ],
 
+  rssCadence: "15 minutes",
+  searchCadence: "7 days",
+
   action: "inject",
   includeEpisodes: true,
   includeNonVideos: true,
