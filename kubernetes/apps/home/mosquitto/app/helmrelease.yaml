@@ -27,7 +27,7 @@ spec:
   values:
     initContainers:
       01-init-config:
-        image: public.ecr.aws/docker/library/eclipse-mosquitto:2.0.16
+        image: public.ecr.aws/docker/library/eclipse-mosquitto:2.0.15
         imagePullPolicy: IfNotPresent
         command: ["/bin/sh", "-c"]
         args:
@@ -42,7 +42,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: public.ecr.aws/docker/library/eclipse-mosquitto
-      tag: 2.0.16
+      tag: 2.0.15
     service:
       main:
         ports:
