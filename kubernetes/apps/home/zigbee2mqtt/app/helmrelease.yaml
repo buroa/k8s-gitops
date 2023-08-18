@@ -67,7 +67,7 @@ spec:
             name: mosquitto-secret
             key: password
       ZIGBEE2MQTT_CONFIG_PERMIT_JOIN: false
-      ZIGBEE2MQTT_CONFIG_SERIAL_BAUDRATE: 115200
+      ZIGBEE2MQTT_CONFIG_SERIAL_BAUDRATE: 38400
       ZIGBEE2MQTT_CONFIG_SERIAL_DISABLE_LED: false
       ZIGBEE2MQTT_CONFIG_SERIAL_PORT: &device |-
         /dev/serial/by-id/usb-dresden_elektronik_ingenieurtechnik_GmbH_ConBee_II_DE2218307-if00
