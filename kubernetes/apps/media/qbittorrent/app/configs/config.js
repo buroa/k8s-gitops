@@ -4,7 +4,8 @@
 // External program on finished: /scripts/xseed.sh "%F"
 
 module.exports = {
-  delay: 30,
+  delay: 10,
+  rssCadence: "15 minutes",
   qbittorrentUrl: "http://localhost:8080",
 
   torznab: [
@@ -20,9 +21,6 @@ module.exports = {
     "http://prowlarr.media.svc.cluster.local:9696/17/api?apikey={{ .PROWLARR_APIKEY }}", // ptp
     "http://prowlarr.media.svc.cluster.local:9696/43/api?apikey={{ .PROWLARR_APIKEY }}", // hds
   ],
-
-  rssCadence: "15 minutes",
-  searchCadence: "7 days",
 
   action: "inject",
   includeEpisodes: true,
