@@ -28,12 +28,13 @@ spec:
     controller:
       type: cronjob
       cronjob:
-        schedule: "@hourly"
+        schedule: "@daily"
     image:
       repository: ghcr.io/buroa/qbittools
       tag: master@sha256:047fd85412c80dfa971a6725a1825af556b92fab1961c1cd0a4fdcec02b9a77c
     args:
       - orphaned
+      - --confirm
       - -s
       - "qbittorrent.media.svc.cluster.local"
       - -p
