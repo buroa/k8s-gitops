@@ -30,7 +30,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/tailscale/tailscale
-      tag: v1.46.1
+      tag: v1.48.1
     env:
       TZ: ${TIMEZONE}
       PORT: &port ${TAILNET_PUBLIC_PORT}
