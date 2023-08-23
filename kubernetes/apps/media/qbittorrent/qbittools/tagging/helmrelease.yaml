@@ -40,6 +40,7 @@ spec:
       - --last-activity
       - --trackers
       - --tracker-down
+      - --duplicates
       - -s
       - "qbittorrent.media.svc.cluster.local"
       - -p
