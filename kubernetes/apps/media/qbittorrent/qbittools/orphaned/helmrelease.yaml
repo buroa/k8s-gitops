@@ -31,7 +31,7 @@ spec:
         schedule: "@daily"
     image:
       repository: ghcr.io/buroa/qbittools
-      tag: master@sha256:5c3e01bdb0b11496eef3970d22d7a74848c7d417882c158e50fb002b58d3a9eb
+      tag: master@sha256:f88ea4cd55329badc700f48028bdcc8f54849f4c064f1242ef524c180d074e43
     args:
       - orphaned
       - --confirm
