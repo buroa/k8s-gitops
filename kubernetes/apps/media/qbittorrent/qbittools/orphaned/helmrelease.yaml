@@ -35,6 +35,8 @@ spec:
     args:
       - orphaned
       - --confirm
+      - --ignore-patterns
+      - "*_unpackerr */prowlarr/*"
       - -s
       - "qbittorrent.media.svc.cluster.local"
       - -p
