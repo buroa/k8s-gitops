@@ -132,6 +132,7 @@ spec:
         serviceMonitorSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false
         probeSelectorNilUsesHelmValues: false
+        scrapeConfigSelectorNilUsesHelmValues: false
         enableAdminAPI: true
         walCompression: true
         enableFeatures:
@@ -143,7 +144,7 @@ spec:
           objectStorageConfig:
             name: thanos-objstore-secret
             key: objstore.yml
-        retention: 7d
+        retention: 2d
         retentionSize: 15GB
         storageSpec:
           volumeClaimTemplate:
