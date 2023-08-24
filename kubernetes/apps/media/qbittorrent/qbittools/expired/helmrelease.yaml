@@ -31,27 +31,10 @@ spec:
         schedule: "0 0 2-30/2 * *" # even days of the month
     image:
       repository: ghcr.io/buroa/qbittools
-      tag: v0.5.0@sha256:62d3dd0856524bea22171bf51cc431372f1d6901672a07e61f5a695ff24a8de2
+      tag: v0.6.0@sha256:8340ba83710498f5dfc7f800c86b0b5391bef99ae6a1a261e5a4c635ff0abfaf
     args:
       - expired
-      - --indexer
-      - blutopia
-      - --indexer
-      - filelist
-      - --indexer
-      - hd-space
-      - --indexer
-      - hd-torrents
-      - --indexer
-      - iptorrents
-      - --indexer
-      - privatehd
-      - --indexer
-      - scenetime
-      - --indexer
-      - torrentleech
-      - --indexer
-      - torrentseeds
+      - --all-indexers
       - --ignore-category
       - prowlarr
       - -s
