@@ -51,7 +51,7 @@ spec:
         enabled: true
         ingressClassName: nginx
         annotations:
-          hajimari.io/icon: simple-icons:node-red
+          hajimari.io/icon: cib:node-red
         hosts:
           - host: &host nr.${PUBLIC_DOMAIN}
             paths:
