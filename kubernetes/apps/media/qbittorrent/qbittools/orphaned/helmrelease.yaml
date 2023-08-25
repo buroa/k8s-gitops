@@ -28,10 +28,10 @@ spec:
     controller:
       type: cronjob
       cronjob:
-        schedule: "0 0 1-31/2 * *" # odd days of the month
+        schedule: "0 6 1-31/2 * *" # odd days of the month
     image:
       repository: ghcr.io/buroa/qbittools
-      tag: v0.7.0
+      tag: v0.8.0
     args:
       - orphaned
       - --ignore-pattern
