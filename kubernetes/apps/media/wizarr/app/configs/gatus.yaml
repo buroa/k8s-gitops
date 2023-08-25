@@ -1,7 +1,7 @@
 ---
 endpoints:
   - name: wizarr
-    url: https://invite.${PUBLIC_DOMAIN}/setup
+    url: https://invite.${PUBLIC_DOMAIN}
     interval: 1m
     client:
       dns-resolver: tcp://1.1.1.1:53

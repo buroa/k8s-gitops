@@ -16,14 +16,6 @@ access_control:
   networks:
     - name: internal
       networks: ["10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]
-  rules:
-    - domain: ["invite.${PUBLIC_DOMAIN}"]
-      resources:
-        - "^/join(/.*)?$"
-        - "^/j(/.*)?$"
-        - "^/setup(/.*)?$"
-        - "^/static(/.*)?$"
-      policy: bypass
 
 identity_providers:
   oidc:

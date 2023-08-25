@@ -30,8 +30,7 @@ spec:
       tag: 3.0.1
     env:
       TZ: ${TIMEZONE}
-      APP_URL: https://invite.${PUBLIC_DOMAIN}
-      DISABLE_BUILTIN_AUTH: true
+      APP_URL: invite.${PUBLIC_DOMAIN}
     service:
       main:
         ports:
@@ -43,11 +42,6 @@ spec:
         ingressClassName: nginx
         annotations:
           hajimari.io/icon: mdi:invite
-          nginx.ingress.kubernetes.io/auth-method: GET
-          nginx.ingress.kubernetes.io/auth-url: http://authelia.security.svc.cluster.local:9091/api/verify
-          nginx.ingress.kubernetes.io/auth-signin: https://auth.${PUBLIC_DOMAIN}?rm=$request_method
-          nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
-          nginx.ingress.kubernetes.io/auth-snippet: proxy_set_header X-Forwarded-Method $request_method;
           external-dns.alpha.kubernetes.io/target: ingress.${PUBLIC_DOMAIN}
         hosts:
           - host: &host invite.${PUBLIC_DOMAIN}
