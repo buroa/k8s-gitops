@@ -6,6 +6,15 @@ resources:
   - ./pvc.yaml
   - ./helmrelease.yaml
   - ./volsync.yaml
+configMapGenerator:
+  - name: wizarr-gatus-ep
+    files:
+      - ./configs/gatus.yaml
+    options:
+      labels:
+        gatus.io/enabled: "true"
+generatorOptions:
+  disableNameSuffixHash: true
 labels:
   - pairs:
       app.kubernetes.io/name: wizarr
