@@ -34,9 +34,9 @@ spec:
       tag: v0.8.1
     args:
       - orphaned
-      - --ignore-pattern
+      - --exclude-pattern
       - "*_unpackerred"
-      - --ignore-pattern
+      - --exclude-pattern
       - "*/prowlarr/*"
       - -s
       - "qbittorrent.media.svc.cluster.local"
