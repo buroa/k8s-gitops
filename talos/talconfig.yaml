@@ -6,8 +6,8 @@ clusterPodNets:
 clusterSvcNets:
   - 10.245.0.0/16
 
-talosVersion: v1.4.8
-kubernetesVersion: 1.27.4
+talosVersion: v1.5.1
+kubernetesVersion: 1.28.1
 endpoint: https://k8s.${domainName}:6443
 
 additionalApiServerCertSans:
@@ -291,21 +291,21 @@ controlPlane:
             disabled: true
     machine: &machine
       install:
-        image: ghcr.io/buroa/talos-installer:v1.4.8-98a6de2-apple
+        image: ghcr.io/buroa/installer:v1.5.1
         extensions:
           - image: ghcr.io/siderolabs/i915-ucode:20230804
           - image: ghcr.io/siderolabs/intel-ucode:20230808
         legacyBIOSSupport: true
         extraKernelArgs:
           - talos.logging.kernel=udp://vector.${domainName}:6001/
+      features:
+        kubePrism:
+          enabled: true
+          port: 7445
       logging:
         destinations:
           - endpoint: udp://vector.${domainName}:6002/
             format: json_lines
-      kernel:
-        modules:
-          - name: applesmc
-          - name: coretemp
       sysfs:
         devices.system.cpu.intel_pstate.no_turbo: 1
         devices.system.cpu.cpu0.cpufreq.scaling_governor: powersave
