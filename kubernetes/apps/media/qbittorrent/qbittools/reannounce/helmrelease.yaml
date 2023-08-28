@@ -31,9 +31,9 @@ spec:
     args:
       - reannounce
       - --process-seeding
-      - -s
+      - --server
       - qbittorrent.media.svc.cluster.local
-      - -p
+      - --port
       - "8080"
     service:
       main:

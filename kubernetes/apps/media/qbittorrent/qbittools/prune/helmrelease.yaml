@@ -48,9 +48,9 @@ spec:
       - site:passthepopcorn
       - --exclude-tag
       - site:uhdbits
-      - -s
-      - "qbittorrent.media.svc.cluster.local"
-      - -p
+      - --server
+      - qbittorrent.media.svc.cluster.local
+      - --port
       - "8080"
     service:
       main:

@@ -5,7 +5,6 @@
 
 module.exports = {
   delay: 15,
-  rssCadence: "15 minutes",
   qbittorrentUrl: "http://localhost:8080",
 
   torznab: [

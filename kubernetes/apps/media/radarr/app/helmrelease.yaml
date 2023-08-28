@@ -40,9 +40,10 @@ spec:
       tag: 5.0.0.7952@sha256:74bcce7d3add31e3897d254b6cccfc234c1546a7cc21e71c77a8adf51980615b
     env:
       TZ: ${TIMEZONE}
+      RADARR__AUTHENTICATION_METHOD: External
+      RADARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
       RADARR__INSTANCE_NAME: Radarr
       RADARR__PORT: &port 7878
-      RADARR__APPLICATION_URL: https://radarr.${PUBLIC_DOMAIN}
       RADARR__LOG_LEVEL: info
       RADARR__THEME: dark
     envFrom:

@@ -40,9 +40,9 @@ spec:
       - --not-working
       - --sites
       - --unregistered
-      - -s
-      - "qbittorrent.media.svc.cluster.local"
-      - -p
+      - --server
+      - qbittorrent.media.svc.cluster.local
+      - --port
       - "8080"
     service:
       main:
