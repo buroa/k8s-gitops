@@ -101,7 +101,7 @@ spec:
         memory: 500Mi
     sidecars:
       config-sync:
-        image: ghcr.io/kiwigrid/k8s-sidecar:1.25.0
+        image: ghcr.io/kiwigrid/k8s-sidecar:1.25.1
         imagePullPolicy: IfNotPresent
         env:
           - { name: FOLDER, value: /config }
