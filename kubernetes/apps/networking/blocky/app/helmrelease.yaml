@@ -39,7 +39,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/0xerr0r/blocky
-      tag: v0.21
+      tag: v0.22
     env:
       TZ: ${TIMEZONE}
     service:
