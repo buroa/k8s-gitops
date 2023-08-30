@@ -6,5 +6,5 @@ resources:
   - ./helmrelease.yaml
 labels:
   - pairs:
-      app.kubernetes.io/name: qbittools-tagging
-      app.kubernetes.io/instance: qbittools-tagging
+      app.kubernetes.io/name: qbittools-manage
+      app.kubernetes.io/instance: qbittools-manage

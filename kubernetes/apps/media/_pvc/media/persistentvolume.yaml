@@ -4,9 +4,9 @@ kind: PersistentVolume
 metadata:
   name: media
 spec:
+  storageClassName: media
   capacity:
     storage: 1Mi
-  storageClassName: nfs
   accessModes:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
@@ -15,13 +15,8 @@ spec:
     path: /volume1/media
   mountOptions:
     - nfsvers=4.1
-    - tcp
-    - intr
+    - nconnect=8
     - hard
     - noatime
-    - nodiratime
-    - nocto
-    - noacl
-    - nconnect=8
     - rsize=131072
     - wsize=131072

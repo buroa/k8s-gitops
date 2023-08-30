@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: cluster-apps-media-pvc
+    - name: cluster-apps-pvc-media
     - name: cluster-apps-rook-ceph-cluster
     - name: cluster-apps-cloudnative-pg-cluster
     - name: cluster-apps-external-secrets-stores

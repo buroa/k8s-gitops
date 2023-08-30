@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: qbittools-expired
+  name: qbittorrent-manage
   namespace: media
 spec:
   interval: 30m
@@ -28,7 +28,36 @@ spec:
     controller:
       type: cronjob
       cronjob:
-        schedule: "30 * * * *"
+        schedule: "@hourly"
+    initContainers:
+      01-tag:
+        image: ghcr.io/buroa/qbittools:v0.9.0
+        imagePullPolicy: IfNotPresent
+        args:
+          - tagging
+          - --added-on
+          - --expired
+          - --last-activity
+          - --not-working
+          - --sites
+          - --unregistered
+          - --server
+          - qbittorrent.media.svc.cluster.local
+          - --port
+          - "8080"
+      02-unregistered:
+        image: ghcr.io/buroa/qbittools:v0.9.0
+        imagePullPolicy: IfNotPresent
+        args:
+          - prune
+          - --include-tag
+          - unregistered
+          - --exclude-tag
+          - expired
+          - --server
+          - qbittorrent.media.svc.cluster.local
+          - --port
+          - "8080"
     image:
       repository: ghcr.io/buroa/qbittools
       tag: v0.9.0
@@ -38,6 +67,8 @@ spec:
       - prowlarr
       - --include-tag
       - expired
+      - --exclude-tag
+      - activity:24h
       - --exclude-tag
       - site:beyond-hd
       - --exclude-tag
