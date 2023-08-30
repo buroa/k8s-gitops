@@ -13,13 +13,14 @@ module.exports = {
     "http://prowlarr.media.svc.cluster.local:9696/5/api?apikey={{ .PROWLARR_APIKEY }}", // hdt
     "http://prowlarr.media.svc.cluster.local:9696/6/api?apikey={{ .PROWLARR_APIKEY }}", // ts
     "http://prowlarr.media.svc.cluster.local:9696/7/api?apikey={{ .PROWLARR_APIKEY }}", // mtv
-    "http://prowlarr.media.svc.cluster.local:9696/8/api?apikey={{ .PROWLARR_APIKEY }}", // uhd
+    "http://prowlarr.media.svc.cluster.local:9696/8/api?apikey={{ .PROWLARR_APIKEY }}", // uhdb
     "http://prowlarr.media.svc.cluster.local:9696/11/api?apikey={{ .PROWLARR_APIKEY }}", // fl
     "http://prowlarr.media.svc.cluster.local:9696/15/api?apikey={{ .PROWLARR_APIKEY }}", // st
     "http://prowlarr.media.svc.cluster.local:9696/16/api?apikey={{ .PROWLARR_APIKEY }}", // blu
     "http://prowlarr.media.svc.cluster.local:9696/17/api?apikey={{ .PROWLARR_APIKEY }}", // ptp
     "http://prowlarr.media.svc.cluster.local:9696/43/api?apikey={{ .PROWLARR_APIKEY }}", // hds
     "http://prowlarr.media.svc.cluster.local:9696/44/api?apikey={{ .PROWLARR_APIKEY }}", // phd
+    "http://prowlarr.media.svc.cluster.local:9696/77/api?apikey={{ .PROWLARR_APIKEY }}", // ant
   ],
 
   action: "inject",
