@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: qbittools-orphaned
+  name: qbittools-expired
   namespace: media
 spec:
   interval: 30m
@@ -28,16 +28,24 @@ spec:
     controller:
       type: cronjob
       cronjob:
-        schedule: "@daily"
+        schedule: "30 * * * *"
     image:
       repository: ghcr.io/buroa/qbittools
       tag: v0.9.0
     args:
-      - orphaned
-      - --exclude-pattern
-      - "*_unpackerred"
-      - --exclude-pattern
-      - "*/prowlarr/*"
+      - prune
+      - --exclude-category
+      - prowlarr
+      - --include-tag
+      - expired
+      - --exclude-tag
+      - site:beyond-hd
+      - --exclude-tag
+      - site:broadcasthenet
+      - --exclude-tag
+      - site:passthepopcorn
+      - --exclude-tag
+      - site:uhdbits
       - --server
       - qbittorrent.media.svc.cluster.local
       - --port
@@ -48,13 +56,6 @@ spec:
     podSecurityContext:
       runAsUser: 568
       runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: OnRootMismatch
-      supplementalGroups: [10000]
-    persistence:
-      media:
-        enabled: true
-        existingClaim: media
     resources:
       requests:
         memory: 250Mi
