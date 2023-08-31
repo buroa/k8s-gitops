@@ -21,6 +21,7 @@ module.exports = {
     "http://prowlarr.media.svc.cluster.local:9696/43/api?apikey={{ .PROWLARR_APIKEY }}", // hds
     "http://prowlarr.media.svc.cluster.local:9696/44/api?apikey={{ .PROWLARR_APIKEY }}", // phd
     "http://prowlarr.media.svc.cluster.local:9696/77/api?apikey={{ .PROWLARR_APIKEY }}", // ant
+    "http://prowlarr.media.svc.cluster.local:9696/78/api?apikey={{ .PROWLARR_APIKEY }}", // td
   ],
 
   action: "inject",
@@ -33,12 +34,12 @@ module.exports = {
   linkType: "hardlink",
   linkDir: "/media/downloads/torrents/xseeds",
 
-  // I have sonarr, radarr, and prowlarr categories set in qBittorrent
+  // I have sonarr, radarr, and manual categories set in qBittorrent
   // The save paths for them are set to the following:
   dataDirs: [
     "/media/downloads/torrents/sonarr",
     "/media/downloads/torrents/radarr",
-    "/media/downloads/torrents/prowlarr",
+    "/media/downloads/torrents/manual",
   ],
 
   outputDir: "/config/xseeds",

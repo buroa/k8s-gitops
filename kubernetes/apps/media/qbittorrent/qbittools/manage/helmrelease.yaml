@@ -64,7 +64,7 @@ spec:
     args:
       - prune
       - --exclude-category
-      - prowlarr
+      - manual
       - --include-tag
       - expired
       - --exclude-tag
@@ -75,8 +75,6 @@ spec:
       - site:broadcasthenet
       - --exclude-tag
       - site:passthepopcorn
-      - --exclude-tag
-      - site:uhdbits
       - --server
       - qbittorrent.media.svc.cluster.local
       - --port

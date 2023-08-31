@@ -37,7 +37,7 @@ spec:
       - --exclude-pattern
       - "*_unpackerred"
       - --exclude-pattern
-      - "*/prowlarr/*"
+      - "*/manual/*"
       - --server
       - qbittorrent.media.svc.cluster.local
       - --port
