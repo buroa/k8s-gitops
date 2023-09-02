@@ -25,12 +25,19 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    rollOutCiliumPods: true
     autoDirectNodeRoutes: true
-    cni:
-      exclusive: false
+    bandwidthManager:
+      enabled: true
+      bbr: true
+    bpf:
+      hostRouting: true
+      lbBypassFIBLookup: true
+      masquerade: true
+      tproxy: true
     bgpControlPlane:
       enabled: true
+    cni:
+      exclusive: false
     cgroup:
       autoMount:
         enabled: false
@@ -40,6 +47,10 @@ spec:
       id: 1
     containerRuntime:
       integration: containerd
+    dashboards:
+      enabled: true
+      annotations:
+        grafana_folder: Cilium
     endpointRoutes:
       enabled: true
     hubble:
@@ -78,22 +89,18 @@ spec:
           tls:
             - hosts:
                 - *host
-    prometheus:
-      enabled: true
-      serviceMonitor:
-        enabled: true
-        trustCRDsExist: true
-    dashboards:
-      enabled: true
-      annotations:
-        grafana_folder: Cilium
     ipam:
       mode: kubernetes
     ipv4NativeRoutingCIDR: ${CLUSTER_POD_IP_CIDR}
     k8sServiceHost: localhost
     k8sServicePort: 7445
-    kubeProxyReplacement: strict
+    kubeProxyReplacement: true
     kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
+    l2announcements:
+      enabled: true
+      leaseDuration: 120s
+      leaseRenewDeadline: 60s
+      leaseRetryPeriod: 1s
     loadBalancer:
       algorithm: maglev
       mode: dsr
@@ -109,6 +116,12 @@ spec:
         enabled: true
         annotations:
           grafana_folder: Cilium
+    prometheus:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+        trustCRDsExist: true
+    rollOutCiliumPods: true
     securityContext:
       privileged: false
       capabilities:
@@ -136,14 +149,4 @@ spec:
           - NET_ADMIN
           - SYS_ADMIN
           - SYS_RESOURCE
-    bpf:
-      hostRouting: true
-      lbBypassFIBLookup: true
-      masquerade: true
-      tproxy: true
-    l2announcements:
-      enabled: true
-      leaseDuration: 120s
-      leaseRenewDeadline: 60s
-      leaseRetryPeriod: 1s
     tunnel: disabled
