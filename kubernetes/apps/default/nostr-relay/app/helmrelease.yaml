@@ -39,7 +39,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: docker.io/scsibug/nostr-rs-relay
-      tag: 0.8.9
+      tag: 0.8.13
     service:
       main:
         ports:
