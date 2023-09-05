@@ -114,6 +114,12 @@ GitRepository :: k8s-gitops
 
 ## 🌐 DNS
 
+<details>
+  <summary>Click to see my high level network diagram</summary>
+
+  <img src="assets/dns.svg" align="center" alt="dns"/>
+</details>
+
 ### Internal DNS
 
 The UDM Pro resolves DNS queries via [blocky](https://github.com/0xERR0R/blocky), which provides first-hop DNS resolution for my network. `Blocky` forwards requests targeted towards my public domain via [k8s-gateway](https://github.com/ori-edge/k8s_gateway). Last-hop DNS resolution resolves via [1.1.1.1](https://1.1.1.1/dns/), which is configured as my primary DNS upstream provider. If for any reason `blocky` becomes unavailable, the UDM Pro is configured to fallback to `1.1.1.1` until blocky becomes available again.
@@ -127,6 +133,12 @@ The UDM Pro resolves DNS queries via [blocky](https://github.com/0xERR0R/blocky)
 ---
 
 ## 🔧 Hardware
+
+<details>
+  <summary>Click to see my rack</summary>
+
+  <img src="assets/rack.png" align="center" alt="rack"/>
+</details>
 
 | Device                      | Count | OS Disk Size | Data Disk Size           | Ram  | Operating System | Purpose            |
 | --------------------------- | ----- | ------------ | ------------------------ | ---- | ---------------- | ------------------ |
