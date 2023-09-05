@@ -40,6 +40,9 @@ spec:
       tag: 2023.8.4@sha256:60777ed79b9cde58621c83fcb8ce8d4d4654bbe65cfeb048b4f5afe91fb407ac
     env:
       TZ: ${TIMEZONE}
+      HASS_UNIT_SYSTEM: imperial
+      HASS_PURGE_KEEP_DAYS: 30
+      HASS_EXTERNAL_URL: https://hass.${PUBLIC_DOMAIN}
       HASS_TRUSTED_PROXIES: ${CLUSTER_POD_IP_CIDR}
     envFrom:
       - secretRef:
