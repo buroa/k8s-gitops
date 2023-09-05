@@ -37,7 +37,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/autobrr/autobrr
-      tag: develop@sha256:37f41f40033b7cd506a0c5b5b15af3149b605ed54b4f04f547af917908ca5eab
+      tag: develop@sha256:a0d07b19b469f482c4e847300e125340eb54ae1cd97ac8ed5044a014b41d6e5d
     env:
       AUTOBRR__CHECKFORUPDATES: false
       AUTOBRR__HOST: 0.0.0.0
