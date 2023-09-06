@@ -95,9 +95,6 @@ spec:
       media:
         enabled: true
         existingClaim: media
-      incomplete:
-        enabled: true
-        type: emptyDir
     nodeSelector:
       topology.kubernetes.io/zone: w
     affinity:

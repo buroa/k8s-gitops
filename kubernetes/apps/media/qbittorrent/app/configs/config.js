@@ -32,7 +32,7 @@ module.exports = {
   matchMode: "safe",
   skipRecheck: true,
   linkType: "hardlink",
-  linkDir: "/media/downloads/torrents/xseeds",
+  linkDir: "/media/downloads/torrents/xseed",
 
   // I have sonarr, radarr, and manual categories set in qBittorrent
   // The save paths for them are set to the following:
@@ -42,6 +42,6 @@ module.exports = {
     "/media/downloads/torrents/manual",
   ],
 
-  outputDir: "/config/xseeds",
+  outputDir: "/config/xseed",
   torrentDir: "/config/qBittorrent/BT_backup",
 };

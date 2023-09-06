@@ -99,9 +99,6 @@ spec:
       media:
         enabled: true
         existingClaim: media
-      incomplete:
-        enabled: true
-        type: emptyDir
       scripts:
         enabled: true
         type: configMap
