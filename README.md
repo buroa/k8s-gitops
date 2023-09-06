@@ -24,7 +24,7 @@ _... automated via [Flux](https://fluxcd.io), [Renovate](https://github.com/reno
 
 ## 📖 Overview
 
-This is a mono repository for my home infrastructure and Kubernetes cluster. It is deployed and managed using tools like [Talos](https://talos.dev/), [Kubernetes](https://kubernetes.io/), [Flux](https://github.com/fluxcd/flux2), [Terraform](https://www.terraform.io/), [Renovate](https://github.com/renovatebot/renovate) and [GitHub Actions](https://github.com/features/actions).
+This is a repository for my home infrastructure and Kubernetes cluster. I try to adhere to Infrastructure as Code (IaC) and GitOps practices using tools like [Terraform](https://www.terraform.io), [Kubernetes](https://kubernetes.io), [Flux](https://fluxcd.io), [Renovate](https://github.com/renovatebot/renovate) and [GitHub Actions](https://github.com/features/actions).
 
 ---
 
@@ -146,7 +146,7 @@ The UDM Pro resolves DNS queries via [blocky](https://github.com/0xERR0R/blocky)
 | Unifi USW Enterprise XG 24  | 1     | -            | -                        | -    | -                | Switch             |
 | Apple Mac Mini (18' 3.2GHz) | 3     | 512GB NVMe   | -                        | 32GB | Talos            | Kubernetes Masters |
 | Apple Mac Mini (18' 3.2Ghz) | 3     | 1TB NVMe     | 2x 2TB NVMe (rook-ceph)  | 64GB | Talos            | Kubernetes Workers |
-| Synology NAS RS820+         | 1     | -            | 4x16TB w/ 2TB NVMe cache | 16GB | -                | NFS                |
+| Synology NAS RS1221+        | 1     | -            | 8x22TB w/ 4TB NVMe cache | 32GB | -                | NFS                |
 | CyberPower ATS PDU          | 1     | -            | -                        | -    | -                | PDU                |
 | CyberPower UPS              | 1     | -            | -                        | -    | -                | PSU                |
 
