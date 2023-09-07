@@ -37,6 +37,12 @@ spec:
       QBITTORRENT__PORT: &http-port 8080
       QBITTORRENT__BT_PORT: &bt-port ${TORRENT_PUBLIC_PORT}
       QBT_Application__MemoryWorkingSetLimit: 16384
+      QBT_BitTorrent__Session__Interface: eth0
+      QBT_BitTorrent__Session__InterfaceName: eth0
+      QBT_BitTorrent__Session__InterfaceAddress:
+        valueFrom:
+          fieldRef:
+            fieldPath: status.podIP
       QBT_Preferences__WebUI__AuthSubnetWhitelistEnabled: true
       QBT_Preferences__WebUI__AuthSubnetWhitelist: |-
         ${CLUSTER_POD_IP_CIDR}, ${LAN_SERVER_IP_CIDR}
