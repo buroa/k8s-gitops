@@ -37,7 +37,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/onedr0p/sonarr-develop
-      tag: 4.0.0.657@sha256:7cad79cd0c852ac74c0f8088235bcd8ed50623db10090d38be680db31c4183d0
+      tag: 4.0.0.663@sha256:23f9d50f72456c2d0d3070886ef4d80c68797f094e5b8358520b2d45ac3d40cf
     env:
       TZ: ${TIMEZONE}
       SONARR__AUTHENTICATION_METHOD: External
