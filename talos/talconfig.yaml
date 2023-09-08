@@ -6,7 +6,7 @@ clusterPodNets:
 clusterSvcNets:
   - 10.245.0.0/16
 
-talosVersion: v1.5.1
+talosVersion: v1.5.2
 kubernetesVersion: 1.28.1
 endpoint: https://k8s.${domainName}:6443
 
@@ -291,7 +291,7 @@ controlPlane:
             disabled: true
     machine: &machine
       install:
-        image: ghcr.io/buroa/installer:v1.5.1
+        image: ghcr.io/buroa/installer:v1.5.2
         extensions:
           - image: ghcr.io/siderolabs/i915-ucode:20230804
           - image: ghcr.io/siderolabs/intel-ucode:20230808
