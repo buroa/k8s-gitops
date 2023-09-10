@@ -140,15 +140,17 @@ The UDM Pro resolves DNS queries via [blocky](https://github.com/0xERR0R/blocky)
   <img src="assets/rack.png" align="center" alt="rack"/>
 </details>
 
-| Device                      | Count | OS Disk Size | Data Disk Size           | Ram  | Operating System | Purpose            |
-| --------------------------- | ----- | ------------ | ------------------------ | ---- | ---------------- | ------------------ |
-| Unifi UDM Pro               | 1     | -            | -                        | -    | -                | Router             |
-| Unifi USW Enterprise XG 24  | 1     | -            | -                        | -    | -                | Switch             |
-| Apple Mac Mini (18' 3.2GHz) | 3     | 512GB NVMe   | -                        | 32GB | Talos            | Kubernetes Masters |
-| Apple Mac Mini (18' 3.2Ghz) | 3     | 1TB NVMe     | 2x 2TB NVMe (rook-ceph)  | 64GB | Talos            | Kubernetes Workers |
-| Synology NAS RS1221+        | 1     | -            | 8x22TB w/ 4TB NVMe cache | 32GB | -                | NFS                |
-| CyberPower ATS PDU          | 1     | -            | -                        | -    | -                | PDU                |
-| CyberPower UPS              | 1     | -            | -                        | -    | -                | PSU                |
+| Device                                   | Count | OS Disk Size | Data Disk Size      | Ram  | Operating System | Purpose             |
+| ---------------------------------------- | ----- | ------------ | ------------------- | ---- | ---------------- | ------------------- |
+| Ubiquiti UDM Pro                         | 1     | -            | -                   | -    | -                | Router              |
+| Ubiquiti USW Enterprise XG 24            | 1     | -            | -                   | -    | -                | 10GbE Switch        |
+| Apple Mac Mini (3.2GHz Intel i7)         | 3     | 512GB NVMe   | -                   | 32GB | Talos            | Kubernetes Masters  |
+| Sonnet 10GbE Thunderbolt 3 Adapter       | 3     | -            | -                   | -    | -                | 10GbE / Masters     |
+| Apple Mac Mini (3.2GHz Intel i7 + 10GbE) | 3     | 1TB NVMe     | -                   | 64GB | Talos            | Kubernetes Workers  |
+| Sabrent NVMe M.2 Thunderbolt 3 Enclosure | 6     | -            | 2TB NVMe ea.        | -    | -                | Rook Ceph / Workers |
+| Synology NAS RS1221+                     | 1     | -            | 8x22TB + 2x2TB NVMe | 32GB | -                | NFS                 |
+| CyberPower ATS PDU                       | 1     | -            | -                   | -    | -                | PDU                 |
+| CyberPower UPS                           | 1     | -            | -                   | -    | -                | PSU                 |
 
 ---
 
