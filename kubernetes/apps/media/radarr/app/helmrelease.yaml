@@ -74,10 +74,6 @@ spec:
         enabled: true
         ingressClassName: nginx
         annotations:
-          nginx.ingress.kubernetes.io/configuration-snippet: |
-            proxy_set_header Accept-Encoding "";
-            sub_filter '</head>' '<link rel="stylesheet" type="text/css" href="https://theme-park.${PUBLIC_DOMAIN}/css/base/radarr/space-gray.css"></head>';
-            sub_filter_once on;
           hajimari.io/icon: mdi:filmstrip
         hosts:
           - host: &host radarr.${PUBLIC_DOMAIN}

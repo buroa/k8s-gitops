@@ -41,10 +41,6 @@ spec:
         ingressClassName: nginx
         annotations:
           hajimari.io/icon: mdi:chart-bar
-          nginx.ingress.kubernetes.io/configuration-snippet: |
-            proxy_set_header Accept-Encoding "";
-            sub_filter '</head>' '<link rel="stylesheet" type="text/css" href="https://theme-park.${PUBLIC_DOMAIN}/css/base/tautulli/space-gray.css"></head>';
-            sub_filter_once on;
           external-dns.alpha.kubernetes.io/target: ingress.${PUBLIC_DOMAIN}
         hosts:
           - host: &host tautulli.${PUBLIC_DOMAIN}

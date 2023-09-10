@@ -7,4 +7,3 @@ resources:
   - ./libreddit/ks.yaml
   - ./nostr-relay/ks.yaml
   - ./shlink/ks.yaml
-  - ./theme-park/ks.yaml
