@@ -2,7 +2,7 @@
 sonarr:
   main:
     base_url: http://sonarr.media.svc.cluster.local:8989
-    api_key: {{ .SONARR_APIKEY }}
+    api_key: !env_var SONARR_APIKEY
 
     delete_old_custom_formats: true
     replace_existing_custom_formats: true
@@ -125,7 +125,7 @@ sonarr:
 radarr:
   main:
     base_url: http://radarr.media.svc.cluster.local:7878
-    api_key: {{ .RADARR_APIKEY }}
+    api_key: !env_var RADARR_APIKEY
 
     delete_old_custom_formats: true
     replace_existing_custom_formats: true

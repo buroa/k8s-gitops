@@ -8,11 +8,9 @@ resources:
   - ./helmrelease.yaml
   - ./volsync.yaml
 configMapGenerator:
-  - name: pmm-config-tpl
+  - name: pmm-configmap
     files:
       - ./configs/config.yml
-  - name: pmm-prerolls
-    files:
       - ./configs/Pre-rolls.yml
   - name: pmm-scripts
     files:

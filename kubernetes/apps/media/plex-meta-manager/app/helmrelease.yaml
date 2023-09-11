@@ -29,6 +29,7 @@ spec:
       type: cronjob
       annotations:
         secret.reloader.stakater.com/reload: &secret pmm-secret
+        configmap.reloader.stakater.com/reload: &configMap pmm-configmap
       cronjob:
         schedule: 0 6 * * *
     image:
@@ -38,6 +39,9 @@ spec:
       TZ: ${TIMEZONE}
       PUID: 1000
       PGID: 1000
+    envFrom:
+      - secretRef:
+          name: *secret
     command:
       - /scripts/run.sh
     service:
@@ -49,15 +53,15 @@ spec:
         existingClaim: pmm-config
       config-file:
         enabled: true
-        type: secret
-        name: *secret
+        type: configMap
+        name: *configMap
         mountPath: /config/config.yml
         subPath: config.yml
         readOnly: true
       config-prerolls:
         enabled: true
         type: configMap
-        name: pmm-prerolls
+        name: *configMap
         mountPath: /config/Pre-rolls.yml
         subPath: Pre-rolls.yml
         readOnly: true

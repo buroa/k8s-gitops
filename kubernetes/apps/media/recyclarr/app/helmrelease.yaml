@@ -40,6 +40,9 @@ spec:
       - sync
     env:
       TZ: ${TIMEZONE}
+    envFrom:
+      - secretRef:
+          name: recyclarr-secret
     service:
       main:
         enabled: false
@@ -54,8 +57,8 @@ spec:
         existingClaim: recyclarr-config
       config-file:
         enabled: true
-        type: secret
-        name: recyclarr-secret
+        type: configMap
+        name: recyclarr-configmap
         mountPath: /config/recyclarr.yml
         subPath: recyclarr.yml
         readOnly: true
