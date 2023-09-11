@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: kube-prometheus-stack
-      version: 50.3.1
+      version: 51.0.0
       sourceRef:
         kind: HelmRepository
         name: prometheus-community-charts
