@@ -61,12 +61,10 @@ spec:
             enabled: true
             port: 53
             protocol: TCP
-            tagetPort: 53
           dns-udp:
             enabled: true
             port: 53
             protocol: UDP
-            tagetPort: 53
     ingress:
       main:
         enabled: true

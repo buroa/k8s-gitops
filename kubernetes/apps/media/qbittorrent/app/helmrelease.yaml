@@ -65,12 +65,10 @@ spec:
             enabled: true
             port: *bt-port
             protocol: TCP
-            targetPort: *bt-port
           bittorrent-udp:
             enabled: true
             port: *bt-port
             protocol: UDP
-            targetPort: *bt-port
     ingress:
       main:
         enabled: true

@@ -53,11 +53,10 @@ spec:
         labels:
           io.cilium/lb-ipam-layer2: "true"
         ports:
-          tailnet:
+          tailnet-udp:
             enabled: true
             port: *port
             protocol: UDP
-            targetPort: *port
     ingress:
       main:
         enabled: false
