@@ -37,12 +37,12 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/autobrr/autobrr
-      tag: v1.29.0-rc1
+      tag: v1.29.0
     env:
       AUTOBRR__CHECKFORUPDATES: false
       AUTOBRR__HOST: 0.0.0.0
       AUTOBRR__PORT: &port 7474
-      AUTOBRR__LOGLEVEL: TRACE
+      AUTOBRR__LOGLEVEL: INFO
     envFrom:
       - secretRef:
           name: autobrr-secret
