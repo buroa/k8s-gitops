@@ -29,7 +29,7 @@ nodes:
     controlPlane: true
     disableSearchDomain: true
     nameservers:
-      - 192.168.0.1
+      - 10.255.253.1
     networkInterfaces:
       - interface: bond0
         bond:
@@ -72,7 +72,7 @@ nodes:
     controlPlane: true
     disableSearchDomain: true
     nameservers:
-      - 192.168.0.1
+      - 10.255.253.1
     networkInterfaces:
       - interface: bond0
         bond:
@@ -113,7 +113,7 @@ nodes:
     controlPlane: true
     disableSearchDomain: true
     nameservers:
-      - 192.168.0.1
+      - 10.255.253.1
     networkInterfaces:
       - interface: bond0
         bond:
@@ -154,7 +154,7 @@ nodes:
     controlPlane: false
     disableSearchDomain: true
     nameservers:
-      - 192.168.0.1
+      - 10.255.253.1
     networkInterfaces:
       - interface: bond0
         bond:
@@ -196,7 +196,7 @@ nodes:
     controlPlane: false
     disableSearchDomain: true
     nameservers:
-      - 192.168.0.1
+      - 10.255.253.1
     networkInterfaces:
       - interface: bond0
         bond:
@@ -235,7 +235,7 @@ nodes:
     controlPlane: false
     disableSearchDomain: true
     nameservers:
-      - 192.168.0.1
+      - 10.255.253.1
     networkInterfaces:
       - interface: bond0
         bond:
