@@ -27,10 +27,9 @@ spec:
   values:
     image:
       repository: ghcr.io/wizarrrr/wizarr
-      tag: 3.0.1
+      tag: v3-beta
     env:
       TZ: ${TIMEZONE}
-      APP_URL: invite.${PUBLIC_DOMAIN}
     service:
       main:
         ports:
