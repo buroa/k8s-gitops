@@ -22,6 +22,7 @@ module.exports = {
     "http://prowlarr.media.svc.cluster.local:9696/44/api?apikey={{ .PROWLARR_APIKEY }}", // phd
     "http://prowlarr.media.svc.cluster.local:9696/77/api?apikey={{ .PROWLARR_APIKEY }}", // ant
     "http://prowlarr.media.svc.cluster.local:9696/78/api?apikey={{ .PROWLARR_APIKEY }}", // td
+    "http://prowlarr.media.svc.cluster.local:9696/80/api?apikey={{ .PROWLARR_APIKEY }}", // ar
   ],
 
   action: "inject",
