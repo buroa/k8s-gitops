@@ -65,10 +65,6 @@ spec:
             enabled: true
             port: *bt-port
             protocol: TCP
-          bittorrent-udp:
-            enabled: true
-            port: *bt-port
-            protocol: UDP
     ingress:
       main:
         enabled: true
