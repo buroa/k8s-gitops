@@ -84,7 +84,7 @@ settings:
 
 plex:
   url: http://plex.media.svc.cluster.local:32400
-  token: <<PLEX_APIKEY>>
+  token: <<PLEX_TOKEN>>
   timeout: 60
   clean_bundles: false
   empty_trash: false
@@ -92,25 +92,25 @@ plex:
 
 tautulli:
   url: http://tautulli.media.svc.cluster.local:8181
-  apikey: <<TAUTULLI_APIKEY>>
+  apikey: <<TAUTULLI_API_KEY>>
 
 tmdb:
-  apikey: <<TMDB_APIKEY>>
+  apikey: <<TMDB_API_KEY>>
   language: en
   cache_expiration: 60
   region:
 
 omdb:
-  apikey: <<OMDB_APIKEY>>
+  apikey: <<OMDB_API_KEY>>
   cache_expiration: 60
 
 mdblist:
-  apikey: <<MDBLIST_APIKEY>>
+  apikey: <<MDBLIST_API_KEY>>
   cache_expiration: 60
 
 radarr:
   url: http://radarr.media.svc.cluster.local:7878
-  token: <<RADARR_APIKEY>>
+  token: <<RADARR_API_KEY>>
   add_missing: false
   add_existing: false
   root_folder_path: /media/movies
@@ -125,7 +125,7 @@ radarr:
 
 sonarr:
   url: http://sonarr.media.svc.cluster.local:8989
-  token: <<SONARR_APIKEY>>
+  token: <<SONARR_API_KEY>>
   add_missing: false
   add_existing: false
   root_folder_path: /media/shows

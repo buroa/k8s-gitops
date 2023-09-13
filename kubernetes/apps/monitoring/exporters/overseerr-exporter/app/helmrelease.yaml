@@ -35,7 +35,7 @@ spec:
       - --overseerr.address
       - "http://overseerr.media.svc.cluster.local:5055"
       - --overseerr.api-key
-      - "$(OVERSEERR_APIKEY)"
+      - "$(OVERSEERR_API_KEY)"
     envFrom:
       - secretRef:
           name: overseerr-exporter-secret
