@@ -40,10 +40,11 @@ spec:
       tag: 1.8.6.3946@sha256:e94aa38733ed5e0a9c67ea7eaa32f5970fea3deab1cbfa3729957e2c9ecf2ae0
     env:
       TZ: ${TIMEZONE}
+      PROWLARR__AUTHENTICATION_METHOD: External
+      PROWLARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
       PROWLARR__INSTANCE_NAME: Prowlarr
       PROWLARR__PORT: &port 9696
       PROWLARR__LOG_LEVEL: info
-      PROWLARR__AUTHENTICATION_METHOD: External
       PROWLARR__THEME: dark
     envFrom:
       - secretRef:
