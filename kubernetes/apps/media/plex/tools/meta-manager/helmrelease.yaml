@@ -28,8 +28,7 @@ spec:
     controller:
       type: cronjob
       annotations:
-        secret.reloader.stakater.com/reload: &secret pmm-secret
-        configmap.reloader.stakater.com/reload: &configMap pmm-configmap
+        reloader.stakater.com/auto: "true"
       cronjob:
         schedule: 0 6 * * *
     image:
@@ -41,7 +40,7 @@ spec:
       PGID: 1000
     envFrom:
       - secretRef:
-          name: *secret
+          name: plex-meta-manager-secret
     command:
       - /scripts/run.sh
     service:
@@ -50,24 +49,25 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: pmm-config
+        existingClaim: plex-meta-manager-config
       config-file:
         enabled: true
         type: configMap
-        name: *configMap
+        name: plex-meta-manager-configmap
         mountPath: /config/config.yml
         subPath: config.yml
         readOnly: true
       config-prerolls:
         enabled: true
         type: configMap
-        name: *configMap
+        name: plex-meta-manager-configmap
         mountPath: /config/Pre-rolls.yml
         subPath: Pre-rolls.yml
         readOnly: true
       scripts:
         enabled: true
         type: configMap
-        name: pmm-scripts
-        mountPath: /scripts
+        name: plex-meta-manager-configmap
+        mountPath: /scripts/run.sh
+        subPath: run.sh
         defaultMode: 511

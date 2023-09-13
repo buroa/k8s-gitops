@@ -9,8 +9,6 @@ resources:
   - ./flaresolverr/ks.yaml
   - ./overseerr/ks.yaml
   - ./plex/ks.yaml
-  - ./plex-auto-languages/ks.yaml
-  - ./plex-meta-manager/ks.yaml
   - ./prowlarr/ks.yaml
   - ./qbittorrent/ks.yaml
   - ./radarr/ks.yaml

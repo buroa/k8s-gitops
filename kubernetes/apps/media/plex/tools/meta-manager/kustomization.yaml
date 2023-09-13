@@ -8,12 +8,10 @@ resources:
   - ./helmrelease.yaml
   - ./volsync.yaml
 configMapGenerator:
-  - name: pmm-configmap
+  - name: plex-meta-manager-configmap
     files:
       - ./configs/config.yml
       - ./configs/Pre-rolls.yml
-  - name: pmm-scripts
-    files:
       - ./scripts/run.sh
 generatorOptions:
   disableNameSuffixHash: true
