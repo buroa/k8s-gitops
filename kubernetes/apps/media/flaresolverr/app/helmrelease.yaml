@@ -27,7 +27,7 @@ spec:
   values:
     image:
       repository: ghcr.io/flaresolverr/flaresolverr
-      tag: v3.3.4
+      tag: v3.3.5
     env:
       TZ: ${TIMEZONE}
       LOG_LEVEL: info
