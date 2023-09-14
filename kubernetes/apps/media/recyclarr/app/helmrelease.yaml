@@ -34,8 +34,6 @@ spec:
     image:
       repository: ghcr.io/recyclarr/recyclarr
       tag: 5.4.2
-    command:
-      - /app/recyclarr/recyclarr
     args:
       - sync
     env:
@@ -62,3 +60,9 @@ spec:
         mountPath: /config/recyclarr.yml
         subPath: recyclarr.yml
         readOnly: true
+    resources:
+      requests:
+        cpu: 10m
+        memory: 50Mi
+      limits:
+        memory: 200Mi
