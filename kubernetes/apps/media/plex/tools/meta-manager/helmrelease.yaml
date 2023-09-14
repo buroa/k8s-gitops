@@ -71,3 +71,9 @@ spec:
         mountPath: /scripts/run.sh
         subPath: run.sh
         defaultMode: 511
+    resources:
+      requests:
+        cpu: 10m
+        memory: 4Gi
+      limits:
+        memory: 8Gi
