@@ -25,6 +25,8 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    controllerServiceAccount:
+      name: actions-runner-controller-gha-rs-controller
     runnerScaleSetName: arc-runner-set-k8s-gitops
     githubConfigUrl: https://github.com/buroa/k8s-gitops
     minRunners: 1
