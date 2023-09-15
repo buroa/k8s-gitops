@@ -44,12 +44,6 @@ spec:
     serviceMonitor:
       main:
         enabled: true
-        endpoints:
-          - port: http
-            scheme: http
-            path: /metrics
-            interval: 30s
-            scrapeTimeout: 30s
     resources:
       requests:
         cpu: 10m

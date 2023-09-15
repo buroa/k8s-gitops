@@ -58,12 +58,6 @@ spec:
     serviceMonitor:
       main:
         enabled: true
-        endpoints:
-          - port: http
-            scheme: http
-            path: /metrics
-            interval: 30s
-            scrapeTimeout: 30s
     probes:
       liveness: &probes
         enabled: true

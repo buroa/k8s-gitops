@@ -44,7 +44,6 @@ spec:
       TZ: ${TIMEZONE}
     service:
       main:
-        enabled: true
         ports:
           http:
             port: 4000
@@ -82,12 +81,6 @@ spec:
     serviceMonitor:
       main:
         enabled: true
-        endpoints:
-          - port: http
-            scheme: http
-            path: /metrics
-            interval: 30s
-            scrapeTimeout: 30s
     probes:
       liveness:
         failureThreshold: 5
