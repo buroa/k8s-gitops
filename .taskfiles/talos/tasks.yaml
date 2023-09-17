@@ -2,31 +2,31 @@
 version: "3"
 
 env:
-  TALOSCONFIG: ./clusterconfig/talosconfig
+  TALOSCONFIG: "{{.PROJECT_DIR}}/talos/clusterconfig/talosconfig"
 
 tasks:
   genconfig:
     desc: Generate talos config
     interactive: true
-    dir: ./talos
+    dir: "{{.PROJECT_DIR}}/talos"
     cmds:
       - talhelper genconfig
 
   apply-config:
     desc: Apply talos config on a node
     interactive: true
-    dir: ./talos
+    dir: "{{.PROJECT_DIR}}/talos"
     vars:
       node: "{{.node | default nil}}"
     cmds:
-      - talosctl -n {{.node}} apply-config -f ./clusterconfig/k8s-{{.node}}.yaml
+      - talosctl -n {{.node}} apply-config -f "{{.PROJECT_DIR}}/talos/clusterconfig/k8s-{{.node}}.yaml"
     preconditions:
       - talosctl -n {{.node}} get mc
 
   upgrade-talos:
     desc: Upgrade talos on a node
     interactive: true
-    dir: ./talos
+    dir: "{{.PROJECT_DIR}}/talos"
     vars:
       node: "{{.node | default nil}}"
       image: "{{.image | default nil}}"
@@ -38,7 +38,7 @@ tasks:
   upgrade-k8s:
     desc: Upgrade k8s on a node
     interactive: true
-    dir: ./talos
+    dir: "{{.PROJECT_DIR}}/talos"
     vars:
       node: "{{.node | default nil}}"
       to: "{{.to | default nil}}"
