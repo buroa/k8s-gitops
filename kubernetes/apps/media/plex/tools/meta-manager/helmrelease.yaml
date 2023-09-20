@@ -33,7 +33,7 @@ spec:
         schedule: 0 6 * * *
     image:
       repository: docker.io/meisnate12/plex-meta-manager
-      tag: v1.19.0
+      tag: v1.19.1
     env:
       TZ: ${TIMEZONE}
       PUID: 1000
