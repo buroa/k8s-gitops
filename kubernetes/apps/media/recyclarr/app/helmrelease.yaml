@@ -30,7 +30,7 @@ spec:
       annotations:
         reloader.stakater.com/auto: "true"
       cronjob:
-        schedule: 0 6 * * *
+        schedule: "@hourly"
     image:
       repository: ghcr.io/recyclarr/recyclarr
       tag: 5.4.3
