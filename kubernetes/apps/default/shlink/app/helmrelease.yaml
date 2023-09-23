@@ -39,7 +39,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/shlinkio/shlink
-      tag: 3.6.3-non-root
+      tag: 3.6.4-non-root
     env:
       TIMEZONE: ${TIMEZONE}
       PORT: &port 80
