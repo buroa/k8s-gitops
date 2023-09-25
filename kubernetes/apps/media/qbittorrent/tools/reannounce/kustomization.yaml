@@ -6,5 +6,5 @@ resources:
   - ./helmrelease.yaml
 labels:
   - pairs:
-      app.kubernetes.io/name: qbittools-orphaned
-      app.kubernetes.io/instance: qbittools-orphaned
+      app.kubernetes.io/name: qbittorrent-reannounce
+      app.kubernetes.io/instance: qbittorrent-reannounce

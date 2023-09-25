@@ -6,5 +6,5 @@ resources:
   - ./helmrelease.yaml
 labels:
   - pairs:
-      app.kubernetes.io/name: qbittools-reannounce
-      app.kubernetes.io/instance: qbittools-reannounce
+      app.kubernetes.io/name: qbittorrent-manage
+      app.kubernetes.io/instance: qbittorrent-manage

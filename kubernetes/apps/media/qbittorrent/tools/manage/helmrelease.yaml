@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: qbittools-manage
+  name: qbittorrent-manage
   namespace: media
 spec:
   interval: 30m
