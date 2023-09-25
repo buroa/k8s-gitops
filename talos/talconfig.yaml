@@ -346,7 +346,7 @@ controlPlane:
       time:
         disabled: false
         servers:
-          - unifi.${domainName}
+          - time.cloudflare.com
       kubelet:
         extraArgs:
           feature-gates: GracefulNodeShutdown=true
