@@ -31,7 +31,7 @@ spec:
         schedule: "@hourly"
     initContainers:
       01-tag:
-        image: ghcr.io/buroa/qbittools:v0.9.3
+        image: ghcr.io/buroa/qbittools:v0.9.4
         imagePullPolicy: IfNotPresent
         args:
           - tagging
@@ -46,7 +46,7 @@ spec:
           - --port
           - "8080"
       02-unregistered:
-        image: ghcr.io/buroa/qbittools:v0.9.3
+        image: ghcr.io/buroa/qbittools:v0.9.4
         imagePullPolicy: IfNotPresent
         args:
           - prune
@@ -60,7 +60,7 @@ spec:
           - "8080"
     image:
       repository: ghcr.io/buroa/qbittools
-      tag: v0.9.3
+      tag: v0.9.4
     args:
       - prune
       - --exclude-category
