@@ -267,6 +267,16 @@ nodes:
     nodeLabels: *workerLabels
 
 controlPlane:
+  patches:
+    - |-
+      machine:
+        features:
+          kubernetesTalosAPIAccess:
+            enabled: true
+            allowedRoles:
+              - os:admin
+            allowedKubernetesNamespaces:
+              - system-upgrade
   inlinePatch:
     cluster:
       allowSchedulingOnMasters: true
