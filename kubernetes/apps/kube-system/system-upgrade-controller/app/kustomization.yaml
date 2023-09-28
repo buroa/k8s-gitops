@@ -21,4 +21,4 @@ patches:
       apiVersion: v1
       kind: Namespace
       metadata:
-        name: kube-system
+        name: system-upgrade
