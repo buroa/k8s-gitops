@@ -3,13 +3,13 @@ apiVersion: upgrade.cattle.io/v1
 kind: Plan
 metadata:
   name: talos
-  namespace: system-upgrade
+  namespace: kube-system
   annotations:
     kustomize.toolkit.fluxcd.io/substitute: disabled
 spec:
   # renovate: datasource=github-releases depName=siderolabs/talos
   version: v1.5.3
-  serviceAccountName: system-upgrade
+  serviceAccountName: kube-system
   secrets:
     - name: talos
       path: /var/run/secrets/talos.dev
