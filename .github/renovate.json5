@@ -64,7 +64,12 @@
       description: "Loose versioning for non-semver packages",
       matchDatasources: ["docker"],
       versioning: "loose",
-      matchPackagePatterns: ["plex", "qbittorrent"],
+      matchPackagePatterns: [
+        "plex",
+        "qbittorrent",
+        "i915-ucode",
+        "intel-ucode",
+      ],
     },
   ],
 }
