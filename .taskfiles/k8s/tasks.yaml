@@ -18,7 +18,7 @@ tasks:
               "containers": [
                 {
                   "name": "debug",
-                  "image": "ghcr.io/onedr0p/alpine:3.18.3@sha256:974f5883eb9b838792f1b27b812d8b9f80375ba9ac1f8b038fda27a53f6cd763",
+                  "image": "ghcr.io/onedr0p/alpine:rolling",
                   "command": [
                     "/bin/bash"
                   ],
@@ -55,7 +55,7 @@ tasks:
               "containers": [
                 {
                   "name": "debug",
-                  "image": "ghcr.io/onedr0p/alpine:3.18.3@sha256:974f5883eb9b838792f1b27b812d8b9f80375ba9ac1f8b038fda27a53f6cd763",
+                  "image": "ghcr.io/onedr0p/alpine:rolling",
                   "command": [
                     "/bin/bash"
                   ],
