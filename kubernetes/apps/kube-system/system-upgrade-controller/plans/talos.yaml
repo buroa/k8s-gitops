@@ -7,8 +7,8 @@ metadata:
   annotations:
     kustomize.toolkit.fluxcd.io/substitute: disabled
 spec:
-  # renovate: datasource=github-releases depName=siderolabs/talos
-  version: v1.5.3
+  # renovate: datasource=github-releases depName=buroa/pkgs
+  version: v1.5.2
   serviceAccountName: kube-system
   secrets:
     - name: talos

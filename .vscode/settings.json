@@ -21,7 +21,7 @@
     "networking": "connection",
     "rook-ceph": "dump"
   },
-  "editor.formatOnSave": true,
+  "editor.formatOnSave": false,
   "editor.formatOnSaveMode": "file",
   "editor.fontFamily": "FiraCode Nerd Font",
   "editor.fontLigatures": true,
