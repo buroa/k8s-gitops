@@ -1,5 +1,5 @@
 {
-  $schema: "https://docs.renovatebot.com/renovate-schema.json",
-  username: "k8s-renovate[bot]",
-  gitAuthor: "k8s-renovate <129223303+k8s-renovate[bot]@users.noreply.github.com>",
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "username": "k8s-renovate[bot]",
+  "gitAuthor": "k8s-renovate <129223303+k8s-renovate[bot]@users.noreply.github.com>"
 }

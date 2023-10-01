@@ -1,36 +1,36 @@
 {
-  $schema: "https://docs.renovatebot.com/renovate-schema.json",
-  packageRules: [
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "packageRules": [
     {
-      description: "Flux Group",
-      groupName: "Flux",
-      matchPackagePatterns: ["flux"],
-      matchDatasources: ["docker", "github-tags"],
-      versioning: "semver",
-      group: {
-        commitMessageTopic: "{{{groupName}}} group",
+      "description": "Flux Group",
+      "groupName": "Flux",
+      "matchPackagePatterns": ["flux"],
+      "matchDatasources": ["docker", "github-tags"],
+      "versioning": "semver",
+      "group": {
+        "commitMessageTopic": "{{{groupName}}} group"
       },
-      separateMinorPatch: true,
+      "separateMinorPatch": true
     },
     {
-      description: "Rook-Ceph Group",
-      groupName: "Rook-Ceph",
-      matchPackagePatterns: ["rook.ceph"],
-      matchDatasources: ["helm"],
-      group: {
-        commitMessageTopic: "{{{groupName}}} group",
+      "description": "Rook-Ceph Group",
+      "groupName": "Rook-Ceph",
+      "matchPackagePatterns": ["rook.ceph"],
+      "matchDatasources": ["helm"],
+      "group": {
+        "commitMessageTopic": "{{{groupName}}} group"
       },
-      separateMinorPatch: true,
+      "separateMinorPatch": true
     },
     {
-      description: "External Snapshotter Group",
-      groupName: "External Snapshotter",
-      matchPackageNames: ["snapshot-controller", "snapshot-validation-webhook"],
-      matchDatasources: ["helm"],
-      group: {
-        commitMessageTopic: "{{{groupName}}} group",
+      "description": "External Snapshotter Group",
+      "groupName": "External Snapshotter",
+      "matchPackageNames": ["snapshot-controller", "snapshot-validation-webhook"],
+      "matchDatasources": ["helm"],
+      "group": {
+        "commitMessageTopic": "{{{groupName}}} group"
       },
-      separateMinorPatch: true,
-    },
-  ],
+      "separateMinorPatch": true
+    }
+  ]
 }
