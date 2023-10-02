@@ -27,7 +27,7 @@ spec:
   values:
     image:
       repository: ghcr.io/wizarrrr/wizarr
-      tag: v3-beta@sha256:5cc95bdb157ad8ae89da3ba2b1b00a7c427721166f0e8b015c555a844e2ce5d4
+      tag: v3-beta@sha256:f68771290cef2f85213b3c8e9ef76f1b11e2c6aff31dbd0be68302ebd58d468c
     env:
       TZ: ${TIMEZONE}
     service:
