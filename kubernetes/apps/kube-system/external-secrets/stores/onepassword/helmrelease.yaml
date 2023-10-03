@@ -34,7 +34,7 @@ spec:
     env:
       OP_BUS_PORT: 11220
       OP_BUS_PEERS: localhost:11221
-      OP_HTTP_PORT: &port 8080
+      OP_HTTP_PORT: &api-port 8080
       OP_SESSION:
         valueFrom:
           secretKeyRef:
@@ -44,7 +44,7 @@ spec:
       main:
         ports:
           http:
-            port: *port
+            port: *api-port
     probes:
       liveness:
         enabled: true
@@ -52,7 +52,7 @@ spec:
         spec:
           httpGet:
             path: /heartbeat
-            port: *port
+            port: *api-port
           initialDelaySeconds: 15
           periodSeconds: 30
           failureThreshold: 3
@@ -62,7 +62,7 @@ spec:
         spec:
           httpGet:
             path: /health
-            port: *port
+            port: *api-port
           initialDelaySeconds: 15
       startup:
         enabled: false
@@ -99,7 +99,7 @@ spec:
         image: docker.io/1password/connect-sync:1.7.2
         imagePullPolicy: IfNotPresent
         env:
-          - { name: OP_HTTP_PORT, value: &port 8081 }
+          - { name: OP_HTTP_PORT, value: &sync-port 8081 }
           - { name: OP_BUS_PORT, value: "11221" }
           - { name: OP_BUS_PEERS, value: "localhost:11220" }
           - name: OP_SESSION
@@ -110,12 +110,12 @@ spec:
         readinessProbe:
           httpGet:
             path: /health
-            port: *port
+            port: *sync-port
           initialDelaySeconds: 15
         livenessProbe:
           httpGet:
             path: /heartbeat
-            port: *port
+            port: *sync-port
           failureThreshold: 3
           periodSeconds: 30
           initialDelaySeconds: 15
