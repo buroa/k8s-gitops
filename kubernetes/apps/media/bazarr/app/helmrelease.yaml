@@ -37,7 +37,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/onedr0p/bazarr
-      tag: 1.3.0@sha256:8ffb50cd77d8ea07ecdb32765465b31d0341c6094fb8e42ff4a93e900d24cbbc
+      tag: 1.3.0@sha256:6f78c727bff1fa56ba1be9fdd3d98e83b71a3405152dd6b47596af754d23e8a0
     env:
       TZ: ${TIMEZONE}
     envFrom:
