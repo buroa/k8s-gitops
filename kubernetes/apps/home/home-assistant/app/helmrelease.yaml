@@ -37,7 +37,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/onedr0p/home-assistant
-      tag: 2023.10.1@sha256:d14438564b84c8ac9e163e09d510fb66bf9d7ac40d3cc9ac24c926513eb9d6fd
+      tag: 2023.10.1@sha256:aed43bf30252439a8640bef314e03b34e977a918729fe33e82b52aafe085bd93
     env:
       TZ: ${TIMEZONE}
       HASS_UNIT_SYSTEM: imperial
