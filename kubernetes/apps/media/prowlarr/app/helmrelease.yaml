@@ -37,7 +37,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/onedr0p/prowlarr-develop
-      tag: 1.9.2.3992@sha256:f257660e8048d84631f0c9735fcfe151a60fede04ee47ae032d8e3d382ba517c
+      tag: 1.9.3.4013@sha256:53612010c44edc1db3810990236968898e7b3733a566777697288f13a3fdd5c5
     env:
       TZ: ${TIMEZONE}
       PROWLARR__AUTHENTICATION_METHOD: External
