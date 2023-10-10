@@ -29,7 +29,7 @@ jobs:
         id: diff
         with:
           live-branch: master
-          sources: "${{ github.repository }}"
+          sources: "${{ github.event.repository.name }}"
           path: "${{ matrix.path }}"
           resource: "${{ matrix.resource }}"
 
