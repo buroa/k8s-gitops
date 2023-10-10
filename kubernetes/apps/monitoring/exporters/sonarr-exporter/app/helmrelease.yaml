@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -25,22 +25,36 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    controller:
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: ghcr.io/onedr0p/exportarr
-      tag: v1.5.5
-    args:
-      - sonarr
-      - --enable-additional-metrics
-      - --enable-unknown-queue-items
-    env:
-      PORT: 9707
-      URL: http://sonarr.media.svc.cluster.local:8989
-    envFrom:
-      - secretRef:
-          name: sonarr-exporter-secret
+    controllers:
+      main:
+        type: deployment
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/onedr0p/exportarr
+              tag: v1.5.5
+            args:
+              - sonarr
+              - --enable-additional-metrics
+              - --enable-unknown-queue-items
+            env:
+              PORT: 9707
+              URL: http://sonarr.media.svc.cluster.local:8989
+            envFrom:
+              - secretRef:
+                  name: sonarr-exporter-secret
+            resources:
+              requests:
+                cpu: 5m
+                memory: 36M
+              limits:
+                memory: 128M
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
     service:
       main:
         ports:
@@ -55,9 +69,3 @@ spec:
             path: /metrics
             interval: 1m
             scrapeTimeout: 30s
-    resources:
-      requests:
-        cpu: 10m
-        memory: 100Mi
-      limits:
-        memory: 500Mi

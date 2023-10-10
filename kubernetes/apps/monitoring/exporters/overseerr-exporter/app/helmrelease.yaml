@@ -30,10 +30,6 @@ spec:
         type: deployment
         annotations:
           reloader.stakater.com/auto: "true"
-        pod:
-          securityContext:
-            runAsUser: 568
-            runAsGroup: 568
         containers:
           main:
             image:
@@ -53,6 +49,10 @@ spec:
                 memory: 36M
               limits:
                 memory: 128M
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
     service:
       main:
         ports:

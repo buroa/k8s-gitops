@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -25,21 +25,35 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    controller:
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: ghcr.io/onedr0p/exportarr
-      tag: master@sha256:26bcc8ca1fb24a1f7ff06e205d6ff8be3b6e0bb28b2551bee47ff6d71e6601a0
-    args:
-      - prowlarr
-      - --enable-additional-metrics
-    env:
-      PORT: 9707
-      URL: http://prowlarr.media.svc.cluster.local:9696
-    envFrom:
-      - secretRef:
-          name: prowlarr-exporter-secret
+    controllers:
+      main:
+        type: deployment
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/onedr0p/exportarr
+              tag: v1.5.5
+            args:
+              - prowlarr
+              - --enable-additional-metrics
+            env:
+              PORT: 9707
+              URL: http://prowlarr.media.svc.cluster.local:9696
+            envFrom:
+              - secretRef:
+                  name: prowlarr-exporter-secret
+            resources:
+              requests:
+                cpu: 5m
+                memory: 36M
+              limits:
+                memory: 128M
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
     service:
       main:
         ports:
@@ -54,9 +68,3 @@ spec:
             path: /metrics
             interval: 1m
             scrapeTimeout: 30s
-    resources:
-      requests:
-        cpu: 10m
-        memory: 100Mi
-      limits:
-        memory: 500Mi
