@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -25,11 +25,42 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    image:
-      repository: ghcr.io/prymitive/karma
-      tag: v0.116
-    env:
-      ALERTMANAGER_URI: http://alertmanager-operated.monitoring.svc.cluster.local:9093
+    controllers:
+      main:
+        type: deployment
+        containers:
+          main:
+            image:
+              repository: ghcr.io/prymitive/karma
+              tag: v0.116
+            env:
+              ALERTMANAGER_URI: http://alertmanager-operated.monitoring.svc.cluster.local:9093
+            resources:
+              requests:
+                cpu: 5m
+                memory: 36M
+              limits:
+                memory: 128M
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+    ingress:
+      main:
+        enabled: true
+        className: nginx
+        annotations:
+          hajimari.io/icon: line-md:alert-twotone
+        hosts:
+          - host: &host karma.${PUBLIC_DOMAIN}
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: http
+        tls:
+          - hosts:
+              - *host
     service:
       main:
         ports:
@@ -38,23 +69,3 @@ spec:
     serviceMonitor:
       main:
         enabled: true
-    ingress:
-      main:
-        enabled: true
-        ingressClassName: nginx
-        annotations:
-          hajimari.io/icon: line-md:alert-twotone
-        hosts:
-          - host: &host karma.${PUBLIC_DOMAIN}
-            paths:
-              - path: /
-                pathType: Prefix
-        tls:
-          - hosts:
-              - *host
-    resources:
-      requests:
-        cpu: 100m
-        memory: 100Mi
-      limits:
-        memory: 500Mi
