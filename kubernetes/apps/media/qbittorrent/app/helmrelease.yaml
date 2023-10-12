@@ -107,8 +107,6 @@ spec:
         mountPath: /config/config.js
         subPath: config.js
         readOnly: true
-    nodeSelector:
-      topology.kubernetes.io/zone: w
     affinity:
       podAntiAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
