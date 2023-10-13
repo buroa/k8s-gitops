@@ -5,7 +5,7 @@ groups:
   #
   - name: zigbee2mqtt
     rules:
-      - alert: ZigbeeUnableToReachMQTT
+      - alert: ZigbeeMQTTUnreachable
         expr: |
           sum(count_over_time({app="zigbee2mqtt"} |~ "(?i)not connected to mqtt server"[2m])) > 0
         for: 2m
@@ -14,47 +14,14 @@ groups:
           category: logs
         annotations:
           app: "{{ $labels.app }}"
-          summary: "{{ $labels.app }} is unable to reach mqtt"
+          summary: "{{ $labels.app }} is unable to connect to MQTT"
 
   #
   # *arr
   #
   - name: arr
     rules:
-      - alert: ArrDatabaseIsLocked
-        expr: |
-          sum by (app) (count_over_time({app=~".*arr"} |~ "(?i)database is locked"[2m])) > 0
-        for: 2m
-        labels:
-          severity: critical
-          category: logs
-        annotations:
-          app: "{{ $labels.app }}"
-          summary: "{{ $labels.app }} is experiencing locked database issues"
-
-      - alert: ArrDatabaseIsMalformed
-        expr: |
-          sum by (app) (count_over_time({app=~".*arr"} |~ "(?i)database disk image is malformed"[2m])) > 0
-        for: 2m
-        labels:
-          severity: critical
-          category: logs
-        annotations:
-          app: "{{ $labels.app }}"
-          summary: "{{ $labels.app }} is experiencing malformed database disk image issues"
-
-      - alert: ArrFailedToAddTorrent
-        expr: |
-          avg by (app, message) (count_over_time({app=~".*arr"} |~ "(?i)Couldn't add report to download queue" | json [30m])) > 0
-        for: 2m
-        labels:
-          severity: warning
-          category: logs
-        annotations:
-          app: "{{ $labels.app }}"
-          summary: "{{ $labels.message }}"
-
-      - alert: ArrNetworkIsUnhealthy
+      - alert: AutobrrNetworkUnhealthy
         expr: |
           sum by (app) (count_over_time({app="autobrr"} |~ "(?i)network unhealthy"[15m])) > 0
         for: 2m
@@ -65,23 +32,23 @@ groups:
           app: "{{ $labels.app }}"
           summary: "{{ $labels.app }} has a unhealthy network"
 
-      - alert: ArrJobRaisedException
+      - alert: BazarrPostgresUnreachable
         expr: |
           sum by (app) (count_over_time({app="bazarr"} |~ "(?i)Job(.+)Update(.+)from(.+)raised an exception"[1h])) > 0
         for: 2m
         labels:
-          severity: warning
+          severity: critical
           category: logs
         annotations:
           app: "{{ $labels.app }}"
-          summary: "{{ $labels.app }} is raising job exceptions"
+          summary: "{{ $labels.app }} is unable to connect to postgresql"
 
   #
   # plex
   #
   - name: plex
     rules:
-      - alert: PlexDatabaseIsBusy
+      - alert: PlexDatabaseBusy
         expr: |
           sum by (app) (count_over_time({app="plex"} |~ "(?i)retry busy DB"[2m])) > 0
         for: 2m
@@ -97,7 +64,7 @@ groups:
   #
   - name: home-assistant
     rules:
-      - alert: HomeAssistantUnableToReachPostgresql
+      - alert: HomeAssistantPostgresUnreachable
         expr: |
           sum by (app) (count_over_time({app="home-assistant"} |~ "(?i)error in database connectivity"[2m])) > 0
         for: 2m
@@ -113,7 +80,7 @@ groups:
   #
   - name: node-red
     rules:
-      - alert: NodeRedUnableToReachHomeAssistant
+      - alert: NodeRedHomeAssistantUnreachable
         expr: |
           sum by (app) (count_over_time({app="node-red"} |~ "(?i)home assistant.*connecting to undefined"[2m])) > 0
         for: 2m
