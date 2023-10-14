@@ -58,13 +58,9 @@ spec:
         enabled: true
         type: emptyDir
       local:
-        enabled: true
         type: emptyDir
         globalMounts:
           - path: /.local
-    ingress:
-      main:
-        enabled: false
     service:
       main:
         enabled: false

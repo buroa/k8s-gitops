@@ -72,7 +72,6 @@ spec:
                   app.kubernetes.io/name: *app
     persistence:
       data:
-        enabled: true
         type: emptyDir
     ingress:
       main:
@@ -96,5 +95,4 @@ spec:
           http:
             port: *http-port
           ldap:
-            enabled: true
             port: *ldap-port

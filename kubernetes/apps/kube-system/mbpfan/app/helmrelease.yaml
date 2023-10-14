@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -25,32 +25,35 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    controller:
-      annotations:
-        reloader.stakater.com/auto: "true"
-      type: daemonset
-    image:
-      repository: ghcr.io/buroa/mbpfan
-      tag: v0.1.1
-    service:
+    controllers:
       main:
-        enabled: false
+        type: daemonset
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/buroa/mbpfan
+              tag: v0.1.1
+            resources:
+              requests:
+                cpu: 10m
+                memory: 50M
+              limits:
+                memory: 128M
     persistence:
       config:
         enabled: true
         type: configMap
         name: mbpfan-configmap
-        mountPath: /etc/mbpfan.conf
-        subPath: mbpfan.conf
-        readOnly: true
+        globalMounts:
+          - path: /etc/mbpfan.conf
+            subPath: mbpfan.conf
+            readOnly: true
       sys:
         enabled: true
         type: hostPath
         hostPath: /sys
-        mountPath: /sys
-    resources:
-      requests:
-        cpu: 50m
-        memory: 100Mi
-      limits:
-        memory: 256Mi
+    service:
+      main:
+        enabled: false

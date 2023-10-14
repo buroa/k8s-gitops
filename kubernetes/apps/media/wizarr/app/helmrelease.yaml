@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -25,20 +25,31 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    image:
-      repository: ghcr.io/wizarrrr/wizarr
-      tag: 3.4.1
-    env:
-      TZ: ${TIMEZONE}
-    service:
+    controllers:
       main:
-        ports:
-          http:
-            port: 5690
+        containers:
+          main:
+            image:
+              repository: ghcr.io/wizarrrr/wizarr
+              tag: 3.4.1
+            env:
+              TZ: ${TIMEZONE}
+            resources:
+              requests:
+                cpu: 10m
+                memory: 250M
+              limits:
+                memory: 512M
+    persistence:
+      config:
+        enabled: true
+        existingClaim: wizarr-config
+        globalMounts:
+          - path: /data/database
     ingress:
       main:
         enabled: true
-        ingressClassName: nginx
+        className: nginx
         annotations:
           hajimari.io/icon: mdi:invite
           external-dns.alpha.kubernetes.io/target: ingress.${PUBLIC_DOMAIN}
@@ -46,18 +57,14 @@ spec:
           - host: &host invite.${PUBLIC_DOMAIN}
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *host
-    persistence:
-      config:
-        enabled: true
-        existingClaim: wizarr-config
-        mountPath: /data/database
-    resources:
-      requests:
-        cpu: 10m
-        memory: 100Mi
-      limits:
-        memory: 500Mi
+    service:
+      main:
+        ports:
+          http:
+            port: 5690

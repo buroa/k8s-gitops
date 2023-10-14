@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -25,69 +25,73 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    controller:
-      type: cronjob
-      cronjob:
-        schedule: "@hourly"
-    initContainers:
-      01-tag:
-        image: ghcr.io/buroa/qbtools:v0.10.0
-        imagePullPolicy: IfNotPresent
-        args:
-          - tagging
-          - --added-on
-          - --expired
-          - --last-activity
-          - --not-working
-          - --sites
-          - --unregistered
-          - --server
-          - qbittorrent.media.svc.cluster.local
-          - --port
-          - "8080"
-      02-unregistered:
-        image: ghcr.io/buroa/qbtools:v0.10.0
-        imagePullPolicy: IfNotPresent
-        args:
-          - prune
-          - --include-tag
-          - unregistered
-          - --exclude-tag
-          - expired
-          - --server
-          - qbittorrent.media.svc.cluster.local
-          - --port
-          - "8080"
-    image:
-      repository: ghcr.io/buroa/qbtools
-      tag: v0.10.0
-    args:
-      - prune
-      - --exclude-category
-      - manual
-      - --include-tag
-      - expired
-      - --exclude-tag
-      - activity:24h
-      - --exclude-tag
-      - site:beyond-hd
-      - --exclude-tag
-      - site:broadcasthenet
-      - --exclude-tag
-      - site:passthepopcorn
-      - --server
-      - qbittorrent.media.svc.cluster.local
-      - --port
-      - "8080"
+    controllers:
+      main:
+        type: cronjob
+        cronjob:
+          schedule: "@hourly"
+        initContainers:
+          01-tag:
+            image: &image
+              repository: ghcr.io/buroa/qbtools
+              tag: v0.10.0
+            args:
+              - tagging
+              - --added-on
+              - --expired
+              - --last-activity
+              - --not-working
+              - --sites
+              - --unregistered
+              - --server
+              - qbittorrent.media.svc.cluster.local
+              - --port
+              - "8080"
+            resources: &resources
+              requests:
+                cpu: 10m
+                memory: 250M
+              limits:
+                memory: 500M
+          02-unregistered:
+            image: *image
+            args:
+              - prune
+              - --include-tag
+              - unregistered
+              - --exclude-tag
+              - expired
+              - --server
+              - qbittorrent.media.svc.cluster.local
+              - --port
+              - "8080"
+            resources: *resources
+        containers:
+          main:
+            image: *image
+            args:
+              - prune
+              - --exclude-category
+              - manual
+              - --include-tag
+              - expired
+              - --exclude-tag
+              - activity:24h
+              - --exclude-tag
+              - site:beyond-hd
+              - --exclude-tag
+              - site:broadcasthenet
+              - --exclude-tag
+              - site:passthepopcorn
+              - --server
+              - qbittorrent.media.svc.cluster.local
+              - --port
+              - "8080"
+            resources: *resources
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
     service:
       main:
         enabled: false
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-    resources:
-      requests:
-        memory: 250Mi
-        cpu: 25m
-      limits:
-        memory: 500Mi

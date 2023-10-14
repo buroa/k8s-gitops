@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -25,62 +25,61 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    initContainers:
-      01-init-config:
-        image: public.ecr.aws/docker/library/eclipse-mosquitto:2.0.18
-        imagePullPolicy: IfNotPresent
-        command: ["/bin/sh", "-c"]
-        args:
-          - cp /data/mosquitto_secret/* /data/external_config/;
-            chmod 600 /data/external_config/mosquitto_pwd;
-            mosquitto_passwd -U /data/external_config/mosquitto_pwd;
-        volumeMounts:
-          - { name: secret-file, mountPath: /data/mosquitto_secret }
-          - { name: external-config, mountPath: /data/external_config }
-    controller:
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: public.ecr.aws/docker/library/eclipse-mosquitto
-      tag: 2.0.18
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          01-init-config:
+            image:
+              repository: public.ecr.aws/docker/library/eclipse-mosquitto
+              tag: 2.0.18
+            command:
+              - /bin/sh
+              - -c
+            args:
+              - |
+                cp /tmp/secret/* /mosquitto/external_config/;
+                chmod 600 /mosquitto/external_config/mosquitto_pwd;
+                mosquitto_passwd -U /mosquitto/external_config/mosquitto_pwd;
+        containers:
+          main:
+            image:
+              repository: public.ecr.aws/docker/library/eclipse-mosquitto
+              tag: 2.0.18
+            resources:
+              requests:
+                cpu: 10m
+                memory: 10M
+              limits:
+                memory: 100M
+    persistence:
+      data:
+        enabled: true
+        existingClaim: mosquitto-config
+      config-file:
+        type: configMap
+        name: mosquitto-configmap # overriden by kustomizeconfig
+        advancedMounts:
+          main:
+            main:
+              - path: /mosquitto/config/mosquitto.conf
+                subPath: mosquitto.conf
+      secret-file:
+        type: secret
+        name: mosquitto-secret
+        advancedMounts:
+          main:
+            01-init-config:
+              - path: /tmp/secret
+      external-config:
+        type: emptyDir
+        globalMounts:
+          - path: /mosquitto/external_config
     service:
       main:
         ports:
           http:
             enabled: false
           mqtt:
-            enabled: true
             port: 1883
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: OnRootMismatch
-    persistence:
-      config:
-        enabled: true
-        existingClaim: mosquitto-config
-        mountPath: /data
-      config-file:
-        enabled: true
-        type: configMap
-        name: mosquitto-configmap # overriden by kustomizeconfig
-        mountPath: /mosquitto/config/mosquitto.conf
-        subPath: mosquitto.conf
-      secret-file:
-        enabled: true
-        type: secret
-        name: mosquitto-secret
-        mountPath: /data/mosquitto_secret/mosquitto_pwd
-        subPath: mosquitto_pwd
-        readOnly: true
-      external-config:
-        enabled: true
-        type: emptyDir
-        mountPath: /mosquitto/external_config
-    resources:
-      requests:
-        cpu: 10m
-        memory: 50Mi
-      limits:
-        memory: 150Mi

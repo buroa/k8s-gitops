@@ -61,7 +61,6 @@ spec:
         enabled: true
         existingClaim: node-red-config
       settings:
-        enabled: true
         type: configMap
         name: node-red-configmap
         globalMounts:

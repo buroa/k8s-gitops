@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -25,23 +25,43 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    controller:
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: ghcr.io/onedr0p/unpackerr
-      tag: 0.12.0@sha256:8bbf35be449b89041f07fc069812f79b4eadf56e1c7c7720935fe166016376ef
-    env:
-      TZ: ${TIMEZONE}
-      UN_INTERVAL: 1m
-      UN_WEBSERVER_METRICS: true
-      UN_SONARR_0_URL: http://sonarr.media.svc.cluster.local:8989
-      UN_SONARR_0_PATHS_0: /media/downloads/torrents/complete/sonarr
-      UN_RADARR_0_URL: http://radarr.media.svc.cluster.local:7878
-      UN_RADARR_0_PATHS_0: /media/downloads/torrents/complete/radarr
-    envFrom:
-      - secretRef:
-          name: unpackerr-secret
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/onedr0p/unpackerr
+              tag: 0.12.0@sha256:8bbf35be449b89041f07fc069812f79b4eadf56e1c7c7720935fe166016376ef
+            env:
+              TZ: ${TIMEZONE}
+              UN_INTERVAL: 1m
+              UN_WEBSERVER_METRICS: true
+              UN_SONARR_0_URL: http://sonarr.media.svc.cluster.local:8989
+              UN_SONARR_0_PATHS_0: /media/downloads/torrents/complete/sonarr
+              UN_RADARR_0_URL: http://radarr.media.svc.cluster.local:7878
+              UN_RADARR_0_PATHS_0: /media/downloads/torrents/complete/radarr
+            envFrom:
+              - secretRef:
+                  name: unpackerr-secret
+            resources:
+              requests:
+                memory: 4096Mi
+                cpu: 10m
+              limits:
+                memory: 8192Mi
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
+            supplementalGroups:
+              - 10000
+    persistence:
+      media:
+        existingClaim: media
     service:
       main:
         ports:
@@ -50,19 +70,3 @@ spec:
     serviceMonitor:
       main:
         enabled: true
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: OnRootMismatch
-      supplementalGroups: [10000]
-    persistence:
-      media:
-        enabled: true
-        existingClaim: media
-    resources:
-      requests:
-        memory: 4096Mi
-        cpu: 10m
-      limits:
-        memory: 8192Mi

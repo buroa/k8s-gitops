@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -25,27 +25,102 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    controller:
-      annotations:
-        configmap.reloader.stakater.com/reload: qbittorrent-scripts
-        secret.reloader.stakater.com/reload: cross-seed-secret
-    image:
-      repository: ghcr.io/onedr0p/qbittorrent
-      tag: 4.5.5@sha256:f4a1a5eece13beed61e579172d2a54b1fc2e7ff2bbdbd7ef22a4d9f6fc36e198
-    env:
-      TZ: ${TIMEZONE}
-      QBITTORRENT__PORT: &http-port 8080
-      QBITTORRENT__BT_PORT: &bt-port ${TORRENT_PUBLIC_PORT}
-      QBT_Application__MemoryWorkingSetLimit: 16384
-      QBT_BitTorrent__Session__Interface: eth0
-      QBT_BitTorrent__Session__InterfaceName: eth0
-      QBT_BitTorrent__Session__InterfaceAddress:
-        valueFrom:
-          fieldRef:
-            fieldPath: status.podIP
-      QBT_Preferences__WebUI__AuthSubnetWhitelistEnabled: true
-      QBT_Preferences__WebUI__AuthSubnetWhitelist: |-
-        ${CLUSTER_POD_IP_CIDR}, ${LAN_SERVER_IP_CIDR}
+    controllers:
+      main:
+        annotations:
+          configmap.reloader.stakater.com/reload: qbittorrent-scripts
+          secret.reloader.stakater.com/reload: cross-seed-secret
+        containers:
+          main:
+            image:
+              repository: ghcr.io/onedr0p/qbittorrent
+              tag: 4.5.5@sha256:f4a1a5eece13beed61e579172d2a54b1fc2e7ff2bbdbd7ef22a4d9f6fc36e198
+            env:
+              TZ: ${TIMEZONE}
+              QBITTORRENT__PORT: &http-port 8080
+              QBITTORRENT__BT_PORT: &bt-port ${TORRENT_PUBLIC_PORT}
+              QBT_Application__MemoryWorkingSetLimit: 16384
+              QBT_BitTorrent__Session__Interface: eth0
+              QBT_BitTorrent__Session__InterfaceName: eth0
+              QBT_BitTorrent__Session__InterfaceAddress:
+                valueFrom:
+                  fieldRef:
+                    fieldPath: status.podIP
+              QBT_Preferences__WebUI__AuthSubnetWhitelistEnabled: true
+              QBT_Preferences__WebUI__AuthSubnetWhitelist: |-
+                ${CLUSTER_POD_IP_CIDR}, ${LAN_SERVER_IP_CIDR}
+            resources:
+              requests:
+                memory: 250Mi
+                cpu: 25m
+              limits:
+                memory: 32000Mi
+          xseed:
+            image:
+              repository: ghcr.io/cross-seed/cross-seed
+              tag: 5.5.4@sha256:cecc854fc906cdaf471feab507fd860dff62049da9fb32e83250c887b5da8c42
+            args:
+              - daemon
+            resources:
+              requests:
+                memory: 128M
+                cpu: 25m
+              limits:
+                memory: 256M
+        pod:
+          affinity:
+            podAntiAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                - labelSelector:
+                    matchExpressions:
+                      - key: app.kubernetes.io/name
+                        operator: In
+                        values: ["sabnzbd"]
+                  topologyKey: kubernetes.io/hostname
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
+            supplementalGroups:
+              - 10000
+    persistence:
+      config:
+        enabled: true
+        existingClaim: qbittorrent-config
+      media:
+        existingClaim: media
+      scripts:
+        type: configMap
+        name: qbittorrent-scripts
+        defaultMode: 0775
+        globalMounts:
+          - path: /scripts/xseed.sh
+            subPath: xseed.sh
+            readOnly: true
+      xseed:
+        type: secret
+        name: cross-seed-secret
+        globalMounts:
+          - path: /config/config.js
+            subPath: config.js
+            readOnly: true
+    ingress:
+      main:
+        enabled: true
+        className: nginx
+        annotations:
+          hajimari.io/icon: mdi:seedling
+        hosts:
+          - host: &host torrent.${PUBLIC_DOMAIN}
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: http
+        tls:
+          - hosts:
+              - *host
     service:
       main:
         ports:
@@ -53,87 +128,15 @@ spec:
             port: *http-port
           xseed:
             port: 2468
-      bittorrent:
-        enabled: true
+      bt:
         type: LoadBalancer
+        controller: main
         annotations:
           io.cilium/lb-ipam-ips: ${TORRENT_LB_IP}
         labels:
           io.cilium/lb-ipam-layer2: "true"
         ports:
-          bittorrent-tcp:
+          bt-tcp:
             enabled: true
             port: *bt-port
             protocol: TCP
-    ingress:
-      main:
-        enabled: true
-        ingressClassName: nginx
-        annotations:
-          hajimari.io/icon: mdi:seedling
-        hosts:
-          - host: &host torrent.${PUBLIC_DOMAIN}
-            paths:
-              - path: /
-                pathType: Prefix
-        tls:
-          - hosts:
-              - *host
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: OnRootMismatch
-      supplementalGroups: [10000]
-    persistence:
-      config:
-        enabled: true
-        existingClaim: qbittorrent-config
-      media:
-        enabled: true
-        existingClaim: media
-      scripts:
-        enabled: true
-        type: configMap
-        name: qbittorrent-scripts
-        mountPath: /scripts/xseed.sh
-        subPath: xseed.sh
-        defaultMode: 0775
-        readOnly: true
-      xseed:
-        enabled: true
-        type: secret
-        name: cross-seed-secret
-        mountPath: /config/config.js
-        subPath: config.js
-        readOnly: true
-    affinity:
-      podAntiAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-                - key: app.kubernetes.io/name
-                  operator: In
-                  values: ["sabnzbd"]
-            topologyKey: kubernetes.io/hostname
-    resources:
-      requests:
-        memory: 250Mi
-        cpu: 25m
-      limits:
-        memory: 32000Mi
-    sidecars:
-      xseed:
-        image: ghcr.io/cross-seed/cross-seed:5.5.4@sha256:cecc854fc906cdaf471feab507fd860dff62049da9fb32e83250c887b5da8c42
-        imagePullPolicy: IfNotPresent
-        args:
-          - daemon
-        volumeMounts:
-          - name: config
-            mountPath: /config
-          - name: xseed
-            mountPath: /config/config.js
-            subPath: config.js
-            readOnly: true
-          - name: media
-            mountPath: /media

@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -25,81 +25,81 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    initContainers:
-      01-init-db:
-        image: ghcr.io/onedr0p/postgres-init:14.9
-        imagePullPolicy: IfNotPresent
-        envFrom:
-          - secretRef:
-              name: bazarr-secret
-    controller:
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: ghcr.io/onedr0p/bazarr
-      tag: 1.3.1@sha256:840242bb1dfb337e5bfa579af039738bbf9948f6f33deecf451ebdd9ca509e31
-    env:
-      TZ: ${TIMEZONE}
-    envFrom:
-      - secretRef:
-          name: bazarr-secret
-    service:
+    controllers:
       main:
-        ports:
-          http:
-            port: 6767
-          whisper:
-            port: 9000
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          01-init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 14.9
+            envFrom: &envFrom
+              - secretRef:
+                  name: bazarr-secret
+        containers:
+          main:
+            image:
+              repository: ghcr.io/onedr0p/bazarr
+              tag: 1.3.1@sha256:840242bb1dfb337e5bfa579af039738bbf9948f6f33deecf451ebdd9ca509e31
+            env:
+              TZ: ${TIMEZONE}
+            envFrom: *envFrom
+            resources:
+              requests:
+                cpu: 10m
+                memory: 250M
+              limits:
+                memory: 2048M
+          subcleaner:
+            image:
+              repository: registry.k8s.io/git-sync/git-sync
+              tag: v4.0.0
+            args:
+              - --repo=https://github.com/KBlixt/subcleaner
+              - --branch=master
+              - --wait=86400 # 1 day
+              - --root=/add-ons
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
+            supplementalGroups:
+              - 10000
+    persistence:
+      config:
+        enabled: true
+        existingClaim: bazarr-config
+      media:
+        existingClaim: media
+      scripts:
+        type: configMap
+        name: bazarr-scripts
+        defaultMode: 0775
+        globalMounts:
+          - readOnly: true
+      add-ons:
+        type: emptyDir
     ingress:
       main:
         enabled: true
-        ingressClassName: nginx
+        className: nginx
         annotations:
           hajimari.io/icon: mdi:subtitles-outline
         hosts:
           - host: &host bazarr.${PUBLIC_DOMAIN}
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *host
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: OnRootMismatch
-      supplementalGroups: [10000]
-    persistence:
-      config:
-        enabled: true
-        existingClaim: bazarr-config
-      media:
-        enabled: true
-        existingClaim: media
-      scripts:
-        enabled: true
-        type: configMap
-        name: bazarr-scripts
-        defaultMode: 0775
-        readOnly: true
-      add-ons:
-        enabled: true
-        type: emptyDir
-    resources:
-      requests:
-        cpu: 10m
-        memory: 250Mi
-      limits:
-        memory: 2000Mi
-    sidecars:
-      subcleaner:
-        image: registry.k8s.io/git-sync/git-sync:v4.0.0
-        imagePullPolicy: IfNotPresent
-        args:
-          - --repo=https://github.com/KBlixt/subcleaner
-          - --branch=master
-          - --wait=86400 # 1 day
-          - --root=/add-ons
-        volumeMounts:
-          - { name: add-ons, mountPath: /add-ons }
+    service:
+      main:
+        ports:
+          http:
+            port: 6767

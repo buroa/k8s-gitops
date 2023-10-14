@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -25,84 +25,90 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    controller:
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: ghcr.io/onedr0p/sabnzbd
-      tag: 4.1.0@sha256:91f3cd6b9f1c9988af5447f464b299630706eb7f691dee857eab1487d4bb626e
-    env:
-      TZ: ${TIMEZONE}
-      SABNZBD__PORT: &port 8080
-      SABNZBD__HOST_WHITELIST_ENTRIES: >-
-        sabnzbd,
-        sabnzbd.media,
-        sabnzbd.media.svc,
-        sabnzbd.media.svc.cluster,
-        sabnzbd.media.svc.cluster.local,
-        usenet.${PUBLIC_DOMAIN}
-    envFrom:
-      - secretRef:
-          name: sabnzbd-secret
-    service:
+    controllers:
       main:
-        ports:
-          http:
-            port: *port
-    probes:
-      liveness: &probes
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/onedr0p/sabnzbd
+              tag: 4.1.0@sha256:91f3cd6b9f1c9988af5447f464b299630706eb7f691dee857eab1487d4bb626e
+            env:
+              TZ: ${TIMEZONE}
+              SABNZBD__PORT: &port 8080
+              SABNZBD__HOST_WHITELIST_ENTRIES: >-
+                sabnzbd,
+                sabnzbd.media,
+                sabnzbd.media.svc,
+                sabnzbd.media.svc.cluster,
+                sabnzbd.media.svc.cluster.local,
+                usenet.${PUBLIC_DOMAIN}
+            envFrom:
+              - secretRef:
+                  name: sabnzbd-secret
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api?mode=version
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: false
+            resources:
+              requests:
+                cpu: 10m
+                memory: 250M
+              limits:
+                memory: 8192M
+        pod:
+          affinity:
+            podAntiAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                - labelSelector:
+                    matchExpressions:
+                      - key: app.kubernetes.io/name
+                        operator: In
+                        values: ["qbittorrent"]
+                  topologyKey: kubernetes.io/hostname
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
+            supplementalGroups:
+              - 10000
+    persistence:
+      config:
         enabled: true
-        custom: true
-        spec:
-          httpGet:
-            path: /api?mode=version
-            port: *port
-          initialDelaySeconds: 0
-          periodSeconds: 10
-          timeoutSeconds: 1
-          failureThreshold: 3
-      readiness: *probes
-      startup:
-        enabled: false
+        existingClaim: sabnzbd-config
+      media:
+        existingClaim: media
     ingress:
       main:
         enabled: true
-        ingressClassName: nginx
+        className: nginx
         annotations:
           hajimari.io/icon: mdi:download
         hosts:
           - host: &host usenet.${PUBLIC_DOMAIN}
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *host
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: OnRootMismatch
-      supplementalGroups: [10000]
-    persistence:
-      config:
-        enabled: true
-        existingClaim: sabnzbd-config
-      media:
-        enabled: true
-        existingClaim: media
-    affinity:
-      podAntiAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-                - key: app.kubernetes.io/name
-                  operator: In
-                  values: ["qbittorrent"]
-            topologyKey: kubernetes.io/hostname
-    resources:
-      requests:
-        cpu: 10m
-        memory: 250Mi
-      limits:
-        memory: 8000Mi
+    service:
+      main:
+        ports:
+          http:
+            port: *port

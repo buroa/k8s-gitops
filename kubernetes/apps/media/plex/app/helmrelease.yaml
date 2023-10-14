@@ -59,13 +59,10 @@ spec:
         enabled: true
         existingClaim: plex-config
       tmp:
-        enabled: true
         type: emptyDir
       transcode:
-        enabled: true
         type: emptyDir
       media:
-        enabled: true
         existingClaim: media
         globalMounts:
           - readOnly: true

@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -25,89 +25,94 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    initContainers:
-      01-init-db:
-        image: ghcr.io/onedr0p/postgres-init:14.9
-        imagePullPolicy: IfNotPresent
-        envFrom:
-          - secretRef:
-              name: sonarr-secret
-    controller:
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: ghcr.io/onedr0p/sonarr-develop
-      tag: 4.0.0.697@sha256:fa87be887075ebef98933fe409b83e348eb0a3908e9c86ed5526a333250b98e6
-    env:
-      TZ: ${TIMEZONE}
-      SONARR__AUTHENTICATION_METHOD: External
-      SONARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
-      SONARR__INSTANCE_NAME: Sonarr
-      SONARR__PORT: &port 8989
-      SONARR__LOG_LEVEL: info
-      SONARR__THEME: dark
-    envFrom:
-      - secretRef:
-          name: sonarr-secret
-    service:
+    controllers:
       main:
-        ports:
-          http:
-            port: *port
-    probes:
-      liveness: &probes
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          01-init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 14.9
+            envFrom: &envFrom
+              - secretRef:
+                  name: sonarr-secret
+        containers:
+          main:
+            image:
+              repository: ghcr.io/onedr0p/sonarr-develop
+              tag: 4.0.0.697@sha256:fa87be887075ebef98933fe409b83e348eb0a3908e9c86ed5526a333250b98e6
+            env:
+              TZ: ${TIMEZONE}
+              SONARR__AUTHENTICATION_METHOD: External
+              SONARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
+              SONARR__INSTANCE_NAME: Sonarr
+              SONARR__PORT: &port 8989
+              SONARR__LOG_LEVEL: info
+              SONARR__THEME: dark
+            envFrom: *envFrom
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /ping
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: false
+            resources:
+              requests:
+                cpu: 10m
+                memory: 250M
+              limits:
+                memory: 2048M
+        pod:
+          affinity:
+            podAntiAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                - labelSelector:
+                    matchExpressions:
+                      - key: app.kubernetes.io/name
+                        operator: In
+                        values: ["radarr"]
+                  topologyKey: kubernetes.io/hostname
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
+            supplementalGroups:
+              - 10000
+    persistence:
+      config:
         enabled: true
-        custom: true
-        spec:
-          httpGet:
-            path: /ping
-            port: *port
-          initialDelaySeconds: 0
-          periodSeconds: 10
-          timeoutSeconds: 1
-          failureThreshold: 3
-      readiness: *probes
-      startup:
-        enabled: false
+        existingClaim: sonarr-config
+      media:
+        existingClaim: media
     ingress:
       main:
         enabled: true
-        ingressClassName: nginx
+        className: nginx
         annotations:
           hajimari.io/icon: mdi:television-classic
         hosts:
           - host: &host sonarr.${PUBLIC_DOMAIN}
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *host
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: OnRootMismatch
-      supplementalGroups: [10000]
-    persistence:
-      config:
-        enabled: true
-        existingClaim: sonarr-config
-      media:
-        enabled: true
-        existingClaim: media
-    affinity:
-      podAntiAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-                - key: app.kubernetes.io/name
-                  operator: In
-                  values: ["radarr"]
-            topologyKey: kubernetes.io/hostname
-    resources:
-      requests:
-        cpu: 10m
-        memory: 250Mi
-      limits:
-        memory: 2000Mi
+    service:
+      main:
+        ports:
+          http:
+            port: *port
