@@ -1,0 +1,69 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: bazarr-exporter
+  namespace: monitoring
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 2.0.3
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      main:
+        type: deployment
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/onedr0p/exportarr
+              tag: latest@sha256:bb0c060a39d6439ead3cc2a16f0d1a44da7a71ffe235197379f4063fe5e78606
+            args:
+              - bazarr
+            env:
+              PORT: 9707
+              URL: http://bazarr.media.svc.cluster.local:6767
+            envFrom:
+              - secretRef:
+                  name: bazarr-exporter-secret
+            resources:
+              requests:
+                cpu: 5m
+                memory: 36M
+              limits:
+                memory: 128M
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+    service:
+      main:
+        ports:
+          http:
+            port: 9707
+    serviceMonitor:
+      main:
+        enabled: true
+        endpoints:
+          - port: http
+            scheme: http
+            path: /metrics
+            interval: 1m
+            scrapeTimeout: 30s
