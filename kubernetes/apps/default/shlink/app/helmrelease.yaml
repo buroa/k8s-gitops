@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -25,61 +25,77 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    initContainers:
-      01-init-db:
-        image: ghcr.io/onedr0p/postgres-init:14.9
-        imagePullPolicy: IfNotPresent
-        envFrom: &envFrom
-          - secretRef:
-              name: shlink-secret
-    controller:
-      replicas: 2
-      strategy: RollingUpdate
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: ghcr.io/shlinkio/shlink
-      tag: 3.6.4-non-root
-    env:
-      TIMEZONE: ${TIMEZONE}
-      PORT: &port 80
-      IS_HTTPS_ENABLED: true
-      DEFAULT_DOMAIN: &host ln.${PUBLIC_DOMAIN}
-      REDIS_PUB_SUB_ENABLED: true
-      REDIS_SENTINEL_SERVICE: redis-master
-      REDIS_SERVERS:
-        "redis-node-0.redis-headless.databases.svc.cluster.local:26379,\
-        redis-node-1.redis-headless.databases.svc.cluster.local:26379,\
-        redis-node-2.redis-headless.databases.svc.cluster.local:26379"
-      DISABLE_TRACKING_FROM: 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
-      ENABLE_PERIODIC_VISIT_LOCATE: true
-      WEB_WORKER_NUM: 1
-      TASK_WORKER_NUM: 4
-    envFrom: *envFrom
-    service:
+    controllers:
       main:
-        ports:
-          http:
-            port: *port
-    probes:
-      liveness: &probes
-        enabled: true
-        custom: true
-        spec:
-          httpGet:
-            path: /rest/health
-            port: *port
-          initialDelaySeconds: 0
-          periodSeconds: 10
-          timeoutSeconds: 1
-          failureThreshold: 3
-      readiness: *probes
-      startup:
-        enabled: false
+        replicas: 2
+        strategy: RollingUpdate
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          01-init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 14.9
+            envFrom: &envFrom
+              - secretRef:
+                  name: shlink-secret
+        containers:
+          main:
+            image:
+              repository: ghcr.io/shlinkio/shlink
+              tag: 3.6.4-non-root
+            env:
+              TIMEZONE: ${TIMEZONE}
+              PORT: &port 80
+              WEB_WORKER_NUM: 1
+              TASK_WORKER_NUM: 4
+              IS_HTTPS_ENABLED: true
+              ENABLE_PERIODIC_VISIT_LOCATE: true
+              DEFAULT_DOMAIN: &host ln.${PUBLIC_DOMAIN}
+              REDIS_PUB_SUB_ENABLED: true
+              REDIS_SENTINEL_SERVICE: redis-master
+              REDIS_SERVERS:
+                "redis-node-0.redis-headless.databases.svc.cluster.local:26379,\
+                redis-node-1.redis-headless.databases.svc.cluster.local:26379,\
+                redis-node-2.redis-headless.databases.svc.cluster.local:26379"
+              DISABLE_TRACKING_FROM: 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
+            envFrom: *envFrom
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /rest/health
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: false
+            resources:
+              requests:
+                cpu: 10m
+                memory: 100M
+              limits:
+                memory: 500M
+        pod:
+          securityContext:
+            runAsUser: 1001
+            runAsGroup: 1001
+          topologySpreadConstraints:
+            - maxSkew: 1
+              topologyKey: kubernetes.io/hostname
+              whenUnsatisfiable: DoNotSchedule
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: *app
     ingress:
       main:
         enabled: true
-        ingressClassName: nginx
+        className: nginx
         annotations:
           hajimari.io/enable: "false"
           external-dns.alpha.kubernetes.io/target: ingress.${PUBLIC_DOMAIN}
@@ -87,20 +103,14 @@ spec:
           - host: *host
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *host
-    topologySpreadConstraints:
-      - maxSkew: 1
-        topologyKey: kubernetes.io/hostname
-        whenUnsatisfiable: DoNotSchedule
-        labelSelector:
-          matchLabels:
-            app.kubernetes.io/name: *app
-    resources:
-      requests:
-        cpu: 10m
-        memory: 100Mi
-      limits:
-        memory: 500Mi
+    service:
+      main:
+        ports:
+          http:
+            port: *port

@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -25,30 +25,46 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    controller:
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: docker.io/remirigal/plex-auto-languages
-      tag: v1.2.3
-    env:
-      TZ: ${TIMEZONE}
-      PLEX_URL: http://plex.media.svc.cluster.local:32400
-      REFRESH_LIBRARY_ON_SCAN: false
-    envFrom:
-      - secretRef:
-          name: plex-auto-languages-secret
-    service:
+    controllers:
       main:
-        enabled: false
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: docker.io/remirigal/plex-auto-languages
+              tag: v1.2.3
+            env:
+              TZ: ${TIMEZONE}
+              PLEX_URL: http://plex.media.svc.cluster.local:32400
+              REFRESH_LIBRARY_ON_SCAN: false
+            envFrom:
+              - secretRef:
+                  name: plex-auto-languages-secret
+            resources:
+              requests:
+                cpu: 50m
+                memory: 128M
+              limits:
+                memory: 1024M
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
     persistence:
+      config:
+        enabled: true
+        type: emptyDir
       local:
         enabled: true
         type: emptyDir
-        mountPath: /.local
-    resources:
-      requests:
-        cpu: 50m
-        memory: 100Mi
-      limits:
-        memory: 1000Mi
+        globalMounts:
+          - path: /.local
+    ingress:
+      main:
+        enabled: false
+    service:
+      main:
+        enabled: false

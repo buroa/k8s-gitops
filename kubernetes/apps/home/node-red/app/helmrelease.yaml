@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -25,46 +25,37 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    controller:
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: docker.io/nodered/node-red
-      tag: 3.1.0@sha256:81bc011a753112fa0abbaeb4d6e8e3f80e102ec7ff0ee816dc411515b7804c17
-    env:
-      TZ: ${TIMEZONE}
-      NODE_RED_OAUTH_ISSUER_URL: https://auth.${PUBLIC_DOMAIN}
-      NODE_RED_OAUTH_AUTH_URL: https://auth.${PUBLIC_DOMAIN}/api/oidc/authorization
-      NODE_RED_OAUTH_CALLBACK_URL: https://nr.${PUBLIC_DOMAIN}/auth/strategy/callback
-      NODE_RED_OAUTH_TOKEN_URL: http://authelia.security.svc.cluster.local:9091/api/oidc/token
-      NODE_RED_OAUTH_USER_URL: http://authelia.security.svc.cluster.local:9091/api/oidc/userinfo
-    envFrom:
-      - secretRef:
-          name: node-red-secret
-    service:
+    controllers:
       main:
-        ports:
-          http:
-            port: 1880
-    ingress:
-      main:
-        enabled: true
-        ingressClassName: nginx
         annotations:
-          hajimari.io/icon: cib:node-red
-        hosts:
-          - host: &host nr.${PUBLIC_DOMAIN}
-            paths:
-              - path: /
-                pathType: Prefix
-        tls:
-          - hosts:
-              - *host
-    podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
-      fsGroupChangePolicy: "OnRootMismatch"
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: docker.io/nodered/node-red
+              tag: 3.1.0@sha256:81bc011a753112fa0abbaeb4d6e8e3f80e102ec7ff0ee816dc411515b7804c17
+            env:
+              TZ: ${TIMEZONE}
+              NODE_RED_OAUTH_ISSUER_URL: https://auth.${PUBLIC_DOMAIN}
+              NODE_RED_OAUTH_AUTH_URL: https://auth.${PUBLIC_DOMAIN}/api/oidc/authorization
+              NODE_RED_OAUTH_CALLBACK_URL: https://nr.${PUBLIC_DOMAIN}/auth/strategy/callback
+              NODE_RED_OAUTH_TOKEN_URL: http://authelia.security.svc.cluster.local:9091/api/oidc/token
+              NODE_RED_OAUTH_USER_URL: http://authelia.security.svc.cluster.local:9091/api/oidc/userinfo
+            envFrom:
+              - secretRef:
+                  name: node-red-secret
+            resources:
+              requests:
+                cpu: 5m
+                memory: 36M
+              limits:
+                memory: 128M
+        pod:
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+            fsGroupChangePolicy: OnRootMismatch
     persistence:
       data:
         enabled: true
@@ -73,12 +64,28 @@ spec:
         enabled: true
         type: configMap
         name: node-red-configmap
-        mountPath: /data/settings.js
-        subPath: settings.js
-        readOnly: true
-    resources:
-      requests:
-        memory: 512Mi
-        cpu: 5m
-      limits:
-        memory: 512Mi
+        globalMounts:
+          - path: /data/settings.js
+            subPath: settings.js
+            readOnly: true
+    ingress:
+      main:
+        enabled: true
+        className: nginx
+        annotations:
+          hajimari.io/icon: cib:node-red
+        hosts:
+          - host: &host nr.${PUBLIC_DOMAIN}
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: http
+        tls:
+          - hosts:
+              - *host
+    service:
+      main:
+        ports:
+          http:
+            port: 1880

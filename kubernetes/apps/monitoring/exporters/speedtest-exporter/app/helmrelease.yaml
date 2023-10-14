@@ -27,7 +27,6 @@ spec:
   values:
     controllers:
       main:
-        type: deployment
         containers:
           main:
             image:

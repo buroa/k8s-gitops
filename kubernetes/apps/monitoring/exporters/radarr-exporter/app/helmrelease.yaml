@@ -27,7 +27,6 @@ spec:
   values:
     controllers:
       main:
-        type: deployment
         annotations:
           reloader.stakater.com/auto: "true"
         containers:

@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: karma
+  name: &app karma
   namespace: monitoring
 spec:
   interval: 30m
@@ -27,7 +27,8 @@ spec:
   values:
     controllers:
       main:
-        type: deployment
+        replicas: 2
+        strategy: RollingUpdate
         containers:
           main:
             image:
@@ -45,6 +46,13 @@ spec:
           securityContext:
             runAsUser: 568
             runAsGroup: 568
+          topologySpreadConstraints:
+            - maxSkew: 1
+              topologyKey: kubernetes.io/hostname
+              whenUnsatisfiable: DoNotSchedule
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: *app
     ingress:
       main:
         enabled: true
