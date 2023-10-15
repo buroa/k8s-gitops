@@ -37,7 +37,7 @@ spec:
             resources:
               requests:
                 cpu: 10m
-                memory: 250M
+                memory: 256M
               limits:
                 memory: 512M
           jbops:
@@ -49,6 +49,12 @@ spec:
               - --branch=master
               - --wait=86400 # 1 day
               - --root=/add-ons
+            resources:
+              requests:
+                cpu: 10m
+                memory: 10M
+              limits:
+                memory: 128M
         pod:
           securityContext:
             runAsUser: 568

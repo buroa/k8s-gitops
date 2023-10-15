@@ -52,7 +52,7 @@ spec:
                 cpu: 10m
                 memory: 10M
               limits:
-                memory: 100M
+                memory: 50M
     persistence:
       data:
         enabled: true
