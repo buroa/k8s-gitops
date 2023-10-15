@@ -51,7 +51,7 @@ spec:
             resources:
               requests:
                 cpu: 50m
-                memory: 1024M
+                memory: 4096M
               limits:
                 memory: 8192M
           xseed:

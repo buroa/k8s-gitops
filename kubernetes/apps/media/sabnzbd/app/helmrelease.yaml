@@ -64,10 +64,10 @@ spec:
                 enabled: false
             resources:
               requests:
-                cpu: 10m
-                memory: 1024M
-              limits:
+                cpu: 50m
                 memory: 4096M
+              limits:
+                memory: 8192M
         pod:
           affinity:
             podAntiAffinity:
