@@ -65,9 +65,9 @@ spec:
             resources:
               requests:
                 cpu: 10m
-                memory: 250M
+                memory: 1024M
               limits:
-                memory: 8192M
+                memory: 4096M
         pod:
           affinity:
             podAntiAffinity:

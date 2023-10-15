@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -25,89 +25,88 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    controller:
-      replicas: 2
-      strategy: RollingUpdate
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: quay.io/oriedge/k8s_gateway
-      tag: v0.3.4
-    args: ["-conf", "/etc/coredns/Corefile"]
+    controllers:
+      main:
+        replicas: 2
+        strategy: RollingUpdate
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: quay.io/oriedge/k8s_gateway
+              tag: v0.3.4
+            args:
+              - -conf
+              - /etc/coredns/Corefile
+            probes:
+              readiness:
+                custom: true
+                spec:
+                  httpGet:
+                    path: /ready
+                    port: 8181
+              liveness:
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: 8080
+              startup:
+                enabled: false
+            resources:
+              requests:
+                cpu: 5m
+                memory: 128M
+              limits:
+                memory: 256M
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+          topologySpreadConstraints:
+            - maxSkew: 1
+              topologyKey: kubernetes.io/hostname
+              whenUnsatisfiable: DoNotSchedule
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: *app
+    persistence:
+      config:
+        enabled: true
+        type: configMap
+        name: k8s-gateway-configmap
+        globalMounts:
+          - path: /etc/coredns/Corefile
+            subPath: Corefile
+            readOnly: true
+      hosts:
+        type: hostPath
+        hostPath: /etc/hosts
+        globalMounts:
+          - path: /etc/hosts
+            readOnly: true
     service:
       main:
         ports:
           http:
-            enabled: false
-          metrics:
-            enabled: true
             port: 9153
       dns:
-        enabled: true
+        controller: main
         type: ClusterIP
-        externalTrafficPolicy: ""
         clusterIP: ${K8S_GATEWAY_IP}
         ports:
           dns-tcp:
             enabled: true
             port: 53
             protocol: TCP
-            targetPort: 1053
           dns-udp:
             enabled: true
             port: 53
             protocol: UDP
-            targetPort: 1053
     serviceMonitor:
       main:
         enabled: true
-        endpoints:
-          - port: metrics
-            scheme: http
-            path: /metrics
-            interval: 30s
-            scrapeTimeout: 30s
-    probes:
-      readiness:
-        custom: true
-        spec:
-          httpGet:
-            path: /ready
-            port: 8181
-      liveness:
-        custom: true
-        spec:
-          httpGet:
-            path: /health
-            port: 8080
-      startup:
-        enabled: false
     serviceAccount:
       create: true
       name: *app
-    persistence:
-      config:
-        enabled: true
-        type: configMap
-        name: k8s-gateway-configmap
-        mountPath: /etc/coredns/Corefile
-        subPath: Corefile
-        readOnly: true
-      hosts:
-        enabled: true
-        type: hostPath
-        hostPath: /etc/hosts
-        readOnly: true
-    topologySpreadConstraints:
-      - maxSkew: 1
-        topologyKey: kubernetes.io/hostname
-        whenUnsatisfiable: DoNotSchedule
-        labelSelector:
-          matchLabels:
-            app.kubernetes.io/name: *app
-    resources:
-      requests:
-        cpu: 5m
-        memory: 10Mi
-      limits:
-        memory: 256Mi

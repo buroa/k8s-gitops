@@ -47,8 +47,8 @@ spec:
                   name: unpackerr-secret
             resources:
               requests:
-                memory: 4096Mi
                 cpu: 10m
+                memory: 4096Mi
               limits:
                 memory: 8192Mi
         pod:

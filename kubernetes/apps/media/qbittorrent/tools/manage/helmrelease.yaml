@@ -49,10 +49,10 @@ spec:
               - "8080"
             resources: &resources
               requests:
-                cpu: 10m
-                memory: 250M
+                cpu: 5m
+                memory: 64M
               limits:
-                memory: 500M
+                memory: 128M
           02-unregistered:
             image: *image
             args:

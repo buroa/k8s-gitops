@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -25,11 +25,27 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    controller:
-      type: daemonset
-    image:
-      repository: ghcr.io/onedr0p/intel-gpu-exporter
-      tag: rolling@sha256:7dda018289407e3d14a926a64d4d82c0b8e0d7f7572c6c1b60f5e81d6477b264
+    controllers:
+      main:
+        type: daemonset
+        containers:
+          main:
+            image:
+              repository: ghcr.io/onedr0p/intel-gpu-exporter
+              tag: rolling@sha256:7dda018289407e3d14a926a64d4d82c0b8e0d7f7572c6c1b60f5e81d6477b264
+            resources:
+              requests:
+                gpu.intel.com/i915_monitoring: 1
+                cpu: 10m
+                memory: 128M
+              limits:
+                gpu.intel.com/i915_monitoring: 1
+                memory: 256M
+            securityContext:
+              privileged: true
+        pod:
+          nodeSelector:
+            intel.feature.node.kubernetes.io/gpu: "true"
     service:
       main:
         ports:
@@ -38,24 +54,3 @@ spec:
     serviceMonitor:
       main:
         enabled: true
-        endpoints:
-          - port: http
-            scheme: http
-            path: /metrics
-            interval: 1m
-            scrapeTimeout: 10s
-            relabelings:
-              - sourceLabels: [__meta_kubernetes_pod_node_name]
-                targetLabel: node
-    securityContext:
-      privileged: true
-    nodeSelector:
-      intel.feature.node.kubernetes.io/gpu: "true"
-    resources:
-      requests:
-        gpu.intel.com/i915_monitoring: 1
-        cpu: 100m
-        memory: 100Mi
-      limits:
-        gpu.intel.com/i915_monitoring: 1
-        memory: 500Mi

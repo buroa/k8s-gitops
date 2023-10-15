@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: vector-agent
+  name: &app vector-agent
   namespace: monitoring
 spec:
   interval: 30m
@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -26,77 +26,84 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    controller:
-      type: daemonset
-      strategy: RollingUpdate
-    image:
-      # https://github.com/vectordotdev/vector/issues/6715
-      repository: ghcr.io/onedr0p/vector
-      tag: 0.33.0-debian
-    args: ["--config", "/etc/vector/vector.yaml"]
-    env:
-      PROCFS_ROOT: /host/proc
-      SYSFS_ROOT: /host/sys
-      VECTOR_SELF_NODE_NAME:
-        valueFrom:
-          fieldRef:
-            apiVersion: v1
-            fieldPath: spec.nodeName
-      VECTOR_SELF_POD_NAME:
-        valueFrom:
-          fieldRef:
-            apiVersion: v1
-            fieldPath: metadata.name
-      VECTOR_SELF_POD_NAMESPACE:
-        valueFrom:
-          fieldRef:
-            apiVersion: v1
-            fieldPath: metadata.namespace
+    controllers:
+      main:
+        type: daemonset
+        strategy: RollingUpdate
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/onedr0p/vector
+              tag: 0.33.0-debian@sha256:85449f3961ec0f6fb3881e8fda9a2f20c7ec583a03e9d0f2e4850c424e9e9a35
+            args:
+              - --config
+              - /etc/vector/vector.yaml
+            env:
+              PROCFS_ROOT: /host/proc
+              SYSFS_ROOT: /host/sys
+              VECTOR_SELF_NODE_NAME:
+                valueFrom:
+                  fieldRef:
+                    apiVersion: v1
+                    fieldPath: spec.nodeName
+              VECTOR_SELF_POD_NAME:
+                valueFrom:
+                  fieldRef:
+                    apiVersion: v1
+                    fieldPath: metadata.name
+              VECTOR_SELF_POD_NAMESPACE:
+                valueFrom:
+                  fieldRef:
+                    apiVersion: v1
+                    fieldPath: metadata.namespace
+            securityContext:
+              privileged: true
+    persistence:
+      config:
+        enabled: true
+        type: configMap
+        name: vector-agent-configmap
+        globalMounts:
+          - path: /etc/vector/vector.yaml
+            subPath: vector.yaml
+            readOnly: true
+      data:
+        type: emptyDir
+        globalMounts:
+          - path: /vector-data-dir
+      var-log:
+        type: hostPath
+        hostPath: /var/log
+        hostPathType: Directory
+        globalMounts:
+          - path: /var/log
+            readOnly: true
+      var-lib:
+        type: hostPath
+        hostPath: /var/lib
+        hostPathType: Directory
+        globalMounts:
+          - path: /var/lib
+            readOnly: true
+      procfs:
+        type: hostPath
+        hostPath: /proc
+        hostPathType: Directory
+        globalMounts:
+          - path: /host/proc
+            readOnly: true
+      sysfs:
+        type: hostPath
+        hostPath: /sys
+        hostPathType: Directory
+        globalMounts:
+          - path: /host/sys
+            readOnly: true
     service:
       main:
         enabled: false
     serviceAccount:
       create: true
-      name: vector-agent
-    securityContext:
-      privileged: true
-    persistence:
-      config:
-        enabled: true
-        type: configMap
-        name: vector-agent-configmap # overriden by kustomizeconfig
-        subPath: vector.yaml
-        mountPath: /etc/vector/vector.yaml
-        readOnly: true
-      data:
-        enabled: true
-        type: emptyDir
-        mountPath: /vector-data-dir
-      var-log:
-        enabled: true
-        type: hostPath
-        hostPath: /var/log
-        hostPathType: Directory
-        mountPath: /var/log
-        readOnly: true
-      var-lib:
-        enabled: true
-        type: hostPath
-        hostPath: /var/lib
-        hostPathType: Directory
-        mountPath: /var/lib
-        readOnly: true
-      procfs:
-        enabled: true
-        type: hostPath
-        hostPath: /proc
-        hostPathType: Directory
-        mountPath: /host/proc
-        readOnly: true
-      sysfs:
-        enabled: true
-        type: hostPath
-        hostPath: /sys
-        hostPathType: Directory
-        mountPath: /host/sys
-        readOnly: true
+      name: *app

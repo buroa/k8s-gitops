@@ -47,10 +47,10 @@ spec:
               - "8080"
             resources:
               requests:
-                cpu: 10m
-                memory: 250M
+                cpu: 5m
+                memory: 64M
               limits:
-                memory: 500M
+                memory: 128M
         pod:
           securityContext:
             runAsUser: 568

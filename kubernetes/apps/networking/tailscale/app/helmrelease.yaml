@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -25,28 +25,43 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    controller:
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: ghcr.io/tailscale/tailscale
-      tag: v1.50.1
-    env:
-      TZ: ${TIMEZONE}
-      PORT: &port ${TAILNET_PUBLIC_PORT}
-      TS_KUBE_SECRET: tailscale-state
-      SA_NAME: tailscale
-      TS_USERSPACE: true
-      TS_ROUTES: |-
-        ${LAN_SERVER_IP_CIDR},${CILIUM_LB_CIDR}
-    envFrom:
-      - secretRef:
-          name: tailscale-secret
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/tailscale/tailscale
+              tag: v1.50.1
+            env:
+              TZ: ${TIMEZONE}
+              PORT: &port ${TAILNET_PUBLIC_PORT}
+              SA_NAME: tailscale
+              TS_USERSPACE: true
+              TS_KUBE_SECRET: tailscale-state
+              TS_TAILSCALED_EXTRA_ARGS: --debug=0.0.0.0:2000
+              TS_ROUTES: ${LAN_SERVER_IP_CIDR},${CILIUM_LB_CIDR}
+            envFrom:
+              - secretRef:
+                  name: tailscale-secret
+            resources:
+              requests:
+                cpu: 5m
+                memory: 128M
+              limits:
+                memory: 256M
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
     service:
       main:
-        enabled: false
+        ports:
+          http:
+            port: 2000
       tailnet:
-        enabled: true
+        controller: main
         type: LoadBalancer
         annotations:
           io.cilium/lb-ipam-ips: ${TAILSCALE_LB_IP}
@@ -57,26 +72,14 @@ spec:
             enabled: true
             port: *port
             protocol: UDP
-    ingress:
+    serviceMonitor:
       main:
-        enabled: false
-    probes:
-      liveness:
-        enabled: false
-      readiness:
-        enabled: false
-      startup:
-        enabled: false
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: OnRootMismatch
+        enabled: true
+        endpoints:
+          - port: http
+            scheme: http
+            path: /debug/metrics
+            interval: 1m
+            scrapeTimeout: 30s
     serviceAccount:
       name: tailscale
-    resources:
-      requests:
-        cpu: 5m
-        memory: 10Mi
-      limits:
-        memory: 256Mi

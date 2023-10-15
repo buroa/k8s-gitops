@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -25,29 +25,60 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    controller:
-      replicas: 1
-      strategy: RollingUpdate
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: ghcr.io/foxcpp/maddy
-      tag: 0.7.0
-    env:
-      DEBUG: false
-    envFrom:
-      - secretRef:
-          name: smtp-relay-secret
+    controllers:
+      main:
+        replicas: 2
+        strategy: RollingUpdate
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/foxcpp/maddy
+              tag: 0.7.0
+            envFrom:
+              - secretRef:
+                  name: smtp-relay-secret
+            resources:
+              requests:
+                cpu: 5m
+                memory: 128M
+              limits:
+                memory: 256M
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
+          topologySpreadConstraints:
+            - maxSkew: 1
+              topologyKey: kubernetes.io/hostname
+              whenUnsatisfiable: DoNotSchedule
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: *app
+    persistence:
+      config:
+        enabled: true
+        type: configMap
+        name: smtp-relay-configmap
+        globalMounts:
+          - path: /data/maddy.conf
+            subPath: maddy.conf
+            readOnly: true
+      data:
+        type: emptyDir
+        medium: Memory
+        sizeLimit: 1Gi
+        globalMounts:
+          - path: /dev/shm
     service:
       main:
-        type: ClusterIP
-        externalTrafficPolicy: ""
-        clusterIP: ${SMTP_RELAY_IP}
         ports:
           http:
             port: 2525
           metrics:
-            enabled: true
             port: 9749
     serviceMonitor:
       main:
@@ -58,30 +89,3 @@ spec:
             path: /metrics
             interval: 30s
             scrapeTimeout: 30s
-    persistence:
-      config:
-        enabled: true
-        type: configMap
-        name: smtp-relay-configmap
-        mountPath: /data/maddy.conf
-        subPath: maddy.conf
-        readOnly: true
-      data:
-        enabled: true
-        type: emptyDir
-        medium: Memory
-        sizeLimit: 1Gi
-        mountPath: /dev/shm
-    topologySpreadConstraints:
-      - maxSkew: 1
-        topologyKey: kubernetes.io/hostname
-        whenUnsatisfiable: DoNotSchedule
-        labelSelector:
-          matchLabels:
-            app.kubernetes.io/name: *app
-    resources:
-      requests:
-        cpu: 5m
-        memory: 10Mi
-      limits:
-        memory: 256Mi
