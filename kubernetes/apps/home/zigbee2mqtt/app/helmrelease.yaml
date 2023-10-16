@@ -72,19 +72,19 @@ spec:
               ZIGBEE2MQTT_CONFIG_PERMIT_JOIN: false
               ZIGBEE2MQTT_CONFIG_SERIAL_BAUDRATE: 38400
               ZIGBEE2MQTT_CONFIG_SERIAL_DISABLE_LED: false
-              ZIGBEE2MQTT_CONFIG_SERIAL_PORT: &usb /dev/ttyACM0
+              ZIGBEE2MQTT_CONFIG_SERIAL_PORT: /dev/ttyACM0
               ZIGBEE2MQTT_CONFIG_SERIAL_ADAPTER: deconz
             envFrom:
               - secretRef:
                   name: zigbee2mqtt-secret
             resources:
               requests:
+                smarter-devices/ttyACM0: 1
                 cpu: 10m
                 memory: 100M
               limits:
+                smarter-devices/ttyACM0: 1
                 memory: 256M
-            securityContext:
-              privileged: true
         pod:
           nodeSelector:
             zigbee.feature.node.kubernetes.io/conbee: "true"
@@ -92,11 +92,6 @@ spec:
       config:
         enabled: true
         existingClaim: zigbee2mqtt-config
-      usb:
-        type: hostPath
-        hostPath: *usb
-        globalMounts:
-          - path: *usb
     ingress:
       main:
         enabled: true

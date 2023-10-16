@@ -1,0 +1,78 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: smarter-device-manager
+  namespace: kube-system
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 2.0.3
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      main:
+        type: daemonset
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: registry.gitlab.com/arm-research/smarter/smarter-device-manager
+              tag: v1.20.11
+            resources:
+              requests:
+                cpu: 10m
+                memory: 15M
+              limits:
+                cpu: 100m
+                memory: 50M
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
+        pod:
+          dnsPolicy: ClusterFirstWithHostNet
+          hostNetwork: true
+          priorityClassName: system-node-critical
+    persistence:
+      config:
+        enabled: true
+        type: configMap
+        name: smarter-device-manager-configmap
+        globalMounts:
+          - path: /root/config
+      dev:
+        type: hostPath
+        hostPath: /dev
+        globalMounts:
+          - readOnly: true
+      sys:
+        type: hostPath
+        hostPath: /sys
+        globalMounts:
+          - readOnly: true
+      var-lib-kubelet-device-plugins:
+        type: hostPath
+        hostPath: /var/lib/kubelet/device-plugins
+        globalMounts:
+          - path: /var/lib/kubelet/device-plugins
+    service:
+      main:
+        enabled: false
