@@ -10,7 +10,7 @@ esac
 
 if [[ -n "$section" ]]; then
     printf "Refreshing Plex section '%s' for '%s' ...\n" "$section" "$(dirname "$1")"
-    /usr/bin/curl -I -X PUT -G \
+    /usr/bin/curl -I -X GET -G \
         --data-urlencode "path=$(dirname "$1")" \
         --data-urlencode "X-Plex-Token=$2" \
         --no-progress-meter \
