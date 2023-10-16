@@ -7,7 +7,7 @@ resources:
 configMapGenerator:
   - name: smarter-device-manager-configmap
     files:
-      - ./configs/conf.yaml
+      - conf.yaml=./configs/conf.yaml.txt
 generatorOptions:
   disableNameSuffixHash: true
 labels:
