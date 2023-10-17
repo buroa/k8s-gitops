@@ -114,7 +114,8 @@
     {
       "matchDatasources": ["custom.grafana-dashboards"],
       "matchUpdateTypes": ["major"],
-      "commitMessagePrefix": "feat(grafana-dashboard)!: "
+      "semanticCommitType": "chore",
+      "semanticCommitScope": "grafana-dashboard"
     }
   ]
 }

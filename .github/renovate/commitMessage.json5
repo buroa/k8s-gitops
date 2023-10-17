@@ -15,7 +15,7 @@
     {
       "matchDatasources": ["custom.grafana-dashboards"],
       "commitMessageTopic": "dashboard {{depName}}",
-      "commitMessageExtra": "to v{{newVersion}}"
+      "commitMessageExtra": "to revision {{newVersion}}"
     }
   ]
 }

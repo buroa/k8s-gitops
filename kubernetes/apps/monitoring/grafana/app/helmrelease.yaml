@@ -256,22 +256,34 @@ spec:
           datasource: Prometheus
       kubernetes:
         kubernetes-api-server:
-          url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-system-api-server.json
+          # renovate: depName="Kubernetes / System / API Server"
+          gnetId: 15761
+          revision: 13
           datasource: Prometheus
         kubernetes-coredns:
-          url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-system-coredns.json
+          # renovate: depName="Kubernetes / System / CoreDNS"
+          gnetId: 15762
+          revision: 12
           datasource: Prometheus
         kubernetes-global:
-          url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-global.json
+          # renovate: depName="Kubernetes / Views / Global"
+          gnetId: 15757
+          revision: 30
           datasource: Prometheus
         kubernetes-namespaces:
-          url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-namespaces.json
+          # renovate: depName="Kubernetes / Views / Namespaces"
+          gnetId: 15758
+          revision: 26
           datasource: Prometheus
         kubernetes-nodes:
-          url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-nodes.json
+          # renovate: depName="Kubernetes / Views / Nodes"
+          gnetId: 15759
+          revision: 18
           datasource: Prometheus
         kubernetes-pods:
-          url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-pods.json
+          # renovate: depName="Kubernetes / Views / Pods"
+          gNetId: 15760
+          revision: 21
           datasource: Prometheus
         kubernetes-volumes:
           # renovate: depName="K8s / Storage / Volumes / Cluster"
@@ -294,7 +306,9 @@ spec:
             - name: DS_PROMETHEUS
               value: Prometheus
         blocky-query:
-          url: https://raw.githubusercontent.com/0xERR0R/blocky/main/docs/blocky-query-grafana-postgres.json
+          # renovate: depName="Blocky-Postgres"
+          gnetId: 17996
+          revision: 10
           datasource:
             - name: DS_POSTGRES
               value: Blocky
