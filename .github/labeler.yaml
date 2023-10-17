@@ -1,7 +1,11 @@
 ---
 area/github:
   - ".github/**/*"
+area/taskfiles:
+  - ".taskfiles/**/*"
 area/kubernetes:
   - "kubernetes/**/*"
-area/hack:
-  - "hack/**/*"
+area/talos:
+  - "talos/**/*"
+area/terraform:
+  - "terraform/**/*"

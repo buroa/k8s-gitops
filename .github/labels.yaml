@@ -1,21 +1,21 @@
 ---
 # Area
-- name: area/ansible
-  color: "72ccf3"
-  description: >-
-    Changes made in the ansible directory
 - name: area/github
   color: "72ccf3"
   description: >-
     Changes made in the github directory
+- name: area/taskfiles
+  color: "72ccf3"
+  description: >-
+    Changes made in the taskfiles directory
 - name: area/kubernetes
   color: "72ccf3"
   description: >-
     Changes made in the kubernetes directory
-- name: area/hack
+- name: area/talos
   color: "72ccf3"
   description: >-
-    Changes made in the hack directory
+    Changes made in the talos directory
 - name: area/terraform
   color: "72ccf3"
   description: >-
@@ -28,6 +28,8 @@
 - name: renovate/github-action
   color: "ffc300"
 - name: renovate/github-release
+  color: "ffc300"
+- name: renovate/grafana-dashboard
   color: "ffc300"
 - name: renovate/helm
   color: "ffc300"

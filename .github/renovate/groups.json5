@@ -31,6 +31,16 @@
         "commitMessageTopic": "{{{groupName}}} group"
       },
       "separateMinorPatch": true
+    },
+    {
+      "description": "Talos Group",
+      "groupName": "Talos",
+      "matchPackagePatterns": ["siderolabs/talos", "siderolabs/talosctl", "buroa/installer"],
+      "matchDatasources": ["docker", "github-releases"],
+      "group": {
+        "commitMessageTopic": "{{{groupName}}} group"
+      },
+      "separateMinorPatch": true
     }
   ]
 }

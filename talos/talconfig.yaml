@@ -6,9 +6,12 @@ clusterPodNets:
 clusterSvcNets:
   - 10.245.0.0/16
 
-talosVersion: v1.5.3
-kubernetesVersion: 1.28.2
 endpoint: https://k8s.${domainName}:6443
+
+# renovate: datasource=docker depName=ghcr.io/buroa/installer
+talosVersion: v1.5.3
+# renovate: datasource=github-releases depName=kubernetes/kubernetes
+kubernetesVersion: 1.28.2
 
 additionalApiServerCertSans:
   - ${clusterEndpointIP}
