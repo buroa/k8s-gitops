@@ -306,7 +306,7 @@ controlPlane:
       install:
         image: ghcr.io/buroa/installer:v1.5.3
         extensions:
-          - image: ghcr.io/siderolabs/i915-ucode:20230804
+          - image: ghcr.io/siderolabs/i915-ucode:20230919
           - image: ghcr.io/siderolabs/intel-ucode:20230808
         legacyBIOSSupport: true
         extraKernelArgs:
