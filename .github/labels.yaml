@@ -33,6 +33,8 @@
   color: "ffc300"
 - name: renovate/terraform
   color: "ffc300"
+- name: renovate/grafana-dashboard
+  color: "ffc300"
 # Semantic Type
 - name: type/digest
   color: "FFEC19"
