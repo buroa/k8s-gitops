@@ -9,7 +9,7 @@ clusterSvcNets:
 endpoint: https://k8s.${domainName}:6443
 
 # renovate: datasource=docker depName=ghcr.io/buroa/installer
-talosVersion: v1.5.3
+talosVersion: v1.5.4
 # renovate: datasource=github-releases depName=kubernetes/kubernetes
 kubernetesVersion: 1.28.2
 
@@ -304,7 +304,7 @@ controlPlane:
             disabled: true
     machine: &machine
       install:
-        image: ghcr.io/buroa/installer:v1.5.3
+        image: ghcr.io/buroa/installer:v1.5.4
         extensions:
           - image: ghcr.io/siderolabs/i915-ucode:20230804
           - image: ghcr.io/siderolabs/intel-ucode:20230808
