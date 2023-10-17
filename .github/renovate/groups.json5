@@ -31,6 +31,16 @@
         "commitMessageTopic": "{{{groupName}}} group"
       },
       "separateMinorPatch": true
+    },
+    {
+      "description": "Talos Group",
+      "groupName": "Talos",
+      "matchPackageNames": ["talos", "talosctl", "ghcr.io/buroa/installer"],
+      "matchDatasources": ["docker", "github-release"],
+      "group": {
+        "commitMessageTopic": "{{{groupName}}} group"
+      },
+      "separateMinorPatch": true
     }
   ]
 }
