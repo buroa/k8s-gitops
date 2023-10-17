@@ -308,7 +308,7 @@ spec:
         blocky-query:
           # renovate: depName="Blocky-Postgres"
           gnetId: 17996
-          revision: 10
+          revision: 11
           datasource:
             - name: DS_POSTGRES
               value: Blocky
