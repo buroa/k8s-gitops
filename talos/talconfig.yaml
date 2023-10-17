@@ -6,8 +6,11 @@ clusterPodNets:
 clusterSvcNets:
   - 10.245.0.0/16
 
+# renovate: datasource=github-releases depName=siderolabs/talos
 talosVersion: v1.5.3
+# renovate: datasource=github-releases depName=kubernetes/kubernetes
 kubernetesVersion: 1.28.2
+
 endpoint: https://k8s.${domainName}:6443
 
 additionalApiServerCertSans:
