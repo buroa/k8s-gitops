@@ -24,7 +24,7 @@
     "description": "A Dashboard for Synology NAS based on SNMP and Prometheus",
     "editable": true,
     "fiscalYearStartMonth": 0,
-    "gnetId": 13516,
+    "gnetId": null,
     "graphTooltip": 0,
     "id": 160,
     "links": [],

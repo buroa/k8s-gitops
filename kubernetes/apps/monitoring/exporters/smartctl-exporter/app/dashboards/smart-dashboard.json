@@ -24,7 +24,7 @@
     "description": "Dashboard for viewing detailed disk information based on S.M.A.R.T data",
     "editable": true,
     "fiscalYearStartMonth": 0,
-    "gnetId": 13654,
+    "gnetId": null,
     "graphTooltip": 0,
     "id": 165,
     "links": [],
