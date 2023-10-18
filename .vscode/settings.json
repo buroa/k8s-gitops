@@ -14,12 +14,17 @@
     "talos": "core",
     "vars": "other",
     // namespaces
+    "actions-runner-system": "robot",
     "cert-manager": "guard",
+    "democratic-csi": "dump",
     "external-secrets": "keys",
+    "flux-system": "ci",
     "kube-system": "kubernetes",
+    "media": "video",
     "monitoring": "event",
     "networking": "connection",
-    "rook-ceph": "dump"
+    "rook-ceph": "dump",
+    "security": "guard"
   },
   "editor.formatOnSave": false,
   "editor.formatOnSaveMode": "file",
