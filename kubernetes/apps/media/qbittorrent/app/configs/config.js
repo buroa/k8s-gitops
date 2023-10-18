@@ -2,7 +2,6 @@
 // Default Torrent Management Mode: Automatic
 // Default Save Path: /media/downloads/torrents/complete
 // Incomplete Save Path: /media/downloads/torrents/incomplete
-// External program on finished: /scripts/xseed.sh "%F"
 
 module.exports = {
   delay: 15,
@@ -27,22 +26,12 @@ module.exports = {
   ],
 
   action: "inject",
+  matchMode: "safe",
+  skipRecheck: true,
+
   includeEpisodes: true,
   includeNonVideos: true,
   duplicateCategories: true,
-
-  matchMode: "safe",
-  skipRecheck: true,
-  linkType: "hardlink",
-  linkDir: "/media/downloads/torrents/complete/xseed",
-
-  // I have sonarr, radarr, and manual categories set in qBittorrent
-  // The save paths for them are set to the following:
-  dataDirs: [
-    "/media/downloads/torrents/complete/sonarr",
-    "/media/downloads/torrents/complete/radarr",
-    "/media/downloads/torrents/complete/manual",
-  ],
 
   outputDir: "/config/xseed",
   torrentDir: "/config/qBittorrent/BT_backup",
