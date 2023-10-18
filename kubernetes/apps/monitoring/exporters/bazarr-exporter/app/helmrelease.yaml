@@ -33,7 +33,7 @@ spec:
           main:
             image:
               repository: ghcr.io/onedr0p/exportarr
-              tag: latest@sha256:bb0c060a39d6439ead3cc2a16f0d1a44da7a71ffe235197379f4063fe5e78606
+              tag: latest@sha256:7f287deedce521bf8786601deb6f526fc62a7203ead25b939f44df1efe69779d
             args:
               - bazarr
             env:
