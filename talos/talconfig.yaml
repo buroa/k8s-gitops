@@ -321,7 +321,7 @@ controlPlane:
             format: json_lines
       sysfs:
         devices.system.cpu.intel_pstate.no_turbo: 1
-        devices.system.cpu.cpu0.cpufreq.scaling_governor: powersave
+        devices.system.cpu.cpu0.cpufreq.scaling_governor: performance
       sysctls:
         fs.inotify.max_user_watches: 1048576
         fs.inotify.max_user_instances: 8192
