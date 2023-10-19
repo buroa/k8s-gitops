@@ -9,10 +9,7 @@ metadata:
 spec:
   instances: 3
   imageName: ghcr.io/cloudnative-pg/postgresql:15.2
-  inheritedMetadata:
-    labels:
-      kube-image-keeper.enix.io/image-caching-policy: ignore
-  primaryUpdateStrategy: unsupervised
+  enableSuperuserAccess: true
   storage:
     size: 25Gi
     storageClass: ${CLUSTER_STORAGE_HOSTPATH}
