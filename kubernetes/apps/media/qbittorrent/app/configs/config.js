@@ -2,7 +2,6 @@
 // Default Torrent Management Mode: Automatic
 // Default Save Path: /media/downloads/torrents/complete
 // Incomplete Save Path: /media/downloads/torrents/incomplete
-// External program on finished: /scripts/xseed.sh "%F"
 
 module.exports = {
   delay: 20,
