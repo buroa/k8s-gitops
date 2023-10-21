@@ -8,6 +8,9 @@ resources:
   - ./helmrelease.yaml
   - ./volsync.yaml
 configMapGenerator:
+  - name: qbittorrent-scripts
+    files:
+      - ./configs/xseed.sh
   - name: cross-seed-config-tpl
     files:
       - ./configs/config.js

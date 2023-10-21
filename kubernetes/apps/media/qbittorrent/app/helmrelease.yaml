@@ -28,6 +28,7 @@ spec:
     controllers:
       main:
         annotations:
+          configmap.reloader.stakater.com/reload: qbittorrent-scripts
           secret.reloader.stakater.com/reload: cross-seed-secret
         containers:
           main:
@@ -88,6 +89,14 @@ spec:
         existingClaim: qbittorrent-config
       media:
         existingClaim: media
+      scripts:
+        type: configMap
+        name: qbittorrent-scripts
+        defaultMode: 0775
+        globalMounts:
+          - path: /scripts/xseed.sh
+            subPath: xseed.sh
+            readOnly: true
       xseed:
         type: secret
         name: cross-seed-secret
