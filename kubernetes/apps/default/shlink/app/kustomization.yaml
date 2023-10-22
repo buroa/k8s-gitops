@@ -14,7 +14,3 @@ configMapGenerator:
         gatus.io/enabled: "true"
 generatorOptions:
   disableNameSuffixHash: true
-labels:
-  - pairs:
-      app.kubernetes.io/name: shlink
-      app.kubernetes.io/instance: shlink

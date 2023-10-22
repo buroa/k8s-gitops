@@ -5,7 +5,3 @@ namespace: monitoring
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
-labels:
-  - pairs:
-      app.kubernetes.io/name: prowlarr-exporter
-      app.kubernetes.io/instance: prowlarr-exporter

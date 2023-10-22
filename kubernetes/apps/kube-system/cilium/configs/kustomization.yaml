@@ -6,7 +6,3 @@ resources:
   - ./loadbalancerippool.yaml
   - ./l2announcementpolicy.yaml
   - ./bgppeeringpolicy.yaml
-labels:
-  - pairs:
-      app.kubernetes.io/name: cilium
-      app.kubernetes.io/instance: cilium

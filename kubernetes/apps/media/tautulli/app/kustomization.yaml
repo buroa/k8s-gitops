@@ -15,7 +15,3 @@ configMapGenerator:
         gatus.io/enabled: "true"
 generatorOptions:
   disableNameSuffixHash: true
-labels:
-  - pairs:
-      app.kubernetes.io/name: tautulli
-      app.kubernetes.io/instance: tautulli

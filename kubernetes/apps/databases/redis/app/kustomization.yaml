@@ -4,7 +4,3 @@ kind: Kustomization
 namespace: databases
 resources:
   - ./helmrelease.yaml
-labels:
-  - pairs:
-      app.kubernetes.io/name: redis
-      app.kubernetes.io/instance: redis

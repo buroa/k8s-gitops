@@ -13,7 +13,3 @@ configMapGenerator:
         gatus.io/enabled: "true"
 generatorOptions:
   disableNameSuffixHash: true
-labels:
-  - pairs:
-      app.kubernetes.io/name: libreddit
-      app.kubernetes.io/instance: libreddit

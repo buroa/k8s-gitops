@@ -4,7 +4,3 @@ kind: Kustomization
 namespace: kube-system
 resources:
   - ./helmrelease.yaml
-labels:
-  - pairs:
-      app.kubernetes.io/name: kube-cleanup-operator
-      app.kubernetes.io/instance: kube-cleanup-operator

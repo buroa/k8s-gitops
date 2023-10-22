@@ -5,7 +5,3 @@ resources:
   - ./storageclass.yaml
   - ./persistentvolume.yaml
   - ./persistentvolumeclaim.yaml
-labels:
-  - pairs:
-      app.kubernetes.io/name: pvc-media
-      app.kubernetes.io/instance: pvc-media

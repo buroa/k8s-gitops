@@ -10,7 +10,3 @@ configMapGenerator:
       - ./configs/mbpfan.conf
 generatorOptions:
   disableNameSuffixHash: true
-labels:
-  - pairs:
-      app.kubernetes.io/name: mbpfan
-      app.kubernetes.io/instance: mbpfan

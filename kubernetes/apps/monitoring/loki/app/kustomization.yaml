@@ -11,7 +11,3 @@ configMapGenerator:
       - ./rules/loki-alerting-rules.yaml
 generatorOptions:
   disableNameSuffixHash: true
-labels:
-  - pairs:
-      app.kubernetes.io/name: loki
-      app.kubernetes.io/instance: loki

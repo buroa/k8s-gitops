@@ -4,7 +4,3 @@ kind: Kustomization
 namespace: kube-system
 resources:
   - ./helmrelease.yaml
-labels:
-  - pairs:
-      app.kubernetes.io/name: intel-device-plugin-operator
-      app.kubernetes.io/instance: intel-device-plugin-operator

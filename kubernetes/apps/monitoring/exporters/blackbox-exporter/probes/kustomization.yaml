@@ -4,7 +4,3 @@ kind: Kustomization
 namespace: monitoring
 resources:
   - ./homelab.yaml
-labels:
-  - pairs:
-      app.kubernetes.io/name: blackbox-exporter-probes
-      app.kubernetes.io/instance: blackbox-exporter-probes

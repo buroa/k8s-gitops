@@ -5,7 +5,3 @@ namespace: monitoring
 resources:
   - ./objectbucketclaim.yaml
   - ./helmrelease.yaml
-labels:
-  - pairs:
-      app.kubernetes.io/name: thanos
-      app.kubernetes.io/instance: thanos

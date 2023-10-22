@@ -11,7 +11,3 @@ configMapGenerator:
       - ./configs/config.yaml
 generatorOptions:
   disableNameSuffixHash: true
-labels:
-  - pairs:
-      app.kubernetes.io/name: cloudflared
-      app.kubernetes.io/instance: cloudflared

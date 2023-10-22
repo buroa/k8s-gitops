@@ -4,7 +4,3 @@ kind: Kustomization
 namespace: rook-ceph
 resources:
   - ./helmrelease.yaml
-labels:
-  - pairs:
-      app.kubernetes.io/name: rook-ceph
-      app.kubernetes.io/instance: rook-ceph

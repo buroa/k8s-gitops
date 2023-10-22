@@ -16,7 +16,3 @@ configMapGenerator:
         grafana_dashboard: "1"
 generatorOptions:
   disableNameSuffixHash: true
-labels:
-  - pairs:
-      app.kubernetes.io/name: snmp-exporter-cyberpower-ups
-      app.kubernetes.io/instance: snmp-exporter-cyberpower-ups

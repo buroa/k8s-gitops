@@ -13,7 +13,3 @@ configMapGenerator:
       - ./scripts/post-process.sh
 generatorOptions:
   disableNameSuffixHash: true
-labels:
-  - pairs:
-      app.kubernetes.io/name: bazarr
-      app.kubernetes.io/instance: bazarr

@@ -4,7 +4,3 @@ kind: Kustomization
 namespace: databases
 resources:
   - ./helmrelease.yaml
-labels:
-  - pairs:
-      app.kubernetes.io/name: cloudnative-pg
-      app.kubernetes.io/instance: cloudnative-pg

@@ -5,7 +5,3 @@ namespace: media
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
-labels:
-  - pairs:
-      app.kubernetes.io/name: plex-auto-languages
-      app.kubernetes.io/instance: plex-auto-languages

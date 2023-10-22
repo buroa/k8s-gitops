@@ -10,7 +10,3 @@ configMapGenerator:
       - ./configs/snmp.yaml
 generatorOptions:
   disableNameSuffixHash: true
-labels:
-  - pairs:
-      app.kubernetes.io/name: snmp-exporter-cyberpower-pdu
-      app.kubernetes.io/instance: snmp-exporter-cyberpower-pdu

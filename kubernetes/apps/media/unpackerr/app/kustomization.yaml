@@ -5,7 +5,3 @@ namespace: media
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
-labels:
-  - pairs:
-      app.kubernetes.io/name: unpackerr
-      app.kubernetes.io/instance: unpackerr

@@ -9,11 +9,7 @@ configMapGenerator:
   - name: vector-agent-configmap
     files:
       - vector.yaml=./configs/vector.yaml
-generatorOptions:
-  disableNameSuffixHash: true
 configurations:
   - ./patches/kustomizeconfig.yaml
-labels:
-  - pairs:
-      app.kubernetes.io/name: vector-agent
-      app.kubernetes.io/instance: vector-agent
+generatorOptions:
+  disableNameSuffixHash: true

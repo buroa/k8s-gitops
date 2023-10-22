@@ -5,7 +5,3 @@ namespace: cert-manager
 resources:
   - ./externalsecret.yaml
   - ./letsencrypt-prod.yaml
-labels:
-  - pairs:
-      app.kubernetes.io/name: cert-manager-issuers
-      app.kubernetes.io/instance: cert-manager-issuers

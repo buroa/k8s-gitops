@@ -6,7 +6,3 @@ resources:
   - ./rbac.yaml
   - ./externalsecret.yaml
   - ./helmrelease.yaml
-labels:
-  - pairs:
-      app.kubernetes.io/name: tailscale
-      app.kubernetes.io/instance: tailscale

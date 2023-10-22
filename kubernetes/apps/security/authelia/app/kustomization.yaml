@@ -9,6 +9,9 @@ configMapGenerator:
   - name: authelia-configmap
     files:
       - ./configs/configuration.yml
+    options:
+      annotations:
+        kustomize.toolkit.fluxcd.io/substitute: disabled
   - name: authelia-gatus-ep
     files:
       - ./configs/gatus.yaml
@@ -17,9 +20,3 @@ configMapGenerator:
         gatus.io/enabled: "true"
 generatorOptions:
   disableNameSuffixHash: true
-  annotations:
-    kustomize.toolkit.fluxcd.io/substitute: disabled
-labels:
-  - pairs:
-      app.kubernetes.io/name: authelia
-      app.kubernetes.io/instance: authelia

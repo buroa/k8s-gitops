@@ -10,7 +10,3 @@ configMapGenerator:
       - conf.yaml=./configs/conf.yaml.txt
 generatorOptions:
   disableNameSuffixHash: true
-labels:
-  - pairs:
-      app.kubernetes.io/name: smarter-device-manager
-      app.kubernetes.io/instance: smarter-device-manager

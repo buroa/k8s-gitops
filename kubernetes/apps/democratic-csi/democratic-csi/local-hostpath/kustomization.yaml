@@ -4,7 +4,3 @@ kind: Kustomization
 namespace: democratic-csi
 resources:
   - ./helmrelease.yaml
-labels:
-  - pairs:
-      app.kubernetes.io/name: democratic-csi-local-hostpath
-      app.kubernetes.io/instance: democratic-csi-local-hostpath

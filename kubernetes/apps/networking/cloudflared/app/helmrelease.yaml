@@ -95,7 +95,6 @@ spec:
             subPath: config.yaml
             readOnly: true
       creds:
-        enabled: true
         type: secret
         name: cloudflared-secret
         globalMounts:

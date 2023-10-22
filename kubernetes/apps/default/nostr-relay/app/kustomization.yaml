@@ -17,7 +17,3 @@ configMapGenerator:
         gatus.io/enabled: "true"
 generatorOptions:
   disableNameSuffixHash: true
-labels:
-  - pairs:
-      app.kubernetes.io/name: nostr-relay
-      app.kubernetes.io/instance: nostr-relay

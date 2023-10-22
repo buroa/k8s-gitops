@@ -4,7 +4,3 @@ kind: Kustomization
 namespace: home
 resources:
   - ./helmrelease.yaml
-labels:
-  - pairs:
-      app.kubernetes.io/name: hajimari
-      app.kubernetes.io/instance: hajimari

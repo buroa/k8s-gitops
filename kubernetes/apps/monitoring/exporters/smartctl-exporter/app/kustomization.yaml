@@ -14,7 +14,3 @@ configMapGenerator:
         grafana_dashboard: "1"
 generatorOptions:
   disableNameSuffixHash: true
-labels:
-  - pairs:
-      app.kubernetes.io/name: smartctl-exporter
-      app.kubernetes.io/instance: smartctl-exporter

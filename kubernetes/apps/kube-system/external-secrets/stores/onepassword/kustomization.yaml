@@ -6,7 +6,3 @@ resources:
   - ./secret.sops.yaml
   - ./helmrelease.yaml
   - ./clustersecretstore.yaml
-labels:
-  - pairs:
-      app.kubernetes.io/name: stores
-      app.kubernetes.io/instance: onepassword

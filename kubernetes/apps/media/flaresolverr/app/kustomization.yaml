@@ -4,7 +4,3 @@ kind: Kustomization
 namespace: media
 resources:
   - ./helmrelease.yaml
-labels:
-  - pairs:
-      app.kubernetes.io/name: flaresolverr
-      app.kubernetes.io/instance: flaresolverr

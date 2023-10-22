@@ -8,7 +8,3 @@ configMapGenerator:
       - ./configs/Corefile
 generatorOptions:
   disableNameSuffixHash: true
-labels:
-  - pairs:
-      app.kubernetes.io/name: coredns
-      app.kubernetes.io/instance: coredns

@@ -5,7 +5,3 @@ namespace: monitoring
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
-labels:
-  - pairs:
-      app.kubernetes.io/name: sonarr-exporter
-      app.kubernetes.io/instance: sonarr-exporter

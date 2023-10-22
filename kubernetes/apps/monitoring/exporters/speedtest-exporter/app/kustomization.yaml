@@ -4,7 +4,3 @@ kind: Kustomization
 namespace: monitoring
 resources:
   - ./helmrelease.yaml
-labels:
-  - pairs:
-      app.kubernetes.io/name: speedtest-exporter
-      app.kubernetes.io/instance: speedtest-exporter

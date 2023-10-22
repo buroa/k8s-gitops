@@ -12,7 +12,3 @@ configMapGenerator:
       - ./configs/config.yml
 generatorOptions:
   disableNameSuffixHash: true
-labels:
-  - pairs:
-      app.kubernetes.io/name: blocky
-      app.kubernetes.io/instance: blocky

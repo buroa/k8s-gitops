@@ -4,7 +4,3 @@ kind: Kustomization
 namespace: kube-system
 resources:
   - ./helmrelease.yaml
-labels:
-  - pairs:
-      app.kubernetes.io/name: node-problem-detector
-      app.kubernetes.io/instance: node-problem-detector

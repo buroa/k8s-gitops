@@ -4,7 +4,3 @@ kind: Kustomization
 namespace: actions-runner-system
 resources:
   - ./helmrelease.yaml
-labels:
-  - pairs:
-      app.kubernetes.io/name: actions-runner
-      app.kubernetes.io/instance: actions-runner

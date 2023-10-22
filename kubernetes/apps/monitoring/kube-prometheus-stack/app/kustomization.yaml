@@ -11,7 +11,3 @@ configMapGenerator:
       - ./configs/alertmanager.yaml
 generatorOptions:
   disableNameSuffixHash: true
-labels:
-  - pairs:
-      app.kubernetes.io/name: kube-prometheus-stack
-      app.kubernetes.io/instance: kube-prometheus-stack

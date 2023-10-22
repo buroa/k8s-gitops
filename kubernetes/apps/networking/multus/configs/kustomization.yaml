@@ -4,7 +4,3 @@ kind: Kustomization
 namespace: networking
 resources:
   - ./networkattachment.yaml
-labels:
-  - pairs:
-      app.kubernetes.io/name: multus
-      app.kubernetes.io/instance: multus

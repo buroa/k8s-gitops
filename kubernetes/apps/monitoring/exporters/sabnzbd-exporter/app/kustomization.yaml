@@ -5,7 +5,3 @@ namespace: monitoring
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
-labels:
-  - pairs:
-      app.kubernetes.io/name: sabnzbd-exporter
-      app.kubernetes.io/instance: sabnzbd-exporter

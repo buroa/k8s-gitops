@@ -51,7 +51,6 @@ spec:
             subPath: mbpfan.conf
             readOnly: true
       sys:
-        enabled: true
         type: hostPath
         hostPath: /sys
     service:

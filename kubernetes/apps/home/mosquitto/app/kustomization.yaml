@@ -13,7 +13,5 @@ configMapGenerator:
       - ./configs/mosquitto.conf
 configurations:
   - ./patches/kustomizeconfig.yaml
-labels:
-  - pairs:
-      app.kubernetes.io/name: mosquitto
-      app.kubernetes.io/instance: mosquitto
+generatorOptions:
+  disableNameSuffixHash: true

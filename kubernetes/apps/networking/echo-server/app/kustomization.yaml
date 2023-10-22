@@ -13,7 +13,3 @@ configMapGenerator:
         gatus.io/enabled: "true"
 generatorOptions:
   disableNameSuffixHash: true
-labels:
-  - pairs:
-      app.kubernetes.io/name: echo-server
-      app.kubernetes.io/instance: echo-server
