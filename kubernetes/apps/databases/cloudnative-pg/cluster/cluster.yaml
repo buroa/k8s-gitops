@@ -8,8 +8,9 @@ metadata:
     kyverno.io/ignore: "true"
 spec:
   instances: 3
-  imageName: ghcr.io/cloudnative-pg/postgresql:15.2
+  imageName: ghcr.io/cloudnative-pg/postgresql:15.4-16
   enableSuperuserAccess: true
+  primaryUpdateStrategy: unsupervised
   storage:
     size: 25Gi
     storageClass: ${CLUSTER_STORAGE_HOSTPATH}
@@ -29,7 +30,7 @@ spec:
         maxParallel: 8
       destinationPath: s3://barman-u7z9m76w/
       endpointURL: https://${SECRET_CLOUDFLARE_ACCOUNT_ID}.r2.cloudflarestorage.com
-      serverName: postgres-v1
+      serverName: postgres-v2
       s3Credentials:
         accessKeyId:
           name: cloudnative-pg-secret
