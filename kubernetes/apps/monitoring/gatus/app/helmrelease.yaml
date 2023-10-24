@@ -37,6 +37,23 @@ spec:
             envFrom: &envFrom
               - secretRef:
                   name: gatus-secret
+          02-config-sync:
+            image: &syncImage
+              repository: ghcr.io/kiwigrid/k8s-sidecar
+              tag: 1.25.2
+            env:
+              FOLDER: /config
+              LABEL: gatus.io/enabled
+              NAMESPACE: ALL
+              RESOURCE: both
+              UNIQUE_FILENAMES: true
+              METHOD: LIST
+            resources:
+              requests:
+                cpu: 10m
+                memory: 10M
+              limits:
+                memory: 128M
         containers:
           main:
             image:
@@ -54,9 +71,7 @@ spec:
               limits:
                 memory: 512M
           config-sync:
-            image:
-              repository: ghcr.io/kiwigrid/k8s-sidecar
-              tag: 1.25.2
+            image: *syncImage
             env:
               FOLDER: /config
               LABEL: gatus.io/enabled
