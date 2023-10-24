@@ -33,7 +33,7 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         initContainers:
-          01-init-geoip:
+          init-geoip:
             image:
               repository: ghcr.io/maxmind/geoipupdate
               tag: v6.0

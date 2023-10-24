@@ -30,14 +30,16 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         initContainers:
-          01-init-db:
+          init-db:
+            order: 1
             image:
               repository: ghcr.io/onedr0p/postgres-init
               tag: 14.9
             envFrom: &envFrom
               - secretRef:
                   name: gatus-secret
-          02-config-sync:
+          init-config:
+            order: 2
             image: &syncImage
               repository: ghcr.io/kiwigrid/k8s-sidecar
               tag: 1.25.2
