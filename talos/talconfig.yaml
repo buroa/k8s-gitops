@@ -37,6 +37,7 @@ nodes:
       - interface: bond0
         bond:
           mode: 802.3ad
+          miimon: 100
           deviceSelectors:
             - hardwareAddr: 00:30:93:10:5c:f1
               driver: atlantic
@@ -80,6 +81,7 @@ nodes:
       - interface: bond0
         bond:
           mode: 802.3ad
+          miimon: 100
           deviceSelectors:
             - hardwareAddr: 00:30:93:10:5c:f6
               driver: atlantic
@@ -121,6 +123,7 @@ nodes:
       - interface: bond0
         bond:
           mode: 802.3ad
+          miimon: 100
           deviceSelectors:
             - hardwareAddr: 00:30:93:10:5c:ee
               driver: atlantic
@@ -162,6 +165,7 @@ nodes:
       - interface: bond0
         bond:
           mode: 802.3ad
+          miimon: 100
           deviceSelectors:
             - hardwareAddr: cc:2d:b7:0b:0c:40
               driver: atlantic
@@ -204,6 +208,7 @@ nodes:
       - interface: bond0
         bond:
           mode: 802.3ad
+          miimon: 100
           deviceSelectors:
             - hardwareAddr: cc:2d:b7:07:c0:00
               driver: atlantic
@@ -243,6 +248,7 @@ nodes:
       - interface: bond0
         bond:
           mode: 802.3ad
+          miimon: 100
           deviceSelectors:
             - hardwareAddr: cc:2d:b7:02:b9:b5
               driver: atlantic
