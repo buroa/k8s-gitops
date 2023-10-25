@@ -1,13 +1,14 @@
 [info]
 relay_url = "wss://nostr-relay.${PUBLIC_DOMAIN}/"
-name = "buroa's nostr relay"
-description = "Hosted with ❤️ by buroa"
-pubkey = "{{ .PUBLIC_KEY }}"
+name = "nostr-relay.${PUBLIC_DOMAIN}"
+description = "A nostr relay hosted by https://ktwo.io on k8s ☸"
 contact = "mailto:${PUBLIC_EMAIL}"
+pubkey = "{{ .PUBLIC_KEY }}"
 
 [database]
 engine = "postgres"
-connection = "postgresql://{{ .POSTGRES_USER }}:{{ .POSTGRES_PASS }}@postgres-rw.databases.svc.cluster.local:5432/nostr"
+connection = "postgresql://{{ .POSTGRES_USER }}:{{ .POSTGRES_PASS }}@postgres-ro.databases.svc.cluster.local:5432/nostr"
+connection_write = "postgresql://{{ .POSTGRES_USER }}:{{ .POSTGRES_PASS }}@postgres-rw.databases.svc.cluster.local:5432/nostr"
 
 [network]
 address = "0.0.0.0"
