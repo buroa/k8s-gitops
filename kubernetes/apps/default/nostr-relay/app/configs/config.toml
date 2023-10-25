@@ -1,7 +1,7 @@
 [info]
 relay_url = "wss://nostr-relay.${PUBLIC_DOMAIN}/"
 name = "nostr-relay.${PUBLIC_DOMAIN}"
-description = "A nostr relay hosted by https://ktwo.io on k8s ☸"
+description = "A nostr relay hosted by https://${PUBLIC_DOMAIN} on k8s ☸"
 contact = "mailto:${PUBLIC_EMAIL}"
 pubkey = "{{ .PUBLIC_KEY }}"
 
