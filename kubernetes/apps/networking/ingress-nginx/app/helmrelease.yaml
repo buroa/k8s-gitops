@@ -2,14 +2,15 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: ingress-nginx
+  name: &app ingress-nginx
   namespace: networking
 spec:
   interval: 30m
+  timeout: 15m
   chart:
     spec:
       chart: ingress-nginx
-      version: 4.8.2
+      version: 4.8.3
       sourceRef:
         kind: HelmRepository
         name: ingress-nginx-charts
@@ -27,15 +28,7 @@ spec:
   values:
     controller:
       replicaCount: 2
-      service:
-        annotations:
-          io.cilium/lb-ipam-ips: ${INGRESS_LB_IP}
-          external-dns.alpha.kubernetes.io/hostname: ingress.${PUBLIC_DOMAIN}
-        labels:
-          io.cilium/lb-ipam-layer2: "true"
       allowSnippetAnnotations: true
-      ingressClassResource:
-        default: true
       config:
         client-body-buffer-size: 100M
         client-body-timeout: 120
@@ -48,6 +41,10 @@ spec:
         proxy-body-size: 0
         proxy-buffer-size: 16k
         ssl-protocols: TLSv1.3 TLSv1.2
+      extraArgs:
+        default-ssl-certificate: networking/wildcard-tls
+      ingressClassResource:
+        default: true
       metrics:
         enabled: true
         serviceMonitor:
@@ -55,22 +52,26 @@ spec:
           namespace: networking
           namespaceSelector:
             any: true
-      extraArgs:
-        default-ssl-certificate: networking/wildcard-tls
-      topologySpreadConstraints:
-        - maxSkew: 1
-          topologyKey: kubernetes.io/hostname
-          whenUnsatisfiable: DoNotSchedule
-          labelSelector:
-            matchLabels:
-              app.kubernetes.io/name: ingress-nginx
-              app.kubernetes.io/component: controller
       resources:
         requests:
           cpu: 10m
           memory: 256M
         limits:
           memory: 512M
+      service:
+        annotations:
+          io.cilium/lb-ipam-ips: ${INGRESS_LB_IP}
+          external-dns.alpha.kubernetes.io/hostname: ingress.${PUBLIC_DOMAIN}
+        labels:
+          io.cilium/lb-ipam-layer2: "true"
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/name: *app
+              app.kubernetes.io/component: controller
     defaultBackend:
       enabled: true
       image:
