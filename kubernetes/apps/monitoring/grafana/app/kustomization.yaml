@@ -5,12 +5,3 @@ namespace: monitoring
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
-configMapGenerator:
-  - name: grafana-gatus-ep
-    files:
-      - ./configs/gatus.yaml
-    options:
-      labels:
-        gatus.io/enabled: "true"
-generatorOptions:
-  disableNameSuffixHash: true

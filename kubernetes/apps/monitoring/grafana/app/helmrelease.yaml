@@ -408,7 +408,6 @@ spec:
       annotations:
         hajimari.io/appName: Grafana
         hajimari.io/icon: simple-icons:grafana
-        external-dns.alpha.kubernetes.io/target: ingress.${PUBLIC_DOMAIN}
       hosts:
         - &hostg grafana.${PUBLIC_DOMAIN}
       paths:
