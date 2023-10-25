@@ -27,6 +27,19 @@ spec:
   values:
     controllers:
       main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          init-prune:
+            image:
+              repository: ghcr.io/onedr0p/sqlite
+              tag: 3.41.2
+            command:
+              - /bin/sh
+              - -c
+            args:
+              - |
+                sqlite3 /config/logs/steven.sqlite3 ".read /tmp/prune.sql";
         containers:
           main:
             image:
@@ -50,6 +63,14 @@ spec:
       config:
         enabled: true
         existingClaim: thelounge-config
+      prune:
+        type: configMap
+        name: thelounge-configmap
+        advancedMounts:
+          main:
+            init-prune:
+              - path: /tmp/prune.sql
+                subPath: prune.sql
     ingress:
       main:
         enabled: true

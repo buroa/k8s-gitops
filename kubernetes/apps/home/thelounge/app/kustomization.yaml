@@ -6,3 +6,9 @@ resources:
   - ./pvc.yaml
   - ./helmrelease.yaml
   - ./volsync.yaml
+configMapGenerator:
+  - name: thelounge-configmap
+    files:
+      - ./configs/prune.sql
+generatorOptions:
+  disableNameSuffixHash: true
