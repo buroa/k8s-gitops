@@ -31,7 +31,7 @@ module.exports = {
   duplicateCategories: true,
 
   includeNonVideos: true,
-  includeEpisodes: false,
+  includeEpisodes: true,
   includeSingleEpisodes: true,
 
   // I have sonarr, radarr, and manual categories set in qBittorrent
