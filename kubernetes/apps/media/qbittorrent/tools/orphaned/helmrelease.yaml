@@ -58,7 +58,7 @@ spec:
             fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
             supplementalGroups:
-              - 10000
+              - 65536
     persistence:
       media:
         existingClaim: media
