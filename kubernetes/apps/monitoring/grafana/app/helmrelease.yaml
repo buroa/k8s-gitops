@@ -404,7 +404,7 @@ spec:
       enabled: true
     ingress:
       enabled: true
-      ingressClassName: nginx
+      ingressClassName: internal
       annotations:
         hajimari.io/appName: Grafana
         hajimari.io/icon: simple-icons:grafana

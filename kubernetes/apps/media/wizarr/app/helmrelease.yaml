@@ -49,10 +49,10 @@ spec:
     ingress:
       main:
         enabled: true
-        className: nginx
+        className: external
         annotations:
           hajimari.io/icon: mdi:invite
-          external-dns.alpha.kubernetes.io/target: ingress.${PUBLIC_DOMAIN}
+          external-dns.alpha.kubernetes.io/target: external.${PUBLIC_DOMAIN}
         hosts:
           - host: &host invite.${PUBLIC_DOMAIN}
             paths:

@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: &app ingress-nginx
+  name: &app ingress-nginx-external
   namespace: networking
 spec:
   interval: 30m
@@ -26,9 +26,16 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    fullnameOverride: *app
     controller:
       replicaCount: 2
       allowSnippetAnnotations: true
+      admissionWebhooks:
+        objectSelector:
+          matchExpressions:
+            - key: ingress-class
+              operator: In
+              values: ["external"]
       config:
         client-body-buffer-size: 100M
         client-body-timeout: 120
@@ -41,10 +48,14 @@ spec:
         proxy-body-size: 0
         proxy-buffer-size: 16k
         ssl-protocols: TLSv1.3 TLSv1.2
+        worker-processes: "auto"
       extraArgs:
         default-ssl-certificate: networking/wildcard-tls
+      ingressClass: external
       ingressClassResource:
-        default: true
+        name: external
+        default: false
+        controllerValue: k8s.io/external
       metrics:
         enabled: true
         serviceMonitor:
@@ -60,8 +71,8 @@ spec:
           memory: 512M
       service:
         annotations:
-          io.cilium/lb-ipam-ips: ${INGRESS_LB_IP}
-          external-dns.alpha.kubernetes.io/hostname: ingress.${PUBLIC_DOMAIN}
+          io.cilium/lb-ipam-ips: ${INGRESS_EXT_LB_IP}
+          external-dns.alpha.kubernetes.io/hostname: external.${PUBLIC_DOMAIN}
         labels:
           io.cilium/lb-ipam-layer2: "true"
       topologySpreadConstraints:
@@ -73,10 +84,4 @@ spec:
               app.kubernetes.io/name: *app
               app.kubernetes.io/component: controller
     defaultBackend:
-      enabled: true
-      image:
-        repository: ghcr.io/tarampampam/error-pages
-        tag: 2.25.0
-      extraEnvs:
-        - { name: TEMPLATE_NAME, value: lost-in-space }
-        - { name: SHOW_DETAILS, value: "false" }
+      enabled: false

@@ -56,7 +56,7 @@ spec:
     ingress:
       main:
         enabled: true
-        className: nginx
+        className: internal
         annotations:
           hajimari.io/icon: line-md:alert-twotone
         hosts:

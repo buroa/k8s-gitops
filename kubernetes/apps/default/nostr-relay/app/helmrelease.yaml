@@ -74,10 +74,10 @@ spec:
     ingress:
       main:
         enabled: true
-        className: nginx
+        className: external
         annotations:
           hajimari.io/enable: "false"
-          external-dns.alpha.kubernetes.io/target: ingress.${PUBLIC_DOMAIN}
+          external-dns.alpha.kubernetes.io/target: external.${PUBLIC_DOMAIN}
         hosts:
           - host: &host nostr-relay.${PUBLIC_DOMAIN}
             paths:

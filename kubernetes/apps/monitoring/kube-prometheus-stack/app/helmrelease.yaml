@@ -32,7 +32,7 @@ spec:
     alertmanager:
       ingress:
         enabled: true
-        ingressClassName: nginx
+        ingressClassName: internal
         annotations:
           hajimari.io/appName: Alertmanager
           hajimari.io/icon: fluent:alert-16-filled
@@ -110,7 +110,7 @@ spec:
     prometheus:
       ingress:
         enabled: true
-        ingressClassName: nginx
+        ingressClassName: internal
         annotations:
           hajimari.io/appName: Prometheus
           hajimari.io/icon: simple-icons:prometheus

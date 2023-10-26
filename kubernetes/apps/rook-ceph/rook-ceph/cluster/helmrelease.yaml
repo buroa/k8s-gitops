@@ -31,7 +31,7 @@ spec:
       createPrometheusRules: true
     ingress:
       dashboard:
-        ingressClassName: nginx
+        ingressClassName: internal
         annotations:
           hajimari.io/appName: Rook
           hajimari.io/icon: mdi:chess-rook

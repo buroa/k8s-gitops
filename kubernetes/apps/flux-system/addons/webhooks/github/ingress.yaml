@@ -6,9 +6,9 @@ metadata:
   namespace: flux-system
   annotations:
     hajimari.io/enable: "false"
-    external-dns.alpha.kubernetes.io/target: ingress.${PUBLIC_DOMAIN}
+    external-dns.alpha.kubernetes.io/target: external.${PUBLIC_DOMAIN}
 spec:
-  ingressClassName: nginx
+  ingressClassName: external
   rules:
     - host: &host flux-webhook.${PUBLIC_DOMAIN}
       http:

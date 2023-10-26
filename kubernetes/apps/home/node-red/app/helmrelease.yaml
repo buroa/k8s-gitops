@@ -70,7 +70,7 @@ spec:
     ingress:
       main:
         enabled: true
-        className: nginx
+        className: internal
         annotations:
           hajimari.io/icon: cib:node-red
         hosts:

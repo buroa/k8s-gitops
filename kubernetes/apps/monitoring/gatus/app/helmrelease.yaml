@@ -107,10 +107,10 @@ spec:
     ingress:
       main:
         enabled: true
-        className: nginx
+        className: external
         annotations:
           hajimari.io/icon: material-symbols:detector-status
-          external-dns.alpha.kubernetes.io/target: ingress.${PUBLIC_DOMAIN}
+          external-dns.alpha.kubernetes.io/target: external.${PUBLIC_DOMAIN}
         hosts:
           - host: &host status.${PUBLIC_DOMAIN}
             paths:

@@ -56,10 +56,10 @@ spec:
     ingress:
       main:
         enabled: true
-        className: nginx
+        className: external
         annotations:
           hajimari.io/icon: simple-icons:reddit
-          external-dns.alpha.kubernetes.io/target: ingress.${PUBLIC_DOMAIN}
+          external-dns.alpha.kubernetes.io/target: external.${PUBLIC_DOMAIN}
         hosts:
           - host: &host fuckspez.${PUBLIC_DOMAIN}
             paths:
