@@ -53,6 +53,12 @@ spec:
                 memory: 10M
               limits:
                 memory: 50M
+        pod:
+          securityContext:
+            runAsUser: 1883
+            runAsGroup: 1883
+            fsGroup: 1883
+            fsGroupChangePolicy: OnRootMismatch
     persistence:
       data:
         enabled: true
