@@ -82,19 +82,6 @@ spec:
             fsGroupChangePolicy: OnRootMismatch
             supplementalGroups:
               - 65536
-    persistence:
-      config:
-        enabled: true
-        existingClaim: qbittorrent-config
-      media:
-        existingClaim: media
-      xseed:
-        type: secret
-        name: cross-seed-secret
-        globalMounts:
-          - path: /config/config.js
-            subPath: config.js
-            readOnly: true
     ingress:
       main:
         enabled: true
@@ -111,6 +98,19 @@ spec:
         tls:
           - hosts:
               - *host
+    persistence:
+      config:
+        enabled: true
+        existingClaim: qbittorrent-config
+      media:
+        existingClaim: media
+      xseed:
+        type: secret
+        name: cross-seed-secret
+        globalMounts:
+          - path: /config/config.js
+            subPath: config.js
+            readOnly: true
     service:
       main:
         ports:

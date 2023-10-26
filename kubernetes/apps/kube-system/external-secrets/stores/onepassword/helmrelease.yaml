@@ -109,11 +109,6 @@ spec:
           securityContext:
             runAsUser: 999
             runAsGroup: 999
-    persistence:
-      shared:
-        type: emptyDir
-        globalMounts:
-          - path: /home/opuser/.op/data
     ingress:
       main:
         enabled: true
@@ -130,6 +125,11 @@ spec:
         tls:
           - hosts:
               - *host
+    persistence:
+      shared:
+        type: emptyDir
+        globalMounts:
+          - path: /home/opuser/.op/data
     service:
       main:
         ports:

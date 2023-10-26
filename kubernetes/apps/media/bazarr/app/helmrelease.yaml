@@ -74,20 +74,6 @@ spec:
             fsGroupChangePolicy: OnRootMismatch
             supplementalGroups:
               - 65536
-    persistence:
-      config:
-        enabled: true
-        existingClaim: bazarr-config
-      media:
-        existingClaim: media
-      scripts:
-        type: configMap
-        name: bazarr-scripts
-        defaultMode: 0775
-        globalMounts:
-          - readOnly: true
-      add-ons:
-        type: emptyDir
     ingress:
       main:
         enabled: true
@@ -104,6 +90,20 @@ spec:
         tls:
           - hosts:
               - *host
+    persistence:
+      config:
+        enabled: true
+        existingClaim: bazarr-config
+      media:
+        existingClaim: media
+      scripts:
+        type: configMap
+        name: bazarr-scripts
+        defaultMode: 0775
+        globalMounts:
+          - readOnly: true
+      add-ons:
+        type: emptyDir
     service:
       main:
         ports:

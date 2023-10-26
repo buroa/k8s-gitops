@@ -85,12 +85,6 @@ spec:
             fsGroupChangePolicy: OnRootMismatch
             supplementalGroups:
               - 65536
-    persistence:
-      config:
-        enabled: true
-        existingClaim: sabnzbd-config
-      media:
-        existingClaim: media
     ingress:
       main:
         enabled: true
@@ -107,6 +101,12 @@ spec:
         tls:
           - hosts:
               - *host
+    persistence:
+      config:
+        enabled: true
+        existingClaim: sabnzbd-config
+      media:
+        existingClaim: media
     service:
       main:
         ports:

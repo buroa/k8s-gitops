@@ -93,17 +93,6 @@ spec:
             runAsGroup: 568
             fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
-    persistence:
-      config:
-        enabled: true
-        type: emptyDir
-      config-file:
-        type: configMap
-        name: gatus-configmap
-        globalMounts:
-          - path: /config/config.yaml
-            subPath: config.yaml
-            readOnly: true
     ingress:
       main:
         enabled: true
@@ -121,14 +110,25 @@ spec:
         tls:
           - hosts:
               - *host
+    persistence:
+      config:
+        enabled: true
+        type: emptyDir
+      config-file:
+        type: configMap
+        name: gatus-configmap
+        globalMounts:
+          - path: /config/config.yaml
+            subPath: config.yaml
+            readOnly: true
     service:
       main:
         ports:
           http:
             port: *port
-    serviceMonitor:
-      main:
-        enabled: true
     serviceAccount:
       create: true
       name: gatus
+    serviceMonitor:
+      main:
+        enabled: true

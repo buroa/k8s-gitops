@@ -63,15 +63,6 @@ spec:
               labelSelector:
                 matchLabels:
                   app.kubernetes.io/name: *app
-    persistence:
-      config:
-        enabled: true
-        type: secret
-        name: blocky-secret
-        globalMounts:
-          - path: /app/config.yml
-            subPath: config.yml
-            readOnly: true
     ingress:
       main:
         enabled: true
@@ -88,6 +79,15 @@ spec:
         tls:
           - hosts:
               - *host
+    persistence:
+      config:
+        enabled: true
+        type: secret
+        name: blocky-secret
+        globalMounts:
+          - path: /app/config.yml
+            subPath: config.yml
+            readOnly: true
     service:
       main:
         ports:

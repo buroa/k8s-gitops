@@ -54,18 +54,6 @@ spec:
               - 44    # video
               - 109   # render
               - 65537 # media ro
-    persistence:
-      config:
-        enabled: true
-        existingClaim: plex-config
-      tmp:
-        type: emptyDir
-      transcode:
-        type: emptyDir
-      media:
-        existingClaim: media
-        globalMounts:
-          - readOnly: true
     ingress:
       main:
         enabled: true
@@ -84,6 +72,18 @@ spec:
         tls:
           - hosts:
               - *host
+    persistence:
+      config:
+        enabled: true
+        existingClaim: plex-config
+      tmp:
+        type: emptyDir
+      transcode:
+        type: emptyDir
+      media:
+        existingClaim: media
+        globalMounts:
+          - readOnly: true
     service:
       main:
         ports:

@@ -88,10 +88,6 @@ spec:
         pod:
           nodeSelector:
             zigbee.feature.node.kubernetes.io/conbee: "true"
-    persistence:
-      config:
-        enabled: true
-        existingClaim: zigbee2mqtt-config
     ingress:
       main:
         enabled: true
@@ -108,6 +104,10 @@ spec:
         tls:
           - hosts:
               - *host
+    persistence:
+      config:
+        enabled: true
+        existingClaim: zigbee2mqtt-config
     service:
       main:
         ports:

@@ -75,17 +75,6 @@ spec:
             runAsGroup: 568
             fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
-    persistence:
-      config:
-        enabled: true
-        type: emptyDir
-      config-file:
-        type: configMap
-        name: autobrr-configmap
-        globalMounts:
-          - path: /config/config.toml
-            subPath: config.toml
-            readOnly: true
     ingress:
       main:
         enabled: true
@@ -102,6 +91,17 @@ spec:
         tls:
           - hosts:
               - *host
+    persistence:
+      config:
+        enabled: true
+        type: emptyDir
+      config-file:
+        type: configMap
+        name: autobrr-configmap
+        globalMounts:
+          - path: /config/config.toml
+            subPath: config.toml
+            readOnly: true
     service:
       main:
         ports:

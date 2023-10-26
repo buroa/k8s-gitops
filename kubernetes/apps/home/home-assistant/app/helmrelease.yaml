@@ -75,10 +75,6 @@ spec:
             runAsGroup: 568
             fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
-    persistence:
-      config:
-        enabled: true
-        existingClaim: home-assistant-config
     ingress:
       main:
         enabled: true
@@ -95,6 +91,10 @@ spec:
         tls:
           - hosts:
               - *host
+    persistence:
+      config:
+        enabled: true
+        existingClaim: home-assistant-config
     service:
       main:
         ports:

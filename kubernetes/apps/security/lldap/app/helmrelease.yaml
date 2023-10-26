@@ -70,9 +70,6 @@ spec:
               labelSelector:
                 matchLabels:
                   app.kubernetes.io/name: *app
-    persistence:
-      data:
-        type: emptyDir
     ingress:
       main:
         enabled: true
@@ -89,6 +86,9 @@ spec:
         tls:
           - hosts:
               - *host
+    persistence:
+      data:
+        type: emptyDir
     service:
       main:
         ports:

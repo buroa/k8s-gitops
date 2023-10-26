@@ -56,17 +56,6 @@ spec:
             runAsGroup: 1000
             fsGroup: 1000
             fsGroupChangePolicy: OnRootMismatch
-    persistence:
-      data:
-        enabled: true
-        existingClaim: node-red-config
-      settings:
-        type: configMap
-        name: node-red-configmap
-        globalMounts:
-          - path: /data/settings.js
-            subPath: settings.js
-            readOnly: true
     ingress:
       main:
         enabled: true
@@ -83,6 +72,17 @@ spec:
         tls:
           - hosts:
               - *host
+    persistence:
+      data:
+        enabled: true
+        existingClaim: node-red-config
+      settings:
+        type: configMap
+        name: node-red-configmap
+        globalMounts:
+          - path: /data/settings.js
+            subPath: settings.js
+            readOnly: true
     service:
       main:
         ports:

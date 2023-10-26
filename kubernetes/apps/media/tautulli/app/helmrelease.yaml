@@ -61,12 +61,6 @@ spec:
             runAsGroup: 568
             fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
-    persistence:
-      config:
-        enabled: true
-        existingClaim: tautulli-config
-      add-ons:
-        type: emptyDir
     ingress:
       main:
         enabled: true
@@ -84,6 +78,12 @@ spec:
         tls:
           - hosts:
               - *host
+    persistence:
+      config:
+        enabled: true
+        existingClaim: tautulli-config
+      add-ons:
+        type: emptyDir
     service:
       main:
         ports:

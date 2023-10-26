@@ -48,20 +48,6 @@ spec:
             runAsGroup: 568
             fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
-    persistence:
-      config:
-        enabled: true
-        existingClaim: overseerr-config
-        globalMounts:
-          - path: /app/config
-      yarn:
-        type: emptyDir
-        globalMounts:
-          - path: /.yarn
-      cache:
-        type: emptyDir
-        globalMounts:
-          - path: /.cache
     ingress:
       main:
         enabled: true
@@ -79,6 +65,20 @@ spec:
         tls:
           - hosts:
               - *host
+    persistence:
+      config:
+        enabled: true
+        existingClaim: overseerr-config
+        globalMounts:
+          - path: /app/config
+      yarn:
+        type: emptyDir
+        globalMounts:
+          - path: /.yarn
+      cache:
+        type: emptyDir
+        globalMounts:
+          - path: /.cache
     service:
       main:
         ports:
