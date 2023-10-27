@@ -55,8 +55,9 @@ spec:
                 memory: 8192M
           xseed:
             image:
-              repository: ghcr.io/cross-seed/cross-seed
-              tag: 5.5.4@sha256:cecc854fc906cdaf471feab507fd860dff62049da9fb32e83250c887b5da8c42
+              # TODO: switch to upstream once merged
+              repository: ghcr.io/buroa/cross-seed
+              tag: pr-526
             args:
               - daemon
             resources:
