@@ -72,6 +72,8 @@ spec:
             enabled: true
             port: *port
             protocol: UDP
+    serviceAccount:
+      name: tailscale
     serviceMonitor:
       main:
         enabled: true
@@ -81,5 +83,3 @@ spec:
             path: /debug/metrics
             interval: 1m
             scrapeTimeout: 30s
-    serviceAccount:
-      name: tailscale
