@@ -23,16 +23,6 @@
       "separateMinorPatch": true
     },
     {
-      "description": "External Snapshotter Group",
-      "groupName": "External Snapshotter",
-      "matchPackageNames": ["snapshot-controller", "snapshot-validation-webhook"],
-      "matchDatasources": ["helm"],
-      "group": {
-        "commitMessageTopic": "{{{groupName}}} group"
-      },
-      "separateMinorPatch": true
-    },
-    {
       "description": "Talos Group",
       "groupName": "Talos",
       "matchPackagePatterns": ["siderolabs/talos", "siderolabs/talosctl", "buroa/installer"],
