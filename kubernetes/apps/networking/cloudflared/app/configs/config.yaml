@@ -8,6 +8,11 @@ ingress:
     originRequest:
       originServerName: external.${PUBLIC_DOMAIN}
 
+  - hostname: requests.${PUBLIC_DOMAIN}
+    service: https://cilium-ingress.kube-system.svc.cluster.local:443
+    originRequest:
+      originServerName: external.${PUBLIC_DOMAIN}
+
   - hostname: "*.${PUBLIC_DOMAIN}"
     service: https://ingress-nginx-external-controller.networking.svc.cluster.local:443
     originRequest:

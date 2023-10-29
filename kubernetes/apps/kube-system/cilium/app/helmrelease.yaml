@@ -89,6 +89,18 @@ spec:
           tls:
             - hosts:
                 - *host
+    ingressController:
+      enabled: true
+      loadBalancerMode: shared
+      defaultSecretName: wildcard-tls
+      defaultSecretNamespace: networking
+      service:
+        name: cilium-ingress
+        type: LoadBalancer
+        annotations:
+          io.cilium/lb-ipam-ips: ${INGRESS_CILIUM_LB_IP}
+        labels:
+          io.cilium/lb-ipam-layer2: "true"
     ipam:
       mode: kubernetes
     ipv4NativeRoutingCIDR: ${CLUSTER_POD_IP_CIDR}
@@ -104,6 +116,8 @@ spec:
     loadBalancer:
       algorithm: maglev
       mode: dsr
+      l7:
+        backend: envoy
     localRedirectPolicy: true
     operator:
       enabled: true

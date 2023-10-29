@@ -59,7 +59,7 @@ spec:
     ingress:
       main:
         enabled: true
-        className: internal
+        className: cilium # internal
         annotations:
           hajimari.io/icon: cib:node-red
         hosts:

@@ -1,0 +1,9 @@
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideEnvoyConfig
+metadata:
+  name: auto-sni
+spec:
+  resources:
+    - "@type": type.googleapis.com/envoy.config.core.v3.UpstreamHttpProtocolOptions
+      name: envoy-sni
+      auto_sni: true
