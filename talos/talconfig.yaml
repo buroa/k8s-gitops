@@ -289,25 +289,27 @@ controlPlane:
   inlinePatch:
     cluster:
       allowSchedulingOnMasters: true
-      proxy:
+      apiServer:
+        admissionControl: null
+      controllerManager:
+        extraArgs:
+          bind-address: 0.0.0.0
+      coreDNS:
         disabled: true
+      discovery:
+        registries:
+          service:
+            disabled: true
       etcd:
         extraArgs:
           listen-metrics-urls: http://0.0.0.0:2381
         advertisedSubnets:
           - 10.0.0.0/24
-      controllerManager:
-        extraArgs:
-          bind-address: 0.0.0.0
+      proxy:
+        disabled: true
       scheduler:
         extraArgs:
           bind-address: 0.0.0.0
-      apiServer:
-        admissionControl: null
-      discovery:
-        registries:
-          service:
-            disabled: true
     machine: &machine
       install:
         image: ghcr.io/buroa/installer:v1.5.4
