@@ -1,13 +1,11 @@
 .:53 {
+    log
     errors
     health {
         lameduck 5s
     }
     ready
-    log . {
-        class error
-    }
-    prometheus :9153
+    prometheus 0.0.0.0:9153
     hosts {
         10.0.0.10 m0.k8s.${PUBLIC_DOMAIN}
         10.0.0.11 m1.k8s.${PUBLIC_DOMAIN}
@@ -26,7 +24,7 @@
         tls_servername cloudflare-dns.com
         health_check 5s
     }
-    cache 300
+    cache 30
     loop
     reload
     loadbalance
