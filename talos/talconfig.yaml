@@ -313,12 +313,10 @@ controlPlane:
     machine: &machine
       install:
         image: ghcr.io/buroa/installer:v1.5.4
-        extensions:
-          - image: ghcr.io/siderolabs/i915-ucode:20230919
-          - image: ghcr.io/siderolabs/intel-ucode:20230808
-        legacyBIOSSupport: true
         extraKernelArgs:
+          - net.ifnames=0
           - talos.logging.kernel=udp://vector.${domainName}:6001/
+        legacyBIOSSupport: true # mac minis are legacy BIOS
       features:
         kubePrism:
           enabled: true
