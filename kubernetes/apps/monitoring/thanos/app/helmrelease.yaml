@@ -77,6 +77,8 @@ spec:
         enabled: true
         storageClass: ${CLUSTER_STORAGE_HOSTPATH}
         size: 15Gi
+      podAnnotations:
+        kyverno.io/exclude: "true"
     ruler:
       enabled: true
       replicaCount: 3

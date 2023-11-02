@@ -48,6 +48,9 @@ spec:
         useExistingSecret: true
         configSecret: alertmanager-secret
         podAntiAffinity: hard
+        podMetadata:
+          annotations:
+            kyverno.io/exclude: "true"
         storage:
           volumeClaimTemplate:
             spec:
