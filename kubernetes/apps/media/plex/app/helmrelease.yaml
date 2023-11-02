@@ -43,6 +43,11 @@ spec:
                 gpu.intel.com/i915: 1
                 memory: 10000M
         pod:
+          dnsConfig:
+            options:
+              - name: ndots
+                value: "2"
+              - name: edns0
           nodeSelector:
             intel.feature.node.kubernetes.io/gpu: "true"
           securityContext:

@@ -38,7 +38,7 @@ spec:
               - bazarr
             env:
               PORT: 9707
-              URL: http://bazarr.media.svc.cluster.local:6767
+              URL: http://bazarr.media.svc.cluster.local.:6767
             envFrom:
               - secretRef:
                   name: bazarr-exporter-secret

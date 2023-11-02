@@ -43,6 +43,11 @@ spec:
               limits:
                 memory: 1500M
         pod:
+          dnsConfig:
+            options:
+              - name: ndots
+                value: "2"
+              - name: edns0
           securityContext:
             runAsUser: 568
             runAsGroup: 568

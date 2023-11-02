@@ -78,6 +78,11 @@ spec:
                         operator: In
                         values: ["qbittorrent"]
                   topologyKey: kubernetes.io/hostname
+          dnsConfig:
+            options:
+              - name: ndots
+                value: "2"
+              - name: edns0
           securityContext:
             runAsUser: 568
             runAsGroup: 568

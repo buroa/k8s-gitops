@@ -36,7 +36,7 @@ spec:
               tag: 1.2.1
             args:
               - --overseerr.address
-              - "http://overseerr.media.svc.cluster.local:5055"
+              - "http://overseerr.media.svc.cluster.local.:5055"
               - --overseerr.api-key
               - "$(OVERSEERR_API_KEY)"
             envFrom:

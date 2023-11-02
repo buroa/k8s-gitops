@@ -38,9 +38,9 @@ spec:
               TZ: ${TIMEZONE}
               UN_INTERVAL: 1m
               UN_WEBSERVER_METRICS: true
-              UN_SONARR_0_URL: http://sonarr.media.svc.cluster.local:8989
+              UN_SONARR_0_URL: http://sonarr.media.svc.cluster.local.:8989
               UN_SONARR_0_PATHS_0: /media/downloads/torrents/complete/sonarr
-              UN_RADARR_0_URL: http://radarr.media.svc.cluster.local:7878
+              UN_RADARR_0_URL: http://radarr.media.svc.cluster.local.:7878
               UN_RADARR_0_PATHS_0: /media/downloads/torrents/complete/radarr
             envFrom:
               - secretRef:
@@ -52,6 +52,11 @@ spec:
               limits:
                 memory: 8192M
         pod:
+          dnsConfig:
+            options:
+              - name: ndots
+                value: "2"
+              - name: edns0
           securityContext:
             runAsUser: 568
             runAsGroup: 568

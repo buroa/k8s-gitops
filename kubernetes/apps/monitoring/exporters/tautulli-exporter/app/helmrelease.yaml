@@ -35,7 +35,7 @@ spec:
               repository: docker.io/nwalke/tautulli_exporter
               tag: v0.1.0
             env:
-              TAUTULLI_URI: http://tautulli.media.svc.cluster.local:8181
+              TAUTULLI_URI: http://tautulli.media.svc.cluster.local.:8181
             envFrom:
               - secretRef:
                   name: tautulli-exporter-secret

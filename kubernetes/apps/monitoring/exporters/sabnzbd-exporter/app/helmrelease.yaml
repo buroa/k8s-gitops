@@ -38,7 +38,7 @@ spec:
               - sabnzbd
             env:
               PORT: 9712
-              URL: http://sabnzbd.media.svc.cluster.local:8080
+              URL: http://sabnzbd.media.svc.cluster.local.:8080
             envFrom:
               - secretRef:
                   name: sabnzbd-exporter-secret

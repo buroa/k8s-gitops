@@ -76,6 +76,11 @@ spec:
                         operator: In
                         values: ["sabnzbd"]
                   topologyKey: kubernetes.io/hostname
+          dnsConfig:
+            options:
+              - name: ndots
+                value: "2"
+              - name: edns0
           securityContext:
             runAsUser: 568
             runAsGroup: 568

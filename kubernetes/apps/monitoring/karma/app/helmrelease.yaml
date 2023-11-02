@@ -35,7 +35,7 @@ spec:
               repository: ghcr.io/prymitive/karma
               tag: v0.116
             env:
-              ALERTMANAGER_URI: http://alertmanager-operated.monitoring.svc.cluster.local:9093
+              ALERTMANAGER_URI: http://alertmanager-operated.monitoring.svc.cluster.local.:9093
             resources:
               requests:
                 cpu: 5m

@@ -42,7 +42,7 @@ spec:
               - --exclude-pattern
               - "*/manual/*"
               - --server
-              - qbittorrent.media.svc.cluster.local
+              - qbittorrent.media.svc.cluster.local.
               - --port
               - "8080"
             resources:

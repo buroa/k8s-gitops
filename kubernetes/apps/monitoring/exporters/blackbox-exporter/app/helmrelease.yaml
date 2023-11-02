@@ -67,6 +67,11 @@ spec:
           timeout: 5s
           tcp:
             preferred_ip_protocol: "ip4"
+    dnsConfig:
+      options:
+        - name: ndots
+          value: "2"
+        - name: edns0
     serviceMonitor:
       enabled: true
       defaults:
