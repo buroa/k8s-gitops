@@ -60,6 +60,11 @@ spec:
                     fieldPath: metadata.namespace
             securityContext:
               privileged: true
+        pod:
+          dnsConfig:
+            options:
+              - name: ndots
+                value: "1"
     persistence:
       config:
         enabled: true

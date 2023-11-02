@@ -86,6 +86,10 @@ spec:
                 smarter-devices/ttyACM0: 1
                 memory: 256M
         pod:
+          dnsConfig:
+            options:
+              - name: ndots
+                value: "1"
           nodeSelector:
             zigbee.feature.node.kubernetes.io/conbee: "true"
     ingress:

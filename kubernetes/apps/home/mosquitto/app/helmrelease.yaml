@@ -54,6 +54,10 @@ spec:
               limits:
                 memory: 50M
         pod:
+          dnsConfig:
+            options:
+              - name: ndots
+                value: "1"
           securityContext:
             runAsUser: 1883
             runAsGroup: 1883

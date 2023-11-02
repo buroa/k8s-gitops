@@ -60,6 +60,10 @@ spec:
               limits:
                 memory: 128M
         pod:
+          dnsConfig:
+            options:
+              - name: ndots
+                value: "1"
           enableServiceLinks: false
           securityContext:
             runAsUser: 568

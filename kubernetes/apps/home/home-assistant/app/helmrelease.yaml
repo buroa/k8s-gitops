@@ -63,6 +63,10 @@ spec:
               limits:
                 memory: 750M
         pod:
+          dnsConfig:
+            options:
+              - name: ndots
+                value: "1"
           annotations:
             k8s.v1.cni.cncf.io/networks: |
               [{

@@ -41,6 +41,10 @@ spec:
               limits:
                 memory: 128M
         pod:
+          dnsConfig:
+            options:
+              - name: ndots
+                value: "1"
           topologySpreadConstraints:
             - maxSkew: 1
               topologyKey: kubernetes.io/hostname

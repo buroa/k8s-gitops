@@ -41,6 +41,11 @@ spec:
                 memory: 250M
               limits:
                 memory: 1024M
+        pod:
+          dnsConfig:
+            options:
+              - name: ndots
+                value: "1"
     service:
       main:
         ports:
