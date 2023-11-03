@@ -40,6 +40,7 @@ spec:
               SA_NAME: tailscale
               TS_USERSPACE: true
               TS_KUBE_SECRET: tailscale-state
+              TS_EXTRA_ARGS: --advertise-exit-node
               TS_TAILSCALED_EXTRA_ARGS: --debug=0.0.0.0:2000
               TS_ROUTES: ${LAN_SERVER_IP_CIDR},${CILIUM_LB_CIDR}
             envFrom:
