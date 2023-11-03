@@ -55,9 +55,8 @@ spec:
                 memory: 8192M
           xseed:
             image:
-              # TODO: switch to versioned tag after 5.5.4
               repository: ghcr.io/cross-seed/cross-seed
-              tag: master@sha256:4eb8e69c7d6d2f1caa8f16f46e4e5df5d8c69666344735b540ce89c39da8021b
+              tag: 5.6.0
             args:
               - daemon
             resources:
