@@ -15,6 +15,11 @@ on:
     branches: ["master"]
     paths: ["kubernetes/**/helmrelease.yaml"]
 
+env:
+  DEBCONF_NONINTERACTIVE_SEEN: "true"
+  DEBIAN_FRONTEND: noninteractive
+  APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE: DontWarn
+
 jobs:
   sync:
     name: Flux HelmRepository Sync
@@ -24,6 +29,12 @@ jobs:
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
         with:
           fetch-depth: 0
+
+      - name: Setup Tools
+        shell: bash
+        run: |
+          sudo apt-get -qq update && \
+          sudo apt-get -qq install --no-install-recommends -y curl git
 
       - name: Setup Kube Tools
         uses: yokawasa/action-setup-kube-tools@af4ebb1af1efd30c5bd84a2e9773355ad6362a33 # v0.9.3
@@ -40,13 +51,15 @@ jobs:
           encodedString: "${{ secrets.KUBECONFIG }}"
           fileName: kubeconfig
 
-      - name: Get changed files
+      - if: ${{ github.event.inputs.repoNamespace == '' && github.event.inputs.repoName == '' }}
+        name: Get changed files
         id: changed-files
         uses: tj-actions/changed-files@18c8a4ecebe93d32ed8a88e1d0c098f5f68c221b # v40.1.0
         with:
           files: kubernetes/**/helmrelease.yaml
 
-      - name: Sync HelmRepository
+      - if: ${{ github.event.inputs.repoNamespace == '' && github.event.inputs.repoName == '' }}
+        name: Sync HelmRepository
         env:
           KUBECONFIG: "${{ steps.kubeconfig.outputs.filePath }}"
         shell: bash
@@ -62,7 +75,7 @@ jobs:
             flux --namespace "${repo##*:}" reconcile source helm "${repo%%:*}"
           done
 
-      - if: ${{ github.event.inputs.repoName != '' }}
+      - if: ${{ github.event.inputs.repoNamespace != '' && github.event.inputs.repoName != '' }}
         name: Sync HelmRepository
         env:
           KUBECONFIG: ${{ steps.kubeconfig.outputs.filePath }}
