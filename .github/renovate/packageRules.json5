@@ -6,15 +6,6 @@
       "matchDatasources": ["docker"],
       "versioning": "loose",
       "matchPackagePatterns": ["plex", "qbittorrent"]
-    },
-    {
-      "description": "Custom versioning for i915-ucode and intel-ucode",
-      "matchDatasources": ["docker"],
-      "versioning": "regex:^(?<major>\\d{4})(?<minor>\\d{2})(?<patch>\\d{2})\\.?(?<build>\\d+)?$",
-      "matchPackageNames": [
-        "ghcr.io/siderolabs/i915-ucode",
-        "ghcr.io/siderolabs/intel-ucode"
-      ]
     }
 	]
 }

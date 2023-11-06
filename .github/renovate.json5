@@ -26,13 +26,11 @@
   "suppressNotifications": ["prIgnoreNotification"],
   "flux": {
     "fileMatch": [
-      "(^|/)talos/.+\\.ya?ml(\\.j2)?$",
       "(^|/)kubernetes/.+\\.ya?ml(\\.j2)?$"
     ]
   },
   "helm-values": {
     "fileMatch": [
-      "(^|/)talos/.+\\.ya?ml(\\.j2)?$",
       "(^|/)kubernetes/.+\\.ya?ml(\\.j2)?$"
     ]
   },
