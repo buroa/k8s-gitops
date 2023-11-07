@@ -56,7 +56,7 @@ spec:
           xseed:
             image:
               repository: ghcr.io/cross-seed/cross-seed
-              tag: 5.7.0
+              tag: 5.8.0
             args:
               - daemon
             resources:
