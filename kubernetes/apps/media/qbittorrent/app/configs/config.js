@@ -25,6 +25,7 @@ module.exports = {
     "http://prowlarr.media.svc.cluster.local:9696/80/api?apikey={{ .PROWLARR_API_KEY }}", // ar
   ],
 
+  apiAuth: false,
   action: "inject",
   matchMode: "safe",
   skipRecheck: true,
