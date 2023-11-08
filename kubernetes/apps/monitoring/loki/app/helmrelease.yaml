@@ -46,12 +46,14 @@ spec:
           ingestion_burst_size_mb: 1000
           per_stream_rate_limit: 50MB
           per_stream_rate_limit_burst: 100MB
+          shard_streams:
+            enabled: true
         schema_config:
           configs:
-            - from: "2021-08-01"
+            - from: "2022-01-11"
               store: boltdb-shipper
               object_store: s3
-              schema: v11
+              schema: v12
               index:
                 prefix: loki_index_
                 period: 24h
@@ -60,7 +62,7 @@ spec:
           replication_factor: 3
           storage:
             s3:
-              bucketnames: loki
+              s3: null
               insecure: true
               s3forcepathstyle: true
           ring:
