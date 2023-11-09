@@ -9,7 +9,7 @@ clusterSvcNets:
 endpoint: https://k8s.${domainName}:6443
 
 # renovate: datasource=docker depName=ghcr.io/buroa/installer
-talosVersion: v1.5.4
+talosVersion: v1.5.5
 # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=kubernetes/kubernetes
 kubernetesVersion: 1.28.3
 
@@ -312,7 +312,7 @@ controlPlane:
           bind-address: 0.0.0.0
     machine: &machine
       install:
-        image: ghcr.io/buroa/installer:v1.5.4
+        image: ghcr.io/buroa/installer:v1.5.5
         extraKernelArgs:
           - net.ifnames=0
           - talos.logging.kernel=udp://vector.${domainName}:6001/
