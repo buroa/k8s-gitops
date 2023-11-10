@@ -36,10 +36,10 @@ spec:
               tag: 1.7.2
             env:
               XDG_DATA_HOME: &configDir /config
+              OP_HTTP_PORT: &apiPort 8080
               OP_BUS_PORT: 11220
               OP_BUS_PEERS: localhost:11221
-              OP_HTTP_PORT: &apiPort 8080
-              OP_SESSION:
+              OP_SESSION: &opSession
                 valueFrom:
                   secretKeyRef:
                     name: onepassword-connect-secret
@@ -76,14 +76,11 @@ spec:
               repository: docker.io/1password/connect-sync
               tag: 1.7.2
             env:
+              XDG_DATA_HOME: *configDir
               OP_HTTP_PORT: &syncPort 8081
               OP_BUS_PORT: 11221
               OP_BUS_PEERS: localhost:11220
-              OP_SESSION:
-                valueFrom:
-                  secretKeyRef:
-                    name: onepassword-connect-secret
-                    key: 1password-credentials.json
+              OP_SESSION: *opSession
             probes:
               liveness:
                 enabled: true
