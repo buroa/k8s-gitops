@@ -35,9 +35,10 @@ spec:
               repository: docker.io/1password/connect-api
               tag: 1.7.2
             env:
+              XDG_DATA_HOME: &configDir /config
               OP_BUS_PORT: 11220
               OP_BUS_PEERS: localhost:11221
-              OP_HTTP_PORT: &api-port 8080
+              OP_HTTP_PORT: &apiPort 8080
               OP_SESSION:
                 valueFrom:
                   secretKeyRef:
@@ -50,7 +51,7 @@ spec:
                 spec:
                   httpGet:
                     path: /heartbeat
-                    port: *api-port
+                    port: *apiPort
                   initialDelaySeconds: 15
                   periodSeconds: 30
                   failureThreshold: 3
@@ -60,7 +61,7 @@ spec:
                 spec:
                   httpGet:
                     path: /health
-                    port: *api-port
+                    port: *apiPort
                   initialDelaySeconds: 15
               startup:
                 enabled: false
@@ -75,7 +76,7 @@ spec:
               repository: docker.io/1password/connect-sync
               tag: 1.7.2
             env:
-              OP_HTTP_PORT: &sync-port 8081
+              OP_HTTP_PORT: &syncPort 8081
               OP_BUS_PORT: 11221
               OP_BUS_PEERS: localhost:11220
               OP_SESSION:
@@ -90,7 +91,7 @@ spec:
                 spec:
                   httpGet:
                     path: /heartbeat
-                    port: *sync-port
+                    port: *syncPort
                   initialDelaySeconds: 15
                   periodSeconds: 30
                   failureThreshold: 3
@@ -100,7 +101,7 @@ spec:
                 spec:
                   httpGet:
                     path: /health
-                    port: *sync-port
+                    port: *syncPort
                   initialDelaySeconds: 15
               startup:
                 enabled: false
@@ -128,12 +129,13 @@ spec:
           - hosts:
               - *host
     persistence:
-      shared:
+      config:
+        enabled: true
         type: emptyDir
         globalMounts:
-          - path: /home/opuser/.op/data
+          - path: *configDir
     service:
       main:
         ports:
           http:
-            port: *api-port
+            port: *apiPort
