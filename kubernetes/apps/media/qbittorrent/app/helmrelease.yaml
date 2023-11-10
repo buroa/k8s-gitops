@@ -36,8 +36,8 @@ spec:
               tag: 4.6.0@sha256:cb6259df3be61a5108bc4f85b09a523fc4b250589ca9b315ef927cbdf779afb6
             env:
               TZ: ${TIMEZONE}
-              QBITTORRENT__PORT: &http-port 8080
-              QBITTORRENT__BT_PORT: &bt-port ${TORRENT_PUBLIC_PORT}
+              QBITTORRENT__PORT: &httpPort 8080
+              QBITTORRENT__BT_PORT: &btPort ${TORRENT_PUBLIC_PORT}
               QBT_BitTorrent__Session__Interface: eth0
               QBT_BitTorrent__Session__InterfaceName: eth0
               QBT_BitTorrent__Session__InterfaceAddress:
@@ -115,7 +115,7 @@ spec:
       main:
         ports:
           http:
-            port: *http-port
+            port: *httpPort
           xseed:
             port: 2468
       bittorrent:
@@ -128,5 +128,5 @@ spec:
         ports:
           bittorrent-tcp:
             enabled: true
-            port: *bt-port
+            port: *btPort
             protocol: TCP
