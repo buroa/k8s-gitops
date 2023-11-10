@@ -60,15 +60,26 @@ spec:
           - name: forward
             parameters: ${PUBLIC_DOMAIN} ${BLOCKY_LB_IP}
           - name: forward
-            parameters: . tls://1.1.1.1 tls://1.0.0.1
+            parameters: . ${BLOCKY_LB_IP} 127.0.0.1:5301
             configBlock: |-
-              tls_servername cloudflare-dns.com
+              policy sequential
               health_check 5s
           - name: cache
             parameters: 30
           - name: loop
           - name: reload
           - name: loadbalance
+      - zones:
+          - zone: .
+            scheme: dns://
+            use_tcp: true
+        port: 5301
+        plugins:
+          - name: forward
+            parameters: . tls://1.1.1.1 tls://1.0.0.1
+            configBlock: |-
+              tls_servername cloudflare-dns.com
+              health_check 5s
     affinity:
       nodeAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
