@@ -15,7 +15,7 @@ datasources:
       maxIdleConns: 100
       maxIdleConnsAuto: true
       connMaxLifetime: 14400
-      postgresVersion: 1500
+      postgresVersion: 1600
       timescaledb: false
     secureJsonData:
       password: "{{ .POSTGRES_PASS }}"
