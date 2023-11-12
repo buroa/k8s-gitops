@@ -37,8 +37,8 @@ spec:
               repository: ghcr.io/foxcpp/maddy
               tag: 0.7.0
             env:
-              HTTP_PORT: &httpPort 8080
-              SMTP_PORT: &smtpPort 2525
+              MADDY_HTTP_PORT: &httpPort 8080
+              MADDY_SMTP_PORT: &smtpPort 2525
             envFrom:
               - secretRef:
                   name: smtp-relay-secret
