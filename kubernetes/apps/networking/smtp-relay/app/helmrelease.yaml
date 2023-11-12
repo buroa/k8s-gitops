@@ -36,6 +36,9 @@ spec:
             image:
               repository: ghcr.io/foxcpp/maddy
               tag: 0.7.0
+            env:
+              HTTP_PORT: &httpPort 8080
+              SMTP_PORT: &smtpPort 2525
             envFrom:
               - secretRef:
                   name: smtp-relay-secret
@@ -67,25 +70,17 @@ spec:
           - path: /data/maddy.conf
             subPath: maddy.conf
             readOnly: true
-      data:
+      cache:
         type: emptyDir
-        medium: Memory
-        sizeLimit: 1Gi
         globalMounts:
-          - path: /dev/shm
+          - path: /cache
     service:
       main:
         ports:
           http:
-            port: 2525
-          metrics:
-            port: 9749
+            port: *httpPort
+          smtp:
+            port: *smtpPort
     serviceMonitor:
       main:
         enabled: true
-        endpoints:
-          - port: metrics
-            scheme: http
-            path: /metrics
-            interval: 30s
-            scrapeTimeout: 30s
