@@ -8,7 +8,7 @@ metadata:
     kustomize.toolkit.fluxcd.io/substitute: disabled
 spec:
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=kubernetes/kubernetes
-  version: 1.28.3
+  version: 1.28.4
   serviceAccountName: kube-system
   secrets:
     - name: talos
