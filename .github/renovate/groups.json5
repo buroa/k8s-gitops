@@ -13,6 +13,16 @@
       "separateMinorPatch": true
     },
     {
+      "description": "Actions-Runner Group",
+      "groupName": "Actions-Runner",
+      "matchPackagePatterns": ["actions-runner"],
+      "matchDatasources": ["docker", "helm"],
+      "group": {
+        "commitMessageTopic": "{{{groupName}}} group"
+      },
+      "separateMinorPatch": true
+    },
+    {
       "description": "Rook-Ceph Group",
       "groupName": "Rook-Ceph",
       "matchPackagePatterns": ["rook.ceph"],
@@ -25,7 +35,11 @@
     {
       "description": "Talos Group",
       "groupName": "Talos",
-      "matchPackagePatterns": ["siderolabs/talos", "siderolabs/talosctl", "buroa/installer"],
+      "matchPackagePatterns": [
+        "buroa/installer",
+        "siderolabs/talos",
+        "siderolabs/talosctl"
+      ],
       "matchDatasources": ["docker", "github-releases"],
       "group": {
         "commitMessageTopic": "{{{groupName}}} group"
