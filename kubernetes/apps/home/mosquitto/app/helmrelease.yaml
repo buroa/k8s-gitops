@@ -62,7 +62,7 @@ spec:
     persistence:
       data:
         enabled: true
-        existingClaim: mosquitto-config
+        existingClaim: mosquitto
       config-file:
         type: configMap
         name: mosquitto-configmap # overriden by kustomizeconfig
