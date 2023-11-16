@@ -93,7 +93,7 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: bazarr-config
+        existingClaim: bazarr
       media:
         existingClaim: media
       scripts:
