@@ -60,7 +60,7 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: wizarr-config
+        existingClaim: wizarr
         globalMounts:
           - path: /data/database
     service:
