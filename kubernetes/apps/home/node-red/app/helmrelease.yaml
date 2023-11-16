@@ -75,7 +75,7 @@ spec:
     persistence:
       data:
         enabled: true
-        existingClaim: node-red-config
+        existingClaim: node-red
       settings:
         type: configMap
         name: node-red-configmap

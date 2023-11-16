@@ -22,13 +22,54 @@ spec:
     - extract:
         key: volsync-restic-template
 ---
-apiVersion: volsync.backube/v1alpha1
-kind: ReplicationSource
+apiVersion: v1
+kind: PersistentVolumeClaim
 metadata:
   name: node-red
   namespace: home
 spec:
-  sourcePVC: node-red-config
+  accessModes:
+    - ReadWriteOnce
+  dataSourceRef:
+    kind: ReplicationDestination
+    apiGroup: volsync.backube
+    name: node-red-rdst
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: ${CLUSTER_STORAGE_BLOCK}
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  name: node-red-rdst
+  namespace: media
+  annotations:
+    kustomize.toolkit.fluxcd.io/ssa: IfNotPresent
+spec:
+  trigger:
+    manual: restore-once
+  restic:
+    repository: node-red-restic-secret
+    copyMethod: Snapshot
+    accessModes: ["ReadWriteOnce"]
+    cacheCapacity: 8Gi
+    cacheStorageClassName: ${CLUSTER_STORAGE_HOSTPATH}
+    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
+    storageClassName: ${CLUSTER_STORAGE_BLOCK}
+    moverSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+    capacity: 1Gi # must match the PersistentVolumeClaim `.resources.requests.storage` size above
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: node-red-rsrc
+  namespace: home
+spec:
+  sourcePVC: node-red
   trigger:
     schedule: "0 8 * * *"
   restic:
