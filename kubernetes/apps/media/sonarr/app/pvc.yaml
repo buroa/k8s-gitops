@@ -5,8 +5,7 @@ metadata:
   name: sonarr
   namespace: media
 spec:
-  accessModes:
-    - ReadWriteOnce
+  accessModes: ["ReadWriteOnce"]
   resources:
     requests:
       storage: 10Gi

@@ -28,8 +28,7 @@ metadata:
   name: bazarr
   namespace: media
 spec:
-  accessModes:
-    - ReadWriteOnce
+  accessModes: ["ReadWriteOnce"]
   dataSourceRef:
     kind: ReplicationDestination
     apiGroup: volsync.backube
@@ -53,10 +52,11 @@ spec:
     repository: bazarr-restic-secret
     copyMethod: Snapshot
     accessModes: ["ReadWriteOnce"]
+    storageClassName: ${CLUSTER_STORAGE_BLOCK}
+    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
+    cacheAccessModes: ["ReadWriteOnce"]
     cacheCapacity: 8Gi
     cacheStorageClassName: ${CLUSTER_STORAGE_HOSTPATH}
-    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
-    storageClassName: ${CLUSTER_STORAGE_BLOCK}
     moverSecurityContext:
       runAsUser: 568
       runAsGroup: 568
@@ -76,10 +76,12 @@ spec:
     copyMethod: Snapshot
     pruneIntervalDays: 10
     repository: bazarr-restic-secret
+    accessModes: ["ReadWriteOnce"]
+    storageClassName: ${CLUSTER_STORAGE_BLOCK}
+    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
+    cacheAccessModes: ["ReadWriteOnce"]
     cacheCapacity: 8Gi
     cacheStorageClassName: ${CLUSTER_STORAGE_HOSTPATH}
-    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
-    storageClassName: ${CLUSTER_STORAGE_BLOCK}
     moverSecurityContext:
       runAsUser: 568
       runAsGroup: 568
