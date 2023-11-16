@@ -78,7 +78,7 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: thelounge-config
+        existingClaim: thelounge
       prune:
         type: configMap
         name: thelounge-configmap
