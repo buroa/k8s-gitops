@@ -101,7 +101,7 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: qbittorrent-config
+        existingClaim: qbittorrent
       media:
         existingClaim: media
       xseed:
