@@ -81,7 +81,7 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: tautulli-config
+        existingClaim: tautulli
       add-ons:
         type: emptyDir
     service:
