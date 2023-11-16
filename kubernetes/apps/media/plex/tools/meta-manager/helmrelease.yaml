@@ -61,7 +61,7 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: plex-meta-manager-config
+        existingClaim: plex-meta-manager
       config-file:
         type: configMap
         name: plex-meta-manager-configmap
