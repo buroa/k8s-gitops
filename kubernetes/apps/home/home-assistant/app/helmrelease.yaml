@@ -94,7 +94,7 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: home-assistant-config
+        existingClaim: home-assistant
     service:
       main:
         ports:

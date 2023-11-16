@@ -22,13 +22,54 @@ spec:
     - extract:
         key: volsync-restic-template
 ---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: home-assistant
+  namespace: media
+spec:
+  accessModes:
+    - ReadWriteOnce
+  dataSourceRef:
+    kind: ReplicationDestination
+    apiGroup: volsync.backube
+    name: home-assistant-rdst
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: ${CLUSTER_STORAGE_BLOCK}
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  name: home-assistant-rdst
+  namespace: media
+  annotations:
+    kustomize.toolkit.fluxcd.io/ssa: IfNotPresent
+spec:
+  trigger:
+    manual: restore-once
+  restic:
+    repository: home-assistant-restic-secret
+    copyMethod: Snapshot
+    accessModes: ["ReadWriteOnce"]
+    cacheCapacity: 8Gi
+    cacheStorageClassName: ${CLUSTER_STORAGE_HOSTPATH}
+    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
+    storageClassName: ${CLUSTER_STORAGE_BLOCK}
+    moverSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+    capacity: 5Gi # must match the PersistentVolumeClaim `.resources.requests.storage` size above
+---
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: home-assistant
+  name: home-assistant-rsrc
   namespace: home
 spec:
-  sourcePVC: home-assistant-config
+  sourcePVC: home-assistant
   trigger:
     schedule: "0 8 * * *"
   restic:
