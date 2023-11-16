@@ -108,7 +108,7 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: radarr-config
+        existingClaim: radarr
       media:
         existingClaim: media
     service:
