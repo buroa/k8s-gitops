@@ -69,7 +69,7 @@ metadata:
   name: plex-rsrc
   namespace: media
 spec:
-  sourcePVC: plex-config
+  sourcePVC: plex
   trigger:
     schedule: "0 8 * * *"
   restic:
