@@ -68,7 +68,7 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: overseerr-config
+        existingClaim: overseerr
         globalMounts:
           - path: /app/config
       yarn:
