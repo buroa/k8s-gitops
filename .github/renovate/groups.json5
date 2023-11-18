@@ -15,7 +15,7 @@
     {
       "description": "Actions-Runner Group",
       "groupName": "Actions-Runner",
-      "matchPackagePatterns": ["actions-runner"],
+      "matchPackagePatterns": ["actions.runner"],
       "matchDatasources": ["docker", "helm"],
       "group": {
         "commitMessageTopic": "{{{groupName}}} group"
