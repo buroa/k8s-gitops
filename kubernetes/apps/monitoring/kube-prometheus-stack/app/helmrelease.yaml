@@ -150,8 +150,6 @@ spec:
               key: objstore.yml
         retention: 2d
         retentionSize: 15GB
-        externalLabels:
-          cluster: k8s
         storageSpec:
           volumeClaimTemplate:
             spec:
