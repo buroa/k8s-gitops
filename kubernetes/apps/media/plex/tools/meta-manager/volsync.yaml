@@ -71,7 +71,7 @@ metadata:
 spec:
   sourcePVC: plex-meta-manager
   trigger:
-    schedule: "0 8 * * *"
+    schedule: "15 */8 * * *"
   restic:
     copyMethod: Snapshot
     pruneIntervalDays: 10

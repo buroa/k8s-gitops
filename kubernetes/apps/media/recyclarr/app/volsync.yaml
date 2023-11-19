@@ -71,11 +71,11 @@ metadata:
 spec:
   sourcePVC: recyclarr
   trigger:
-    schedule: "0 8 * * *"
+    schedule: "15 */8 * * *"
   restic:
-    copyMethod: Snapshot
     pruneIntervalDays: 10
     repository: recyclarr-restic-secret
+    copyMethod: Snapshot
     accessModes: ["ReadWriteOnce"]
     storageClassName: ${CLUSTER_STORAGE_BLOCK}
     volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
