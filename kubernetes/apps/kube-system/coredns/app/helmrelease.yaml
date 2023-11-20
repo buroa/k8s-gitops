@@ -58,8 +58,6 @@ spec:
               fallthrough in-addr.arpa ip6.arpa
               ttl 30
           - name: forward
-            parameters: ${PUBLIC_DOMAIN} ${BLOCKY_LB_IP}
-          - name: forward
             parameters: . ${BLOCKY_LB_IP} 127.0.0.1:5301
             configBlock: |-
               policy sequential

@@ -8,8 +8,8 @@ bootstrapDns:
 
 conditional:
   mapping:
-    cluster.local: ${CLUSTER_DNS_IP}
     ${PUBLIC_DOMAIN}: ${K8S_GATEWAY_IP}
+    cluster.local: ${CLUSTER_DNS_IP}
 
 ecs:
   ipv4Mask: 32
