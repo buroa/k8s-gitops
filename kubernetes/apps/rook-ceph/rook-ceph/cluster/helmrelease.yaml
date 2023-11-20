@@ -51,6 +51,9 @@ spec:
     cephClusterSpec:
       network:
         provider: host
+        # addressRanges:
+        #   public: ["${LAN_SERVER_IP_CIDR}"]
+        #   cluster: ["${LAN_TB_IP_CIDR}"]
       crashCollector:
         disable: false
       dashboard:
