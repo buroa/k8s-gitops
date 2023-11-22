@@ -5,9 +5,3 @@ namespace: home
 resources:
   - ./volsync.yaml
   - ./helmrelease.yaml
-configMapGenerator:
-  - name: thelounge-configmap
-    files:
-      - ./configs/prune.sql
-generatorOptions:
-  disableNameSuffixHash: true
