@@ -34,6 +34,21 @@ spec:
               tag: 3.5.2
             env:
               TZ: ${TIMEZONE}
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/health
+                    port: &port 5690
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: false
             resources:
               requests:
                 cpu: 10m
@@ -67,4 +82,4 @@ spec:
       main:
         ports:
           http:
-            port: 5690
+            port: *port

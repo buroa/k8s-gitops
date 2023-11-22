@@ -47,6 +47,21 @@ spec:
               QBT_Preferences__WebUI__AuthSubnetWhitelistEnabled: true
               QBT_Preferences__WebUI__AuthSubnetWhitelist: |-
                 ${CLUSTER_POD_IP_CIDR}, ${LAN_SERVER_IP_CIDR}
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/v2/app/version
+                    port: *httpPort
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: false
             resources:
               requests:
                 cpu: 50m
