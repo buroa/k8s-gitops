@@ -2,9 +2,9 @@
 connectIPVersion: v4
 
 bootstrapDns:
-  - tcp+udp:1.1.1.1
-  - tcp+udp:8.8.8.8
-  - tcp+udp:9.9.9.9
+  - https://1.1.1.1/dns-query
+  - https://8.8.8.8/dns-query
+  - https://9.9.9.9/dns-query
 
 conditional:
   mapping:
