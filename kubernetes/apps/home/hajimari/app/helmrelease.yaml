@@ -57,23 +57,19 @@ spec:
         annotations:
           hajimari.io/enable: "false"
         hosts:
-          - host: &host ${PUBLIC_DOMAIN}
-            paths:
+          - host: &host0 ${PUBLIC_DOMAIN}
+            paths: &paths
               - path: /
                 pathType: Prefix
-          - host: &host2 www.${PUBLIC_DOMAIN}
-            paths:
-              - path: /
-                pathType: Prefix
-          - host: &host3 apps.${PUBLIC_DOMAIN}
-            paths:
-              - path: /
-                pathType: Prefix
+          - host: &host1 www.${PUBLIC_DOMAIN}
+            paths: *paths
+          - host: &host2 apps.${PUBLIC_DOMAIN}
+            paths: *paths
         tls:
           - hosts:
-              - *host
+              - *host0
+              - *host1
               - *host2
-              - *host3
     podAnnotations:
       configmap.reloader.stakater.com/reload: hajimari-settings
     persistence:
@@ -81,5 +77,5 @@ spec:
         type: emptyDir
     resources:
       requests:
-        cpu: 100m
+        cpu: 10m
         memory: 128M
