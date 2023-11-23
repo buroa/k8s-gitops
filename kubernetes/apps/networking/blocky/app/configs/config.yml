@@ -122,7 +122,7 @@ blocking:
 caching:
   minTime: 5m
   prefetching: true
-  prefetchExpires: 2h
+  prefetchExpires: 12h
 
 redis:
   required: true
