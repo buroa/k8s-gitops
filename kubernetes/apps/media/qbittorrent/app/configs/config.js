@@ -23,6 +23,7 @@ module.exports = {
     "http://prowlarr.media.svc.cluster.local:9696/77/api?apikey={{ .PROWLARR_API_KEY }}", // ant
     "http://prowlarr.media.svc.cluster.local:9696/78/api?apikey={{ .PROWLARR_API_KEY }}", // td
     "http://prowlarr.media.svc.cluster.local:9696/80/api?apikey={{ .PROWLARR_API_KEY }}", // ar
+    "http://prowlarr.media.svc.cluster.local:9696/114/api?apikey={{ .PROWLARR_API_KEY }}", // atr
   ],
 
   apiAuth: false,
