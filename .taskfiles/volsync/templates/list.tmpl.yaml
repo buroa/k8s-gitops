@@ -2,7 +2,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: "unlock-${rsrc}-${ts}"
+  name: "list-${app}-${ts}"
   namespace: "${ns}"
 spec:
   ttlSecondsAfterFinished: 3600
@@ -11,9 +11,9 @@ spec:
       automountServiceAccountToken: false
       restartPolicy: OnFailure
       containers:
-        - name: unlock
+        - name: list
           image: docker.io/restic/restic:0.16.2
-          args: ["unlock", "--remove-all"]
+          args: ["snapshots"]
           envFrom:
             - secretRef:
-                name: "${rsrc}-restic-secret"
+                name: "${app}-restic-secret"
