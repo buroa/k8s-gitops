@@ -29,7 +29,7 @@ jobs:
         with:
           registry: ghcr.io
           username: "${{ secrets.BOT_APP_ID }}"
-          password: "${{ steps.generate-token.outputs.token }}"
+          password: "${{ steps.app-token.outputs.token }}"
 
       - name: Setup Flux
         uses: fluxcd/flux2/action@a18d4f345021182d6516bf3e8e00210567f46ab5 # v2.1.2
@@ -39,6 +39,7 @@ jobs:
         uses: allenporter/flux-local/action/diff@flux-build
         id: diff
         with:
+          live-branch: master
           sources: "${{ github.event.repository.name }}"
           path: "${{ matrix.path }}"
           resource: "${{ matrix.resource }}"
