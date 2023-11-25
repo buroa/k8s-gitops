@@ -54,8 +54,7 @@ spec:
               DEFAULT_DOMAIN: &host ln.${PUBLIC_DOMAIN}
               REDIS_PUB_SUB_ENABLED: true
               REDIS_SENTINEL_SERVICE: redis-master
-              REDIS_SERVERS:
-                "redis-node-0.redis-headless.databases.svc.cluster.local:26379,\
+              REDIS_SERVERS: "redis-node-0.redis-headless.databases.svc.cluster.local:26379,\
                 redis-node-1.redis-headless.databases.svc.cluster.local:26379,\
                 redis-node-2.redis-headless.databases.svc.cluster.local:26379"
               DISABLE_TRACKING_FROM: 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
