@@ -24,6 +24,11 @@ upstreams:
   timeout: 2s
 
 blocking:
+  loading:
+    downloads:
+      timeout: 60s
+    maxErrorsPerSource: -1
+
   blackLists:
     ads: # https://firebog.net
       - https://adaway.org/hosts.txt
@@ -80,8 +85,9 @@ blocking:
 
   whiteLists:
     ads: &whiteList
+      - https://raw.githubusercontent.com/hagezi/dns-blocklists/main/whitelist.txt
+      - https://raw.githubusercontent.com/hagezi/dns-blocklists/main/whitelist-referral.txt
       - https://raw.githubusercontent.com/anudeepND/whitelist/master/domains/whitelist.txt
-      - https://raw.githubusercontent.com/hagezi/dns-blocklists/main/regex/whitelist-referral-pihole.txt
       - https://raw.githubusercontent.com/buroa/k8s-gitops/master/kubernetes/apps/networking/blocky/app/configs/whitelist.txt
     extra: *whiteList
     misc: *whiteList
