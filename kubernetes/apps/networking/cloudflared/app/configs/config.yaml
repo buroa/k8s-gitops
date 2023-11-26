@@ -3,14 +3,21 @@ originRequest:
   http2Origin: true
 
 ingress:
-  - hostname: ${PUBLIC_DOMAIN}
+  - hostname: "plex.${PUBLIC_DOMAIN}"
     service: https://ingress-nginx-external-controller.networking.svc.cluster.local:443
     originRequest:
       originServerName: external.${PUBLIC_DOMAIN}
 
+  - hostname: ${PUBLIC_DOMAIN}
+    service: https://ingress-nginx-external-controller.networking.svc.cluster.local:443
+    originRequest:
+      # originServerName: external.${PUBLIC_DOMAIN}
+      autoOriginServerName: true # TODO: test
+
   - hostname: "*.${PUBLIC_DOMAIN}"
     service: https://ingress-nginx-external-controller.networking.svc.cluster.local:443
     originRequest:
-      originServerName: external.${PUBLIC_DOMAIN}
+      # originServerName: external.${PUBLIC_DOMAIN}
+      autoOriginServerName: true # TODO: test
 
   - service: http_status:404
