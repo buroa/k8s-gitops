@@ -34,8 +34,11 @@ spec:
         containers:
           main:
             image:
-              repository: docker.io/cloudflare/cloudflared
-              tag: 2023.10.0
+              # repository: docker.io/cloudflare/cloudflared
+              # tag: 2023.10.0
+              # TODO: switch to upstream after testing
+              repository: ghcr.io/buroa/cloudflared
+              tag: latest@sha256:c491d7f68f17f77c815801b195d9027fe077a1accfd82c7bdb525216a8a5a902
             args:
               - tunnel
               - --config
