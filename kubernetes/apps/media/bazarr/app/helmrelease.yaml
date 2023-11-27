@@ -109,6 +109,17 @@ spec:
       config:
         enabled: true
         existingClaim: bazarr
+      config-cache:
+        type: emptyDir
+        globalMounts:
+          - path: /config/cache
+            subPath: cache
+      tmp:
+        type: emptyDir
+        advancedMounts:
+          main:
+            main:
+              - path: /tmp
       media:
         existingClaim: media
       scripts:

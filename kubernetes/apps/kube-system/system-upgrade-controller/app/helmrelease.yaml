@@ -77,8 +77,6 @@ spec:
     persistence:
       tmp:
         type: emptyDir
-        globalMounts:
-          - path: /tmp
       etc-ssl:
         type: hostPath
         hostPath: /etc/ssl
