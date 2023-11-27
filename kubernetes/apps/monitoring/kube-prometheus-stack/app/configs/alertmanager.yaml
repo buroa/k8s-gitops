@@ -34,7 +34,7 @@ receivers:
   - name: heartbeat
     webhook_configs:
       - send_resolved: true
-        url: "{{ .UPTIMEROBOT_HEARTBEAT_URL }}"
+        url: "{{ .ALERTMANAGER_UPTIMEROBOT_HEARTBEAT_URL }}"
   - name: "null"
   - name: pushover
     pushover_configs:
@@ -65,6 +65,6 @@ receivers:
         title: >-
           {{ "{{" }} .CommonLabels.alertname {{ "}}" }}
           [{{ "{{" }} .Status | toUpper {{ "}}" }}{{ "{{" }} if eq .Status "firing" {{ "}}" }}:{{ "{{" }} .Alerts.Firing | len {{ "}}" }}{{ "{{" }} end {{ "}}" }}]
-        token: "{{ .PUSHOVER_TOKEN }}"
+        token: "{{ .ALERTMANAGER_PUSHOVER_APP_TOKEN }}"
         url_title: View in Alertmanager
-        user_key: "{{ .PUSHOVER_USER_KEY }}"
+        user_key: "{{ .ALERTMANAGER_PUSHOVER_USER_KEY }}"

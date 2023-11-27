@@ -91,7 +91,7 @@ resource "cloudflare_record" "sendgrid_dkim_2" {
 resource "cloudflare_record" "external_ingress" {
   zone_id = data.cloudflare_zone.domain.id
   name    = "external"
-  value   = "${module.onepassword_item.fields["tunnel-id"]}.cfargotunnel.com"
+  value   = "${module.onepassword_item.fields["CLOUDFLARE_TUNNEL_ID"]}.cfargotunnel.com"
   type    = "CNAME"
   proxied = true
   ttl     = 1

@@ -74,7 +74,7 @@ data "http" "uptimerobot_ips" {
 }
 
 resource "cloudflare_list" "uptimerobot" {
-  account_id  = module.onepassword_item.fields["account-id"]
+  account_id  = module.onepassword_item.fields["CLOUDFLARE_ACCOUNT_ID"]
   name        = "uptimerobot"
   kind        = "ip"
   description = "List of UptimeRobot IP Addresses"

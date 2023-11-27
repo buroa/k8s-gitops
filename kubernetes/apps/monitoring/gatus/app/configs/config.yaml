@@ -1,8 +1,8 @@
 ---
 alerting:
   pushover:
-    application-token: ${CUSTOM_PUSHOVER_APP_TOKEN}
-    user-key: ${CUSTOM_PUSHOVER_USER_KEY}
+    application-token: ${GATUS_PUSHOVER_APP_TOKEN}
+    user-key: ${GATUS_PUSHOVER_USER_KEY}
     default-alert:
       description: healthcheck failed
       send-on-resolved: true
