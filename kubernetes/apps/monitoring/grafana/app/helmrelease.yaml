@@ -41,6 +41,9 @@ spec:
       GF_DATE_FORMATS_USE_BROWSER_LOCALE: true
       GF_EXPLORE_ENABLED: true
       GF_FEATURE_TOGGLES_ENABLE: publicDashboards
+      GF_LOG_MODE: console
+      GF_NEWS_NEWS_FEED_ENABLED: false
+      GF_PANELS_DISABLE_SANITIZE_HTML: true
       GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS: natel-discrete-panel,pr0ps-trackmap-panel,panodata-map-panel
       GF_SECURITY_COOKIE_SAMESITE: grafana
       GF_SERVER_ROOT_URL: https://grafana.${PUBLIC_DOMAIN}
@@ -52,9 +55,13 @@ spec:
         check_for_plugin_updates: false
         reporting_enabled: false
       auth:
-        signout_redirect_url: https://auth.${PUBLIC_DOMAIN}/logout
         oauth_auto_login: true
         oauth_allow_insecure_email_lookup: true # https://github.com/grafana/grafana/issues/70203
+        signout_redirect_url: https://auth.${PUBLIC_DOMAIN}/logout
+      auth.basic:
+        enabled: true
+      auth.anonymous:
+        enabled: false
       auth.generic_oauth:
         enabled: true
         name: Authelia
@@ -69,12 +76,6 @@ spec:
         org_id: 1
         role_attribute_path: |
           contains(groups[*], 'admins') && 'Admin' || contains(groups[*], 'people') && 'Viewer'
-      auth.basic:
-        enabled: true
-      auth.anonymous:
-        enabled: false
-      news:
-        news_feed_enabled: false
     admin:
       existingSecret: *secret
     dashboardProviders:
@@ -305,6 +306,8 @@ spec:
           datasource:
             - name: DS_PROMETHEUS
               value: Prometheus
+            - name: VAR_BLOCKY_URL
+              value: https:\\/\\/blocky.${PUBLIC_DOMAIN}
         blocky-query:
           url: https://raw.githubusercontent.com/0xERR0R/blocky/main/docs/blocky-query-grafana-postgres.json
           datasource:
