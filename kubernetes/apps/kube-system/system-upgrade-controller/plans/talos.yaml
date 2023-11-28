@@ -13,6 +13,7 @@ spec:
   secrets:
     - name: talos
       path: /var/run/secrets/talos.dev
+      ignoreUpdates: true
   concurrency: 1
   nodeSelector:
     matchExpressions:

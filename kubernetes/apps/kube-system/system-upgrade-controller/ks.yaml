@@ -21,7 +21,6 @@ metadata:
   name: cluster-apps-system-upgrade-controller-plans
   namespace: flux-system
 spec:
-  suspend: true # https://github.com/rancher/system-upgrade-controller/pull/263
   dependsOn:
     - name: cluster-apps-system-upgrade-controller
   path: ./kubernetes/apps/kube-system/system-upgrade-controller/plans
