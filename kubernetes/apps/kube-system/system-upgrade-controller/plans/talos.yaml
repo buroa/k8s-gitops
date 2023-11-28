@@ -31,4 +31,6 @@ spec:
       - "upgrade"
       - "--image=ghcr.io/buroa/installer:$(SYSTEM_UPGRADE_PLAN_LATEST_VERSION)"
       - "--preserve=true"
+      - "--stage=true"
       - "--wait=false"
+      - "--reboot-mode=powercycle" # thunderbolt issue with kexec
