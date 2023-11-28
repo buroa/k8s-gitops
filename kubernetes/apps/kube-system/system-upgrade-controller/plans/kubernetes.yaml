@@ -9,11 +9,13 @@ metadata:
 spec:
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=kubernetes/kubernetes
   version: 1.28.4
-  serviceAccountName: kube-system
+  serviceAccountName: system-upgrade
   secrets:
     - name: talos
       path: /var/run/secrets/talos.dev
+      ignoreUpdates: true
   concurrency: 1
+  exclusive: true
   nodeSelector:
     matchExpressions:
       - { key: node-role.kubernetes.io/control-plane, operator: Exists }
