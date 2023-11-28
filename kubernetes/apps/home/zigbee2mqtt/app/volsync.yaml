@@ -43,8 +43,6 @@ kind: ReplicationDestination
 metadata:
   name: zigbee2mqtt-rdst
   namespace: media
-  annotations:
-    kustomize.toolkit.fluxcd.io/ssa: IfNotPresent
 spec:
   trigger:
     manual: restore-once
