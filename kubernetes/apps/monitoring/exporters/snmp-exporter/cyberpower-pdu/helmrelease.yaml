@@ -29,7 +29,7 @@ spec:
     image:
       repository: quay.io/prometheus/snmp-exporter
     extraArgs:
-      - "--config.file=/config/snmp.yaml"
+      - --config.file=/config/snmp.yaml
     extraConfigmapMounts:
       - name: *app
         mountPath: /config/snmp.yaml
