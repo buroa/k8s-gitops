@@ -334,6 +334,14 @@ controlPlane:
               - os:admin
             allowedKubernetesNamespaces:
               - kube-system
+    - &discoveryPatch |-
+      cluster:
+        discovery:
+          registries:
+            kubernetes:
+              disabled: false
+            service:
+              disabled: true
   inlinePatch:
     cluster:
       allowSchedulingOnMasters: true
@@ -344,10 +352,6 @@ controlPlane:
           bind-address: 0.0.0.0
       coreDNS:
         disabled: true
-      discovery:
-        registries:
-          service:
-            disabled: true
       etcd:
         extraArgs:
           listen-metrics-urls: http://0.0.0.0:2381
@@ -358,7 +362,7 @@ controlPlane:
       scheduler:
         extraArgs:
           bind-address: 0.0.0.0
-    machine: &machine
+    machine: &machinePatch
       install:
         image: ghcr.io/buroa/installer:v1.5.5
         extraKernelArgs:
@@ -371,7 +375,7 @@ controlPlane:
           port: 7445
       logging:
         destinations:
-          - endpoint: udp://vector.${domainName}:6002/
+          - endpoint: udp://vector.${domainName}:6002
             format: json_lines
       sysfs:
         devices.system.cpu.intel_pstate.no_turbo: 1
@@ -431,6 +435,8 @@ controlPlane:
           op: create
 
 worker:
+  patches:
+    - *discoveryPatch
   inlinePatch:
     machine:
-      <<: *machine
+      <<: *machinePatch

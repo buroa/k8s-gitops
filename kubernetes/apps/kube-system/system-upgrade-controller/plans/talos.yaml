@@ -19,18 +19,24 @@ spec:
   nodeSelector:
     matchExpressions:
       - { key: kubernetes.io/os, operator: In, values: [linux] }
-  upgrade:
-    image: ghcr.io/siderolabs/talosctl
-    envs:
+  prepare:
+    image: &image ghcr.io/siderolabs/talosctl
+    envs: &envs
       - name: NODE_IP
         valueFrom:
           fieldRef:
             fieldPath: status.hostIP
     args:
-      - "--nodes=$(NODE_IP)"
-      - "upgrade"
-      - "--image=ghcr.io/buroa/installer:$(SYSTEM_UPGRADE_PLAN_LATEST_VERSION)"
-      - "--preserve=true"
-      - "--stage=true"
-      - "--wait=false"
-      - "--reboot-mode=powercycle" # thunderbolt issue with kexec
+      - --nodes=$(NODE_IP)
+      - health
+  upgrade:
+    image: *image
+    envs: *envs
+    args:
+      - --nodes=$(NODE_IP)
+      - upgrade
+      - --image=ghcr.io/buroa/installer:$(SYSTEM_UPGRADE_PLAN_LATEST_VERSION)
+      - --preserve=true
+      - --stage=true
+      - --wait=false
+      - --reboot-mode=powercycle # thunderbolt issue with kexec
