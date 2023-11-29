@@ -7,7 +7,6 @@ resources:
   - ./descheduler/ks.yaml
   - ./external-secrets/ks.yaml
   - ./intel-device-plugin/ks.yaml
-  - ./kube-cleanup-operator/ks.yaml
   - ./kubelet-csr-approver/ks.yaml
   - ./mbpfan/ks.yaml
   - ./metrics-server/ks.yaml

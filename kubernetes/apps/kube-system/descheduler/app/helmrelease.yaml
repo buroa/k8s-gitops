@@ -48,19 +48,21 @@ spec:
                 - Pending
                 - PodInitializing
                 - ContainerCreating
-              maxPodLifeTimeSeconds: 3600
+              maxPodLifeTimeSeconds: 300
         RemoveFailedPods:
           enabled: true
           params:
             failedPods:
               reasons:
+                - Error
+                - Completed
                 - NodeShutdown
                 - ImagePullBackOff
                 - CreateContainerConfigError
               includingInitContainers: true
               excludeOwnerKinds:
                 - Job
-              minPodLifetimeSeconds: 3600
+              minPodLifetimeSeconds: 300
         RemoveDuplicates:
           enabled: true
         RemovePodsViolatingNodeTaints:
