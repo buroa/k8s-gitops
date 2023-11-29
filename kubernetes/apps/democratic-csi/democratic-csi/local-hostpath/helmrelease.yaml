@@ -65,6 +65,7 @@ spec:
           - --node-deployment=true
     node:
       driver:
+        image: ghcr.io/democratic-csi/democratic-csi:v1.8.4
         extraVolumeMounts:
           - name: local-hostpath
             mountPath: &path /var/lib/democratic-csi-local-hostpath
