@@ -29,9 +29,10 @@ spec:
       create: true
       global: true
     args:
-      - --delete-failed-after=60m
-      - --delete-successful-after=0
+      - --delete-failed-after=5m
+      - --delete-successful-after=5m
       - --delete-evicted-pods-after=5m
       - --delete-pending-pods-after=5m
       - --delete-orphaned-pods-after=5m
+      - --ignore-owned-by-cronjobs=true
       - --legacy-mode=false
