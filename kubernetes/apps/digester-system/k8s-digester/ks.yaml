@@ -1,0 +1,25 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cluster-apps-k8s-digester
+  namespace: flux-system
+spec:
+  targetNamespace: digester-system
+  path: ./manifests
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: k8s-digester
+  wait: true
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+  patches:
+    - # Nanespace is already applied by Flux
+      patch: |
+        $patch: delete
+        apiVersion: v1
+        kind: Namespace
+        metadata:
+          name: digester-system
