@@ -206,6 +206,13 @@ spec:
           gnetId: 7587
           revision: 3
           datasource: Prometheus
+        spegel:
+          # renovate: depName="Spegel"
+          gnetId: 18089
+          revision: 1
+          datasource:
+            - name: DS_PROMETHEUS
+              value: Prometheus
         cloudflared:
           # renovate: depName="Cloudflare Tunnels (cloudflared)"
           gnetId: 17457

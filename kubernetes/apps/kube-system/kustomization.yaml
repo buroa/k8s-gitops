@@ -16,5 +16,6 @@ resources:
   - ./reloader/ks.yaml
   - ./smarter-device-manager/ks.yaml
   - ./snapshot-controller/ks.yaml
+  - ./spegel/ks.yaml
   - ./system-upgrade-controller/ks.yaml
   - ./volsync/ks.yaml

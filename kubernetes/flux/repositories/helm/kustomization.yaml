@@ -31,3 +31,4 @@ resources:
   - ./rook-ceph-charts.yaml
   - ./stakater-charts.yaml
   - ./weave-gitops-charts.yaml
+  - ./xenitab-charts.yaml
