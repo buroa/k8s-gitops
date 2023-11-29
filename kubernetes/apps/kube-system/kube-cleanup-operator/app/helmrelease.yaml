@@ -25,6 +25,7 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    replicas: 2
     rbac:
       create: true
       global: true
@@ -36,3 +37,5 @@ spec:
       - --delete-orphaned-pods-after=5m
       - --ignore-owned-by-cronjobs=true
       - --legacy-mode=false
+    serviceMonitor:
+      enabled: true

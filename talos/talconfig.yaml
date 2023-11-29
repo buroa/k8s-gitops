@@ -433,6 +433,8 @@ controlPlane:
               enable_unprivileged_icmp = true
             [plugins."io.containerd.grpc.v1.cri".containerd]
               discard_unpacked_layers = false
+            [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
+              discard_unpacked_layers = false
           path: /etc/cri/conf.d/20-customization.part
           op: create
 
