@@ -30,9 +30,6 @@ nodes:
     installDiskSelector:
       serial: C0785130064JRQ5AA
     controlPlane: true
-    disableSearchDomain: true
-    nameservers:
-      - 10.255.253.1
     networkInterfaces:
       - interface: bond0
         bond:
@@ -74,9 +71,6 @@ nodes:
     installDiskSelector:
       serial: H280463005RJRV2C6
     controlPlane: true
-    disableSearchDomain: true
-    nameservers:
-      - 10.255.253.1
     networkInterfaces:
       - interface: bond0
         bond:
@@ -116,9 +110,6 @@ nodes:
     installDiskSelector:
       serial: C070234007KJRT9AZ
     controlPlane: true
-    disableSearchDomain: true
-    nameservers:
-      - 10.255.253.1
     networkInterfaces:
       - interface: bond0
         bond:
@@ -158,9 +149,6 @@ nodes:
     installDiskSelector:
       serial: H281495002CJRVGDX
     controlPlane: false
-    disableSearchDomain: true
-    nameservers:
-      - 10.255.253.1
     networkInterfaces:
       - interface: bond0
         bond:
@@ -217,9 +205,6 @@ nodes:
     installDiskSelector:
       serial: C070173002EJRVGAW
     controlPlane: false
-    disableSearchDomain: true
-    nameservers:
-      - 10.255.253.1
     networkInterfaces:
       - interface: bond0
         bond:
@@ -273,9 +258,6 @@ nodes:
     installDiskSelector:
       serial: C07843600H7JRVGA8
     controlPlane: false
-    disableSearchDomain: true
-    nameservers:
-      - 10.255.253.1
     networkInterfaces:
       - interface: bond0
         bond:
@@ -325,6 +307,104 @@ nodes:
 
 controlPlane:
   patches:
+    # Custom Talos installer patch
+    - &customTalosPatch |-
+      machine:
+        install:
+          image: ghcr.io/buroa/installer:v1.5.5
+          extraKernelArgs:
+            - net.ifnames=0
+            - talos.logging.kernel=udp://vector.${domainName}:6001/
+          legacyBIOSSupport: true # mac minis are legacy BIOS
+
+    # Enable logging
+    - &loggingPatch |-
+      machine:
+        logging:
+          destinations:
+            - endpoint: udp://vector.${domainName}:6002
+              format: json_lines
+
+    # Disable search domain everywhere
+    - &disableSearchDomainPatch |-
+      machine:
+        network:
+          disableSearchDomain: true
+
+    # Force nameserver
+    - &nameserverPatch |-
+      machine:
+        network:
+          nameservers:
+            - 10.255.253.1
+
+    # Configure NTP
+    - &ntpPatch |-
+      machine:
+        time:
+          disabled: false
+          servers:
+            - time.cloudflare.com
+
+    # Enable cluster discovery
+    - &discoveryPatch |-
+      cluster:
+        discovery:
+          registries:
+            kubernetes:
+              disabled: false
+            service:
+              disabled: true
+
+    # Enable KubePrism
+    - &kubePrismPatch |-
+      machine:
+        features:
+          kubePrism:
+            enabled: true
+            port: 7445
+
+    # Configure kubelet
+    - &kubeletPatch |-
+      machine:
+        kubelet:
+          extraArgs:
+            feature-gates: GracefulNodeShutdown=true
+            rotate-server-certificates: true
+          nodeIP:
+            validSubnets:
+              - 10.0.0.0/24
+
+    # Cluster configuration
+    - |-
+      cluster:
+        allowSchedulingOnMasters: true
+        controllerManager:
+          extraArgs:
+            bind-address: 0.0.0.0
+        coreDNS:
+          disabled: true
+        proxy:
+          disabled: true
+        scheduler:
+          extraArgs:
+            bind-address: 0.0.0.0
+
+    # ETCD configuration
+    - |-
+      cluster:
+        etcd:
+          extraArgs:
+            listen-metrics-urls: http://0.0.0.0:2381
+          advertisedSubnets:
+            - 10.0.0.0/24
+
+    # Disable default API server admission plugins.
+    - |-
+      - op: remove
+        path: /cluster/apiServer/admissionControl
+
+    # Enable K8s Talos API Access
     - |-
       machine:
         features:
@@ -334,113 +414,88 @@ controlPlane:
               - os:admin
             allowedKubernetesNamespaces:
               - kube-system
-    - &discoveryPatch |-
-      cluster:
-        discovery:
-          registries:
-            kubernetes:
-              disabled: false
-            service:
-              disabled: true
-  inlinePatch:
-    cluster:
-      allowSchedulingOnMasters: true
-      apiServer:
-        admissionControl: null
-      controllerManager:
-        extraArgs:
-          bind-address: 0.0.0.0
-      coreDNS:
-        disabled: true
-      etcd:
-        extraArgs:
-          listen-metrics-urls: http://0.0.0.0:2381
-        advertisedSubnets:
-          - 10.0.0.0/24
-      proxy:
-        disabled: true
-      scheduler:
-        extraArgs:
-          bind-address: 0.0.0.0
-    machine: &machinePatch
-      install:
-        image: ghcr.io/buroa/installer:v1.5.5
-        extraKernelArgs:
-          - net.ifnames=0
-          - talos.logging.kernel=udp://vector.${domainName}:6001/
-        legacyBIOSSupport: true # mac minis are legacy BIOS
-      features:
-        kubePrism:
-          enabled: true
-          port: 7445
-      logging:
-        destinations:
-          - endpoint: udp://vector.${domainName}:6002
-            format: json_lines
-      sysfs:
-        devices.system.cpu.intel_pstate.no_turbo: 1
-        devices.system.cpu.cpu0.cpufreq.scaling_governor: performance
-        devices.system.cpu.cpu0.cpufreq.energy_performance_preference: performance
-      sysctls:
-        fs.inotify.max_user_watches: 1048576
-        fs.inotify.max_user_instances: 8192
-        kernel.randomize_va_space: 0
-        net.core.netdev_max_backlog: 30000
-        net.core.rmem_max: 67108864
-        net.core.wmem_max: 67108864
-        net.ipv4.tcp_rmem: 4096 87380 33554432
-        net.ipv4.tcp_wmem: 4096 65536 33554432
-        net.ipv4.tcp_tw_reuse: 1
-        net.ipv4.tcp_window_scaling: 1
-      udev:
-        rules:
-          - ACTION=="add", SUBSYSTEM=="thunderbolt", ATTR{authorized}=="0", ATTR{authorized}="1"
-      network:
-        extraHostEntries:
-          - ip: ${clusterEndpointIP}
-            aliases:
-              - k8s.${domainName}
-          - ip: 192.168.0.1
-            aliases:
-              - unifi.${domainName}
-          - ip: 10.0.0.5
-            aliases:
-              - nas.${domainName}
-          - ip: 10.0.0.6
-            aliases:
-              - ups.${domainName}
-          - ip: 10.0.0.7
-            aliases:
-              - pdu.${domainName}
-          - ip: 10.0.3.4
-            aliases:
-              - vector.${domainName}
-      time:
-        disabled: false
-        servers:
-          - time.cloudflare.com
-      kubelet:
-        extraArgs:
-          feature-gates: GracefulNodeShutdown=true
-          rotate-server-certificates: true
-        nodeIP:
-          validSubnets:
-            - 10.0.0.0/24
-      files:
-        - content: |
-            [plugins."io.containerd.grpc.v1.cri"]
-              enable_unprivileged_ports = true
-              enable_unprivileged_icmp = true
-            [plugins."io.containerd.grpc.v1.cri".containerd]
-              discard_unpacked_layers = false
-            [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
-              discard_unpacked_layers = false
-          path: /etc/cri/conf.d/20-customization.part
-          op: create
+
+    # Configure containerd
+    - &containerdPatch |-
+      machine:
+        files:
+          - op: create
+            path: /etc/cri/conf.d/20-customization.part
+            content: |-
+              [plugins."io.containerd.grpc.v1.cri"]
+                enable_unprivileged_ports = true
+                enable_unprivileged_icmp = true
+              [plugins."io.containerd.grpc.v1.cri".containerd]
+                discard_unpacked_layers = false
+              [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
+                discard_unpacked_layers = false
+
+    # Custom sysfs settings
+    - &sysfsPatch |-
+      machine:
+        sysfs:
+          devices.system.cpu.intel_pstate.no_turbo: 1
+          devices.system.cpu.cpu0.cpufreq.scaling_governor: performance
+          devices.system.cpu.cpu0.cpufreq.energy_performance_preference: performance
+
+    # Custom sysctl settings
+    - &sysctlPatch |-
+      machine:
+        sysctls:
+          fs.inotify.max_user_watches: 1048576
+          fs.inotify.max_user_instances: 8192
+          kernel.randomize_va_space: 0
+          net.core.netdev_max_backlog: 30000
+          net.core.rmem_max: 67108864
+          net.core.wmem_max: 67108864
+          net.ipv4.tcp_rmem: 4096 87380 33554432
+          net.ipv4.tcp_wmem: 4096 65536 33554432
+          net.ipv4.tcp_tw_reuse: 1
+          net.ipv4.tcp_window_scaling: 1
+
+    # Authorize thunderbolt devices
+    - &udevPatch |-
+      machine:
+        udev:
+          rules:
+            - ACTION=="add", SUBSYSTEM=="thunderbolt", ATTR{authorized}=="0", ATTR{authorized}="1"
+
+    # Static host entries
+    - &staticHostEntriesPatch |-
+      machine:
+        network:
+          extraHostEntries:
+            - ip: ${clusterEndpointIP}
+              aliases:
+                - k8s.${domainName}
+            - ip: 192.168.0.1
+              aliases:
+                - unifi.${domainName}
+            - ip: 10.0.0.5
+              aliases:
+                - nas.${domainName}
+            - ip: 10.0.0.6
+              aliases:
+                - ups.${domainName}
+            - ip: 10.0.0.7
+              aliases:
+                - pdu.${domainName}
+            - ip: 10.0.3.4
+              aliases:
+                - vector.${domainName}
 
 worker:
   patches:
+    - *customTalosPatch
+    - *loggingPatch
+    - *disableSearchDomainPatch
+    - *nameserverPatch
+    - *ntpPatch
     - *discoveryPatch
-  inlinePatch:
-    machine:
-      <<: *machinePatch
+    - *kubePrismPatch
+    - *kubeletPatch
+    - *containerdPatch
+    - *sysfsPatch
+    - *sysctlPatch
+    - *udevPatch
+    - *staticHostEntriesPatch
