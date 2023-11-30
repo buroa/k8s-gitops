@@ -1,0 +1,33 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: "${jobName}"
+  namespace: "default"
+spec:
+  ttlSecondsAfterFinished: 3600
+  template:
+    spec:
+      automountServiceAccountToken: false
+      restartPolicy: Never
+      nodeName: ${node}
+      containers:
+        - name: disk-wipe
+          image: ghcr.io/onedr0p/alpine:3.17.3@sha256:999384960b6114496a5e4036e945141c205d064ce23b87326bd3f8d878c5a9d4
+          securityContext:
+            privileged: true
+          resources: {}
+          command: ["/bin/sh", "-c"]
+          args:
+            - apk add --no-cache sgdisk util-linux parted;
+              sgdisk --zap-all ${cephDisk};
+              blkdiscard ${cephDisk};
+              dd if=/dev/zero bs=1M count=10000 oflag=direct of=${cephDisk};
+              nsenter --mount=/proc/1/ns/mnt --ipc=/proc/1/ns/ipc --net=/proc/1/ns/net --uts=/proc/1/ns/uts partprobe ${cephDisk};
+          volumeMounts:
+            - name: dev-disk
+              mountPath: /dev/disk
+      volumes:
+        - name: dev-disk
+          hostPath:
+            path: /dev/disk
