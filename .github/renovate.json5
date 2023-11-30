@@ -3,11 +3,13 @@
   "extends": [
     "config:recommended",
     "docker:enableMajor",
+    "replacements:k8s-registry-move",
     ":disableRateLimiting",
     ":dependencyDashboard",
     ":semanticCommits",
     ":automergeDigest",
     ":automergeBranch",
+    ":timezone(America/Chicago)",
     "github>buroa/k8s-gitops//.github/renovate/allowedVersions.json5",
     "github>buroa/k8s-gitops//.github/renovate/autoMerge.json5",
     "github>buroa/k8s-gitops//.github/renovate/commitMessage.json5",
@@ -17,7 +19,8 @@
     "github>buroa/k8s-gitops//.github/renovate/labels.json5",
     "github>buroa/k8s-gitops//.github/renovate/packageRules.json5",
     "github>buroa/k8s-gitops//.github/renovate/semanticCommits.json5",
-    "helpers:pinGitHubActionDigests"
+    "helpers:pinGitHubActionDigests",
+    "security:openssf-scorecard"
   ],
   "platform": "github",
   "platformCommit": true,
@@ -25,6 +28,14 @@
   "requireConfig": "optional",
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
   "suppressNotifications": ["prIgnoreNotification"],
+  "vulnerabilityAlerts": {
+    "labels": ["security"],
+    "automerge": true,
+    "automergeType": "branch",
+    "schedule": ["at any time"]
+  },
+  "osvVulnerabilityAlerts": true,
+  "dependencyDashboardOSVVulnerabilitySummary": "all",
   "flux": {
     "fileMatch": [
       "(^|/)\\.taskfiles/.+\\.ya?ml(\\.j2)?$",
