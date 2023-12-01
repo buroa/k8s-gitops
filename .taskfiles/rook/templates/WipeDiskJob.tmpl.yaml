@@ -19,11 +19,12 @@ spec:
           resources: {}
           command: ["/bin/sh", "-c"]
           args:
-            - apk add --no-cache sgdisk util-linux parted;
+            - apk add --no-cache sgdisk util-linux parted device-mapper;
               sgdisk --zap-all ${cephDisk};
               blkdiscard ${cephDisk};
               dd if=/dev/zero bs=1M count=10000 oflag=direct of=${cephDisk};
-              nsenter --mount=/proc/1/ns/mnt --ipc=/proc/1/ns/ipc --net=/proc/1/ns/net --uts=/proc/1/ns/uts partprobe ${cephDisk};
+              nsenter --mount=/proc/1/ns/mnt partprobe ${cephDisk};
+              nsenter --mount=/proc/1/ns/mnt dmsetup remove_all;
           volumeMounts:
             - name: dev-disk
               mountPath: /dev/disk
