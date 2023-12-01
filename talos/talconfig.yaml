@@ -186,6 +186,7 @@ nodes:
           - 10.1.0.20/32
         routes:
           - network: 10.1.0.21/32
+            metric: 1024
       - deviceSelector:
           busPath: 1-3.0 # w2
         dhcp: false
@@ -194,6 +195,7 @@ nodes:
           - 10.1.0.20/32
         routes:
           - network: 10.1.0.22/32
+            metric: 1024
     nodeLabels: &workerLabels
       node-role.kubernetes.io/worker: worker
       topology.kubernetes.io/region: *cluster
@@ -242,6 +244,7 @@ nodes:
           - 10.1.0.21/32
         routes:
           - network: 10.1.0.20/32
+            metric: 1024
       - deviceSelector:
           busPath: 1-3.0 # w2
         dhcp: false
@@ -250,6 +253,7 @@ nodes:
           - 10.1.0.21/32
         routes:
           - network: 10.1.0.22/32
+            metric: 1024
     nodeLabels: *workerLabels
 
   # macm 2018 3.2GHz / 64GB / 1TB SSD / 10GbE
@@ -295,6 +299,7 @@ nodes:
           - 10.1.0.22/32
         routes:
           - network: 10.1.0.20/32
+            metric: 1024
       - deviceSelector:
           busPath: 1-3.0 # w1
         dhcp: false
@@ -303,6 +308,7 @@ nodes:
           - 10.1.0.22/32
         routes:
           - network: 10.1.0.21/32
+            metric: 1024
     nodeLabels: *workerLabels
 
 controlPlane:
