@@ -41,7 +41,7 @@ spec:
               QBT_Preferences__WebUI__AlternativeUIEnabled: false
               QBT_Preferences__WebUI__AuthSubnetWhitelistEnabled: true
               QBT_Preferences__WebUI__AuthSubnetWhitelist: |-
-                ${CLUSTER_POD_IP_CIDR}, ${LAN_SERVER_IP_CIDR}
+                ${CLUSTER_POD_IP_CIDR}, ${LAN_SERVER_IP_CIDR}, ${LAN_TB_IP_CIDR}
               QBT_Preferences__WebUI__LocalHostAuth: false
               QBT_BitTorrent__Session__Interface: eth0
               QBT_BitTorrent__Session__InterfaceAddress:
