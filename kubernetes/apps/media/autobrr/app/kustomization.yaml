@@ -5,9 +5,3 @@ namespace: media
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
-configMapGenerator:
-  - name: autobrr-configmap
-    files:
-      - ./configs/config.toml
-generatorOptions:
-  disableNameSuffixHash: true
