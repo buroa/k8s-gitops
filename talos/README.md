@@ -22,43 +22,13 @@ talosctl -n 10.0.0.22 apply-config --file clusterconfig/k8s-w2*.yaml --insecure
 
 ### Pre Mac Setup
 
-_macs dont like the vfat efi partition talos creates_  
-_we need to reboot the mac into disk mode (hold T)_  
-_connect the thunderbolt cable from macm <> laptop and run the following_
+_use reFINd ensure boot order and delete other boot entries_
 
-`sudo gdisk (macm disk)`
+1. Download [refind](https://sourceforge.net/projects/refind/files/0.14.0/refind-flashdrive-0.14.0.zip/download) here
+2. Add [exfat_x64.efi](https://github.com/pbatard/efifs/releases/download/v1.9/exfat_x64.efi) driver
+3. Set boot order to Talos: `bcfg boot add 0 fs1:\EFI\BOOT\BOOTX64.efi "Talos"`
 
-```
-> d
-> 1 (efi partition)
-> n
-> 1 (efi partition)
-> 0700 (microsoft)
-> w
-```
-
-_open disk utility and erase the partition and re-format_
-
-`sudo gdisk (macm disk)`
-
-```
-> t
-> 1
-> ef00 (efi code)
-> c
-> 1
-> EFI (change partition label)
-> w
-```
-
-_mount the efi macm partition_  
-_add back \EFI\boot\bootx64.efi from original talos efi partition_  
-_reboot_  
-_use reFINd ensure macm boot order and delete other boot entries_
-
-`bcfg boot add 0 fs1:\EFI\boot\boot64.efi "Talos"`
-
-_set default as talos and reboot_
+If you don't do this, your system reboots will be _extremely_ slow.
 
 ### Post Mac Setup
 
