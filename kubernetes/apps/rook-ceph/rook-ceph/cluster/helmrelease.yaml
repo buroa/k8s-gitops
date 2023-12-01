@@ -68,7 +68,7 @@ spec:
         useAllNodes: false
         useAllDevices: false
         config:
-          osdsPerDevice: "2"
+          osdsPerDevice: "1"
         nodes:
           - name: w0
             devices:

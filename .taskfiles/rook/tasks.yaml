@@ -24,6 +24,33 @@ tasks:
     cmds:
       - kubectl -n rook-ceph get secret rook-ceph-dashboard-password -o jsonpath="{['data']['password']}" | base64 --decode | pbcopy && echo "Copied to clipboard"
 
+  wipe-node-m0:
+    desc: Trigger a wipe of Rook-Ceph data on node "m0"
+    cmds:
+      - task: wipe-data
+        vars:
+          node: '{{.node}}'
+    vars:
+      node: m0
+
+  wipe-node-m1:
+    desc: Trigger a wipe of Rook-Ceph data on node "m1"
+    cmds:
+      - task: wipe-data
+        vars:
+          node: '{{.node}}'
+    vars:
+      node: m1
+
+  wipe-node-m2:
+    desc: Trigger a wipe of Rook-Ceph data on node "m2"
+    cmds:
+      - task: wipe-data
+        vars:
+          node: '{{.node}}'
+    vars:
+      node: m2
+
   wipe-node-w0:
     desc: Trigger a wipe of Rook-Ceph data on node "w0"
     cmds:
