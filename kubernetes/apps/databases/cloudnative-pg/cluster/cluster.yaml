@@ -34,7 +34,7 @@ spec:
         maxParallel: 8
       destinationPath: s3://barman-u7z9m76w/
       endpointURL: https://${SECRET_CLOUDFLARE_ACCOUNT_ID}.r2.cloudflarestorage.com
-      serverName: postgres-v3
+      serverName: postgres-v4
       s3Credentials:
         accessKeyId:
           name: cloudnative-pg-secret
