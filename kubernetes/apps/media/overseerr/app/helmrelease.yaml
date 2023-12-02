@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: overseerr
+  name: &app overseerr
   namespace: media
 spec:
   interval: 30m
@@ -97,7 +97,7 @@ spec:
           - path: /.cache
       config:
         enabled: true
-        existingClaim: overseerr
+        existingClaim: *app
         globalMounts:
           - path: /app/config
       tmp:

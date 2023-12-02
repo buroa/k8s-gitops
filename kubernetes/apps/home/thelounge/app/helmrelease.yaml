@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: thelounge
+  name: &app thelounge
   namespace: home
 spec:
   interval: 30m
@@ -74,7 +74,7 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: thelounge
+        existingClaim: *app
     service:
       main:
         ports:

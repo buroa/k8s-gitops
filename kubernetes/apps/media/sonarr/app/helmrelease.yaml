@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: sonarr
+  name: &app sonarr
   namespace: media
 spec:
   interval: 30m
@@ -117,7 +117,7 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: sonarr
+        existingClaim: *app
       media:
         existingClaim: media
     service:

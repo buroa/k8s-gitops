@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: tautulli
+  name: &app tautulli
   namespace: media
 spec:
   interval: 30m
@@ -106,7 +106,7 @@ spec:
         type: emptyDir
       config:
         enabled: true
-        existingClaim: tautulli
+        existingClaim: *app
       tmp:
         type: emptyDir
     service:

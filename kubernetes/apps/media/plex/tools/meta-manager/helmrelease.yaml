@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: plex-meta-manager
+  name: &app plex-meta-manager
   namespace: media
 spec:
   interval: 30m
@@ -68,7 +68,7 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: plex-meta-manager
+        existingClaim: *app
       config-file:
         type: configMap
         name: plex-meta-manager-configmap

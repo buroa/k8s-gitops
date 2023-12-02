@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: recyclarr
+  name: &app recyclarr
   namespace: media
 spec:
   interval: 30m
@@ -67,7 +67,7 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: recyclarr
+        existingClaim: *app
       config-file:
         type: configMap
         name: recyclarr-configmap

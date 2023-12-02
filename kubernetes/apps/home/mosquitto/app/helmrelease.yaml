@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: mosquitto
+  name: &app mosquitto
   namespace: home
 spec:
   interval: 30m
@@ -69,7 +69,7 @@ spec:
     persistence:
       data:
         enabled: true
-        existingClaim: mosquitto
+        existingClaim: *app
       config-file:
         type: configMap
         name: mosquitto-configmap # overriden by kustomizeconfig

@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: zigbee2mqtt
+  name: &app zigbee2mqtt
   namespace: home
 spec:
   interval: 30m
@@ -114,7 +114,7 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: zigbee2mqtt
+        existingClaim: *app
     service:
       main:
         ports:
