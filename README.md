@@ -49,7 +49,7 @@ This semi hyper-converged cluster runs [Talos Linux](https://talos.dev), an immu
 - [rook](https://rook.io): Distributed block storage for peristent storage.
 - [spegel](https://github.com/XenitAB/spegel): Stateless cluster local OCI registry mirror.
 - [sops](https://github.com/getsops/sops): Managed secrets for Kubernetes and Terraform which are commited to Git.
-- [tf-controller](https://github.com/weaveworks/tf-controller): additional Flux component used to run Terraform from within a Kubernetes cluster.
+- [tf-controller](https://github.com/weaveworks/tf-controller): Additional Flux component used to run Terraform from within a Kubernetes cluster.
 - [volsync](https://github.com/backube/volsync): Backup and recovery of persistent volume claims.
 
 ### GitOps
