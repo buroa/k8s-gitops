@@ -81,7 +81,7 @@ spec:
         className: external
         annotations:
           hajimari.io/icon: mdi:plex
-          nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+          nginx.ingress.kubernetes.io/backend-protocol: HTTPS
           external-dns.alpha.kubernetes.io/target: external.${PUBLIC_DOMAIN}
         hosts:
           - host: &host plex.${PUBLIC_DOMAIN}
