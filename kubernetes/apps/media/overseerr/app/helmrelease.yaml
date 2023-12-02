@@ -57,10 +57,17 @@ spec:
                 memory: 250M
               limits:
                 memory: 1500M
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
         pod:
           securityContext:
             runAsUser: 568
             runAsGroup: 568
+            runAsNonRoot: true
             fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
     ingress:
@@ -94,6 +101,8 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /.cache
+      tmp:
+        type: emptyDir
     service:
       main:
         ports:
