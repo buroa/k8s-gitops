@@ -75,8 +75,6 @@ spec:
             - { key: node-role.kubernetes.io/control-plane, operator: Exists, effect: NoSchedule }
             - { key: node-role.kubernetes.io/etcd, operator: Exists, effect: NoExecute }
     persistence:
-      tmp:
-        type: emptyDir
       etc-ssl:
         type: hostPath
         hostPath: /etc/ssl
@@ -98,6 +96,8 @@ spec:
         globalMounts:
           - path: /etc/ca-certificates
             readOnly: true
+      tmp:
+        type: emptyDir
     service:
       main:
         enabled: false

@@ -97,14 +97,14 @@ spec:
       config:
         enabled: true
         existingClaim: plex
-      tmp:
-        type: emptyDir
-      transcode:
-        type: emptyDir
       media:
         existingClaim: media
         globalMounts:
           - readOnly: true
+      transcode:
+        type: emptyDir
+      tmp:
+        type: emptyDir
     service:
       main:
         ports:

@@ -69,6 +69,10 @@ spec:
                 matchLabels:
                   app.kubernetes.io/name: *app
     persistence:
+      cache:
+        type: emptyDir
+        globalMounts:
+          - path: /cache
       config:
         enabled: true
         type: configMap
@@ -77,10 +81,6 @@ spec:
           - path: /data/maddy.conf
             subPath: maddy.conf
             readOnly: true
-      cache:
-        type: emptyDir
-        globalMounts:
-          - path: /cache
     service:
       main:
         ports:

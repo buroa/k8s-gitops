@@ -114,6 +114,8 @@ spec:
           - hosts:
               - *host
     persistence:
+      add-ons:
+        type: emptyDir
       config:
         enabled: true
         existingClaim: bazarr
@@ -122,8 +124,6 @@ spec:
         globalMounts:
           - path: /config/cache
             subPath: cache
-      tmp:
-        type: emptyDir
       media:
         existingClaim: media
       scripts:
@@ -132,7 +132,7 @@ spec:
         defaultMode: 0775
         globalMounts:
           - readOnly: true
-      add-ons:
+      tmp:
         type: emptyDir
     service:
       main:

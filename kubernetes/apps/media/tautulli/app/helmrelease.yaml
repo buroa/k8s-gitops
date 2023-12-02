@@ -102,11 +102,11 @@ spec:
           - hosts:
               - *host
     persistence:
+      add-ons:
+        type: emptyDir
       config:
         enabled: true
         existingClaim: tautulli
-      add-ons:
-        type: emptyDir
       tmp:
         type: emptyDir
     service:

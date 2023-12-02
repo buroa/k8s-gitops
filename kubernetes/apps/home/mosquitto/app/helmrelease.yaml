@@ -78,6 +78,10 @@ spec:
             main:
               - path: /mosquitto/config/mosquitto.conf
                 subPath: mosquitto.conf
+      external-config:
+        type: emptyDir
+        globalMounts:
+          - path: /mosquitto/external_config
       secret-file:
         type: secret
         name: mosquitto-secret
@@ -85,10 +89,6 @@ spec:
           main:
             init-config:
               - path: /tmp/secret
-      external-config:
-        type: emptyDir
-        globalMounts:
-          - path: /mosquitto/external_config
     service:
       main:
         ports:

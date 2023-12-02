@@ -88,21 +88,21 @@ spec:
           - hosts:
               - *host
     persistence:
+      cache:
+        type: emptyDir
+        globalMounts:
+          - path: /.cache
       config:
         enabled: true
         existingClaim: overseerr
         globalMounts:
           - path: /app/config
+      tmp:
+        type: emptyDir
       yarn:
         type: emptyDir
         globalMounts:
           - path: /.yarn
-      cache:
-        type: emptyDir
-        globalMounts:
-          - path: /.cache
-      tmp:
-        type: emptyDir
     service:
       main:
         ports:
