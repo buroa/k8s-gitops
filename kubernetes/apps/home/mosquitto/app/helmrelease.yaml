@@ -53,10 +53,17 @@ spec:
                 memory: 10M
               limits:
                 memory: 50M
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
         pod:
           securityContext:
             runAsUser: 1883
             runAsGroup: 1883
+            runAsNonRoot: true
             fsGroup: 1883
             fsGroupChangePolicy: OnRootMismatch
     persistence:
