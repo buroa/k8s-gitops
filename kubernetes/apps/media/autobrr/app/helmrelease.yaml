@@ -63,18 +63,18 @@ spec:
               readiness: *probes
               startup:
                 enabled: false
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities:
-                drop:
-                  - ALL
             resources:
               requests:
                 cpu: 10m
                 memory: 128M
               limits:
                 memory: 256M
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
         pod:
           securityContext:
             runAsUser: 568
