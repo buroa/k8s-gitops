@@ -106,8 +106,6 @@ spec:
       config:
         enabled: true
         type: emptyDir
-      tmp:
-        type: emptyDir
     service:
       main:
         ports:
