@@ -115,6 +115,8 @@ spec:
         existingClaim: sabnzbd
       media:
         existingClaim: media
+      tmp:
+        type: emptyDir
     service:
       main:
         ports:
