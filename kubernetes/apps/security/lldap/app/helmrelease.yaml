@@ -49,7 +49,7 @@ spec:
               LLDAP_HTTP_PORT: &httpPort 80
               LLDAP_LDAP_PORT: &ldapPort 389
               LLDAP_LDAP_BASE_DN: dc=home,dc=arpa
-              LLDAP_HTTP_URL: https://lldap.${PUBLIC_DOMAIN}
+              LLDAP_HTTP_URL: https://{{ .Release.Name }}.${PUBLIC_DOMAIN}
               LLDAP_SMTP_OPTIONS__PORT: 2525
               LLDAP_SMTP_OPTIONS__SMTP_ENCRYPTION: NONE
               LLDAP_SMTP_OPTIONS__ENABLE_PASSWORD_RESET: true
@@ -77,7 +77,7 @@ spec:
         annotations:
           hajimari.io/icon: mdi:account-lock
         hosts:
-          - host: &host lldap.${PUBLIC_DOMAIN}
+          - host: &host "{{ .Release.Name }}.${PUBLIC_DOMAIN}"
             paths:
               - path: /
                 service:

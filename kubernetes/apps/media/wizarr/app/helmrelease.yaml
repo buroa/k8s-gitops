@@ -63,15 +63,18 @@ spec:
           hajimari.io/icon: mdi:invite
           external-dns.alpha.kubernetes.io/target: external.${PUBLIC_DOMAIN}
         hosts:
-          - host: &host invite.${PUBLIC_DOMAIN}
-            paths:
+          - host: &host "{{ .Release.Name }}.${PUBLIC_DOMAIN}"
+            paths: &paths
               - path: /
                 service:
                   name: main
                   port: http
+          - host: &customHost invite.${PUBLIC_DOMAIN}
+            paths: *paths
         tls:
           - hosts:
               - *host
+              - *customHost
     persistence:
       config:
         enabled: true

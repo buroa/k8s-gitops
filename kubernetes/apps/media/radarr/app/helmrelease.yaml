@@ -105,7 +105,7 @@ spec:
         annotations:
           hajimari.io/icon: mdi:filmstrip
         hosts:
-          - host: &host radarr.${PUBLIC_DOMAIN}
+          - host: &host "{{ .Release.Name }}.${PUBLIC_DOMAIN}"
             paths:
               - path: /
                 service:

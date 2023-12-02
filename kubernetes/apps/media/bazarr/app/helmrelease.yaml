@@ -104,7 +104,7 @@ spec:
         annotations:
           hajimari.io/icon: mdi:subtitles-outline
         hosts:
-          - host: &host bazarr.${PUBLIC_DOMAIN}
+          - host: &host "{{ .Release.Name }}.${PUBLIC_DOMAIN}"
             paths:
               - path: /
                 service:

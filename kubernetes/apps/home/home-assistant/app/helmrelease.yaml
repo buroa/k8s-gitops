@@ -89,15 +89,18 @@ spec:
         annotations:
           hajimari.io/icon: mdi:home-assistant
         hosts:
-          - host: &host hass.${PUBLIC_DOMAIN}
-            paths:
+          - host: &host "{{ .Release.Name }}.${PUBLIC_DOMAIN}"
+            paths: &paths
               - path: /
                 service:
                   name: main
                   port: http
+          - host: &customHost hass.${PUBLIC_DOMAIN}
+            paths: *paths
         tls:
           - hosts:
               - *host
+              - *customHost
     persistence:
       config:
         enabled: true

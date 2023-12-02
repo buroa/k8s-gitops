@@ -68,15 +68,18 @@ spec:
           hajimari.io/icon: simple-icons:reddit
           external-dns.alpha.kubernetes.io/target: external.${PUBLIC_DOMAIN}
         hosts:
-          - host: &host fuckspez.${PUBLIC_DOMAIN}
-            paths:
+          - host: &host "{{ .Release.Name }}.${PUBLIC_DOMAIN}"
+            paths: &paths
               - path: /
                 service:
                   name: main
                   port: http
+          - host: &customHost fuckspez.${PUBLIC_DOMAIN}
+            paths: *paths
         tls:
           - hosts:
               - *host
+              - *customHost
     service:
       main:
         ports:

@@ -124,7 +124,7 @@ spec:
         annotations:
           hajimari.io/enable: "false"
         hosts:
-          - host: &host onepassword-connect.${PUBLIC_DOMAIN}
+          - host: &host "{{ .Release.Name }}.${PUBLIC_DOMAIN}"
             paths:
               - path: /
                 service:

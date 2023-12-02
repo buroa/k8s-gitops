@@ -82,7 +82,7 @@ spec:
         annotations:
           hajimari.io/icon: mdi:alert
         hosts:
-          - host: &host karma.${PUBLIC_DOMAIN}
+          - host: &host "{{ .Release.Name }}.${PUBLIC_DOMAIN}"
             paths:
               - path: /
                 service:

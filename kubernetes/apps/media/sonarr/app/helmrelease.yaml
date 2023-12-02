@@ -105,7 +105,7 @@ spec:
         annotations:
           hajimari.io/icon: mdi:television-classic
         hosts:
-          - host: &host sonarr.${PUBLIC_DOMAIN}
+          - host: &host "{{ .Release.Name }}.${PUBLIC_DOMAIN}"
             paths:
               - path: /
                 service:
