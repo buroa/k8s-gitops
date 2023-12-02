@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: tailscale
+  name: &app tailscale
   namespace: networking
 spec:
   interval: 30m
@@ -90,7 +90,8 @@ spec:
             port: *port
             protocol: UDP
     serviceAccount:
-      name: tailscale
+      name: *app
+      create: true
     serviceMonitor:
       main:
         enabled: true

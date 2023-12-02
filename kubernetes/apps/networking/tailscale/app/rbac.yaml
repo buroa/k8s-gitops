@@ -35,9 +35,3 @@ roleRef:
   kind: Role
   name: tailscale
   apiGroup: rbac.authorization.k8s.io
----
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: tailscale
-  namespace: networking
