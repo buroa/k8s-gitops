@@ -120,8 +120,6 @@ spec:
         existingClaim: sonarr
       media:
         existingClaim: media
-      tmp:
-        type: emptyDir
     service:
       main:
         ports:
