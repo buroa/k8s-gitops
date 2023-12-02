@@ -459,12 +459,14 @@ controlPlane:
           net.ipv4.tcp_tw_reuse: 1
           net.ipv4.tcp_window_scaling: 1
 
-    # Authorize thunderbolt devices
+    # Various udev rules
     - &udevPatch |-
       machine:
         udev:
           rules:
             - ACTION=="add", SUBSYSTEM=="thunderbolt", ATTR{authorized}=="0", ATTR{authorized}="1"
+            - SUBSYSTEM=="drm", KERNEL=="renderD*", GROUP="44", MODE="0660"
+            - KERNEL=="ttyACM[0-9]", GROUP="20", MODE="0660"
 
     # Static host entries
     - &staticHostEntriesPatch |-
