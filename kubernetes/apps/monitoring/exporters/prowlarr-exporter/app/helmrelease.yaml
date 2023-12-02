@@ -38,7 +38,7 @@ spec:
               - prowlarr
               - --enable-additional-metrics
             env:
-              PORT: 9707
+              PORT: &port 9707
               URL: http://prowlarr.media.svc.cluster.local:9696
             envFrom:
               - secretRef:
@@ -49,15 +49,22 @@ spec:
                 memory: 36M
               limits:
                 memory: 128M
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
         pod:
           securityContext:
             runAsUser: 568
             runAsGroup: 568
+            runAsNonRoot: true
     service:
       main:
         ports:
           http:
-            port: 9707
+            port: *port
     serviceMonitor:
       main:
         enabled: true

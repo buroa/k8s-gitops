@@ -32,21 +32,36 @@ spec:
             image:
               repository: ghcr.io/miguelndecarvalho/speedtest-exporter
               tag: v3.5.4
+            env:
+              SPEEDTEST_PORT: &port 9798
             resources:
               requests:
                 cpu: 5m
                 memory: 36M
               limits:
                 memory: 128M
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
         pod:
           securityContext:
             runAsUser: 568
             runAsGroup: 568
+            runAsNonRoot: true
+    persistence:
+      config:
+        enabled: true
+        type: emptyDir
+        globalMounts:
+          - path: /.config
     service:
       main:
         ports:
           http:
-            port: 9798
+            port: *port
     serviceMonitor:
       main:
         enabled: true
