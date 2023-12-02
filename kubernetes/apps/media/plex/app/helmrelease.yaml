@@ -73,9 +73,8 @@ spec:
             fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
             supplementalGroups:
-              - 44    # video
-              - 109   # render
-              - 65537 # media ro
+              - 44
+              - 65537
     ingress:
       main:
         enabled: true
