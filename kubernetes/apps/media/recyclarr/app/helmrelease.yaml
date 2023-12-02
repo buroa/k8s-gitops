@@ -40,6 +40,7 @@ spec:
             args:
               - sync
             env:
+              COMPlus_EnableDiagnostics: 0
               TZ: ${TIMEZONE}
             envFrom:
               - secretRef:

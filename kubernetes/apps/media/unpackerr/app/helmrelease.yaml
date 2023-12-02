@@ -35,7 +35,6 @@ spec:
               repository: ghcr.io/onedr0p/unpackerr
               tag: 0.12.0@sha256:8bbf35be449b89041f07fc069812f79b4eadf56e1c7c7720935fe166016376ef
             env:
-              TZ: ${TIMEZONE}
               UN_INTERVAL: 1m
               UN_WEBSERVER_METRICS: true
               UN_SONARR_0_URL: http://sonarr.media.svc.cluster.local:8989
