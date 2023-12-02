@@ -72,6 +72,12 @@ spec:
                 memory: 256M
               limits:
                 memory: 1024M
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
         pod:
           affinity:
             podAntiAffinity:
@@ -85,6 +91,7 @@ spec:
           securityContext:
             runAsUser: 568
             runAsGroup: 568
+            runAsNonRoot: true
             fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
             supplementalGroups:
