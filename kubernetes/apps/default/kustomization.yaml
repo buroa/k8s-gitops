@@ -6,4 +6,3 @@ resources:
   - ./excalidraw/ks.yaml
   - ./libreddit/ks.yaml
   - ./nostr-relay/ks.yaml
-  - ./shlink/ks.yaml
