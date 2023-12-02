@@ -120,6 +120,8 @@ spec:
         existingClaim: radarr
       media:
         existingClaim: media
+      tmp:
+        type: emptyDir
     service:
       main:
         ports:
