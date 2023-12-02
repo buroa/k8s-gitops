@@ -71,6 +71,12 @@ spec:
                 memory: 128M
               limits:
                 memory: 256M
+            securityContext: &securityContext
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
           sync:
             image:
               repository: docker.io/1password/connect-sync
@@ -103,11 +109,13 @@ spec:
               startup:
                 enabled: false
               resources: *resources
+              securityContext: *securityContext
         pod:
           securityContext:
             runAsUser: 999
             runAsGroup: 999
             fsGroup: 999
+            runAsNonRoot: true
             fsGroupChangePolicy: OnRootMismatch
     ingress:
       main:
