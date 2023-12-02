@@ -37,12 +37,12 @@ spec:
           hajimari.io/appName: Alertmanager
           hajimari.io/icon: fluent:alert-16-filled
         hosts:
-          - &am-host am.${PUBLIC_DOMAIN}
+          - &host am.${PUBLIC_DOMAIN}
         paths:
           - /
         tls:
           - hosts:
-              - *am-host
+              - *host
       alertmanagerSpec:
         replicas: 3
         useExistingSecret: true
@@ -93,23 +93,23 @@ spec:
       enabled: true
     kubeControllerManager:
       enabled: true
-      endpoints: &cp
+      endpoints: &endpoints
         - 10.0.0.10
         - 10.0.0.11
         - 10.0.0.12
     kubeEtcd:
       enabled: true
-      endpoints: *cp
+      endpoints: *endpoints
       service:
         enabled: true
         port: 2381
         targetPort: 2381
     kubeProxy:
       enabled: false
-      endpoints: *cp
+      endpoints: *endpoints
     kubeScheduler:
       enabled: true
-      endpoints: *cp
+      endpoints: *endpoints
     prometheus:
       ingress:
         enabled: true
@@ -118,12 +118,12 @@ spec:
           hajimari.io/appName: Prometheus
           hajimari.io/icon: simple-icons:prometheus
         hosts:
-          - &prometheus-host prometheus.${PUBLIC_DOMAIN}
+          - &host prometheus.${PUBLIC_DOMAIN}
         paths:
           - /
         tls:
           - hosts:
-              - *prometheus-host
+              - *host
       thanosService:
         enabled: true
       thanosServiceMonitor:
