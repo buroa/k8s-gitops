@@ -66,7 +66,7 @@ spec:
                 memory: 256M
               limits:
                 memory: 1024M
-            securityContext:
+            securityContext: &securityContext
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities:
@@ -87,11 +87,7 @@ spec:
                 memory: 10M
               limits:
                 memory: 128M
-            securityContext:
-              allowPrivilegeEscalation: false
-              capabilities:
-                drop:
-                  - ALL
+            securityContext: *securityContext
         pod:
           securityContext:
             runAsUser: 568
@@ -128,10 +124,6 @@ spec:
             subPath: cache
       tmp:
         type: emptyDir
-        advancedMounts:
-          main:
-            main:
-              - path: /tmp
       media:
         existingClaim: media
       scripts:

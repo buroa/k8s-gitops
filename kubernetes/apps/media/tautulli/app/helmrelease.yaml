@@ -55,6 +55,12 @@ spec:
                 memory: 256M
               limits:
                 memory: 512M
+            securityContext: &securityContext
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
           jbops:
             image:
               repository: registry.k8s.io/git-sync/git-sync
@@ -70,10 +76,12 @@ spec:
                 memory: 10M
               limits:
                 memory: 128M
+            securityContext: *securityContext
         pod:
           securityContext:
             runAsUser: 568
             runAsGroup: 568
+            runAsNonRoot: true
             fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
     ingress:
@@ -98,6 +106,8 @@ spec:
         enabled: true
         existingClaim: tautulli
       add-ons:
+        type: emptyDir
+      tmp:
         type: emptyDir
     service:
       main:
