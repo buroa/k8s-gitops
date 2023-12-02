@@ -97,7 +97,8 @@ spec:
                     matchExpressions:
                       - key: app.kubernetes.io/name
                         operator: In
-                        values: ["sabnzbd"]
+                        values:
+                          - sabnzbd
                   topologyKey: kubernetes.io/hostname
           securityContext:
             runAsUser: 568

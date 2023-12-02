@@ -12,11 +12,10 @@ spec:
       exportPodCIDR: false
       serviceSelector:
         matchExpressions:
-          - {
-              key: thisFakeSelector,
-              operator: NotIn,
-              values: ["will-match-and-announce-all-services"],
-            }
+          - key: thisFakeSelector
+            operator: NotIn
+            values:
+              - will-match-and-announce-all-services
       neighbors:
         - peerAddress: ${CILIUM_BGP_PEER}/32
           peerASN: 64513

@@ -18,7 +18,10 @@ spec:
   exclusive: true
   nodeSelector:
     matchExpressions:
-      - { key: kubernetes.io/os, operator: In, values: [linux] }
+      - key: kubernetes.io/os
+        operator: In
+        values:
+          - linux
   prepare:
     image: &image ghcr.io/siderolabs/talosctl
     envs: &envs

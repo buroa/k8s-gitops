@@ -82,7 +82,8 @@ spec:
                     matchExpressions:
                       - key: app.kubernetes.io/name
                         operator: In
-                        values: ["qbittorrent"]
+                        values:
+                          - qbittorrent
                   topologyKey: kubernetes.io/hostname
           securityContext:
             runAsUser: 568

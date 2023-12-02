@@ -87,7 +87,8 @@ spec:
                     matchExpressions:
                       - key: app.kubernetes.io/name
                         operator: In
-                        values: ["sonarr"]
+                        values:
+                          - sonarr
                   topologyKey: kubernetes.io/hostname
           securityContext:
             runAsUser: 568
