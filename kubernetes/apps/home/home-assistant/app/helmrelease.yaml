@@ -62,6 +62,12 @@ spec:
                 memory: 100M
               limits:
                 memory: 750M
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
         pod:
           annotations:
             k8s.v1.cni.cncf.io/networks: |
@@ -73,6 +79,7 @@ spec:
           securityContext:
             runAsUser: 568
             runAsGroup: 568
+            runAsNonRoot: true
             fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
     ingress:
