@@ -66,6 +66,12 @@ spec:
                 memory: 256M
               limits:
                 memory: 1024M
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
           subcleaner:
             image:
               repository: registry.k8s.io/git-sync/git-sync
@@ -81,10 +87,17 @@ spec:
                 memory: 10M
               limits:
                 memory: 128M
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
         pod:
           securityContext:
             runAsUser: 568
             runAsGroup: 568
+            runAsNonRoot: true
             fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
             supplementalGroups:
