@@ -10,5 +10,5 @@ resources:
   - ./thanos/ks.yaml
   - ./unpoller/ks.yaml
   - ./kube-prometheus-stack/ks.yaml
-  # - ./vector/ks.yaml
+  - ./vector/ks.yaml
   - ./exporters
