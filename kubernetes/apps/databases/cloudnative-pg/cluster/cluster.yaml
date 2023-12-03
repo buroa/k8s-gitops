@@ -6,7 +6,7 @@ metadata:
   namespace: databases
 spec:
   instances: 3
-  imageName: ghcr.io/cloudnative-pg/postgresql:16.1-4
+  imageName: ghcr.io/cloudnative-pg/postgresql:16.1-5
   enableSuperuserAccess: true
   inheritedMetadata:
     annotations:
