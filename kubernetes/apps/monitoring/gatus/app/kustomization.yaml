@@ -4,8 +4,8 @@ kind: Kustomization
 namespace: monitoring
 resources:
   - ./externalsecret.yaml
-  - ./rbac.yaml
   - ./helmrelease.yaml
+  - ./rbac.yaml
 configMapGenerator:
   - name: gatus-configmap
     files:
