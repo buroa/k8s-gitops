@@ -103,3 +103,7 @@ spec:
             enabled: true
             port: 6003
             protocol: UDP
+    serviceAccount:
+      create: true
+      name: *app
+
