@@ -79,14 +79,19 @@ Below is a a high level look at the layout of how my directory structure with Fl
 graph TD;
   id1>Kustomization: cluster] --> |Creates| id2>Kustomization: cluster-apps];
   id2>Kustomization: cluster-apps] --> |Creates| id3>Kustomization: cluster-apps-cloudnative-pg];
-  id3 --> |Creates| id4[HelmRelease: postgres];
-  id5>Kustomization: cluster-apps-cloudnative-pg-cluster] --> |Depends on| id3;
-  id5 --> |Creates| id10[Cluster: Postgres];
-  id6>Kustomization: cluster-apps-lldap] --> |Creates| id7(HelmRelease: lldap);
+  id2>Kustomization: cluster-apps] --> |Creates| id6>Kustomization: cluster-apps-lldap]
+  id2>Kustomization: cluster-apps] --> |Creates| id8>Kustomization: cluster-apps-authelia]
+  id2>Kustomization: cluster-apps] --> |Creates| id5>Kustomization: cluster-apps-cloudnative-pg-cluster]
+  id3 --> |Creates| id4(HelmRelease: postgres);
+  id5 --> |Depends on| id3;
+  id5 --> |Creates| id10(Cluster: Postgres);
+  id6 --> |Creates| id7(HelmRelease: lldap);
   id6 --> |Depends on| id5;
-  id8>Kustomization: cluster-apps-authelia] --> |Creates| id9(HelmRelease: authelia);
+  id8 --> |Creates| id9(HelmRelease: authelia);
   id8 --> |Depends on| id5;
   id8 --> |Depends on| id6;
+```
+
 ```
 
 ### Networking
@@ -113,7 +118,7 @@ graph TD;
 
 ```mermaid
 graph TD;
-  id1>Client] --> id2>Unifi Dream Machine];
+  id1>Client] --> id2>UDM Pro];
   id2 --> id3>blocky];
   id2 --> |fallback| id4>1.1.1.1];
   id3 --> |ktwo.io| id5>k8s-gateway];
