@@ -75,26 +75,18 @@ This Git repository contains the following directories under [kubernetes](./kube
 
 Below is a a high level look at the layout of how my directory structure with Flux works. In this brief example you are able to see that `authelia` will not be able to run until `lldap` and `cloudnative-pg` are running. It also shows that the `Cluster` custom resource depends on the `cloudnative-pg` Helm chart. This is needed because `cloudnative-pg` installs the `Cluster` custom resource definition in the Helm chart.
 
-```python
-# Key: <kind> :: <metadata.name>
-GitRepository :: k8s-gitops
-    Kustomization :: cluster
-        Kustomization :: cluster-apps
-            Kustomization :: cluster-apps-cloudnative-pg
-                HelmRelease :: cloudnative-pg
-            Kustomization :: cluster-apps-cloudnative-pg-cluster
-                DependsOn:
-                    Kustomization :: cluster-apps-cloudnative-pg
-                Cluster :: postgres
-            Kustomization :: cluster-apps-lldap
-                HelmRelease :: lldap
-                DependsOn:
-                    Kustomization :: cluster-apps-cloudnative-pg-cluster
-            Kustomization :: cluster-apps-authelia
-                DependsOn:
-                    Kustomization :: cluster-apps-lldap
-                    Kustomization :: cluster-apps-cloudnative-pg-cluster
-                HelmRelease :: authelia
+```mermaid
+graph TD;
+  id1>Kustomization: cluster] --> |Creates| id2>Kustomization: cluster-apps];
+  id2>Kustomization: cluster-apps] --> |Creates| id3>Kustomization: cluster-apps-cloudnative-pg];
+  id3 --> |Creates| id4[HelmRelease: postgres];
+  id5>Kustomization: cluster-apps-cloudnative-pg-cluster] --> |Depends on| id3;
+  id5 --> |Creates| id10[Cluster: Postgres];
+  id6>Kustomization: cluster-apps-lldap] --> |Creates| id7(HelmRelease: lldap);
+  id6 --> |Depends on| id5;
+  id8>Kustomization: cluster-apps-authelia] --> |Creates| id9(HelmRelease: authelia);
+  id8 --> |Depends on| id5;
+  id8 --> |Depends on| id6;
 ```
 
 ### Networking
@@ -119,7 +111,19 @@ GitRepository :: k8s-gitops
 <details>
   <summary>Click to see my high level network diagram</summary>
 
-  <img src="assets/dns.svg" align="center" alt="dns"/>
+```mermaid
+graph TD;
+  id1>Client] --> id2>Unifi Dream Machine];
+  id2 --> id3>blocky];
+  id2 --> |fallback| id4>1.1.1.1];
+  id3 --> |ktwo.io| id5>k8s-gateway];
+  id3 --> |cluster.local| id6>coredns];
+  id3 --> |else| id7>blocklists];
+  id7 --> id4;
+  id5 --> id8>/etc/hosts];
+  id5 --> id9>Ingress];
+  id5 --> |else| id4;
+```
 </details>
 
 ### Internal DNS
@@ -139,7 +143,7 @@ The UDM Pro resolves DNS queries via [blocky](https://github.com/0xERR0R/blocky)
 <details>
   <summary>Click to see my rack</summary>
 
-  <img src="assets/rack.png" align="center" alt="rack"/>
+  <img src="https://github.com/buroa/k8s-gitops/assets/36205263/516d9f08-9bbd-443f-a01f-62089fdc6acc" align="center" alt="rack"/>
 </details>
 
 | Device                                   | Count | OS Disk Size | Data Disk Size      | Ram  | Operating System | Purpose             |
