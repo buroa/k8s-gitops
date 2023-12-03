@@ -92,8 +92,6 @@ graph TD;
   id8 --> |Depends on| id6;
 ```
 
-```
-
 ### Networking
 
 | Name                            | CIDR            |
