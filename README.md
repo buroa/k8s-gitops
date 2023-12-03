@@ -147,16 +147,16 @@ The UDM Pro resolves DNS queries via [blocky](https://github.com/0xERR0R/blocky)
 </details>
 
 | Device                                   | Count | OS Disk Size | Data Disk Size      | Ram  | Operating System | Purpose             |
-| ---------------------------------------- | ----- | ------------ | ------------------- | ---- | ---------------- | ------------------- |
-| Ubiquiti UDM Pro                         | 1     | -            | -                   | -    | -                | Router              |
-| Ubiquiti USW Enterprise XG 24            | 1     | -            | -                   | -    | -                | 10GbE Switch        |
-| Apple Mac Mini (3.2GHz Intel i7)         | 3     | 512GB NVMe   | -                   | 32GB | Talos            | Kubernetes Masters  |
-| Sonnet 10GbE Thunderbolt 3 Adapter       | 3     | -            | -                   | -    | -                | 10GbE / Masters     |
+|------------------------------------------|-------|--------------|---------------------|------|------------------|---------------------|
 | Apple Mac Mini (3.2GHz Intel i7 + 10GbE) | 3     | 1TB NVMe     | -                   | 64GB | Talos            | Kubernetes Workers  |
-| Sabrent NVMe M.2 Thunderbolt 3 Enclosure | 6     | -            | 2TB NVMe ea.        | -    | -                | Rook Ceph / Workers |
-| Synology NAS RS1221+                     | 1     | -            | 8x22TB + 2x2TB NVMe | 32GB | -                | NFS                 |
+| Apple Mac Mini (3.2GHz Intel i7)         | 3     | 512GB NVMe   | -                   | 32GB | Talos            | Kubernetes Masters  |
 | CyberPower ATS PDU                       | 1     | -            | -                   | -    | -                | PDU                 |
 | CyberPower UPS                           | 1     | -            | -                   | -    | -                | PSU                 |
+| Sabrent NVMe M.2 Thunderbolt 3 Enclosure | 6     | -            | 2TB NVMe ea.        | -    | -                | Rook Ceph / Workers |
+| Sonnet 10GbE Thunderbolt 3 Adapter       | 3     | -            | -                   | -    | -                | 10GbE / Masters     |
+| Synology NAS RS1221+                     | 1     | -            | 8x22TB + 2x2TB NVMe | 32GB | -                | NFS                 |
+| Ubiquiti UDM Pro                         | 1     | -            | -                   | -    | -                | Router              |
+| Ubiquiti USW Enterprise XG 24            | 1     | -            | -                   | -    | -                | 10GbE Switch        |
 
 ---
 
