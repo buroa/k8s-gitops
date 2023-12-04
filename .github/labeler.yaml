@@ -1,11 +1,16 @@
 ---
 area/github:
-  - ".github/**/*"
+  - changed-files:
+      - any-glob-to-any-file: .github/**/*
 area/kubernetes:
-  - "kubernetes/**/*"
+  - changed-files:
+      - any-glob-to-any-file: kubernetes/**/*
 area/talos:
-  - "talos/**/*"
+  - changed-files:
+      - any-glob-to-any-file: talos/**/*
 area/taskfiles:
-  - ".taskfiles/**/*"
+  - changed-files:
+      - any-glob-to-any-file: .taskfiles/**/*
 area/terraform:
-  - "terraform/**/*"
+  - changed-files:
+      - any-glob-to-any-file: terraform/**/*
