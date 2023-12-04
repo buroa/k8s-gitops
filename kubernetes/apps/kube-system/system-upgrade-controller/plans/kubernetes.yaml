@@ -18,7 +18,8 @@ spec:
   exclusive: true
   nodeSelector:
     matchExpressions:
-      - { key: node-role.kubernetes.io/control-plane, operator: Exists }
+      - key: node-role.kubernetes.io/control-plane
+        operator: Exists
   prepare:
     image: &image ghcr.io/siderolabs/talosctl:v1.5.5
     envs: &envs
