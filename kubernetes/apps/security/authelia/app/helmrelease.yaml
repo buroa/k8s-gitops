@@ -83,6 +83,7 @@ spec:
         enabled: true
         className: external
         annotations:
+          gatus.io/enabled: "true"
           hajimari.io/icon: mdi:shield-account
           external-dns.alpha.kubernetes.io/target: external.${PUBLIC_DOMAIN}
           nginx.ingress.kubernetes.io/configuration-snippet: |

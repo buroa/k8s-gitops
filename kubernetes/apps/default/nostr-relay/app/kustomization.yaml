@@ -9,11 +9,5 @@ configMapGenerator:
   - name: nostr-relay-config-tpl
     files:
       - ./configs/config.toml
-  - name: nostr-relay-gatus-ep
-    files:
-      - ./configs/gatus.yaml
-    options:
-      labels:
-        gatus.io/enabled: "true"
 generatorOptions:
   disableNameSuffixHash: true

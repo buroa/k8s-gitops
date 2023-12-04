@@ -40,7 +40,7 @@ spec:
                 custom: true
                 spec:
                   httpGet:
-                    path: /status
+                    path: &path /status
                     port: &port 8181
                   initialDelaySeconds: 0
                   periodSeconds: 10
@@ -89,6 +89,8 @@ spec:
         enabled: true
         className: external
         annotations:
+          gatus.io/enabled: "true"
+          gatus.io/path: *path
           hajimari.io/icon: mdi:chart-bar
           external-dns.alpha.kubernetes.io/target: external.${PUBLIC_DOMAIN}
         hosts:

@@ -106,6 +106,7 @@ spec:
         enabled: true
         className: external
         annotations:
+          gatus.io/enabled: "true"
           hajimari.io/icon: material-symbols:detector-status
           external-dns.alpha.kubernetes.io/target: external.${PUBLIC_DOMAIN}
         hosts:

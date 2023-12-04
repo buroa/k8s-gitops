@@ -40,7 +40,7 @@ spec:
                 custom: true
                 spec:
                   httpGet:
-                    path: /identity
+                    path: &path /identity
                     port: &port 32400
                   initialDelaySeconds: 0
                   periodSeconds: 10
@@ -80,6 +80,8 @@ spec:
         enabled: true
         className: external
         annotations:
+          gatus.io/enabled: "true"
+          gatus.io/path: *path
           hajimari.io/icon: mdi:plex
           nginx.ingress.kubernetes.io/backend-protocol: HTTPS
           external-dns.alpha.kubernetes.io/target: external.${PUBLIC_DOMAIN}

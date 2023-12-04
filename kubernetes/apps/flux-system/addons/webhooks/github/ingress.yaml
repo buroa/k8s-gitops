@@ -2,9 +2,11 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: webhook-receiver
+  name: flux-webhook
   namespace: flux-system
   annotations:
+    gatus.io/enabled: "true"
+    gatus.io/http-code: "404"
     hajimari.io/enable: "false"
     external-dns.alpha.kubernetes.io/target: external.${PUBLIC_DOMAIN}
 spec:

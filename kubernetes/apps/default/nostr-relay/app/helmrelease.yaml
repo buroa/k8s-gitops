@@ -74,6 +74,7 @@ spec:
         enabled: true
         className: external
         annotations:
+          gatus.io/enabled: "true"
           hajimari.io/enable: "false"
           external-dns.alpha.kubernetes.io/target: external.${PUBLIC_DOMAIN}
         hosts:
@@ -100,3 +101,6 @@ spec:
         ports:
           http:
             port: 8080
+    serviceMonitor:
+      main:
+        enabled: true

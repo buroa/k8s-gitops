@@ -13,12 +13,6 @@ configMapGenerator:
     options:
       annotations:
         kustomize.toolkit.fluxcd.io/substitute: disabled
-  - name: gatus-gatus-ep
-    files:
-      - ./configs/gatus.yaml
-    options:
-      labels:
-        gatus.io/enabled: "true"
   - name: gatus-grafana-dashboards
     files:
       - ./dashboards/gatus.json
