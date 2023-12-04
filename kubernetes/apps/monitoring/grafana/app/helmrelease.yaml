@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: grafana
+  name: &app grafana
   namespace: monitoring
 spec:
   interval: 30m
@@ -437,4 +437,4 @@ spec:
         whenUnsatisfiable: DoNotSchedule
         labelSelector:
           matchLabels:
-            app.kubernetes.io/name: grafana
+            app.kubernetes.io/name: *app

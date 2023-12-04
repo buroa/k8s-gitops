@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: kyverno
+  name: &app kyverno
   namespace: kyverno
 spec:
   interval: 30m
@@ -48,8 +48,8 @@ spec:
           whenUnsatisfiable: DoNotSchedule
           labelSelector:
             matchLabels:
-              app.kubernetes.io/instance: kyverno
-              app.kubernetes.io/component: kyverno
+              app.kubernetes.io/instance: *app
+              app.kubernetes.io/component: admission-controller
       serviceMonitor:
         enabled: true
     backgroundController:
