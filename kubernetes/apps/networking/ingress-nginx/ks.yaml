@@ -5,6 +5,7 @@ metadata:
   name: cluster-apps-ingress-nginx-certificates
   namespace: flux-system
 spec:
+  targetNamespace: networking
   dependsOn:
     - name: cluster-apps-cert-manager-issuers
   path: ./kubernetes/apps/networking/ingress-nginx/certificates
@@ -23,6 +24,7 @@ metadata:
   name: cluster-apps-ingress-nginx-external
   namespace: flux-system
 spec:
+  targetNamespace: networking
   dependsOn:
     - name: cluster-apps-ingress-nginx-certificates
   path: ./kubernetes/apps/networking/ingress-nginx/external
@@ -41,6 +43,7 @@ metadata:
   name: cluster-apps-ingress-nginx-internal
   namespace: flux-system
 spec:
+  targetNamespace: networking
   dependsOn:
     - name: cluster-apps-ingress-nginx-certificates
   path: ./kubernetes/apps/networking/ingress-nginx/internal

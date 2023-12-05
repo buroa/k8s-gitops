@@ -3,7 +3,6 @@ apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
   name: zigbee2mqtt-restic
-  namespace: home
 spec:
   secretStoreRef:
     kind: ClusterSecretStore
@@ -26,7 +25,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: zigbee2mqtt
-  namespace: home
 spec:
   accessModes: ["ReadWriteOnce"]
   dataSourceRef:
@@ -42,7 +40,6 @@ apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
 metadata:
   name: zigbee2mqtt-rdst
-  namespace: media
 spec:
   trigger:
     manual: restore-once
@@ -65,7 +62,6 @@ apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
   name: zigbee2mqtt-rsrc
-  namespace: home
 spec:
   sourcePVC: zigbee2mqtt
   trigger:

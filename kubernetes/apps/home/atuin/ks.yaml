@@ -5,6 +5,7 @@ metadata:
   name: cluster-apps-atuin
   namespace: flux-system
 spec:
+  targetNamespace: home
   dependsOn:
     - name: cluster-apps-cloudnative-pg-cluster
     - name: cluster-apps-external-secrets-stores

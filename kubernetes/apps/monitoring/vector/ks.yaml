@@ -5,6 +5,7 @@ metadata:
   name: cluster-apps-vector-aggregator
   namespace: flux-system
 spec:
+  targetNamespace: monitoring
   dependsOn:
     - name: cluster-apps-loki
     - name: cluster-apps-external-secrets-stores
@@ -24,6 +25,7 @@ metadata:
   name: cluster-apps-vector-agent
   namespace: flux-system
 spec:
+  targetNamespace: monitoring
   dependsOn:
     - name: cluster-apps-vector-aggregator
   path: ./kubernetes/apps/monitoring/vector/agent

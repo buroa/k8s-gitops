@@ -5,6 +5,7 @@ metadata:
   name: cluster-apps-recyclarr
   namespace: flux-system
 spec:
+  targetNamespace: media
   dependsOn:
     - name: cluster-apps-sonarr
     - name: cluster-apps-radarr

@@ -5,6 +5,7 @@ metadata:
   name: cluster-apps-karma
   namespace: flux-system
 spec:
+  targetNamespace: monitoring
   dependsOn:
     - name: cluster-apps-kube-prometheus-stack
   path: ./kubernetes/apps/monitoring/karma/app

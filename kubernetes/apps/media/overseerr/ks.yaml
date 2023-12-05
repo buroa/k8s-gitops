@@ -5,6 +5,7 @@ metadata:
   name: cluster-apps-overseerr
   namespace: flux-system
 spec:
+  targetNamespace: media
   dependsOn:
     - name: cluster-apps-volsync
     - name: cluster-apps-smtp-relay

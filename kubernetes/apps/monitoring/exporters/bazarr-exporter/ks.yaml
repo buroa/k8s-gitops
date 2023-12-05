@@ -5,6 +5,7 @@ metadata:
   name: cluster-apps-bazarr-exporter
   namespace: flux-system
 spec:
+  targetNamespace: monitoring
   dependsOn:
     - name: cluster-apps-bazarr
     - name: cluster-apps-external-secrets-stores

@@ -5,6 +5,7 @@ metadata:
   name: cluster-apps-tautulli-exporter
   namespace: flux-system
 spec:
+  targetNamespace: monitoring
   dependsOn:
     - name: cluster-apps-tautulli
     - name: cluster-apps-external-secrets-stores

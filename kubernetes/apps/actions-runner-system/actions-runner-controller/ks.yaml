@@ -5,6 +5,7 @@ metadata:
   name: cluster-apps-actions-runner-controller
   namespace: flux-system
 spec:
+  targetNamespace: actions-runner-system
   dependsOn:
     - name: cluster-apps-external-secrets-stores
   path: ./kubernetes/apps/actions-runner-system/actions-runner-controller/app
@@ -23,6 +24,7 @@ metadata:
   name: cluster-apps-actions-runner-controller-runners
   namespace: flux-system
 spec:
+  targetNamespace: actions-runner-system
   dependsOn:
     - name: cluster-apps-actions-runner-controller
   path: ./kubernetes/apps/actions-runner-system/actions-runner-controller/runners

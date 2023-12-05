@@ -5,6 +5,7 @@ metadata:
   name: cluster-apps-snmp-exporter-cyberpower-pdu
   namespace: flux-system
 spec:
+  targetNamespace: monitoring
   path: ./kubernetes/apps/monitoring/exporters/snmp-exporter/cyberpower-pdu
   prune: true
   sourceRef:
@@ -21,6 +22,7 @@ metadata:
   name: cluster-apps-snmp-exporter-cyberpower-ups
   namespace: flux-system
 spec:
+  targetNamespace: monitoring
   path: ./kubernetes/apps/monitoring/exporters/snmp-exporter/cyberpower-ups
   prune: true
   sourceRef:
@@ -37,6 +39,7 @@ metadata:
   name: cluster-apps-snmp-exporter-synology-nas
   namespace: flux-system
 spec:
+  targetNamespace: monitoring
   path: ./kubernetes/apps/monitoring/exporters/snmp-exporter/synology-nas
   prune: true
   sourceRef:

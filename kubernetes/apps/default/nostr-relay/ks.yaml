@@ -5,6 +5,7 @@ metadata:
   name: cluster-apps-nostr-relay
   namespace: flux-system
 spec:
+  targetNamespace: default
   dependsOn:
     - name: cluster-apps-cloudnative-pg-cluster
     - name: cluster-apps-external-secrets-stores

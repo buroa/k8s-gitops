@@ -5,6 +5,7 @@ metadata:
   name: cluster-apps-tautulli
   namespace: flux-system
 spec:
+  targetNamespace: media
   dependsOn:
     - name: cluster-apps-plex
     - name: cluster-apps-volsync

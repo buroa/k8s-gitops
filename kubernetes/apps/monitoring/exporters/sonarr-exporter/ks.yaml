@@ -5,6 +5,7 @@ metadata:
   name: cluster-apps-sonarr-exporter
   namespace: flux-system
 spec:
+  targetNamespace: monitoring
   dependsOn:
     - name: cluster-apps-sonarr
     - name: cluster-apps-external-secrets-stores

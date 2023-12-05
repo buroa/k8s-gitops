@@ -3,7 +3,6 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: democratic-csi-local-hostpath
-  namespace: democratic-csi
 spec:
   interval: 30m
   chart:

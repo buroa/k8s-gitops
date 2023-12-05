@@ -5,6 +5,7 @@ metadata:
   name: cluster-apps-qbittorrent
   namespace: flux-system
 spec:
+  targetNamespace: media
   dependsOn:
     - name: cluster-apps-volsync
     - name: cluster-apps-pvc-media
@@ -26,6 +27,7 @@ metadata:
   name: cluster-apps-qbittorrent-tools
   namespace: flux-system
 spec:
+  targetNamespace: media
   dependsOn:
     - name: cluster-apps-qbittorrent
   path: ./kubernetes/apps/media/qbittorrent/tools

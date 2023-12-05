@@ -5,6 +5,7 @@ metadata:
   name: cluster-apps-radarr-exporter
   namespace: flux-system
 spec:
+  targetNamespace: monitoring
   dependsOn:
     - name: cluster-apps-radarr
     - name: cluster-apps-external-secrets-stores

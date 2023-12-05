@@ -5,6 +5,7 @@ metadata:
   name: cluster-apps-cloudflared
   namespace: flux-system
 spec:
+  targetNamespace: networking
   dependsOn:
     - name: cluster-apps-ingress-nginx-external
     - name: cluster-apps-external-secrets-stores

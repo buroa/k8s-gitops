@@ -5,6 +5,7 @@ metadata:
   name: cluster-apps-overseerr-exporter
   namespace: flux-system
 spec:
+  targetNamespace: monitoring
   dependsOn:
     - name: cluster-apps-overseerr
     - name: cluster-apps-external-secrets-stores

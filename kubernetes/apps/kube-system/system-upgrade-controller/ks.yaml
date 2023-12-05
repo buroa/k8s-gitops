@@ -5,6 +5,7 @@ metadata:
   name: cluster-apps-system-upgrade-controller
   namespace: flux-system
 spec:
+  targetNamespace: kube-system
   path: ./kubernetes/apps/kube-system/system-upgrade-controller/app
   prune: true
   sourceRef:
@@ -21,6 +22,7 @@ metadata:
   name: cluster-apps-system-upgrade-controller-plans
   namespace: flux-system
 spec:
+  targetNamespace: kube-system
   dependsOn:
     - name: cluster-apps-system-upgrade-controller
   path: ./kubernetes/apps/kube-system/system-upgrade-controller/plans

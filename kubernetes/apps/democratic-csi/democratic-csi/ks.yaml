@@ -5,6 +5,7 @@ metadata:
   name: cluster-apps-democratic-csi-local-hostpath
   namespace: flux-system
 spec:
+  targetNamespace: democratic-csi
   path: ./kubernetes/apps/democratic-csi/democratic-csi/local-hostpath
   prune: true
   sourceRef:

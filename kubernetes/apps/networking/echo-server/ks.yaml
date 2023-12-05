@@ -5,6 +5,7 @@ metadata:
   name: cluster-apps-echo-server
   namespace: flux-system
 spec:
+  targetNamespace: networking
   path: ./kubernetes/apps/networking/echo-server/app
   prune: true
   sourceRef:

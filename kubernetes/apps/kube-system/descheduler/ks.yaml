@@ -5,6 +5,7 @@ metadata:
   name: cluster-apps-descheduler
   namespace: flux-system
 spec:
+  targetNamespace: kube-system
   path: ./kubernetes/apps/kube-system/descheduler/app
   prune: true
   sourceRef:

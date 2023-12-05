@@ -5,6 +5,7 @@ metadata:
   name: cluster-apps-rook-ceph
   namespace: flux-system
 spec:
+  targetNamespace: rook-ceph
   path: ./kubernetes/apps/rook-ceph/rook-ceph/app
   prune: true
   sourceRef:
@@ -21,6 +22,7 @@ metadata:
   name: cluster-apps-rook-ceph-cluster
   namespace: flux-system
 spec:
+  targetNamespace: rook-ceph
   dependsOn:
     - name: cluster-apps-rook-ceph
   path: ./kubernetes/apps/rook-ceph/rook-ceph/cluster

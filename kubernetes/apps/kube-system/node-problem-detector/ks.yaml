@@ -5,6 +5,7 @@ metadata:
   name: cluster-apps-node-problem-detector
   namespace: flux-system
 spec:
+  targetNamespace: kube-system
   path: ./kubernetes/apps/kube-system/node-problem-detector/app
   prune: true
   sourceRef:

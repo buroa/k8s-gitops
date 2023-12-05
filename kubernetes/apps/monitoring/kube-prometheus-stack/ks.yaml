@@ -5,6 +5,7 @@ metadata:
   name: cluster-apps-kube-prometheus-stack
   namespace: flux-system
 spec:
+  targetNamespace: monitoring
   dependsOn:
     - name: cluster-apps-external-secrets-stores
     - name: cluster-apps-democratic-csi-local-hostpath

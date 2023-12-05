@@ -5,6 +5,7 @@ metadata:
   name: cluster-apps-loki
   namespace: flux-system
 spec:
+  targetNamespace: monitoring
   dependsOn:
     - name: cluster-apps-rook-ceph-cluster
     - name: cluster-apps-democratic-csi-local-hostpath

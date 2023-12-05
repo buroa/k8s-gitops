@@ -5,6 +5,7 @@ metadata:
   name: cluster-apps-prowlarr-exporter
   namespace: flux-system
 spec:
+  targetNamespace: monitoring
   dependsOn:
     - name: cluster-apps-prowlarr
     - name: cluster-apps-external-secrets-stores

@@ -5,6 +5,7 @@ metadata:
   name: cluster-apps-blocky
   namespace: flux-system
 spec:
+  targetNamespace: networking
   dependsOn:
     - name: cluster-apps-redis
     - name: cluster-apps-cloudnative-pg-cluster

@@ -5,6 +5,7 @@ metadata:
   name: cluster-apps-flaresolverr
   namespace: flux-system
 spec:
+  targetNamespace: media
   path: ./kubernetes/apps/media/flaresolverr/app
   prune: true
   sourceRef:

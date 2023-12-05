@@ -5,6 +5,7 @@ metadata:
   name: cluster-apps-smtp-relay
   namespace: flux-system
 spec:
+  targetNamespace: networking
   dependsOn:
     - name: cluster-apps-external-secrets-stores
   path: ./kubernetes/apps/networking/smtp-relay/app

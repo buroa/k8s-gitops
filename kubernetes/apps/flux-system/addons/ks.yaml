@@ -5,6 +5,7 @@ metadata:
   name: cluster-apps-flux-monitoring
   namespace: flux-system
 spec:
+  targetNamespace: flux-system
   path: ./kubernetes/apps/flux-system/addons/monitoring
   prune: true
   sourceRef:
@@ -21,6 +22,7 @@ metadata:
   name: cluster-apps-flux-notifications
   namespace: flux-system
 spec:
+  targetNamespace: flux-system
   dependsOn:
     - name: cluster-apps-external-secrets-stores
   path: ./kubernetes/apps/flux-system/addons/notifications
@@ -39,6 +41,7 @@ metadata:
   name: cluster-apps-flux-webhooks
   namespace: flux-system
 spec:
+  targetNamespace: flux-system
   dependsOn:
     - name: cluster-apps-external-secrets-stores
   path: ./kubernetes/apps/flux-system/addons/webhooks

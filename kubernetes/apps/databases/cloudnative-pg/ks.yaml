@@ -5,6 +5,7 @@ metadata:
   name: cluster-apps-cloudnative-pg
   namespace: flux-system
 spec:
+  targetNamespace: databases
   path: ./kubernetes/apps/databases/cloudnative-pg/app
   prune: true
   sourceRef:
@@ -21,6 +22,7 @@ metadata:
   name: cluster-apps-cloudnative-pg-cluster
   namespace: flux-system
 spec:
+  targetNamespace: databases
   dependsOn:
     - name: cluster-apps-cloudnative-pg
     - name: cluster-apps-external-secrets-stores

@@ -3,7 +3,6 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: &app zigbee2mqtt
-  namespace: home
 spec:
   interval: 30m
   chart:

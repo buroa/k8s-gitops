@@ -3,7 +3,6 @@ apiVersion: notification.toolkit.fluxcd.io/v1beta2
 kind: Provider
 metadata:
   name: alertmanager
-  namespace: flux-system
 spec:
   type: alertmanager
   address: http://alertmanager-operated.monitoring.svc.cluster.local:9093/api/v2/alerts/

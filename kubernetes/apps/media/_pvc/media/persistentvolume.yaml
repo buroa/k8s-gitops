@@ -7,8 +7,7 @@ spec:
   storageClassName: media
   capacity:
     storage: 1Mi
-  accessModes:
-    - ReadWriteMany
+  accessModes: ["ReadWriteMany"]
   persistentVolumeReclaimPolicy: Retain
   nfs:
     server: nas.${PUBLIC_DOMAIN}

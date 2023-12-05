@@ -5,6 +5,7 @@ metadata:
   name: cluster-apps-authelia
   namespace: flux-system
 spec:
+  targetNamespace: security
   dependsOn:
     - name: cluster-apps-redis
     - name: cluster-apps-lldap

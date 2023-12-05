@@ -3,7 +3,6 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: flux-webhook
-  namespace: flux-system
   annotations:
     gatus.io/enabled: "true"
     gatus.io/http-code: "404"

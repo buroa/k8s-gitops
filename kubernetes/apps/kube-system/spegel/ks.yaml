@@ -5,6 +5,7 @@ metadata:
   name: cluster-apps-spegel
   namespace: flux-system
 spec:
+  targetNamespace: kube-system
   path: ./kubernetes/apps/kube-system/spegel/app
   prune: true
   sourceRef:

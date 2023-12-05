@@ -5,6 +5,7 @@ metadata:
   name: cluster-apps-multus
   namespace: flux-system
 spec:
+  targetNamespace: networking
   path: ./kubernetes/apps/networking/multus/app
   prune: true
   sourceRef:
@@ -21,6 +22,7 @@ metadata:
   name: cluster-apps-multus-configs
   namespace: flux-system
 spec:
+  targetNamespace: networking
   dependsOn:
     - name: cluster-apps-multus
   path: ./kubernetes/apps/networking/multus/configs

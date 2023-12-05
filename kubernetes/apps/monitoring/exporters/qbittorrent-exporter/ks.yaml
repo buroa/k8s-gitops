@@ -5,6 +5,7 @@ metadata:
   name: cluster-apps-qbittorrent-exporter
   namespace: flux-system
 spec:
+  targetNamespace: monitoring
   dependsOn:
     - name: cluster-apps-qbittorrent
   path: ./kubernetes/apps/monitoring/exporters/qbittorrent-exporter/app

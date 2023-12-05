@@ -5,6 +5,7 @@ metadata:
   name: cluster-apps-pvc-media
   namespace: flux-system
 spec:
+  targetNamespace: media
   path: ./kubernetes/apps/media/_pvc/media
   prune: true
   sourceRef:

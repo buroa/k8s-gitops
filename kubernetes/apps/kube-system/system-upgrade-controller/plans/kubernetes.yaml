@@ -3,7 +3,6 @@ apiVersion: upgrade.cattle.io/v1
 kind: Plan
 metadata:
   name: kubernetes
-  namespace: kube-system
   annotations:
     kustomize.toolkit.fluxcd.io/substitute: disabled
 spec:

@@ -5,6 +5,7 @@ metadata:
   name: cluster-apps-lldap
   namespace: flux-system
 spec:
+  targetNamespace: security
   dependsOn:
     - name: cluster-apps-smtp-relay
     - name: cluster-apps-cloudnative-pg-cluster

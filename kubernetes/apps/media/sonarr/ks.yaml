@@ -5,6 +5,7 @@ metadata:
   name: cluster-apps-sonarr
   namespace: flux-system
 spec:
+  targetNamespace: media
   dependsOn:
     - name: cluster-apps-pvc-media
     - name: cluster-apps-rook-ceph-cluster

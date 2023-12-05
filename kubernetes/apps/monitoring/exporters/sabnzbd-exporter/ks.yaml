@@ -5,6 +5,7 @@ metadata:
   name: cluster-apps-sabnzbd-exporter
   namespace: flux-system
 spec:
+  targetNamespace: monitoring
   dependsOn:
     - name: cluster-apps-sabnzbd
     - name: cluster-apps-external-secrets-stores

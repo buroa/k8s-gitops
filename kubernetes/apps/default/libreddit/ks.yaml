@@ -5,6 +5,7 @@ metadata:
   name: cluster-apps-libreddit
   namespace: flux-system
 spec:
+  targetNamespace: default
   path: ./kubernetes/apps/default/libreddit/app
   prune: true
   sourceRef:

@@ -5,6 +5,7 @@ metadata:
   name: cluster-apps-kyverno
   namespace: flux-system
 spec:
+  targetNamespace: kyverno
   path: ./kubernetes/apps/kyverno/kyverno/app
   prune: true
   sourceRef:
@@ -21,6 +22,7 @@ metadata:
   name: cluster-apps-cluster-policies
   namespace: flux-system
 spec:
+  targetNamespace: kyverno
   dependsOn:
     - name: cluster-apps-kyverno
   path: ./kubernetes/apps/kyverno/kyverno/policies

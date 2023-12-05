@@ -5,6 +5,7 @@ metadata:
   name: cluster-apps-smarter-device-manager
   namespace: flux-system
 spec:
+  targetNamespace: kube-system
   path: ./kubernetes/apps/kube-system/smarter-device-manager/app
   prune: true
   sourceRef:

@@ -5,6 +5,7 @@ metadata:
   name: cluster-apps-volsync
   namespace: flux-system
 spec:
+  targetNamespace: kube-system
   dependsOn:
     - name: cluster-apps-snapshot-controller
   path: ./kubernetes/apps/kube-system/volsync/app

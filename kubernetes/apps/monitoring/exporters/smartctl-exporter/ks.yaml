@@ -5,6 +5,7 @@ metadata:
   name: cluster-apps-smartctl-exporter
   namespace: flux-system
 spec:
+  targetNamespace: monitoring
   path: ./kubernetes/apps/monitoring/exporters/smartctl-exporter/app
   prune: true
   sourceRef:

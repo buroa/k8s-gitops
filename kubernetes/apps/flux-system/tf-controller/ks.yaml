@@ -5,6 +5,7 @@ metadata:
   name: cluster-apps-tf-controller
   namespace: flux-system
 spec:
+  targetNamespace: flux-system
   dependsOn:
     - name: cluster-apps-external-secrets-stores
   path: ./kubernetes/apps/flux-system/tf-controller/app
@@ -23,6 +24,7 @@ metadata:
   name: cluster-apps-tf-controller-terraforms
   namespace: flux-system
 spec:
+  targetNamespace: flux-system
   dependsOn:
     - name: cluster-apps-external-secrets-stores
     - name: cluster-apps-tf-controller
