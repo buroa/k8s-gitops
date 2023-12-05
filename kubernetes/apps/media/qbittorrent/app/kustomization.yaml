@@ -6,8 +6,10 @@ resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
 configMapGenerator:
-  - name: cross-seed-config-tpl
+  - name: cross-seed-configmap
     files:
       - ./configs/config.js
 generatorOptions:
   disableNameSuffixHash: true
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled

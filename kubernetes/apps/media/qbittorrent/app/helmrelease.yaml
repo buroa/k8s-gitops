@@ -81,6 +81,11 @@ spec:
               tag: 5.8.5
             args:
               - daemon
+            env:
+              PORT: &xseedPort 2468
+            envFrom:
+              - secretRef:
+                  name: cross-seed-secret
             resources:
               requests:
                 cpu: 10m
@@ -133,8 +138,8 @@ spec:
       media:
         existingClaim: media
       xseed:
-        type: secret
-        name: cross-seed-secret
+        type: configMap
+        name: cross-seed-configmap
         globalMounts:
           - path: /config/config.js
             subPath: config.js
@@ -145,7 +150,7 @@ spec:
           http:
             port: *httpPort
           xseed:
-            port: 2468
+            port: *xseedPort
       bittorrent:
         controller: main
         type: LoadBalancer
