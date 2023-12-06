@@ -1,11 +1,6 @@
 ---
 connectIPVersion: v4
 
-bootstrapDns:
-  - https://1.1.1.1/dns-query
-  - https://8.8.8.8/dns-query
-  - https://9.9.9.9/dns-query
-
 conditional:
   mapping:
     ${PUBLIC_DOMAIN}: ${K8S_GATEWAY_IP}
@@ -17,11 +12,8 @@ ecs:
 upstreams:
   groups:
     default:
-      - https://cloudflare-dns.com/dns-query
-      - https://dns.google/dns-query
-      - https://dns.quad9.net/dns-query
-  strategy: strict
-  timeout: 2s
+      - tcp-tls:1.1.1.1:853
+      - tcp-tls:1.0.0.1:853
 
 blocking:
   loading:
