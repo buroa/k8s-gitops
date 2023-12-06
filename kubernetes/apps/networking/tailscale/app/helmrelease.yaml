@@ -32,7 +32,7 @@ spec:
           main:
             image:
               repository: ghcr.io/tailscale/tailscale
-              tag: v1.54.0
+              tag: v1.54.1
             env:
               TZ: ${TIMEZONE}
               PORT: &port ${TAILNET_PUBLIC_PORT}
