@@ -71,7 +71,7 @@ spec:
         existingClaim: *app
       config-file:
         type: configMap
-        name: mosquitto-configmap # overriden by kustomizeconfig
+        name: mosquitto-configmap
         advancedMounts:
           main:
             main:

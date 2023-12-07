@@ -34,6 +34,9 @@
   },
   "osvVulnerabilityAlerts": true,
   "dependencyDashboardOSVVulnerabilitySummary": "all",
+  "ignorePaths": [
+    "**/configs/**"
+  ],
   "flux": {
     "fileMatch": [
       "(^|/)\\.taskfiles/.+\\.ya?ml(\\.j2)?$",

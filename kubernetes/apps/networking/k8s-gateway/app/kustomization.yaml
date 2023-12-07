@@ -8,7 +8,5 @@ configMapGenerator:
   - name: k8s-gateway-configmap
     files:
       - ./configs/Corefile
-configurations:
-  - ./patches/kustomizeconfig.yaml
 generatorOptions:
   disableNameSuffixHash: true
