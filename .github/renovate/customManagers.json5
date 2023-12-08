@@ -41,7 +41,7 @@
       "matchStrings": [
         "depName=\"(?<depName>.*)\"\\n\\s+gnetId:\\s+(?<packageName>.*?)\\n\\s+revision:\\s+(?<currentValue>.*)"
       ],
-      "versioningTemplate": "regex:^(?<major>\\d+)$",
+      "versioningTemplate": "regex:^(?<major>revision:\\s\\d+)$",
       "datasourceTemplate": "custom.grafana-dashboards"
     },
     {
