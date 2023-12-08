@@ -26,7 +26,7 @@ spec:
   values:
     extraInitContainers:
       - name: init-db
-        image: ghcr.io/onedr0p/postgres-init:15
+        image: ghcr.io/onedr0p/postgres-init:16
         envFrom:
           - secretRef:
               name: &secret grafana-secret
