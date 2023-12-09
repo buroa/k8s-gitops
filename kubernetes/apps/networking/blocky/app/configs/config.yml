@@ -115,7 +115,7 @@ blocking:
       - trackers
 
 caching:
-  minTime: 5m
+  minTime: 15m
   prefetching: true
   prefetchExpires: 2h
 
