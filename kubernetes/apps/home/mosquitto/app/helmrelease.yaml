@@ -31,7 +31,7 @@ spec:
         initContainers:
           init-config:
             image: &image
-              repository: public.ecr.aws/docker/library/eclipse-mosquitto
+              repository: docker.io/library/eclipse-mosquitto
               tag: 2.0.18@sha256:8c49a0fab9a1ee9bf5d229061eec4e279f04484c07f60c85c13821788360ce4f
             command:
               - /bin/sh
