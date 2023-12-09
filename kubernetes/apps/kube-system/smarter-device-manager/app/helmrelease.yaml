@@ -33,7 +33,7 @@ spec:
           main:
             image:
               repository: registry.gitlab.com/arm-research/smarter/smarter-device-manager
-              tag: v1.20.11
+              tag: v1.20.11@sha256:826b984e75d40d4ebc3fd4c519b45baa9becd19206376108ba4b6ce8e1ef36bf
             resources:
               requests:
                 cpu: 10m

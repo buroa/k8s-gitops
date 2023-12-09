@@ -30,7 +30,7 @@ spec:
           main:
             image:
               repository: ghcr.io/wizarrrr/wizarr
-              tag: 3.5.2
+              tag: 3.5.2@sha256:660b309f8a8c298910cb8f0e1ba13b980d8b30df6d836e78c5e0f3d0713cc352
             env:
               TZ: ${TIMEZONE}
             probes:
@@ -39,7 +39,7 @@ spec:
                 custom: true
                 spec:
                   httpGet:
-                    path: /api/health
+                    path: &path /api/health
                     port: &port 5690
                   initialDelaySeconds: 0
                   periodSeconds: 10
@@ -60,6 +60,7 @@ spec:
         className: external
         annotations:
           gatus.io/enabled: "true"
+          gatus.io/path: *path
           hajimari.io/icon: mdi:invite
           external-dns.alpha.kubernetes.io/target: external.${PUBLIC_DOMAIN}
         hosts:

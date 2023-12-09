@@ -29,8 +29,8 @@ spec:
         containers:
           main:
             image:
-              repository:  ghcr.io/flaresolverr/flaresolverr
-              tag: v3.3.10
+              repository: ghcr.io/flaresolverr/flaresolverr
+              tag: v3.3.10@sha256:1f7b2f31d423382c14c7f8fb69795f05bcfa6f508cfac32763d3fede5d07c7da
             env:
               TZ: ${TIMEZONE}
               LOG_LEVEL: info

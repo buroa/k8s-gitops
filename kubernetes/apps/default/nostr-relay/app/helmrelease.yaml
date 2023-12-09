@@ -42,7 +42,7 @@ spec:
           main:
             image:
               repository: docker.io/scsibug/nostr-rs-relay
-              tag: 0.8.13
+              tag: 0.8.13@sha256:d54849aac0a47b2cede0aadf26d4777180fb9c669ee7e8ffd0992c7f8fe81bb6
             envFrom: *envFrom
             resources:
               requests:

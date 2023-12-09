@@ -32,7 +32,7 @@ spec:
           main:
             image:
               repository: ghcr.io/onedr0p/exportarr
-              tag: v1.6.0
+              tag: v1.6.0@sha256:b522e128509b766cf66f847190fccd225ff194dc76775fe6a215f2dd3010cac2
             args:
               - prowlarr
               - --enable-additional-metrics

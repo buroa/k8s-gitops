@@ -32,7 +32,7 @@ spec:
           main:
             image:
               repository: ghcr.io/willfantom/overseerr-exporter
-              tag: 1.2.1
+              tag: 1.2.1@sha256:b5cbff0fcd04a118190849b1ed92f51669109f766171106fc0b87f7a8562273b
             args:
               - --overseerr.address
               - "http://overseerr.media.svc.cluster.local:5055"

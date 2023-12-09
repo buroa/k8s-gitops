@@ -28,7 +28,7 @@ spec:
     image:
       registry: quay.io
       repository: thanos/thanos
-      tag: v0.32.5
+      tag: v0.32.5@sha256:3e5c47dd3a0bfc6c595036c1c49c7ca95979a89c1fb93ee4cdee3bf5d296f944
     objstoreConfig:
       type: s3
       config:
