@@ -33,7 +33,8 @@ spec:
           http_listen_port: 3100
           grpc_listen_port: 9095
         memberlist:
-          join_members: ["loki-memberlist"]
+          join_members:
+            - loki-memberlist
         limits_config:
           retention_period: 14d
           enforce_metric_name: false

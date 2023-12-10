@@ -50,7 +50,8 @@ spec:
     query:
       enabled: true
       replicaCount: 3
-      replicaLabel: ["__replica__"]
+      replicaLabel:
+        - __replica__
       dnsDiscovery:
         sidecarsService: kube-prometheus-stack-thanos-discovery
         sidecarsNamespace: monitoring
@@ -85,7 +86,8 @@ spec:
       clusterName: k8s
       alertmanagers:
         - http://alertmanager-operated.monitoring.svc.cluster.local:9093
-      extraFlags: ["--web.prefix-header=X-Forwarded-Prefix"]
+      extraFlags:
+        - --web.prefix-header=X-Forwarded-Prefix
       config: |-
         groups:
           - name: PrometheusWatcher
