@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: qbittorrent-manage
+  name: qbtools
 spec:
   interval: 30m
   chart:
@@ -26,11 +26,14 @@ spec:
   values:
     controllers:
       main:
+        enabled: false
+      tagging:
         type: cronjob
         cronjob:
           schedule: "@hourly"
+          timeZone: &timeZone ${TIMEZONE}
         initContainers:
-          01-tag:
+          tagging:
             image: &image
               repository: ghcr.io/buroa/qbtools
               tag: v0.10.2@sha256:c1489df84db1d239371f633a56604c9af6124c6e6b0babdff77fde2de43a1ef2
@@ -46,19 +49,22 @@ spec:
               - qbittorrent.media.svc.cluster.local
               - --port
               - "8080"
+            env: &env
+              TZ: *timeZone
             resources: &resources
               requests:
-                cpu: 5m
-                memory: 64M
-              limits:
+                cpu: 25m
                 memory: 128M
+              limits:
+                memory: 256M
             securityContext: &securityContext
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities:
                 drop:
                   - ALL
-          02-unregistered:
+        containers:
+          unregistered:
             image: *image
             args:
               - prune
@@ -70,10 +76,10 @@ spec:
               - qbittorrent.media.svc.cluster.local
               - --port
               - "8080"
+            env: *env
             resources: *resources
             securityContext: *securityContext
-        containers:
-          main:
+          expired:
             image: *image
             args:
               - prune
@@ -81,25 +87,73 @@ spec:
               - manual
               - --include-tag
               - expired
-              - --exclude-tag
-              - activity:24h
-              - --exclude-tag
-              - site:beyond-hd
-              - --exclude-tag
-              - site:broadcasthenet
-              - --exclude-tag
-              - site:passthepopcorn
+              - --include-tag
+              - added:7d
               - --server
               - qbittorrent.media.svc.cluster.local
               - --port
               - "8080"
+            env: *env
             resources: *resources
             securityContext: *securityContext
         pod:
-          securityContext:
+          restartPolicy: OnFailure
+          securityContext: &podSecurityContext
             runAsUser: 568
             runAsGroup: 568
             runAsNonRoot: true
+      orphaned:
+        type: cronjob
+        cronjob:
+          schedule: "@daily"
+          timeZone: *timeZone
+        containers:
+          main:
+            image: *image
+            args:
+              - orphaned
+              - --exclude-pattern
+              - "*_unpackerred"
+              - --exclude-pattern
+              - "*/manual/*"
+              - --server
+              - qbittorrent.media.svc.cluster.local
+              - --port
+              - "8080"
+            env: *env
+            resources: *resources
+            securityContext: *securityContext
+        pod:
+          restartPolicy: OnFailure
+          securityContext:
+            <<: *podSecurityContext
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
+            supplementalGroups:
+              - 65536
+      reannounce:
+        containers:
+          main:
+            image: *image
+            args:
+              - reannounce
+              - --process-seeding
+              - --server
+              - qbittorrent.media.svc.cluster.local
+              - --port
+              - "8080"
+            env: *env
+            resources: *resources
+            securityContext: *securityContext
+        pod:
+          securityContext: *podSecurityContext
     service:
       main:
         enabled: false
+    persistence:
+      media:
+        existingClaim: media
+        advancedMounts:
+          orphaned:
+            main:
+              - path: /media
