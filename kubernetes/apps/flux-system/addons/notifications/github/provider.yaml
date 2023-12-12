@@ -1,11 +1,10 @@
 ---
-apiVersion: notification.toolkit.fluxcd.io/v1beta2
+apiVersion: notification.toolkit.fluxcd.io/v1beta3
 kind: Provider
 metadata:
   name: github
 spec:
   type: github
   address: https://github.com/buroa/k8s-gitops
-  interval: 10m
   secretRef:
     name: github-token-secret
