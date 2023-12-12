@@ -1,5 +1,5 @@
 ---
-name: "Flux Diff"
+name: Flux Diff
 
 on:
   pull_request:

@@ -1,5 +1,5 @@
 ---
-name: "Publish Terraform"
+name: Publish Terraform
 
 on:
   workflow_dispatch:

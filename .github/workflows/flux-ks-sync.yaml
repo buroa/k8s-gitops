@@ -1,0 +1,47 @@
+---
+name: Flux Kustomization Sync
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["master"]
+    paths: ["kubernetes/**"]
+
+env:
+  DEBCONF_NONINTERACTIVE_SEEN: "true"
+  DEBIAN_FRONTEND: noninteractive
+  APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE: DontWarn
+
+jobs:
+  sync:
+    name: Flux Kustomization Sync
+    runs-on: ["arc-runner-set-k8s-gitops"]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        with:
+          fetch-depth: 0
+
+      - name: Setup Tools
+        shell: bash
+        run: sudo apt-get -qq update && sudo apt-get -qq install --no-install-recommends -y curl git
+
+      - name: Setup Flux
+        uses: fluxcd/flux2/action@53ad742e2d0f6f0df19ec11a25a0e3adce80c475 # v2.2.0
+
+      - name: Write kubeconfig
+        id: kubeconfig
+        uses: timheuer/base64-to-file@784a1a4a994315802b7d8e2084e116e783d157be # v1.2.4
+        with:
+          encodedString: "${{ secrets.KUBECONFIG }}"
+          fileName: kubeconfig
+
+      - name: Sync Kustomization
+        env:
+          KUBECONFIG: "${{ steps.kubeconfig.outputs.filePath }}"
+        shell: bash
+        run: |
+          flux \
+              --namespace flux-system \
+              reconcile ks cluster \
+              --with-source

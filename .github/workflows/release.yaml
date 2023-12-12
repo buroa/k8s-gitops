@@ -1,5 +1,5 @@
 ---
-name: "Release"
+name: Release
 
 on:
   workflow_dispatch:

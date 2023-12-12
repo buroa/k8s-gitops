@@ -1,5 +1,5 @@
 ---
-name: "Renovate"
+name: Renovate
 
 on:
   workflow_dispatch:
@@ -17,7 +17,7 @@ on:
         default: latest
         required: false
   schedule:
-    - cron: "0 * * * *"
+    - cron: "*/30 * * * *"
   push:
     branches: ["master"]
     paths:
@@ -31,7 +31,7 @@ concurrency:
 env:
   WORKFLOW_DRY_RUN: false
   WORKFLOW_LOG_LEVEL: debug
-  WORKFLOW_VERSION: 37.59.8 # TODO: fix
+  WORKFLOW_VERSION: latest # 37.59.8
   RENOVATE_AUTODISCOVER: true
   RENOVATE_AUTODISCOVER_FILTER: "${{ github.repository }}"
   RENOVATE_GIT_AUTHOR: "${{ secrets.BOT_USERNAME }} <${{ secrets.BOT_USER_ID }}+${{ secrets.BOT_USERNAME }}[bot]@users.noreply.github.com>"
