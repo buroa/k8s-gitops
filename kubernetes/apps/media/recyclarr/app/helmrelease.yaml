@@ -31,6 +31,7 @@ spec:
           reloader.stakater.com/auto: "true"
         cronjob:
           schedule: "@hourly"
+          timeZone: ${TIMEZONE}
         containers:
           main:
             image:

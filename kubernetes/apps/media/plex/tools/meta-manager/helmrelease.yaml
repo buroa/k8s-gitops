@@ -30,7 +30,8 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         cronjob:
-          schedule: 0 6 * * *
+          schedule: 0 0 * * *
+          timeZone: ${TIMEZONE}
         containers:
           main:
             image:
