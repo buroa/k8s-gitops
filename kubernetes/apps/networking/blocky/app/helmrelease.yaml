@@ -42,7 +42,7 @@ spec:
           main:
             image:
               repository: ghcr.io/0xerr0r/blocky
-              tag: development@sha256:9595dcf5944cb73c0b4804d7fc48f08cbdfee254cf7921074f8df5dcc7fe9968 # TODO: switch to semver
+              tag: development@sha256:2bf01f438501e9aea2e0d09bf96e9e0457df83b6eac4fde720b8cf06741580d7 # TODO: switch to semver
             env:
               TZ: ${TIMEZONE}
             resources:
