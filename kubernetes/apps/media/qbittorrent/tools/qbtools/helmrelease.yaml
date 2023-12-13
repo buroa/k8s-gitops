@@ -32,6 +32,8 @@ spec:
         cronjob:
           schedule: "@hourly"
           timeZone: &timeZone ${TIMEZONE}
+        annotations:
+          configmap.reloader.stakater.com/reload: &configMap qbtools-configmap
         initContainers:
           tagging:
             image: &image
@@ -151,6 +153,16 @@ spec:
       main:
         enabled: false
     persistence:
+      config:
+        enabled: true
+        type: configMap
+        name: *configMap
+        advancedMounts:
+          tagging:
+            tagging:
+              - path: /config/config.yaml
+                subPath: config.yaml
+                readOnly: true
       media:
         existingClaim: media
         advancedMounts:
