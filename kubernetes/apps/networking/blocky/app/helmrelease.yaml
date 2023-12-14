@@ -50,10 +50,11 @@ spec:
                 enabled: true
                 custom: true
                 spec:
-                  httpGet:
-                    path: /api/blocking/status
-                    port: &port 4000
-                  initialDelaySeconds: 60
+                  exec:
+                    command:
+                      - /app/blocky
+                      - healthcheck
+                  initialDelaySeconds: 30
                   periodSeconds: 10
                   timeoutSeconds: 1
                   failureThreshold: 3
@@ -106,7 +107,7 @@ spec:
       main:
         ports:
           http:
-            port: *port
+            port: 4000
       dns:
         controller: main
         type: LoadBalancer
