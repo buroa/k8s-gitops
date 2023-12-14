@@ -8,8 +8,7 @@ configMapGenerator:
   - name: authelia-configmap
     files:
       - ./configs/configuration.yml
-    options:
-      annotations:
-        kustomize.toolkit.fluxcd.io/substitute: disabled
 generatorOptions:
   disableNameSuffixHash: true
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled

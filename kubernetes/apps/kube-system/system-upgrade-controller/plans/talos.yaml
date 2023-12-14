@@ -3,8 +3,6 @@ apiVersion: upgrade.cattle.io/v1
 kind: Plan
 metadata:
   name: talos
-  annotations:
-    kustomize.toolkit.fluxcd.io/substitute: disabled
 spec:
   # renovate: datasource=docker depName=ghcr.io/buroa/installer
   version: v1.5.5

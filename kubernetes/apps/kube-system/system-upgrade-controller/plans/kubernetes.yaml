@@ -3,11 +3,9 @@ apiVersion: upgrade.cattle.io/v1
 kind: Plan
 metadata:
   name: kubernetes
-  annotations:
-    kustomize.toolkit.fluxcd.io/substitute: disabled
 spec:
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=kubernetes/kubernetes
-  version: 1.29.0
+  version: 1.28.4
   serviceAccountName: system-upgrade
   secrets:
     - name: talos
