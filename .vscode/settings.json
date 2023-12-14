@@ -1,42 +1,46 @@
 {
+  "editor.bracketPairColorization.enabled": true,
+  "editor.fontFamily": "FiraCode Nerd Font",
+  "editor.fontLigatures": true,
+  "editor.guides.bracketPairs": true,
+  "editor.guides.bracketPairsHorizontal": true,
+  "editor.guides.highlightActiveBracketPair": true,
+  "editor.hover.delay": 1500,
+  "editor.rulers": [100],
+  "editor.stickyScroll.enabled": false,
+  "explorer.autoReveal": false,
   "files.associations": {
     "*.json5": "jsonc",
-    "**/terraform/**/*.tf": "terraform",
-    "**/kubernetes/**/*.sops.toml": "plaintext"
+    "./terraform/**/*.tf": "terraform"
+  },
+  "files.trimTrailingWhitespace": true,
+  "material-icon-theme.files.associations": {
+    // TODO: https://github.com/PKief/vscode-material-icon-theme/issues/330
+    "*.secret.sops.env": "lock",
+    "*.secret.sops.yaml": "lock"
   },
   "material-icon-theme.folders.associations": {
+    // .github
+    ".github": "github",
     ".taskfiles": "utils",
-    "bootstrap": "import",
-    "charts": "kubernetes",
-    "hack": "scripts",
-    "repositories": "database",
-    "terraforms": "terraform",
+    ".vscode": "vscode",
+    "kubernetes": "kubernetes",
     "talos": "core",
-    "vars": "other",
+    "terraform": "terraform",
     // namespaces
-    "actions-runner-system": "robot",
+    "actions-runner-system": "github",
     "cert-manager": "guard",
+    "default": "home",
     "democratic-csi": "dump",
-    "external-secrets": "keys",
-    "flux-system": "ci",
+    "flux-system": "pipe",
     "kube-system": "kubernetes",
     "media": "video",
     "monitoring": "event",
     "networking": "connection",
     "rook-ceph": "dump",
-    "security": "guard"
-  },
-  "editor.formatOnSave": false,
-  "editor.formatOnSaveMode": "file",
-  "editor.fontFamily": "FiraCode Nerd Font",
-  "editor.fontLigatures": true,
-  "editor.bracketPairColorization.enabled": true,
-  "editor.guides.bracketPairs": true,
-  "editor.guides.bracketPairsHorizontal": true,
-  "editor.guides.highlightActiveBracketPair": true,
-  "editor.hover.delay": 1500,
-  "editor.stickyScroll.enabled": false,
-  "editor.rulers": [100],
-  "explorer.autoReveal": false,
-  "files.trimTrailingWhitespace": true
+    "security": "guard",
+    // apps
+    "system-upgrade-controller": "update",
+    "volsync": "aws"
+  }
 }
