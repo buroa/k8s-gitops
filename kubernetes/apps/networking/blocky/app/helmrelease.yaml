@@ -45,6 +45,21 @@ spec:
               tag: development@sha256:2bf01f438501e9aea2e0d09bf96e9e0457df83b6eac4fde720b8cf06741580d7 # TODO: switch to semver
             env:
               TZ: ${TIMEZONE}
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/blocking/status
+                    port: &port 4000
+                  initialDelaySeconds: 60
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: false
             resources:
               requests:
                 cpu: 5m
@@ -91,7 +106,7 @@ spec:
       main:
         ports:
           http:
-            port: 4000
+            port: *port
       dns:
         controller: main
         type: LoadBalancer
