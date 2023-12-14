@@ -75,7 +75,7 @@ spec:
             path: *path
             type: DirectoryOrCreate
       nodeSelector:
-        topology.kubernetes.io/zone: w
+        node-role.kubernetes.io/worker: ""
     driver:
       config:
         driver: local-hostpath

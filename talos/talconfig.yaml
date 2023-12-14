@@ -197,7 +197,6 @@ nodes:
           - network: 10.1.0.22/32
             metric: 1024
     nodeLabels: &workerLabels
-      node-role.kubernetes.io/worker: worker
       topology.kubernetes.io/region: *cluster
       topology.kubernetes.io/zone: w
 

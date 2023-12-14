@@ -87,10 +87,8 @@ spec:
             requiredDuringSchedulingIgnoredDuringExecution:
               nodeSelectorTerms:
                 - matchExpressions:
-                    - key: topology.kubernetes.io/zone
-                      operator: In
-                      values:
-                        - m
+                    - key: node-role.kubernetes.io/control-plane
+                      operator: Exist
         mon:
           nodeAffinity: *nodeAffinity
     cephBlockPools:
