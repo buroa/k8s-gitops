@@ -26,6 +26,8 @@ spec:
   values:
     controllers:
       main:
+        replicas: 2
+        strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -34,14 +36,19 @@ spec:
               repository: ghcr.io/tailscale/tailscale
               tag: v1.54.1@sha256:ce594e3d18874960caa3f7d8fd8fc39a89b9c34e3ff05d6fdf3124cc550c8c2c
             env:
-              TZ: ${TIMEZONE}
+              NO_AUTOUPDATE: true
               PORT: &port ${TAILNET_PUBLIC_PORT}
-              SA_NAME: tailscale
-              TS_USERSPACE: true
-              TS_KUBE_SECRET: tailscale-state
-              TS_EXTRA_ARGS: --advertise-exit-node
-              TS_TAILSCALED_EXTRA_ARGS: --debug=0.0.0.0:2000
+              TS_EXTRA_ARGS: --advertise-exit-node --advertise-tags=tag:k8s
+              TS_HOSTNAME:
+                valueFrom:
+                  fieldRef:
+                    fieldPath: metadata.name
+              TS_KUBE_SECRET: ""
               TS_ROUTES: ${LAN_SERVER_IP_CIDR},${CILIUM_LB_CIDR}
+              TS_STATE_DIR: /tmp
+              TS_TAILSCALED_EXTRA_ARGS: --debug=0.0.0.0:2000
+              TS_USERSPACE: true
+              TZ: ${TIMEZONE}
             envFrom:
               - secretRef:
                   name: tailscale-secret
@@ -64,6 +71,13 @@ spec:
             runAsNonRoot: true
             fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
+          topologySpreadConstraints:
+            - maxSkew: 1
+              topologyKey: kubernetes.io/hostname
+              whenUnsatisfiable: DoNotSchedule
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: *app
     persistence:
       cache:
         type: emptyDir
@@ -88,9 +102,6 @@ spec:
             enabled: true
             port: *port
             protocol: UDP
-    serviceAccount:
-      name: *app
-      create: true
     serviceMonitor:
       main:
         enabled: true
