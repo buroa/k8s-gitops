@@ -11,7 +11,7 @@ _... automated via [Flux](https://fluxcd.io), [Renovate](https://github.com/reno
 <div align="center">
 
 [![Discord](https://img.shields.io/discord/673534664354430999?style=for-the-badge&label&logo=discord&logoColor=white&color=blue)](https://discord.gg/home-operations)
-[![Kubernetes](https://img.shields.io/badge/v1.28.4-blue?style=for-the-badge&logo=kubernetes&logoColor=white)](https://k8s.io/)
+[![Kubernetes](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2Fburoa%2Fk8s-gitops%2Fmaster%2Fkubernetes%2Fapps%2Fkube-system%2Fsystem-upgrade-controller%2Fplans%2Fkubernetes.yaml&query=%24.spec.version&style=for-the-badge&logo=kubernetes&logoColor=white&label=%20)](https://k8s.io)
 [![Renovate](https://img.shields.io/github/actions/workflow/status/buroa/k8s-gitops/renovate.yaml?branch=master&label=&logo=renovatebot&style=for-the-badge&color=blue)](https://github.com/buroa/k8s-gitops/actions/workflows/renovate.yaml)
 
 [![Home-Internet](https://img.shields.io/uptimerobot/status/m794001384-01d2febd339773320ef5aae1?label=Home%20Internet&style=for-the-badge&logo=kubernetes&logoColor=white)](https://status.ktwo.io)
