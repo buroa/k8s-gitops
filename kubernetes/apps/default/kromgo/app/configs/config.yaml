@@ -1,6 +1,9 @@
 ---
 metrics:
-  - name: cluster_cpu_usage
+  - name: cluster_node_count
+    query: count(count by (node) (kube_node_status_condition{condition="Ready"}))
+
+  - name: cluster_node_cpu
     query: round(cluster:node_cpu:ratio_rate5m * 100, 0.1)
     suffix: "%"
     colors:
@@ -8,35 +11,13 @@ metrics:
       - { color: "orange", min: 36, max: 75 }
       - { color: "red", min: 76, max: 1000 }
 
-  - name: cluster_node_count
-    query: count(count by (node) (kube_node_info))
-
-  - name: cluster_network_transmit_usage
-    query: round(avg(instance:node_network_transmit_bytes_excluding_lo:rate5m / 1024 / 1024), 0.1)
-    suffix: "MB/s"
-    colors:
-      - { color: "green", min: 0, max: 50 }
-      - { color: "orange", min: 51, max: 75 }
-      - { color: "red", min: 76, max: 1000 }
-
-  - name: cluster_network_receive_usage
-    query: round(avg(instance:node_network_receive_bytes_excluding_lo:rate5m / 1024 / 1024), 0.1)
-    suffix: "MB/s"
-    colors:
-      - { color: "green", min: 0, max: 50 }
-      - { color: "orange", min: 51, max: 75 }
-      - { color: "red", min: 76, max: 1000 }
-
-  - name: cluster_pods_running
+  - name: cluster_pods_count
     query: sum(kube_pod_status_phase{phase="Running"})
 
-  - name: cluster_power_watts
+  - name: cluster_power_usage
     query: round(avg_over_time(upsAdvanceOutputPower[5m]), 0.1)
     suffix: "w"
     colors:
       - { color: "green", min: 0, max: 400 }
       - { color: "orange", min: 401, max: 750 }
       - { color: "red", min: 751, max: 2000 }
-
-  - name: plex_streams
-    query: sum(tautulli_stream_count)
