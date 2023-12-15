@@ -117,6 +117,8 @@ spec:
       config:
         enabled: true
         existingClaim: *app
+      tmp:
+        type: emptyDir
       media:
         existingClaim: media
     service:
