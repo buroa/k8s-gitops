@@ -57,30 +57,6 @@ spec:
               resources:
                 requests:
                   storage: 1Gi
-    grafana:
-      enabled: false
-      forceDeployDashboards: true
-      sidecar:
-        dashboards:
-          multicluster:
-            etcd:
-              enabled: true
-    kubeStateMetrics:
-      enabled: true
-    kube-state-metrics:
-      metricLabelsAllowlist:
-        - pods=[*]
-        - deployments=[*]
-        - persistentvolumeclaims=[*]
-      prometheus:
-        monitor:
-          enabled: true
-          relabelings:
-            - action: replace
-              regex: (.*)
-              replacement: $1
-              sourceLabels: ["__meta_kubernetes_pod_node_name"]
-              targetLabel: kubernetes_node
     kubelet:
       enabled: true
       serviceMonitor:
@@ -99,13 +75,8 @@ spec:
     kubeEtcd:
       enabled: true
       endpoints: *endpoints
-      service:
-        enabled: true
-        port: 2381
-        targetPort: 2381
     kubeProxy:
       enabled: false
-      endpoints: *endpoints
     kubeScheduler:
       enabled: true
       endpoints: *endpoints
@@ -162,3 +133,41 @@ spec:
             memory: 2048M
           limits:
             memory: 8192M
+    nodeExporter:
+      enabled: true
+    prometheus-node-exporter:
+      prometheus:
+        monitor:
+          enabled: true
+          relabelings:
+            - action: replace
+              regex: (.*)
+              replacement: $1
+              sourceLabels:
+                - __meta_kubernetes_pod_node_name
+              targetLabel: kubernetes_node
+    kubeStateMetrics:
+      enabled: true
+    kube-state-metrics:
+      metricLabelsAllowlist:
+        - pods=[*]
+        - deployments=[*]
+        - persistentvolumeclaims=[*]
+      prometheus:
+        monitor:
+          enabled: true
+          relabelings:
+            - action: replace
+              regex: (.*)
+              replacement: $1
+              sourceLabels:
+                - __meta_kubernetes_pod_node_name
+              targetLabel: kubernetes_node
+    grafana:
+      enabled: false
+      forceDeployDashboards: true
+      sidecar:
+        dashboards:
+          multicluster:
+            etcd:
+              enabled: true
