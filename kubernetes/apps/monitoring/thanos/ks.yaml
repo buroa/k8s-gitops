@@ -7,6 +7,7 @@ metadata:
 spec:
   targetNamespace: monitoring
   dependsOn:
+    - name: cluster-apps-redis
     - name: cluster-apps-rook-ceph-cluster
     - name: cluster-apps-democratic-csi-local-hostpath
   path: ./kubernetes/apps/monitoring/thanos/app
