@@ -14,11 +14,10 @@ _... automated via [Flux](https://fluxcd.io), [Renovate](https://github.com/reno
 [![Kubernetes](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2Fburoa%2Fk8s-gitops%2Fmaster%2Fkubernetes%2Fapps%2Fkube-system%2Fsystem-upgrade-controller%2Fplans%2Fkubernetes.yaml&query=%24.spec.version&style=for-the-badge&logo=kubernetes&logoColor=white&label=%20)](https://k8s.io)&nbsp;
 [![Renovate](https://img.shields.io/github/actions/workflow/status/buroa/k8s-gitops/renovate.yaml?branch=master&label=&logo=renovatebot&style=for-the-badge&color=blue)](https://github.com/buroa/k8s-gitops/actions/workflows/renovate.yaml)
 
-[![Internet](https://img.shields.io/uptimerobot/status/m794001384-01d2febd339773320ef5aae1?label=Internet&style=for-the-badge&logo=ubiquiti&logoColor=white)](https://status.ktwo.io)&nbsp;
+[![Home-Internet](https://img.shields.io/uptimerobot/status/m794001384-01d2febd339773320ef5aae1?label=Home%20Internet&style=for-the-badge&logo=ubiquiti&logoColor=white)](https://status.ktwo.io)&nbsp;
 [![Plex](https://img.shields.io/uptimerobot/status/m793802743-0b6044ca7f1ec92851b9a495?label=Plex&style=for-the-badge&logo=plex&logoColor=white)](https://status.ktwo.io/endpoints/_plex)&nbsp;
 [![Overseerr](https://img.shields.io/uptimerobot/status/m793802757-ca314435a1d7b7dc1ca5dac9?label=Overseerr&style=for-the-badge&logo=insomnia&logoColor=white)](https://status.ktwo.io/endpoints/_overseerr)
 
-[![Age](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.ktwo.io%2Fquery%3Fformat%3Dendpoint%26metric%3Dcluster_age_days&style=for-the-badge&label=Age)](https://github.com/kashalls/kromgo)&nbsp;
 [![Uptime](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.ktwo.io%2Fquery%3Fformat%3Dendpoint%26metric%3Dcluster_uptime_days&style=for-the-badge&label=Uptime)](https://github.com/kashalls/kromgo)&nbsp;
 [![Pods](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.ktwo.io%2Fquery%3Fformat%3Dendpoint%26metric%3Dcluster_pod_count&style=for-the-badge&label=Pods)](https://github.com/kashalls/kromgo)&nbsp;
 [![CPU](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.ktwo.io%2Fquery%3Fformat%3Dendpoint%26metric%3Dcluster_node_cpu&style=for-the-badge&label=CPU)](https://github.com/kashalls/kromgo)&nbsp;
@@ -174,7 +173,13 @@ The UDM Pro resolves DNS queries via [blocky](https://github.com/0xERR0R/blocky)
 
 <div align="center">
 
-[![Star History Chart](https://api.star-history.com/svg?repos=buroa/k8s-gitops&type=Date)](https://star-history.com/#buroa/k8s-gitops&Date)
+<a href="https://star-history.com/#buroa/k8s-gitops&Date">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=buroa/k8s-gitops&type=Date&theme=dark" />
+    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=buroa/k8s-gitops&type=Date" />
+    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=buroa/k8s-gitops&type=Date" />
+  </picture>
+</a>
 
 </div>
 

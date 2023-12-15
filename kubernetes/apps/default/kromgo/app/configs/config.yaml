@@ -1,9 +1,5 @@
 ---
 metrics:
-  - name: cluster_age_days
-    query: round((time() - max(kube_node_created)) / 86400)
-    suffix: d
-
   - name: cluster_uptime_days
     query: round(avg(node_time_seconds - node_boot_time_seconds) / 86400)
     suffix: d
