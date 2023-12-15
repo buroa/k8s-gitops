@@ -29,6 +29,7 @@ spec:
     args:
       - --nodes=$(NODE_IP)
       - health
+      - --server=false
   upgrade:
     image: *image
     envs: *envs
