@@ -39,6 +39,7 @@
     "networking": "connection",
     "rook-ceph": "dump",
     "security": "guard",
+    "tools": "tools",
     // apps
     "system-upgrade-controller": "update",
     "volsync": "aws"

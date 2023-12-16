@@ -23,3 +23,12 @@ spec:
       retries: 3
   uninstall:
     keepHistory: false
+  values:
+    reloader:
+      enableHA: true
+      deployment:
+        replicas: 2
+      readOnlyRootFileSystem: true
+      podMonitor:
+        enabled: true
+        namespace: "{{ .Release.Namespace }}"
