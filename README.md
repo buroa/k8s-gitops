@@ -19,8 +19,8 @@ _... automated via [Flux](https://fluxcd.io), [Renovate](https://github.com/reno
 <div align="center">
 
 [![Home-Internet](https://img.shields.io/uptimerobot/status/m794001384-01d2febd339773320ef5aae1?label=Home%20Internet&style=for-the-badge&logo=ubiquiti&logoColor=white)](https://status.ktwo.io)&nbsp;&nbsp;
+[![Status-Page](https://img.shields.io/uptimerobot/status/m795945547-96a65141bdcd1c7325e874e9?label=Status%20Page&style=for-the-badge&logo=statuspage&logoColor=white)](https://status.ktwo.io)&nbsp;&nbsp;
 [![Plex](https://img.shields.io/uptimerobot/status/m793802743-0b6044ca7f1ec92851b9a495?label=Plex&style=for-the-badge&logo=plex&logoColor=white)](https://status.ktwo.io/endpoints/_plex)&nbsp;&nbsp;
-[![Overseerr](https://img.shields.io/uptimerobot/status/m793802757-ca314435a1d7b7dc1ca5dac9?label=Overseerr&style=for-the-badge&logo=insomnia&logoColor=white)](https://status.ktwo.io/endpoints/_overseerr)
 
 </div>
 
