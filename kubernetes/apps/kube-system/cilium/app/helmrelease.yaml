@@ -91,6 +91,9 @@ spec:
     ipam:
       mode: kubernetes
     ipv4NativeRoutingCIDR: ${CLUSTER_POD_IP_CIDR}
+    k8sClientRateLimit:
+      qps: 15
+      burst: 30
     k8sServiceHost: localhost
     k8sServicePort: 7445
     kubeProxyReplacement: true
