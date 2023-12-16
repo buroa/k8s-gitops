@@ -29,9 +29,12 @@ spec:
         enabled: false
       tagging:
         type: cronjob
-        cronjob:
+        cronjob: &cronjob
           schedule: "@hourly"
           timeZone: &timeZone ${TIMEZONE}
+          concurrencyPolicy: Forbid
+          successfulJobsHistory: 1
+          failedJobsHistory: 1
         annotations:
           configmap.reloader.stakater.com/reload: &configMap qbtools-configmap
         initContainers:
@@ -107,8 +110,8 @@ spec:
       orphaned:
         type: cronjob
         cronjob:
+          <<: *cronjob
           schedule: "@daily"
-          timeZone: *timeZone
         containers:
           main:
             image: *image
