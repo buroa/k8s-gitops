@@ -170,3 +170,7 @@ spec:
           multicluster:
             etcd:
               enabled: true
+  valuesFrom:
+    - kind: ConfigMap
+      name: kube-state-metrics-configmap
+      valuesKey: kube-state-metrics.yaml
