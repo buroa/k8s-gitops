@@ -44,19 +44,6 @@ spec:
             args:
               constraints:
                 - DoNotSchedule
-          - name: PodLifeTime
-            args:
-              states:
-                - Pending
-                - PodInitializing
-                - ContainerCreating
-              maxPodLifeTimeSeconds: 300
-          - name: RemoveFailedPods
-            args:
-              excludeOwnerKinds:
-                - Job
-              includingInitContainers: true
-              minPodLifetimeSeconds: 300
           - name: RemoveDuplicates
           - name: RemovePodsViolatingNodeTaints
           - name: RemovePodsViolatingNodeAffinity
@@ -80,8 +67,6 @@ spec:
                 - RemovePodsViolatingTopologySpreadConstraint
             deschedule:
               enabled:
-                - PodLifeTime
-                - RemoveFailedPods
                 - RemovePodsViolatingNodeTaints
                 - RemovePodsViolatingNodeAffinity
                 - RemovePodsHavingTooManyRestarts
