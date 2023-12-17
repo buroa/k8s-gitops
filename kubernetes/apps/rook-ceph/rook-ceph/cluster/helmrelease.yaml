@@ -57,6 +57,8 @@ spec:
             - ${LAN_SERVER_IP_CIDR}
           cluster:
             - ${LAN_TB_IP_CIDR}
+        connections:
+          requireMsgr2: true
       crashCollector:
         disable: false
       dashboard:
