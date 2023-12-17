@@ -73,8 +73,8 @@ jobs:
           for r in "${repos[@]}"; do
               IFS=':' read -r repo_namespace repo_name <<< "${r}"
               flux \
-                  --namespace "${repo_namespace}" \
-                  reconcile source helm "${repo_name}"
+                  --namespace ${repo_namespace} \
+                  reconcile source helm ${repo_name}
           done
 
       - if: ${{ github.event.inputs.helmRepoNamespace != '' && github.event.inputs.helmRepoName != '' }}
@@ -84,5 +84,5 @@ jobs:
         shell: bash
         run: |
           flux \
-              --namespace "${{ github.event.inputs.helmRepoNamespace }}" \
-              reconcile source helm "${{ github.event.inputs.helmRepoName }}"
+              --namespace ${{ github.event.inputs.helmRepoNamespace }} \
+              reconcile source helm ${{ github.event.inputs.helmRepoName }}
