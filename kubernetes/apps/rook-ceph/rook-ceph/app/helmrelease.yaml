@@ -27,6 +27,7 @@ spec:
   values:
     csi:
       cephFSKernelMountOptions: ms_mode=prefer-crc
+      enableGrpcMetrics: true
       enableLiveness: true
       serviceMonitor:
         enabled: true
