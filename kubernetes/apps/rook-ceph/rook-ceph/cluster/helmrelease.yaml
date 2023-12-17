@@ -82,15 +82,15 @@ spec:
               - name: /dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_2TB_S6S2NS0W120772T
               - name: /dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_2TB_S6S2NS0TC14864B
       placement:
-        mgr:
-          nodeAffinity: &nodeAffinity
+        mgr: &placement
+          nodeAffinity:
             requiredDuringSchedulingIgnoredDuringExecution:
               nodeSelectorTerms:
                 - matchExpressions:
                     - key: node-role.kubernetes.io/control-plane
                       operator: Exists
         mon:
-          nodeAffinity: *nodeAffinity
+          <<: *placement
     cephBlockPools:
       - name: ceph-blockpool
         spec:
