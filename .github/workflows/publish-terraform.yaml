@@ -27,19 +27,18 @@ jobs:
         with:
           token: "${{ steps.app-token.outputs.token }}"
 
-      - name: Setup Homebrew
-        uses: Homebrew/actions/setup-homebrew@master
-
-      - name: Setup Tools
-        shell: bash
-        run: brew install cosign fluxcd/tap/flux
-
       - name: Login to GitHub Container Registry
         uses: docker/login-action@343f7c4344506bcbf9b4de18042ae17996df046d # v3.0.0
         with:
           registry: ghcr.io
           username: "${{ github.actor }}"
           password: "${{ secrets.GITHUB_TOKEN }}"
+          # https://github.com/orgs/community/discussions/24636
+          # username: "${{ secrets.BOT_APP_ID }}"
+          # password: "${{ steps.app-token.outputs.token }}"
+
+      - name: Setup Flux
+        uses: fluxcd/flux2/action@9b3958825a314eb79495c6993ef397ddbf87f32f # v2.2.1
 
       - name: Generate tag
         id: generate-tag

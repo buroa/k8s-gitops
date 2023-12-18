@@ -19,16 +19,23 @@ env:
   DEBCONF_NONINTERACTIVE_SEEN: "true"
   DEBIAN_FRONTEND: noninteractive
   APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE: DontWarn
-  NIX_FLAKE_PATH: ./.github/workflows/resources/nix
 
 jobs:
   sync:
     name: Flux HelmRepository Sync
     runs-on: ["arc-runner-set-k8s-gitops"]
     steps:
+      - name: Generate Token
+        uses: actions/create-github-app-token@2986852ad836768dfea7781f31828eb3e17990fa # v1.6.2
+        id: app-token
+        with:
+          app-id: "${{ secrets.BOT_APP_ID }}"
+          private-key: "${{ secrets.BOT_APP_PRIVATE_KEY }}"
+
       - name: Checkout
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
         with:
+          token: "${{ steps.app-token.outputs.token }}"
           fetch-depth: 0
 
       - name: Setup Tools
