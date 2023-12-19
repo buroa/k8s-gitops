@@ -316,11 +316,10 @@ controlPlane:
     - &customTalosPatch |-
       machine:
         install:
-          image: ghcr.io/buroa/installer:v1.5.5
           extraKernelArgs:
             - net.ifnames=0
             - talos.logging.kernel=udp://vector.${domainName}:6001/
-          legacyBIOSSupport: true # mac minis are legacy BIOS
+          legacyBIOSSupport: true
 
     # Enable logging
     - &loggingPatch |-
