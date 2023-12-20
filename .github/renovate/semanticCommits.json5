@@ -30,7 +30,7 @@
       "semanticCommitType": "chore",
       "semanticCommitScope": "container",
       "commitMessageTopic": "{{depName}}",
-      "commitMessageExtra": "({{currentVersion}} → {{newVersion}})"
+      "commitMessageExtra": "({{currentDigestShort}} → {{newDigestShort}})"
     },
     {
       "matchDatasources": ["helm"],
@@ -53,30 +53,6 @@
       "matchUpdateTypes": ["patch"],
       "semanticCommitType": "fix",
       "semanticCommitScope": "helm",
-      "commitMessageTopic": "{{depName}}",
-      "commitMessageExtra": "({{currentVersion}} → {{newVersion}})"
-    },
-    {
-      "matchDatasources": ["galaxy", "galaxy-collection"],
-      "matchUpdateTypes": ["major"],
-      "commitMessagePrefix": "feat(ansible)!: ",
-      "commitMessageTopic": "{{depName}}",
-      "commitMessageExtra": "({{currentVersion}} → {{newVersion}})"
-    },
-    {
-      "matchDatasources": ["galaxy", "galaxy-collection"],
-      "matchUpdateTypes": ["minor"],
-      "semanticCommitType": "feat",
-      "semanticCommitScope": "ansible",
-      "commitMessageTopic": "{{depName}}",
-      "commitMessageExtra": "({{currentVersion}} → {{newVersion}})"
-    },
-
-    {
-      "matchDatasources": ["galaxy", "galaxy-collection"],
-      "matchUpdateTypes": ["patch"],
-      "semanticCommitType": "fix",
-      "semanticCommitScope": "ansible",
       "commitMessageTopic": "{{depName}}",
       "commitMessageExtra": "({{currentVersion}} → {{newVersion}})"
     },
