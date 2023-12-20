@@ -37,7 +37,7 @@ jobs:
           fetch-depth: 0
 
       - name: Install System Tools
-        uses: awalsh128/cache-apt-pkgs-action@v1.3.1
+        uses: awalsh128/cache-apt-pkgs-action@44c33b32f808cdddd5ac0366d70595ed63661ed8 # v1.3.1
         with:
           packages: curl git jo
           version: 1.0
