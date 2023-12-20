@@ -61,6 +61,8 @@ spec:
         extraArgs:
           - --leader-election=false
           - --node-deployment=true
+      nodeSelector: &nodeSelector
+        node-role.kubernetes.io/worker: ""
     node:
       driver:
         image: ghcr.io/democratic-csi/democratic-csi:v1.8.4
@@ -73,8 +75,7 @@ spec:
           hostPath:
             path: *path
             type: DirectoryOrCreate
-      nodeSelector:
-        node-role.kubernetes.io/worker: ""
+      nodeSelector: *nodeSelector
     driver:
       config:
         driver: local-hostpath
