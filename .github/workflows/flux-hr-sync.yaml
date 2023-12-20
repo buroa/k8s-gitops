@@ -16,7 +16,7 @@ on:
     paths: ["kubernetes/**/helmrelease.yaml"]
 
 env:
-  AQUA_CONFIG: ./.github/aqua.yaml
+  AQUA_GLOBAL_CONFIG: ./.github/aqua.yaml
 
 jobs:
   sync:
@@ -37,14 +37,11 @@ jobs:
           fetch-depth: 0
 
       - name: Install System Tools
-        uses: awalsh128/cache-apt-pkgs-action@44c33b32f808cdddd5ac0366d70595ed63661ed8 # v1.3.1
-        with:
-          packages: curl git jo
-          version: 1.0
+        shell: bash
+        run: sudo apt-get -qq update && sudo apt-get -qq install --no-install-recommends -y curl git jo
 
       - name: Cache Aqua
         uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3.3.2
-        id: cache
         with:
           path: ~/.local/share/aquaproj-aqua
           key: aqua-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('./.github/aqua.yaml') }}
