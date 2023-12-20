@@ -103,5 +103,19 @@ jobs:
       max-parallel: 4
       fail-fast: false
     steps:
-      - name: Test Images from Helm Release
+      - name: Generate Token
+        uses: actions/create-github-app-token@2986852ad836768dfea7781f31828eb3e17990fa # v1.6.2
+        id: app-token
+        with:
+          app-id: "${{ secrets.BOT_APP_ID }}"
+          private-key: "${{ secrets.BOT_APP_PRIVATE_KEY }}"
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@343f7c4344506bcbf9b4de18042ae17996df046d # v3.0.0
+        with:
+          registry: ghcr.io
+          username: "${{ secrets.BOT_APP_ID }}"
+          password: "${{ steps.app-token.outputs.token }}"
+
+      - name: Test Images from HelmRelease
         run: docker pull ${{ matrix.images }}
