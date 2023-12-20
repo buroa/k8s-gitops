@@ -7,6 +7,9 @@ on:
     branches: ["master"]
     paths: ["terraform/**"]
 
+env:
+  AQUA_CONFIG: ./.github/aqua.yaml
+
 jobs:
   publish-terraform:
     name: Publish Terraform
@@ -27,6 +30,28 @@ jobs:
         with:
           token: "${{ steps.app-token.outputs.token }}"
 
+      - name: Install System Tools
+        uses: awalsh128/cache-apt-pkgs-action@v1.3.1
+        with:
+          packages: curl git jo
+          version: 1.0
+
+      - name: Cache Aqua
+        uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3.3.2
+        id: cache
+        with:
+          path: ~/.local/share/aquaproj-aqua
+          key: aqua-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('./.github/aqua.yaml') }}
+          restore-keys: aqua-${{ runner.os }}-${{ runner.arch }}-
+
+      - name: Install Aqua and CLI Tools
+        uses: aquaproj/aqua-installer@928a2ee4243a9ee8312d80dc8cbaca88fb602a91 # v2.2.0
+        with:
+          aqua_version: v2.16.4
+          aqua_opts: -a
+        env:
+          GITHUB_TOKEN: "${{ steps.app-token.outputs.token }}"
+
       - name: Login to GitHub Container Registry
         uses: docker/login-action@343f7c4344506bcbf9b4de18042ae17996df046d # v3.0.0
         with:
@@ -36,9 +61,6 @@ jobs:
           # https://github.com/orgs/community/discussions/24636
           # username: "${{ secrets.BOT_APP_ID }}"
           # password: "${{ steps.app-token.outputs.token }}"
-
-      - name: Setup Flux
-        uses: fluxcd/flux2/action@5c5c15ea212b8f029a110f9975851d25c8272695 # v2.2.2
 
       - name: Generate tag
         id: generate-tag

@@ -7,11 +7,7 @@ on:
     paths: ["kubernetes/**/helmrelease.yaml"]
 
 env:
-  DEBCONF_NONINTERACTIVE_SEEN: "true"
-  DEBIAN_FRONTEND: noninteractive
-  APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE: DontWarn
-  WORKFLOW_RESOURCE_DIR: ./.github/workflows/resources
-  WORKFLOW_KUBERNETES_DIR: ./kubernetes
+  AQUA_CONFIG: ./.github/aqua.yaml
 
 jobs:
   changed-files:
@@ -70,17 +66,34 @@ jobs:
           token: "${{ steps.app-token.outputs.token }}"
           fetch-depth: 0
 
-      - name: Setup Kube Tools
-        uses: yokawasa/action-setup-kube-tools@af4ebb1af1efd30c5bd84a2e9773355ad6362a33 # v0.9.3
+      - name: Install System Tools
+        uses: awalsh128/cache-apt-pkgs-action@v1.3.1
         with:
-          setup-tools: helm kustomize
+          packages: curl git jo
+          version: 1.0
+
+      - name: Cache Aqua
+        uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3.3.2
+        id: cache
+        with:
+          path: ~/.local/share/aquaproj-aqua
+          key: aqua-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('./.github/aqua.yaml') }}
+          restore-keys: aqua-${{ runner.os }}-${{ runner.arch }}-
+
+      - name: Install Aqua and CLI Tools
+        uses: aquaproj/aqua-installer@928a2ee4243a9ee8312d80dc8cbaca88fb602a91 # v2.2.0
+        with:
+          aqua_version: v2.16.4
+          aqua_opts: -a
+        env:
+          GITHUB_TOKEN: "${{ steps.app-token.outputs.token }}"
 
       - name: Extract Images from HelmRelease
         id: extract-images
         run: |
           images=$(
-            npx zx ${{ env.WORKFLOW_RESOURCE_DIR }}/extract-images.mjs \
-              --kubernetes-dir "${{ env.WORKFLOW_KUBERNETES_DIR }}" \
+            npx zx ./.github/scripts/extract-images.mjs \
+              --kubernetes-dir "./kubernetes" \
               --helmrelease "${{ matrix.files }}"
           )
           echo "images=${images}" >> $GITHUB_OUTPUT

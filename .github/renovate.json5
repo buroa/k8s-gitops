@@ -12,6 +12,7 @@
     ":semanticCommits",
     ":skipStatusChecks",
     ":timezone(America/Chicago)",
+    "github>aquaproj/aqua-renovate-config:file#1.13.0(.github/aqua.yaml)",
     "github>buroa/k8s-gitops//.github/renovate/allowedVersions.json5",
     "github>buroa/k8s-gitops//.github/renovate/autoMerge.json5",
     "github>buroa/k8s-gitops//.github/renovate/commitMessage.json5",
