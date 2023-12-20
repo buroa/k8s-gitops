@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: rook-ceph
-      version: v1.13.0
+      version: v1.13.1
       sourceRef:
         kind: HelmRepository
         name: rook-ceph-charts
@@ -26,9 +26,9 @@ spec:
   values:
     csi:
       cephFSKernelMountOptions: ms_mode=prefer-crc
-      # enableLiveness: true
-      # serviceMonitor:
-      #   enabled: true
+      enableLiveness: true
+      serviceMonitor:
+        enabled: true
     monitoring:
       enabled: true
     resources:
