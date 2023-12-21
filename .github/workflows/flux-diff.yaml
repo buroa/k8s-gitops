@@ -53,7 +53,7 @@ jobs:
         run: touch requirements.txt
 
       - name: Diff Resources
-        uses: allenporter/flux-local/action/diff@f5efe17d9aa819678f0e3aad8781b511ea559f5d # 4.1.0
+        uses: allenporter/flux-local/action/diff@fbbc4c3d343af3ff57180a1067d7007fd4bd4d3c # 4.1.1
         id: diff
         with:
           live-branch: master
