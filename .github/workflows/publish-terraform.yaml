@@ -8,7 +8,8 @@ on:
     paths: ["terraform/**"]
 
 env:
-  AQUA_GLOBAL_CONFIG: ./.github/aqua.yaml
+  AQUA_GLOBAL_CONFIG: .github/aqua.yaml
+  TERRAFORM_DIR: ./terraform
 
 jobs:
   publish-terraform:
@@ -38,7 +39,7 @@ jobs:
         uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3.3.2
         with:
           path: ~/.local/share/aquaproj-aqua
-          key: aqua-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('./.github/aqua.yaml') }}
+          key: aqua-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('.github/aqua.yaml') }}
           restore-keys: aqua-${{ runner.os }}-${{ runner.arch }}-
 
       - name: Install Aqua and CLI Tools
@@ -68,7 +69,7 @@ jobs:
         shell: bash
         run: |
           flux push artifact oci://${{ steps.generate-tag.outputs.tag }} \
-              --path="./terraform" \
+              --path="${{ env.TERRAFORM_DIR }}" \
               --source="$(git config --get remote.origin.url)" \
               --revision="$(git branch --show-current)/$(git rev-parse HEAD)"
 

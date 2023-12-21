@@ -7,7 +7,7 @@ on:
     paths: ["kubernetes/**/helmrelease.yaml"]
 
 env:
-  AQUA_GLOBAL_CONFIG: ./.github/aqua.yaml
+  AQUA_GLOBAL_CONFIG: .github/aqua.yaml
   KUBERNETES_DIR: ./kubernetes
 
 jobs:
@@ -75,7 +75,7 @@ jobs:
         uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3.3.2
         with:
           path: ~/.local/share/aquaproj-aqua
-          key: aqua-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('./.github/aqua.yaml') }}
+          key: aqua-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('.github/aqua.yaml') }}
           restore-keys: aqua-${{ runner.os }}-${{ runner.arch }}-
 
       - name: Install Aqua and CLI Tools
@@ -90,7 +90,7 @@ jobs:
         id: extract-images
         run: |
           images=$(
-            npx zx ./.github/workflows/scripts/extract-images.mjs \
+            npx zx .github/workflows/scripts/extract-images.mjs \
               --kubernetes-dir "${{ env.KUBERNETES_DIR }}" \
               --helmrelease "${{ matrix.files }}"
           )

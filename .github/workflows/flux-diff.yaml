@@ -7,7 +7,7 @@ on:
     paths: ["kubernetes/**.yaml"]
 
 env:
-  AQUA_GLOBAL_CONFIG: ./.github/aqua.yaml
+  AQUA_GLOBAL_CONFIG: .github/aqua.yaml
 
 jobs:
   flux-diff:
@@ -40,7 +40,7 @@ jobs:
         uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3.3.2
         with:
           path: ~/.local/share/aquaproj-aqua
-          key: aqua-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('./.github/aqua.yaml') }}
+          key: aqua-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('.github/aqua.yaml') }}
           restore-keys: aqua-${{ runner.os }}-${{ runner.arch }}-
 
       - name: Install Aqua and CLI Tools
@@ -59,7 +59,7 @@ jobs:
           password: "${{ steps.app-token.outputs.token }}"
 
       - name: Diff Resources
-        uses: allenporter/flux-local/action/diff@flux-build
+        uses: allenporter/flux-local/action/diff@e3e84e4fcdab2191de8e65acfe62b7aedd933be4 # 4.0.0
         id: diff
         with:
           live-branch: master
