@@ -90,7 +90,7 @@ jobs:
         id: extract-images
         run: |
           images=$(
-            npx zx .github/workflows/scripts/extract-images.mjs \
+            npx zx .github/scripts/extract-images.mjs \
               --kubernetes-dir "${{ env.KUBERNETES_DIR }}" \
               --helmrelease "${{ matrix.files }}"
           )
