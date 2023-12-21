@@ -6,8 +6,9 @@ on:
     branches: ["master"]
     paths: ["kubernetes/**.yaml"]
 
-env:
-  AQUA_GLOBAL_CONFIG: .github/aqua.yaml
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   flux-diff:
@@ -26,11 +27,6 @@ jobs:
         with:
           app-id: "${{ secrets.BOT_APP_ID }}"
           private-key: "${{ secrets.BOT_APP_PRIVATE_KEY }}"
-
-      - name: Checkout
-        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
-        with:
-          token: "${{ steps.app-token.outputs.token }}"
 
       - name: Setup System Tools
         shell: bash

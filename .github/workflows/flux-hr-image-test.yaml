@@ -6,8 +6,11 @@ on:
     branches: ["master"]
     paths: ["kubernetes/**/helmrelease.yaml"]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
+  cancel-in-progress: true
+
 env:
-  AQUA_GLOBAL_CONFIG: .github/aqua.yaml
   KUBERNETES_DIR: ./kubernetes
 
 jobs:
@@ -28,7 +31,6 @@ jobs:
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
         with:
           token: "${{ steps.app-token.outputs.token }}"
-          fetch-depth: 0
 
       - name: Get changed files
         id: changed-files
@@ -65,7 +67,6 @@ jobs:
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
         with:
           token: "${{ steps.app-token.outputs.token }}"
-          fetch-depth: 0
 
       - name: Setup System Tools
         shell: bash

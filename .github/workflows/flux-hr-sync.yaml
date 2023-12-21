@@ -15,9 +15,6 @@ on:
     branches: ["master"]
     paths: ["kubernetes/**/helmrelease.yaml"]
 
-env:
-  AQUA_GLOBAL_CONFIG: .github/aqua.yaml
-
 jobs:
   sync:
     name: Flux HelmRepository Sync
@@ -34,7 +31,6 @@ jobs:
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
         with:
           token: "${{ steps.app-token.outputs.token }}"
-          fetch-depth: 0
 
       - name: Setup System Tools
         shell: bash

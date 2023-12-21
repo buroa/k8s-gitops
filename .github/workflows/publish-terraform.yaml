@@ -8,7 +8,6 @@ on:
     paths: ["terraform/**"]
 
 env:
-  AQUA_GLOBAL_CONFIG: .github/aqua.yaml
   TERRAFORM_DIR: ./terraform
 
 jobs:
