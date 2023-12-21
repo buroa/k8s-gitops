@@ -28,11 +28,6 @@ jobs:
           app-id: "${{ secrets.BOT_APP_ID }}"
           private-key: "${{ secrets.BOT_APP_PRIVATE_KEY }}"
 
-      - name: Checkout
-        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
-        with:
-          token: "${{ steps.app-token.outputs.token }}"
-
       - name: Setup System Tools
         shell: bash
         run: sudo apt-get -qq update && sudo apt-get -qq install --no-install-recommends -y curl git
@@ -52,6 +47,10 @@ jobs:
           registry: ghcr.io
           username: "${{ secrets.BOT_APP_ID }}"
           password: "${{ steps.app-token.outputs.token }}"
+
+      - name: Hackx
+        shell: bash
+        run: touch requirements.txt
 
       - name: Diff Resources
         uses: allenporter/flux-local/action/diff@f5efe17d9aa819678f0e3aad8781b511ea559f5d # 4.1.0
