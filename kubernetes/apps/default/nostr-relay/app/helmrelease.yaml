@@ -34,7 +34,7 @@ spec:
             image:
               repository: ghcr.io/onedr0p/postgres-init
               tag: 16
-            envFrom: &envFrom
+            envFrom:
               - secretRef:
                   name: nostr-relay-secret
         containers:
@@ -42,7 +42,6 @@ spec:
             image:
               repository: docker.io/scsibug/nostr-rs-relay
               tag: 0.8.13@sha256:d54849aac0a47b2cede0aadf26d4777180fb9c669ee7e8ffd0992c7f8fe81bb6
-            envFrom: *envFrom
             resources:
               requests:
                 cpu: 5m
