@@ -19,7 +19,7 @@ jobs:
     strategy:
       matrix:
         path: ["kubernetes"]
-        resource: ["helmrelease", "kustomization"]
+        resources: ["helmrelease", "kustomization"]
     steps:
       - name: Generate Token
         uses: actions/create-github-app-token@2986852ad836768dfea7781f31828eb3e17990fa # v1.6.2
@@ -28,41 +28,52 @@ jobs:
           app-id: "${{ secrets.BOT_APP_ID }}"
           private-key: "${{ secrets.BOT_APP_PRIVATE_KEY }}"
 
+      - name: Checkout Live Branch
+        uses: actions/checkout@v4
+        with:
+          token: "${{ steps.app-token.outputs.token }}"
+          ref: master
+          path: default
+
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          token: "${{ steps.app-token.outputs.token }}"
+          path: pull
+
       - name: Setup System Tools
         shell: bash
         run: sudo apt-get -qq update && sudo apt-get -qq install --no-install-recommends -y curl git
 
-      - name: Setup Workflow Tools
-        uses: jdx/rtx-action@53fcce409295cd0a23a8818cd8c0e1758aece4c8 # v1
-        with:
-          install: true
-          cache: true
-          rtx_toml: |
-            [tools]
-            flux2 = "latest"
-
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@343f7c4344506bcbf9b4de18042ae17996df046d # v3.0.0
-        with:
-          registry: ghcr.io
-          username: "${{ secrets.BOT_APP_ID }}"
-          password: "${{ steps.app-token.outputs.token }}"
-
       - name: Diff Resources
-        uses: allenporter/flux-local/action/diff@8a71acacb98e7332b3151f7e33325915f03b8463 # 4.2.0
-        id: diff
+        uses: docker://ghcr.io/allenporter/flux-local:v4.2.0
         with:
-          live-branch: master
-          sources: "${{ github.event.repository.name }}"
-          path: "${{ matrix.path }}"
-          resource: "${{ matrix.resource }}"
+          args: >-
+            --log-level DEBUG
+            diff ${{ matrix.resources }}
+            --unified 6
+            --path-orig /github/workspace/default/${{ matrix.path }}
+            --path /github/workspace/pull/${{ matrix.path }}
+            --strip-attrs "helm.sh/chart,checksum/config,app.kubernetes.io/version,chart"
+            --limit-bytes 10000
+            --all-namespaces
+            --sources "${{ github.event.repository.name }}"
+            --output-file diff.patch
+
+      - name: Generate Diff
+        id: diff
+        run: |
+          cat diff.patch
+          echo "diff<<EOF" >> $GITHUB_OUTPUT
+          cat diff.patch >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
 
       - if: ${{ steps.diff.outputs.diff != '' }}
         name: Add comment
-        uses: mshick/add-pr-comment@7c0890544fb33b0bdd2e59467fbacb62e028a096 # v2.8.1
+        uses: mshick/add-pr-comment@v2.8.1
         with:
           repo-token: "${{ steps.app-token.outputs.token }}"
-          message-id: "${{ github.event.pull_request.number }}/${{ matrix.path }}/${{ matrix.resource }}"
+          message-id: "${{ github.event.pull_request.number }}/${{ matrix.path }}/${{ matrix.resources }}"
           message-failure: Diff was not successful
           message: |
             ```diff
