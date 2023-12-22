@@ -29,7 +29,7 @@
       "matchDatasources": ["grafana-dashboards", "custom.grafana-dashboards"],
       "matchUpdateTypes": ["major"],
       "semanticCommitScope": "grafana-dashboards",
-      "semanticCommitType": "",
+      "semanticCommitType": "chore",
       "commitMessageTopic": "dashboard {{depName}}",
       "commitMessageExtra": "({{currentVersion}} → {{newVersion}})"
     }
