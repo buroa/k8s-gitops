@@ -46,7 +46,7 @@ jobs:
         run: sudo apt-get -qq update && sudo apt-get -qq install --no-install-recommends -y curl git
 
       - name: Diff Resources
-        uses: docker://ghcr.io/allenporter/flux-local:v4.2.0
+        uses: docker://ghcr.io/allenporter/flux-local:main
         with:
           args: >-
             --log-level DEBUG
