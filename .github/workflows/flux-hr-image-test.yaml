@@ -39,8 +39,6 @@ jobs:
           escape_json: false
           files: kubernetes/**/helmrelease.yaml
           json: true
-          quotepath: false
-          safe_output: false
 
       - name: List all changed files
         run: echo "${{ steps.changed-files.outputs.all_changed_and_modified_files }}"
