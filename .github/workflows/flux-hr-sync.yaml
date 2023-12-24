@@ -37,7 +37,7 @@ jobs:
         run: sudo apt-get -qq update && sudo apt-get -qq install --no-install-recommends -y curl git
 
       - name: Setup Workflow Tools
-        uses: jdx/rtx-action@53fcce409295cd0a23a8818cd8c0e1758aece4c8 # v1
+        uses: jdx/rtx-action@61c1bfbed63c70a82ff0ce3301bde41875b17844 # v1
         with:
           install: true
           cache: true
