@@ -1,9 +1,5 @@
 ---
 collections:
-  ############################
-  #          MONTHS          #
-  ############################
-
   Regular:
     build_collection: false
     server_preroll: /media/prerolls/Regular/Piracy by Netflix.mp4;/media/prerolls/Regular/Netflix Love is Sharing.mp4;/media/prerolls/Regular/Netflix Colorful Lines Plex Pre-roll.mp4
@@ -33,24 +29,20 @@ collections:
     server_preroll: /media/prerolls/Halloween/Halloween Pack V01 Plex Pre-roll.mp4;/media/prerolls/Halloween/Halloween Pack V02 Plex Pre-roll.mp4;/media/prerolls/Halloween/Halloween Pack V03 Plex Pre-roll.mp4;/media/prerolls/Halloween/Halloween Pack V05 Plex Pre-roll.mp4;/media/prerolls/Halloween/Halloween Pack V05 Plex Pre-roll.mp4;/media/prerolls/Halloween/Halloween Pack V06 Plex Pre-roll.mp4;/media/prerolls/Halloween/Halloween Pack V07 Plex Pre-roll.mp4;/media/prerolls/Halloween/Halloween Pack V08 Plex Pre-roll.mp4;/media/prerolls/Halloween/Halloween Pack V09 Plex Pre-roll.mp4
     schedule: range(10/01-10/31) # October
 
-  ############################
-  #         SPECIALS         #                                            # https://www.timeanddate.com/holidays/fun
-  ############################
-
   Valentine's Day:
     build_collection: false
     server_preroll: /media/prerolls/Valentines/Valentine's Day Flowers Plex Pre-roll.mp4
-    schedule: yearly(02/14) # This changes yearly
+    schedule: yearly(02/14)
 
   Easter:
     build_collection: false
     server_preroll: /media/prerolls/Easter/Happy Easter Plex Pre-roll.mp4
-    schedule: yearly(04/09) # This changes yearly
+    schedule: yearly(03/31) # This changes yearly
 
   Thanksgiving:
     build_collection: false
     server_preroll: /media/prerolls/Thanksgiving/Happy Thanksgiving Plex Pre-roll.mp4
-    schedule: yearly(11/23) # This changes yearly
+    schedule: yearly(11/28) # This changes yearly
 
   Christmas:
     build_collection: false
