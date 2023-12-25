@@ -85,7 +85,8 @@ async function helmTemplate(release, repository) {
     const docImageValues = extractImageValues(doc);
     images.push(...docImageValues);
   });
-  return images;
+
+  return Array.from(new Set(images));
 }
 
 const helmRelease    = await parseHelmRelease(HelmRelease)
