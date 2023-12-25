@@ -23,7 +23,7 @@ jobs:
       matrix: ${{ steps.extract-images.outputs.images }}
     steps:
       - name: Generate Token
-        uses: actions/create-github-app-token@v1
+        uses: actions/create-github-app-token@2986852ad836768dfea7781f31828eb3e17990fa # v1
         id: app-token
         with:
           app-id: "${{ secrets.BOT_APP_ID }}"
@@ -34,7 +34,7 @@ jobs:
         run: sudo apt-get -qq update && sudo apt-get -qq install --no-install-recommends -y curl git jo
 
       - name: Setup Workflow Tools
-        uses: jdx/rtx-action@v1
+        uses: jdx/rtx-action@61c1bfbed63c70a82ff0ce3301bde41875b17844 # v1
         with:
           install: true
           cache: true
@@ -44,14 +44,14 @@ jobs:
             yq = "latest"
 
       - name: Checkout Default Branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
         with:
           token: "${{ steps.app-token.outputs.token }}"
           ref: "${{ github.event.repository.default_branch }}"
           path: default
 
       - name: Checkout Pull Request Branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
         with:
           token: "${{ steps.app-token.outputs.token }}"
           path: pull
