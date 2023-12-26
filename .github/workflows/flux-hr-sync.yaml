@@ -40,7 +40,7 @@ jobs:
         uses: fluxcd/flux2/action@5c5c15ea212b8f029a110f9975851d25c8272695 # v2.2.2
 
       - name: Setup yq
-        uses: frenck/action-setup-yq@v1
+        uses: frenck/action-setup-yq@c4b5be8b4a215c536a41d436757d9feb92836d4f # v1
 
       - name: Write kubeconfig
         id: kubeconfig
