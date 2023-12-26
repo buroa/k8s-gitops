@@ -34,17 +34,13 @@ jobs:
 
       - name: Setup System Tools
         shell: bash
-        run: sudo apt-get -qq update && sudo apt-get -qq install --no-install-recommends -y curl git
+        run: sudo apt-get -qq update && sudo apt-get -qq install --no-install-recommends -y curl
 
-      - name: Setup Workflow Tools
-        uses: jdx/rtx-action@61c1bfbed63c70a82ff0ce3301bde41875b17844 # v1
-        with:
-          install: true
-          cache: true
-          rtx_toml: |
-            [tools]
-            flux2 = "latest"
-            yq = "latest"
+      - name: Setup Flux
+        uses: fluxcd/flux2/action@main
+
+      - name: Setup yq
+        uses: frenck/action-setup-yq@v1
 
       - name: Write kubeconfig
         id: kubeconfig
