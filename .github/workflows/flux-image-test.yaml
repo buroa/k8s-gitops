@@ -31,17 +31,10 @@ jobs:
 
       - name: Setup System Tools
         shell: bash
-        run: sudo apt-get -qq update && sudo apt-get -qq install --no-install-recommends -y curl git jo
+        run: sudo apt-get -qq update && sudo apt-get -qq install --no-install-recommends -y curl jo
 
-      - name: Setup Workflow Tools
-        uses: jdx/rtx-action@61c1bfbed63c70a82ff0ce3301bde41875b17844 # v1
-        with:
-          install: true
-          cache: true
-          rtx_toml: |
-            [tools]
-            flux2 = "latest"
-            yq = "latest"
+      - name: Setup yq
+        uses: frenck/action-setup-yq@v1
 
       - name: Checkout Default Branch
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
