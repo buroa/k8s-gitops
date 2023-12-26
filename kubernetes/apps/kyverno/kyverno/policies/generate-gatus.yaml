@@ -64,6 +64,3 @@ spec:
                       - "[STATUS] == {{ GATUS_HTTP_CODE }}"
                     alerts:
                       - type: pushover
-                    ui:
-                      hide-hostname: true
-                      hide-url: true
