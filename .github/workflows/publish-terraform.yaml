@@ -8,7 +8,7 @@ on:
     paths: ["terraform/**"]
 
 env:
-  PATH: /home/linuxbrew/.linuxbrew/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+  PATH: /home/linuxbrew/.linuxbrew/bin:${{ env.PATH }}
   TERRAFORM_DIR: ./terraform
 
 jobs:
@@ -27,7 +27,7 @@ jobs:
           private-key: "${{ secrets.BOT_APP_PRIVATE_KEY }}"
 
       - name: Setup Workflow Tools
-        run: brew install fluxcd/tap/flux
+        run: brew update && brew install fluxcd/tap/flux
 
       - name: Checkout Default Branch
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
