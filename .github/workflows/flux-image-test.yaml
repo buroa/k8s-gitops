@@ -10,9 +10,6 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
   cancel-in-progress: true
 
-env:
-  PATH: /home/linuxbrew/.linuxbrew/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-
 jobs:
   extract-images:
     name: Extract Images
@@ -32,8 +29,11 @@ jobs:
           app-id: "${{ secrets.BOT_APP_ID }}"
           private-key: "${{ secrets.BOT_APP_PRIVATE_KEY }}"
 
+      - name: Setup Path
+        run: echo "/home/linuxbrew/.linuxbrew/bin" >> $GITHUB_PATH
+
       - name: Setup Workflow Tools
-        run: brew install yq
+        run: brew update && brew install yq
 
       - name: Checkout Default Branch
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
