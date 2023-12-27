@@ -15,6 +15,9 @@ on:
     branches: ["master"]
     paths: ["kubernetes/**/helmrelease.yaml"]
 
+env:
+  PATH: /home/linuxbrew/.linuxbrew/bin:$PATH
+
 jobs:
   sync:
     name: Flux HelmRepository Sync
@@ -26,10 +29,6 @@ jobs:
         with:
           app-id: "${{ secrets.BOT_APP_ID }}"
           private-key: "${{ secrets.BOT_APP_PRIVATE_KEY }}"
-
-      - name: Setup Homebrew
-        id: set-up-homebrew
-        uses: Homebrew/actions/setup-homebrew@master
 
       - name: Setup Workflow Tools
         run: brew install fluxcd/tap/flux yq

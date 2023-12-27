@@ -8,6 +8,7 @@ on:
     paths: ["terraform/**"]
 
 env:
+  PATH: /home/linuxbrew/.linuxbrew/bin:$PATH
   TERRAFORM_DIR: ./terraform
 
 jobs:
@@ -24,10 +25,6 @@ jobs:
         with:
           app-id: "${{ secrets.BOT_APP_ID }}"
           private-key: "${{ secrets.BOT_APP_PRIVATE_KEY }}"
-
-      - name: Setup Homebrew
-        id: set-up-homebrew
-        uses: Homebrew/actions/setup-homebrew@master
 
       - name: Setup Workflow Tools
         run: brew install fluxcd/tap/flux
