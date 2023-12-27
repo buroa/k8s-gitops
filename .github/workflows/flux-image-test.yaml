@@ -31,7 +31,7 @@ jobs:
 
       - name: Setup System Tools
         shell: bash
-        run: sudo apt-get -qq update && sudo apt-get -qq install --no-install-recommends -y curl jo
+        run: sudo apt-get -qq update && sudo apt-get -qq install --no-install-recommends -y curl jo jq
 
       - name: Setup yq
         uses: frenck/action-setup-yq@c4b5be8b4a215c536a41d436757d9feb92836d4f # v1
