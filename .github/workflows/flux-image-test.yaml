@@ -11,7 +11,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  PATH: /home/linuxbrew/.linuxbrew/bin:$PATH
+  PATH: /home/linuxbrew/.linuxbrew/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 jobs:
   extract-images:
