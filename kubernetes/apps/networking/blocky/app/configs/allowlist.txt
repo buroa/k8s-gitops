@@ -1,3 +1,2 @@
 www.amazon.com
 login.microsoftonline.us
-trace.svc.ui.com
