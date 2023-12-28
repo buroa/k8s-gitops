@@ -32,8 +32,16 @@ jobs:
       - name: Setup Path
         run: echo "/home/linuxbrew/.linuxbrew/bin" >> $GITHUB_PATH
 
+      - name: Cache Workflow Tools
+        id: cache-workflow-tools
+        uses: actions/cache@v3
+        with:
+          path: /home/linuxbrew/.linuxbrew
+          key: homebrew-v0-${{ runner.os }}-${{ runner.arch }}
+
       - name: Setup Workflow Tools
-        run: brew update && brew install jo yq
+        if: steps.cache-workflow-tools.outputs.cache-hit != 'true'
+        run: brew update && brew install fluxcd/tap/flux jo yq
 
       - name: Checkout Default Branch
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
