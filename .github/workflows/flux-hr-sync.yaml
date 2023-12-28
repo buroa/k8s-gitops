@@ -33,7 +33,7 @@ jobs:
       - name: Setup Workflow Tools
         run: brew update && brew install fluxcd/tap/flux yq
 
-      - name: Checkout Default Branch
+      - name: Checkout
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
         with:
           token: "${{ steps.app-token.outputs.token }}"
