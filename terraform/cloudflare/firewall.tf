@@ -2,7 +2,7 @@
 resource "cloudflare_filter" "block_countries" {
   zone_id     = data.cloudflare_zone.domain.id
   description = "Expression to block countries"
-  expression  = "(not ip.geoip.country in {\"US\" \"CA\" \"GB\" \"NZ\" \"AU\"})"
+  expression  = "(not ip.geoip.country in {\"US\" \"CA\" \"NZ\" \"GB\" \"AU\"})"
 }
 
 resource "cloudflare_firewall_rule" "block_countries" {
