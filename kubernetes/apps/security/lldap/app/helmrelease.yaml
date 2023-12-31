@@ -40,8 +40,9 @@ spec:
         containers:
           main:
             image:
+              # TODO: move to semver once available
               repository: ghcr.io/lldap/lldap
-              tag: 2023-12-31-debian-rootless@sha256:080f583269069fad9a086e88f3cd0ee09bec2ed2213c0ffed4517b9bd8aa1ebf
+              tag: 2023-12-31-alpine-rootless@sha256:080f583269069fad9a086e88f3cd0ee09bec2ed2213c0ffed4517b9bd8aa1ebf
             env:
               TZ: ${TIMEZONE}
               LLDAP_HTTP_PORT: &httpPort 80

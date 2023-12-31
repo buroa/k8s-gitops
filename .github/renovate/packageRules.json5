@@ -5,7 +5,19 @@
       "description": "Loose versioning for non-semver packages",
       "matchDatasources": ["docker"],
       "versioning": "loose",
-      "matchPackagePatterns": ["lldap", "plex", "qbittorrent"]
+      "matchPackagePatterns": ["plex", "qbittorrent"]
+    },
+    {
+      "description": "Custom versioning for lldap",
+      "matchDatasources": ["docker"],
+      "versioning": "regex:^(?<major>\\d+)\\-(?<minor>\\d+)\\-(?<patch>\\d+)-(?<compatibility>)$",
+      "matchPackagePatterns": ["lldap"]
+    },
+    {
+      "description": "Custom versioning for miniflux",
+      "matchDatasources": ["docker"],
+      "versioning": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)-(?<compatibility>)$",
+      "matchPackagePatterns": ["miniflux"]
     }
 	]
 }
