@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: &app authelia
+  name: &app miniflux
 spec:
   interval: 30m
   chart:
@@ -36,27 +36,49 @@ spec:
               tag: 16
             envFrom: &envFrom
               - secretRef:
-                  name: authelia-secret
+                  name: miniflux-secret
         containers:
           main:
             image:
-              repository: ghcr.io/authelia/authelia
-              tag: v4.38.0-beta3@sha256:1f7768972c5dbf7906393241c2f52bd4efd7d4d6728aabc7c3c468adad2ed32f
+              repository: ghcr.io/miniflux/miniflux
+              tag: 2.0.50-distroless@sha256:625f6decf8740020fabec273e0f694f218a50281e251e13514ac2be4d9147ca8
             env:
-              AUTHELIA_SERVER_ADDRESS: tcp://0.0.0.0:9091
-              AUTHELIA_SERVER_DISABLE_HEALTHCHECK: true
-              AUTHELIA_TELEMETRY_METRICS_ADDRESS: tcp://0.0.0.0:8080
-              AUTHELIA_TELEMETRY_METRICS_ENABLED: true
-              AUTHELIA_THEME: dark
-              X_AUTHELIA_CONFIG: /config/configuration.yml
-              X_AUTHELIA_CONFIG_FILTERS: expand-env
+              BASE_URL: https://{{ .Release.Name }}.${PUBLIC_DOMAIN}
+              CREATE_ADMIN: 1
+              LOG_DATE_TIME: 1
+              METRICS_ALLOWED_NETWORKS: ${CLUSTER_POD_IP_CIDR}
+              METRICS_COLLECTOR: 1
+              OAUTH2_CLIENT_ID: miniflux
+              OAUTH2_OIDC_DISCOVERY_ENDPOINT: https://auth.${PUBLIC_DOMAIN}
+              OAUTH2_PROVIDER: oidc
+              OAUTH2_REDIRECT_URL: https://{{ .Release.Name }}.${PUBLIC_DOMAIN}/oauth2/oidc/callback
+              OAUTH2_USER_CREATION: 1
+              POLLING_FREQUENCY: 15
+              POLLING_SCHEDULER: entry_frequency
+              PORT: &port 80
+              RUN_MIGRATIONS: 1
             envFrom: *envFrom
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: &path /healthcheck
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: false
             resources:
               requests:
-                cpu: 5m
-                memory: 64M
+                cpu: 10m
+                memory: 250M
               limits:
-                memory: 128M
+                memory: 512M
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -64,7 +86,6 @@ spec:
                 drop:
                   - ALL
         pod:
-          enableServiceLinks: false
           securityContext:
             runAsUser: 568
             runAsGroup: 568
@@ -82,48 +103,24 @@ spec:
         className: external
         annotations:
           gatus.io/enabled: "true"
-          hajimari.io/icon: mdi:shield-account
-          nginx.ingress.kubernetes.io/configuration-snippet: |
-            add_header Cache-Control "no-store";
-            add_header Pragma "no-cache";
-            add_header X-Frame-Options "SAMEORIGIN";
-            add_header X-XSS-Protection "1; mode=block";
+          gatus.io/path: *path
+          hajimari.io/icon: mdi:rss
           external-dns.alpha.kubernetes.io/target: external.${PUBLIC_DOMAIN}
         hosts:
           - host: &host "{{ .Release.Name }}.${PUBLIC_DOMAIN}"
-            paths: &paths
+            paths:
               - path: /
                 service:
                   name: main
                   port: http
-          - host: &customHost auth.${PUBLIC_DOMAIN}
-            paths: *paths
         tls:
           - hosts:
               - *host
-              - *customHost
-    persistence:
-      config:
-        enabled: true
-        type: configMap
-        name: authelia-configmap
-        globalMounts:
-          - path: /config/configuration.yml
-            subPath: configuration.yml
-            readOnly: true
     service:
       main:
         ports:
           http:
-            port: 9091
-          metrics:
-            port: 8080
+            port: 80
     serviceMonitor:
       main:
         enabled: true
-        endpoints:
-          - port: metrics
-            scheme: http
-            path: /metrics
-            interval: 30s
-            scrapeTimeout: 30s
