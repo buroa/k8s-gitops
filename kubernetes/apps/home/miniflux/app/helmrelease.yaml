@@ -41,7 +41,7 @@ spec:
           main:
             image:
               repository: ghcr.io/miniflux/miniflux
-              tag: 2.0.50-distroless@sha256:625f6decf8740020fabec273e0f694f218a50281e251e13514ac2be4d9147ca8
+              tag: 2.0.51@sha256:9f3bca6a95428c04c8fb54ee723a5f69b9e419b0bf5dfd7a4d70dfb0414d60f1
             env:
               BASE_URL: https://{{ .Release.Name }}.${PUBLIC_DOMAIN}
               CREATE_ADMIN: 1
