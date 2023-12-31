@@ -57,7 +57,7 @@ spec:
                 pods: 30
               targetThresholds:
                 cpu: 45
-                pods: 45
+                pods: 47
           plugins:
             balance:
               enabled:
