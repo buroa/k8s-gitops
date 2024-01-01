@@ -2,4 +2,4 @@
 changelog:
   exclude:
     authors:
-      - k8s-gitops
+      - k8s-renovate
