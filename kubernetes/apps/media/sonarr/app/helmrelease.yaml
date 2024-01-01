@@ -38,15 +38,15 @@ spec:
         containers:
           main:
             image:
-              repository: ghcr.io/onedr0p/sonarr-develop
-              tag: 4.0.0.747@sha256:509cd7811ea6ca846aec95d0a3fa57f02691db5d367f306367683d474a071c3a
+              repository: ghcr.io/onedr0p/sonarr
+              tag: 4.0.0.748@sha256:f1b1826ccbea3868ff6b30690417fdc1a0f3329ebad0909d0d11ddd856f9f4dd
             env:
               COMPlus_EnableDiagnostics: 0
               SONARR__AUTHENTICATION_METHOD: External
               SONARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
               SONARR__INSTANCE_NAME: Sonarr
-              SONARR__PORT: &port 8989
               SONARR__LOG_LEVEL: info
+              SONARR__PORT: &port 8989
               SONARR__THEME: dark
               TZ: ${TIMEZONE}
             envFrom: *envFrom
