@@ -35,6 +35,7 @@ spec:
               evictSystemCriticalPods: true
               evictFailedBarePods: true
               evictLocalStoragePods: true
+              nodeFit: true
           - name: RemovePodsHavingTooManyRestarts
             args:
               podRestartThreshold: 5
@@ -50,19 +51,10 @@ spec:
               nodeAffinityType:
                 - requiredDuringSchedulingIgnoredDuringExecution
           - name: RemovePodsViolatingInterPodAntiAffinity
-          - name: LowNodeUtilization
-            args:
-              thresholds:
-                cpu: 40
-                pods: 30
-              targetThresholds:
-                cpu: 45
-                pods: 47
           plugins:
             balance:
               enabled:
                 - RemoveDuplicates
-                - LowNodeUtilization
                 - RemovePodsViolatingTopologySpreadConstraint
             deschedule:
               enabled:
