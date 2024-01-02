@@ -10,7 +10,7 @@ access_control:
 
 authentication_backend:
   ldap:
-    address: ldap://lldap.security.svc.cluster.local:389
+    address: ldap://lldap.security.svc.cluster.local.:389
     implementation: custom
     timeout: 5s
     start_tls: false
@@ -108,7 +108,7 @@ identity_providers:
 notifier:
   disable_startup_check: true
   smtp:
-    address: smtp://smtp-relay.networking.svc.cluster.local:2525
+    address: smtp://smtp-relay.networking.svc.cluster.local.:2525
     sender: Authelia <authelia@${PUBLIC_DOMAIN}>
     disable_require_tls: true
 
@@ -126,11 +126,11 @@ session:
     high_availability:
       sentinel_name: redis-master
       nodes:
-        - host: redis-node-0.redis-headless.databases.svc.cluster.local
+        - host: redis-node-0.redis-headless.databases.svc.cluster.local.
           port: 26379
-        - host: redis-node-1.redis-headless.databases.svc.cluster.local
+        - host: redis-node-1.redis-headless.databases.svc.cluster.local.
           port: 26379
-        - host: redis-node-2.redis-headless.databases.svc.cluster.local
+        - host: redis-node-2.redis-headless.databases.svc.cluster.local.
           port: 26379
 
 totp:

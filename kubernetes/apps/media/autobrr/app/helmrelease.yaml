@@ -74,6 +74,10 @@ spec:
                 drop:
                   - ALL
         pod:
+          dnsConfig:
+            options:
+              - name: ndots
+                value: "1"
           securityContext:
             runAsUser: 568
             runAsGroup: 568

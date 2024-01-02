@@ -37,8 +37,8 @@ spec:
               NODE_RED_OAUTH_ISSUER_URL: https://auth.${PUBLIC_DOMAIN}
               NODE_RED_OAUTH_AUTH_URL: https://auth.${PUBLIC_DOMAIN}/api/oidc/authorization
               NODE_RED_OAUTH_CALLBACK_URL: https://nr.${PUBLIC_DOMAIN}/auth/strategy/callback
-              NODE_RED_OAUTH_TOKEN_URL: http://authelia.security.svc.cluster.local:9091/api/oidc/token
-              NODE_RED_OAUTH_USER_URL: http://authelia.security.svc.cluster.local:9091/api/oidc/userinfo
+              NODE_RED_OAUTH_TOKEN_URL: http://authelia.security.svc.cluster.local.:9091/api/oidc/token
+              NODE_RED_OAUTH_USER_URL: http://authelia.security.svc.cluster.local.:9091/api/oidc/userinfo
             envFrom:
               - secretRef:
                   name: node-red-secret

@@ -32,7 +32,7 @@ spec:
               tag: v1.4.0@sha256:332695b34a532758ae6abef342ba537d6cd61cf1bec01c2bc31bd45955562a33
             env:
               EXPORTER_PORT: &port 8000
-              QBITTORRENT_HOST: qbittorrent.media.svc.cluster.local
+              QBITTORRENT_HOST: qbittorrent.media.svc.cluster.local.
               QBITTORRENT_PORT: 8080
             resources:
               requests:

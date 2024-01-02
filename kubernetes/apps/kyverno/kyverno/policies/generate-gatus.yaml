@@ -24,9 +24,9 @@ spec:
               annotations:
                 gatus.io/enabled: "true"
       context:
-        - name: GATUS_HTTP_CODE
+        - name: GATUS_HOST
           variable:
-            value: "{{ request.object.metadata.annotations.\"gatus.io/http-code\" || `200` }}"
+            value: "{{ request.object.metadata.annotations.\"gatus.io/host\" || request.object.spec.rules[0].host }}"
             jmesPath: "to_string(@)"
         - name: GATUS_NAME
           variable:
@@ -36,9 +36,9 @@ spec:
           variable:
             value: "{{ request.object.metadata.annotations.\"gatus.io/path\" || '' }}"
             jmesPath: "to_string(@) || ''"
-        - name: GATUS_URL
+        - name: GATUS_STATUS_CODE
           variable:
-            value: "{{ request.object.metadata.annotations.\"gatus.io/url\" || request.object.spec.rules[0].host }}"
+            value: "{{ request.object.metadata.annotations.\"gatus.io/status-code\" || `200` }}"
             jmesPath: "to_string(@)"
       generate:
         apiVersion: v1
@@ -56,11 +56,11 @@ spec:
                 ---
                 endpoints:
                   - name: {{ GATUS_NAME }}
-                    url: https://{{ GATUS_URL }}{{ GATUS_PATH }}
+                    url: https://{{ GATUS_HOST }}{{ GATUS_PATH }}
                     interval: 1m
                     client:
                       dns-resolver: tcp://1.1.1.1:53
                     conditions:
-                      - "[STATUS] == {{ GATUS_HTTP_CODE }}"
+                      - "[STATUS] == {{ GATUS_STATUS_CODE }}"
                     alerts:
                       - type: pushover

@@ -5,7 +5,7 @@ metadata:
   name: flux-webhook
   annotations:
     gatus.io/enabled: "true"
-    gatus.io/http-code: "404"
+    gatus.io/status-code: "404"
     hajimari.io/enable: "false"
     external-dns.alpha.kubernetes.io/target: external.${PUBLIC_DOMAIN}
 spec:

@@ -76,6 +76,10 @@ spec:
                 memory: 128M
             securityContext: *securityContext
         pod:
+          dnsConfig:
+            options:
+              - name: ndots
+                value: "1"
           securityContext:
             runAsUser: 568
             runAsGroup: 568

@@ -62,6 +62,10 @@ spec:
                 drop:
                   - ALL
         pod:
+          dnsConfig:
+            options:
+              - name: ndots
+                value: "1"
           nodeSelector:
             intel.feature.node.kubernetes.io/gpu: "true"
           securityContext:

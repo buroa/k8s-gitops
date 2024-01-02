@@ -4,12 +4,12 @@ originRequest:
 
 ingress:
   - hostname: ${PUBLIC_DOMAIN}
-    service: https://ingress-nginx-external-controller.networking.svc.cluster.local:443
+    service: https://ingress-nginx-external-controller.networking.svc.cluster.local.:443
     originRequest:
       originServerName: external.${PUBLIC_DOMAIN}
 
   - hostname: "*.${PUBLIC_DOMAIN}"
-    service: https://ingress-nginx-external-controller.networking.svc.cluster.local:443
+    service: https://ingress-nginx-external-controller.networking.svc.cluster.local.:443
     originRequest:
       originServerName: external.${PUBLIC_DOMAIN}
 

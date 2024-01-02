@@ -7,8 +7,8 @@ pubkey = "{{ .NOSTR_PUBLIC_KEY }}"
 
 [database]
 engine = "postgres"
-connection = "postgresql://{{ .NOSTR_POSTGRES_USER }}:{{ .NOSTR_POSTGRES_PASS }}@postgres-ro.databases.svc.cluster.local:5432/nostr"
-connection_write = "postgresql://{{ .NOSTR_POSTGRES_USER }}:{{ .NOSTR_POSTGRES_PASS }}@postgres-rw.databases.svc.cluster.local:5432/nostr"
+connection = "postgresql://{{ .NOSTR_POSTGRES_USER }}:{{ .NOSTR_POSTGRES_PASS }}@postgres-ro.databases.svc.cluster.local.:5432/nostr"
+connection_write = "postgresql://{{ .NOSTR_POSTGRES_USER }}:{{ .NOSTR_POSTGRES_PASS }}@postgres-rw.databases.svc.cluster.local.:5432/nostr"
 
 [network]
 address = "0.0.0.0"

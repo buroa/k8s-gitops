@@ -39,9 +39,9 @@ spec:
         type: REDIS
         config:
           addr: >-
-            redis-node-0.redis-headless.databases.svc.cluster.local:26379,
-            redis-node-1.redis-headless.databases.svc.cluster.local:26379,
-            redis-node-2.redis-headless.databases.svc.cluster.local:26379
+            redis-node-0.redis-headless.databases.svc.cluster.local.:26379,
+            redis-node-1.redis-headless.databases.svc.cluster.local.:26379,
+            redis-node-2.redis-headless.databases.svc.cluster.local.:26379
           master_name: redis-master
       ingress:
         enabled: true
@@ -85,15 +85,13 @@ spec:
         enabled: true
         storageClass: ${CLUSTER_STORAGE_HOSTPATH}
         size: 15Gi
-      podAnnotations:
-        kyverno.io/exclude: "true"
     ruler:
       enabled: true
       replicaCount: 3
       replicaLabel: __replica__
       clusterName: k8s
       alertmanagers:
-        - http://alertmanager-operated.monitoring.svc.cluster.local:9093
+        - http://alertmanager-operated.monitoring.svc.cluster.local.:9093
       extraFlags:
         - --web.prefix-header=X-Forwarded-Prefix
       config: |-

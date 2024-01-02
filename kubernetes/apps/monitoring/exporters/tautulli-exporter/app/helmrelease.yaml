@@ -34,7 +34,7 @@ spec:
               tag: v0.1.0@sha256:36b53431ac19d8196e2b4431b98b221b3009c9d97dc3509bc229c7b569b23350
             env:
               SERVE_PORT: &port 9487
-              TAUTULLI_URI: http://tautulli.media.svc.cluster.local:8181
+              TAUTULLI_URI: http://tautulli.media.svc.cluster.local.:8181
             envFrom:
               - secretRef:
                   name: tautulli-exporter-secret
