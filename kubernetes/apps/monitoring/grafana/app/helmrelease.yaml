@@ -211,6 +211,9 @@ spec:
         external-secrets:
           url: https://raw.githubusercontent.com/external-secrets/external-secrets/main/docs/snippets/dashboard.json
           datasource: Prometheus
+        gatus:
+          url: https://raw.githubusercontent.com/TwiN/gatus/master/.examples/docker-compose-grafana-prometheus/grafana/provisioning/dashboards/gatus.json
+          datasource: Prometheus
         node-exporter-full:
           # renovate: depName="Node Exporter Full"
           gnetId: 1860
@@ -224,6 +227,13 @@ spec:
           gnetId: 763
           revision: 5
           datasource: Prometheus
+        smartctl-exporter:
+          # renovate: depName="Dashboard for smartctl_exporter"
+          gnetId: 20204
+          revision: 1
+          datasource:
+            - name: DS_PROMETHEUS
+              value: Prometheus
         speedtest-exporter:
           # renovate: depName="Speedtest-Exporter Dashboard"
           gnetId: 13665
@@ -235,6 +245,13 @@ spec:
           # renovate: depName="Spegel"
           gnetId: 18089
           revision: 1
+          datasource:
+            - name: DS_PROMETHEUS
+              value: Prometheus
+        synology-nas-details:
+          # renovate: depName="Synology NAS Details"
+          gnetId: 14284
+          revision: 9
           datasource:
             - name: DS_PROMETHEUS
               value: Prometheus

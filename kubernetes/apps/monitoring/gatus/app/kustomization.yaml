@@ -12,11 +12,5 @@ configMapGenerator:
     options:
       annotations:
         kustomize.toolkit.fluxcd.io/substitute: disabled
-  - name: gatus-grafana-dashboards
-    files:
-      - ./dashboards/gatus.json
-    options:
-      labels:
-        grafana_dashboard: "1"
 generatorOptions:
   disableNameSuffixHash: true
