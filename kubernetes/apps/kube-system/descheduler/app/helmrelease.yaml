@@ -32,36 +32,48 @@ spec:
           pluginConfig:
           - name: DefaultEvictor
             args:
-              evictSystemCriticalPods: true
               evictFailedBarePods: true
               evictLocalStoragePods: true
+              evictSystemCriticalPods: true
               nodeFit: true
+          - name: LowNodeUtilization
+            args:
+              targetThresholds:
+                cpu: 50
+                memory: 50
+                pods: 50
+              thresholds:
+                cpu: 20
+                memory: 20
+                pods: 20
+              useDeviationThresholds: true
+          - name: RemoveDuplicates
           - name: RemovePodsHavingTooManyRestarts
             args:
               podRestartThreshold: 5
               includingInitContainers: true
-          - name: RemovePodsViolatingTopologySpreadConstraint
-            args:
-              constraints:
-                - DoNotSchedule
-          - name: RemoveDuplicates
-          - name: RemovePodsViolatingNodeTaints
+          - name: RemovePodsViolatingInterPodAntiAffinity
           - name: RemovePodsViolatingNodeAffinity
             args:
               nodeAffinityType:
                 - requiredDuringSchedulingIgnoredDuringExecution
-          - name: RemovePodsViolatingInterPodAntiAffinity
+          - name: RemovePodsViolatingNodeTaints
+          - name: RemovePodsViolatingTopologySpreadConstraint
+            args:
+              constraints:
+                - DoNotSchedule
           plugins:
             balance:
               enabled:
+                - LowNodeUtilization
                 - RemoveDuplicates
                 - RemovePodsViolatingTopologySpreadConstraint
             deschedule:
               enabled:
-                - RemovePodsViolatingNodeTaints
-                - RemovePodsViolatingNodeAffinity
                 - RemovePodsHavingTooManyRestarts
                 - RemovePodsViolatingInterPodAntiAffinity
+                - RemovePodsViolatingNodeAffinity
+                - RemovePodsViolatingNodeTaints
     service:
       enabled: true
     serviceMonitor:
