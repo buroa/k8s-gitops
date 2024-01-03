@@ -15,6 +15,12 @@ libraries:
       - file: config/Movies - Overlays - Stand-up.yml
       - file: config/Movies - Overlays - Streaming Services.yml
       - file: config/Movies - Overlays - Studios.yml
+    operations:
+      mass_genre_update: imdb
+      mass_content_rating_update: omdb
+      mass_audience_rating_update: mdb_tomatoesaudience
+      mass_critic_rating_update: mdb_metacritic
+      mass_user_rating_update: imdb
 
   TV Shows:
     metadata_path:
@@ -25,20 +31,6 @@ libraries:
       - file: config/TV Shows - Overlays - Statuses.yml
       - file: config/TV Shows - Overlays - Streaming Services + Networks.yml
       - file: config/TV Shows - Overlays - Studios.yml
-
-  Movie Operations:
-    library_name: Movies
-    schedule: weekly(monday)
-    operations:
-      mass_genre_update: imdb
-      mass_content_rating_update: omdb
-      mass_audience_rating_update: mdb_tomatoesaudience
-      mass_critic_rating_update: mdb_metacritic
-      mass_user_rating_update: imdb
-
-  TV Shows Operations:
-    library_name: TV Shows
-    schedule: weekly(monday)
     operations:
       mass_genre_update: tmdb
       mass_content_rating_update: omdb
