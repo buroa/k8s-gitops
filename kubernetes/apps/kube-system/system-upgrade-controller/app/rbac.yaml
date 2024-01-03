@@ -12,11 +12,6 @@ subjects:
     name: system-upgrade
     namespace: kube-system
 ---
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: system-upgrade
----
 apiVersion: talos.dev/v1alpha1
 kind: ServiceAccount
 metadata:
