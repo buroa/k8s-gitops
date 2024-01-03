@@ -4,16 +4,31 @@ libraries:
     metadata_path:
       - file: config/Pre-rolls.yml
       - file: config/Movies.yml
-      - file: config/Movies - Holidays by Drazzizzi.yml
-      - file: config/Movies - Trakt (Unplayed) by Magic815.yml
+      - file: config/Movies - Holidays.yml
+      - file: config/Movies - Locations.yml
+      - file: config/Movies - Trakt (Unplayed).yml
     overlay_path:
-      - remove_overlays: false
+      - file: config/Movies - Overlays - Audio.yml
       - file: config/Movies - Overlays - Charts.yml
       - file: config/Movies - Overlays - Oscars.yml
       - file: config/Movies - Overlays - Ratings.yml
       - file: config/Movies - Overlays - Stand-up.yml
       - file: config/Movies - Overlays - Streaming Services.yml
       - file: config/Movies - Overlays - Studios.yml
+
+  TV Shows:
+    metadata_path:
+      - file: config/TV Shows.yml
+    overlay_path:
+      - file: config/TV Shows - Overlays - Charts.yml
+      - file: config/TV Shows - Overlays - Ratings.yml
+      - file: config/TV Shows - Overlays - Statuses.yml
+      - file: config/TV Shows - Overlays - Streaming Services + Networks.yml
+      - file: config/TV Shows - Overlays - Studios.yml
+
+  Movie Operations:
+    library_name: Movies
+    schedule: weekly(monday)
     operations:
       mass_genre_update: imdb
       mass_content_rating_update: omdb
@@ -21,17 +36,9 @@ libraries:
       mass_critic_rating_update: mdb_metacritic
       mass_user_rating_update: imdb
 
-  TV Shows:
-    metadata_path:
-      - file: config/TV Shows.yml
-    overlay_path:
-      - remove_overlays: false
-      - file: config/TV Shows - Overlays - Charts.yml
-      - file: config/TV Shows - Overlays - Networks.yml
-      - file: config/TV Shows - Overlays - Ratings.yml
-      - file: config/TV Shows - Overlays - Statuses.yml
-      - file: config/TV Shows - Overlays - Streaming Services.yml
-      - file: config/TV Shows - Overlays - Studios.yml
+  TV Shows Operations:
+    library_name: TV Shows
+    schedule: weekly(monday)
     operations:
       mass_genre_update: tmdb
       mass_content_rating_update: omdb
