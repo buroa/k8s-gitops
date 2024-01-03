@@ -88,10 +88,6 @@ spec:
                         values:
                           - sonarr
                   topologyKey: kubernetes.io/hostname
-          dnsConfig:
-            options:
-              - name: ndots
-                value: "1"
           securityContext:
             runAsUser: 568
             runAsGroup: 568
