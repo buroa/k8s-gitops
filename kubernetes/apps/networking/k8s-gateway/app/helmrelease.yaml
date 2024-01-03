@@ -109,9 +109,9 @@ spec:
             enabled: true
             port: 53
             protocol: UDP
-    serviceMonitor:
-      main:
-        enabled: true
     serviceAccount:
       create: true
       name: *app
+    serviceMonitor:
+      main:
+        enabled: true

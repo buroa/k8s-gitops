@@ -1,0 +1,58 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: external-dns
+  labels:
+    app.kubernetes.io/instance: external-dns
+    app.kubernetes.io/name: external-dns
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - nodes
+    verbs:
+      - list
+      - watch
+  - apiGroups:
+      - ""
+    resources:
+      - pods
+    verbs:
+      - get
+      - watch
+      - list
+  - apiGroups:
+      - ""
+    resources:
+      - services
+      - endpoints
+    verbs:
+      - get
+      - watch
+      - list
+  - apiGroups:
+      - extensions
+      - networking.k8s.io
+    resources:
+      - ingresses
+    verbs:
+      - get
+      - watch
+      - list
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: external-dns-viewer
+  labels:
+    app.kubernetes.io/instance: external-dns
+    app.kubernetes.io/name: external-dns
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: external-dns
+subjects:
+  - kind: ServiceAccount
+    name: external-dns
+    namespace: networking

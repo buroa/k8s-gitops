@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
+  - ./rbac.yaml
