@@ -28,8 +28,6 @@ spec:
       enabled: true
       bbr: true
     bpf:
-      hostRouting: true
-      lbBypassFIBLookup: true
       masquerade: true
       tproxy: true
     bgpControlPlane:
@@ -90,9 +88,6 @@ spec:
     ipam:
       mode: kubernetes
     ipv4NativeRoutingCIDR: ${CLUSTER_POD_IP_CIDR}
-    k8sClientRateLimit:
-      qps: 15
-      burst: 30
     k8sServiceHost: localhost
     k8sServicePort: 7445
     kubeProxyReplacement: true
@@ -123,6 +118,7 @@ spec:
         enabled: true
         trustCRDsExist: true
     rollOutCiliumPods: true
+    routingMode: native
     securityContext:
       privileged: false
       capabilities:
@@ -138,16 +134,7 @@ spec:
           - FOWNER
           - SETGID
           - SETUID
-        mountCgroup:
-          - SYS_ADMIN
-          - SYS_CHROOT
-          - SYS_PTRACE
-        applySysctlOverwrites:
-          - SYS_ADMIN
-          - SYS_CHROOT
-          - SYS_PTRACE
         cleanCiliumState:
           - NET_ADMIN
           - SYS_ADMIN
           - SYS_RESOURCE
-    tunnel: disabled
