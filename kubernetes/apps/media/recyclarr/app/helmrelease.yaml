@@ -29,7 +29,7 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         cronjob:
-          schedule: "@hourly"
+          schedule: "@daily"
           timeZone: &timeZone ${TIMEZONE}
         containers:
           main:
