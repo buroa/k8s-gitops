@@ -34,8 +34,9 @@ spec:
         containers:
           main:
             image:
+              # TODO: move to semver once available
               repository: docker.io/meisnate12/plex-meta-manager
-              tag: v1.19.1@sha256:51cf68b1b7fff8fc11a9e2c0b02ff225b720ca8c63e6d283521244015af32ec4
+              tag: develop@sha256:688d81677ac5078a5dec6b5978d01760cbf9d2b8a8e0799b0cb3fdc7937c643a
             command:
               - /scripts/run.sh
             env:
