@@ -38,7 +38,7 @@ spec:
               - --enable-unknown-queue-items
             env:
               PORT: &port 9707
-              URL: http://sonarr.media.svc.cluster.local.:8989
+              URL: http://sonarr.media.svc.cluster.local:8989
             envFrom:
               - secretRef:
                   name: sonarr-exporter-secret

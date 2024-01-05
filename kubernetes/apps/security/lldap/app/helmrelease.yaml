@@ -53,7 +53,7 @@ spec:
               LLDAP_SMTP_OPTIONS__SMTP_ENCRYPTION: NONE
               LLDAP_SMTP_OPTIONS__ENABLE_PASSWORD_RESET: true
               LLDAP_SMTP_OPTIONS__FROM: LLDAP Admin <{{ .Release.Name }}@${PUBLIC_DOMAIN}>
-              LLDAP_SMTP_OPTIONS__SERVER: smtp-relay.networking.svc.cluster.local.
+              LLDAP_SMTP_OPTIONS__SERVER: smtp-relay.networking.svc.cluster.local
             envFrom: *envFrom
             resources:
               requests:

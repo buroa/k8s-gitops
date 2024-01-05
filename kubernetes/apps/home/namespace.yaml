@@ -5,4 +5,3 @@ metadata:
   name: home
   labels:
     kustomize.toolkit.fluxcd.io/prune: disabled
-    kyverno.io/add-ndots: "true"

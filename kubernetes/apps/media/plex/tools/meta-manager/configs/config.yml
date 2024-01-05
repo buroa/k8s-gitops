@@ -82,7 +82,7 @@ settings:
   playlist_exclude_users:
 
 plex:
-  url: http://plex.media.svc.cluster.local.:32400
+  url: http://plex.media.svc.cluster.local:32400
   token: <<PLEX_API_KEY>>
   timeout: 60
   clean_bundles: false
@@ -90,7 +90,7 @@ plex:
   optimize: false
 
 tautulli:
-  url: http://tautulli.media.svc.cluster.local.:8181
+  url: http://tautulli.media.svc.cluster.local:8181
   apikey: <<TAUTULLI_API_KEY>>
 
 tmdb:
@@ -108,7 +108,7 @@ mdblist:
   cache_expiration: 60
 
 radarr:
-  url: http://radarr.media.svc.cluster.local.:7878
+  url: http://radarr.media.svc.cluster.local:7878
   token: <<RADARR_API_KEY>>
   add_missing: false
   add_existing: false
@@ -123,7 +123,7 @@ radarr:
   upgrade_existing: false
 
 sonarr:
-  url: http://sonarr.media.svc.cluster.local.:8989
+  url: http://sonarr.media.svc.cluster.local:8989
   token: <<SONARR_API_KEY>>
   add_missing: false
   add_existing: false

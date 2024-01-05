@@ -123,13 +123,13 @@ redis:
   required: true
   address: redis-master
   sentinelAddresses:
-    - redis-node-0.redis-headless.databases.svc.cluster.local.:26379
-    - redis-node-1.redis-headless.databases.svc.cluster.local.:26379
-    - redis-node-2.redis-headless.databases.svc.cluster.local.:26379
+    - redis-node-0.redis-headless.databases.svc.cluster.local:26379
+    - redis-node-1.redis-headless.databases.svc.cluster.local:26379
+    - redis-node-2.redis-headless.databases.svc.cluster.local:26379
 
 queryLog:
   type: postgresql
-  target: postgresql://{{ .BLOCKY_POSTGRES_USER }}:{{ .BLOCKY_POSTGRES_PASS }}@postgres-rw.databases.svc.cluster.local.:5432/blocky
+  target: postgresql://{{ .BLOCKY_POSTGRES_USER }}:{{ .BLOCKY_POSTGRES_PASS }}@postgres-rw.databases.svc.cluster.local:5432/blocky
   logRetentionDays: 10
 
 prometheus:

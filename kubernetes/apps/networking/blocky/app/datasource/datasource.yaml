@@ -6,7 +6,7 @@ datasources:
     type: postgres
     uid: blocky
     access: proxy
-    url: postgres-ro.databases.svc.cluster.local.:5432
+    url: postgres-ro.databases.svc.cluster.local:5432
     user: {{ .BLOCKY_POSTGRES_USER }}
     jsonData:
       database: blocky

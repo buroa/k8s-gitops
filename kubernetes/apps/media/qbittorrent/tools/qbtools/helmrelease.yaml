@@ -50,7 +50,7 @@ spec:
               - --sites
               - --unregistered
               - --server
-              - qbittorrent.media.svc.cluster.local.
+              - qbittorrent.media.svc.cluster.local
               - --port
               - "8080"
             env: &env
@@ -77,7 +77,7 @@ spec:
               - --exclude-tag
               - expired
               - --server
-              - qbittorrent.media.svc.cluster.local.
+              - qbittorrent.media.svc.cluster.local
               - --port
               - "8080"
             env: *env
@@ -94,7 +94,7 @@ spec:
               - --include-tag
               - added:7d
               - --server
-              - qbittorrent.media.svc.cluster.local.
+              - qbittorrent.media.svc.cluster.local
               - --port
               - "8080"
             env: *env
@@ -121,7 +121,7 @@ spec:
               - --exclude-pattern
               - "*/manual/*"
               - --server
-              - qbittorrent.media.svc.cluster.local.
+              - qbittorrent.media.svc.cluster.local
               - --port
               - "8080"
             env: *env
@@ -143,7 +143,7 @@ spec:
               - reannounce
               - --process-seeding
               - --server
-              - qbittorrent.media.svc.cluster.local.
+              - qbittorrent.media.svc.cluster.local
               - --port
               - "8080"
             env: *env
