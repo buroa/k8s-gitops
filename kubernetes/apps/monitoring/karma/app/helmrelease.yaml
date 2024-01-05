@@ -33,7 +33,7 @@ spec:
               repository: ghcr.io/prymitive/karma
               tag: v0.118@sha256:f116547287c662263e03b6a82e1deb18157c3a213787506ceb38bb7d24298844
             env:
-              ALERTMANAGER_URI: http://alertmanager-operated.monitoring.svc.cluster.local:9093
+              ALERTMANAGER_URI: http://alertmanager-operated.monitoring.svc.cluster.local.:9093
             probes:
               liveness: &probes
                 enabled: true
