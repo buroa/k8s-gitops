@@ -30,7 +30,7 @@ spec:
           reloader.stakater.com/auto: "true"
         cronjob:
           schedule: 0 0 * * *
-          timeZone: ${TIMEZONE}
+          timeZone: &timeZone ${TIMEZONE}
         containers:
           main:
             image:
@@ -39,7 +39,7 @@ spec:
             command:
               - /scripts/run.sh
             env:
-              TZ: ${TIMEZONE}
+              TZ: *timeZone
             envFrom:
               - secretRef:
                   name: plex-meta-manager-secret

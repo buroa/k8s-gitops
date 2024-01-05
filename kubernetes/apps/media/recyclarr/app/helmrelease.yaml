@@ -30,7 +30,7 @@ spec:
           reloader.stakater.com/auto: "true"
         cronjob:
           schedule: "@hourly"
-          timeZone: ${TIMEZONE}
+          timeZone: &timeZone ${TIMEZONE}
         containers:
           main:
             image:
@@ -40,7 +40,7 @@ spec:
               - sync
             env:
               COMPlus_EnableDiagnostics: 0
-              TZ: ${TIMEZONE}
+              TZ: *timeZone
             envFrom:
               - secretRef:
                   name: recyclarr-secret
