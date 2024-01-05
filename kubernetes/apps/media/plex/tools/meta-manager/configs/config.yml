@@ -28,7 +28,7 @@ libraries:
 
   Movie Operations:
     library_name: Movies
-    schedule: weekly(friday)
+    schedule: weekly(sunday)
     operations:
       mass_genre_update: imdb
       mass_content_rating_update: omdb
@@ -38,7 +38,7 @@ libraries:
 
   TV Show Operations:
     library_name: TV Shows
-    schedule: weekly(friday)
+    schedule: weekly(sunday)
     operations:
       mass_genre_update: tmdb
       mass_content_rating_update: omdb
