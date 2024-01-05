@@ -33,7 +33,7 @@ spec:
     name: plex-meta-manager-rdst
   resources:
     requests:
-      storage: 5Gi
+      storage: 10Gi
   storageClassName: ${CLUSTER_STORAGE_BLOCK}
 ---
 apiVersion: volsync.backube/v1alpha1
@@ -56,7 +56,7 @@ spec:
       runAsUser: 568
       runAsGroup: 568
       fsGroup: 568
-    capacity: 5Gi # must match the PersistentVolumeClaim `.resources.requests.storage` size above
+    capacity: 10Gi # must match the PersistentVolumeClaim `.resources.requests.storage` size above
 ---
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
