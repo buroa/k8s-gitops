@@ -109,6 +109,10 @@ spec:
               resources: *resources
               securityContext: *securityContext
         pod:
+          dnsConfig:
+            options:
+              - name: ndots
+                value: "1"
           securityContext:
             runAsUser: 999
             runAsGroup: 999

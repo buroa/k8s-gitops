@@ -38,7 +38,7 @@ spec:
               - --enable-unknown-queue-items
             env:
               PORT: &port 9707
-              URL: http://radarr.media.svc.cluster.local:7878
+              URL: http://radarr.media.svc.cluster.local.:7878
             envFrom:
               - secretRef:
                   name: radarr-exporter-secret
