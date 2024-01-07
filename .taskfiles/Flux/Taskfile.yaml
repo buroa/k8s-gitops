@@ -20,20 +20,20 @@ tasks:
       - kubectl apply --server-side --kustomize {{.KUBERNETES_DIR}}/bootstrap/flux
       - sops --decrypt {{.KUBERNETES_DIR}}/bootstrap/flux/age-key.secret.sops.yaml | kubectl apply -f -
       - sops --decrypt {{.KUBERNETES_DIR}}/bootstrap/flux/github-deploy-key.secret.sops.yaml | kubectl apply -f -
-      - sops --decrypt --in-place {{.KUBERNETES_DIR}}/flux/vars/cluster-secrets.secret.sops.env
+      - sops --decrypt --in-place {{.KUBERNETES_DIR}}/flux/vars/cluster-secrets.secret.sops.yaml
       - kubectl apply --server-side --kustomize {{.KUBERNETES_DIR}}/flux/vars
       - kubectl apply --server-side --kustomize {{.KUBERNETES_DIR}}/flux/config
-      - defer: sops --encrypt --in-place {{.KUBERNETES_DIR}}/flux/vars/cluster-secrets.secret.sops.env
+      - defer: sops --encrypt --in-place {{.KUBERNETES_DIR}}/flux/vars/cluster-secrets.secret.sops.yaml
     preconditions:
       - { msg: "Flux appears already installed", sh: "exit $(( ! $(kubectl get namespace flux-system) ))" }
       - { msg: "Age private key not found",      sh: "test -f {{.ROOT_DIR}}/age.key" }
       - { msg: "Age secret not found",           sh: "test -f {{.KUBERNETES_DIR}}/bootstrap/flux/age-key.secret.sops.yaml" }
       - { msg: "Github deploy secret not found", sh: "test -f {{.KUBERNETES_DIR}}/bootstrap/flux/github-deploy-key.secret.sops.yaml" }
-      - { msg: "Cluster settings not found",     sh: "test -f {{.KUBERNETES_DIR}}/flux/vars/cluster-settings.env" }
-      - { msg: "Cluster secrets not found",      sh: "test -f {{.KUBERNETES_DIR}}/flux/vars/cluster-secrets.secret.sops.env" }
+      - { msg: "Cluster settings not found",     sh: "test -f {{.KUBERNETES_DIR}}/flux/vars/cluster-settings.yaml" }
+      - { msg: "Cluster secrets not found",      sh: "test -f {{.KUBERNETES_DIR}}/flux/vars/cluster-secrets.secret.sops.yaml" }
       - { msg: "Unable to decrypt sops secret",  sh: "sops --decrypt {{.KUBERNETES_DIR}}/bootstrap/flux/age-key.secret.sops.yaml" }
       - { msg: "Unable to decrypt sops secret",  sh: "sops --decrypt {{.KUBERNETES_DIR}}/bootstrap/flux/github-deploy-key.secret.sops.yaml" }
-      - { msg: "Unable to decrypt sops secret",  sh: "sops --decrypt {{.KUBERNETES_DIR}}/flux/vars/cluster-secrets.secret.sops.env" }
+      - { msg: "Unable to decrypt sops secret",  sh: "sops --decrypt {{.KUBERNETES_DIR}}/flux/vars/cluster-secrets.secret.sops.yaml" }
 
   apply:
     desc: Apply a Flux Kustomization resource
@@ -56,7 +56,7 @@ tasks:
       ks:
         sh: flux --namespace {{.ns}} get kustomizations $(basename {{.path}}) 2>&1
     preconditions:
-      - { msg: "Kustomization file not found",   sh: "test -f {{.KUBERNETES_DIR}}/apps/{{.path}}/ks.yaml" }
+      - { msg: "Kustomization file not found", sh: "test -f {{.KUBERNETES_DIR}}/apps/{{.path}}/ks.yaml" }
 
   gr-sync:
     desc: Sync all Flux GitRepositories
