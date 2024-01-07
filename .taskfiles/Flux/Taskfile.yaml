@@ -1,0 +1,105 @@
+---
+version: "3"
+
+vars:
+  # renovate: datasource=github-releases depName=prometheus-operator/prometheus-operator
+  PROMETHEUS_OPERATOR_VERSION: "v0.70.0"
+
+tasks:
+
+  bootstrap:
+    desc: Bootstrap Flux into a Kubernetes cluster
+    prompt: Bootstrap Flux... continue?
+    cmds:
+      # Install essential Prometheus Operator CRDs
+      - kubectl apply --server-side --filename https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/{{.PROMETHEUS_OPERATOR_VERSION}}/example/prometheus-operator-crd/monitoring.coreos.com_podmonitors.yaml
+      - kubectl apply --server-side --filename https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/{{.PROMETHEUS_OPERATOR_VERSION}}/example/prometheus-operator-crd/monitoring.coreos.com_prometheusrules.yaml
+      - kubectl apply --server-side --filename https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/{{.PROMETHEUS_OPERATOR_VERSION}}/example/prometheus-operator-crd/monitoring.coreos.com_scrapeconfigs.yaml
+      - kubectl apply --server-side --filename https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/{{.PROMETHEUS_OPERATOR_VERSION}}/example/prometheus-operator-crd/monitoring.coreos.com_servicemonitors.yaml
+      # Install Flux
+      - kubectl apply --server-side --kustomize {{.KUBERNETES_DIR}}/bootstrap/flux
+      - sops --decrypt {{.KUBERNETES_DIR}}/bootstrap/flux/age-key.secret.sops.yaml | kubectl apply -f -
+      - sops --decrypt {{.KUBERNETES_DIR}}/bootstrap/flux/github-deploy-key.secret.sops.yaml | kubectl apply -f -
+      - sops --decrypt --in-place {{.KUBERNETES_DIR}}/flux/vars/cluster-secrets.secret.sops.env
+      - kubectl apply --server-side --kustomize {{.KUBERNETES_DIR}}/flux/vars
+      - kubectl apply --server-side --kustomize {{.KUBERNETES_DIR}}/flux/config
+      - defer: sops --encrypt --in-place {{.KUBERNETES_DIR}}/flux/vars/cluster-secrets.secret.sops.env
+    preconditions:
+      - { msg: "Flux appears already installed", sh: "exit $(( ! $(kubectl get namespace flux-system) ))" }
+      - { msg: "Age private key not found",      sh: "test -f {{.ROOT_DIR}}/age.key" }
+      - { msg: "Age secret not found",           sh: "test -f {{.KUBERNETES_DIR}}/bootstrap/flux/age-key.secret.sops.yaml" }
+      - { msg: "Github deploy secret not found", sh: "test -f {{.KUBERNETES_DIR}}/bootstrap/flux/github-deploy-key.secret.sops.yaml" }
+      - { msg: "Cluster settings not found",     sh: "test -f {{.KUBERNETES_DIR}}/flux/vars/cluster-settings.env" }
+      - { msg: "Cluster secrets not found",      sh: "test -f {{.KUBERNETES_DIR}}/flux/vars/cluster-secrets.secret.sops.env" }
+      - { msg: "Unable to decrypt sops secret",  sh: "sops --decrypt {{.KUBERNETES_DIR}}/bootstrap/flux/age-key.secret.sops.yaml" }
+      - { msg: "Unable to decrypt sops secret",  sh: "sops --decrypt {{.KUBERNETES_DIR}}/bootstrap/flux/github-deploy-key.secret.sops.yaml" }
+      - { msg: "Unable to decrypt sops secret",  sh: "sops --decrypt {{.KUBERNETES_DIR}}/flux/vars/cluster-secrets.secret.sops.env" }
+
+  apply:
+    desc: Apply a Flux Kustomization resource
+    summary: |
+      Args:
+        path: Path to the Flux Kustomization resource (required)
+        ns: Namespace the Flux Kustomization exists in (default: flux-system)
+    cmd: |
+      flux build ks $(basename {{.path}}) \
+          --namespace {{.ns}} \
+          --kustomization-file {{.KUBERNETES_DIR}}/apps/{{.path}}/ks.yaml \
+          --path {{.KUBERNETES_DIR}}/apps/{{.path}} \
+          {{- if contains "not found" .ks }}--dry-run \{{ end }}
+      | \
+      kubectl apply --server-side \
+          --field-manager=kustomize-controller -f -
+    vars:
+      path: '{{ or .path (fail "Argument (path) is required") }}'
+      ns: '{{.ns | default "flux-system"}}'
+      ks:
+        sh: flux --namespace {{.ns}} get kustomizations $(basename {{.path}}) 2>&1
+    preconditions:
+      - { msg: "Kustomization file not found",   sh: "test -f {{.KUBERNETES_DIR}}/apps/{{.path}}/ks.yaml" }
+
+  gr-sync:
+    desc: Sync all Flux GitRepositories
+    cmds:
+      - |
+        kubectl get gitrepositories --all-namespaces --no-headers | awk '{print $1, $2}' \
+          | xargs -P 4 -L 1 bash -c \
+            'kubectl -n $0 annotate gitrepository/$1 reconcile.fluxcd.io/requestedAt=$(date +%s) --field-manager=flux-client-side-apply --overwrite'
+
+  ks-sync:
+    desc: Sync all Flux Kustomizations
+    cmds:
+      - |
+        kubectl get kustomization --all-namespaces --no-headers | awk '{print $1, $2}' \
+          | xargs -P 4 -L 1 bash -c \
+            'kubectl -n $0 annotate kustomization/$1 reconcile.fluxcd.io/requestedAt="$(date +%s)" --field-manager=flux-client-side-apply --overwrite'
+
+  hr-sync:
+    desc: Sync all Flux HelmReleases
+    cmds:
+      - |
+        kubectl get helmreleases --all-namespaces --no-headers | awk '{print $1, $2}' \
+          | xargs -P 4 -L 1 bash -c \
+            'kubectl -n $0 annotate helmrelease/$1 reconcile.fluxcd.io/requestedAt="$(date +%s)" --overwrite'
+
+  tf-sync:
+    desc: Sync Flux Terraforms
+    cmds:
+      - |
+        kubectl get terraforms --all-namespaces --no-headers | awk '{print $1, $2}' \
+          | xargs -P 4 -L 1 bash -c \
+            'kubectl -n $0 annotate terraform/$1 reconcile.fluxcd.io/requestedAt="$(date +%s)" --overwrite'
+
+  hr-suspend:
+    desc: Suspend all Flux HelmReleases
+    cmds:
+      - |
+        flux get helmrelease --all-namespaces --no-header | awk '{print $1, $2}' \
+          | xargs -L 1 bash -c 'flux -n $0 suspend helmrelease $1'
+
+  hr-resume:
+    desc: Resume all Flux HelmReleases
+    cmds:
+      - |
+        flux get helmrelease --all-namespaces --no-header | awk '{print $1, $2}' \
+          | xargs -L 1 bash -c 'flux -n $0 resume helmrelease $1'

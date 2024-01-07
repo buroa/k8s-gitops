@@ -1,23 +1,27 @@
 ---
 version: "3"
 
+# TODO: Clean up `--context` usage
+# https://github.com/go-task/task/issues/1038
+
 vars:
-  PROJECT_DIR:
-    sh: "git rev-parse --show-toplevel"
+  KUBERNETES_DIR: "{{.ROOT_DIR}}/kubernetes"
+  TALOS_DIR: "{{.ROOT_DIR}}/talos"
+  TERRAFORM_DIR: "{{.ROOT_DIR}}/terraform"
 
 env:
-  TALOSCONFIG: ./talos/clusterconfig/talosconfig
+  KUBECONFIG: "{{.KUBERNETES_DIR}}/kubernetes/kubeconfig"
+  SOPS_AGE_KEY_FILE: "{{.ROOT_DIR}}/age.key"
 
 includes:
-  externalsecrets: .taskfiles/externalsecrets/tasks.yaml
-  flux: .taskfiles/flux/tasks.yaml
-  k8s: .taskfiles/k8s/tasks.yaml
-  rook: .taskfiles/rook/tasks.yaml
-  talos: .taskfiles/talos/tasks.yaml
-  volsync: .taskfiles/volsync/tasks.yaml
+  external-secrets: .taskfiles/ExternalSecrets/Taskfile.yaml
+  flux: .taskfiles/Flux/Taskfile.yaml
+  kubernetes: .taskfiles/Kubernetes/Taskfile.yaml
+  talos: .taskfiles/Talos/Taskfile.yaml
+  volsync: .taskfiles/VolSync/Taskfile.yaml
 
 tasks:
+
   default:
     silent: true
-    cmds:
-      - task -l
+    cmd: task -l

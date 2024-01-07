@@ -1,21 +1,16 @@
-# trash
 .DS_Store
 Thumbs.db
-# temp folders
 .private/
-# ansible
-xanmanning.k3s*
-# terraform
+.venv/
+.task/
 .terraform
 *.tfvars
-# sops
 .decrypted~*
+*.secret.env
+*.secret.yaml
 *.agekey
 *.pub
 *.key
 *.pem
-# kubernetes
-kubeconfig*
-kubernetes/schemas
-# extras
+kubeconfig
 config.xml

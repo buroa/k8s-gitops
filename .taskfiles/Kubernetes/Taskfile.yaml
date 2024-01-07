@@ -1,0 +1,97 @@
+---
+version: "3"
+
+tasks:
+
+  mount:
+    desc: Mount a PersistentVolumeClaim to a temporary pod
+    summary: |
+      Args:
+        ns: Namespace the PVC is in (default: default)
+        claim: PVC to mount (required)
+    interactive: true
+    cmd: |
+      kubectl run -n {{.ns}} debug-{{.claim}} -i --tty --rm --image=null --privileged --overrides='
+        {
+          "apiVersion": "v1",
+          "spec": {
+            "containers": [
+              {
+                "name": "debug",
+                "image": "ghcr.io/onedr0p/alpine:rolling",
+                "command": ["/bin/bash"],
+                "stdin": true,
+                "stdinOnce": true,
+                "tty": true,
+                "volumeMounts": [
+                  {
+                    "name": "config",
+                    "mountPath": "/config"
+                  }
+                ]
+              }
+            ],
+            "volumes": [
+              {
+                "name": "config",
+                "persistentVolumeClaim": {
+                  "claimName": "{{.claim}}"
+                }
+              }
+            ],
+            "restartPolicy": "Never"
+          }
+        }'
+    vars:
+      ns: '{{.ns | default "default"}}'
+      claim: '{{ or .claim (fail "Argument (claim) is required") }}'
+    preconditions:
+      - { msg: "PVC not found", sh: "kubectl -n {{.ns}} get persistentvolumeclaim {{.claim}}" }
+
+  privileged:
+    desc: Run a privileged pod on a node
+    summary: |
+      Args:
+        ns: Namespace the PVC is in (default: default)
+        node: The node (required)
+    interactive: true
+    cmds:
+      - |
+        kubectl run -n {{.ns}} debug-privileged-{{.node}} -i --tty --rm --image=null --overrides='
+          {
+            "apiVersion": "v1",
+            "spec": {
+              "containers": [
+                {
+                  "name": "debug",
+                  "image": "ghcr.io/onedr0p/alpine:rolling",
+                  "command": [
+                    "/bin/bash"
+                  ],
+                  "stdin": true,
+                  "stdinOnce": true,
+                  "tty": true,
+                  "securityContext": {
+                    "privileged": true
+                  }
+                }
+              ],
+              "nodeName": "{{.node}}",
+              "restartPolicy": "Never"
+            }
+          }'
+    vars:
+      ns: '{{.ns | default "default"}}'
+      node: '{{.node | default ""}}'
+    preconditions:
+      - { msg: "Node not found", sh: "kubectl -n {{.ns}} get node {{.node}}" }
+
+  delete-failed-pods:
+    desc: Deletes failed pods
+    cmds:
+      - kubectl delete pods --field-selector status.phase=Failed -A --ignore-not-found=true
+
+  delete-succeeded-pods:
+    desc: Deletes succeeded pods
+    cmds:
+      - kubectl delete pods --field-selector status.phase=Succeeded -A --ignore-not-found=true
