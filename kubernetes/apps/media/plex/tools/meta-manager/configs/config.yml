@@ -6,7 +6,6 @@ libraries:
       - file: config/Movies - Trakt (Unplayed).yml
       - file: config/Movies - Holidays.yml
       - file: config/Movies - Locations.yml
-      - file: config/Pre-rolls.yml
     overlay_files:
       - file: config/Movies - Overlays - Charts.yml
       - file: config/Movies - Overlays - Streaming Services.yml

@@ -9,7 +9,6 @@ configMapGenerator:
   - name: plex-meta-manager-configmap
     files:
       - ./configs/config.yml
-      - ./configs/Pre-rolls.yml
       - ./scripts/run.sh
 generatorOptions:
   disableNameSuffixHash: true

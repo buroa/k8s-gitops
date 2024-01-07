@@ -75,13 +75,6 @@ spec:
           - path: /config/config.yml
             subPath: config.yml
             readOnly: true
-      config-prerolls:
-        type: configMap
-        name: plex-meta-manager-configmap
-        globalMounts:
-          - path: /config/Pre-rolls.yml
-            subPath: Pre-rolls.yml
-            readOnly: true
       logs:
         type: emptyDir
         globalMounts:
