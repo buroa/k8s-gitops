@@ -16,7 +16,8 @@ tasks:
     vars:
       node: '{{ or .node (fail "Argument (node) is required") }}'
     preconditions:
-      - { msg: "node not found", sh: "talosctl -n {{.node}} get mc" }
+      - { msg: "Node not found", sh: "talosctl -n {{.node}} get mc" }
+      - { msg: "Talos config not found", sh: "test -f {{.TALOS_DIR}}/clusterconfig/k8s-{{.node}}.yaml" }
 
   upgrade-talos:
     desc: Upgrade talos on a node
@@ -26,7 +27,7 @@ tasks:
       image: '{{ or .image (fail "Argument (image) is required") }}'
       node: '{{ or .node (fail "Argument (node) is required") }}'
     preconditions:
-      - { msg: "node not found", sh: "talosctl -n {{.node}} get mc" }
+      - { msg: "Node not found", sh: "talosctl -n {{.node}} get mc" }
 
   upgrade-k8s:
     desc: Upgrade k8s on a node
@@ -36,4 +37,4 @@ tasks:
       node: '{{ or .node (fail "Argument (node) is required") }}'
       to: '{{ or .to (fail "Argument (to) is required") }}'
     preconditions:
-      - { msg: "node not found", sh: "talosctl -n {{.node}} get mc" }
+      - { msg: "Node not found", sh: "talosctl -n {{.node}} get mc" }
