@@ -27,7 +27,7 @@ spec:
       main:
         type: cronjob
         cronjob:
-          schedule: 0 0 * * *
+          schedule: "@daily"
           timeZone: &timeZone ${TIMEZONE}
           concurrencyPolicy: Forbid
           successfulJobsHistory: 1
