@@ -116,10 +116,10 @@ spec:
       config:
         enabled: true
         existingClaim: *app
-      tmp:
-        type: emptyDir
       media:
         existingClaim: media
+      tmp:
+        type: emptyDir
     service:
       main:
         ports:
