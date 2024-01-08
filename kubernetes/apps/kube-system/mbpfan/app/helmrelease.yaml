@@ -39,6 +39,12 @@ spec:
                 memory: 50M
               limits:
                 memory: 128M
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
     persistence:
       config:
         enabled: true
@@ -48,6 +54,8 @@ spec:
           - path: /etc/mbpfan.conf
             subPath: mbpfan.conf
             readOnly: true
+      run:
+        type: emptyDir
       sys:
         type: hostPath
         hostPath: /sys
