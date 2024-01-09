@@ -31,8 +31,8 @@ spec:
         containers:
           main:
             image:
-              repository: registry.gitlab.com/arm-research/smarter/smarter-device-manager
-              tag: v1.20.11@sha256:826b984e75d40d4ebc3fd4c519b45baa9becd19206376108ba4b6ce8e1ef36bf
+              repository: ghcr.io/smarter-project/smarter-device-manager
+              tag: v1.20.12@sha256:228f7f44594a3182571559e62f2e3fe8a3f26180fb5dd7fc0cb7bf7d22a5bbcd
             resources:
               requests:
                 cpu: 10m
