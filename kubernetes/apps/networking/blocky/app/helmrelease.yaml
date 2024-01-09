@@ -40,9 +40,8 @@ spec:
         containers:
           main:
             image:
-              # TODO: move to semver once available
               repository: ghcr.io/0xerr0r/blocky
-              tag: development@sha256:7d20d23a668b453db4c90e6595b183b5a30158ab1418df9bcf099535d0eb71d2
+              tag: v0.23@sha256:450d193393c0dceb108d1cd80a5580ab9d851127c924c1ae89361d32161ae528
             env:
               TZ: ${TIMEZONE}
             probes:
