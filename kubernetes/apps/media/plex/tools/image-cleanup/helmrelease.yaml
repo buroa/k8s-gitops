@@ -40,7 +40,6 @@ spec:
             env:
               TZ: *timeZone
               MODE: remove
-              OPTIMIZE_DB: true
               PHOTO_TRANSCODER: true
               PLEX_PATH: /plex/Library/Application Support/Plex Media Server
               PLEX_URL: http://plex.media.svc.cluster.local:32400
