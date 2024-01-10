@@ -47,7 +47,7 @@ identity_providers:
     clients:
       - id: grafana
         description: Grafana
-        secret: ${GRAFANA_OAUTH_CLIENT_SECRET}
+        secret: $${GRAFANA_OAUTH_CLIENT_SECRET}
         public: false
         authorization_policy: two_factor
         pre_configured_consent_duration: 1y
@@ -57,12 +57,12 @@ identity_providers:
           - groups
           - email
         redirect_uris:
-          - https://grafana.${PUBLIC_DOMAIN}/login/generic_oauth
+          - https://grafana.$${PUBLIC_DOMAIN}/login/generic_oauth
         userinfo_signed_response_alg: none
 
       - id: miniflux
         description: Miniflux
-        secret: ${MINIFLUX_OAUTH_CLIENT_SECRET}
+        secret: $${MINIFLUX_OAUTH_CLIENT_SECRET}
         public: false
         authorization_policy: two_factor
         pre_configured_consent_duration: 1y
@@ -72,12 +72,12 @@ identity_providers:
           - groups
           - email
         redirect_uris:
-          - https://miniflux.${PUBLIC_DOMAIN}/oauth2/oidc/callback
+          - https://miniflux.$${PUBLIC_DOMAIN}/oauth2/oidc/callback
         userinfo_signed_response_alg: none
 
       - id: nodered
         description: Node-RED
-        secret: ${NODE_RED_OAUTH_CLIENT_SECRET}
+        secret: $${NODE_RED_OAUTH_CLIENT_SECRET}
         public: false
         authorization_policy: two_factor
         pre_configured_consent_duration: 1y
@@ -87,12 +87,12 @@ identity_providers:
           - groups
           - email
         redirect_uris:
-          - https://nr.${PUBLIC_DOMAIN}/auth/strategy/callback
+          - https://nr.$${PUBLIC_DOMAIN}/auth/strategy/callback
         userinfo_signed_response_alg: none
 
       - id: weave-gitops
         description: Weave GitOps
-        secret: ${WEAVE_GITOPS_OAUTH_CLIENT_SECRET}
+        secret: $${WEAVE_GITOPS_OAUTH_CLIENT_SECRET}
         public: false
         authorization_policy: two_factor
         pre_configured_consent_duration: 1y
@@ -102,14 +102,14 @@ identity_providers:
           - groups
           - email
         redirect_uris:
-          - https://gitops.${PUBLIC_DOMAIN}/oauth2/callback
+          - https://gitops.$${PUBLIC_DOMAIN}/oauth2/callback
         userinfo_signing_algorithm: none
 
 notifier:
   disable_startup_check: true
   smtp:
     address: smtp://smtp-relay.networking.svc.cluster.local:2525
-    sender: Authelia <authelia@${PUBLIC_DOMAIN}>
+    sender: Authelia <authelia@$${PUBLIC_DOMAIN}>
     disable_require_tls: true
 
 session:
@@ -119,9 +119,9 @@ session:
   remember_me: 1M
   cookies:
     - name: k_session
-      domain: ${PUBLIC_DOMAIN}
-      authelia_url: https://auth.${PUBLIC_DOMAIN}
-      default_redirection_url: https://${PUBLIC_DOMAIN}
+      domain: $${PUBLIC_DOMAIN}
+      authelia_url: https://auth.$${PUBLIC_DOMAIN}
+      default_redirection_url: https://$${PUBLIC_DOMAIN}
   redis:
     high_availability:
       sentinel_name: redis-master

@@ -85,12 +85,6 @@ spec:
           - path: /etc/coredns/Corefile
             subPath: Corefile
             readOnly: true
-      hosts:
-        type: hostPath
-        hostPath: /etc/hosts
-        globalMounts:
-          - path: /etc/hosts
-            readOnly: true
     service:
       main:
         ports:

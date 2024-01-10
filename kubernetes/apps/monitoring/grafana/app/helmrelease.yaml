@@ -53,7 +53,7 @@ spec:
         reporting_enabled: false
       auth:
         oauth_auto_login: true
-        oauth_allow_insecure_email_lookup: true # https://github.com/grafana/grafana/issues/70203
+        oauth_allow_insecure_email_lookup: true # Ref: https://github.com/grafana/grafana/issues/70203
         signout_redirect_url: https://auth.${PUBLIC_DOMAIN}/logout
       auth.basic:
         enabled: true

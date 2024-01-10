@@ -93,19 +93,30 @@ Below is a a high level look at the layout of how my directory structure with Fl
 
 ```mermaid
 graph TD;
-  id1>Kustomization: cluster] --> |Creates| id2>Kustomization: cluster-apps];
-  id2>Kustomization: cluster-apps] --> |Creates| id3>Kustomization: cluster-apps-cloudnative-pg];
-  id2>Kustomization: cluster-apps] --> |Creates| id6>Kustomization: cluster-apps-lldap]
-  id2>Kustomization: cluster-apps] --> |Creates| id8>Kustomization: cluster-apps-authelia]
-  id2>Kustomization: cluster-apps] --> |Creates| id5>Kustomization: cluster-apps-cloudnative-pg-cluster]
-  id3 --> |Creates| id4(HelmRelease: postgres);
-  id5 --> |Depends on| id3;
-  id5 --> |Creates| id10(Cluster: Postgres);
-  id6 --> |Creates| id7(HelmRelease: lldap);
-  id6 --> |Depends on| id5;
-  id8 --> |Creates| id9(HelmRelease: authelia);
-  id8 --> |Depends on| id5;
-  id8 --> |Depends on| id6;
+  id1[Kustomization: cluster];
+  id2[Kustomization: cluster-apps];
+  id3[Kustomization: cluster-apps-cloudnative-pg];
+  id4[HelmRelease: postgres];
+  id5[Kustomization: cluster-apps-cloudnative-pg-cluster];
+  id6[Kustomization: cluster-apps-lldap];
+  id7[HelmRelease: lldap];
+  id8[Kustomization: cluster-apps-authelia];
+  id9[HelmRelease: authelia];
+  id10[Cluster: postgres];
+
+  id1 -->|Creates| id2;
+  id2 -->|Creates| id3;
+  id2 -->|Creates| id6;
+  id2 -->|Creates| id8;
+  id2 -->|Creates| id5;
+  id3 -->|Creates| id4;
+  id5 -->|Depends| id3;
+  id5 -->|Creates| id10;
+  id6 -->|Creates| id7;
+  id6 -->|Depends| id5;
+  id8 -->|Creates| id9;
+  id8 -->|Depends| id5;
+  id8 -->|Depends| id6;
 ```
 
 ### Networking
@@ -126,24 +137,6 @@ graph TD;
 ---
 
 ## 🌐 DNS
-
-<details>
-  <summary>Click to see my high level network diagram</summary>
-
-```mermaid
-graph TD;
-  id1>Client] --> id2>UDM Pro];
-  id2 --> id3>blocky];
-  id2 --> |fallback| id4>1.1.1.1];
-  id3 --> |ktwo.io| id5>k8s-gateway];
-  id3 --> |cluster.local| id6>coredns];
-  id3 --> |else| id7>blocklists];
-  id7 --> id4;
-  id5 --> id8>/etc/hosts];
-  id5 --> id9>Ingress];
-  id5 --> |else| id4;
-```
-</details>
 
 ### Internal DNS
 

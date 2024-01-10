@@ -44,11 +44,11 @@ spec:
               tag: v17.2.1@sha256:149ba8c5445c205f4ca7f88256eb409ef36820fc2a74fd462869a489721d03d3
             env:
               ATUIN_HOST: 0.0.0.0
-              ATUIN_PORT: &port 80
+              ATUIN_PORT: &port 8080
               ATUIN_OPEN_REGISTRATION: true
               ATUIN_METRICS__ENABLE: true
               ATUIN_METRICS__HOST: 0.0.0.0
-              ATUIN_METRICS__PORT: &metricsPort 8080
+              ATUIN_METRICS__PORT: &metricsPort 8081
             envFrom: *envFrom
             args:
               - server

@@ -1,20 +1,4 @@
 ---
-connectIPVersion: v4
-
-conditional:
-  mapping:
-    ${PUBLIC_DOMAIN}: ${K8S_GATEWAY_IP}
-    cluster.local: ${CLUSTER_DNS_IP}
-
-ecs:
-  useAsClient: true
-
-upstreams:
-  groups:
-    default:
-      - tcp-tls:1.1.1.1:853
-      - tcp-tls:1.0.0.1:853
-
 blocking:
   loading:
     downloads:
@@ -22,7 +6,7 @@ blocking:
     maxErrorsPerSource: -1
 
   blackLists:
-    ads: # https://firebog.net
+    ads: # Ref: https://firebog.net
       - https://adaway.org/hosts.txt
       - https://v.firebog.net/hosts/AdguardDNS.txt
       - https://v.firebog.net/hosts/Admiral.txt
@@ -32,9 +16,9 @@ blocking:
       - https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&showintro=0&mimetype=plaintext
       - https://raw.githubusercontent.com/FadeMind/hosts.extras/master/UncheckyAds/hosts
       - https://raw.githubusercontent.com/bigdargon/hostsVN/master/hosts
-    extra: # https://github.com/badmojr/1Hosts
+    extra: # Ref: https://github.com/badmojr/1Hosts
       - https://o0.pages.dev/Xtra/domains.txt
-    misc: # https://firebog.net
+    misc: # Ref: https://firebog.net
       - https://raw.githubusercontent.com/DandelionSprout/adfilt/master/Alternate%20versions%20Anti-Malware%20List/AntiMalwareHosts.txt
       - https://osint.digitalside.it/Threat-Intel/lists/latestdomains.txt
       - https://s3.amazonaws.com/lists.disconnect.me/simple_malvertising.txt
@@ -48,31 +32,31 @@ blocking:
       - https://raw.githubusercontent.com/Spam404/lists/master/main-blacklist.txt
       - https://raw.githubusercontent.com/AssoEchap/stalkerware-indicators/master/generated/hosts
       - https://urlhaus.abuse.ch/downloads/hostfile/
-    native: # https://github.com/hagezi/dns-blocklists
+    native: # Ref: https://github.com/hagezi/dns-blocklists
       - https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/native.amazon.txt
       - https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/native.apple.txt
       - https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/native.huawei.txt
       - https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/native.lgwebos.txt
       - https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/native.tiktok.extended.txt
-    normal: # https://github.com/hagezi/dns-blocklists
+    normal: # Ref: https://github.com/hagezi/dns-blocklists
       - https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/multi.txt
-    other: # https://firebog.net
+    other: # Ref: https://firebog.net
       - https://zerodot1.gitlab.io/CoinBlockerLists/hosts_browser
-    pro: # https://github.com/hagezi/dns-blocklists
+    pro: # Ref: https://github.com/hagezi/dns-blocklists
       - https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/pro.txt
-    suspicious: # https://firebog.net
+    suspicious: # Ref: https://firebog.net
       - https://raw.githubusercontent.com/PolishFiltersTeam/KADhosts/master/KADhosts.txt
       - https://raw.githubusercontent.com/FadeMind/hosts.extras/master/add.Spam/hosts
       - https://v.firebog.net/hosts/static/w3kbl.txt
-    tif: # https://github.com/hagezi/dns-blocklists
+    tif: # Ref: https://github.com/hagezi/dns-blocklists
       - https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/tif.txt
-    trackers: # https://firebog.net
+    trackers: # Ref: https://firebog.net
       - https://v.firebog.net/hosts/Easyprivacy.txt
       - https://v.firebog.net/hosts/Prigent-Ads.txt
       - https://raw.githubusercontent.com/FadeMind/hosts.extras/master/add.2o7Net/hosts
       - https://raw.githubusercontent.com/crazy-max/WindowsSpyBlocker/master/data/hosts/spy.txt
       - https://hostfiles.frogeye.fr/firstparty-trackers-hosts.txt
-    ultimate: # https://github.com/hagezi/dns-blocklists
+    ultimate: # Ref: https://github.com/hagezi/dns-blocklists
       - https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/ultimate.txt
 
   whiteLists:
@@ -119,6 +103,48 @@ caching:
   prefetching: true
   prefetchExpires: 2h
 
+clientLookup:
+  upstream: ${CILIUM_BGP_PEER}
+
+conditional:
+  mapping:
+    cluster.local: ${CLUSTER_DNS_IP}
+    ${PUBLIC_DOMAIN}: ${K8S_GATEWAY_IP}
+
+connectIPVersion: v4
+
+ecs:
+  useAsClient: true
+
+hostsFile:
+  filterLoopback: true
+  sources:
+    - /etc/hosts
+    - |
+      10.0.0.10 m0.k8s.${PUBLIC_DOMAIN}
+      10.0.0.11 m1.k8s.${PUBLIC_DOMAIN}
+      10.0.0.12 m2.k8s.${PUBLIC_DOMAIN}
+      10.0.0.20 w0.k8s.${PUBLIC_DOMAIN}
+      10.0.0.21 w1.k8s.${PUBLIC_DOMAIN}
+      10.0.0.22 w2.k8s.${PUBLIC_DOMAIN}
+
+log:
+  level: info
+  format: text
+
+ports:
+  dns: 53
+  http: 4000
+
+prometheus:
+  enable: true
+  path: /metrics
+
+queryLog:
+  type: postgresql
+  target: postgresql://{{ .BLOCKY_POSTGRES_USER }}:{{ .BLOCKY_POSTGRES_PASS }}@postgres-rw.databases.svc.cluster.local:5432/blocky
+  logRetentionDays: 10
+
 redis:
   required: true
   address: redis-master
@@ -127,19 +153,8 @@ redis:
     - redis-node-1.redis-headless.databases.svc.cluster.local:26379
     - redis-node-2.redis-headless.databases.svc.cluster.local:26379
 
-queryLog:
-  type: postgresql
-  target: postgresql://{{ .BLOCKY_POSTGRES_USER }}:{{ .BLOCKY_POSTGRES_PASS }}@postgres-rw.databases.svc.cluster.local:5432/blocky
-  logRetentionDays: 10
-
-prometheus:
-  enable: true
-  path: /metrics
-
-ports:
-  dns: 53
-  http: 4000
-
-log:
-  level: info
-  format: text
+upstreams:
+  groups:
+    default:
+      - tcp-tls:1.1.1.1:853
+      - tcp-tls:1.0.0.1:853

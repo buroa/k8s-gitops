@@ -9,8 +9,5 @@ configMapGenerator:
   - name: gatus-configmap
     files:
       - ./configs/config.yaml
-    options:
-      annotations:
-        kustomize.toolkit.fluxcd.io/substitute: disabled
 generatorOptions:
   disableNameSuffixHash: true

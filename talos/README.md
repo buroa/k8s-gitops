@@ -7,20 +7,21 @@
 ```
 talhelper gensecret > talsecret.sops.yaml
 sops -e -i talsecret.sops.yaml
-talhelper genconfig
-export TALOSCONFIG=~/k8s-gitops/talos/clusterconfig/talosconfig
+task talos:genconfig
 ```
 
+### Apply Talos Config
+
 ```
-talosctl -n 10.0.0.10 apply-config --file clusterconfig/k8s-m0*.yaml --insecure
-talosctl -n 10.0.0.11 apply-config --file clusterconfig/k8s-m1*.yaml --insecure
-talosctl -n 10.0.0.12 apply-config --file clusterconfig/k8s-m2*.yaml --insecure
-talosctl -n 10.0.0.20 apply-config --file clusterconfig/k8s-w0*.yaml --insecure
-talosctl -n 10.0.0.21 apply-config --file clusterconfig/k8s-w1*.yaml --insecure
-talosctl -n 10.0.0.22 apply-config --file clusterconfig/k8s-w2*.yaml --insecure
+task talos:apply-config node=m0.k8s.ktwo.io
+task talos:apply-config node=m1.k8s.ktwo.io
+task talos:apply-config node=m2.k8s.ktwo.io
+task talos:apply-config node=w0.k8s.ktwo.io
+task talos:apply-config node=w1.k8s.ktwo.io
+task talos:apply-config node=w2.k8s.ktwo.io
 ```
 
-### Pre Mac Setup
+### Update Mac EFI
 
 _use reFINd ensure boot order and delete other boot entries_
 
@@ -30,15 +31,15 @@ _use reFINd ensure boot order and delete other boot entries_
 
 If you don't do this, your system reboots will be _extremely_ slow.
 
-### Post Mac Setup
+### Boostrap Talos
 
 ```
-talosctl -n 10.0.0.10 bootstrap
-talosctl -n 10.0.0.10 kubeconfig -f
+talosctl -n m0.k8s.ktwo.io bootstrap
+talosctl -n m0.k8s.ktwo.io kubeconfig -f
 kubectl get no -o wide
 ```
 
-### Post Talos Setup
+### Bootstrap CNI
 
 ```
 kubectl kustomize --enable-helm ./cni | kubectl apply -f -

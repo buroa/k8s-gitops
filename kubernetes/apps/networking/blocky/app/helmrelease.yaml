@@ -102,6 +102,12 @@ spec:
           - path: /app/config.yml
             subPath: config.yml
             readOnly: true
+      hosts:
+        type: hostPath
+        hostPath: /etc/hosts
+        globalMounts:
+          - path: /etc/hosts
+            readOnly: true
     service:
       main:
         ports:

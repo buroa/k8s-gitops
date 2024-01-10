@@ -42,7 +42,7 @@ jobs:
           registry: ghcr.io
           username: "${{ github.actor }}"
           password: "${{ secrets.GITHUB_TOKEN }}"
-          # https://github.com/orgs/community/discussions/24636
+          # Ref: https://github.com/orgs/community/discussions/24636
           # username: "${{ secrets.BOT_APP_ID }}"
           # password: "${{ steps.app-token.outputs.token }}"
 
