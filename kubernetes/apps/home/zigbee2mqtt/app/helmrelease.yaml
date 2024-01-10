@@ -81,7 +81,7 @@ spec:
                   - ALL
         pod:
           nodeSelector:
-            zigbee.feature.node.kubernetes.io/conbee: "true"
+            phoscon.feature.node.kubernetes.io/conbee: "true"
           securityContext:
             runAsUser: 568
             runAsGroup: 568

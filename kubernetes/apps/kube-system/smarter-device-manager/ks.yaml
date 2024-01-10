@@ -6,6 +6,8 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: kube-system
+  dependsOn:
+    - name: cluster-apps-node-feature-discovery-features
   path: ./kubernetes/apps/kube-system/smarter-device-manager/app
   prune: true
   sourceRef:

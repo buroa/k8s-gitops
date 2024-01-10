@@ -45,6 +45,10 @@ spec:
               capabilities:
                 drop:
                   - ALL
+        pod:
+          nodeSelector:
+            apple.feature.node.kubernetes.io/t2: "true"
+          priorityClassName: system-node-critical
     persistence:
       config:
         enabled: true

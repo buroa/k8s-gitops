@@ -6,8 +6,6 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: kube-system
-  dependsOn:
-    - name: cluster-apps-node-feature-discovery
   path: ./kubernetes/apps/kube-system/intel-device-plugin/app
   prune: true
   sourceRef:
@@ -26,8 +24,8 @@ metadata:
 spec:
   targetNamespace: kube-system
   dependsOn:
-    - name: cluster-apps-node-feature-discovery
     - name: cluster-apps-intel-device-plugin-operator
+    - name: cluster-apps-node-feature-discovery-features
   path: ./kubernetes/apps/kube-system/intel-device-plugin/gpu
   prune: true
   sourceRef:
