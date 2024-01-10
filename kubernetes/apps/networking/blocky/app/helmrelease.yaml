@@ -53,7 +53,7 @@ spec:
                     command:
                       - /app/blocky
                       - healthcheck
-                  initialDelaySeconds: 30
+                  initialDelaySeconds: 15
                   periodSeconds: 10
                   timeoutSeconds: 1
                   failureThreshold: 3
