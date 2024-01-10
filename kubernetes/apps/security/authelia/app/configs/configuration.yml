@@ -103,7 +103,7 @@ identity_providers:
           - email
         redirect_uris:
           - https://gitops.$${PUBLIC_DOMAIN}/oauth2/callback
-        userinfo_signing_algorithm: none
+        userinfo_signed_response_alg: none
 
 notifier:
   disable_startup_check: true
@@ -127,11 +127,8 @@ session:
       sentinel_name: redis-master
       nodes:
         - host: redis-node-0.redis-headless.databases.svc.cluster.local
-          port: 26379
         - host: redis-node-1.redis-headless.databases.svc.cluster.local
-          port: 26379
         - host: redis-node-2.redis-headless.databases.svc.cluster.local
-          port: 26379
 
 totp:
   disable: false
