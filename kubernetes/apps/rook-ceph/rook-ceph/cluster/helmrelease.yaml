@@ -53,7 +53,7 @@ spec:
           public:
             - ${LAN_SERVER_IP_CIDR}
           cluster:
-            - ${LAN_TB_IP_CIDR}
+            - ${LAN_THUNDERBOLT_IP_CIDR}
         connections:
           requireMsgr2: true
       crashCollector:
