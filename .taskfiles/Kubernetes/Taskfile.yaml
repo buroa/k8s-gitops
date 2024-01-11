@@ -76,8 +76,9 @@ tasks:
                   }
                 }
               ],
-              "nodeName": "{{.node}}",
+              "hostNetwork": true,
               "hostPID": true,
+              "nodeName": "{{.node}}",
               "restartPolicy": "Never"
             }
           }'
