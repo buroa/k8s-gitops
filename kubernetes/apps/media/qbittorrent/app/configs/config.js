@@ -18,6 +18,7 @@ module.exports = {
     `http://prowlarr.media.svc.cluster.local:9696/5/api?apikey=$${process.env.PROWLARR_API_KEY}`,   // hdt
     `http://prowlarr.media.svc.cluster.local:9696/3/api?apikey=$${process.env.PROWLARR_API_KEY}`,   // ipt
     `http://prowlarr.media.svc.cluster.local:9696/7/api?apikey=$${process.env.PROWLARR_API_KEY}`,   // mtv
+    `http://prowlarr.media.svc.cluster.local:9696/115/api?apikey=$${process.env.PROWLARR_API_KEY}`, // nbl
     `http://prowlarr.media.svc.cluster.local:9696/17/api?apikey=$${process.env.PROWLARR_API_KEY}`,  // ptp
     `http://prowlarr.media.svc.cluster.local:9696/44/api?apikey=$${process.env.PROWLARR_API_KEY}`,  // phd
     `http://prowlarr.media.svc.cluster.local:9696/15/api?apikey=$${process.env.PROWLARR_API_KEY}`,  // st
