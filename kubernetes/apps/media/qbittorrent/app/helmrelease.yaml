@@ -118,6 +118,7 @@ spec:
         className: internal
         annotations:
           hajimari.io/icon: mdi:seedling
+          hajimari.io/url: https://qb.${PUBLIC_DOMAIN}
         hosts:
           - host: &host "{{ .Release.Name }}.${PUBLIC_DOMAIN}"
             paths: &paths

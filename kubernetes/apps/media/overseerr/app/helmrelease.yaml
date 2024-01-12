@@ -76,6 +76,7 @@ spec:
           gatus.io/enabled: "true"
           gatus.io/path: *path
           hajimari.io/icon: mdi:eye-circle
+          hajimari.io/url: https://requests.${PUBLIC_DOMAIN}
           external-dns.alpha.kubernetes.io/target: external.${PUBLIC_DOMAIN}
         hosts:
           - host: &host "{{ .Release.Name }}.${PUBLIC_DOMAIN}"

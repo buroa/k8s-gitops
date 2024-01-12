@@ -83,6 +83,7 @@ spec:
         annotations:
           gatus.io/enabled: "true"
           hajimari.io/icon: mdi:shield-account
+          hajimari.io/url: https://auth.${PUBLIC_DOMAIN}
           nginx.ingress.kubernetes.io/configuration-snippet: |
             add_header Cache-Control "no-store";
             add_header Pragma "no-cache";

@@ -110,7 +110,8 @@ spec:
         className: external
         annotations:
           gatus.io/enabled: "true"
-          hajimari.io/icon: material-symbols:detector-status
+          hajimari.io/icon: simple-icons:statuspage
+          hajimari.io/url: https://status.${PUBLIC_DOMAIN}
           external-dns.alpha.kubernetes.io/target: external.${PUBLIC_DOMAIN}
         hosts:
           - host: &host "{{ .Release.Name }}.${PUBLIC_DOMAIN}"

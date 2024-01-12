@@ -27,10 +27,10 @@ spec:
       TZ: ${TIMEZONE}
     hajimari:
       title: Apps
-      lightTheme: cloud
-      darkTheme: espresso
+      lightTheme: paper
+      darkTheme: chalk
       alwaysTargetBlank: true
-      showGreeting: false
+      showGreeting: true
       showAppGroups: false
       showAppStatus: false
       showBookmarkGroups: false
@@ -38,16 +38,7 @@ spec:
       showAppUrls: true
       defaultEnable: true
       namespaceSelector:
-        matchNames:
-          - default
-          - flux-system
-          - home
-          - kube-system
-          - media
-          - monitoring
-          - networking
-          - rook-ceph
-          - security
+        any: true
     ingress:
       main:
         enabled: true
@@ -55,19 +46,19 @@ spec:
         annotations:
           hajimari.io/enable: "false"
         hosts:
-          - host: &host0 ${PUBLIC_DOMAIN}
+          - host: &host "{{ .Release.Name }}.${PUBLIC_DOMAIN}"
             paths: &paths
               - path: /
                 pathType: Prefix
-          - host: &host1 www.${PUBLIC_DOMAIN}
+          - host: &customHost0 www.${PUBLIC_DOMAIN}
             paths: *paths
-          - host: &host2 apps.${PUBLIC_DOMAIN}
+          - host: &customHost1 ${PUBLIC_DOMAIN}
             paths: *paths
         tls:
           - hosts:
-              - *host0
-              - *host1
-              - *host2
+              - *host
+              - *customHost0
+              - *customHost1
     podAnnotations:
       configmap.reloader.stakater.com/reload: hajimari-settings
     persistence:
