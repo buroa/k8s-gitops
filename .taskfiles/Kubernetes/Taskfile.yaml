@@ -72,14 +72,41 @@ tasks:
                   "stdinOnce": true,
                   "tty": true,
                   "securityContext": {
+                    "allowPrivilegeEscalation": true,
                     "privileged": true
-                  }
+                  },
+                  "volumeMounts": [
+                    {
+                      "name": "hostfs",
+                      "mountPath": "/rootfs"
+                    },
+                    {
+                      "name": "run-containerd",
+                      "mountPath": "/run/containerd"
+                    }
+                  ]
                 }
               ],
+              "dnsPolicy": "ClusterFirstWithHostNet",
+              "hostIPC": true,
               "hostNetwork": true,
               "hostPID": true,
               "nodeName": "{{.node}}",
-              "restartPolicy": "Never"
+              "restartPolicy": "Never",
+              "volumes": [
+                {
+                  "name": "hostfs",
+                  "hostPath": {
+                    "path": "/"
+                  }
+                },
+                {
+                  "name": "run-containerd",
+                  "hostPath": {
+                    "path": "/run/containerd"
+                  }
+                }
+              ]
             }
           }'
     vars:
