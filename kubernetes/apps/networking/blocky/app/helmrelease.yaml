@@ -102,7 +102,7 @@ spec:
           - path: /app/config.yml
             subPath: config.yml
             readOnly: true
-      hosts:
+      etc-hosts:
         type: hostPath
         hostPath: /etc/hosts
         globalMounts:
