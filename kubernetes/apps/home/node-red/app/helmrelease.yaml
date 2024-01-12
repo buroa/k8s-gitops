@@ -83,7 +83,6 @@ spec:
               - *customHost
     persistence:
       data:
-        enabled: true
         existingClaim: *app
       settings:
         type: configMap

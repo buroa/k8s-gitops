@@ -64,7 +64,6 @@ spec:
             fsGroupChangePolicy: OnRootMismatch
     persistence:
       data:
-        enabled: true
         existingClaim: *app
       config-file:
         type: configMap
