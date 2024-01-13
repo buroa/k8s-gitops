@@ -11,5 +11,6 @@ spec:
     matchLabels:
       kubernetes.io/os: linux
   serviceSelector:
-    matchLabels:
-      io.cilium/lb-ipam-layer2: "true"
+    matchExpressions:
+      - key: io.cilium/lb-ipam-layer2
+        operator: Exists
