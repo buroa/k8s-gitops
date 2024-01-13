@@ -7,7 +7,6 @@ metadata:
 spec:
   targetNamespace: networking
   dependsOn:
-    - name: cluster-apps-ingress-nginx-external
     - name: cluster-apps-external-secrets-stores
   path: ./kubernetes/apps/networking/cloudflared/app
   prune: true
