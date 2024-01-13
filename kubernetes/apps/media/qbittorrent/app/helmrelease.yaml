@@ -27,6 +27,7 @@ spec:
       main:
         annotations:
           configmap.reloader.stakater.com/reload: &configMap cross-seed-configmap
+          secret.reloader.stakater.com/reload: &secret cross-seed-secret
         containers:
           main:
             image:
@@ -85,7 +86,7 @@ spec:
               PORT: &xseedPort 2468
             envFrom:
               - secretRef:
-                  name: cross-seed-secret
+                  name: *secret
             resources:
               requests:
                 cpu: 10m
