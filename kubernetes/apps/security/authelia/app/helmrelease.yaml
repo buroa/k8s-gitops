@@ -51,6 +51,21 @@ spec:
               X_AUTHELIA_CONFIG: /config/configuration.yml
               X_AUTHELIA_CONFIG_FILTERS: expand-env
             envFrom: *envFrom
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: &path /api/health
+                    port: &port 9091
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: false
             resources:
               requests:
                 cpu: 5m
@@ -82,6 +97,7 @@ spec:
         className: external
         annotations:
           gatus.io/enabled: "true"
+          gatus.io/path: *path
           hajimari.io/icon: mdi:shield-account
           hajimari.io/url: https://auth.${PUBLIC_DOMAIN}
           nginx.ingress.kubernetes.io/configuration-snippet: |
@@ -116,7 +132,7 @@ spec:
       main:
         ports:
           http:
-            port: 9091
+            port: *port
           metrics:
             port: 8080
     serviceMonitor:
