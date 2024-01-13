@@ -38,17 +38,17 @@ spec:
                   name: gatus-secret
           init-config:
             order: 2
-            image: &syncImage
+            image: &syncSyncImage
               repository: ghcr.io/kiwigrid/k8s-sidecar
               tag: 1.25.3@sha256:8dc0aca015bf7173378ee5987dd78d49f94ff9a5c3495b3664141750cc55f444
-            env:
+            env: &configSyncEnv
               FOLDER: /config
               LABEL: gatus.io/enabled
               NAMESPACE: ALL
               RESOURCE: both
               UNIQUE_FILENAMES: true
               METHOD: LIST
-            resources:
+            resources: &resources
               requests:
                 cpu: 10m
                 memory: 10M
@@ -65,12 +65,22 @@ spec:
               GATUS_CONFIG_PATH: /config
               CUSTOM_WEB_PORT: &port 80
             envFrom: *envFrom
-            resources:
-              requests:
-                cpu: 10m
-                memory: 256M
-              limits:
-                memory: 512M
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: &path /health
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: false
+            resources: *resources
             securityContext: &securityContext
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -78,20 +88,11 @@ spec:
                 drop:
                   - ALL
           config-sync:
-            image: *syncImage
+            image: *syncSyncImage
             env:
-              FOLDER: /config
-              LABEL: gatus.io/enabled
-              NAMESPACE: ALL
-              RESOURCE: both
-              UNIQUE_FILENAMES: true
+              <<: *configSyncEnv
               METHOD: WATCH
-            resources:
-              requests:
-                cpu: 10m
-                memory: 10M
-              limits:
-                memory: 128M
+            resources: *resources
             securityContext: *securityContext
         pod:
           dnsConfig:
@@ -110,6 +111,7 @@ spec:
         className: external
         annotations:
           gatus.io/enabled: "true"
+          gatus.io/path: *path
           hajimari.io/icon: simple-icons:statuspage
           hajimari.io/url: https://status.${PUBLIC_DOMAIN}
           external-dns.alpha.kubernetes.io/target: external.${PUBLIC_DOMAIN}
