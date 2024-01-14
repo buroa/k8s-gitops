@@ -17,9 +17,9 @@ spec:
     matchExpressions:
       - key: node-role.kubernetes.io/control-plane
         operator: Exists
-  prepare:
-    image: &image ghcr.io/siderolabs/talosctl:v1.6.1
-    envs: &envs
+  prepare: &prepare
+    image: ghcr.io/siderolabs/talosctl:v1.6.1
+    envs:
       - name: NODE_IP
         valueFrom:
           fieldRef:
@@ -29,8 +29,7 @@ spec:
       - health
       - --server=false
   upgrade:
-    image: *image
-    envs: *envs
+    <<: *prepare
     args:
       - --nodes=$(NODE_IP)
       - upgrade-k8s

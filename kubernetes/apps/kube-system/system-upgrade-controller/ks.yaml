@@ -25,6 +25,7 @@ spec:
   targetNamespace: kube-system
   dependsOn:
     - name: cluster-apps-system-upgrade-controller
+    - name: cluster-apps-node-feature-discovery-features
   path: ./kubernetes/apps/kube-system/system-upgrade-controller/plans
   prune: true
   sourceRef:

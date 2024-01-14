@@ -15,13 +15,11 @@ spec:
   exclusive: true
   nodeSelector:
     matchExpressions:
-      - key: kubernetes.io/os
-        operator: In
-        values:
-          - linux
-  prepare:
-    image: &image ghcr.io/siderolabs/talosctl
-    envs: &envs
+      - key: apple.feature.node.kubernetes.io/t2
+        operator: Exists
+  prepare: &prepare
+    image: ghcr.io/siderolabs/talosctl
+    envs:
       - name: NODE_IP
         valueFrom:
           fieldRef:
@@ -31,8 +29,7 @@ spec:
       - health
       - --server=false
   upgrade:
-    image: *image
-    envs: *envs
+    <<: *prepare
     args:
       - --nodes=$(NODE_IP)
       - upgrade
