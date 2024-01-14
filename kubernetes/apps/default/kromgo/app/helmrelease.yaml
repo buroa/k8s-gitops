@@ -81,7 +81,8 @@ spec:
           - hosts:
               - *host
     persistence:
-      config-file:
+      config:
+        enabled: true
         type: configMap
         name: kromgo-configmap
         globalMounts:
