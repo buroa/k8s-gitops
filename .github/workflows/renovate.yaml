@@ -5,11 +5,11 @@ on:
   workflow_dispatch:
     inputs:
       dryRun:
-        description: Dry-Run
+        description: Dry Run
         default: "false"
         required: false
       logLevel:
-        description: Log-Level
+        description: Log Level
         default: debug
         required: false
       version:
@@ -17,7 +17,7 @@ on:
         default: latest
         required: false
   schedule:
-    - cron: "0 * * * *"
+    - cron: "0 * * * *" # Every hour
   push:
     branches: ["master"]
     paths:
@@ -29,16 +29,13 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  WORKFLOW_DRY_RUN: false
-  WORKFLOW_LOG_LEVEL: debug
-  WORKFLOW_VERSION: latest
+  LOG_LEVEL: "${{ inputs.logLevel || 'debug' }}"
   RENOVATE_AUTODISCOVER: true
   RENOVATE_AUTODISCOVER_FILTER: "${{ github.repository }}"
-  RENOVATE_GIT_AUTHOR: "${{ secrets.BOT_USERNAME }} <${{ secrets.BOT_USER_ID }}+${{ secrets.BOT_USERNAME }}[bot]@users.noreply.github.com>"
-  RENOVATE_ONBOARDING_CONFIG_FILE_NAME: .github/renovate.json5
+  RENOVATE_DRY_RUN: "${{ inputs.dryRun == true }}"
   RENOVATE_PLATFORM: github
   RENOVATE_PLATFORM_COMMIT: true
-  RENOVATE_USERNAME: "${{ secrets.BOT_USERNAME }}[bot]"
+  WORKFLOW_RENOVATE_VERSION: "${{ inputs.version || 'latest' }}"
 
 jobs:
   renovate:
@@ -57,15 +54,9 @@ jobs:
         with:
           token: "${{ steps.app-token.outputs.token }}"
 
-      - name: Override Default Config
-        shell: bash
-        run: |
-          echo "RENOVATE_DRY_RUN=${{ github.event.inputs.dryRun || env.WORKFLOW_DRY_RUN }}" >> "${GITHUB_ENV}"
-          echo "LOG_LEVEL=${{ github.event.inputs.logLevel || env.WORKFLOW_LOG_LEVEL }}" >> "${GITHUB_ENV}"
-
       - name: Renovate
         uses: renovatebot/github-action@f9c81dddc9b589e4e6ae0326d1e36f6bc415d230 # v39.2.4
         with:
-          configurationFile: "${{ env.RENOVATE_ONBOARDING_CONFIG_FILE_NAME }}"
+          configurationFile: .github/renovate.json5
           token: "${{ steps.app-token.outputs.token }}"
-          renovate-version: "${{ github.event.inputs.version || env.WORKFLOW_VERSION }}"
+          renovate-version: "${{ env.WORKFLOW_RENOVATE_VERSION }}"
