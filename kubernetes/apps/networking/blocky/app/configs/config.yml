@@ -116,6 +116,9 @@ connectIPVersion: v4
 ecs:
   useAsClient: true
 
+ede:
+  enable: true
+
 hostsFile:
   filterLoopback: true
   sources:
