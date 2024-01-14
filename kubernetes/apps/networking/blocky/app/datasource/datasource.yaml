@@ -7,10 +7,10 @@ datasources:
     uid: blocky
     access: proxy
     url: postgres-ro.databases.svc.cluster.local.:5432
-    user: {{ .BLOCKY_POSTGRES_USER }}
+    user: "{{ .BLOCKY_POSTGRES_USER }}"
     jsonData:
       database: blocky
-      sslmode: "disable"
+      sslmode: disable
       maxOpenConns: 100
       maxIdleConns: 100
       maxIdleConnsAuto: true
