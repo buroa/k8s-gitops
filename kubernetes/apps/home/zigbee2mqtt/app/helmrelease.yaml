@@ -69,10 +69,9 @@ spec:
               requests:
                 smarter-devices/ttyACM0: 1
                 cpu: 10m
-                memory: 100M
               limits:
                 smarter-devices/ttyACM0: 1
-                memory: 256M
+                memory: 256Mi
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true

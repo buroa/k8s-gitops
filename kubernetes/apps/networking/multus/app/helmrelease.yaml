@@ -36,10 +36,9 @@ spec:
         config: /etc/cni/net.d
     resources:
       requests:
-        cpu: 5m
-        memory: 64M
+        cpu: 10m
       limits:
-        memory: 64M
+        memory: 64Mi
     hostPaths:
       netns: /var/run/netns
   postRenderers:

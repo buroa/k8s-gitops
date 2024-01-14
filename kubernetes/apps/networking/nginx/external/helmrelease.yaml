@@ -68,10 +68,9 @@ spec:
             any: true
       resources:
         requests:
-          cpu: 10m
-          memory: 256M
+          cpu: 100m
         limits:
-          memory: 512M
+          memory: 512Mi
       service:
         annotations:
           io.cilium/lb-ipam-ips: ${INGRESS_EXT_LB_IP}

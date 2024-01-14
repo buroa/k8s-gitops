@@ -61,9 +61,8 @@ spec:
             resources:
               requests:
                 cpu: 10m
-                memory: 256M
               limits:
-                memory: 1024M
+                memory: 1Gi
             securityContext: &securityContext
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -82,9 +81,8 @@ spec:
             resources:
               requests:
                 cpu: 10m
-                memory: 10M
               limits:
-                memory: 128M
+                memory: 128Mi
             securityContext: *securityContext
         pod:
           securityContext:

@@ -46,6 +46,11 @@ spec:
             envFrom:
               - secretRef:
                   name: plex-image-cleanup-secret
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 8Gi
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true

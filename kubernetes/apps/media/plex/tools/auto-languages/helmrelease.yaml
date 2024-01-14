@@ -41,10 +41,9 @@ spec:
                   name: plex-auto-languages-secret
             resources:
               requests:
-                cpu: 50m
-                memory: 128M
+                cpu: 10m
               limits:
-                memory: 1024M
+                memory: 1Gi
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true

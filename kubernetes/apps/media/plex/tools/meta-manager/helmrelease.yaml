@@ -47,9 +47,8 @@ spec:
             resources:
               requests:
                 cpu: 10m
-                memory: 4096M
               limits:
-                memory: 8192M
+                memory: 8Gi
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true

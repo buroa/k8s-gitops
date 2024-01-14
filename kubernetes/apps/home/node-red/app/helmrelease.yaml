@@ -44,10 +44,9 @@ spec:
                   name: node-red-secret
             resources:
               requests:
-                cpu: 5m
-                memory: 36M
+                cpu: 10m
               limits:
-                memory: 512M
+                memory: 512Mi
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true

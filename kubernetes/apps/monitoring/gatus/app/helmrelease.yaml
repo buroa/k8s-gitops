@@ -51,9 +51,8 @@ spec:
             resources: &resources
               requests:
                 cpu: 10m
-                memory: 10M
               limits:
-                memory: 128M
+                memory: 128Mi
         containers:
           main:
             image:
