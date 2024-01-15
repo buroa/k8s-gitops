@@ -165,7 +165,9 @@ spec:
                 subPath: config.yaml
                 readOnly: true
       media:
-        existingClaim: media
+        type: nfs
+        server: nas.${PUBLIC_DOMAIN}
+        path: /volume1/media
         advancedMounts:
           orphaned:
             main:

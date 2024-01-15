@@ -8,7 +8,6 @@ spec:
   targetNamespace: media
   dependsOn:
     - name: cluster-apps-volsync
-    - name: cluster-apps-pvc-media
     - name: cluster-apps-rook-ceph-cluster
     - name: cluster-apps-external-secrets-stores
     - name: cluster-apps-intel-device-plugin-gpu

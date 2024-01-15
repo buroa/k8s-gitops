@@ -64,7 +64,9 @@ spec:
               - 65536
     persistence:
       media:
-        existingClaim: media
+        type: nfs
+        server: nas.${PUBLIC_DOMAIN}
+        path: /volume1/media
     service:
       main:
         ports:

@@ -121,7 +121,9 @@ spec:
           - path: /config/cache
             subPath: cache
       media:
-        existingClaim: media
+        type: nfs
+        server: nas.${PUBLIC_DOMAIN}
+        path: /volume1/media
       scripts:
         type: configMap
         name: bazarr-scripts

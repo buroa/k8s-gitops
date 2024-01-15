@@ -136,7 +136,9 @@ spec:
         enabled: true
         existingClaim: *app
       media:
-        existingClaim: media
+        type: nfs
+        server: nas.${PUBLIC_DOMAIN}
+        path: /volume1/media
       xseed:
         type: configMap
         name: *configMap
