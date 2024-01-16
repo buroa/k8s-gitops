@@ -399,7 +399,9 @@ spec:
           datasource: Prometheus
         qbittorrent-exporter:
           url: https://raw.githubusercontent.com/esanchezm/prometheus-qbittorrent-exporter/master/grafana/dashboard.json
-          datasource: Prometheus
+          datasource:
+            - name: DS_PROMETHEUS
+              value: Prometheus
         unpackerr:
           # renovate: depName="Unpackerr"
           gnetId: 18817
