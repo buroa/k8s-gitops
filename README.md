@@ -59,9 +59,10 @@ This semi hyper-converged cluster runs [Talos Linux](https://github.com/siderola
 - [actions-runner-controller](https://github.com/actions/actions-runner-controller): Self-hosted Github runners.
 - [cilium](https://github.com/cilium/cilium): Internal Kubernetes networking plugin.
 - [cert-manager](https://github.com/cert-manager/cert-manager): Creates SSL certificates for services in my Kubernetes cluster.
-- [external-dns](https://github.com/kubernetes-sigs/external-dns): Automatically manages DNS records from my cluster in a cloud DNS provider.
-- [external-secrets]https://github.com/external-secrets/external-secrets): Managed Kubernetes secrets using [1Password Connect](https://github.com/1Password/connect).
-- [ingress-nginx](https://github.com/kubernetes/ingress-nginx): Ingress controller for Kubernetes using NGINX as a reverse proxy and load balancer.
+- [external-dns](https://github.com/kubernetes-sigs/external-dns): Automatically syncs DNS records from my cluster ingresses to a DNS provider.
+- [external-secrets](https://github.com/external-secrets/external-secrets): Managed Kubernetes secrets using [1Password Connect](https://github.com/1Password/connect).
+- [ingress-nginx](https://github.com/kubernetes/ingress-nginx): Kubernetes ingress controller using NGINX as a reverse proxy and load balancer.
+- [multus](https://github.com/k8snetworkplumbingwg/multus-cni): Multi-homed pod networking.
 - [rook](https://github.com/rook/rook): Distributed block storage for peristent storage.
 - [sops](https://github.com/getsops/sops): Managed secrets for Kubernetes and Terraform which are commited to Git.
 - [spegel](https://github.com/XenitAB/spegel): Stateless cluster local OCI registry mirror.
