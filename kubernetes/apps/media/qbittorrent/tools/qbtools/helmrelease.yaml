@@ -37,8 +37,8 @@ spec:
         annotations:
           configmap.reloader.stakater.com/reload: &configMap qbtools-configmap
         initContainers:
-          tagging:
-            image: &image
+          tagging: &container
+            image:
               repository: ghcr.io/buroa/qbtools
               tag: v0.13.0@sha256:e4b3df12cc95c0015759f1382aa00d7027ff114a528e677285fcf87f97c64960
             args:
@@ -53,14 +53,14 @@ spec:
               - qbittorrent.media.svc.cluster.local
               - --port
               - "8080"
-            env: &env
+            env:
               TZ: *timeZone
-            resources: &resources
+            resources:
               requests:
                 cpu: 25m
               limits:
                 memory: 256Mi
-            securityContext: &securityContext
+            securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities:
@@ -68,7 +68,7 @@ spec:
                   - ALL
         containers:
           unregistered:
-            image: *image
+            <<: *container
             args:
               - prune
               - --include-tag
@@ -79,11 +79,8 @@ spec:
               - qbittorrent.media.svc.cluster.local
               - --port
               - "8080"
-            env: *env
-            resources: *resources
-            securityContext: *securityContext
           expired:
-            image: *image
+            <<: *container
             args:
               - prune
               - --exclude-category
@@ -96,9 +93,6 @@ spec:
               - qbittorrent.media.svc.cluster.local
               - --port
               - "8080"
-            env: *env
-            resources: *resources
-            securityContext: *securityContext
         pod:
           restartPolicy: OnFailure
           securityContext: &podSecurityContext
@@ -112,7 +106,7 @@ spec:
           schedule: "@daily"
         containers:
           main:
-            image: *image
+            <<: *container
             args:
               - orphaned
               - --exclude-pattern
@@ -123,9 +117,6 @@ spec:
               - qbittorrent.media.svc.cluster.local
               - --port
               - "8080"
-            env: *env
-            resources: *resources
-            securityContext: *securityContext
         pod:
           restartPolicy: OnFailure
           securityContext:
@@ -137,7 +128,7 @@ spec:
       reannounce:
         containers:
           main:
-            image: *image
+            <<: *container
             args:
               - reannounce
               - --process-seeding
@@ -145,14 +136,8 @@ spec:
               - qbittorrent.media.svc.cluster.local
               - --port
               - "8080"
-            env: *env
-            resources: *resources
-            securityContext: *securityContext
         pod:
           securityContext: *podSecurityContext
-    service:
-      main:
-        enabled: false
     persistence:
       config:
         enabled: true
@@ -172,3 +157,6 @@ spec:
           orphaned:
             main:
               - path: /media
+    service:
+      main:
+        enabled: false
