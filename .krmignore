@@ -1,6 +1,2 @@
-.github
-.taskfiles
-.vscode
-kubernetes/**/configs/**
-talos
-terraform
+configs/*.yaml
+configs/*.yml
