@@ -12,28 +12,13 @@ trackers:
 
   - name: anthelion
     urls: ["anthelion.me"]
-    required_seed_ratio: 0
-    required_seed_days: 0
-
-  - name: avistaz
-    urls: ["avistaz.to"]
-    required_seed_ratio: 0.91
-    required_seed_days: 8.1
-
-  - name: beyond-hd
-    urls: ["beyond-hd.me"]
-    required_seed_ratio: 0
-    required_seed_days: 0
+    required_seed_ratio: 1.01
+    required_seed_days: 14.1
 
   - name: blutopia
     urls: ["blutopia.cc", "blutopia.xyz"]
     required_seed_ratio: 0
     required_seed_days: 7.1
-
-  - name: broadcasthenet
-    urls: ["landof.tv"]
-    required_seed_ratio: 1.01
-    required_seed_days: 5.1
 
   - name: filelist
     urls: ["filelist.io", "flro.org"]
@@ -69,11 +54,6 @@ trackers:
     urls: ["passthepopcorn.me"]
     required_seed_ratio: 1.01
     required_seed_days: 2.1
-
-  - name: pixelhd
-    urls: ["pixelhd.me"]
-    required_seed_ratio: 0
-    required_seed_days: 0
 
   - name: privatehd
     urls: ["privatehd.to"]
