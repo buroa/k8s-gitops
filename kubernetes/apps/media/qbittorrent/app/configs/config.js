@@ -23,8 +23,8 @@ module.exports = {
     `http://prowlarr.media.svc.cluster.local:9696/44/api?apikey=$${process.env.PROWLARR_API_KEY}`,  // phd
     `http://prowlarr.media.svc.cluster.local:9696/15/api?apikey=$${process.env.PROWLARR_API_KEY}`,  // st
     `http://prowlarr.media.svc.cluster.local:9696/78/api?apikey=$${process.env.PROWLARR_API_KEY}`,  // td
-    `http://prowlarr.media.svc.cluster.local:9696/6/api?apikey=$${process.env.PROWLARR_API_KEY}`,   // ts
     `http://prowlarr.media.svc.cluster.local:9696/4/api?apikey=$${process.env.PROWLARR_API_KEY}`,   // tl
+    `http://prowlarr.media.svc.cluster.local:9696/6/api?apikey=$${process.env.PROWLARR_API_KEY}`,   // ts
     `http://prowlarr.media.svc.cluster.local:9696/8/api?apikey=$${process.env.PROWLARR_API_KEY}`,   // uhdb
   ],
 
