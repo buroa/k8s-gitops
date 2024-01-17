@@ -5,7 +5,7 @@ metadata:
   name: kubernetes
 spec:
   # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=kubernetes/kubernetes
-  version: 1.29.0
+  version: 1.29.1
   serviceAccountName: system-upgrade
   secrets:
     - name: talos
