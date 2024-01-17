@@ -61,6 +61,8 @@ spec:
                     path: /health
                     port: *apiPort
                   initialDelaySeconds: 15
+                  periodSeconds: 30
+                  failureThreshold: 3
               startup:
                 enabled: false
             resources: &resources
@@ -103,6 +105,8 @@ spec:
                     path: /health
                     port: *syncPort
                   initialDelaySeconds: 15
+                  periodSeconds: 30
+                  failureThreshold: 3
               startup:
                 enabled: false
               resources: *resources

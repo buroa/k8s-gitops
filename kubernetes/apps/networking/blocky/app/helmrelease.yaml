@@ -54,8 +54,7 @@ spec:
                       - /app/blocky
                       - healthcheck
                   initialDelaySeconds: 15
-                  periodSeconds: 10
-                  timeoutSeconds: 1
+                  periodSeconds: 30
                   failureThreshold: 3
               readiness: *probes
               startup:
