@@ -99,11 +99,6 @@ spec:
           gatus.io/path: *path
           hajimari.io/icon: mdi:shield-account
           hajimari.io/url: https://auth.${PUBLIC_DOMAIN}
-          nginx.ingress.kubernetes.io/configuration-snippet: |
-            add_header Cache-Control "no-store";
-            add_header Pragma "no-cache";
-            add_header X-Frame-Options "SAMEORIGIN";
-            add_header X-XSS-Protection "1; mode=block";
           external-dns.alpha.kubernetes.io/target: external.${PUBLIC_DOMAIN}
         hosts:
           - host: &host "{{ .Release.Name }}.${PUBLIC_DOMAIN}"
