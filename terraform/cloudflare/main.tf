@@ -9,7 +9,7 @@ terraform {
   required_providers {
     onepassword = {
       source  = "1password/onepassword"
-      version = "1.4.0"
+      version = "1.4.1"
     }
     cloudflare = {
       source  = "cloudflare/cloudflare"
