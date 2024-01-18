@@ -1,7 +1,6 @@
 ---
 originRequest:
-  autoOriginServerName: true
-  http2Origin: true
+  autoOriginServerName: true # Ref: https://github.com/cloudflare/cloudflared/pull/1160
 
 ingress:
   - hostname: ${PUBLIC_DOMAIN}
