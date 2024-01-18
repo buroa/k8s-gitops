@@ -27,7 +27,7 @@ spec:
     pspEnabled: false
     ingress:
       enabled: true
-      className: cilium
+      className: internal
       annotations:
         hajimari.io/enable: "false"
       hosts:

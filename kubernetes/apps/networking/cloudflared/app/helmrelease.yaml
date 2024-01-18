@@ -32,9 +32,8 @@ spec:
         containers:
           main:
             image:
-              # TODO: move to semver once available
-              repository: ghcr.io/buroa/cloudflared
-              tag: develop@sha256:3d101d8e548135d1e416fc9ed43971feb3022300cd1f683070a61fd9e8506269
+              repository: docker.io/cloudflare/cloudflared
+              tag: 2024.1.3@sha256:8124930145ba79535f2a9fb83bb9fb0abbeb8fdab94f4d72ae34deeeaee8774d
             args:
               - tunnel
               - --config

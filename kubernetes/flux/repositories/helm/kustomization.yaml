@@ -16,6 +16,7 @@ resources:
   - ./fairwinds-charts.yaml
   - ./grafana-charts.yaml
   - ./hajimari-charts.yaml
+  - ./ingress-nginx-charts.yaml
   - ./intel-charts.yaml
   - ./jetstack-charts.yaml
   - ./kubernetes-sigs-descheduler-charts.yaml

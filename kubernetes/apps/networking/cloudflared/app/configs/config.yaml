@@ -1,10 +1,10 @@
 ---
 originRequest:
-  autoOriginServerName: true # Ref: https://github.com/cloudflare/cloudflared/pull/1160
+  originServerName: external.${PUBLIC_DOMAIN}
 
 ingress:
   - hostname: ${PUBLIC_DOMAIN}
-    service: https://cilium-ingress.kube-system.svc.cluster.local:443
+    service: https://nginx-external-controller.networking.svc.cluster.local:443
   - hostname: "*.${PUBLIC_DOMAIN}"
-    service: https://cilium-ingress.kube-system.svc.cluster.local:443
+    service: https://nginx-external-controller.networking.svc.cluster.local:443
   - service: http_status:404

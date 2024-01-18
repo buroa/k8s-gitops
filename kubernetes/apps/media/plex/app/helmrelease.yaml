@@ -75,11 +75,12 @@ spec:
     ingress:
       main:
         enabled: true
-        className: cilium
+        className: external
         annotations:
           gatus.io/enabled: "true"
           gatus.io/path: *path
           hajimari.io/icon: mdi:plex
+          nginx.ingress.kubernetes.io/backend-protocol: HTTPS
           external-dns.alpha.kubernetes.io/target: external.${PUBLIC_DOMAIN}
         hosts:
           - host: &host "{{ .Release.Name }}.${PUBLIC_DOMAIN}"

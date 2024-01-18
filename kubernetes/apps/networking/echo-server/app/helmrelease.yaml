@@ -75,7 +75,7 @@ spec:
     ingress:
       main:
         enabled: true
-        className: cilium
+        className: external
         annotations:
           gatus.io/enabled: "true"
           hajimari.io/enable: "false"

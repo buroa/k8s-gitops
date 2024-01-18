@@ -99,7 +99,7 @@ spec:
     ingress:
       main:
         enabled: true
-        className: cilium
+        className: external
         annotations:
           gatus.io/enabled: "true"
           gatus.io/path: *path
