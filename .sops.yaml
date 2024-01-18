@@ -9,6 +9,10 @@ creation_rules:
     key_groups:
       - age:
           - age1tz8jjp5jwdx9qfwp0pl3kwl858s6mfm4wsz4wkz9xxg52zmdqddslz3q22
+  - path_regex: talos/.*\.sops\.ya?ml
+    key_groups:
+      - age:
+          - age1tz8jjp5jwdx9qfwp0pl3kwl858s6mfm4wsz4wkz9xxg52zmdqddslz3q22
   - path_regex: terraform/.*\.sops\.ya?ml
     key_groups:
       - age:
