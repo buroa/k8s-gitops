@@ -35,7 +35,7 @@ spec:
               # repository: docker.io/cloudflare/cloudflared
               # tag: 2024.1.3@sha256:8124930145ba79535f2a9fb83bb9fb0abbeb8fdab94f4d72ae34deeeaee8774d
               repository: ghcr.io/buroa/cloudflared
-              tag: develop@sha256:f062b8fa6b1477482f2933c1a849071edacfcbf3c1c6624077a752d90be12d80
+              tag: develop@sha256:797e0d7a226514143a8e064621e5c7e80f9bb77e1aaf4a75c32b51a03b201e4f
             args:
               - tunnel
               - --config
