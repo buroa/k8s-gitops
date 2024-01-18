@@ -38,6 +38,7 @@ spec:
           - &host am.${PUBLIC_DOMAIN}
         paths:
           - /
+        pathType: Prefix
         tls:
           - hosts:
               - *host
@@ -87,6 +88,7 @@ spec:
           - &host prometheus.${PUBLIC_DOMAIN}
         paths:
           - /
+        pathType: Prefix
         tls:
           - hosts:
               - *host

@@ -54,6 +54,7 @@ spec:
         extraTls:
           - hosts:
               - *host
+        pathType: Prefix
     query:
       enabled: true
       replicaCount: 3
