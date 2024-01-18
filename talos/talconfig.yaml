@@ -13,12 +13,12 @@ talosVersion: v1.6.2
 # renovate: datasource=github-releases extractVersion=^v(?<version>.*)$ depName=kubernetes/kubernetes
 kubernetesVersion: 1.29.1
 
-additionalApiServerCertSans:
-  - ${clusterEndpointIP}
-
-additionalMachineCertSans:
+additionalApiServerCertSans: &sans
   - ${clusterEndpointIP}
   - k8s.${domainName}
+  - 127.0.0.1 # KubePrism
+
+additionalMachineCertSans: *sans
 
 cniConfig:
   name: none
