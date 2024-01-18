@@ -2,9 +2,9 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: wildcard
+  name: ingress
 spec:
-  secretName: wildcard-tls
+  secretName: ingress-tls
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer

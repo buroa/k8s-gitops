@@ -42,7 +42,7 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: internal
+        ingressClassName: cilium
         annotations:
           hajimari.io/enable: "false"
         hosts:

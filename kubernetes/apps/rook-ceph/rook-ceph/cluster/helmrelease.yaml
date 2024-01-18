@@ -29,7 +29,7 @@ spec:
       createPrometheusRules: true
     ingress:
       dashboard:
-        ingressClassName: internal
+        ingressClassName: cilium
         annotations:
           hajimari.io/appName: Rook
           hajimari.io/icon: mdi:chess-rook

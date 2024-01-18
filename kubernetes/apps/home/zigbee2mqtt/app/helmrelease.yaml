@@ -92,7 +92,7 @@ spec:
     ingress:
       main:
         enabled: true
-        className: internal
+        className: cilium
         annotations:
           hajimari.io/icon: mdi:zigbee
           hajimari.io/url: https://zigbee.${PUBLIC_DOMAIN}

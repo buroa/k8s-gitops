@@ -82,7 +82,7 @@ spec:
     ingress:
       main:
         enabled: true
-        className: internal
+        className: cilium
         annotations:
           hajimari.io/icon: mdi:home-assistant
           hajimari.io/url: https://hass.${PUBLIC_DOMAIN}

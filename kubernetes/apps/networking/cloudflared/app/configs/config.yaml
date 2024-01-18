@@ -5,7 +5,7 @@ originRequest:
 
 ingress:
   - hostname: ${PUBLIC_DOMAIN}
-    service: https://nginx-external-controller.networking.svc.cluster.local:443
+    service: https://cilium-ingress.kube-system.svc.cluster.local:443
   - hostname: "*.${PUBLIC_DOMAIN}"
-    service: https://nginx-external-controller.networking.svc.cluster.local:443
+    service: https://cilium-ingress.kube-system.svc.cluster.local:443
   - service: http_status:404

@@ -96,7 +96,7 @@ spec:
     ingress:
       main:
         enabled: true
-        className: internal
+        className: cilium
         annotations:
           hajimari.io/icon: mdi:subtitles-outline
         hosts:

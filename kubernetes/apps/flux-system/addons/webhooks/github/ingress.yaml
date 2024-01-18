@@ -9,7 +9,7 @@ metadata:
     hajimari.io/enable: "false"
     external-dns.alpha.kubernetes.io/target: external.${PUBLIC_DOMAIN}
 spec:
-  ingressClassName: external
+  ingressClassName: cilium
   rules:
     - host: &host flux-webhook.${PUBLIC_DOMAIN}
       http:

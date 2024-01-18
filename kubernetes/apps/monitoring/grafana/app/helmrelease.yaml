@@ -435,7 +435,7 @@ spec:
       enabled: true
     ingress:
       enabled: true
-      ingressClassName: internal
+      ingressClassName: cilium
       annotations:
         hajimari.io/appName: Grafana
         hajimari.io/icon: simple-icons:grafana

@@ -63,7 +63,7 @@ spec:
     ingress:
       main:
         enabled: true
-        className: external
+        className: cilium
         annotations:
           gatus.io/enabled: "true"
           gatus.io/status-code: "404"

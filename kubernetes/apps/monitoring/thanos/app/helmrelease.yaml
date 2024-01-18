@@ -46,7 +46,7 @@ spec:
       ingress:
         enabled: true
         hostname: &host thanos.${PUBLIC_DOMAIN}
-        ingressClassName: internal
+        ingressClassName: cilium
         annotations:
           hajimari.io/appName: Thanos
           hajimari.io/icon: material-symbols:health-metrics

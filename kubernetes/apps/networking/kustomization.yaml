@@ -9,6 +9,5 @@ resources:
   - ./external-dns/ks.yaml
   - ./k8s-gateway/ks.yaml
   - ./multus/ks.yaml
-  - ./nginx/ks.yaml
   - ./smtp-relay/ks.yaml
   - ./tailscale/ks.yaml

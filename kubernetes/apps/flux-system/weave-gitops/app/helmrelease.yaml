@@ -29,7 +29,7 @@ spec:
       username: admin
     ingress:
       enabled: true
-      className: internal
+      className: cilium
       annotations:
         hajimari.io/icon: simple-icons:flux
       hosts:

@@ -114,7 +114,7 @@ spec:
     ingress:
       main:
         enabled: true
-        className: internal
+        className: cilium
         annotations:
           hajimari.io/icon: mdi:seedling
           hajimari.io/url: https://qb.${PUBLIC_DOMAIN}

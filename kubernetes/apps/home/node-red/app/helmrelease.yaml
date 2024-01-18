@@ -63,7 +63,7 @@ spec:
     ingress:
       main:
         enabled: true
-        className: internal
+        className: cilium
         annotations:
           hajimari.io/icon: cib:node-red
           hajimari.io/url: https://nr.${PUBLIC_DOMAIN}

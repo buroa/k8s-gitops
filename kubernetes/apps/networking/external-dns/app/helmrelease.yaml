@@ -37,7 +37,7 @@ spec:
               - --cloudflare-proxied
               - --zone-id-filter=$(CF_ZONE_ID)
               - --annotation-filter=external-dns.alpha.kubernetes.io/target
-              - --ingress-class=external
+              - --ingress-class=cilium
               - --interval=1m
               - --log-format=text
               - --log-level=info

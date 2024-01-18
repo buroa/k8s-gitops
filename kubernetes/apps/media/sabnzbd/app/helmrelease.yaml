@@ -94,7 +94,7 @@ spec:
     ingress:
       main:
         enabled: true
-        className: internal
+        className: cilium
         annotations:
           hajimari.io/icon: mdi:download
           hajimari.io/url: https://sab.${PUBLIC_DOMAIN}
