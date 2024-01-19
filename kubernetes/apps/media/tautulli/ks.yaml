@@ -9,7 +9,6 @@ spec:
   dependsOn:
     - name: cluster-apps-plex
     - name: cluster-apps-volsync
-    - name: cluster-apps-smtp-relay
     - name: cluster-apps-rook-ceph-cluster
     - name: cluster-apps-external-secrets-stores
   path: ./kubernetes/apps/media/tautulli/app
