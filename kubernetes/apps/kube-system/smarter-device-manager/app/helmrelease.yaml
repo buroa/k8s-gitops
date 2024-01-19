@@ -44,8 +44,6 @@ spec:
                 drop:
                   - ALL
         pod:
-          dnsPolicy: ClusterFirstWithHostNet
-          hostNetwork: true
           priorityClassName: system-node-critical
     persistence:
       config:
