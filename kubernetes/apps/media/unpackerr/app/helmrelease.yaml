@@ -30,8 +30,8 @@ spec:
         containers:
           main:
             image:
-              repository: ghcr.io/onedr0p/unpackerr
-              tag: 0.12.0@sha256:8bbf35be449b89041f07fc069812f79b4eadf56e1c7c7720935fe166016376ef
+              repository: ghcr.io/unpackerr/unpackerr
+              tag: v0.13.0@sha256:d37ec65c77fa751524109db88682f7ccaa471a4085ef8a7e1ade7002daa7fd34
             env:
               UN_INTERVAL: 1m
               UN_WEBSERVER_METRICS: true
