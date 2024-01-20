@@ -13,12 +13,12 @@ data:
 
   # Storage
   CLUSTER_STORAGE_BLOCK: ceph-block
-  CLUSTER_SNAPSHOT_BLOCK: csi-rbdplugin-snapclass
+  CLUSTER_SNAPSHOT_BLOCK: csi-ceph-block
   CLUSTER_STORAGE_FILESYSTEM: ceph-filesystem
-  CLUSTER_SNAPSHOT_FILESYSTEM: csi-filesystemplugin-snapclass
+  CLUSTER_SNAPSHOT_FILESYSTEM: csi-ceph-filesystem
   CLUSTER_STORAGE_BUCKET: ceph-bucket
   CLUSTER_STORAGE_HOSTPATH: democratic-csi-local-hostpath
-  CLUSTER_SNAPSHOT_HOSTPATH: democratic-csi-local-hostpath
+  CLUSTER_SNAPSHOT_HOSTPATH: csi-democratic-csi-local-hostpath
 
   # K8s
   CLUSTER_SERVICE_IP_CIDR: 10.245.0.0/16
