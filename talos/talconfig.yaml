@@ -341,7 +341,7 @@ controlPlane:
             kubernetes:
               disabled: false
             service:
-              disabled: false
+              disabled: true
 
     # Configure kubelet
     - &kubeletPatch |-
