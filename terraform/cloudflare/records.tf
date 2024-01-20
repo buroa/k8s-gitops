@@ -41,31 +41,12 @@ resource "cloudflare_record" "general_dmarc" {
   ttl     = 1
 }
 
-# Sendgrid DNS Records
-resource "cloudflare_record" "sendgrid_tracking_1" {
-  zone_id = data.cloudflare_zone.domain.id
-  name    = "32664962"
-  value   = "sendgrid.net"
-  type    = "CNAME"
-  proxied = false
-  ttl     = 1
-}
-
-resource "cloudflare_record" "sendgrid_tracking_2" {
+resource "cloudflare_record" "sendgrid_auth" {
   zone_id = data.cloudflare_zone.domain.id
   name    = "em6256"
   value   = "u32664962.wl213.sendgrid.net"
   type    = "CNAME"
   proxied = false
-  ttl     = 1
-}
-
-resource "cloudflare_record" "sendgrid_tracking_3" {
-  zone_id = data.cloudflare_zone.domain.id
-  name    = "url1742"
-  value   = "sendgrid.net"
-  type    = "CNAME"
-  proxied = true
   ttl     = 1
 }
 
