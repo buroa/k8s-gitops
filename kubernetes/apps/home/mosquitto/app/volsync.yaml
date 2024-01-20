@@ -53,9 +53,9 @@ spec:
     cacheCapacity: 8Gi
     cacheStorageClassName: ${CLUSTER_STORAGE_HOSTPATH}
     moverSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
+      runAsUser: 1883
+      runAsGroup: 1883
+      fsGroup: 1883
     capacity: 1Gi # must match the PersistentVolumeClaim `.resources.requests.storage` size above
 ---
 apiVersion: volsync.backube/v1alpha1
@@ -77,9 +77,9 @@ spec:
     cacheCapacity: 8Gi
     cacheStorageClassName: ${CLUSTER_STORAGE_HOSTPATH}
     moverSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
+      runAsUser: 1883
+      runAsGroup: 1883
+      fsGroup: 1883
     retain:
       daily: 10
       within: 3d
