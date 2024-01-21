@@ -146,9 +146,6 @@ tasks:
 
   cleanup:
     desc: Delete volume populator PVCs in all namespaces
-    summary: |
-      Args:
-        cluster: Cluster to run command against (required)
     cmds:
       - for: { var: dest }
         cmd: |
