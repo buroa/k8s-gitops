@@ -60,7 +60,7 @@ module "cf_domain_ktwo" {
       type  = "TXT"
     },
 
-    # Tunnel Ingress
+    # Tunnel settings
     {
       id      = "ingress"
       name    = "external"
@@ -71,6 +71,7 @@ module "cf_domain_ktwo" {
   ]
 
   cache_custom_rules = [
+    # Plex
     {
       description = "Set cache settings for plex.ktwo.io: bypass"
       expression  = "(http.host eq \"plex.ktwo.io\" and (http.request.uri.path matches \"/(.+)/notifications(.*)\" or http.request.uri.path matches \"/(video|subtitles)/:/transcode/(.*)\" or http.request.uri.path matches \"/library/parts/(.+)/(.+)/(.+)\"))"
@@ -116,36 +117,41 @@ module "cf_domain_ktwo" {
         }
       }
     },
+
+    # Overseerr
     {
       description = "Set cache settings for requests.ktwo.io"
       expression  = "(http.host eq \"requests.ktwo.io\" and http.request.uri.path matches \"/_next/(image|static)/(.*)\")"
       action_parameters = {
         browser_ttl = {
-          default = 31536000
+          default = 16070400
         }
         edge_ttl = {
-          default = 16070400
+          default = 31536000
         }
       }
     },
+
+    # Tautulli
     {
       description = "Set cache settings for tautulli.ktwo.io"
       expression  = "(http.host eq \"tautulli.ktwo.io\" and http.request.uri.path matches \"^/(newsletter|image|pms_image_proxy)\")"
       action_parameters = {
         browser_ttl = {
-          default = 31536000
+          default = 16070400
         }
         edge_ttl = {
-          default = 16070400
+          default = 31536000
         }
       }
     },
   ]
 
   transform_custom_rules = [
+    # Plex
     {
       description = "Strip localhost from plex image transcoder"
-      expression = "(http.host eq \"plex.ktwo.io\" and http.request.uri.path eq \"/photo/:/transcode\" and http.request.uri.query matches \"url=http%3A%2F%2F127.0.0.1%3A32400\")"
+      expression  = "(http.host eq \"plex.ktwo.io\" and http.request.uri.path eq \"/photo/:/transcode\" and http.request.uri.query matches \"url=http%3A%2F%2F127.0.0.1%3A32400\")"
       action_parameters = {
         uri = {
           query = {
@@ -156,7 +162,7 @@ module "cf_domain_ktwo" {
     },
     {
       description = "Rewrite default from plex image transcoder"
-      expression = "(http.host eq \"plex.ktwo.io\" and http.request.uri.path eq \"/photo/:/transcode\" and http.request.uri.query matches \"url=.*%2Flibrary%2F(.+)%2F([0-9]+)%2F(.+)%2F([0-9])[^&]*\")"
+      expression  = "(http.host eq \"plex.ktwo.io\" and http.request.uri.path eq \"/photo/:/transcode\" and http.request.uri.query matches \"url=.*%2Flibrary%2F(.+)%2F([0-9]+)%2F(.+)%2F([0-9])[^&]*\")"
       action_parameters = {
         uri = {
           query = {
@@ -177,8 +183,18 @@ module "cf_domain_ktwo" {
       expression  = "(not ip.geoip.country in {\"US\" \"CA\" \"NZ\" \"GB\" \"AU\"})"
     },
     {
-      description = "Block Plex notifications"
+      description = "Firewall rule to block plex notifications"
       expression  = "(http.host eq \"plex.ktwo.io\" and http.request.uri.path contains \"/:/eventsource/notifications\")"
+    },
+    {
+      description = "Firewall rule to allow Github access to flux-webhook",
+      expression  = "(http.host eq \"flux-webhook.ktwo.io\" and ip.geoip.asnum eq 36459)"
+      action      = "allow"
+    },
+    {
+      description = "Firewall rule to allow everyone access to nostr",
+      expression  = "(http.host eq \"nostr-relay.ktwo.io\")",
+      action      = "allow"
     },
   ]
 }
