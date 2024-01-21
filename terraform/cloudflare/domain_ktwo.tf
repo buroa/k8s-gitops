@@ -42,14 +42,14 @@ module "cf_domain_ktwo" {
     {
       id      = "sendgrid_dkim_1"
       name    = "s1._domainkey"
-      value   = "s1.domainkey.u32664962.wl213.sendgrid.net."
+      value   = "s1.domainkey.u32664962.wl213.sendgrid.net"
       type    = "CNAME"
       proxied = false
     },
     {
       id      = "sendgrid_dkim_2"
       name    = "s2._domainkey"
-      value   = "s2.domainkey.u32664962.wl213.sendgrid.net."
+      value   = "s2.domainkey.u32664962.wl213.sendgrid.net"
       type    = "CNAME"
       proxied = false
     },
