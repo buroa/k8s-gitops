@@ -175,8 +175,27 @@ module "cf_domain_ktwo" {
 
   waf_custom_rules = [
     {
-      description = "Firewall rule to block bots and threats determined by CF"
-      expression  = "(cf.client.bot) or (cf.threat_score gt 14)"
+      description = "Firewall rule to block threats determined by CF"
+      expression  = "(cf.threat_score gt 14)"
+    },
+    {
+      description = "Firewall rule to allow Github access to flux-webhook",
+      expression  = "(http.host eq \"flux-webhook.ktwo.io\" and ip.geoip.asnum eq 36459)"
+      action      = "skip"
+    },
+    {
+      description = "Firewall rule to allow everyone access to kromgo",
+      expression  = "(http.host eq \"kromgo.ktwo.io\")",
+      action      = "skip"
+    },
+    {
+      description = "Firewall rule to allow everyone access to nostr",
+      expression  = "(http.host eq \"nostr-relay.ktwo.io\")",
+      action      = "skip"
+    },
+    {
+      description = "Firewall rule to block bots determined by CF"
+      expression  = "(cf.client.bot)"
     },
     {
       description = "Firewall rule to block certain countries"
@@ -185,16 +204,6 @@ module "cf_domain_ktwo" {
     {
       description = "Firewall rule to block plex notifications"
       expression  = "(http.host eq \"plex.ktwo.io\" and http.request.uri.path contains \"/:/eventsource/notifications\")"
-    },
-    {
-      description = "Firewall rule to allow Github access to flux-webhook",
-      expression  = "(http.host eq \"flux-webhook.ktwo.io\" and ip.geoip.asnum eq 36459)"
-      action      = "skip"
-    },
-    {
-      description = "Firewall rule to allow everyone access to nostr",
-      expression  = "(http.host eq \"nostr-relay.ktwo.io\")",
-      action      = "skip"
     },
   ]
 }

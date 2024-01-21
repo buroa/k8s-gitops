@@ -12,6 +12,19 @@ resource "cloudflare_ruleset" "waf_custom_rules" {
       description = rule.value.description
       expression  = rule.value.expression
       action      = rule.value.action
+
+      dynamic "action_parameters" {
+        for_each = rule.value.action == "skip" ? [true] : []
+        content {
+          ruleset = "current"
+        }
+      }
+      dynamic "logging" {
+        for_each = rule.value.action == "skip" ? [true] : []
+        content {
+          enabled = true
+        }
+      }
     }
   }
 }
