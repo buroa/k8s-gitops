@@ -87,6 +87,14 @@ spec:
             editable: true
             options:
               path: /var/lib/grafana/dashboards/default
+          - name: blocky
+            orgId: 1
+            folder: Blocky
+            type: file
+            disableDeletion: false
+            editable: true
+            options:
+              path: /var/lib/grafana/dashboards/blocky
           - name: ceph
             orgId: 1
             folder: Ceph
@@ -111,6 +119,14 @@ spec:
             editable: true
             options:
               path: /var/lib/grafana/dashboards/kubernetes
+          - name: media
+            orgId: 1
+            folder: Media
+            type: file
+            disableDeletion: false
+            editable: true
+            options:
+              path: /var/lib/grafana/dashboards/media
           - name: nginx
             orgId: 1
             folder: Nginx
@@ -119,14 +135,14 @@ spec:
             editable: true
             options:
               path: /var/lib/grafana/dashboards/nginx
-          - name: blocky
+          - name: prometheus
             orgId: 1
-            folder: Blocky
+            folder: Prometheus
             type: file
             disableDeletion: false
             editable: true
             options:
-              path: /var/lib/grafana/dashboards/blocky
+              path: /var/lib/grafana/dashboards/prometheus
           - name: thanos
             orgId: 1
             folder: Thanos
@@ -143,14 +159,6 @@ spec:
             editable: true
             options:
               path: /var/lib/grafana/dashboards/unifi
-          - name: media
-            orgId: 1
-            folder: Media
-            type: file
-            disableDeletion: false
-            editable: true
-            options:
-              path: /var/lib/grafana/dashboards/media
     datasources:
       datasources.yaml:
         apiVersion: 1
@@ -255,6 +263,21 @@ spec:
           datasource:
             - name: DS_PROMETHEUS
               value: Prometheus
+      blocky:
+        blocky:
+          # renovate: depName="blocky"
+          gnetId: 13768
+          revision: 3
+          datasource:
+            - name: DS_PROMETHEUS
+              value: Prometheus
+            - name: VAR_BLOCKY_URL
+              value: https:\\/\\/blocky.${PUBLIC_DOMAIN}
+        blocky-query:
+          url: https://raw.githubusercontent.com/0xERR0R/blocky/main/docs/blocky-query-grafana-postgres.json
+          datasource:
+            - name: DS_POSTGRES
+              value: Blocky
       ceph:
         ceph-cluster:
           # renovate: depName="Ceph Cluster"
@@ -317,6 +340,27 @@ spec:
           gnetId: 11454
           revision: 14
           datasource: Prometheus
+      media:
+        exportarr:
+          url: https://raw.githubusercontent.com/onedr0p/exportarr/master/examples/grafana/dashboard2.json
+          datasource:
+            - name: DS_PROMETHEUS
+              value: Prometheus
+        overseerr-exporter:
+          url: https://raw.githubusercontent.com/WillFantom/overseerr-exporter/main/grafana/dashboard.json
+          datasource: Prometheus
+        qbittorrent-exporter:
+          url: https://raw.githubusercontent.com/esanchezm/prometheus-qbittorrent-exporter/master/grafana/dashboard.json
+          datasource:
+            - name: DS_PROMETHEUS
+              value: Prometheus
+        unpackerr:
+          # renovate: depName="Unpackerr"
+          gnetId: 18817
+          revision: 1
+          datasource:
+            - name: DS_PROMETHEUS
+              value: Prometheus
       nginx:
         nginx:
           url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json
@@ -324,21 +368,12 @@ spec:
         nginx-request-handling-performance:
           url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/request-handling-performance.json
           datasource: Prometheus
-      blocky:
-        blocky:
-          # renovate: depName="blocky"
-          gnetId: 13768
-          revision: 3
-          datasource:
-            - name: DS_PROMETHEUS
-              value: Prometheus
-            - name: VAR_BLOCKY_URL
-              value: https:\\/\\/blocky.${PUBLIC_DOMAIN}
-        blocky-query:
-          url: https://raw.githubusercontent.com/0xERR0R/blocky/main/docs/blocky-query-grafana-postgres.json
-          datasource:
-            - name: DS_POSTGRES
-              value: Blocky
+      prometheus:
+        prometheus:
+          # renovate: depName="Prometheus"
+          gnetId: 19105
+          revision: 2
+          datasource: Prometheus
       thanos:
         thanos-bucket-replicate:
           url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/thanos/dashboards/bucket-replicate.json
@@ -388,27 +423,6 @@ spec:
           gnetId: 11312
           revision: 9
           datasource: Prometheus
-      media:
-        exportarr:
-          url: https://raw.githubusercontent.com/onedr0p/exportarr/master/examples/grafana/dashboard2.json
-          datasource:
-            - name: DS_PROMETHEUS
-              value: Prometheus
-        overseerr-exporter:
-          url: https://raw.githubusercontent.com/WillFantom/overseerr-exporter/main/grafana/dashboard.json
-          datasource: Prometheus
-        qbittorrent-exporter:
-          url: https://raw.githubusercontent.com/esanchezm/prometheus-qbittorrent-exporter/master/grafana/dashboard.json
-          datasource:
-            - name: DS_PROMETHEUS
-              value: Prometheus
-        unpackerr:
-          # renovate: depName="Unpackerr"
-          gnetId: 18817
-          revision: 1
-          datasource:
-            - name: DS_PROMETHEUS
-              value: Prometheus
     sidecar:
       dashboards:
         enabled: true
