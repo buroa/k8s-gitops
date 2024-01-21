@@ -22,8 +22,6 @@
     "github>buroa/k8s-gitops//.github/renovate/packageRules.json5",
     "github>buroa/k8s-gitops//.github/renovate/semanticCommits.json5"
   ],
-  "onboarding": false,
-  "requireConfig": "optional",
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
   "suppressNotifications": ["prEditedNotification", "prIgnoreNotification"],
   "rebaseWhen": "conflicted",
