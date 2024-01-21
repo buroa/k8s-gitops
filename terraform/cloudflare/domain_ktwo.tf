@@ -189,12 +189,12 @@ module "cf_domain_ktwo" {
     {
       description = "Firewall rule to allow Github access to flux-webhook",
       expression  = "(http.host eq \"flux-webhook.ktwo.io\" and ip.geoip.asnum eq 36459)"
-      action      = "allow"
+      action      = "skip"
     },
     {
       description = "Firewall rule to allow everyone access to nostr",
       expression  = "(http.host eq \"nostr-relay.ktwo.io\")",
-      action      = "allow"
+      action      = "skip"
     },
   ]
 }
