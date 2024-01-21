@@ -42,9 +42,10 @@ tasks:
             "restartPolicy": "Never"
           }
         }'
+    requires:
+      vars: ["claim"]
     vars:
       ns: '{{.ns | default "default"}}'
-      claim: '{{ or .claim (fail "Argument (claim) is required") }}'
     preconditions:
       - { msg: "PVC not found", sh: "kubectl -n {{.ns}} get persistentvolumeclaim {{.claim}}" }
 
@@ -109,18 +110,15 @@ tasks:
               ]
             }
           }'
+    requires:
+      vars: ["node"]
     vars:
       ns: '{{.ns | default "default"}}'
-      node: '{{.node | default ""}}'
     preconditions:
       - { msg: "Node not found", sh: "kubectl -n {{.ns}} get node {{.node}}" }
 
-  delete-failed-pods:
-    desc: Deletes failed pods
-    cmds:
-      - kubectl delete pods --field-selector status.phase=Failed -A --ignore-not-found=true
-
-  delete-succeeded-pods:
-    desc: Deletes succeeded pods
-    cmds:
-      - kubectl delete pods --field-selector status.phase=Succeeded -A --ignore-not-found=true
+  delete-pods:
+    desc: Deletes pods in a phase
+    requires:
+      vars: ["phase"]
+    cmd: kubectl delete pods --field-selector status.phase={{.phase}} -A --ignore-not-found=true
