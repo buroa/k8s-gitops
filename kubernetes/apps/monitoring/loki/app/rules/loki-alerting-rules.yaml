@@ -64,7 +64,7 @@ groups:
   #
   - name: cross-seed
     rules:
-      - alert: CrossSeedPostgresUnreachable
+      - alert: CrossSeedDatabaseMalformed
         expr: |
           sum by (container) (count_over_time({app="qbittorrent", container="xseed"} |~ "(?i)database disk image is malformed"[1h])) > 0
         for: 2m
