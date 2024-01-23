@@ -4,7 +4,7 @@ kind: Plan
 metadata:
   name: talos
 spec:
-  # renovate: datasource=docker depName=ghcr.io/buroa/installer extractVersion=^(?<version>.*)$
+  # renovate: datasource=docker depName=ghcr.io/buroa/installer
   version: v1.6.2
   serviceAccountName: system-upgrade
   secrets:
