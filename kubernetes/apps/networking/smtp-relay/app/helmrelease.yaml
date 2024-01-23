@@ -33,7 +33,7 @@ spec:
           main:
             image:
               repository: ghcr.io/foxcpp/maddy
-              tag: 0.7.0@sha256:fdcc500eac9b35e2eab5597921be3407075892831f24c01c009e83591dc3b020
+              tag: 0.7.1@sha256:f06498f769f166bbc3050faf148529b6fa4242c510bb320a33430d80bfedeb9b
             env:
               MADDY_HTTP_PORT: &httpPort 8080
               MADDY_SMTP_PORT: &smtpPort 2525
