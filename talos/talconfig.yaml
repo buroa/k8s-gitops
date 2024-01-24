@@ -181,7 +181,7 @@ nodes:
       - deviceSelector:
           busPath: 1-1.0 # w1
         dhcp: false
-        mtu: 9000
+        mtu: 65520
         addresses:
           - 10.1.0.20/32
         routes:
@@ -190,7 +190,7 @@ nodes:
       - deviceSelector:
           busPath: 1-3.0 # w2
         dhcp: false
-        mtu: 9000
+        mtu: 65520
         addresses:
           - 10.1.0.20/32
         routes:
@@ -238,7 +238,7 @@ nodes:
       - deviceSelector:
           busPath: 1-1.0 # w0
         dhcp: false
-        mtu: 9000
+        mtu: 65520
         addresses:
           - 10.1.0.21/32
         routes:
@@ -247,7 +247,7 @@ nodes:
       - deviceSelector:
           busPath: 1-3.0 # w2
         dhcp: false
-        mtu: 9000
+        mtu: 65520
         addresses:
           - 10.1.0.21/32
         routes:
@@ -293,7 +293,7 @@ nodes:
       - deviceSelector:
           busPath: 1-1.0 # w0
         dhcp: false
-        mtu: 9000
+        mtu: 65520
         addresses:
           - 10.1.0.22/32
         routes:
@@ -302,7 +302,7 @@ nodes:
       - deviceSelector:
           busPath: 1-3.0 # w1
         dhcp: false
-        mtu: 9000
+        mtu: 65520
         addresses:
           - 10.1.0.22/32
         routes:
