@@ -5,7 +5,7 @@ metadata:
   name: talos
 spec:
   # renovate: datasource=docker depName=ghcr.io/buroa/installer
-  version: v1.6.2
+  version: v1.6.3
   serviceAccountName: system-upgrade
   secrets:
     - name: talos
