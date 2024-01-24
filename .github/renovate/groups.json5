@@ -35,9 +35,7 @@
     {
       "description": "System-Upgrade-Controller Group",
       "groupName": "System-Upgrade-Controller",
-      "matchPackagePatterns": [
-        "rancher/system-upgrade-controller"
-      ],
+      "matchPackagePatterns": ["rancher/system-upgrade-controller"],
       "matchDatasources": ["docker", "github-releases"],
       "group": {
         "commitMessageTopic": "{{{groupName}}} group"
@@ -47,12 +45,8 @@
     {
       "description": "Talos Group",
       "groupName": "Talos",
-      "matchPackagePatterns": [
-        "buroa/installer",
-        "siderolabs/talos",
-        "siderolabs/talosctl"
-      ],
-      "matchDatasources": ["docker", "github-releases"],
+      "matchPackagePatterns": ["buroa/installer", "siderolabs/talosctl"],
+      "matchDatasources": ["docker"],
       "group": {
         "commitMessageTopic": "{{{groupName}}} group"
       },

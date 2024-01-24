@@ -18,7 +18,7 @@ spec:
       - key: apple.feature.node.kubernetes.io/t2
         operator: Exists
   prepare: &prepare
-    image: ghcr.io/siderolabs/talosctl
+    image: ghcr.io/siderolabs/talosctl:v1.6.3
     envs:
       - name: NODE_IP
         valueFrom:
@@ -36,4 +36,4 @@ spec:
       - --image=ghcr.io/buroa/installer:$(SYSTEM_UPGRADE_PLAN_LATEST_VERSION)
       - --preserve=true
       - --wait=false
-      - --reboot-mode=powercycle # thunderbolt issue with kexec
+      - --reboot-mode=powercycle # TODO: thunderbolt-net issue with kexec
