@@ -89,7 +89,7 @@ spec:
     ipam:
       mode: kubernetes
     ipv4NativeRoutingCIDR: ${CLUSTER_POD_IP_CIDR}
-    k8sServiceHost: localhost
+    k8sServiceHost: 127.0.0.1
     k8sServicePort: 7445
     kubeProxyReplacement: true
     kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
