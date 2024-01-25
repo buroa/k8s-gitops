@@ -10,8 +10,8 @@ endpoint: https://k8s.${domainName}:6443
 
 # renovate: datasource=docker depName=ghcr.io/buroa/installer
 talosVersion: v1.6.3
-# renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet extractVersion=^v(?<version>.*)$
-kubernetesVersion: 1.29.1
+# renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
+kubernetesVersion: v1.29.1
 
 additionalApiServerCertSans: &sans
   - ${clusterEndpointIP}
