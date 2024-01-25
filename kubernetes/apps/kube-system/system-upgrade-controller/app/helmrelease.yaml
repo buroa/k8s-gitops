@@ -67,11 +67,14 @@ spec:
               drop:
                 - ALL
           tolerations:
-            - { key: CriticalAddonsOnly, operator: Exists }
-            - { key: node-role.kubernetes.io/master, operator: Exists, effect: NoSchedule }
-            - { key: node-role.kubernetes.io/controlplane, operator: Exists, effect: NoSchedule }
-            - { key: node-role.kubernetes.io/control-plane, operator: Exists, effect: NoSchedule }
-            - { key: node-role.kubernetes.io/etcd, operator: Exists, effect: NoExecute }
+            - key: CriticalAddonsOnly
+              operator: Exists
+            - key: node-role.kubernetes.io/control-plane
+              operator: Exists
+              effect: NoSchedule
+            - key: node-role.kubernetes.io/master
+              operator: Exists
+              effect: NoSchedule
     persistence:
       etc-ssl:
         type: hostPath
