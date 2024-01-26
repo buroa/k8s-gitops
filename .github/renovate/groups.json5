@@ -5,8 +5,8 @@
       "description": ["Actions Runner Controller Group"],
       "groupName": "Actions Runner Controller",
       "matchPackageNames": [
-        "actions-runner-controller-charts/gha-runner-scale-set-controller",
-        "actions-runner-controller-charts/gha-runner-scale-set"
+        "gha-runner-scale-set",
+        "gha-runner-scale-set-controller"
       ],
       "matchDatasources": ["docker", "helm"],
       "group": {
