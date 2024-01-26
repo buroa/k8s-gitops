@@ -14,7 +14,7 @@
       "customType": "regex",
       "description": ["Process Grafana dashboards"],
       "fileMatch": [
-        "(^|/)kubernetes/.+\\.ya?ml(\\.j2)?$"
+        "(^|/)kubernetes/.+\\.ya?ml$"
       ],
       "matchStrings": [
         "depName=\"(?<depName>.*)\"\\n.*?gnetId: (?<packageName>\\d+)\\n.*?revision: (?<currentValue>\\d+)"

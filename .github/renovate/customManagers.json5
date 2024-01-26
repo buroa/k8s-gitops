@@ -6,13 +6,13 @@
       "description": ["Process custom dependencies"],
       "fileMatch": [
         "(^|/).taskfiles/.+\\.ya?ml$",
-        "(^|/)talos/.+\\.ya?ml(\\.j2)?$",
-        "(^|/)kubernetes/.+\\.ya?ml(\\.j2)?$"
+        "(^|/)talos/.+\\.ya?ml$",
+        "(^|/)kubernetes/.+\\.ya?ml$"
       ],
       "matchStrings": [
         // # renovate: datasource=github-releases depName=kubernetes/kubernetes
         // version: 1.29.1
-        "(?m:# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( repository=(?<registryUrl>\\S+))?\\n.+?: \"?(?<currentValue>\\S+?)\"?$)",
+        "(?m:# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\n.+?: \"?(?<currentValue>\\S+?)\"?$)",
         // # renovate: datasource=github-releases depName=rancher/system-upgrade-controller
         // https://github.com/rancher/system-upgrade-controller/releases/download/v0.13.2/crd.yaml
         "(?m:# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\n.+?\/(?<currentValue>(v|\\d)[^\/]+)\\S+$)"
@@ -23,7 +23,7 @@
       "customType": "regex",
       "description": ["Process CloudnativePG Postgresql version"],
       "fileMatch": [
-        "(^|/)kubernetes/.+\\.ya?ml(\\.j2)?$"
+        "(^|/)kubernetes/.+\\.ya?ml$"
       ],
       "matchStrings": [
         "imageName: (?<depName>\\S+):(?<currentValue>.*\\-.*)"
