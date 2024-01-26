@@ -61,9 +61,6 @@ nodes:
             addresses:
               - 10.0.3.10/24
             mtu: 1500
-    nodeLabels: &masterLabels
-      topology.kubernetes.io/region: *cluster
-      topology.kubernetes.io/zone: m
 
   # macm 2018 3.2GHz / 32GB / 256GB SSD / 10GbE via TB3
   - hostname: m1.k8s.${domainName}
@@ -102,7 +99,6 @@ nodes:
             addresses:
               - 10.0.3.11/24
             mtu: 1500
-    nodeLabels: *masterLabels
 
   # macm 2018 3.2GHz / 32GB / 256GB SSD / 10GbE via TB3
   - hostname: m2.k8s.${domainName}
@@ -141,7 +137,6 @@ nodes:
             addresses:
               - 10.0.3.12/24
             mtu: 1500
-    nodeLabels: *masterLabels
 
   # macm 2018 3.2GHz / 64GB / 1TB SSD / 10GbE
   - hostname: w0.k8s.${domainName}
@@ -196,9 +191,6 @@ nodes:
         routes:
           - network: 10.1.0.22/32
             metric: 2048
-    nodeLabels: &workerLabels
-      topology.kubernetes.io/region: *cluster
-      topology.kubernetes.io/zone: w
 
   # macm 2018 3.2GHz / 64GB / 1TB SSD / 10GbE
   - hostname: w1.k8s.${domainName}
@@ -253,7 +245,6 @@ nodes:
         routes:
           - network: 10.1.0.22/32
             metric: 2048
-    nodeLabels: *workerLabels
 
   # macm 2018 3.2GHz / 64GB / 1TB SSD / 10GbE
   - hostname: w2.k8s.${domainName}
@@ -308,9 +299,11 @@ nodes:
         routes:
           - network: 10.1.0.21/32
             metric: 2048
-    nodeLabels: *workerLabels
 
 controlPlane:
+  nodeLabels:
+    topology.kubernetes.io/region: *cluster
+    topology.kubernetes.io/zone: m
   patches:
     # Configure containerd
     - &containerdPatch |-
@@ -511,6 +504,9 @@ controlPlane:
               - kube-system
 
 worker:
+  nodeLabels:
+    topology.kubernetes.io/region: *cluster
+    topology.kubernetes.io/zone: w
   patches:
     - *containerdPatch
     - *disableSearchDomainPatch
