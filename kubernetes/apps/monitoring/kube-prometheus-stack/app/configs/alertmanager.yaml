@@ -10,8 +10,8 @@ route:
   repeat_interval: 12h
   routes:
     - receiver: heartbeat
+      group_interval: 15s
       group_wait: 0s
-      group_interval: 5m
       repeat_interval: 5m
       matchers:
         - alertname =~ "Watchdog"
