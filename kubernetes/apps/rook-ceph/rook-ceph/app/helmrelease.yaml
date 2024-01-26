@@ -27,8 +27,6 @@ spec:
     csi:
       cephFSKernelMountOptions: ms_mode=prefer-crc
       enableLiveness: true
-      provisioner:
-        image: registry.k8s.io/sig-storage/csi-provisioner:v4.0.0
       serviceMonitor:
         enabled: true
     monitoring:
