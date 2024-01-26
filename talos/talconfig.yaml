@@ -499,7 +499,7 @@ controlPlane:
           kubernetesTalosAPIAccess:
             enabled: true
             allowedRoles:
-              - os:admin
+              - os:operator
             allowedKubernetesNamespaces:
               - kube-system
 
