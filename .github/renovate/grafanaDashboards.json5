@@ -17,10 +17,10 @@
         "(^|/)kubernetes/.+\\.ya?ml$"
       ],
       "matchStrings": [
-        "depName=\"(?<depName>.*)\"\\n.*?gnetId: (?<packageName>\\d+)\\n.*?revision: (?<currentValue>\\d+)"
+        "depName=\"(?<depName>.*)\"\\n.*?gnetId: (?<packageName>\\d+)\\n.*?revision: (?<currentValue>\\d+)$"
       ],
       "datasourceTemplate": "custom.grafana-dashboards",
-      "versioningTemplate": "regex:^(?<major>\\d+)$"
+      "versioningTemplate": "regex:^revision: (?<major>\\d+)$"
     }
   ],
   "packageRules": [
