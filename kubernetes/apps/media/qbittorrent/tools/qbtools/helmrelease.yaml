@@ -46,13 +46,10 @@ spec:
               - --added-on
               - --expired
               - --last-activity
-              - --not-working
               - --sites
               - --unregistered
-              - --server
-              - qbittorrent.media.svc.cluster.local
-              - --port
-              - "8080"
+              - --server=qbittorrent.media.svc.cluster.local
+              - --port=8080
             env:
               TZ: *timeZone
             resources:
@@ -71,28 +68,19 @@ spec:
             <<: *container
             args:
               - prune
-              - --include-tag
-              - unregistered
-              - --exclude-tag
-              - expired
-              - --server
-              - qbittorrent.media.svc.cluster.local
-              - --port
-              - "8080"
+              - --exclude-tag=expired
+              - --include-tag=unregistered
+              - --server=qbittorrent.media.svc.cluster.local
+              - --port=8080
           expired:
             <<: *container
             args:
               - prune
-              - --exclude-category
-              - manual
-              - --include-tag
-              - expired
-              - --include-tag
-              - added:7d
-              - --server
-              - qbittorrent.media.svc.cluster.local
-              - --port
-              - "8080"
+              - --exclude-category=manual
+              - --exclude-tag=activity:24h
+              - --include-tag=expired
+              - --server=qbittorrent.media.svc.cluster.local
+              - --port=8080
         pod:
           restartPolicy: OnFailure
           securityContext: &podSecurityContext
@@ -109,14 +97,10 @@ spec:
             <<: *container
             args:
               - orphaned
-              - --exclude-pattern
-              - "*_unpackerred"
-              - --exclude-pattern
-              - "*/manual/*"
-              - --server
-              - qbittorrent.media.svc.cluster.local
-              - --port
-              - "8080"
+              - --exclude-pattern="*_unpackerred"
+              - --exclude-pattern="*/manual/*"
+              - --server=qbittorrent.media.svc.cluster.local
+              - --port=8080
         pod:
           restartPolicy: OnFailure
           securityContext:
@@ -132,10 +116,8 @@ spec:
             args:
               - reannounce
               - --process-seeding
-              - --server
-              - qbittorrent.media.svc.cluster.local
-              - --port
-              - "8080"
+              - --server=qbittorrent.media.svc.cluster.local
+              - --port=8080
         pod:
           securityContext: *podSecurityContext
     persistence:
