@@ -9,6 +9,7 @@
     ":automergeDigest",
     ":disableRateLimiting",
     ":dependencyDashboard",
+    ":gitSignOff",
     ":semanticCommits",
     ":skipStatusChecks",
     ":timezone(America/Chicago)",
