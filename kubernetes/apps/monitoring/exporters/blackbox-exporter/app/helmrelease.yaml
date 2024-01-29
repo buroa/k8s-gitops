@@ -51,20 +51,20 @@ spec:
           timeout: 5s
           http:
             valid_http_versions:
-              - "HTTP/1.1"
-              - "HTTP/2.0"
+              - HTTP/1.1
+              - HTTP/2.0
             follow_redirects: true
-            preferred_ip_protocol: "ip4"
+            preferred_ip_protocol: ipv4
         icmp:
           prober: icmp
           timeout: 30s
           icmp:
-            preferred_ip_protocol: "ip4"
+            preferred_ip_protocol: ipv4
         tcp_connect:
           prober: tcp
           timeout: 5s
           tcp:
-            preferred_ip_protocol: "ip4"
+            preferred_ip_protocol: ipv4
     dnsConfig:
       options:
         - name: ndots
@@ -74,7 +74,7 @@ spec:
       defaults:
         labels:
           release: prometheus
-        interval: 30s
+        interval: 1m
         scrapeTimeout: 30s
     prometheusRule:
       enabled: true
@@ -84,9 +84,9 @@ spec:
       rules:
         - alert: BlackboxProbeFailed
           expr: probe_success == 0
-          for: 5m
+          for: 15m
           labels:
             severity: critical
           annotations:
             description: |-
-              The host {{"{{ $labels.instance }}"}} is currently unreachable
+              The host {{"{{ $labels.target }}"}} is currently unreachable
