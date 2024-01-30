@@ -1,62 +1,59 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "packageRules": [
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  packageRules: [
     {
-      "description": ["Actions Runner Controller Group"],
-      "groupName": "Actions Runner Controller",
-      "matchPackagePatterns": [
+      description: ["Actions Runner Controller Group"],
+      groupName: "Actions Runner Controller",
+      matchPackagePatterns: [
         "gha-runner-scale-set-controller",
-        "gha-runner-scale-set"
+        "gha-runner-scale-set",
       ],
-      "matchDatasources": ["docker", "helm"],
-      "group": {
-        "commitMessageTopic": "{{{groupName}}} group"
+      matchDatasources: ["docker", "helm"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
       },
-      "separateMinorPatch": true
+      separateMinorPatch: true,
     },
     {
-      "description": ["Flux Group"],
-      "groupName": "Flux",
-      "matchPackagePatterns": ["fluxcd"],
-      "matchDatasources": ["docker", "github-tags"],
-      "versioning": "semver",
-      "group": {
-        "commitMessageTopic": "{{{groupName}}} group"
+      description: ["Flux Group"],
+      groupName: "Flux",
+      matchPackagePatterns: ["fluxcd"],
+      matchDatasources: ["docker", "github-tags"],
+      versioning: "semver",
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
       },
-      "separateMinorPatch": true
+      separateMinorPatch: true,
     },
     {
-      "description": ["Rook-Ceph Group"],
-      "groupName": "Rook-Ceph",
-      "matchPackagePatterns": ["rook.ceph"],
-      "matchDatasources": ["helm"],
-      "group": {
-        "commitMessageTopic": "{{{groupName}}} group"
+      description: ["Rook-Ceph Group"],
+      groupName: "Rook-Ceph",
+      matchPackagePatterns: ["rook.ceph"],
+      matchDatasources: ["helm"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
       },
-      "separateMinorPatch": true
+      separateMinorPatch: true,
     },
     {
-      "description": ["System Upgrade Controller Group"],
-      "groupName": "System Upgrade Controller",
-      "matchPackagePatterns": ["system-upgrade-controller"],
-      "matchDatasources": ["docker", "github-releases"],
-      "group": {
-        "commitMessageTopic": "{{{groupName}}} group"
+      description: ["System Upgrade Controller Group"],
+      groupName: "System Upgrade Controller",
+      matchPackagePatterns: ["system-upgrade-controller"],
+      matchDatasources: ["docker", "github-releases"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
       },
-      "separateMinorPatch": true
+      separateMinorPatch: true,
     },
     {
-      "description": ["Talos Group"],
-      "groupName": "Talos",
-      "matchPackagePatterns": [
-        "buroa/installer",
-        "siderolabs/talosctl"
-      ],
-      "matchDatasources": ["docker"],
-      "group": {
-        "commitMessageTopic": "{{{groupName}}} group"
+      description: ["Talos Group"],
+      groupName: "Talos",
+      matchPackagePatterns: ["buroa/installer", "siderolabs/talosctl"],
+      matchDatasources: ["docker"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
       },
-      "separateMinorPatch": true
-    }
-  ]
+      separateMinorPatch: true,
+    },
+  ],
 }

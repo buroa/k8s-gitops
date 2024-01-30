@@ -10,7 +10,7 @@
   "editor.stickyScroll.enabled": false,
   "explorer.autoReveal": false,
   "files.associations": {
-    "*.json5": "jsonc",
+    "*.json5": "json5",
     "./terraform/**/*.tf": "terraform"
   },
   "files.trimTrailingWhitespace": true,
