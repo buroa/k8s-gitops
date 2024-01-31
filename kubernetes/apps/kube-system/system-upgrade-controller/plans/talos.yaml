@@ -4,8 +4,7 @@ kind: Plan
 metadata:
   name: talos
 spec:
-  # renovate: datasource=docker depName=ghcr.io/buroa/installer
-  version: v1.6.3
+  version: ${TALOS_VERSION}
   serviceAccountName: system-upgrade
   secrets:
     - name: talos
@@ -23,7 +22,7 @@ spec:
       - key: apple.feature.node.kubernetes.io/t2
         operator: Exists
   prepare: &prepare
-    image: ghcr.io/siderolabs/talosctl:v1.6.3
+    image: ghcr.io/siderolabs/talosctl:${TALOS_VERSION}
     envs:
       - name: NODE_IP
         valueFrom:
