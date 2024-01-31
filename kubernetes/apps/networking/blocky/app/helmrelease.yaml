@@ -124,8 +124,6 @@ spec:
         annotations:
           io.cilium/lb-ipam-ips: ${BLOCKY_LB_IP}
           external-dns.alpha.kubernetes.io/hostname: dns.${PUBLIC_DOMAIN}
-        labels:
-          io.cilium/lb-ipam-layer2: "true"
         ports:
           dns-tcp:
             enabled: true

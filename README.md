@@ -132,7 +132,7 @@ graph TD;
 | Kubernetes external services    | `10.0.3.0/24`   |
 | Thunderbolt network (rook-ceph) | `10.1.0.0/24`   |
 
-- [cilium](https://github.com/cilium/cilium) is configured with the `io.cilium/lb-ipam-ips` annotation to expose Kubernetes services with their own IP over L3 (BGP), which is configured on my router. L2 (ARP) can also be announced in addition to L3 via the `io.cilium/lb-ipam-layer2` label.
+- [cilium](https://github.com/cilium/cilium) is configured with the `io.cilium/lb-ipam-ips` annotation to expose Kubernetes services with their own IP over L2 (ARP) and L3 (BGP), which is configured on my router.
 
 ---
 
