@@ -47,6 +47,7 @@ spec:
       enabled: true
       annotations:
         grafana_folder: Cilium
+    devices: bond+ thunderbolt+
     enableRuntimeDeviceDetection: true
     endpointRoutes:
       enabled: true
@@ -95,9 +96,6 @@ spec:
     kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
     l2announcements:
       enabled: true
-      leaseDuration: 120s
-      leaseRenewDeadline: 60s
-      leaseRetryPeriod: 1s
     loadBalancer:
       algorithm: maglev
       mode: dsr
