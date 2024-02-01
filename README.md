@@ -124,29 +124,25 @@ graph TD;
 
 ### Networking
 
-| Name                            | CIDR            |
-|---------------------------------|-----------------|
-| Kubernetes nodes                | `10.0.0.0/24`   |
-| Kubernetes pods                 | `10.244.0.0/16` |
-| Kubernetes services             | `10.245.0.0/16` |
-| Kubernetes external services    | `10.0.3.0/24`   |
-| Thunderbolt network (rook-ceph) | `10.1.0.0/24`   |
+<details>
+  <summary>Click to see a high-level network diagram</summary>
 
-- [cilium](https://github.com/cilium/cilium) is configured with the `io.cilium/lb-ipam-ips` annotation to expose Kubernetes services with their own IP over L2 (ARP) and L3 (BGP), which is configured on my router.
+  <img src="https://github.com/buroa/k8s-gitops/assets/36205263/197c3204-2d8d-45c3-abf3-4749e124f0ee" align="center" width="600px" alt="dns"/>
+</details>
 
 ---
 
 ## 🌐 DNS
 
-### Internal DNS
+### Home DNS
 
 The UDM Pro resolves DNS queries via [blocky](https://github.com/0xERR0R/blocky), which provides first-hop DNS resolution for my network. Blocky forwards requests targeted towards my public domain via [k8s-gateway](https://github.com/ori-edge/k8s_gateway). Last-hop DNS resolution resolves via [1.1.1.1](https://1.1.1.1/dns), which is configured as my primary DNS upstream provider. If for any reason blocky becomes unavailable, the UDM Pro is configured to fallback to 1.1.1.1 until blocky becomes available again.
 
 🔸 _[Click here](./kubernetes/apps/networking/blocky/app/configs/config.yml) to see my `blocky` configuration or [here](./kubernetes/apps/networking/k8s-gateway/app/configs/Corefile) to see my `k8s-gateway` configuration._
 
-### External DNS
+### Public DNS
 
-[external-dns](https://github.com/kubernetes-sigs/external-dns) is deployed in my cluster and configured to sync DNS records to [Cloudflare](https://www.cloudflare.com) using ingresses `external-dns.alpha.kubernetes.io/target` annotation.
+Outside DNS records are synced to [Cloudflare](https://www.cloudflare.com) using [external-dns](https://github.com/kubernetes-sigs/external-dns). The only DNS records this instance syncs to `Cloudflare` are ones that have an ingress class name of `external` and contain an ingress annotation `external-dns.alpha.kubernetes.io/target`.
 
 ---
 
