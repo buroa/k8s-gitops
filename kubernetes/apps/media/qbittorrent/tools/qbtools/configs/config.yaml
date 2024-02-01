@@ -3,7 +3,7 @@ trackers:
   - name: aither
     urls: ["aither.cc"]
     required_seed_ratio: 0
-    required_seed_days: 10.1
+    required_seed_days: 14.1
 
   - name: alpharatio
     urls: ["alpharatio.cc"]
@@ -13,7 +13,7 @@ trackers:
   - name: anthelion
     urls: ["anthelion.me"]
     required_seed_ratio: 1.01
-    required_seed_days: 14.1
+    required_seed_days: 7.1
 
   - name: blutopia
     urls: ["blutopia.cc", "blutopia.xyz"]
@@ -53,7 +53,7 @@ trackers:
   - name: passthepopcorn
     urls: ["passthepopcorn.me"]
     required_seed_ratio: 1.01
-    required_seed_days: 2.1
+    required_seed_days: 7.1
 
   - name: privatehd
     urls: ["privatehd.to"]
