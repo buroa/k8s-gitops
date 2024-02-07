@@ -40,7 +40,7 @@ spec:
         containers:
           main:
             image:
-              # TODO: move to semver once available
+              # TODO: Move to semver when v0.5.0+ is released
               repository: ghcr.io/lldap/lldap
               tag: latest-alpine-rootless@sha256:0de3853991d065f875bfb96fd113b2fcbfd2d50b2a62ee1d05898962bfd34066
             env:
