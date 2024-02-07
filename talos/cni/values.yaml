@@ -23,6 +23,6 @@ localRedirectPolicy: true
 operator:
   rollOutPods: true
 rollOutCiliumPods: true
+routingMode: native
 securityContext:
   privileged: true
-tunnel: disabled
