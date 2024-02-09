@@ -10,12 +10,12 @@
         "(^|/)kubernetes/.+\\.ya?ml$",
       ],
       matchStrings: [
-        // # renovate: datasource=github-releases depName=kubernetes/kubernetes
+        // # renovate: depName=kubernetes/kubernetes datasource=github-releases
         // version: 1.29.1
-        '(?m:# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\n.+: (?<currentValue>\\S+)$)',
-        // # renovate: datasource=github-releases depName=rancher/system-upgrade-controller
+        "depName=(?<depName>\\S+) datasource=(?<datasource>\\S+)\\n.+: (?<currentValue>\\S+)",
+        // # renovate: depName=rancher/system-upgrade-controller datasource=github-releases
         // https://github.com/rancher/system-upgrade-controller/releases/download/v0.13.2/crd.yaml
-        "(?m:# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\n.+/(?<currentValue>(v|\\d)[^/]+)\\S+$)",
+        "depName=(?<depName>\\S+) datasource=(?<datasource>\\S+)\\n.+/(?<currentValue>(v|\\d)[^/]+)",
       ],
       datasourceTemplate: "{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}",
     },
