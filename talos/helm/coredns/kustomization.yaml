@@ -7,7 +7,13 @@ helmCharts:
     version: 1.29.0
     releaseName: coredns
     namespace: kube-system
-    valuesFile: values.yaml
+    valuesInline:
+      fullnameOverride: coredns
+      replicaCount: 2
+      k8sAppLabelOverride: kube-dns
+      service:
+        name: kube-dns
+        clusterIP: 10.245.0.10
 commonAnnotations:
   meta.helm.sh/release-name: coredns
   meta.helm.sh/release-namespace: kube-system

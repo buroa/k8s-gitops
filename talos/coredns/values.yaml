@@ -1,7 +1,0 @@
----
-fullnameOverride: coredns
-replicaCount: 2
-k8sAppLabelOverride: kube-dns
-service:
-  name: kube-dns
-  clusterIP: 10.245.0.10

@@ -33,7 +33,6 @@ tasks:
     desc: Bootstrap the Talos cluster
     dir: "{{.TALOS_DIR}}"
     cmds:
-      - talhelper gencommand apply --extra-flags=--insecure | bash
       - talhelper gencommand bootstrap | bash
 
   kubeconfig:
@@ -44,10 +43,12 @@ tasks:
 
   apply-extras:
     desc: Apply extras
-    dir: "{{.TALOS_DIR}}"
     cmds:
-      - kubectl kustomize --enable-helm ./cni | kubectl apply --server-side --filename -
-      - kubectl kustomize --enable-helm ./kubelet-csr-approver | kubectl apply --server-side --filename -
+      - kubectl label node w0 w1 w2 node-role.kubernetes.io/worker=
+      - for: ["cilium", "coredns", "kubelet-csr-approver"]
+        task: .bootstrap-helm-app
+        vars:
+          app: '{{.ITEM}}'
 
   upgrade-talos:
     desc: Upgrade Talos on a node
@@ -64,3 +65,12 @@ tasks:
       vars: ["node", "to"]
     preconditions:
       - { msg: "Node not found", sh: "talosctl --nodes {{.node}} get machineconfig" }
+
+  .bootstrap-helm-app:
+    internal: true
+    dir: "{{.TALOS_DIR}}/helm/{{.app}}"
+    cmds:
+      - kubectl kustomize --enable-helm . | kubectl apply --server-side --filename -
+      - defer: rm -rf ./charts
+    requires:
+      vars: ["app"]

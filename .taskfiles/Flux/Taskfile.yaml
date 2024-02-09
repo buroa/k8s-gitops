@@ -16,24 +16,25 @@ tasks:
       - kubectl apply --server-side --filename https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/{{.PROMETHEUS_OPERATOR_VERSION}}/example/prometheus-operator-crd/monitoring.coreos.com_prometheusrules.yaml
       - kubectl apply --server-side --filename https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/{{.PROMETHEUS_OPERATOR_VERSION}}/example/prometheus-operator-crd/monitoring.coreos.com_scrapeconfigs.yaml
       - kubectl apply --server-side --filename https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/{{.PROMETHEUS_OPERATOR_VERSION}}/example/prometheus-operator-crd/monitoring.coreos.com_servicemonitors.yaml
+      - kubectl apply --server-side --filename https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/{{.PROMETHEUS_OPERATOR_VERSION}}/example/prometheus-operator-crd/monitoring.coreos.com_probes.yaml
       # Install Flux
       - kubectl apply --server-side --kustomize {{.KUBERNETES_DIR}}/bootstrap/flux
-      - sops --decrypt {{.KUBERNETES_DIR}}/bootstrap/flux/age-key.secret.sops.yaml | kubectl apply -f -
-      - sops --decrypt {{.KUBERNETES_DIR}}/bootstrap/flux/github-deploy-key.secret.sops.yaml | kubectl apply -f -
-      - sops --decrypt --in-place {{.KUBERNETES_DIR}}/flux/vars/cluster-secrets.secret.sops.yaml
+      - sops --decrypt {{.KUBERNETES_DIR}}/bootstrap/flux/age-key.sops.yaml | kubectl apply -f -
+      - sops --decrypt {{.KUBERNETES_DIR}}/bootstrap/flux/github-deploy-key.sops.yaml | kubectl apply -f -
+      - sops --decrypt --in-place {{.KUBERNETES_DIR}}/flux/vars/cluster-secrets.sops.yaml
       - kubectl apply --server-side --kustomize {{.KUBERNETES_DIR}}/flux/vars
       - kubectl apply --server-side --kustomize {{.KUBERNETES_DIR}}/flux/config
-      - defer: sops --encrypt --in-place {{.KUBERNETES_DIR}}/flux/vars/cluster-secrets.secret.sops.yaml
+      - defer: sops --encrypt --in-place {{.KUBERNETES_DIR}}/flux/vars/cluster-secrets.sops.yaml
     preconditions:
       - { msg: "Flux appears already installed", sh: "kubectl get namespace flux-system &>/dev/null && exit 1 || exit 0" }
       - { msg: "Age private key not found", sh: "test -f {{.ROOT_DIR}}/age.key" }
-      - { msg: "Age secret not found", sh: "test -f {{.KUBERNETES_DIR}}/bootstrap/flux/age-key.secret.sops.yaml" }
-      - { msg: "Github deploy secret not found", sh: "test -f {{.KUBERNETES_DIR}}/bootstrap/flux/github-deploy-key.secret.sops.yaml" }
+      - { msg: "Age secret not found", sh: "test -f {{.KUBERNETES_DIR}}/bootstrap/flux/age-key.sops.yaml" }
+      - { msg: "Github deploy secret not found", sh: "test -f {{.KUBERNETES_DIR}}/bootstrap/flux/github-deploy-key.sops.yaml" }
       - { msg: "Cluster settings not found", sh: "test -f {{.KUBERNETES_DIR}}/flux/vars/cluster-settings.yaml" }
-      - { msg: "Cluster secrets not found", sh: "test -f {{.KUBERNETES_DIR}}/flux/vars/cluster-secrets.secret.sops.yaml" }
-      - { msg: "Unable to decrypt sops secret", sh: "sops --decrypt {{.KUBERNETES_DIR}}/bootstrap/flux/age-key.secret.sops.yaml" }
-      - { msg: "Unable to decrypt sops secret", sh: "sops --decrypt {{.KUBERNETES_DIR}}/bootstrap/flux/github-deploy-key.secret.sops.yaml" }
-      - { msg: "Unable to decrypt sops secret", sh: "sops --decrypt {{.KUBERNETES_DIR}}/flux/vars/cluster-secrets.secret.sops.yaml" }
+      - { msg: "Cluster secrets not found", sh: "test -f {{.KUBERNETES_DIR}}/flux/vars/cluster-secrets.sops.yaml" }
+      - { msg: "Unable to decrypt sops secret", sh: "sops --decrypt {{.KUBERNETES_DIR}}/bootstrap/flux/age-key.sops.yaml" }
+      - { msg: "Unable to decrypt sops secret", sh: "sops --decrypt {{.KUBERNETES_DIR}}/bootstrap/flux/github-deploy-key.sops.yaml" }
+      - { msg: "Unable to decrypt sops secret", sh: "sops --decrypt {{.KUBERNETES_DIR}}/flux/vars/cluster-secrets.sops.yaml" }
 
   apply:
     desc: Apply a Flux Kustomization resource

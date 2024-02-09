@@ -23,5 +23,8 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    providerRegex: |
-      ^k(m|w)\d\d?$
+    providerRegex: ^[m|w]\d$
+    metrics:
+      enable: true
+      serviceMonitor:
+        enabled: true

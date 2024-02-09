@@ -82,5 +82,5 @@ spec:
       webhooks:
         - objectSelector:
             matchExpressions:
-            - key: webhooks.kyverno.io/exclude
-              operator: DoesNotExist
+              - key: webhooks.kyverno.io/exclude
+                operator: DoesNotExist

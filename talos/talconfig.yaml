@@ -483,7 +483,6 @@ controlPlane:
         etcd:
           extraArgs:
             listen-metrics-urls: http://0.0.0.0:2381
-            unsafe-no-fsync: true
           advertisedSubnets:
             - 10.0.0.0/24
 
