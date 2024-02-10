@@ -113,6 +113,11 @@ spec:
         globalMounts:
           - path: /etc/hosts
             readOnly: true
+      lists:
+        type: configMap
+        name: blocky-configmap
+        globalMounts:
+          - readOnly: true
     service:
       main:
         ports:

@@ -9,5 +9,8 @@ configMapGenerator:
   - name: blocky-config-tpl
     files:
       - ./configs/config.yml
+  - name: blocky-configmap
+    files:
+      - ./lists/whitelist.txt
 generatorOptions:
   disableNameSuffixHash: true

@@ -1,5 +1,0 @@
-www.amazon.com
-login.microsoftonline.us
-api.lifetime.life
-my.lifetime.life
-www.lifetime.life

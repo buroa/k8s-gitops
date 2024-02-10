@@ -61,7 +61,7 @@ blocking:
 
   whiteLists:
     ads: &whiteList
-      - https://raw.githubusercontent.com/anudeepND/whitelist/master/domains/whitelist.txt
+      - /lists/whitelist.txt
       - https://raw.githubusercontent.com/buroa/k8s-gitops/master/kubernetes/apps/networking/blocky/app/configs/allowlist.txt
     extra: *whiteList
     misc: *whiteList
