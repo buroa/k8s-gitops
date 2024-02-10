@@ -1,11 +1,3 @@
 # My personal whitelist
-
-# [Amazon]
-*.amazon.com
-*.amazonaws.com
-
-# [LifeTime Fitness]
 *.lifetime.life
-
-# [Microsoft Gov]
 *.microsoftonline.us

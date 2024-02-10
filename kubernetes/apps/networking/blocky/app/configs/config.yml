@@ -16,9 +16,7 @@ blocking:
       - https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&showintro=0&mimetype=plaintext
       - https://raw.githubusercontent.com/FadeMind/hosts.extras/master/UncheckyAds/hosts
       - https://raw.githubusercontent.com/bigdargon/hostsVN/master/hosts
-    extra: # Ref: https://github.com/badmojr/1Hosts
-      - https://o0.pages.dev/Xtra/domains.txt
-    misc: # Ref: https://firebog.net
+    malicious: # Ref: https://firebog.net
       - https://raw.githubusercontent.com/DandelionSprout/adfilt/master/Alternate%20versions%20Anti-Malware%20List/AntiMalwareHosts.txt
       - https://osint.digitalside.it/Threat-Intel/lists/latestdomains.txt
       - https://s3.amazonaws.com/lists.disconnect.me/simple_malvertising.txt
@@ -38,65 +36,42 @@ blocking:
       - https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/native.huawei.txt
       - https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/native.lgwebos.txt
       - https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/native.tiktok.extended.txt
-    normal: # Ref: https://github.com/hagezi/dns-blocklists
-      - https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/multi.txt
+      - https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/native.winoffice.txt
     other: # Ref: https://firebog.net
       - https://zerodot1.gitlab.io/CoinBlockerLists/hosts_browser
-    pro: # Ref: https://github.com/hagezi/dns-blocklists
-      - https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/pro.txt
     suspicious: # Ref: https://firebog.net
       - https://raw.githubusercontent.com/PolishFiltersTeam/KADhosts/master/KADhosts.txt
       - https://raw.githubusercontent.com/FadeMind/hosts.extras/master/add.Spam/hosts
       - https://v.firebog.net/hosts/static/w3kbl.txt
-    tif: # Ref: https://github.com/hagezi/dns-blocklists
-      - https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/tif.txt
-    trackers: # Ref: https://firebog.net
+    tracking: # Ref: https://firebog.net
       - https://v.firebog.net/hosts/Easyprivacy.txt
       - https://v.firebog.net/hosts/Prigent-Ads.txt
       - https://raw.githubusercontent.com/FadeMind/hosts.extras/master/add.2o7Net/hosts
       - https://raw.githubusercontent.com/crazy-max/WindowsSpyBlocker/master/data/hosts/spy.txt
       - https://hostfiles.frogeye.fr/firstparty-trackers-hosts.txt
-    ultimate: # Ref: https://github.com/hagezi/dns-blocklists
-      - https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/ultimate.txt
 
   whiteLists:
     ads: &whiteList
       - https://raw.githubusercontent.com/anudeepND/whitelist/master/domains/whitelist.txt
       - /lists/whitelist.txt
-    extra: *whiteList
-    misc: *whiteList
+    malicious: *whiteList
     native: *whiteList
-    normal: *whiteList
     other: *whiteList
-    pro: *whiteList
     suspicious: *whiteList
-    tif: *whiteList
-    trackers: *whiteList
-    ultimate: *whiteList
+    tracking: *whiteList
 
   clientGroupsBlock:
     default:
       - ads
-      - misc
+      - malicious
       - native
       - other
-      - pro
       - suspicious
-      - tif
-      - trackers
-    ${LAN_IOT_IP_CIDR}:
-      - extra
-      - suspicious
-      - tif
-      - ultimate
+      - tracking
     ${LAN_GUEST_IP_CIDR}:
-      - misc
-      - native
-      - normal
-      - other
+      - malicious
       - suspicious
-      - tif
-      - trackers
+      - tracking
 
 caching:
   minTime: 15m
