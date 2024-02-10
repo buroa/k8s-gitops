@@ -1,2 +1,3 @@
 www.amazon.com
 login.microsoftonline.us
+api.lifetime.life
