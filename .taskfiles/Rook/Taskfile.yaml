@@ -22,7 +22,8 @@ tasks:
     cmd: kubectl -n rook-ceph get secret rook-ceph-dashboard-password -o jsonpath="{['data']['password']}" | base64 --decode | pbcopy && echo "Copied to clipboard"
 
   reset:
-    desc: Wipe specified disk drives and delete /var/lib/rook on all nodes
+    desc: Wipe /var/lib/rook on all nodes and specified disk drives
+    prompt: This will reset rook-ceph... continue?
     cmds:
       - for: { var: nodes }
         task: .reset-data
