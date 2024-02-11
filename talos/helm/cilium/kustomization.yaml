@@ -39,6 +39,8 @@ helmCharts:
       localRedirectPolicy: true
       operator:
         rollOutPods: true
+      podAnnotations:
+        webhooks.kyverno.io/exclude: "true"
       rollOutCiliumPods: true
       routingMode: native
       securityContext:

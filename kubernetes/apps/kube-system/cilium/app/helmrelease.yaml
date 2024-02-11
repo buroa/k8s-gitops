@@ -111,6 +111,8 @@ spec:
         enabled: true
         annotations:
           grafana_folder: Cilium
+    podAnnotations:
+      webhooks.kyverno.io/exclude: "true"
     prometheus:
       enabled: true
       serviceMonitor:
