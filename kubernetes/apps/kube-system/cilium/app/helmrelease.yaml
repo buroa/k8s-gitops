@@ -97,7 +97,6 @@ spec:
     l2announcements:
       enabled: true
     loadBalancer:
-      acceleration: best-effort
       algorithm: maglev
       mode: dsr
     localRedirectPolicy: true

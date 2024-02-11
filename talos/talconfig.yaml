@@ -33,7 +33,7 @@ nodes:
     networkInterfaces:
       - interface: bond0
         bond:
-          mode: 802.3ad
+          mode: active-backup
           miimon: 100
           deviceSelectors:
             - hardwareAddr: 00:30:93:10:5c:f1
@@ -71,7 +71,7 @@ nodes:
     networkInterfaces:
       - interface: bond0
         bond:
-          mode: 802.3ad
+          mode: active-backup
           miimon: 100
           deviceSelectors:
             - hardwareAddr: 00:30:93:10:5c:f6
@@ -109,7 +109,7 @@ nodes:
     networkInterfaces:
       - interface: bond0
         bond:
-          mode: 802.3ad
+          mode: active-backup
           miimon: 100
           deviceSelectors:
             - hardwareAddr: 00:30:93:10:5c:ee
@@ -147,7 +147,7 @@ nodes:
     networkInterfaces:
       - interface: bond0
         bond:
-          mode: 802.3ad
+          mode: active-backup
           miimon: 100
           deviceSelectors:
             - hardwareAddr: cc:2d:b7:0b:0c:40
@@ -201,7 +201,7 @@ nodes:
     networkInterfaces:
       - interface: bond0
         bond:
-          mode: 802.3ad
+          mode: active-backup
           miimon: 100
           deviceSelectors:
             - hardwareAddr: cc:2d:b7:07:c0:00
@@ -255,7 +255,7 @@ nodes:
     networkInterfaces:
       - interface: bond0
         bond:
-          mode: 802.3ad
+          mode: active-backup
           miimon: 100
           deviceSelectors:
             - hardwareAddr: cc:2d:b7:02:b9:b5
