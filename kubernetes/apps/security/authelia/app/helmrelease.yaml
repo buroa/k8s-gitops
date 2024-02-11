@@ -42,7 +42,7 @@ spec:
             image:
               # TODO: Move to semver when v4.38.0+ is released
               repository: ghcr.io/authelia/authelia
-              tag: v4.38.0-beta3@sha256:acd805a34b9e7220be5619e7a32e6601075bf6144fce94731167a8ceeca7b3bd
+              tag: v4.38.0-beta3@sha256:8a70f2e71398131bd9af68e41622fb00a034ead11fa06bbe620fdea197e526e7
             env:
               AUTHELIA_SERVER_ADDRESS: tcp://0.0.0.0:9091
               AUTHELIA_SERVER_DISABLE_HEALTHCHECK: true
