@@ -7,8 +7,8 @@ x-env: &env
   node: "{{.node}}"
 
 vars:
-  rook_scripts_dir: '{{.ROOT_DIR}}/.taskfiles/Rook/scripts'
-  rook_templates_dir: '{{.ROOT_DIR}}/.taskfiles/Rook/templates'
+  rookScriptsDir: '{{.ROOT_DIR}}/.taskfiles/Rook/scripts'
+  rookTemplatesDir: '{{.ROOT_DIR}}/.taskfiles/Rook/templates'
 
 tasks:
 
@@ -21,38 +21,40 @@ tasks:
     desc: Retrieve the rook-ceph password
     cmd: kubectl -n rook-ceph get secret rook-ceph-dashboard-password -o jsonpath="{['data']['password']}" | base64 --decode | pbcopy && echo "Copied to clipboard"
 
-  wipe-all:
+  reset:
     desc: Wipe specified disk drives and delete /var/lib/rook on all nodes
     cmds:
-      - for: ["m0", "m1", "m2", "w0", "w1", "w2"]
-        task: wipe-data
+      - for: { var: nodes }
+        task: .reset-data
         vars:
           node: '{{.ITEM}}'
       - for: ["S6S2NS0TC14873N", "S6S2NS0TC14865L"]
-        task: wipe-disk
+        task: .reset-disk
         vars:
           node: w0
           serial: '{{.ITEM}}'
       - for: ["S6S2NS0TC14871H", "S6S2NS0W122087H"]
-        task: wipe-disk
+        task: .reset-disk
         vars:
           node: w1
           serial: '{{.ITEM}}'
       - for: ["S6S2NS0W120772T", "S6S2NS0TC14864B"]
-        task: wipe-disk
+        task: .reset-disk
         vars:
           node: w2
           serial: '{{.ITEM}}'
+    vars:
+      nodes: m0 m1 m2 w0 w1 w2
 
-  wipe-disk:
-    desc: Wipe all remnants of rook-ceph from a given node and disk serial
+  .reset-disk:
+    internal: true
     summary: |
       Args:
         serial: Disk serial to wipe (required)
         node: Node the disk is on (required)
     cmds:
-      - envsubst < <(cat {{.rook_templates_dir}}/wipediskjob.tmpl.yaml) | kubectl apply -f -
-      - bash {{.rook_scripts_dir}}/wait-for-job.sh {{.job}} default
+      - envsubst < <(cat {{.rookTemplatesDir}}/wipediskjob.tmpl.yaml) | kubectl apply -f -
+      - bash {{.rookScriptsDir}}/wait-for-job.sh {{.job}} default
       - kubectl -n default wait job/{{.job}} --for condition=complete --timeout=1m
       - kubectl -n default logs job/{{.job}}
       - kubectl -n default delete job {{.job}}
@@ -63,17 +65,17 @@ tasks:
       job: wipe-disk-{{.node}}-{{.disk | replace "/" "-"}}
       disk: /dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_2TB_{{.serial}}
     preconditions:
-      - test -f {{.rook_scripts_dir}}/wait-for-job.sh
-      - test -f {{.rook_templates_dir}}/wipediskjob.tmpl.yaml
+      - test -f {{.rookScriptsDir}}/wait-for-job.sh
+      - test -f {{.rookTemplatesDir}}/wipediskjob.tmpl.yaml
 
-  wipe-data:
-    desc: Wipe all remnants of rook-ceph from a given node
+  .reset-data:
+    internal: true
     summary: |
       Args:
         node: Node the data is on (required)
     cmds:
-      - envsubst < <(cat {{.rook_templates_dir}}/wipedatajob.tmpl.yaml) | kubectl apply -f -
-      - bash {{.rook_scripts_dir}}/wait-for-job.sh {{.job}} default
+      - envsubst < <(cat {{.rookTemplatesDir}}/wipedatajob.tmpl.yaml) | kubectl apply -f -
+      - bash {{.rookScriptsDir}}/wait-for-job.sh {{.job}} default
       - kubectl -n default wait job/{{.job}} --for condition=complete --timeout=1m
       - kubectl -n default logs job/{{.job}}
       - kubectl -n default delete job {{.job}}
@@ -83,5 +85,5 @@ tasks:
     vars:
       job: wipe-data-{{.node}}
     preconditions:
-      - test -f {{.rook_scripts_dir}}/wait-for-job.sh
-      - test -f {{.rook_templates_dir}}/wipedatajob.tmpl.yaml
+      - test -f {{.rookScriptsDir}}/wait-for-job.sh
+      - test -f {{.rookTemplatesDir}}/wipedatajob.tmpl.yaml

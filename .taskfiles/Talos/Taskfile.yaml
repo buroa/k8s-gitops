@@ -44,11 +44,15 @@ tasks:
   apply-extras:
     desc: Apply extras
     cmds:
-      - kubectl label node w0 w1 w2 node-role.kubernetes.io/worker=
-      - for: ["cilium", "coredns", "kubelet-csr-approver"]
+      - for: { var: apps }
         task: .bootstrap-helm-app
         vars:
           app: '{{.ITEM}}'
+      - for: { var: workers }
+        cmd: kubectl label node {{.ITEM}} node-role.kubernetes.io/worker=
+    vars:
+      apps: cilium coredns kubelet-csr-approver
+      workers: w0 w1 w2
 
   upgrade-talos:
     desc: Upgrade Talos on a node
