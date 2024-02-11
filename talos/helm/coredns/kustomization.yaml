@@ -1,12 +1,18 @@
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+namespace: &namespace kube-system
+commonAnnotations:
+  meta.helm.sh/release-name: &releaseName coredns
+  meta.helm.sh/release-namespace: *namespace
+commonLabels:
+  app.kubernetes.io/managed-by: Helm
 helmCharts:
   - name: coredns
     repo: https://coredns.github.io/helm
     version: 1.29.0
-    releaseName: coredns
-    namespace: kube-system
+    releaseName: *releaseName
+    namespace: *namespace
     valuesInline:
       fullnameOverride: coredns
       replicaCount: 2
@@ -14,8 +20,3 @@ helmCharts:
       service:
         name: kube-dns
         clusterIP: 10.245.0.10
-commonAnnotations:
-  meta.helm.sh/release-name: coredns
-  meta.helm.sh/release-namespace: kube-system
-commonLabels:
-  app.kubernetes.io/managed-by: Helm
