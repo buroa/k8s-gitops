@@ -102,4 +102,3 @@ spec:
     serviceAccount:
       create: true
       name: *app
-
