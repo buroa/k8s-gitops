@@ -32,7 +32,7 @@ spec:
           main:
             image:
               repository: ghcr.io/smarter-project/smarter-device-manager
-              tag: v1.20.12@sha256:228f7f44594a3182571559e62f2e3fe8a3f26180fb5dd7fc0cb7bf7d22a5bbcd
+              tag: v1.20.11@sha256:f2055db3477093c8577f13180e20ab98304457894c072aa9ffb601ab1f22439e
             resources:
               requests:
                 cpu: 10m
