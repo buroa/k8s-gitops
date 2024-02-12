@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: &app overseerr
+  name: &app jellyseerr
 spec:
   interval: 30m
   chart:
@@ -25,15 +25,26 @@ spec:
   values:
     controllers:
       main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 16
+            envFrom: &envFrom
+              - secretRef:
+                  name: jellyseerr-secret
         containers:
           main:
             image:
-              repository: ghcr.io/sct/overseerr
-              tag: 1.33.2@sha256:714ea6db2bc007a2262d112bef7eec74972eb33d9c72bddb9cbd98b8742de950
+              repository: docker.io/fallenbagel/jellyseerr
+              tag: preview-postgres@sha256:15f9bd26ec3d3e6aa9b0459604a39797e0003dbb5cf7c22b2df835c3aea2c503
             env:
-              TZ: ${TIMEZONE}
               LOG_LEVEL: info
-              PORT: &port 5055
+              PORT: &port 80
+              TZ: ${TIMEZONE}
+            envFrom: *envFrom
             probes:
               liveness: &probes
                 enabled: true
@@ -74,7 +85,7 @@ spec:
         annotations:
           gatus.io/enabled: "true"
           gatus.io/path: *path
-          hajimari.io/icon: mdi:eye-circle
+          hajimari.io/icon: cbi:jellyseerr
           hajimari.io/url: https://requests.${PUBLIC_DOMAIN}
           external-dns.alpha.kubernetes.io/target: external.${PUBLIC_DOMAIN}
         hosts:
@@ -91,21 +102,17 @@ spec:
               - *host
               - *customHost
     persistence:
-      cache:
-        type: emptyDir
-        globalMounts:
-          - path: /.cache
       config:
         enabled: true
         existingClaim: *app
         globalMounts:
           - path: /app/config
-      tmp:
-        type: emptyDir
-      yarn:
+      logs:
         type: emptyDir
         globalMounts:
-          - path: /.yarn
+          - path: /app/config/logs
+      tmp:
+        type: emptyDir
     service:
       main:
         ports:
