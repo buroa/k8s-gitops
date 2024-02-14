@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: thanos
-      version: 12.23.1
+      version: 13.0.0
       sourceRef:
         kind: HelmRepository
         name: bitnami-charts
@@ -32,6 +32,10 @@ spec:
       type: s3
       config:
         insecure: true
+    receive:
+      enabled: false
+      networkPolicy:
+        enabled: false
     queryFrontend:
       enabled: true
       replicaCount: 3
@@ -55,6 +59,8 @@ spec:
           - hosts:
               - *host
         pathType: Prefix
+      networkPolicy:
+        enabled: false
     query:
       enabled: true
       replicaCount: 3
@@ -63,9 +69,13 @@ spec:
       dnsDiscovery:
         sidecarsService: kube-prometheus-stack-thanos-discovery
         sidecarsNamespace: monitoring
+      networkPolicy:
+        enabled: false
     bucketweb:
       enabled: true
       replicaCount: 3
+      networkPolicy:
+        enabled: false
     compactor:
       enabled: true
       extraFlags:
@@ -74,6 +84,8 @@ spec:
       retentionResolutionRaw: 30d
       retentionResolution5m: 60d
       retentionResolution1h: 90d
+      networkPolicy:
+        enabled: false
       persistence:
         enabled: true
         storageClass: ${CLUSTER_STORAGE_HOSTPATH}
@@ -82,6 +94,8 @@ spec:
       enabled: true
       replicaCount: 3
       config: *config
+      networkPolicy:
+        enabled: false
       persistence:
         enabled: true
         storageClass: ${CLUSTER_STORAGE_HOSTPATH}
@@ -108,6 +122,8 @@ spec:
                   severity: critical
       dnsDiscovery:
         enabled: true
+      networkPolicy:
+        enabled: false
       persistence:
         enabled: true
         storageClass: ${CLUSTER_STORAGE_HOSTPATH}
