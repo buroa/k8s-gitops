@@ -2,16 +2,14 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-jellyseerr
+  name: cluster-apps-overseerr-exporter
   namespace: flux-system
 spec:
-  targetNamespace: media
+  targetNamespace: monitoring
   dependsOn:
-    - name: cluster-apps-volsync
-    - name: cluster-apps-rook-ceph-cluster
-    - name: cluster-apps-cloudnative-pg-cluster
+    - name: cluster-apps-overseerr
     - name: cluster-apps-external-secrets-stores
-  path: ./kubernetes/apps/media/jellyseerr/app
+  path: ./kubernetes/apps/monitoring/exporters/overseerr-exporter/app
   prune: true
   sourceRef:
     kind: GitRepository
