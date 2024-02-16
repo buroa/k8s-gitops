@@ -67,7 +67,6 @@ spec:
                   name: zigbee2mqtt-secret
             resources:
               requests:
-                smarter-devices/ttyACM0: 1
                 cpu: 10m
               limits:
                 smarter-devices/ttyACM0: 1

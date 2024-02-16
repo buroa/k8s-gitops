@@ -111,8 +111,7 @@ spec:
         type: hostPath
         hostPath: /etc/hosts
         globalMounts:
-          - path: /etc/hosts
-            readOnly: true
+          - readOnly: true
       lists:
         type: configMap
         name: blocky-configmap

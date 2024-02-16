@@ -49,7 +49,6 @@ spec:
                 enabled: false
             resources:
               requests:
-                gpu.intel.com/i915: 1
                 cpu: 100m
               limits:
                 gpu.intel.com/i915: 1

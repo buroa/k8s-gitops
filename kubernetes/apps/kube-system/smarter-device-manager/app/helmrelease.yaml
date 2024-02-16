@@ -65,8 +65,6 @@ spec:
       var-lib-kubelet-device-plugins:
         type: hostPath
         hostPath: /var/lib/kubelet/device-plugins
-        globalMounts:
-          - path: /var/lib/kubelet/device-plugins
     service:
       main:
         enabled: false
