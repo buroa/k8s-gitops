@@ -32,8 +32,7 @@ tasks:
   bootstrap:
     desc: Bootstrap the Talos cluster
     dir: "{{.TALOS_DIR}}"
-    cmds:
-      - talhelper gencommand bootstrap | bash
+    cmd: talhelper gencommand bootstrap | bash
 
   kubeconfig:
     desc: Generate Talos kubeconfig
@@ -72,7 +71,7 @@ tasks:
 
   .bootstrap-helm-app:
     internal: true
-    dir: "{{.TALOS_DIR}}/helm/{{.app}}"
+    dir: "{{.TALOS_DIR}}/apps/{{.app}}"
     cmds:
       - kubectl kustomize --enable-helm . | kubectl apply --server-side --filename -
       - defer: rm -rf ./charts

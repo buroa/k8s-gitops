@@ -26,7 +26,7 @@ helmCharts:
         name: main
       containerRuntime:
         integration: containerd
-      devices: enp+
+      devices: bond+ thunderbolt+
       enableRuntimeDeviceDetection: true
       endpointRoutes:
         enabled: true

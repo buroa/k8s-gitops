@@ -43,7 +43,7 @@ tasks:
         path: Path to the Flux Kustomization resource (required)
         ns: Namespace the Flux Kustomization exists in (default: flux-system)
     cmd: |
-      flux build ks $(basename {{.path}}) \
+      flux build ks cluster-apps-$(basename {{.path}}) \
           --namespace {{.ns}} \
           --kustomization-file {{.KUBERNETES_DIR}}/apps/{{.path}}/ks.yaml \
           --path {{.KUBERNETES_DIR}}/apps/{{.path}} \
@@ -56,7 +56,7 @@ tasks:
     vars:
       ns: '{{.ns | default "flux-system"}}'
       ks:
-        sh: flux --namespace {{.ns}} get kustomizations $(basename {{.path}}) 2>&1
+        sh: flux --namespace {{.ns}} get kustomizations cluster-apps-$(basename {{.path}}) 2>&1
     preconditions:
       - { msg: "Kustomization file not found", sh: "test -f {{.KUBERNETES_DIR}}/apps/{{.path}}/ks.yaml" }
 
