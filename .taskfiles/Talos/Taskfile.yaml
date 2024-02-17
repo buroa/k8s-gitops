@@ -59,7 +59,7 @@ tasks:
     requires:
       vars: ["node", "image"]
     preconditions:
-      - { msg: "Node not found", sh: "talosctl --nodes {{.node}} get machineconfig" }
+      - { msg: "Node not found", sh: "talosctl --nodes {{.node}} get mc" }
 
   upgrade-k8s:
     desc: Upgrade k8s on a node
@@ -67,7 +67,7 @@ tasks:
     requires:
       vars: ["node", "to"]
     preconditions:
-      - { msg: "Node not found", sh: "talosctl --nodes {{.node}} get machineconfig" }
+      - { msg: "Node not found", sh: "talosctl --nodes {{.node}} get mc" }
 
   .bootstrap-helm-app:
     internal: true
