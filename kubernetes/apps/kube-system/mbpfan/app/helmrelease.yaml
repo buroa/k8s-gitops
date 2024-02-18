@@ -32,7 +32,7 @@ spec:
           main:
             image:
               repository: ghcr.io/buroa/mbpfan
-              tag: v0.1.5@sha256:606f9a68dd9448791a16f315ae7d5f18699884662c5580d5048583cc5d75e3ca
+              tag: v0.2.0@sha256:c2e7165d15beaeeb6fcb8915eaa67c3dc2b2e6492b9b01dde05962df815b27a0
             resources:
               requests:
                 cpu: 10m
