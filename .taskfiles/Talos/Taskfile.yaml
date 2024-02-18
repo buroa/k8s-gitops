@@ -24,21 +24,21 @@ tasks:
     preconditions:
       - { msg: "Missing talhelper config file", sh: "test -f {{.TALHELPER_CONFIG_FILE}}" }
 
-  apply-config:
-    desc: Apply Talos config to the nodes
+  kubeconfig:
+    desc: Generate Talos kubeconfig
+    prompt: This will overwrite the existing kubeconfig... continue?
     dir: "{{.TALOS_DIR}}"
-    cmd: talhelper gencommand apply | bash
+    cmd: talosctl kubeconfig {{.ROOT_DIR}} --force
 
   bootstrap:
     desc: Bootstrap the Talos cluster
     dir: "{{.TALOS_DIR}}"
     cmd: talhelper gencommand bootstrap | bash
 
-  kubeconfig:
-    desc: Generate Talos kubeconfig
-    prompt: This will overwrite the existing kubeconfig... continue?
+  apply-config:
+    desc: Apply Talos config to the nodes
     dir: "{{.TALOS_DIR}}"
-    cmd: talosctl kubeconfig {{.ROOT_DIR}} --force
+    cmd: talhelper gencommand apply | bash
 
   apply-extras:
     desc: Apply extras
