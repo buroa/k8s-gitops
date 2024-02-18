@@ -66,7 +66,6 @@ receivers:
           {{ "{{" }} .CommonLabels.alertname {{ "}}" }}
           [{{ "{{" }} .Status | toUpper {{ "}}" }}{{ "{{" }} if eq .Status "firing" {{ "}}" }}:{{ "{{" }} .Alerts.Firing | len {{ "}}" }}{{ "{{" }} end {{ "}}" }}]
         token: "{{ .ALERTMANAGER_PUSHOVER_APP_TOKEN }}"
-        # TODO: https://github.com/prometheus/alertmanager/pull/3474
-        # ttl: "{{ .ALERTMANAGER_PUSHOVER_TTL }}"
+        ttl: "{{ .ALERTMANAGER_PUSHOVER_TTL }}"
         url_title: View in Alertmanager
         user_key: "{{ .ALERTMANAGER_PUSHOVER_USER_KEY }}"
