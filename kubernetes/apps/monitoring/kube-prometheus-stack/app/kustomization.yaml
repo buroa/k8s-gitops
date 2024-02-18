@@ -8,8 +8,5 @@ configMapGenerator:
   - name: alertmanager-config-tpl
     files:
       - ./configs/alertmanager.yaml
-  - name: kube-state-metrics-configmap
-    files:
-      - ./configs/kube-state-metrics.yaml
 generatorOptions:
   disableNameSuffixHash: true
