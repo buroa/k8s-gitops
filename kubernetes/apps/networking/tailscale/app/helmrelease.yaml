@@ -38,9 +38,10 @@ spec:
               NO_AUTOUPDATE: true
               PORT: &port ${TAILNET_PUBLIC_PORT}
               TS_EXTRA_ARGS: --advertise-exit-node --advertise-tags=tag:k8s
-              TS_KUBE_SECRET: ""
-              TS_ROUTES: ${LAN_SERVER_IP_CIDR},${CILIUM_LB_CIDR}
-              TS_STATE_DIR: /tmp
+              TS_ROUTES: >-
+                ${LAN_SERVER_IP_CIDR},
+                ${CILIUM_LB_CIDR}
+              TS_STATE_DIR: &path /tmp
               TS_TAILSCALED_EXTRA_ARGS: --debug=0.0.0.0:2000
               TS_USERSPACE: true
               TZ: ${TIMEZONE}
@@ -79,6 +80,8 @@ spec:
           - path: /.cache
       tmp:
         type: emptyDir
+        globalMounts:
+          - path: *path
     service:
       main:
         ports:
