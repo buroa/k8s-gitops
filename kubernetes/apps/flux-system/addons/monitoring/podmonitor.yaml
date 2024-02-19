@@ -23,7 +23,9 @@ spec:
   podMetricsEndpoints:
     - port: http-prom
       relabelings:
-        - sourceLabels: ["namespace", "job"]
-          regex: ".+/(.*)"
-          targetLabel: "job"
-          replacement: "$1"
+        - sourceLabels:
+            - namespace
+            - job
+          regex: .+/(.*)
+          targetLabel: job
+          replacement: $1
