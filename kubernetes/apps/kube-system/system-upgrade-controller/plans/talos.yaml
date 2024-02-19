@@ -12,17 +12,30 @@ spec:
       path: /var/run/secrets/talos.dev
       ignoreUpdates: true
   concurrency: 1
+  exclusive: true
   cordon: true
   drain:
     deleteLocalData: true
     disableEviction: false
     ignoreDaemonSets: true
-  exclusive: true
   nodeSelector:
     matchExpressions:
       - key: apple.feature.node.kubernetes.io/t2
         operator: Exists
-  prepare: &prepare
+  prepare:
+    image: ghcr.io/onedr0p/kubanetics:2024.2.4
+    envs:
+      - name: SCRIPT_NAME
+        value: talos-upgrade.sh
+      - name: NODE_IP
+        valueFrom:
+          fieldRef:
+            fieldPath: status.hostIP
+      - name: ROOK_CEPH_HEALTHCHECK
+        value: "true"
+      - name: CNPG_MAINTENANCE
+        value: "true"
+  upgrade:
     image: ghcr.io/siderolabs/talosctl:v1.6.4
     envs:
       - name: NODE_IP
@@ -31,15 +44,8 @@ spec:
             fieldPath: status.hostIP
     args:
       - --nodes=$(NODE_IP)
-      - health
-      - --wait-timeout=300s
-      - --server=false
-  upgrade:
-    <<: *prepare
-    args:
-      - --nodes=$(NODE_IP)
       - upgrade
       - --image=ghcr.io/buroa/installer:$(SYSTEM_UPGRADE_PLAN_LATEST_VERSION)
       - --preserve=true
       - --wait=false
-      - --reboot-mode=powercycle # TODO: thunderbolt-net issue with kexec
+      - --reboot-mode=powercycle # TODO: kexec thunderbolt-net issue
