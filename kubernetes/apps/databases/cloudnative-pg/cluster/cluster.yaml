@@ -17,6 +17,9 @@ spec:
     parameters:
       max_connections: "200"
       shared_buffers: 256MB
+  nodeMaintenanceWindow:
+    inProgress: false
+    reusePVC: true
   resources:
     requests:
       cpu: 500m
