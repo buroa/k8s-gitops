@@ -2,8 +2,8 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: "wipe-${app}-${ts}"
-  namespace: "${ns}"
+  name: wipe-${app}-${ts}
+  namespace: ${ns}
 spec:
   ttlSecondsAfterFinished: 3600
   template:
@@ -22,4 +22,4 @@ spec:
       volumes:
         - name: config
           persistentVolumeClaim:
-            claimName: "${claim}"
+            claimName: ${claim}
