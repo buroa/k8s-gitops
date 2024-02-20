@@ -51,7 +51,6 @@ spec:
         proxy-send-timeout: 7d
         ssl-protocols: TLSv1.3 TLSv1.2
         use-forwarded-headers: true
-        proxy-real-ip-cidr: ${CLUSTER_POD_IP_CIDR}
       extraArgs:
         default-ssl-certificate: networking/wildcard-tls
       ingressClass: internal
