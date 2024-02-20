@@ -11,15 +11,18 @@ spec:
       automountServiceAccountToken: false
       restartPolicy: Never
       nodeName: ${node}
+      hostIPC: true
+      hostPID: true
       containers:
         - name: main
           image: ghcr.io/onedr0p/alpine:rolling
           command: ["/bin/sh", "-c"]
           args:
-            - apk add --no-cache sgdisk util-linux parted;
+            - apk add --no-cache sgdisk util-linux util-linux-misc parted device-mapper;
               sgdisk --zap-all ${disk};
-              dd if=/dev/zero bs=1M count=10000 oflag=direct of=${disk};
+              dd if=/dev/zero bs=1M count=1000 oflag=direct of=${disk};
               blkdiscard ${disk};
-              partprobe ${disk};
+              nsenter --mount=/proc/1/ns/mnt partprobe ${disk};
+              ls /dev/mapper/ceph-* | xargs -I% -- nsenter --mount=/proc/1/ns/mnt dmsetup remove_all --force %;
           securityContext:
             privileged: true

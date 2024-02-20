@@ -46,7 +46,7 @@ tasks:
       - for: { var: apps }
         task: .bootstrap-helm-app
         vars:
-          app: '{{.ITEM}}'
+          app: "{{.ITEM}}"
       - for: { var: workers }
         cmd: kubectl label node {{.ITEM}} node-role.kubernetes.io/worker=
     vars:
