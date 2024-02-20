@@ -127,7 +127,7 @@ graph TD;
 <details>
   <summary>Click to see a high-level network diagram</summary>
 
-  <img src="https://github.com/buroa/k8s-gitops/assets/36205263/48385d82-3620-45e0-a185-1676c3947577" align="center" width="600px" alt="dns"/>
+  <img src="https://github.com/buroa/k8s-gitops/assets/36205263/8b3b5a75-7f27-4e62-a44b-203841d90d15" align="center" width="600px" alt="network"/>
 </details>
 
 ---
