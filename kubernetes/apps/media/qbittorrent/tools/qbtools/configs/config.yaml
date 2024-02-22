@@ -41,7 +41,7 @@ trackers:
     required_seed_days: 14.1
 
   - name: milkie
-    urls: ["milkie.cc"]
+    urls: ["cow.milkie.cc"]
     required_seed_ratio: 1.01
     required_seed_days: 7.1
 
