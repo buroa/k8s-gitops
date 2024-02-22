@@ -6,7 +6,7 @@ clusterPodNets:
 clusterSvcNets:
   - 10.245.0.0/16
 
-endpoint: https://k8s.${domainName}:6443
+endpoint: https://k8s.${PUBLIC_DOMAIN}:6443
 
 # renovate: depName=ghcr.io/buroa/installer datasource=docker
 talosVersion: v1.6.4
@@ -14,8 +14,8 @@ talosVersion: v1.6.4
 kubernetesVersion: v1.29.2
 
 additionalApiServerCertSans: &sans
-  - ${clusterEndpointIP}
-  - k8s.${domainName}
+  - ${CLUSTER_ENDPOINT_IP}
+  - k8s.${PUBLIC_DOMAIN}
   - 127.0.0.1 # KubePrism
 
 additionalMachineCertSans: *sans
@@ -25,7 +25,7 @@ cniConfig:
 
 nodes:
   # macm 2018 3.2GHz / 32GB / 256GB SSD / 10GbE via TB3
-  - hostname: m0.k8s.${domainName}
+  - hostname: m0.k8s.${PUBLIC_DOMAIN}
     ipAddress: 10.0.0.10
     installDiskSelector:
       serial: C0785130064JRQ5AA
@@ -50,7 +50,7 @@ nodes:
               - network: 0.0.0.0/0
                 gateway: 10.0.0.1
             vip:
-              ip: ${clusterEndpointIP}
+              ip: ${CLUSTER_ENDPOINT_IP}
           - vlanId: 12
             dhcp: false
             addresses:
@@ -63,7 +63,7 @@ nodes:
             mtu: 1500
 
   # macm 2018 3.2GHz / 32GB / 256GB SSD / 10GbE via TB3
-  - hostname: m1.k8s.${domainName}
+  - hostname: m1.k8s.${PUBLIC_DOMAIN}
     ipAddress: 10.0.0.11
     installDiskSelector:
       serial: H280463005RJRV2C6
@@ -88,7 +88,7 @@ nodes:
               - network: 0.0.0.0/0
                 gateway: 10.0.0.1
             vip:
-              ip: ${clusterEndpointIP}
+              ip: ${CLUSTER_ENDPOINT_IP}
           - vlanId: 12
             dhcp: false
             addresses:
@@ -101,7 +101,7 @@ nodes:
             mtu: 1500
 
   # macm 2018 3.2GHz / 32GB / 256GB SSD / 10GbE via TB3
-  - hostname: m2.k8s.${domainName}
+  - hostname: m2.k8s.${PUBLIC_DOMAIN}
     ipAddress: 10.0.0.12
     installDiskSelector:
       serial: C070234007KJRT9AZ
@@ -126,7 +126,7 @@ nodes:
               - network: 0.0.0.0/0
                 gateway: 10.0.0.1
             vip:
-              ip: ${clusterEndpointIP}
+              ip: ${CLUSTER_ENDPOINT_IP}
           - vlanId: 12
             dhcp: false
             addresses:
@@ -139,7 +139,7 @@ nodes:
             mtu: 1500
 
   # macm 2018 3.2GHz / 64GB / 1TB SSD / 10GbE
-  - hostname: w0.k8s.${domainName}
+  - hostname: w0.k8s.${PUBLIC_DOMAIN}
     ipAddress: 10.0.0.20
     installDiskSelector:
       serial: H281495002CJRVGDX
@@ -193,7 +193,7 @@ nodes:
             metric: 2048
 
   # macm 2018 3.2GHz / 64GB / 1TB SSD / 10GbE
-  - hostname: w1.k8s.${domainName}
+  - hostname: w1.k8s.${PUBLIC_DOMAIN}
     ipAddress: 10.0.0.21
     installDiskSelector:
       serial: C070173002EJRVGAW
@@ -247,7 +247,7 @@ nodes:
             metric: 2048
 
   # macm 2018 3.2GHz / 64GB / 1TB SSD / 10GbE
-  - hostname: w2.k8s.${domainName}
+  - hostname: w2.k8s.${PUBLIC_DOMAIN}
     ipAddress: 10.0.0.22
     installDiskSelector:
       serial: C07843600H7JRVGA8
@@ -360,7 +360,7 @@ controlPlane:
       machine:
         logging:
           destinations:
-            - endpoint: udp://vector.${domainName}:6002
+            - endpoint: udp://vector.${PUBLIC_DOMAIN}:6002
               format: json_lines
 
     # Force nameserver
@@ -400,24 +400,24 @@ controlPlane:
       machine:
         network:
           extraHostEntries:
-            - ip: ${clusterEndpointIP}
+            - ip: ${CLUSTER_ENDPOINT_IP}
               aliases:
-                - k8s.${domainName}
+                - k8s.${PUBLIC_DOMAIN}
             - ip: 192.168.0.1
               aliases:
-                - unifi.${domainName}
+                - unifi.${PUBLIC_DOMAIN}
             - ip: 10.0.0.5
               aliases:
-                - nas.${domainName}
+                - nas.${PUBLIC_DOMAIN}
             - ip: 10.0.0.6
               aliases:
-                - ups.${domainName}
+                - ups.${PUBLIC_DOMAIN}
             - ip: 10.0.0.7
               aliases:
-                - pdu.${domainName}
+                - pdu.${PUBLIC_DOMAIN}
             - ip: 10.0.3.4
               aliases:
-                - vector.${domainName}
+                - vector.${PUBLIC_DOMAIN}
 
     # Custom sysctl settings
     - &sysctlPatch |-
@@ -450,7 +450,7 @@ controlPlane:
           extraKernelArgs:
             - mitigations=off
             - net.ifnames=0
-            - talos.logging.kernel=udp://vector.${domainName}:6001/
+            - talos.logging.kernel=udp://vector.${PUBLIC_DOMAIN}:6001/
           legacyBIOSSupport: true
 
     # Various udev rules
