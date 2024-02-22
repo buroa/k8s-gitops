@@ -14,4 +14,5 @@ helmCharts:
     releaseName: *releaseName
     namespace: *namespace
     valuesInline:
+      bypassDnsResolution: true
       providerRegex: ^[m|w]\d$

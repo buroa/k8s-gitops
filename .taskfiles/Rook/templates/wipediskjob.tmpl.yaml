@@ -11,8 +11,6 @@ spec:
       automountServiceAccountToken: false
       restartPolicy: Never
       nodeName: ${node}
-      hostIPC: true
-      hostPID: true
       containers:
         - name: main
           image: ghcr.io/onedr0p/alpine:rolling
@@ -22,7 +20,6 @@ spec:
               sgdisk --zap-all ${disk};
               dd if=/dev/zero bs=1M count=1000 oflag=direct of=${disk};
               blkdiscard ${disk};
-              nsenter --mount=/proc/1/ns/mnt partprobe ${disk};
-              ls /dev/mapper/ceph-* | xargs -I% -- nsenter --mount=/proc/1/ns/mnt dmsetup remove_all --force %;
+              partprobe ${disk};
           securityContext:
             privileged: true

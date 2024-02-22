@@ -5,6 +5,7 @@ x-env: &env
   disk: "{{.disk}}"
   job: "{{.job}}"
   node: "{{.node}}"
+  serial: "{{.serial}}"
 
 vars:
   rookScriptsDir: '{{.ROOT_DIR}}/.taskfiles/Rook/scripts'
@@ -63,7 +64,7 @@ tasks:
     requires:
       vars: ["serial", "node"]
     vars:
-      job: wipe-disk-{{.node}}-{{.disk | replace "/" "-"}}
+      job: wipe-disk-{{.node}}-{{.serial | lower}}
       disk: /dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_2TB_{{.serial}}
     preconditions:
       - test -f {{.rookScriptsDir}}/wait-for-job.sh

@@ -23,6 +23,7 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    bypassDnsResolution: true
     providerRegex: ^[m|w]\d$
     metrics:
       enable: true
