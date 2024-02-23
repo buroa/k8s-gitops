@@ -86,7 +86,7 @@ spec:
             disableDeletion: false
             editable: true
             options:
-              path: /var/lib/grafana/dashboards/default
+              path: /var/lib/grafana/dashboards/default-folder
           - name: blocky
             orgId: 1
             folder: Blocky
@@ -94,7 +94,7 @@ spec:
             disableDeletion: false
             editable: true
             options:
-              path: /var/lib/grafana/dashboards/blocky
+              path: /var/lib/grafana/dashboards/blocky-folder
           - name: ceph
             orgId: 1
             folder: Ceph
@@ -102,7 +102,7 @@ spec:
             disableDeletion: false
             editable: true
             options:
-              path: /var/lib/grafana/dashboards/ceph
+              path: /var/lib/grafana/dashboards/ceph-folder
           - name: flux
             orgId: 1
             folder: Flux
@@ -110,7 +110,7 @@ spec:
             disableDeletion: false
             editable: true
             options:
-              path: /var/lib/grafana/dashboards/flux
+              path: /var/lib/grafana/dashboards/flux-folder
           - name: kubernetes
             orgId: 1
             folder: Kubernetes
@@ -118,7 +118,7 @@ spec:
             disableDeletion: false
             editable: true
             options:
-              path: /var/lib/grafana/dashboards/kubernetes
+              path: /var/lib/grafana/dashboards/kubernetes-folder
           - name: media
             orgId: 1
             folder: Media
@@ -126,7 +126,7 @@ spec:
             disableDeletion: false
             editable: true
             options:
-              path: /var/lib/grafana/dashboards/media
+              path: /var/lib/grafana/dashboards/media-folder
           - name: nginx
             orgId: 1
             folder: Nginx
@@ -134,7 +134,7 @@ spec:
             disableDeletion: false
             editable: true
             options:
-              path: /var/lib/grafana/dashboards/nginx
+              path: /var/lib/grafana/dashboards/nginx-folder
           - name: prometheus
             orgId: 1
             folder: Prometheus
@@ -142,7 +142,7 @@ spec:
             disableDeletion: false
             editable: true
             options:
-              path: /var/lib/grafana/dashboards/prometheus
+              path: /var/lib/grafana/dashboards/prometheus-folder
           - name: thanos
             orgId: 1
             folder: Thanos
@@ -150,7 +150,7 @@ spec:
             disableDeletion: false
             editable: true
             options:
-              path: /var/lib/grafana/dashboards/thanos
+              path: /var/lib/grafana/dashboards/thanos-folder
           - name: unifi
             orgId: 1
             folder: Unifi
@@ -158,7 +158,7 @@ spec:
             disableDeletion: false
             editable: true
             options:
-              path: /var/lib/grafana/dashboards/unifi
+              path: /var/lib/grafana/dashboards/unifi-folder
     datasources:
       datasources.yaml:
         apiVersion: 1
@@ -203,11 +203,6 @@ spec:
           # renovate: depName="Cloudflare Tunnels (cloudflared)"
           gnetId: 17457
           revision: 6
-          datasource:
-            - name: DS_PROMETHEUS
-              value: Prometheus
-        cloudnative-pg:
-          url: https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/main/docs/src/samples/monitoring/grafana-dashboard.json
           datasource:
             - name: DS_PROMETHEUS
               value: Prometheus

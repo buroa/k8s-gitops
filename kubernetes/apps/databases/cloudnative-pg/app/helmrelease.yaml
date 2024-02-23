@@ -23,8 +23,12 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    crds:
-      create: true
     config:
       data:
         INHERITED_ANNOTATIONS: kyverno.io/ignore
+    crds:
+      create: true
+    monitoring:
+      podMonitorEnabled: false
+      grafanaDashboard:
+        create: true
