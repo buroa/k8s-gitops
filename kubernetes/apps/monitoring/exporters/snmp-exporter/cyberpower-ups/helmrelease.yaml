@@ -37,7 +37,6 @@ spec:
         defaultMode: 420
     serviceMonitor:
       enabled: true
-      namespace: monitoring
       params:
         - name: ups
           module:

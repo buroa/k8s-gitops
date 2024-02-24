@@ -28,7 +28,6 @@ spec:
       repository: quay.io/prometheus/snmp-exporter
     serviceMonitor:
       enabled: true
-      namespace: monitoring
       params:
         - name: nas
           module:
