@@ -35,8 +35,9 @@ spec:
               repository: ghcr.io/foxcpp/maddy
               tag: 0.7.1@sha256:6ab538e2f28baf2324f7cb418c7f9476fd9c7e9fa9b14bc3aecf51a9f6962064
             env:
-              MADDY_HTTP_PORT: &httpPort 8080
-              MADDY_SMTP_PORT: &smtpPort 2525
+              SMTP_RELAY_METRICS_PORT: &metricsPort 8080
+              SMTP_RELAY_SMTP_PORT: &smtpPort 25
+              SMTP_RELAY_SERVER_PORT: 587
             envFrom:
               - secretRef:
                   name: smtp-relay-secret
@@ -44,7 +45,7 @@ spec:
               requests:
                 cpu: 10m
               limits:
-                memory: 256Mi
+                memory: 128Mi
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -68,8 +69,6 @@ spec:
     persistence:
       cache:
         type: emptyDir
-        globalMounts:
-          - path: /cache
       config:
         enabled: true
         type: configMap
@@ -82,7 +81,7 @@ spec:
       main:
         ports:
           http:
-            port: *httpPort
+            port: *metricsPort
           smtp:
             port: *smtpPort
     serviceMonitor:

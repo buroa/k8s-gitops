@@ -108,7 +108,7 @@ identity_providers:
 notifier:
   disable_startup_check: true
   smtp:
-    address: smtp://smtp-relay.networking.svc.cluster.local:2525
+    address: smtp://smtp-relay.networking.svc.cluster.local:25
     sender: Authelia <authelia@$${PUBLIC_DOMAIN}>
     disable_require_tls: true
 
