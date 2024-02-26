@@ -18,3 +18,22 @@ spec:
   interval: 30m
   retryInterval: 1m
   timeout: 15m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cluster-apps-kube-prometheus-stack-tools
+  namespace: flux-system
+spec:
+  targetNamespace: monitoring
+  dependsOn:
+    - name: cluster-apps-kube-prometheus-stack
+  path: ./kubernetes/apps/monitoring/kube-prometheus-stack/tools
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: k8s-gitops
+  wait: true
+  interval: 30m
+  retryInterval: 1m
+  timeout: 15m
