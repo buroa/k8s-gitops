@@ -23,6 +23,8 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    awsPackage:
+      repository: ghcr.io/flux-iac/aws-primitive-modules
     installCRDs: true
     metrics:
       enabled: true
