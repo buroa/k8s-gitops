@@ -2,45 +2,11 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-snmp-exporter-cyberpower-pdu
+  name: cluster-apps-snmp-exporter
   namespace: flux-system
 spec:
   targetNamespace: monitoring
-  path: ./kubernetes/apps/monitoring/exporters/snmp-exporter/cyberpower-pdu
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: k8s-gitops
-  wait: true
-  interval: 30m
-  retryInterval: 1m
-  timeout: 5m
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: cluster-apps-snmp-exporter-cyberpower-ups
-  namespace: flux-system
-spec:
-  targetNamespace: monitoring
-  path: ./kubernetes/apps/monitoring/exporters/snmp-exporter/cyberpower-ups
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: k8s-gitops
-  wait: true
-  interval: 30m
-  retryInterval: 1m
-  timeout: 5m
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: cluster-apps-snmp-exporter-synology-nas
-  namespace: flux-system
-spec:
-  targetNamespace: monitoring
-  path: ./kubernetes/apps/monitoring/exporters/snmp-exporter/synology-nas
+  path: ./kubernetes/apps/monitoring/exporters/snmp-exporter/app
   prune: true
   sourceRef:
     kind: GitRepository

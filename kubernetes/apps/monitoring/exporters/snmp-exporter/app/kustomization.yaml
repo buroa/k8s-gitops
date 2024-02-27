@@ -4,8 +4,11 @@ kind: Kustomization
 resources:
   - ./helmrelease.yaml
 configMapGenerator:
-  - name: snmp-exporter-cyberpower-pdu
+  - name: snmp-exporter-cyberpower-ups-dashboards
     files:
-      - ./configs/snmp.yaml
+      - ./dashboards/cyberpower-ups-dashboard.json
+    options:
+      labels:
+        grafana_dashboard: "1"
 generatorOptions:
   disableNameSuffixHash: true
