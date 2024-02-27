@@ -35,6 +35,7 @@ spec:
             env:
               UN_INTERVAL: 1m
               UN_WEBSERVER_METRICS: true
+              UN_WEBSERVER_LOG_FILE: /logs
               UN_SONARR_0_URL: http://sonarr.media.svc.cluster.local:8989
               UN_SONARR_0_PATHS_0: /media/downloads/torrents/complete/sonarr
               UN_RADARR_0_URL: http://radarr.media.svc.cluster.local:7878
@@ -67,6 +68,8 @@ spec:
         type: nfs
         server: nas.${PUBLIC_DOMAIN}
         path: /volume1/media
+      logs:
+        type: emptyDir
     service:
       main:
         ports:
