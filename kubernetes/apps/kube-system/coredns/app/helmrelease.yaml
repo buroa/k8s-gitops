@@ -23,7 +23,6 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    fullnameOverride: *app
     replicaCount: 2
     k8sAppLabelOverride: kube-dns
     service:
