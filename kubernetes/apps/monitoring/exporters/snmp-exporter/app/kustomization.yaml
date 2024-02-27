@@ -4,9 +4,6 @@ kind: Kustomization
 resources:
   - ./helmrelease.yaml
 configMapGenerator:
-  - name: snmp-exporter-mibs
-    files:
-      - ./configs/snmp.yaml
   - name: snmp-exporter-cyberpower-ups-dashboards
     files:
       - ./dashboards/cyberpower-ups-dashboard.json

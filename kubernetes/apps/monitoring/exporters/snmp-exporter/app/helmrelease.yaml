@@ -25,30 +25,23 @@ spec:
   values:
     fullnameOverride: *app
     image:
+      # TODO: Update the image to a semver tag
       repository: quay.io/prometheus/snmp-exporter
-    extraArgs:
-      - --config.file=/config/snmp.yaml
-    extraConfigmapMounts:
-      - name: *app
-        mountPath: /config/snmp.yaml
-        subPath: snmp.yaml
-        configMap: snmp-exporter-mibs
-        readOnly: true
-        defaultMode: 420
+      tag: main@sha256:0659a5cbc8eac1f4b137d6da3a7d8ff887bdce3f77a874e6b00f6ad404463fb2
     serviceMonitor:
       enabled: true
       params:
         - name: nas
-          module:
-            - synology
+          auth: [public_v1]
+          module: [synology]
           target: nas.${PUBLIC_DOMAIN}
         - name: ups
-          module:
-            - cyberpower
+          auth: [public_v1]
+          module: [cyberpower]
           target: ups.${PUBLIC_DOMAIN}
         - name: pdu
-          module:
-            - cyberpower
+          auth: [public_v1]
+          module: [cyberpower]
           target: pdu.${PUBLIC_DOMAIN}
       path: /snmp
       scrapeTimeout: 10s

@@ -56,7 +56,7 @@ spec:
         containers:
           main:
             image:
-              # TODO: Move to semver when v5.7.0+ is released
+              # TODO: Update the image to a semver tag
               repository: ghcr.io/twin/gatus
               tag: latest@sha256:c3987a61cb5f0290826715216ff6bfa8df06c4add3f4ad11d0b3927a18bb93c4
             env:

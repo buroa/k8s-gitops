@@ -40,7 +40,7 @@ spec:
         containers:
           main:
             image:
-              # TODO: Move to semver when v4.38.0+ is released
+              # TODO: Update the image to a semver tag
               repository: ghcr.io/authelia/authelia
               tag: v4.38.0-beta3@sha256:b48ae4d0ed9d1eee76efe382df60928bae550ec19e5663858dde6dc5f41cf285
             env:
