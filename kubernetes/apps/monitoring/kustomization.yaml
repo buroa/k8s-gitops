@@ -6,6 +6,7 @@ resources:
   - ./gatus/ks.yaml
   - ./grafana/ks.yaml
   - ./karma/ks.yaml
+  - ./kromgo/ks.yaml
   - ./loki/ks.yaml
   - ./thanos/ks.yaml
   - ./unpoller/ks.yaml

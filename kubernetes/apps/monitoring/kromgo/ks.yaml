@@ -5,8 +5,8 @@ metadata:
   name: cluster-apps-kromgo
   namespace: flux-system
 spec:
-  targetNamespace: default
-  path: ./kubernetes/apps/default/kromgo/app
+  targetNamespace: monitoring
+  path: ./kubernetes/apps/monitoring/kromgo/app
   prune: true
   sourceRef:
     kind: GitRepository
