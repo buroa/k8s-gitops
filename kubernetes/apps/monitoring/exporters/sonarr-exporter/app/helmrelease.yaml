@@ -31,7 +31,7 @@ spec:
           main:
             image:
               repository: ghcr.io/onedr0p/exportarr
-              tag: v1.6.2@sha256:4c4b2c401a2650c0c7cad6c1d35c9cf6a14e88420691ba540c0280e043755f78
+              tag: v2.0.0@sha256:760327e885a9bb5b818b56e8a6f818c9570eeaa9484bed122028adbf80bcaeb9
             args:
               - sonarr
               - --enable-additional-metrics
