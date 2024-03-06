@@ -20,8 +20,6 @@ spec:
     cleanupOnFail: true
     remediation:
       retries: 3
-  uninstall:
-    keepHistory: false
   values:
     replicaCount: 2
     k8sAppLabelOverride: kube-dns

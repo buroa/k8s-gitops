@@ -20,8 +20,6 @@ spec:
     cleanupOnFail: true
     remediation:
       retries: 3
-  uninstall:
-    keepHistory: false
   values:
     csiDriver:
       name: local-hostpath.democratic-csi.k8s.home.arpa
