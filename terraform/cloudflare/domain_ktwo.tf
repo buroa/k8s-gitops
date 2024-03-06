@@ -27,7 +27,7 @@ module "cf_domain_ktwo" {
     },
     {
       name  = "_dmarc"
-      value = "v=DMARC1; p=quarantine;"
+      value = "v=DMARC1; p=quarantine; rua=mailto:e3ebf1feff754f98b998bfc6e630271f@dmarc-reports.cloudflare.net;"
       type  = "TXT"
     },
 
