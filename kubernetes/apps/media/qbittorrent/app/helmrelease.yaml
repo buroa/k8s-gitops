@@ -34,7 +34,7 @@ spec:
             env:
               TZ: ${TIMEZONE}
               QBITTORRENT__PORT: &httpPort 8080
-              QBITTORRENT__BT_PORT: &btPort ${TORRENT_PUBLIC_PORT}
+              QBITTORRENT__BT_PORT: &bittorrentPort ${TORRENT_PUBLIC_PORT}
               QBT_Preferences__WebUI__AlternativeUIEnabled: false
               QBT_Preferences__WebUI__AuthSubnetWhitelistEnabled: true
               QBT_Preferences__WebUI__AuthSubnetWhitelist: >-
@@ -130,20 +130,39 @@ spec:
               - *host
               - *customHost
     persistence:
-      config:
-        enabled: true
+      config-qb:
         existingClaim: *app
+        advancedMounts:
+          main:
+            main:
+              - path: /config
+            xseed:
+              - path: /config/qBittorrent/BT_backup
+                subPath: qBittorrent/BT_backup
+                readOnly: true
+      config-xseed:
+        type: emptyDir
+        advancedMounts:
+          main:
+            xseed:
+              - path: /config
+      config-xseed-config:
+        type: configMap
+        name: *configMap
+        advancedMounts:
+          main:
+            xseed:
+              - path: /config/config.js
+                subPath: config.js
+                readOnly: true
       media:
         type: nfs
         server: nas.${PUBLIC_DOMAIN}
         path: /volume1/media
-      xseed:
-        type: configMap
-        name: *configMap
-        globalMounts:
-          - path: /config/config.js
-            subPath: config.js
-            readOnly: true
+        advancedMounts:
+          main:
+            main:
+              - path: /media
     service:
       main:
         ports:
@@ -157,7 +176,7 @@ spec:
         annotations:
           io.cilium/lb-ipam-ips: ${TORRENT_LB_IP}
         ports:
-          bittorrent-tcp:
+          bittorrent:
             enabled: true
-            port: *btPort
+            port: *bittorrentPort
             protocol: TCP

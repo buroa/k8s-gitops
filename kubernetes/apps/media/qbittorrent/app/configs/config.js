@@ -39,17 +39,6 @@ module.exports = {
   includeEpisodes: true,
   includeSingleEpisodes: true,
 
-  // I have sonarr, radarr, and manual categories set in qBittorrent
-  // The save paths for them are set to the following:
-  dataDirs: [
-    "/media/downloads/torrents/complete/sonarr",
-    "/media/downloads/torrents/complete/radarr",
-    "/media/downloads/torrents/complete/manual",
-  ],
-
-  linkType: "hardlink",
-  linkDir: "/media/downloads/torrents/complete/xseed",
-
-  outputDir: "/config/xseed",
+  outputDir: "/config",
   torrentDir: "/config/qBittorrent/BT_backup",
 };
