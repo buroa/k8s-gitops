@@ -56,7 +56,7 @@ spec:
             image:
               # TODO: Update the image to a semver tag
               repository: ghcr.io/twin/gatus
-              tag: latest@sha256:c3987a61cb5f0290826715216ff6bfa8df06c4add3f4ad11d0b3927a18bb93c4
+              tag: latest@sha256:7b51ab732fa3a4a0e1f9023272e2b5bf69982be879ac5047028b7f9d4b571fff
             env:
               TZ: ${TIMEZONE}
               GATUS_CONFIG_PATH: /config
