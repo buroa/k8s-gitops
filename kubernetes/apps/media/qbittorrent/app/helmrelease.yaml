@@ -146,7 +146,7 @@ spec:
           main:
             xseed:
               - path: /config
-      config-xseed-config:
+      config-xseed-file:
         type: configMap
         name: *configMap
         advancedMounts:
