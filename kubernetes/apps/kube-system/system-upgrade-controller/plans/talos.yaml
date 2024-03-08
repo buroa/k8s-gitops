@@ -5,7 +5,7 @@ metadata:
   name: talos
 spec:
   # renovate: depName=ghcr.io/buroa/installer datasource=docker
-  version: v1.6.6
+  version: &version v1.6.6
   serviceAccountName: system-upgrade
   secrets:
     - name: talos
@@ -13,13 +13,16 @@ spec:
       ignoreUpdates: true
   concurrency: 1
   exclusive: true
-  cordon: true
   drain:
     deleteLocalData: true
-    disableEviction: false
+    disableEviction: true
     ignoreDaemonSets: true
   nodeSelector:
     matchExpressions:
+      - key: feature.node.kubernetes.io/system-os_release.VERSION_ID
+        operator: NotIn
+        values:
+          - *version
       - key: apple.feature.node.kubernetes.io/t2
         operator: Exists
   prepare: &prepare
