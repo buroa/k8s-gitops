@@ -27,8 +27,8 @@ spec:
       config:
         core:
           sources:
-            - usb
             - pci
             - system
+            - usb
     prometheus:
       enable: true
