@@ -19,6 +19,10 @@ spec:
     ignoreDaemonSets: true
   nodeSelector:
     matchExpressions:
+      - key: feature.node.kubernetes.io/system-os_release.ID
+        operator: In
+        values:
+          - talos
       - key: feature.node.kubernetes.io/system-os_release.VERSION_ID
         operator: NotIn
         values:
