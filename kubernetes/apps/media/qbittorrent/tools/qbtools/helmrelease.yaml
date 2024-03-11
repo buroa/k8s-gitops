@@ -90,7 +90,7 @@ spec:
           <<: *cronjob
           schedule: "@daily"
         containers:
-          main:
+          app:
             <<: *container
             args:
               - orphaned
@@ -108,7 +108,7 @@ spec:
               - 65536
       reannounce:
         containers:
-          main:
+          app:
             <<: *container
             args:
               - reannounce
@@ -133,5 +133,5 @@ spec:
         path: /volume1/media
         advancedMounts:
           orphaned:
-            main:
+            app:
               - path: /media
