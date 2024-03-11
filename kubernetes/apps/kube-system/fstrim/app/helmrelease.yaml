@@ -7,7 +7,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.1
       interval: 30m
       sourceRef:
         kind: HelmRepository
@@ -16,25 +16,18 @@ spec:
   interval: 30m
   values:
     controllers:
-      main:
+      fstrim:
         type: cronjob
         cronjob:
           schedule: 0 0 * * 1
           parallelism: 6
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/onedr0p/kubanetics
               tag: 2024.3.3@sha256:3a67297acb996356b4721e95e136ba41baed35e235a63dff18d6bfe58b42107d
             env:
               SCRIPT_NAME: fstrim.sh
-            probes:
-              liveness:
-                enabled: false
-              readiness:
-                enabled: false
-              startup:
-                enabled: false
             resources:
               requests:
                 cpu: 25m
@@ -68,6 +61,3 @@ spec:
         globalMounts:
           - path: /host/net
             readOnly: true
-    service:
-      main:
-        enabled: false

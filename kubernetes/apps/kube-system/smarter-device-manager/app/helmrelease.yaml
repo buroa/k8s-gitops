@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -19,15 +19,16 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: uninstall
       retries: 3
   values:
     controllers:
-      main:
+      smarter-device-manager:
         type: daemonset
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/smarter-project/smarter-device-manager
               tag: v1.20.12@sha256:228f7f44594a3182571559e62f2e3fe8a3f26180fb5dd7fc0cb7bf7d22a5bbcd
@@ -45,7 +46,6 @@ spec:
           priorityClassName: system-node-critical
     persistence:
       config:
-        enabled: true
         type: configMap
         name: smarter-device-manager-configmap
         globalMounts:
@@ -63,6 +63,3 @@ spec:
       var-lib-kubelet-device-plugins:
         type: hostPath
         hostPath: /var/lib/kubelet/device-plugins
-    service:
-      main:
-        enabled: false

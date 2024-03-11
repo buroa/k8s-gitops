@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -19,10 +19,11 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: uninstall
       retries: 3
   values:
     controllers:
-      main:
+      recyclarr:
         type: cronjob
         cronjob:
           schedule: "@daily"
@@ -31,7 +32,7 @@ spec:
           successfulJobsHistory: 1
           failedJobsHistory: 1
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/recyclarr/recyclarr
               tag: 6.0.2@sha256:02add40feae0569401b5020528e06419b47046723d0bb4bef1e82325e9eefdad
@@ -63,7 +64,6 @@ spec:
             fsGroupChangePolicy: OnRootMismatch
     persistence:
       config:
-        enabled: true
         existingClaim: *app
       config-file:
         type: configMap
@@ -72,6 +72,3 @@ spec:
           - path: /config/recyclarr.yml
             subPath: recyclarr.yml
             readOnly: true
-    service:
-      main:
-        enabled: false
