@@ -47,7 +47,6 @@ spec:
             envFrom: *envFrom
             probes:
               liveness: &probes
-                enabled: true
                 custom: true
                 spec:
                   httpGet:
