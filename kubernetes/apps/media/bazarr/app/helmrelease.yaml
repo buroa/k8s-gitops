@@ -114,7 +114,6 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /config/cache
-            subPath: cache
       media:
         type: nfs
         server: nas.${PUBLIC_DOMAIN}
