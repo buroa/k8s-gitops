@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -19,10 +19,11 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: uninstall
       retries: 3
   values:
     controllers:
-      main:
+      mosquitto:
         annotations:
           reloader.stakater.com/auto: "true"
         initContainers:
@@ -39,8 +40,13 @@ spec:
                 chmod 600 /mosquitto/external_config/mosquitto_pwd;
                 mosquitto_passwd -U /mosquitto/external_config/mosquitto_pwd;
         containers:
-          main:
+          app:
             image: *image
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
             resources:
               requests:
                 cpu: 10m
@@ -66,8 +72,8 @@ spec:
         type: configMap
         name: mosquitto-configmap
         advancedMounts:
-          main:
-            main:
+          mosquitto:
+            app:
               - path: /mosquitto/config/mosquitto.conf
                 subPath: mosquitto.conf
       external-config:
@@ -78,11 +84,12 @@ spec:
         type: secret
         name: mosquitto-secret
         advancedMounts:
-          main:
+          mosquitto:
             init-config:
               - path: /tmp/secret
     service:
-      main:
+      app:
+        controller: *app
         ports:
           http:
             port: 1883

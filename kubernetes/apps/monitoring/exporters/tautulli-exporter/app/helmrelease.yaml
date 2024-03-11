@@ -2,13 +2,13 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: tautulli-exporter
+  name: &app tautulli-exporter
 spec:
   interval: 30m
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -19,14 +19,15 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: uninstall
       retries: 3
   values:
     controllers:
-      main:
+      tautulli-exporter:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: docker.io/nwalke/tautulli_exporter
               tag: v0.1.0@sha256:36b53431ac19d8196e2b4431b98b221b3009c9d97dc3509bc229c7b569b23350
@@ -36,6 +37,11 @@ spec:
             envFrom:
               - secretRef:
                   name: tautulli-exporter-secret
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
             resources:
               requests:
                 cpu: 10m
@@ -53,10 +59,17 @@ spec:
             runAsGroup: 568
             runAsNonRoot: true
     service:
-      main:
+      app:
+        controller: *app
         ports:
           http:
             port: *port
     serviceMonitor:
-      main:
-        enabled: true
+      app:
+        serviceName: *app
+        endpoints:
+          - port: http
+            scheme: http
+            path: /metrics
+            interval: 1m
+            scrapeTimeout: 10s

@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -19,10 +19,11 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: uninstall
       retries: 3
   values:
     controllers:
-      main:
+      lldap:
         replicas: 2
         strategy: RollingUpdate
         annotations:
@@ -36,7 +37,7 @@ spec:
               - secretRef:
                   name: lldap-secret
         containers:
-          main:
+          app:
             image:
               # TODO: Update the image to a semver tag
               repository: ghcr.io/lldap/lldap
@@ -66,8 +67,6 @@ spec:
                   timeoutSeconds: 1
                   failureThreshold: 3
               readiness: *probes
-              startup:
-                enabled: false
             resources:
               requests:
                 cpu: 10m
@@ -94,8 +93,7 @@ spec:
                 matchLabels:
                   app.kubernetes.io/name: *app
     ingress:
-      main:
-        enabled: true
+      app:
         className: internal
         annotations:
           hajimari.io/icon: mdi:account-lock
@@ -104,7 +102,7 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
           - hosts:
@@ -113,7 +111,8 @@ spec:
       data:
         type: emptyDir
     service:
-      main:
+      app:
+        controller: *app
         ports:
           http:
             port: *httpPort

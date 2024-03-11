@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -19,12 +19,13 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: uninstall
       retries: 3
   values:
     controllers:
-      main:
+      plex:
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/onedr0p/plex-beta
               tag: 1.40.1.8173-3e92df2db@sha256:2d03a4cc820faff2f7299ea880441571e47b9205913eb1058a986e7ec3bac3d3
@@ -43,8 +44,6 @@ spec:
                   timeoutSeconds: 1
                   failureThreshold: 3
               readiness: *probes
-              startup:
-                enabled: false
             resources:
               requests:
                 cpu: 100m
@@ -70,8 +69,7 @@ spec:
               - 44
               - 65537
     ingress:
-      main:
-        enabled: true
+      app:
         className: external
         annotations:
           gatus.io/enabled: "true"
@@ -84,14 +82,13 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
           - hosts:
               - *host
     persistence:
       config:
-        enabled: true
         existingClaim: *app
       media:
         type: nfs
@@ -104,7 +101,8 @@ spec:
       tmp:
         type: emptyDir
     service:
-      main:
+      app:
+        controller: *app
         ports:
           http:
             port: *port

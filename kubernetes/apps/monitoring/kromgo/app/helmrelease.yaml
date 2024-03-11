@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -19,22 +19,28 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: uninstall
       retries: 3
   values:
     controllers:
-      main:
+      kromgo:
         replicas: 2
         strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/kashalls/kromgo
               tag: 0.3.0@sha256:7fa9b72f306b0970a16667f97604b4f3ebac2bdd1de29132bf81d8e6072abaf2
             env:
               PROMETHEUS_URL: http://thanos-query-frontend.monitoring.svc.cluster.local:9090
               PORT: &port 8080
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
             resources:
               requests:
                 cpu: 10m
@@ -59,8 +65,7 @@ spec:
                 matchLabels:
                   app.kubernetes.io/name: *app
     ingress:
-      main:
-        enabled: true
+      app:
         className: external
         annotations:
           gatus.io/enabled: "true"
@@ -72,14 +77,13 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
           - hosts:
               - *host
     persistence:
       config:
-        enabled: true
         type: configMap
         name: kromgo-configmap
         globalMounts:
@@ -87,7 +91,8 @@ spec:
             subPath: config.yaml
             readOnly: true
     service:
-      main:
+      app:
+        controller: *app
         ports:
           http:
             port: *port

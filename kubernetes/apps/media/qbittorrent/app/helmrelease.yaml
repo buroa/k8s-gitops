@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -19,15 +19,16 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: uninstall
       retries: 3
   values:
     controllers:
-      main:
+      qbittorrent:
         annotations:
           configmap.reloader.stakater.com/reload: &configMap cross-seed-configmap
           secret.reloader.stakater.com/reload: &secret cross-seed-secret
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/onedr0p/qbittorrent
               tag: 4.6.3@sha256:a4ad890e8c4a287c17d12ca22eb1d84a046aba2efbd882bf7d6eb12459f6a70c
@@ -60,8 +61,6 @@ spec:
                   timeoutSeconds: 1
                   failureThreshold: 3
               readiness: *probes
-              startup:
-                enabled: false
             resources:
               requests:
                 cpu: 100m
@@ -110,8 +109,7 @@ spec:
             supplementalGroups:
               - 65536
     ingress:
-      main:
-        enabled: true
+      app:
         className: internal
         annotations:
           hajimari.io/icon: mdi:seedling
@@ -121,7 +119,7 @@ spec:
             paths: &paths
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
           - host: &customHost qb.${PUBLIC_DOMAIN}
             paths: *paths
@@ -133,8 +131,8 @@ spec:
       config-qb:
         existingClaim: *app
         advancedMounts:
-          main:
-            main:
+          qbittorrent:
+            app:
               - path: /config
             xseed:
               - path: /config/qBittorrent/BT_backup
@@ -143,14 +141,14 @@ spec:
       config-xseed:
         type: emptyDir
         advancedMounts:
-          main:
+          qbittorrent:
             xseed:
               - path: /config
       config-xseed-file:
         type: configMap
         name: *configMap
         advancedMounts:
-          main:
+          qbittorrent:
             xseed:
               - path: /config/config.js
                 subPath: config.js
@@ -160,18 +158,19 @@ spec:
         server: nas.${PUBLIC_DOMAIN}
         path: /volume1/media
         advancedMounts:
-          main:
-            main:
+          qbittorrent:
+            app:
               - path: /media
     service:
-      main:
+      app:
+        controller: *app
         ports:
           http:
             port: *httpPort
           xseed:
             port: *xseedPort
       bittorrent:
-        controller: main
+        controller: *app
         type: LoadBalancer
         annotations:
           io.cilium/lb-ipam-ips: ${TORRENT_LB_IP}

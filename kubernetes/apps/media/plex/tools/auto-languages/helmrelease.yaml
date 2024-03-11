@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -19,14 +19,15 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: uninstall
       retries: 3
   values:
     controllers:
-      main:
+      plex-auto-languages:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: docker.io/remirigal/plex-auto-languages
               tag: v1.2.3@sha256:54bd9cf5d399514b8ed3052ce1d01a14375825a429653cb06da129685740889e
@@ -57,12 +58,8 @@ spec:
             fsGroupChangePolicy: OnRootMismatch
     persistence:
       config:
-        enabled: true
         type: emptyDir
       local:
         type: emptyDir
         globalMounts:
           - path: /.local
-    service:
-      main:
-        enabled: false

@@ -2,13 +2,13 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: speedtest-exporter
+  name: &app speedtest-exporter
 spec:
   interval: 30m
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -19,17 +19,23 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: uninstall
       retries: 3
   values:
     controllers:
-      main:
+      speedtest-exporter:
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/miguelndecarvalho/speedtest-exporter
               tag: v3.5.4@sha256:f1064d49124c7fc45faabb87c6c876a2fd04e92b3dc14d4b871301217ba30fed
             env:
               SPEEDTEST_PORT: &port 9798
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
             resources:
               requests:
                 cpu: 10m
@@ -52,18 +58,18 @@ spec:
             runAsNonRoot: true
     persistence:
       config:
-        enabled: true
         type: emptyDir
         globalMounts:
           - path: /.config
     service:
-      main:
+      app:
+        controller: *app
         ports:
           http:
             port: *port
     serviceMonitor:
-      main:
-        enabled: true
+      app:
+        serviceName: *app
         endpoints:
           - port: http
             scheme: http

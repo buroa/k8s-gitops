@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -19,10 +19,11 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: uninstall
       retries: 3
   values:
     controllers:
-      main:
+      miniflux:
         replicas: 2
         strategy: RollingUpdate
         annotations:
@@ -36,7 +37,7 @@ spec:
               - secretRef:
                   name: miniflux-secret
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/miniflux/miniflux
               tag: 2.0.50-distroless@sha256:625f6decf8740020fabec273e0f694f218a50281e251e13514ac2be4d9147ca8
@@ -69,8 +70,6 @@ spec:
                   timeoutSeconds: 1
                   failureThreshold: 3
               readiness: *probes
-              startup:
-                enabled: false
             resources:
               requests:
                 cpu: 10m
@@ -95,8 +94,7 @@ spec:
                 matchLabels:
                   app.kubernetes.io/name: *app
     ingress:
-      main:
-        enabled: true
+      app:
         className: external
         annotations:
           gatus.io/enabled: "true"
@@ -108,16 +106,23 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
           - hosts:
               - *host
     service:
-      main:
+      app:
+        controller: *app
         ports:
           http:
             port: 80
     serviceMonitor:
-      main:
-        enabled: true
+      app:
+        serviceName: *app
+        endpoints:
+          - port: http
+            scheme: http
+            path: /metrics
+            interval: 1m
+            scrapeTimeout: 10s

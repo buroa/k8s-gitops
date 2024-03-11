@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -19,15 +19,16 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: uninstall
       retries: 3
   values:
     controllers:
-      main:
+      external-dns:
         strategy: Recreate
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: registry.k8s.io/external-dns/external-dns
               tag: v0.14.0@sha256:474077b3dfccb3021db0a6638274967d0f64ce60dd9730a6f464bee2f78b046f
@@ -62,8 +63,6 @@ spec:
                   timeoutSeconds: 1
                   failureThreshold: 3
               readiness: *probes
-              startup:
-                enabled: false
             resources:
               requests:
                 cpu: 10m
@@ -81,7 +80,8 @@ spec:
             runAsGroup: 568
             runAsNonRoot: true
     service:
-      main:
+      app:
+        controller: *app
         ports:
           http:
             port: *port
@@ -89,5 +89,11 @@ spec:
       create: true
       name: *app
     serviceMonitor:
-      main:
-        enabled: true
+      app:
+        serviceName: *app
+        endpoints:
+          - port: http
+            scheme: http
+            path: /metrics
+            interval: 1m
+            scrapeTimeout: 10s

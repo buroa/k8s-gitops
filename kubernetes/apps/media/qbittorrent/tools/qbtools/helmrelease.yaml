@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -19,11 +19,10 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: uninstall
       retries: 3
   values:
     controllers:
-      main:
-        enabled: false
       tagging:
         type: cronjob
         cronjob: &cronjob
@@ -120,7 +119,6 @@ spec:
           securityContext: *podSecurityContext
     persistence:
       config:
-        enabled: true
         type: configMap
         name: *configMap
         advancedMounts:
@@ -137,6 +135,3 @@ spec:
           orphaned:
             main:
               - path: /media
-    service:
-      main:
-        enabled: false

@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -19,16 +19,17 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: uninstall
       retries: 3
   values:
     controllers:
-      main:
+      k8s-gateway:
         replicas: 2
         strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: quay.io/oriedge/k8s_gateway
               tag: v0.4.0@sha256:7bdbd447c0244b8f89de9cd6f4826ed0ac66c9406fac3a4ac80081020c251c6b
@@ -37,19 +38,19 @@ spec:
               - /etc/coredns/Corefile
             probes:
               readiness:
+                enabled: true
                 custom: true
                 spec:
                   httpGet:
                     path: /ready
                     port: 8181
               liveness:
+                enabled: true
                 custom: true
                 spec:
                   httpGet:
                     path: /health
                     port: 8080
-              startup:
-                enabled: false
             resources:
               requests:
                 cpu: 10m
@@ -75,7 +76,6 @@ spec:
                   app.kubernetes.io/name: *app
     persistence:
       config:
-        enabled: true
         type: configMap
         name: k8s-gateway-configmap
         globalMounts:
@@ -83,12 +83,13 @@ spec:
             subPath: Corefile
             readOnly: true
     service:
-      main:
+      app:
+        controller: *app
         ports:
           http:
             port: 9153
       dns:
-        controller: main
+        controller: *app
         type: ClusterIP
         clusterIP: ${K8S_GATEWAY_IP}
         ports:
@@ -104,5 +105,11 @@ spec:
       create: true
       name: *app
     serviceMonitor:
-      main:
-        enabled: true
+      app:
+        serviceName: *app
+        endpoints:
+          - port: http
+            scheme: http
+            path: /metrics
+            interval: 1m
+            scrapeTimeout: 10s

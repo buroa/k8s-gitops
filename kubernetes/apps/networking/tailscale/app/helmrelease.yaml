@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -19,16 +19,17 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: uninstall
       retries: 3
   values:
     controllers:
-      main:
+      tailscale:
         replicas: 2
         strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/tailscale/tailscale
               tag: v1.61.11@sha256:06e993635efcfa9574147ed223424cba562f7a5f0785e3b74381477414d57227
@@ -44,6 +45,11 @@ spec:
             envFrom:
               - secretRef:
                   name: tailscale-secret
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
             resources:
               requests:
                 cpu: 10m
@@ -79,12 +85,13 @@ spec:
         globalMounts:
           - path: *path
     service:
-      main:
+      app:
+        controller: *app
         ports:
           http:
             port: 2000
       tailnet:
-        controller: main
+        controller: *app
         type: LoadBalancer
         annotations:
           io.cilium/lb-ipam-ips: ${TAILSCALE_LB_IP}
@@ -94,8 +101,8 @@ spec:
             port: *port
             protocol: UDP
     serviceMonitor:
-      main:
-        enabled: true
+      app:
+        serviceName: *app
         endpoints:
           - port: http
             scheme: http

@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -20,16 +20,17 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: uninstall
       retries: 3
   values:
     controllers:
-      main:
+      vector-agent:
         type: daemonset
         strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: docker.io/timberio/vector
               tag: 0.36.0-debian@sha256:3034a2226b64bc828299aed748473fdb1c0b77caa04c0f43fd27de8704f2a836
@@ -58,7 +59,6 @@ spec:
               privileged: true
     persistence:
       config:
-        enabled: true
         type: configMap
         name: vector-agent-configmap
         globalMounts:
@@ -95,9 +95,6 @@ spec:
         hostPathType: Directory
         globalMounts:
           - readOnly: true
-    service:
-      main:
-        enabled: false
     serviceAccount:
       create: true
       name: *app

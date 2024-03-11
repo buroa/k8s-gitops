@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -19,19 +19,25 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: uninstall
       retries: 3
   values:
     controllers:
-      main:
+      thelounge:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/thelounge/thelounge
               tag: 4.4.1@sha256:50538b1b74184e43ac8c119f518243432026065f15e266ac2b23dbeb7de5802a
             env:
               THELOUNGE_HOME: /config
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
             resources:
               requests:
                 cpu: 10m
@@ -51,8 +57,7 @@ spec:
             fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
     ingress:
-      main:
-        enabled: true
+      app:
         className: internal
         annotations:
           hajimari.io/icon: mdi:forum
@@ -61,17 +66,17 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
           - hosts:
               - *host
     persistence:
       config:
-        enabled: true
         existingClaim: *app
     service:
-      main:
+      app:
+        controller: *app
         ports:
           http:
             port: 9000

@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -19,16 +19,17 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: uninstall
       retries: 3
   values:
     controllers:
-      main:
+      smtp-relay:
         replicas: 2
         strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/foxcpp/maddy
               tag: 0.7.1@sha256:6ab538e2f28baf2324f7cb418c7f9476fd9c7e9fa9b14bc3aecf51a9f6962064
@@ -39,6 +40,11 @@ spec:
             envFrom:
               - secretRef:
                   name: smtp-relay-secret
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
             resources:
               requests:
                 cpu: 10m
@@ -68,7 +74,6 @@ spec:
       cache:
         type: emptyDir
       config:
-        enabled: true
         type: configMap
         name: smtp-relay-configmap
         globalMounts:
@@ -76,12 +81,19 @@ spec:
             subPath: maddy.conf
             readOnly: true
     service:
-      main:
+      app:
+        controller: *app
         ports:
           http:
             port: *metricsPort
           smtp:
             port: *smtpPort
     serviceMonitor:
-      main:
-        enabled: true
+      app:
+        serviceName: *app
+        endpoints:
+          - port: http
+            scheme: http
+            path: /metrics
+            interval: 1m
+            scrapeTimeout: 10s

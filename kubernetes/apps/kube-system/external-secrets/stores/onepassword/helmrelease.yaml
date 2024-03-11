@@ -2,13 +2,13 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: onepassword-connect
+  name: &app onepassword-connect
 spec:
   interval: 30m
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -19,23 +19,25 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: uninstall
       retries: 3
   values:
     controllers:
-      main:
+      onepassword-connect:
+        strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          api:
             image:
               repository: docker.io/1password/connect-api
-              tag: 1.7.2@sha256:6aa94cf713f99c0fa58c12ffdd1b160404b4c13a7f501a73a791aa84b608c5a1
+              tag: 1.7.2@sha256:0c5ae74396e3c18c3b65acb89cb76d31088968cf0c25deca3818c72b01586606
             env:
               XDG_DATA_HOME: &configDir /config
-              OP_HTTP_PORT: &apiPort 8080
+              OP_HTTP_PORT: &apiPort 80
               OP_BUS_PORT: 11220
               OP_BUS_PEERS: localhost:11221
-              OP_SESSION: &opSession
+              OP_SESSION:
                 valueFrom:
                   secretKeyRef:
                     name: onepassword-connect-secret
@@ -59,15 +61,11 @@ spec:
                     path: /health
                     port: *apiPort
                   initialDelaySeconds: 15
-                  periodSeconds: 30
-                  failureThreshold: 3
-              startup:
-                enabled: false
             resources: &resources
               requests:
                 cpu: 10m
               limits:
-                memory: 256Mi
+                memory: 256M
             securityContext: &securityContext
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -77,13 +75,17 @@ spec:
           sync:
             image:
               repository: docker.io/1password/connect-sync
-              tag: 1.7.2@sha256:fe527ed9d81f193d8dfbba4140d61f9e8c8dceb0966b3009259087504e5ff79c
+              tag: 1.7.2@sha256:ff5bf86187ac4da88224e63a5896b393b5a53f81434e8dbc5314e406a0f1db89
             env:
               XDG_DATA_HOME: *configDir
               OP_HTTP_PORT: &syncPort 8081
               OP_BUS_PORT: 11221
               OP_BUS_PEERS: localhost:11220
-              OP_SESSION: *opSession
+              OP_SESSION:
+                valueFrom:
+                  secretKeyRef:
+                    name: onepassword-connect-secret
+                    key: 1password-credentials.json
             probes:
               liveness:
                 enabled: true
@@ -103,47 +105,36 @@ spec:
                     path: /health
                     port: *syncPort
                   initialDelaySeconds: 15
-                  periodSeconds: 30
-                  failureThreshold: 3
-              startup:
-                enabled: false
-              resources: *resources
-              securityContext: *securityContext
+            resources: *resources
+            securityContext: *securityContext
         pod:
-          dnsConfig:
-            options:
-              - name: ndots
-                value: "1"
           securityContext:
             runAsUser: 999
             runAsGroup: 999
-            fsGroup: 999
             runAsNonRoot: true
+            fsGroup: 999
             fsGroupChangePolicy: OnRootMismatch
     ingress:
-      main:
-        enabled: true
+      app:
         className: internal
-        annotations:
-          hajimari.io/enable: "false"
         hosts:
           - host: &host "{{ .Release.Name }}.${PUBLIC_DOMAIN}"
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
           - hosts:
               - *host
     persistence:
       config:
-        enabled: true
         type: emptyDir
         globalMounts:
           - path: *configDir
     service:
-      main:
+      app:
+        controller: *app
         ports:
           http:
             port: *apiPort

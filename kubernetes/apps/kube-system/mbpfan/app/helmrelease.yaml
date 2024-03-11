@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -19,15 +19,16 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: uninstall
       retries: 3
   values:
     controllers:
-      main:
+      mbpfan:
         type: daemonset
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/buroa/mbpfan
               tag: v0.2.0@sha256:c2e7165d15beaeeb6fcb8915eaa67c3dc2b2e6492b9b01dde05962df815b27a0
@@ -48,7 +49,6 @@ spec:
           priorityClassName: system-node-critical
     persistence:
       config:
-        enabled: true
         type: configMap
         name: mbpfan-configmap
         globalMounts:
@@ -60,6 +60,3 @@ spec:
       sys:
         type: hostPath
         hostPath: /sys
-    service:
-      main:
-        enabled: false

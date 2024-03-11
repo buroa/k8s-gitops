@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -19,10 +19,11 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: uninstall
       retries: 3
   values:
     controllers:
-      main:
+      home-assistant:
         annotations:
           reloader.stakater.com/auto: "true"
         initContainers:
@@ -34,7 +35,7 @@ spec:
               - secretRef:
                   name: home-assistant-secret
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/onedr0p/home-assistant
               tag: 2024.2.5@sha256:3c63e08234d808cbe2f29efc44347ddf09b277fe9c570ffe042d15ca2944b9f7
@@ -45,13 +46,6 @@ spec:
               HASS_EXTERNAL_URL: https://hass.${PUBLIC_DOMAIN}
               HASS_TRUSTED_PROXIES: ${CLUSTER_POD_IP_CIDR}
             envFrom: *envFrom
-            probes:
-              liveness:
-                enabled: false
-              readiness:
-                enabled: false
-              startup:
-                enabled: false
             resources:
               requests:
                 cpu: 10m
@@ -78,8 +72,7 @@ spec:
             fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
     ingress:
-      main:
-        enabled: true
+      app:
         className: internal
         annotations:
           hajimari.io/icon: mdi:home-assistant
@@ -89,7 +82,7 @@ spec:
             paths: &paths
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
           - host: &customHost hass.${PUBLIC_DOMAIN}
             paths: *paths
@@ -99,12 +92,12 @@ spec:
               - *customHost
     persistence:
       config:
-        enabled: true
         existingClaim: *app
       tmp:
         type: emptyDir
     service:
-      main:
+      app:
+        controller: *app
         ports:
           http:
             port: 8123

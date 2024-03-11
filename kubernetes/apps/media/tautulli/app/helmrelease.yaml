@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -19,12 +19,13 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: uninstall
       retries: 3
   values:
     controllers:
-      main:
+      tautulli:
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/onedr0p/tautulli
               tag: 2.13.4@sha256:d925cbb3ff9d8da8e926953d320137a5b3819f31d0ab3e06350ae995b442594f
@@ -43,8 +44,6 @@ spec:
                   timeoutSeconds: 1
                   failureThreshold: 3
               readiness: *probes
-              startup:
-                enabled: false
             resources:
               requests:
                 cpu: 10m
@@ -79,8 +78,7 @@ spec:
             fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
     ingress:
-      main:
-        enabled: true
+      app:
         className: external
         annotations:
           gatus.io/enabled: "true"
@@ -92,7 +90,7 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
           - hosts:
@@ -101,12 +99,12 @@ spec:
       add-ons:
         type: emptyDir
       config:
-        enabled: true
         existingClaim: *app
       tmp:
         type: emptyDir
     service:
-      main:
+      app:
+        controller: *app
         ports:
           http:
             port: *port

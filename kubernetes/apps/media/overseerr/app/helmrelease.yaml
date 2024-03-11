@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -19,12 +19,13 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: uninstall
       retries: 3
   values:
     controllers:
-      main:
+      overseerr:
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/sct/overseerr
               tag: 1.33.2@sha256:714ea6db2bc007a2262d112bef7eec74972eb33d9c72bddb9cbd98b8742de950
@@ -45,8 +46,6 @@ spec:
                   timeoutSeconds: 1
                   failureThreshold: 3
               readiness: *probes
-              startup:
-                enabled: false
             resources:
               requests:
                 cpu: 10m
@@ -66,8 +65,7 @@ spec:
             fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
     ingress:
-      main:
-        enabled: true
+      app:
         className: external
         annotations:
           gatus.io/enabled: "true"
@@ -80,7 +78,7 @@ spec:
             paths: &paths
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
           - host: &customHost requests.${PUBLIC_DOMAIN}
             paths: *paths
@@ -90,7 +88,6 @@ spec:
               - *customHost
     persistence:
       config:
-        enabled: true
         existingClaim: *app
         globalMounts:
           - path: /app/config
@@ -105,7 +102,8 @@ spec:
       tmp:
         type: emptyDir
     service:
-      main:
+      app:
+        controller: *app
         ports:
           http:
             port: *port
