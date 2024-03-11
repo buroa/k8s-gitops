@@ -45,7 +45,7 @@ spec:
               - --last-activity
               - --sites
               - --unregistered
-              - --server=qbittorrent.media.svc.cluster.local
+              - --server=qbittorrent-app.media.svc.cluster.local
               - --port=8080
             env:
               TZ: *timeZone
@@ -67,7 +67,7 @@ spec:
               - prune
               - --exclude-tag=expired
               - --include-tag=unregistered
-              - --server=qbittorrent.media.svc.cluster.local
+              - --server=qbittorrent-app.media.svc.cluster.local
               - --port=8080
           expired:
             <<: *container
@@ -76,7 +76,7 @@ spec:
               - --exclude-category=manual
               - --exclude-tag=activity:24h
               - --include-tag=expired
-              - --server=qbittorrent.media.svc.cluster.local
+              - --server=qbittorrent-app.media.svc.cluster.local
               - --port=8080
         pod:
           restartPolicy: OnFailure
@@ -96,7 +96,7 @@ spec:
               - orphaned
               - --exclude-pattern="*_unpackerred"
               - --exclude-pattern="*/manual/*"
-              - --server=qbittorrent.media.svc.cluster.local
+              - --server=qbittorrent-app.media.svc.cluster.local
               - --port=8080
         pod:
           restartPolicy: OnFailure
@@ -113,7 +113,7 @@ spec:
             args:
               - reannounce
               - --process-seeding
-              - --server=qbittorrent.media.svc.cluster.local
+              - --server=qbittorrent-app.media.svc.cluster.local
               - --port=8080
         pod:
           securityContext: *podSecurityContext
