@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s-charts
@@ -36,7 +36,7 @@ spec:
               - secretRef:
                   name: atuin-secret
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/atuinsh/atuin
               tag: 18.0.1@sha256:49df5708d7fc085acf76c7868f10f25fa7ba947c8a7d3354a97207ba69c85cc3
@@ -77,8 +77,7 @@ spec:
                 matchLabels:
                   app.kubernetes.io/name: *app
     ingress:
-      main:
-        enabled: true
+      app:
         className: internal
         annotations:
           hajimari.io/enable: "false"
@@ -87,8 +86,8 @@ spec:
             paths: &paths
               - path: /
                 service:
-                  name: main
-                  port: http
+                  name: app
+                  identifier: http
           - host: &customHost sh.${PUBLIC_DOMAIN}
             paths: *paths
         tls:
@@ -97,18 +96,18 @@ spec:
               - *customHost
     persistence:
       config:
-        enabled: true
         type: emptyDir
     service:
-      main:
+      app:
+        controller: main
         ports:
           http:
             port: *port
           metrics:
             port: *metricsPort
     serviceMonitor:
-      main:
-        enabled: true
+      app:
+        serviceName: app
         endpoints:
           - port: metrics
             scheme: http
