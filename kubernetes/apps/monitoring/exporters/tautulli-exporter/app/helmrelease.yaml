@@ -19,7 +19,7 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
-      strategy: uninstall
+      strategy: rollback
       retries: 3
   values:
     controllers:
