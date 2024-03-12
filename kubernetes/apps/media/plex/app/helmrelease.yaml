@@ -57,6 +57,20 @@ spec:
                 drop:
                   - ALL
         pod:
+          affinity:
+            podAntiAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                - labelSelector:
+                    matchExpressions:
+                      - key: app.kubernetes.io/name
+                        operator: In
+                        values:
+                          - bazarr
+                          - qbittorrent
+                          - radarr
+                          - sabnzbd
+                          - sonarr
+                  topologyKey: kubernetes.io/hostname
           nodeSelector:
             intel.feature.node.kubernetes.io/gpu: "true"
           securityContext:
