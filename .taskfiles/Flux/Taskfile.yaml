@@ -84,14 +84,6 @@ tasks:
           | xargs -P 4 -L 1 bash -c \
             'kubectl -n $0 annotate helmrelease/$1 reconcile.fluxcd.io/requestedAt="$(date +%s)" --overwrite'
 
-  tf-sync:
-    desc: Sync Flux Terraforms
-    cmds:
-      - |
-        kubectl get terraforms --all-namespaces --no-headers | awk '{print $1, $2}' \
-          | xargs -P 4 -L 1 bash -c \
-            'kubectl -n $0 annotate terraform/$1 reconcile.fluxcd.io/requestedAt="$(date +%s)" --overwrite'
-
   hr-suspend:
     desc: Suspend all Flux HelmReleases
     cmds:

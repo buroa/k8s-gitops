@@ -7,7 +7,6 @@ version: "3"
 vars:
   KUBERNETES_DIR: "{{.ROOT_DIR}}/kubernetes"
   TALOS_DIR: "{{.ROOT_DIR}}/talos"
-  TERRAFORM_DIR: "{{.ROOT_DIR}}/terraform"
 
 env:
   KUBECONFIG: "{{.KUBERNETES_DIR}}/kubernetes/kubeconfig"

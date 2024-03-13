@@ -11,6 +11,3 @@ area/talos:
 area/taskfiles:
   - changed-files:
       - any-glob-to-any-file: .taskfiles/**/*
-area/terraform:
-  - changed-files:
-      - any-glob-to-any-file: terraform/**/*

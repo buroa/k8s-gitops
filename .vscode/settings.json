@@ -11,7 +11,6 @@
   "explorer.autoReveal": false,
   "files.associations": {
     "*.json5": "json5",
-    "./terraform/**/*.tf": "terraform"
   },
   "files.trimTrailingWhitespace": true,
   "material-icon-theme.files.associations": {
@@ -26,7 +25,6 @@
     ".vscode": "vscode",
     "kubernetes": "kubernetes",
     "talos": "core",
-    "terraform": "terraform",
     // namespaces
     "actions-runner-system": "github",
     "cert-manager": "guard",

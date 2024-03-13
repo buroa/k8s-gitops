@@ -40,7 +40,7 @@ _... automated via [Flux](https://github.com/fluxcd/flux2), [Renovate](https://g
 
 ## 📖 Overview
 
-This is a repository for my home infrastructure and Kubernetes cluster. I try to adhere to Infrastructure as Code (IaC) and GitOps practices using tools like [Terraform](https://github.com/hashicorp/terraform), [Kubernetes](https://github.com/kubernetes/kubernetes), [Flux](https://github.com/fluxcd/flux2), [Renovate](https://github.com/renovatebot/renovate) and [GitHub Actions](https://github.com/features/actions).
+This is a repository for my home infrastructure and Kubernetes cluster. I try to adhere to Infrastructure as Code (IaC) and GitOps practices using tools like [Kubernetes](https://github.com/kubernetes/kubernetes), [Flux](https://github.com/fluxcd/flux2), [Renovate](https://github.com/renovatebot/renovate) and [GitHub Actions](https://github.com/features/actions).
 
 ---
 
@@ -65,10 +65,9 @@ This semi hyper-converged cluster runs [Talos Linux](https://github.com/siderola
 - [ingress-nginx](https://github.com/kubernetes/ingress-nginx): Kubernetes ingress controller using NGINX as a reverse proxy and load balancer.
 - [multus](https://github.com/k8snetworkplumbingwg/multus-cni): Multi-homed pod networking.
 - [rook](https://github.com/rook/rook): Distributed block storage for peristent storage.
-- [sops](https://github.com/getsops/sops): Managed secrets for Kubernetes and Terraform which are commited to Git.
+- [sops](https://github.com/getsops/sops): Managed secrets for Kubernetes which are commited to Git.
 - [spegel](https://github.com/XenitAB/spegel): Stateless cluster local OCI registry mirror.
 - [tailscale](https://github.com/tailscale/tailscale): Private WireGuard based VPN.
-- [tf-controller](https://github.com/weaveworks/tf-controller): Additional Flux component used to run Terraform from within a Kubernetes cluster.
 - [volsync](https://github.com/backube/volsync): Backup and recovery of persistent volume claims.
 
 ### GitOps

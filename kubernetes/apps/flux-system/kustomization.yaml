@@ -4,5 +4,3 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./addons/ks.yaml
-  - ./tf-controller/ks.yaml
-  - ./weave-gitops/ks.yaml
