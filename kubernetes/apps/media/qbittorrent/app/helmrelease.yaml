@@ -36,7 +36,7 @@ spec:
               TZ: ${TIMEZONE}
               QBITTORRENT__PORT: &httpPort 8080
               QBITTORRENT__BT_PORT: &bittorrentPort ${TORRENT_PUBLIC_PORT}
-              QBT_Application__MemoryWorkingSetLimit: 14000
+              QBT_Application__MemoryWorkingSetLimit: 11000
               QBT_Preferences__WebUI__AlternativeUIEnabled: false
               QBT_Preferences__WebUI__AuthSubnetWhitelistEnabled: true
               QBT_Preferences__WebUI__AuthSubnetWhitelist: |-
@@ -65,7 +65,7 @@ spec:
               requests:
                 cpu: 100m
               limits:
-                memory: 16Gi
+                memory: 12Gi
             securityContext: &securityContext
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
