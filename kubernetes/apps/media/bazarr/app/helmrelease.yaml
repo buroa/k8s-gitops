@@ -108,12 +108,16 @@ spec:
     persistence:
       add-ons:
         type: emptyDir
-      config:
-        existingClaim: *app
-      config-cache:
+      cache:
         type: emptyDir
         globalMounts:
           - path: /config/cache
+      config:
+        existingClaim: *app
+      log:
+        type: emptyDir
+        globalMounts:
+          - path: /config/log
       media:
         type: nfs
         server: nas.${PUBLIC_DOMAIN}

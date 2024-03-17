@@ -110,6 +110,10 @@ spec:
     persistence:
       config:
         existingClaim: *app
+      logs:
+        type: emptyDir
+        globalMounts:
+          - path: /config/logs
       media:
         type: nfs
         server: nas.${PUBLIC_DOMAIN}
