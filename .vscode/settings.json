@@ -19,12 +19,14 @@
     "*.sops.yaml": "lock"
   },
   "material-icon-theme.folders.associations": {
-    // .github
+    // top level
     ".github": "github",
     ".taskfiles": "utils",
     ".vscode": "vscode",
     "kubernetes": "kubernetes",
     "talos": "core",
+    // .github
+    ".github/workflows": "robot",
     // namespaces
     "actions-runner-system": "github",
     "cert-manager": "guard",
@@ -37,9 +39,22 @@
     "networking": "connection",
     "rook-ceph": "dump",
     "security": "guard",
+    "system-upgrade": "update",
+    "volsync-system": "aws",
+    // folders
+    "external-secrets": "secure",
     "tools": "tools",
-    // apps
-    "system-upgrade-controller": "update",
-    "volsync": "aws"
+  },
+  "sops.defaults.ageKeyFile": "age.key",
+  "vs-kubernetes": {
+    "vs-kubernetes.kubeconfig": "./kubeconfig",
+    "vs-kubernetes.knownKubeconfigs": [
+      "./kubeconfig"
+    ]
+  },
+  "yaml.schemaStore.enable": true,
+  "yaml.schemas": {
+    "ansible": "./ansible/**/*.yaml",
+    "kubernetes": "./kubernetes/**/*.yaml"
   }
 }

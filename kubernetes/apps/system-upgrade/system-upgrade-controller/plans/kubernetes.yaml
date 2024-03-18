@@ -2,10 +2,10 @@
 apiVersion: upgrade.cattle.io/v1
 kind: Plan
 metadata:
-  name: talos
+  name: kubernetes
 spec:
-  # renovate: depName=ghcr.io/buroa/installer datasource=docker
-  version: &version v1.6.6
+  # renovate: depName=ghcr.io/siderolabs/kubelet datasource=docker
+  version: v1.29.3
   serviceAccountName: system-upgrade
   secrets:
     - name: talos
@@ -13,19 +13,14 @@ spec:
       ignoreUpdates: true
   concurrency: 1
   exclusive: true
-  cordon: true
   nodeSelector:
     matchExpressions:
-      - key: apple.feature.node.kubernetes.io/t2
-        operator: Exists
       - key: feature.node.kubernetes.io/system-os_release.ID
         operator: In
         values:
           - talos
-      - key: feature.node.kubernetes.io/system-os_release.VERSION_ID
-        operator: NotIn
-        values:
-          - *version
+      - key: node-role.kubernetes.io/control-plane
+        operator: Exists
   tolerations:
     - key: CriticalAddonsOnly
       operator: Exists
@@ -42,14 +37,10 @@ spec:
     args:
       - --nodes=$(NODE_IP)
       - health
-      - --wait-timeout=300s
       - --server=false
   upgrade:
     <<: *prepare
     args:
       - --nodes=$(NODE_IP)
-      - upgrade
-      - --image=ghcr.io/buroa/installer:$(SYSTEM_UPGRADE_PLAN_LATEST_VERSION)
-      - --preserve=true
-      - --wait=false
-      - --reboot-mode=powercycle # TODO: kexec thunderbolt-net issue
+      - upgrade-k8s
+      - --to=$(SYSTEM_UPGRADE_PLAN_LATEST_VERSION)

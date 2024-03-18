@@ -5,8 +5,8 @@ metadata:
   name: cluster-apps-system-upgrade-controller
   namespace: flux-system
 spec:
-  targetNamespace: kube-system
-  path: ./kubernetes/apps/kube-system/system-upgrade-controller/app
+  targetNamespace: system-upgrade
+  path: ./kubernetes/apps/system-upgrade/system-upgrade-controller/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -22,11 +22,11 @@ metadata:
   name: cluster-apps-system-upgrade-controller-plans
   namespace: flux-system
 spec:
-  targetNamespace: kube-system
+  targetNamespace: system-upgrade
   dependsOn:
     - name: cluster-apps-system-upgrade-controller
     - name: cluster-apps-node-feature-discovery-features
-  path: ./kubernetes/apps/kube-system/system-upgrade-controller/plans
+  path: ./kubernetes/apps/system-upgrade/system-upgrade-controller/plans
   prune: true
   sourceRef:
     kind: GitRepository

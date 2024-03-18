@@ -5,7 +5,6 @@ resources:
   - ./cilium/ks.yaml
   - ./coredns/ks.yaml
   - ./descheduler/ks.yaml
-  - ./external-secrets/ks.yaml
   - ./fstrim/ks.yaml
   - ./intel-device-plugin/ks.yaml
   - ./kubelet-csr-approver/ks.yaml
@@ -14,7 +13,4 @@ resources:
   - ./node-feature-discovery/ks.yaml
   - ./reloader/ks.yaml
   - ./smarter-device-manager/ks.yaml
-  - ./snapshot-controller/ks.yaml
   - ./spegel/ks.yaml
-  - ./system-upgrade-controller/ks.yaml
-  - ./volsync/ks.yaml

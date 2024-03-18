@@ -500,7 +500,7 @@ controlPlane:
             allowedRoles:
               - os:admin
             allowedKubernetesNamespaces:
-              - kube-system
+              - system-upgrade
 
 worker:
   nodeLabels:
