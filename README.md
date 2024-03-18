@@ -2,17 +2,17 @@
 
 <img src="https://github.com/buroa/k8s-gitops/assets/36205263/14771e67-0c36-4b7c-923f-31f54529067d" align="center" width="144px" height="144px"/>
 
-### My _geeked_ homelab k8s cluster ☸
+### My _geeked_ homelab k8s cluster :wheel_of_dharma:
 
-_... automated via [Flux](https://github.com/fluxcd/flux2), [Renovate](https://github.com/renovatebot/renovate) and [GitHub Actions](https://github.com/features/actions)_ 🤖
+_... automated via [Flux](https://github.com/fluxcd/flux2), [Renovate](https://github.com/renovatebot/renovate) and [GitHub Actions](https://github.com/features/actions)_ :robot:
 
 </div>
 
 <div align="center">
 
 [![Discord](https://img.shields.io/discord/673534664354430999?style=for-the-badge&label&logo=discord&logoColor=white&color=blue)](https://discord.gg/home-operations)&nbsp;&nbsp;
-[![Kubernetes](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2Fburoa%2Fk8s-gitops%2Fmaster%2Fkubernetes%2Fapps%2Fkube-system%2Fsystem-upgrade-controller%2Fplans%2Fkubernetes.yaml&query=%24.spec.version&style=for-the-badge&logo=kubernetes&logoColor=white&label=%20)](https://kubernetes.io)&nbsp;&nbsp;
-[![Renovate](https://img.shields.io/github/actions/workflow/status/buroa/k8s-gitops/renovate.yaml?branch=master&label=&logo=renovatebot&style=for-the-badge&color=blue)](https://github.com/buroa/k8s-gitops/actions/workflows/renovate.yaml)
+[![Kubernetes](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2Fburoa%2Fk8s-gitops%2Fmaster%2Fkubernetes%2Fapps%2Fsystem-upgrade%2Fsystem-upgrade-controller%2Fplans%2Fkubernetes.yaml&query=%24.spec.version&style=for-the-badge&logo=kubernetes&logoColor=white&label=%20)](https://kubernetes.io)&nbsp;&nbsp;
+[![Talos](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2Fburoa%2Fk8s-gitops%2Fmaster%2Fkubernetes%2Fapps%2Fsystem-upgrade%2Fsystem-upgrade-controller%2Fplans%2Ftalos.yaml&query=%24.spec.version&style=for-the-badge&logo=data:image/svg%2bxml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMy4wLjMsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmlld0JveD0iMCAwIDIwMy43NCAyMjYuMDUiPjxkZWZzPjxzdHlsZT4ueHtmaWxsOndoaXRlO308L3N0eWxlPjwvZGVmcz48ZyBpZD0iTGF5ZXJfMiIgZGF0YS1uYW1lPSJMYXllciAyIj48ZyBpZD0iTGF5ZXJfMS0yIiBkYXRhLW5hbWU9IkxheWVyIDEiPjxwYXRoIGNsYXNzPSJ4IiBkPSJNMTAxLjg5LDIyNi4wNWMyLjg1LDAsNS42Ny0uMTUsOC40Ni0uMzVWLjM1Yy0yLjgtLjIxLTUuNjItLjM1LTguNDgtLjM1cy01LjcuMTQtOC41Mi4zNVYyMjUuNjljMi44MS4yMSw1LjY0LjM1LDguNS4zNloiLz48cGF0aCBjbGFzcz0ieCIgZD0iTTExLjU2LDUwLjksOS4xMiw0OC40N0ExMTIuODIsMTEyLjgyLDAsMCwwLC4yLDYzLjYxYzI5LjQyLDI5Ljg5LDMyLjUyLDQ0LjMxLDMyLjQ4LDQ5LjE0QzMyLjU3LDEyNSwxNy41OCwxNDQuMjEsMCwxNjJhMTEzLjY5LDExMy42OSwwLDAsMCw4Ljg0LDE1LjE1YzEtMSwxLjk1LTEuOTIsMi45Mi0yLjksMjUuMzctMjUuNTQsMzcuNzctNDUuNjEsMzcuOTItNjEuMzhTMzcuMzYsNzcsMTEuNTYsNTAuOVoiLz48cGF0aCBjbGFzcz0ieCIgZD0iTTE5MiwxNzQuMjlsMi45MiwyLjlBMTEzLjY5LDExMy42OSwwLDAsMCwyMDMuNzQsMTYyYy0xNy41Ny0xNy44My0zMi41Ni0zNy4wOS0zMi42OC00OS4yOS0uMTEtMTEuOSwxNC43OS0zMS4xNSwzMi40Ni00OS4xOGExMTIuODgsMTEyLjg4LDAsMCwwLTguOS0xNS4xbC0yLjQ0LDIuNDNjLTI1LjgsMjYuMDUtMzguMjcsNDYuMzQtMzguMTIsNjJTMTY2LjYxLDE0OC43NSwxOTIsMTc0LjI5WiIvPjxwYXRoIGNsYXNzPSJ4IiBkPSJNMTQwLjY4LDExMi44M2MwLTIyLDkuODEtNTguNTgsMjQuOTItOTMuMTVBMTEzLDExMywwLDAsMCwxNTAuNDUsMTFjLTE2LjU0LDM3LjI3LTI2Ljc4LDc2LjkxLTI2Ljc4LDEwMS44NywwLDI0LjE1LDExLjA5LDY0LjIzLDI3LjkzLDEwMS43YTExMywxMTMsMCwwLDAsMTQuODQtOC43N0MxNTAuODUsMTcwLjczLDE0MC42OCwxMzQuMDcsMTQwLjY4LDExMi44M1oiLz48cGF0aCBjbGFzcz0ieCIgZD0iTTgwLDExMi44M0M4MCw4Ny43NCw2OS4zNSw0Ny44OCw1MywxMS4wN2ExMTIuNzYsMTEyLjc2LDAsMCwwLTE0LjkzLDguNjRDNTMuMjEsNTQuMjYsNjMsOTAuODUsNjMsMTEyLjgzYzAsMjEuMjMtMTAuMTcsNTcuODgtMjUuNzYsOTIuOTFhMTEzLjY2LDExMy42NiwwLDAsMCwxNC44NCw4Ljc3QzY4Ljk0LDE3Ny4wNSw4MCwxMzcsODAsMTEyLjgzWiIvPjwvZz48L2c+PC9zdmc+DQo=&logoColor=white&label=%20)](https://talos.dev)
 
 </div>
 
