@@ -76,3 +76,6 @@ spec:
             path: /metrics
             interval: 60m
             scrapeTimeout: 5m
+            metricRelabelings:
+              - action: labeldrop
+                regex: (pod)

@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: &app bazarr-exporter
+  name: &app mqtt-exporter
 spec:
   interval: 30m
   chart:
@@ -23,22 +23,24 @@ spec:
       retries: 3
   values:
     controllers:
-      bazarr-exporter:
+      mqtt-exporter:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
-              repository: ghcr.io/onedr0p/exportarr
-              tag: v2.0.0@sha256:760327e885a9bb5b818b56e8a6f818c9570eeaa9484bed122028adbf80bcaeb9
-            args:
-              - bazarr
+              repository: ghcr.io/kpetremann/mqtt-exporter
+              tag: 1.4.1@sha256:1879225cec3b1bfceeaa401b662d990afd815534ee3388b5fa78b9488e8695f2
             env:
-              PORT: &port 9707
-              URL: http://bazarr.media.svc.cluster.local.:6767
+              TZ: ${TIMEZONE}
+              MQTT_ADDRESS: mosquitto.home.svc.cluster.local.
+              MQTT_TOPIC: zigbee2mqtt/#
+              MQTT_V5_PROTOCOL: true
+              PROMETHEUS_PORT: &port 3321
+              ZIGBEE2MQTT_AVAILABILITY: true
             envFrom:
               - secretRef:
-                  name: bazarr-exporter-secret
+                  name: mqtt-exporter-secret
             probes:
               liveness:
                 enabled: true
@@ -73,8 +75,8 @@ spec:
           - port: http
             scheme: http
             path: /metrics
-            interval: 1h
-            scrapeTimeout: 1m
+            interval: 1m
+            scrapeTimeout: 10s
             metricRelabelings:
               - action: labeldrop
                 regex: (pod)
