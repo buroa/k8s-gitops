@@ -41,6 +41,7 @@ spec:
       GF_NEWS_NEWS_FEED_ENABLED: false
       GF_PANELS_DISABLE_SANITIZE_HTML: true
       GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS: natel-discrete-panel,pr0ps-trackmap-panel,panodata-map-panel
+      GF_SECURITY_ANGULAR_SUPPORT_ENABLED: true # Ref: https://grafana.com/docs/grafana/latest/developers/angular_deprecation
       GF_SECURITY_COOKIE_SAMESITE: grafana
       GF_SERVER_ROOT_URL: https://{{ .Release.Name }}.${PUBLIC_DOMAIN}
     envFromSecrets:
