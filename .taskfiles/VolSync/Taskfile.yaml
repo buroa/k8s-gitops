@@ -64,8 +64,7 @@ tasks:
       - envsubst < <(cat {{.volsyncTemplatesDir}}/unlock.tmpl.yaml) | kubectl apply -f -
       - bash {{.volsyncScriptsDir}}/wait-for-job.sh unlock-{{.app}}-{{.ts}} {{.ns}}
       - kubectl -n {{.ns}} wait job/unlock-{{.app}}-{{.ts}} --for condition=complete --timeout=1m
-      - kubectl -n {{.ns}} logs job/{{.app}}-unlock-snapshots-{{.ts}} --container unlock-minio
-      - kubectl -n {{.ns}} logs job/{{.app}}-unlock-snapshots-{{.ts}} --container unlock-r2
+      - kubectl -n {{.ns}} logs job/unlock-{{.app}}-{{.ts}} --container
       - kubectl -n {{.ns}} delete job unlock-{{.app}}-{{.ts}}
     env: *env
     requires:
