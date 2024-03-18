@@ -110,6 +110,10 @@ spec:
       thanosServiceMonitor:
         enabled: true
       prometheusSpec:
+        image:
+          registry: quay.io
+          repository: prometheus/prometheus
+          tag: v2.51.0-rc.0-dedupelabels
         replicas: 3
         replicaExternalLabelName: __replica__
         ruleSelectorNilUsesHelmValues: false

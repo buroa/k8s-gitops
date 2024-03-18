@@ -44,3 +44,6 @@ spec:
           target: pdu.${PUBLIC_DOMAIN}
       path: /snmp
       scrapeTimeout: 10s
+      relabelings:
+        - action: labeldrop
+          regex: (pod)
