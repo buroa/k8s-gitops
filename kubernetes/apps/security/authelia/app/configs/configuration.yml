@@ -89,6 +89,7 @@ identity_providers:
         redirect_uris:
           - https://nr.$${PUBLIC_DOMAIN}/auth/strategy/callback
         userinfo_signed_response_alg: none
+        token_endpoint_auth_method: client_secret_post
 
 notifier:
   disable_startup_check: true
