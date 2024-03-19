@@ -4,8 +4,8 @@ kind: PersistentVolumeClaim
 metadata:
   name: radarr
 spec:
-  accessModes: ["ReadWriteMany"]
+  accessModes: ["ReadWriteOnce"]
   resources:
     requests:
       storage: 10Gi
-  storageClassName: ${CLUSTER_STORAGE_FILESYSTEM}
+  storageClassName: ${CLUSTER_STORAGE_BLOCK}
