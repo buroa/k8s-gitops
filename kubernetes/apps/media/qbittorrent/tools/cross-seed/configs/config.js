@@ -6,7 +6,7 @@
 module.exports = {
   delay: 20,
   port: process.env.PORT || 2468,
-  qbittorrentUrl: "http://localhost:8080",
+  qbittorrentUrl: "http://qbittorrent.media.svc.cluster.local:8080",
 
   torznab: [
     `http://prowlarr.media.svc.cluster.local:9696/114/api?apikey=$${process.env.PROWLARR_API_KEY}`, // atr

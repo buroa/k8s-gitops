@@ -2,12 +2,5 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - ./externalsecret.yaml
   - ./helmrelease.yaml
   - ./volsync.yaml
-configMapGenerator:
-  - name: cross-seed-configmap
-    files:
-      - ./configs/config.js
-generatorOptions:
-  disableNameSuffixHash: true

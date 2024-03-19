@@ -24,9 +24,6 @@ spec:
   values:
     controllers:
       qbittorrent:
-        annotations:
-          configmap.reloader.stakater.com/reload: &configMap cross-seed-configmap
-          secret.reloader.stakater.com/reload: &secret cross-seed-secret
         containers:
           app:
             image:
@@ -34,7 +31,7 @@ spec:
               tag: 4.6.3@sha256:8e6626727f9f14a3a7909850c40c13e50550bd64cbb3177d8806f0225e57654a
             env:
               TZ: ${TIMEZONE}
-              QBITTORRENT__PORT: &httpPort 8080
+              QBITTORRENT__PORT: &port 8080
               QBITTORRENT__BT_PORT: &bittorrentPort ${TORRENT_PUBLIC_PORT}
               QBT_Application__MemoryWorkingSetLimit:
                 valueFrom:
@@ -60,7 +57,7 @@ spec:
                 spec:
                   httpGet:
                     path: /api/v2/app/version
-                    port: *httpPort
+                    port: *port
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
@@ -71,29 +68,12 @@ spec:
                 cpu: 100m
               limits:
                 memory: 12Gi
-            securityContext: &securityContext
+            securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities:
                 drop:
                   - ALL
-          xseed:
-            image:
-              repository: ghcr.io/cross-seed/cross-seed
-              tag: 5.9.2@sha256:6abdca45f0ecfd8d23a3035beefa716a14b66f23c14854631fe369d1ad346f1e
-            args:
-              - daemon
-            env:
-              PORT: &xseedPort 2468
-            envFrom:
-              - secretRef:
-                  name: *secret
-            resources:
-              requests:
-                cpu: 10m
-              limits:
-                memory: 256Mi
-            securityContext: *securityContext
         pod:
           affinity:
             podAntiAffinity:
@@ -133,48 +113,19 @@ spec:
               - *host
               - *customHost
     persistence:
-      config-qb:
+      config:
         existingClaim: *app
-        advancedMounts:
-          qbittorrent:
-            app:
-              - path: /config
-            xseed:
-              - path: /config/qBittorrent/BT_backup
-                subPath: qBittorrent/BT_backup
-                readOnly: true
-      config-xseed:
-        type: emptyDir
-        advancedMounts:
-          qbittorrent:
-            xseed:
-              - path: /config
-      config-xseed-file:
-        type: configMap
-        name: *configMap
-        advancedMounts:
-          qbittorrent:
-            xseed:
-              - path: /config/config.js
-                subPath: config.js
-                readOnly: true
       media:
         type: nfs
         server: nas.${PUBLIC_DOMAIN}
         path: /volume1/media
-        advancedMounts:
-          qbittorrent:
-            app:
-              - path: /media
     service:
       app:
         controller: *app
         nameOverride: *app
         ports:
           http:
-            port: *httpPort
-          xseed:
-            port: *xseedPort
+            port: *port
       bittorrent:
         controller: *app
         type: LoadBalancer
