@@ -117,6 +117,8 @@ spec:
     ingress:
       app:
         className: internal
+        annotations:
+          hajimari.io/enable: "false"
         hosts:
           - host: &host "{{ .Release.Name }}.${PUBLIC_DOMAIN}"
             paths:
