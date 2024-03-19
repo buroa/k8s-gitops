@@ -54,7 +54,6 @@
   },
   "yaml.schemaStore.enable": true,
   "yaml.schemas": {
-    "ansible": "./ansible/**/*.yaml",
     "kubernetes": "./kubernetes/**/*.yaml"
   }
 }
