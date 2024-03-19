@@ -27,14 +27,17 @@ spec:
       enabled: false
       sentinel: false
     master:
+      resourcesPreset: small
       persistence:
         enabled: false
     replica:
+      resourcesPreset: small
       persistence:
         enabled: false
     sentinel:
       enabled: true
       masterSet: redis-master
+      resourcesPreset: small
       getMasterTimeout: 10
       startupProbe:
         failureThreshold: 2
@@ -45,5 +48,6 @@ spec:
       serviceMonitor:
         enabled: true
         interval: 1m
+      resourcesPreset: small
     networkPolicy:
       enabled: false
