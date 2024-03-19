@@ -36,7 +36,7 @@ spec:
             image:
               # TODO: Update the image to a semver tag
               repository: docker.io/meisnate12/plex-meta-manager
-              tag: nightly@sha256:15f60613d196a807ca8b2bfe45dec43e0c8e273d00dae3f871742d17ec3f434a
+              tag: nightly@sha256:94f59b0662a5048e8f5f939b0529f39de65ad36aa1f7df27bde3bbbf2e8ea650
             command:
               - /scripts/run.sh
             env:
