@@ -341,7 +341,6 @@ controlPlane:
       machine:
         kubelet:
           extraArgs:
-            feature-gates: GracefulNodeShutdown=true
             rotate-server-certificates: true
           nodeIP:
             validSubnets:
