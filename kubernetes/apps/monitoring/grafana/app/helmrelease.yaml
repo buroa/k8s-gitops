@@ -167,14 +167,6 @@ spec:
           - { name: Loki, orgId: 1 }
           - { name: Prometheus, orgId: 1 }
         datasources:
-          - name: Prometheus
-            type: prometheus
-            uid: prometheus
-            access: proxy
-            url: http://thanos-query-frontend.monitoring.svc.cluster.local.:9090
-            jsonData:
-              prometheusType: Thanos
-            isDefault: true
           - name: Alertmanager
             type: alertmanager
             uid: alertmanager
@@ -186,9 +178,18 @@ spec:
             type: loki
             uid: loki
             access: proxy
-            url: http://loki-gateway.monitoring.svc.cluster.local.:80
+            url: http://loki-gateway.monitoring.svc.cluster.local.
             jsonData:
               maxLines: 250
+          - name: Prometheus
+            type: prometheus
+            uid: prometheus
+            access: proxy
+            url: http://thanos-query-frontend.monitoring.svc.cluster.local.:9090
+            jsonData:
+              prometheusType: Thanos
+              timeInterval: 1m
+            isDefault: true
     dashboards:
       default:
         blackbox-exporter:

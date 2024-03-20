@@ -116,6 +116,7 @@ spec:
           tag: v2.51.0-rc.0-dedupelabels
         replicas: 3
         replicaExternalLabelName: __replica__
+        scrapeInterval: 1m # Must match interval in Grafana Helm chart
         ruleSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false
