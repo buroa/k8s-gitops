@@ -56,7 +56,7 @@ spec:
             preferred_ip_protocol: ipv4
         icmp:
           prober: icmp
-          timeout: 30s
+          timeout: 5s
           icmp:
             preferred_ip_protocol: ipv4
         tcp_connect:
@@ -72,7 +72,7 @@ spec:
       enabled: true
       defaults:
         interval: 1m
-        scrapeTimeout: 30s
+        scrapeTimeout: 10s
     prometheusRule:
       enabled: true
       rules:
