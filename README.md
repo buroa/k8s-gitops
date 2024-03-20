@@ -85,9 +85,9 @@ This Git repository contains the following directories under [kubernetes](./kube
 
 ```sh
 📁 kubernetes      # Kubernetes cluster defined as code
+├─📁 apps          # Apps deployed into my cluster grouped by namespace (see below)
 ├─📁 bootstrap     # Flux installation
-├─📁 flux          # Main Flux configuration of repository
-└─📁 apps          # Apps deployed into my cluster grouped by namespace (see below)
+└─📁 flux          # Main Flux configuration of repository
 ```
 
 ### Cluster layout
