@@ -38,9 +38,6 @@ spec:
       enabled: true
       masterSet: redis-master
       resourcesPreset: small
-      getMasterTimeout: 10
-      startupProbe:
-        failureThreshold: 2
       persistence:
         enabled: false
     metrics:
