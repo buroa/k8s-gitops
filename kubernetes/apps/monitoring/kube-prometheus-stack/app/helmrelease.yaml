@@ -116,7 +116,6 @@ spec:
           tag: v2.51.0-dedupelabels
         replicas: 3
         replicaExternalLabelName: __replica__
-        scrapeInterval: 1m # Must match interval in Grafana Helm chart
         ruleSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false
@@ -126,7 +125,6 @@ spec:
         walCompression: true
         enableFeatures:
           - auto-gomaxprocs
-          - auto-gomemlimit
           - memory-snapshot-on-shutdown
           - new-service-discovery-manager
         externalUrl: https://prometheus.${PUBLIC_DOMAIN}
@@ -138,11 +136,6 @@ spec:
               key: objstore.yml
         retention: 2d
         retentionSize: 15GB
-        resources:
-          requests:
-            cpu: 100m
-          limits:
-            memory: 4Gi
         storageSpec:
           volumeClaimTemplate:
             spec:

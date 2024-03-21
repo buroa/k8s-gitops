@@ -188,7 +188,6 @@ spec:
             url: http://thanos-query-frontend.monitoring.svc.cluster.local.:9090
             jsonData:
               prometheusType: Thanos
-              timeInterval: 1m
             isDefault: true
     dashboards:
       default:
