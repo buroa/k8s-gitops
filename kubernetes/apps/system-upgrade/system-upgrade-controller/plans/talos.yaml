@@ -13,7 +13,6 @@ spec:
       ignoreUpdates: true
   concurrency: 1
   exclusive: true
-  cordon: false
   nodeSelector:
     matchExpressions:
       - key: apple.feature.node.kubernetes.io/t2
