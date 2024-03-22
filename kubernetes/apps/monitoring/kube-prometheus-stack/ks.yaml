@@ -18,6 +18,10 @@ spec:
   interval: 30m
   retryInterval: 1m
   timeout: 15m
+  postBuild:
+    substitute:
+      # renovate: depName=quay.io/thanos/thanos datasource=docker
+      THANOS_VERSION: v0.34.1
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
