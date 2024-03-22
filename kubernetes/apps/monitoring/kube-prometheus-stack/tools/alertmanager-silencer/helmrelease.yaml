@@ -36,7 +36,7 @@ spec:
               tag: 2024.3.6@sha256:6556e8c4b0b732bd4eec99d8b1c44caafb0f2f653d827667f2684c24ec4af244
             env:
               SCRIPT_NAME: alertmanager-silencer.sh
-              ALERTMANAGER_URL: http://alertmanager-operated.monitoring.svc.cluster.local.:9093
+              ALERTMANAGER_URL: http://alertmanager-operated.monitoring.svc.cluster.local:9093
               MATCHERS_0: alertname=CephNodeInconsistentMTU
               MATCHERS_1: alertname=CephNodeNetworkPacketErrors
               MATCHERS_2: alertname=CephMonClockSkew
@@ -54,6 +54,10 @@ spec:
                 drop:
                   - ALL
         pod:
+          dnsConfig:
+            options:
+              - name: ndots
+                value: "1"
           securityContext:
             runAsUser: 568
             runAsGroup: 568
