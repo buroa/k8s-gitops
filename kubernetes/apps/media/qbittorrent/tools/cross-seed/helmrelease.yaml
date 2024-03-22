@@ -56,8 +56,6 @@ spec:
             runAsNonRoot: true
             fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
-            supplementalGroups:
-              - 65536
     persistence:
       config:
         type: emptyDir
