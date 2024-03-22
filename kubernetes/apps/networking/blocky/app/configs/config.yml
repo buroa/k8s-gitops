@@ -123,6 +123,7 @@ queryLog:
 redis:
   required: true
   address: redis-master
+  database: 2
   sentinelAddresses:
     - redis-node-0.redis-headless.databases.svc.cluster.local:26379
     - redis-node-1.redis-headless.databases.svc.cluster.local:26379
