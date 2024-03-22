@@ -36,7 +36,7 @@ spec:
               - --enable-additional-metrics
             env:
               PORT: &port 9707
-              URL: http://prowlarr.media.svc.cluster.local.:9696
+              URL: http://prowlarr.media.svc.cluster.local:9696
             envFrom:
               - secretRef:
                   name: prowlarr-exporter-secret
@@ -57,6 +57,10 @@ spec:
                 drop:
                   - ALL
         pod:
+          dnsConfig:
+            options:
+              - name: ndots
+                value: "1"
           securityContext:
             runAsUser: 568
             runAsGroup: 568

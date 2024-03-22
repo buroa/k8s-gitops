@@ -32,7 +32,7 @@ spec:
               repository: ghcr.io/prymitive/karma
               tag: v0.119@sha256:ff17725ded0810cf09fc63f343365a297221cb313309aedfde6db328c1009d08
             env:
-              ALERTMANAGER_URI: http://alertmanager-operated.monitoring.svc.cluster.local.:9093
+              ALERTMANAGER_URI: http://alertmanager-operated.monitoring.svc.cluster.local:9093
             probes:
               liveness: &probes
                 enabled: true
@@ -58,6 +58,10 @@ spec:
                 drop:
                   - ALL
         pod:
+          dnsConfig:
+            options:
+              - name: ndots
+                value: "1"
           securityContext:
             runAsUser: 568
             runAsGroup: 568

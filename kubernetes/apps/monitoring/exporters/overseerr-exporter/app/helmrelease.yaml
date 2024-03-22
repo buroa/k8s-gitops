@@ -33,7 +33,7 @@ spec:
               tag: 1.2.1@sha256:b5cbff0fcd04a118190849b1ed92f51669109f766171106fc0b87f7a8562273b
             args:
               - --overseerr.address
-              - http://overseerr.media.svc.cluster.local.:5055
+              - http://overseerr.media.svc.cluster.local:5055
               - --overseerr.api-key
               - $(OVERSEERR_API_KEY)
             envFrom:
@@ -56,6 +56,10 @@ spec:
                 drop:
                   - ALL
         pod:
+          dnsConfig:
+            options:
+              - name: ndots
+                value: "1"
           securityContext:
             runAsUser: 568
             runAsGroup: 568

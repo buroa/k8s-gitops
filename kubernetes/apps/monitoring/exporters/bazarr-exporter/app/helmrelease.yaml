@@ -35,7 +35,7 @@ spec:
               - bazarr
             env:
               PORT: &port 9707
-              URL: http://bazarr.media.svc.cluster.local.:6767
+              URL: http://bazarr.media.svc.cluster.local:6767
             envFrom:
               - secretRef:
                   name: bazarr-exporter-secret
@@ -56,6 +56,10 @@ spec:
                 drop:
                   - ALL
         pod:
+          dnsConfig:
+            options:
+              - name: ndots
+                value: "1"
           securityContext:
             runAsUser: 568
             runAsGroup: 568

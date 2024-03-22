@@ -33,7 +33,7 @@ spec:
               tag: 1.4.1@sha256:1879225cec3b1bfceeaa401b662d990afd815534ee3388b5fa78b9488e8695f2
             env:
               TZ: ${TIMEZONE}
-              MQTT_ADDRESS: mosquitto.home.svc.cluster.local.
+              MQTT_ADDRESS: mosquitto.home.svc.cluster.local
               MQTT_TOPIC: zigbee2mqtt/#
               MQTT_V5_PROTOCOL: true
               PROMETHEUS_PORT: &port 3321
@@ -58,6 +58,10 @@ spec:
                 drop:
                   - ALL
         pod:
+          dnsConfig:
+            options:
+              - name: ndots
+                value: "1"
           securityContext:
             runAsUser: 568
             runAsGroup: 568
