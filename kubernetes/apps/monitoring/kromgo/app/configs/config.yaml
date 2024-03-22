@@ -49,3 +49,11 @@ metrics:
       - { color: green, min: 0, max: 180 }
       - { color: orange, min: 181, max: 360 }
       - { color: red, min: 361, max: 9999 }
+
+  - name: kubernetes_version
+    query: kubernetes_build_info{service="kubernetes"}
+    label: git_version
+
+  - name: talos_version
+    query: node_os_info{name="Talos"}
+    label: version_id
