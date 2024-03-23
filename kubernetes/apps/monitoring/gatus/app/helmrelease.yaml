@@ -36,21 +36,22 @@ spec:
                   name: gatus-secret
           init-config:
             dependsOn: init-db
-            image: &syncSyncImage
+            image:
               repository: ghcr.io/kiwigrid/k8s-sidecar
               tag: 1.26.1@sha256:b8d5067137fec093cf48670dc3a1dbb38f9e734f3a6683015c2e89a45db5fd16
-            env: &configSyncEnv
+            env:
               FOLDER: /config
               LABEL: gatus.io/enabled
               NAMESPACE: ALL
               RESOURCE: both
               UNIQUE_FILENAMES: true
-              METHOD: LIST
+              METHOD: WATCH
             resources: &resources
               requests:
                 cpu: 10m
               limits:
-                memory: 128Mi
+                memory: 256Mi
+            restartPolicy: Always
         containers:
           app:
             image:
@@ -59,6 +60,7 @@ spec:
             env:
               TZ: ${TIMEZONE}
               GATUS_CONFIG_PATH: /config
+              GATUS_DELAY_START_SECONDS: 5
               CUSTOM_WEB_PORT: &port 80
             envFrom: *envFrom
             probes:
@@ -75,19 +77,12 @@ spec:
                   failureThreshold: 3
               readiness: *probes
             resources: *resources
-            securityContext: &securityContext
+            securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities:
                 drop:
                   - ALL
-          config-sync:
-            image: *syncSyncImage
-            env:
-              <<: *configSyncEnv
-              METHOD: WATCH
-            resources: *resources
-            securityContext: *securityContext
         pod:
           dnsConfig:
             options:
