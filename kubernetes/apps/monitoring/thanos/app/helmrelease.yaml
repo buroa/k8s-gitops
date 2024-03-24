@@ -31,8 +31,33 @@ spec:
       type: s3
       config:
         insecure: true
-    receive:
-      enabled: false
+    bucketweb:
+      enabled: true
+      replicaCount: 3
+      networkPolicy:
+        enabled: false
+    compactor:
+      enabled: true
+      extraFlags:
+        - --compact.concurrency=4
+        - --delete-delay=30m
+      retentionResolutionRaw: 30d
+      retentionResolution5m: 60d
+      retentionResolution1h: 90d
+      networkPolicy:
+        enabled: false
+      persistence:
+        enabled: true
+        storageClass: ${CLUSTER_STORAGE_HOSTPATH}
+        size: 15Gi
+    query:
+      enabled: true
+      replicaCount: 3
+      replicaLabel:
+        - __replica__
+      dnsDiscovery:
+        sidecarsService: kube-prometheus-stack-thanos-discovery
+        sidecarsNamespace: monitoring
       networkPolicy:
         enabled: false
     queryFrontend:
@@ -62,45 +87,10 @@ spec:
         pathType: Prefix
       networkPolicy:
         enabled: false
-    query:
-      enabled: true
-      replicaCount: 3
-      replicaLabel:
-        - __replica__
-      dnsDiscovery:
-        sidecarsService: kube-prometheus-stack-thanos-discovery
-        sidecarsNamespace: monitoring
+    receive:
+      enabled: false
       networkPolicy:
         enabled: false
-    bucketweb:
-      enabled: true
-      replicaCount: 3
-      networkPolicy:
-        enabled: false
-    compactor:
-      enabled: true
-      extraFlags:
-        - --compact.concurrency=4
-        - --delete-delay=30m
-      retentionResolutionRaw: 30d
-      retentionResolution5m: 60d
-      retentionResolution1h: 90d
-      networkPolicy:
-        enabled: false
-      persistence:
-        enabled: true
-        storageClass: ${CLUSTER_STORAGE_HOSTPATH}
-        size: 15Gi
-    storegateway:
-      enabled: true
-      replicaCount: 3
-      config: *config
-      networkPolicy:
-        enabled: false
-      persistence:
-        enabled: true
-        storageClass: ${CLUSTER_STORAGE_HOSTPATH}
-        size: 15Gi
     ruler:
       enabled: true
       replicaCount: 3
@@ -123,6 +113,16 @@ spec:
                   severity: critical
       dnsDiscovery:
         enabled: true
+      networkPolicy:
+        enabled: false
+      persistence:
+        enabled: true
+        storageClass: ${CLUSTER_STORAGE_HOSTPATH}
+        size: 15Gi
+    storegateway:
+      enabled: true
+      replicaCount: 3
+      config: *config
       networkPolicy:
         enabled: false
       persistence:
