@@ -47,13 +47,9 @@ This is a repository for my home infrastructure and Kubernetes cluster. I try to
 
 ## ⛵ Kubernetes
 
-There is a template over at [onedr0p/cluster-template](https://github.com/onedr0p/cluster-template) if you wanted to try and follow along with some of the practices I use here.
+This semi hyper-converged cluster runs [Talos Linux](https://github.com/siderolabs/talos), an immutable and ephemeral Linux distribution built for [Kubernetes](https://github.com/kubernetes/kubernetes), deployed on bare-metal [Apple Mac Minis](https://www.apple.com/mac-mini). [Rook](https://github.com/rook/rook) then provides my workloads with persistent block, object, and file storage; while a seperate server provides file storage for my media.
 
-### Installation
-
-This semi hyper-converged cluster runs [Talos Linux](https://github.com/siderolabs/talos), an immutable and ephemeral Linux distribution built for [Kubernetes](https://github.com/kubernetes/kubernetes), deployed on bare-metal [Apple Mac Minis](https://github.com/buroa/talos-boot-assets). [Rook](https://github.com/rook/rook) then provides my workloads with persistent block, object, and file storage; while a seperate server provides file storage for my media.
-
-🔸 _[Click here](./talos/talconfig.yaml) to see my Talos configuration._
+There is a template at [onedr0p/cluster-template](https://github.com/onedr0p/cluster-template) if you want to follow along with some of the practices I use here.
 
 ### Core Components
 
@@ -134,7 +130,7 @@ graph TD;
 
 ## 🌐 DNS
 
-### Home DNS
+### Private DNS
 
 The UDM Pro resolves DNS queries via [blocky](https://github.com/0xERR0R/blocky), which provides first-hop DNS resolution for my network. Blocky forwards requests targeted towards my public domain via [k8s-gateway](https://github.com/ori-edge/k8s_gateway). Last-hop DNS resolution resolves via [1.1.1.1](https://1.1.1.1/dns), which is configured as my primary DNS upstream provider. If for any reason blocky becomes unavailable, the UDM Pro is configured to fallback to 1.1.1.1 until blocky becomes available again.
 
