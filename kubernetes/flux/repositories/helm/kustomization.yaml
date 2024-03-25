@@ -5,7 +5,6 @@ resources:
   - ./actions-runner-controller-charts.yaml
   - ./angelnu-charts.yaml
   - ./backube-charts.yaml
-  - ./bitnami-charts.yaml
   - ./bjw-s-charts.yaml
   - ./cilium-charts.yaml
   - ./cloudnative-pg-charts.yaml
@@ -29,4 +28,5 @@ resources:
   - ./prometheus-community-charts.yaml
   - ./rook-ceph-charts.yaml
   - ./stakater-charts.yaml
+  - ./stevehipwell-charts.yaml
   - ./xenitab-charts.yaml

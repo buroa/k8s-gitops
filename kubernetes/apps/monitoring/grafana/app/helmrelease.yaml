@@ -166,7 +166,6 @@ spec:
           - { name: Alertmanager, orgId: 1 }
           - { name: Loki, orgId: 1 }
           - { name: Prometheus, orgId: 1 }
-          - { name: Redis, orgId: 1 }
         datasources:
           - name: Alertmanager
             type: alertmanager
@@ -186,25 +185,10 @@ spec:
             type: prometheus
             uid: prometheus
             access: proxy
-            url: http://thanos-query-frontend.monitoring.svc.cluster.local.:9090
+            url: http://thanos-query-frontend.monitoring.svc.cluster.local.:10902
             jsonData:
               prometheusType: Thanos
             isDefault: true
-          - name: Redis
-            type: redis-datasource
-            uid: redis
-            access: proxy
-            url: >-
-              redis://redis-node-0.redis-headless.databases.svc.cluster.local.:26379,
-              redis://redis-node-1.redis-headless.databases.svc.cluster.local.:26379,
-              redis://redis-node-2.redis-headless.databases.svc.cluster.local.:26379
-            jsonData:
-              client: sentinel
-              sentinelName: redis-master
-              poolSize: 5
-              timeout: 10
-              pingInterval: 0
-              pipelineWindow: 0
     dashboards:
       default:
         blackbox-exporter:
@@ -222,6 +206,9 @@ spec:
           datasource:
             - name: DS_PROMETHEUS
               value: Prometheus
+        dragonfly:
+          url: https://raw.githubusercontent.com/dragonflydb/dragonfly/main/tools/local/monitoring/grafana/provisioning/dashboards/dashboard.json
+          datasource: Prometheus
         external-dns:
           # renovate: depName="External-dns"
           gnetId: 15038
@@ -241,18 +228,6 @@ spec:
         node-feature-discovery:
           url: https://raw.githubusercontent.com/kubernetes-sigs/node-feature-discovery/master/examples/grafana-dashboard.json
           datasource: Prometheus
-        redis:
-          # renovate: depName="Redis Dashboard for Prometheus Redis Exporter 1.x"
-          gnetId: 763
-          revision: 6
-          datasource:
-            - name: DS_PROM
-              value: Prometheus
-        redis-sentinel:
-          # renovate: depName="Redis"
-          gnetId: 12776
-          revision: 2
-          datasource: Redis
         smartctl-exporter:
           # renovate: depName="Dashboard for smartctl_exporter"
           gnetId: 20204
@@ -462,7 +437,6 @@ spec:
       - grafana-worldmap-panel
       - natel-discrete-panel
       - pr0ps-trackmap-panel
-      - redis-datasource
       - vonage-status-panel
     serviceMonitor:
       enabled: true

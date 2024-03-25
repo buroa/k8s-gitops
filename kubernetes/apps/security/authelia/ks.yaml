@@ -7,8 +7,8 @@ metadata:
 spec:
   targetNamespace: security
   dependsOn:
-    - name: cluster-apps-redis
     - name: cluster-apps-lldap
+    - name: cluster-apps-dragonfly-cluster
     - name: cluster-apps-cloudnative-pg-cluster
     - name: cluster-apps-external-secrets-stores
   path: ./kubernetes/apps/security/authelia/app

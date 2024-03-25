@@ -9,10 +9,10 @@ spec:
   chart:
     spec:
       chart: thanos
-      version: 14.0.2
+      version: 1.16.1
       sourceRef:
         kind: HelmRepository
-        name: bitnami-charts
+        name: stevehipwell-charts
         namespace: flux-system
   install:
     remediation:
@@ -23,129 +23,106 @@ spec:
       strategy: rollback
       retries: 3
   values:
-    image:
-      registry: quay.io
-      repository: thanos/thanos
-      tag: v0.34.1
     objstoreConfig:
-      type: s3
-      config:
-        insecure: true
-    bucketweb:
+      value:
+        type: s3
+        config:
+          insecure: true
+    additionalEndpoints:
+      - dnssrv+_grpc._tcp.kube-prometheus-stack-thanos-discovery.monitoring.svc.cluster.local.
+    additionalReplicaLabels:
+      - __replica__
+    serviceMonitor:
       enabled: true
-      replicaCount: 3
-      networkPolicy:
-        enabled: false
-    compactor:
+    compact:
       enabled: true
-      extraFlags:
+      extraArgs:
         - --compact.concurrency=4
         - --delete-delay=30m
-      retentionResolutionRaw: 30d
-      retentionResolution5m: 60d
-      retentionResolution1h: 90d
-      networkPolicy:
-        enabled: false
-      persistence:
+        - --retention.resolution-raw=14d
+        - --retention.resolution-5m=30d
+        - --retention.resolution-1h=60d
+      persistence: &persistence
         enabled: true
         storageClass: ${CLUSTER_STORAGE_HOSTPATH}
         size: 15Gi
     query:
-      enabled: true
-      replicaCount: 3
-      replicaLabel:
-        - __replica__
-      dnsDiscovery:
-        sidecarsService: kube-prometheus-stack-thanos-discovery
-        sidecarsNamespace: monitoring
-      networkPolicy:
-        enabled: false
+      replicas: 3
+      extraArgs:
+        - --alert.query-url=http://thanos-query-frontend.${PUBLIC_DOMAIN}
     queryFrontend:
       enabled: true
-      replicaCount: 3
-      config: &config |-
-        type: REDIS
-        config:
-          addr: dragonfly.databases.svc.cluster.local.:6379
-          db: 1
+      replicas: 3
+      extraArgs:
+        - --query-range.response-cache-config=$(THANOS_CACHE_CONFIG)
+      extraEnv: &extraEnv
+        - name: THANOS_CACHE_CONFIG
+          valueFrom:
+            configMapKeyRef:
+              name: &configMap thanos-cache-configmap
+              key: cache.yaml
       ingress:
         enabled: true
-        hostname: &host thanos.${PUBLIC_DOMAIN}
         ingressClassName: internal
         annotations:
           hajimari.io/appName: Thanos
           hajimari.io/icon: material-symbols:health-metrics
-        tls: true
-        extraTls:
+        hosts:
+          - &host thanos.${PUBLIC_DOMAIN}
+        tls:
           - hosts:
-              - *host
-        pathType: Prefix
-      networkPolicy:
-        enabled: false
-    receive:
-      enabled: false
-      networkPolicy:
-        enabled: false
-    ruler:
+            - *host
+      podAnnotations: &podAnnotations
+        configmap.reloader.stakater.com/reload: *configMap
+    rule:
       enabled: true
-      replicaCount: 3
-      replicaLabel: __replica__
-      clusterName: k8s
-      alertmanagers:
-        - http://alertmanager-operated.monitoring.svc.cluster.local.:9093
-      extraFlags:
+      replicas: 3
+      extraArgs:
         - --web.prefix-header=X-Forwarded-Prefix
-      config: |-
-        groups:
-          - name: PrometheusWatcher
-            rules:
-              - alert: PrometheusDown
-                annotations:
-                  summary: A Prometheus has disappeared from Prometheus target discovery
-                expr: absent(up{job="kube-prometheus-stack-prometheus"})
-                for: 5m
-                labels:
-                  severity: critical
-      dnsDiscovery:
-        enabled: true
-      networkPolicy:
-        enabled: false
-      persistence:
-        enabled: true
-        storageClass: ${CLUSTER_STORAGE_HOSTPATH}
-        size: 15Gi
-    storegateway:
-      enabled: true
-      replicaCount: 3
-      config: *config
-      networkPolicy:
-        enabled: false
-      persistence:
-        enabled: true
-        storageClass: ${CLUSTER_STORAGE_HOSTPATH}
-        size: 15Gi
-    metrics:
-      enabled: true
-      serviceMonitor:
-        enabled: true
+      alertmanagersConfig:
+        value: |-
+          alertmanagers:
+            - api_version: v2
+              static_configs:
+                - dnssrv+_http-web._tcp.alertmanager-operated.monitoring.svc.cluster.local.
+      rules:
+        value: |-
+          groups:
+            - name: PrometheusWatcher
+              rules:
+                - alert: PrometheusDown
+                  annotations:
+                    summary: A Prometheus has disappeared from Prometheus target discovery
+                  expr: absent(up{job="kube-prometheus-stack-prometheus"})
+                  for: 5m
+                  labels:
+                    severity: critical
+      persistence: *persistence
+    storeGateway:
+      replicas: 3
+      extraArgs:
+        - --index-cache.config=$(THANOS_CACHE_CONFIG)
+      extraEnv: *extraEnv
+      persistence: *persistence
+      podAnnotations: *podAnnotations
   valuesFrom:
-    - kind: ConfigMap
+    - targetPath: objstoreConfig.value.config.bucket
+      kind: ConfigMap
       name: thanos-ceph-bucket
       valuesKey: BUCKET_NAME
-      targetPath: objstoreConfig.config.bucket
-    - kind: ConfigMap
+    - targetPath: objstoreConfig.value.config.endpoint
+      kind: ConfigMap
       name: thanos-ceph-bucket
       valuesKey: BUCKET_HOST
-      targetPath: objstoreConfig.config.endpoint
-    - kind: ConfigMap
+    - targetPath: objstoreConfig.value.config.region
+      kind: ConfigMap
       name: thanos-ceph-bucket
       valuesKey: BUCKET_REGION
-      targetPath: objstoreConfig.config.region
-    - kind: Secret
+    - targetPath: objstoreConfig.value.config.access_key
+      kind: Secret
       name: thanos-ceph-bucket
       valuesKey: AWS_ACCESS_KEY_ID
-      targetPath: objstoreConfig.config.access_key
-    - kind: Secret
+    - targetPath: objstoreConfig.value.config.secret_key
+      kind: Secret
       name: thanos-ceph-bucket
       valuesKey: AWS_SECRET_ACCESS_KEY
-      targetPath: objstoreConfig.config.secret_key
