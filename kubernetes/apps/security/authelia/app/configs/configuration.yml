@@ -110,7 +110,7 @@ session:
       default_redirection_url: https://$${PUBLIC_DOMAIN}
   redis:
     database_index: 3
-    host: dragonfly.databases.svc.cluster.local:6379
+    host: dragonfly.databases.svc.cluster.local
 
 totp:
   disable: false
