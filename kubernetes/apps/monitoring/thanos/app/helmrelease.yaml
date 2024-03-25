@@ -29,7 +29,7 @@ spec:
         config:
           insecure: true
     additionalEndpoints:
-      - dnssrv+_grpc._tcp.kube-prometheus-stack-thanos-discovery.monitoring.svc.cluster.local.
+      - dnssrv+_grpc._tcp.kube-prometheus-stack-thanos-discovery.monitoring.svc.cluster.local
     additionalReplicaLabels:
       - __replica__
     serviceMonitor:
@@ -49,7 +49,7 @@ spec:
     query:
       replicas: 3
       extraArgs:
-        - --alert.query-url=http://thanos-query-frontend.${PUBLIC_DOMAIN}
+        - --alert.query-url=https://thanos.${PUBLIC_DOMAIN}
     queryFrontend:
       enabled: true
       replicas: 3
@@ -71,7 +71,7 @@ spec:
           - &host thanos.${PUBLIC_DOMAIN}
         tls:
           - hosts:
-            - *host
+              - *host
       podAnnotations: &podAnnotations
         configmap.reloader.stakater.com/reload: *configMap
     rule:
@@ -84,7 +84,7 @@ spec:
           alertmanagers:
             - api_version: v2
               static_configs:
-                - dnssrv+_http-web._tcp.alertmanager-operated.monitoring.svc.cluster.local.
+                - dnssrv+_http-web._tcp.alertmanager-operated.monitoring.svc.cluster.local
       rules:
         value: |-
           groups:
@@ -106,23 +106,23 @@ spec:
       persistence: *persistence
       podAnnotations: *podAnnotations
   valuesFrom:
-    - targetPath: objstoreConfig.value.config.bucket
-      kind: ConfigMap
+    - kind: ConfigMap
+      targetPath: objstoreConfig.value.config.bucket
       name: thanos-ceph-bucket
       valuesKey: BUCKET_NAME
-    - targetPath: objstoreConfig.value.config.endpoint
-      kind: ConfigMap
+    - kind: ConfigMap
+      targetPath: objstoreConfig.value.config.endpoint
       name: thanos-ceph-bucket
       valuesKey: BUCKET_HOST
-    - targetPath: objstoreConfig.value.config.region
-      kind: ConfigMap
+    - kind: ConfigMap
+      targetPath: objstoreConfig.value.config.region
       name: thanos-ceph-bucket
       valuesKey: BUCKET_REGION
-    - targetPath: objstoreConfig.value.config.access_key
-      kind: Secret
+    - kind: Secret
+      targetPath: objstoreConfig.value.config.access_key
       name: thanos-ceph-bucket
       valuesKey: AWS_ACCESS_KEY_ID
-    - targetPath: objstoreConfig.value.config.secret_key
-      kind: Secret
+    - kind: Secret
+      targetPath: objstoreConfig.value.config.secret_key
       name: thanos-ceph-bucket
       valuesKey: AWS_SECRET_ACCESS_KEY
