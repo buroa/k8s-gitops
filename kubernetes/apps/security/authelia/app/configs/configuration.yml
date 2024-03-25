@@ -110,12 +110,7 @@ session:
       default_redirection_url: https://$${PUBLIC_DOMAIN}
   redis:
     database_index: 3
-    high_availability:
-      sentinel_name: redis-master
-      nodes:
-        - host: redis-node-0.redis-headless.databases.svc.cluster.local
-        - host: redis-node-1.redis-headless.databases.svc.cluster.local
-        - host: redis-node-2.redis-headless.databases.svc.cluster.local
+    host: dragonfly.databases.svc.cluster.local:6379
 
 totp:
   disable: false
