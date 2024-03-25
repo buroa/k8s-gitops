@@ -33,7 +33,7 @@ trackers:
   - name: hd-torrents
     urls: ["hdts-announce.ru"]
     required_seed_ratio: 1.01
-    required_seed_days: 0
+    required_seed_days: 3.1
 
   - name: iptorrents
     urls: ["bgp.technology", "empirehost.me", "stackoverflow.tech"]
