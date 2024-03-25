@@ -6,18 +6,18 @@ metadata:
 spec:
   image: ghcr.io/dragonflydb/dragonfly:v1.15.1
   replicas: 3
-  resources:
-    requests:
-      cpu: 100m
-    limits:
-      memory: 512Mi
+  args:
+    - --maxmemory=$(MAX_MEMORY)Mi
+    - --proactor_threads=2
+    - --cluster_mode=emulated
   env:
     - name: MAX_MEMORY
       valueFrom:
         resourceFieldRef:
           resource: limits.memory
           divisor: 1Mi
-  args:
-    - --maxmemory=$(MAX_MEMORY)Mi
-    - --proactor_threads=2
-    - --cluster_mode=emulated
+  resources:
+    requests:
+      cpu: 100m
+    limits:
+      memory: 512Mi
