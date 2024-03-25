@@ -73,8 +73,8 @@ spec:
                   - ALL
         pod:
           securityContext:
-            runAsUser: 568
-            runAsGroup: 568
+            runAsUser: 65534
+            runAsGroup: 65534
             runAsNonRoot: true
           topologySpreadConstraints:
             - maxSkew: 1
