@@ -133,8 +133,8 @@ spec:
           version: ${THANOS_VERSION#v}
           objectStorageConfig:
             existingSecret:
-              name: thanos-objstore-secret
-              key: objstore.yml
+              name: thanos-objstore-config
+              key: config
         retention: 2d
         retentionSize: 15GB
         resources:
