@@ -110,6 +110,9 @@ spec:
       thanosServiceMonitor:
         enabled: true
       prometheusSpec:
+        podMetadata:
+          annotations:
+            secret.reloader.stakater.com/reload: &secret thanos-objstore-config
         image:
           registry: quay.io
           repository: prometheus/prometheus
@@ -133,7 +136,7 @@ spec:
           version: ${THANOS_VERSION#v}
           objectStorageConfig:
             existingSecret:
-              name: thanos-objstore-config
+              name: *secret
               key: config
         retention: 2d
         retentionSize: 15GB
