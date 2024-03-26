@@ -5,11 +5,6 @@ api:
   enabled: true
   address: 0.0.0.0:8686
 
-enrichment_tables:
-  geoip_table:
-    type: geoip
-    path: /usr/share/GeoIP/GeoLite2-City.mmdb
-
 sources:
   kubernetes_logs:
     address: 0.0.0.0:6000
@@ -87,7 +82,7 @@ sinks:
     type: loki
     inputs:
       - kubernetes_transform
-    endpoint: http://loki-gateway.monitoring.svc.cluster.local.
+    endpoint: http://loki-gateway.monitoring.svc.cluster.local
     encoding:
       codec: json
     batch:
@@ -105,7 +100,7 @@ sinks:
     type: loki
     inputs:
       - talos_kernel_transform
-    endpoint: http://loki-gateway.monitoring.svc.cluster.local.
+    endpoint: http://loki-gateway.monitoring.svc.cluster.local
     encoding:
       codec: json
       except_fields:
@@ -122,7 +117,7 @@ sinks:
     type: loki
     inputs:
       - talos_service_transform
-    endpoint: http://loki-gateway.monitoring.svc.cluster.local.
+    endpoint: http://loki-gateway.monitoring.svc.cluster.local
     encoding:
       codec: json
       except_fields:
@@ -139,7 +134,7 @@ sinks:
     type: loki
     inputs:
       - unifi_kernel_transform
-    endpoint: http://loki-gateway.monitoring.svc.cluster.local.
+    endpoint: http://loki-gateway.monitoring.svc.cluster.local
     encoding:
       codec: json
     batch:
