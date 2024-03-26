@@ -32,7 +32,7 @@ spec:
       spec:
         containers:
           - name: runner
-            image: ghcr.io/onedr0p/actions-runner:2.314.1@sha256:ce221cd0936c29b121fe90e985b682a6cb6428f1416b9a131cd5313ac7a3e420
+            image: ghcr.io/onedr0p/actions-runner:2.315.0@sha256:5a85f0dbce1fb582a4d1399658cd8f67be1d2b8d2ad5281b6f2bd066408ec0bf
             command:
               - /home/runner/run.sh
     controllerServiceAccount:
