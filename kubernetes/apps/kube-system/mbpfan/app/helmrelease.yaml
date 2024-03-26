@@ -31,7 +31,7 @@ spec:
           app:
             image:
               repository: ghcr.io/buroa/mbpfan
-              tag: v0.2.0@sha256:c2e7165d15beaeeb6fcb8915eaa67c3dc2b2e6492b9b01dde05962df815b27a0
+              tag: v0.2.1@sha256:de40291f2de305b33cd8d1e0e49c96febabbcd98e8e81ee1bcf5e54fd3e73fbe
             resources:
               requests:
                 cpu: 10m
