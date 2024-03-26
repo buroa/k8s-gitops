@@ -73,6 +73,7 @@ spec:
     persistence:
       cache:
         type: emptyDir
+        medium: Memory
       config:
         type: configMap
         name: smtp-relay-configmap
