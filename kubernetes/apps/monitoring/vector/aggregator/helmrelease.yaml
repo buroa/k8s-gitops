@@ -37,6 +37,19 @@ spec:
             args:
               - --config
               - /etc/vector/vector.yaml
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /ready
+                    port: &port 8686
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
         pod:
           topologySpreadConstraints:
             - maxSkew: 1
@@ -66,7 +79,7 @@ spec:
           external-dns.alpha.kubernetes.io/hostname: vector.${PUBLIC_DOMAIN}
         ports:
           http:
-            port: 8686
+            port: *port
           kubernetes:
             enabled: true
             port: 6000
