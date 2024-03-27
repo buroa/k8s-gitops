@@ -18,7 +18,7 @@ on:
 jobs:
   sync:
     name: Flux HelmRepository Sync
-    runs-on: ["arc-runner-set-k8s-gitops"]
+    runs-on: ["gha-runner-scale-set"]
     steps:
       - name: Generate Token
         uses: actions/create-github-app-token@78e5f2ddc08efcb88fbbee6cfa3fed770ba550c3 # v1.9.1
