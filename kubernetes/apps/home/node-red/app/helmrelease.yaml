@@ -30,7 +30,7 @@ spec:
           app:
             image:
               repository: docker.io/nodered/node-red
-              tag: 3.1.7@sha256:867a225c65ed6364e7e88a788b9ac54711544cd1af94c488f7954f880104d61a
+              tag: 3.1.8@sha256:4f2bdf69cc3fb62ec60a746ca8db10245cc0ee353b10aa3e66ec0bfbf920c407
             env:
               TZ: ${TIMEZONE}
               NODE_RED_OAUTH_ISSUER_URL: https://auth.${PUBLIC_DOMAIN}
