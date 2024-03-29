@@ -88,7 +88,7 @@ This Git repository contains the following directories under [kubernetes](./kube
 
 ### Cluster layout
 
-Below is a a high level look at the layout of how my directory structure with Flux works. In this brief example you are able to see that `authelia` will not be able to run until `lldap` and `cloudnative-pg` are running. It also shows that the `Cluster` custom resource depends on the `cloudnative-pg` Helm chart. This is needed because `cloudnative-pg` installs the `Cluster` custom resource definition in the Helm chart.
+Below is a a high level look at the layout of how my directory structure with Flux works. In this brief example you are able to see that `authelia` will not be able to run until `glauth` and `cloudnative-pg` are running. It also shows that the `Cluster` custom resource depends on the `cloudnative-pg` Helm chart. This is needed because `cloudnative-pg` installs the `Cluster` custom resource definition in the Helm chart.
 
 ```mermaid
 graph TD;
@@ -97,8 +97,8 @@ graph TD;
   id3[Kustomization: cluster-apps-cloudnative-pg];
   id4[HelmRelease: postgres];
   id5[Kustomization: cluster-apps-cloudnative-pg-cluster];
-  id6[Kustomization: cluster-apps-lldap];
-  id7[HelmRelease: lldap];
+  id6[Kustomization: cluster-apps-glauth];
+  id7[HelmRelease: glauth];
   id8[Kustomization: cluster-apps-authelia];
   id9[HelmRelease: authelia];
   id10[Cluster: postgres];
