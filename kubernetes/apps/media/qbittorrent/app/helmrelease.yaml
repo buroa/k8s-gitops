@@ -133,6 +133,5 @@ spec:
           io.cilium/lb-ipam-ips: ${TORRENT_LB_IP}
         ports:
           bittorrent:
-            enabled: true
             port: *bittorrentPort
             protocol: TCP

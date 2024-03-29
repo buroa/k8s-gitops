@@ -98,7 +98,6 @@ spec:
           io.cilium/lb-ipam-ips: ${TAILSCALE_LB_IP}
         ports:
           tailnet:
-            enabled: true
             port: *port
             protocol: UDP
     serviceMonitor:

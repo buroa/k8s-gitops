@@ -95,11 +95,9 @@ spec:
         clusterIP: ${K8S_GATEWAY_IP}
         ports:
           dns-tcp:
-            enabled: true
             port: 53
             protocol: TCP
           dns-udp:
-            enabled: true
             port: 53
             protocol: UDP
     serviceAccount:

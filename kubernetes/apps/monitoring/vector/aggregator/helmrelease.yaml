@@ -81,18 +81,14 @@ spec:
           http:
             port: *port
           kubernetes:
-            enabled: true
             port: 6000
           taloskernel:
-            enabled: true
             port: 6001
             protocol: UDP
           talosservice:
-            enabled: true
             port: 6002
             protocol: UDP
           unifikernel:
-            enabled: true
             port: 6003
             protocol: UDP
     serviceAccount:

@@ -127,11 +127,9 @@ spec:
           external-dns.alpha.kubernetes.io/hostname: dns.${PUBLIC_DOMAIN}
         ports:
           dns-tcp:
-            enabled: true
             port: *port
             protocol: TCP
           dns-udp:
-            enabled: true
             port: *port
             protocol: UDP
     serviceMonitor:
