@@ -32,7 +32,7 @@ spec:
           app:
             image:
               repository: ghcr.io/buroa/glauth
-              tag: 2.3.2@sha256:7713622fac097717f0492478af05076baaa5a938cea8db828e9e2c0761362477
+              tag: 2.3.2@sha256:97b438f48ed3a924ce7150b3f11d5a5cf3e1f4414bd543f7eceb7068efa3ad1b
             args:
               - -c
               - /config
