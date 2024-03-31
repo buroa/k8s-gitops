@@ -40,6 +40,7 @@ spec:
               repository: ghcr.io/onedr0p/radarr-develop
               tag: 5.4.4.8688@sha256:b244fe8b9062f088eb3ef509e18819424c618406da3ec215a1aa85a068c912fd
             env:
+              TZ: ${TIMEZONE}
               COMPlus_EnableDiagnostics: 0
               RADARR__AUTHENTICATION_METHOD: External
               RADARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
@@ -47,7 +48,6 @@ spec:
               RADARR__LOG_LEVEL: info
               RADARR__PORT: &port 7878
               RADARR__THEME: dark
-              TZ: ${TIMEZONE}
             envFrom: *envFrom
             probes:
               liveness: &probes

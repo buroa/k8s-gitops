@@ -13,7 +13,7 @@ spec:
       nodeName: ${node}
       containers:
         - name: main
-          image: ghcr.io/onedr0p/alpine:rolling
+          image: ghcr.io/buroa/alpine:rolling
           command: ["/bin/sh", "-c"]
           args: ["rm -rf /mnt/host_var/lib/rook"]
           volumeMounts:

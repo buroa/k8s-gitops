@@ -40,6 +40,7 @@ spec:
               repository: ghcr.io/onedr0p/sonarr-develop
               tag: 4.0.2.1408@sha256:f61a58b6075c16ad829eee55b94b99791e2b39c594080ecd21d2c6e0987ade53
             env:
+              TZ: ${TIMEZONE}
               COMPlus_EnableDiagnostics: 0
               SONARR__AUTHENTICATION_METHOD: External
               SONARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
@@ -47,7 +48,6 @@ spec:
               SONARR__LOG_LEVEL: info
               SONARR__PORT: &port 8989
               SONARR__THEME: dark
-              TZ: ${TIMEZONE}
             envFrom: *envFrom
             probes:
               liveness: &probes

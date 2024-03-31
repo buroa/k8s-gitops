@@ -18,7 +18,7 @@ tasks:
             "containers": [
               {
                 "name": "debug",
-                "image": "ghcr.io/onedr0p/alpine:rolling",
+                "image": "ghcr.io/buroa/alpine:rolling",
                 "command": ["/bin/bash"],
                 "stdin": true,
                 "stdinOnce": true,
@@ -65,7 +65,7 @@ tasks:
               "containers": [
                 {
                   "name": "debug",
-                  "image": "ghcr.io/onedr0p/alpine:rolling",
+                  "image": "ghcr.io/buroa/alpine:rolling",
                   "command": [
                     "/bin/bash"
                   ],

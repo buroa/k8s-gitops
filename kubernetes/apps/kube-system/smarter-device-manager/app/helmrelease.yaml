@@ -50,6 +50,7 @@ spec:
         name: smarter-device-manager-configmap
         globalMounts:
           - path: /root/config
+            readOnly: true
       dev:
         type: hostPath
         hostPath: /dev

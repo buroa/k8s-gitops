@@ -34,6 +34,7 @@ spec:
               repository: ghcr.io/tailscale/tailscale
               tag: v1.62.1@sha256:3b310f980cd9ff0e334e48c53eb95b21d77b72a596854c4369fd028f83b41b10
             env:
+              TZ: ${TIMEZONE}
               NO_AUTOUPDATE: true
               PORT: &port ${TAILNET_PUBLIC_PORT}
               TS_EXTRA_ARGS: --advertise-exit-node --advertise-tags=tag:k8s
@@ -41,7 +42,6 @@ spec:
               TS_STATE_DIR: &path /tmp
               TS_TAILSCALED_EXTRA_ARGS: --debug=0.0.0.0:2000
               TS_USERSPACE: true
-              TZ: ${TIMEZONE}
             envFrom:
               - secretRef:
                   name: tailscale-secret

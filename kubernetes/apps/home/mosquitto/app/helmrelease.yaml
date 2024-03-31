@@ -36,7 +36,7 @@ spec:
               - -c
             args:
               - |
-                cp /tmp/secret/* /mosquitto/external_config/;
+                cp /tmp/secret/mosquitto_pwd /mosquitto/external_config/;
                 chmod 600 /mosquitto/external_config/mosquitto_pwd;
                 mosquitto_passwd -U /mosquitto/external_config/mosquitto_pwd;
         containers:
@@ -76,6 +76,7 @@ spec:
             app:
               - path: /mosquitto/config/mosquitto.conf
                 subPath: mosquitto.conf
+                readOnly: true
       external-config:
         type: emptyDir
         globalMounts:
@@ -86,7 +87,9 @@ spec:
         advancedMounts:
           mosquitto:
             init-config:
-              - path: /tmp/secret
+              - path: /tmp/secret/mosquitto_pwd
+                subPath: mosquitto_pwd
+                readOnly: true
     service:
       app:
         controller: *app
