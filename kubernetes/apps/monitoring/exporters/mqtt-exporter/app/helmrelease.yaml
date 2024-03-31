@@ -30,7 +30,7 @@ spec:
           app:
             image:
               repository: ghcr.io/kpetremann/mqtt-exporter
-              tag: 1.4.1@sha256:1879225cec3b1bfceeaa401b662d990afd815534ee3388b5fa78b9488e8695f2
+              tag: 1.4.2@sha256:f590a1b0364ec76af94472621543c79839b11bce59a6683145efe2cb923c8376
             env:
               TZ: ${TIMEZONE}
               MQTT_ADDRESS: mosquitto.home.svc.cluster.local
