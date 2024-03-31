@@ -32,7 +32,7 @@ spec:
           app:
             image:
               repository: ghcr.io/buroa/cloudflared
-              tag: 2024.3.0@sha256:efba55b49da4609fccdfc3bf2757bc9ada7b1ceeded2d47ea8e65b09bc2a1e9e
+              tag: 2024.3.0@sha256:4a5cdc709bbf46d0232ee10b2fb50eb02b8677aac432beec9e2ef8524959ae17
             args:
               - tunnel
               - --config
