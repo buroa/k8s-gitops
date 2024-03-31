@@ -29,7 +29,7 @@ spec:
         initContainers:
           init-db:
             image:
-              repository: ghcr.io/onedr0p/postgres-init
+              repository: ghcr.io/buroa/postgres-init
               tag: 16
             envFrom: &envFrom
               - secretRef:
@@ -37,8 +37,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/onedr0p/prowlarr-develop
-              tag: 1.15.0.4361@sha256:0b6b55c6b230da58c73dce53976c3ff866cab099eefc9d5a1e85bf6b1c610ae1
+              repository: ghcr.io/buroa/prowlarr-develop
+              tag: 1.15.0.4361@sha256:1bd2e130c401cddf58cc47c446afbbcdb3368b2eab80a8fee3d1abc3e7f58312
             env:
               TZ: ${TIMEZONE}
               COMPlus_EnableDiagnostics: 0

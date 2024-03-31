@@ -29,7 +29,7 @@ spec:
         initContainers:
           init-db:
             image:
-              repository: ghcr.io/onedr0p/postgres-init
+              repository: ghcr.io/buroa/postgres-init
               tag: 16
             envFrom: &envFrom
               - secretRef:
@@ -37,8 +37,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/onedr0p/bazarr
-              tag: 1.4.2@sha256:113035f37f289f190781d9d728f2ebf56c895b972921820f5d30408427c837d9
+              repository: ghcr.io/buroa/bazarr
+              tag: 1.4.2@sha256:cc282534fa9da09a7a06cb3d2aa4c62abd6a9a89f08c2d239b350fbb14b70b31
             env:
               TZ: ${TIMEZONE}
             envFrom: *envFrom

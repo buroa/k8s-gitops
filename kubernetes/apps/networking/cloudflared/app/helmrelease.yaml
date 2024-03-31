@@ -31,8 +31,8 @@ spec:
         containers:
           app:
             image:
-              repository: docker.io/cloudflare/cloudflared
-              tag: 2024.3.0@sha256:8acfc9e4e65e0d1e26686177a3a0c4baa3b0330c0fc6adc899c2b673bc938e77
+              repository: ghcr.io/buroa/cloudflared
+              tag: 2024.3.0@sha256:efba55b49da4609fccdfc3bf2757bc9ada7b1ceeded2d47ea8e65b09bc2a1e9e
             args:
               - tunnel
               - --config

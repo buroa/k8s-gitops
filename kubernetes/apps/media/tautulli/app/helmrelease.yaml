@@ -27,8 +27,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/onedr0p/tautulli
-              tag: 2.13.4@sha256:b3000c0063cc4c0c6f2436fb7174f4bcfd8d91eca05206731edccb8b643ea570
+              repository: ghcr.io/buroa/tautulli
+              tag: 2.13.4@sha256:5cde2e5735b24fd00d0203447f3a13939c238926af958627eb653345c18188f8
             env:
               TZ: ${TIMEZONE}
             probes:

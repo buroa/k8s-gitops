@@ -29,7 +29,7 @@ spec:
         initContainers:
           init-db:
             image:
-              repository: ghcr.io/onedr0p/postgres-init
+              repository: ghcr.io/buroa/postgres-init
               tag: 16
             envFrom: &envFrom
               - secretRef:
@@ -37,8 +37,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/onedr0p/radarr-develop
-              tag: 5.4.4.8688@sha256:b244fe8b9062f088eb3ef509e18819424c618406da3ec215a1aa85a068c912fd
+              repository: ghcr.io/buroa/radarr-develop
+              tag: 5.4.4.8688@sha256:49bb49bca7efa25c3ae4451a5e9e6388eceb05b2d03988a157524dfe83f9a1c7
             env:
               TZ: ${TIMEZONE}
               COMPlus_EnableDiagnostics: 0
