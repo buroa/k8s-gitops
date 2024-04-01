@@ -2,4 +2,4 @@
 changelog:
   exclude:
     authors:
-      - k8s-renovate
+      - bot-blake
