@@ -38,7 +38,7 @@ spec:
           app:
             image:
               repository: ghcr.io/buroa/prowlarr-develop
-              tag: 1.15.0.4361@sha256:1bd2e130c401cddf58cc47c446afbbcdb3368b2eab80a8fee3d1abc3e7f58312
+              tag: 1.15.0.4361@sha256:22d37c73820723e58859fc26d73a1de96879353dae9b3daf7b49e65ed03ef3a8
             env:
               TZ: ${TIMEZONE}
               COMPlus_EnableDiagnostics: 0
