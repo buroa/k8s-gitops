@@ -38,7 +38,7 @@ spec:
           app:
             image:
               repository: ghcr.io/buroa/radarr-develop
-              tag: 5.4.4.8688@sha256:49bb49bca7efa25c3ae4451a5e9e6388eceb05b2d03988a157524dfe83f9a1c7
+              tag: 5.4.4.8688@sha256:75a21f22ac9205cb0ef2d57d92c1cb58e98f626befc4c1733794af434f595c96
             env:
               TZ: ${TIMEZONE}
               COMPlus_EnableDiagnostics: 0
