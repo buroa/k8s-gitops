@@ -31,8 +31,10 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/buroa/glauth
-              tag: 2.3.2@sha256:5f4f6d79da446d51aa2ef9e3a3a337bd67f9b7ca8d6346f10b3719e4292d4acf
+              repository: docker.io/glauth/glauth
+              tag: v2.3.2@sha256:5112abbb2b5145dadb1a2fed57242ad3718e4af11062d0bb812b50cda6c708ab
+            command:
+              - /app/glauth
             args:
               - -c
               - /config
