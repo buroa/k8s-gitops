@@ -41,7 +41,6 @@ spec:
               tag: 5.4.4.8688@sha256:75a21f22ac9205cb0ef2d57d92c1cb58e98f626befc4c1733794af434f595c96
             env:
               TZ: ${TIMEZONE}
-              COMPlus_EnableDiagnostics: 0
               RADARR__AUTHENTICATION_METHOD: External
               RADARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
               RADARR__INSTANCE_NAME: Radarr

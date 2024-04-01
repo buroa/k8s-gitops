@@ -41,7 +41,6 @@ spec:
               tag: 1.15.0.4361@sha256:22d37c73820723e58859fc26d73a1de96879353dae9b3daf7b49e65ed03ef3a8
             env:
               TZ: ${TIMEZONE}
-              COMPlus_EnableDiagnostics: 0
               PROWLARR__AUTHENTICATION_METHOD: External
               PROWLARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
               PROWLARR__INSTANCE_NAME: Prowlarr
