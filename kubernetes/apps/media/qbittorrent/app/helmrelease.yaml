@@ -134,4 +134,3 @@ spec:
         ports:
           bittorrent:
             port: *bittorrentPort
-            protocol: TCP
