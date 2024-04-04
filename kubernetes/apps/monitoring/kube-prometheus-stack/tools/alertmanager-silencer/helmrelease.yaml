@@ -27,6 +27,8 @@ spec:
         type: cronjob
         cronjob:
           schedule: "@daily"
+          timeZone: ${TIMEZONE}
+          concurrencyPolicy: Forbid
           successfulJobsHistory: 1
           failedJobsHistory: 1
         containers:

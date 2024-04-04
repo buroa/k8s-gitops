@@ -31,8 +31,6 @@ spec:
           concurrencyPolicy: Forbid
           successfulJobsHistory: 1
           failedJobsHistory: 1
-        annotations:
-          configmap.reloader.stakater.com/reload: &configMap qbtools-configmap
         initContainers:
           tagging: &container
             image:
@@ -120,7 +118,7 @@ spec:
     persistence:
       config:
         type: configMap
-        name: *configMap
+        name: qbtools-configmap
         advancedMounts:
           tagging:
             tagging:
