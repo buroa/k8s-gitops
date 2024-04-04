@@ -29,15 +29,12 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/cross-seed/cross-seed
-              tag: 5.9.2@sha256:6abdca45f0ecfd8d23a3035beefa716a14b66f23c14854631fe369d1ad346f1e
+              repository: ghcr.io/buroa/cross-seed
+              tag: dev@sha256:90e39081a0db18e0ea37a76354df218ce861a1cde7713e3a01a9eb626bd459ac
             args:
               - daemon
             env:
               PORT: &port 2468
-            envFrom:
-              - secretRef:
-                  name: cross-seed-secret
             resources:
               requests:
                 cpu: 10m
