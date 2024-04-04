@@ -34,11 +34,15 @@ spec:
         containers:
           app:
             image:
-              # TODO: Update the image to a semver tag
               repository: docker.io/meisnate12/plex-meta-manager
-              tag: nightly@sha256:6b8ed858d675422ff45d553df1e6d6e33965e78b4b20fe73aaf9624b3d4e5881
+              tag: v1.21.0@sha256:219f11238c78080e9f76fdcb80a95d8724d4fdf3df6dba3dcbc87ad82d45fd4c
             command:
-              - /scripts/run.sh
+              - /bin/sh
+              - -c
+            args:
+              - |
+                python3 plex_meta_manager.py --run --read-only-config --run-libraries "Movies";
+                python3 plex_meta_manager.py --run --read-only-config --run-libraries "TV Shows";
             env:
               TZ: *timeZone
             envFrom:
@@ -76,11 +80,3 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /config/logs
-      scripts:
-        type: configMap
-        name: plex-meta-manager-configmap
-        defaultMode: 0775
-        globalMounts:
-          - path: /scripts/run.sh
-            subPath: run.sh
-            readOnly: true
