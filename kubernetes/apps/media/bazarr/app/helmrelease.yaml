@@ -38,7 +38,7 @@ spec:
           app:
             image:
               repository: ghcr.io/buroa/bazarr
-              tag: 1.4.2@sha256:0d71bb71fdb6a630dc155498ecd6e56c5ce424d6363812db43a7eb5197673982
+              tag: 1.4.2@sha256:c7926ad645e177e7895d0c2163d98821b73c4a4ff45c3877222ffeb9d6832f22
             env:
               TZ: ${TIMEZONE}
             envFrom: *envFrom
