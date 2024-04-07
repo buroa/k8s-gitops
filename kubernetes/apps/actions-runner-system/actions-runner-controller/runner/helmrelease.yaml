@@ -33,7 +33,7 @@ spec:
       spec:
         containers:
           - name: runner
-            image: ghcr.io/buroa/actions-runner:2.315.0@sha256:aea664da9b08a6b126ed14fd2186bdd8d33c143adf73ee7059408d72078ab2f0
+            image: ghcr.io/buroa/actions-runner:2.315.0@sha256:125e3f5b7b7e4d7bf73b8f2d9a16a650fd3b62fc3cc5d9f60f553f205c2b4c8d
             command:
               - /home/runner/run.sh
     controllerServiceAccount:
