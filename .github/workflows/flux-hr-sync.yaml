@@ -27,6 +27,9 @@ jobs:
           app-id: "${{ secrets.BOT_APP_ID }}"
           private-key: "${{ secrets.BOT_APP_PRIVATE_KEY }}"
 
+      - name: Setup Path
+        run: echo "/home/linuxbrew/.linuxbrew/bin" >> $GITHUB_PATH
+
       - name: Setup Workflow Tools
         run: brew update && brew install fluxcd/tap/flux yq
 
