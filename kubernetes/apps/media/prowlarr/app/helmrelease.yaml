@@ -38,7 +38,7 @@ spec:
           app:
             image:
               repository: ghcr.io/buroa/prowlarr-develop
-              tag: 1.15.0.4361@sha256:22d37c73820723e58859fc26d73a1de96879353dae9b3daf7b49e65ed03ef3a8
+              tag: 1.15.0.4361@sha256:63d00e997b45525a8a75e5fcf6bf9dc3394b3f5d076ed7140b7716ea0d2ecb13
             env:
               TZ: ${TIMEZONE}
               PROWLARR__AUTHENTICATION_METHOD: External
