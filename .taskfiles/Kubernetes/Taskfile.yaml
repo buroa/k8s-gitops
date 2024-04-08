@@ -18,7 +18,7 @@ tasks:
             "containers": [
               {
                 "name": "debug",
-                "image": "ghcr.io/buroa/alpine:rolling",
+                "image": "docker.io/library/alpine:3.19",
                 "command": ["/bin/bash"],
                 "stdin": true,
                 "stdinOnce": true,
@@ -65,7 +65,7 @@ tasks:
               "containers": [
                 {
                   "name": "debug",
-                  "image": "ghcr.io/buroa/alpine:rolling",
+                  "image": "docker.io/library/alpine:3.19",
                   "command": [
                     "/bin/bash"
                   ],

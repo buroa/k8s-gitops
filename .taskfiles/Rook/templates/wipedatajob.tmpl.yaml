@@ -13,7 +13,7 @@ spec:
       nodeName: ${node}
       containers:
         - name: main
-          image: ghcr.io/buroa/alpine:rolling
+          image: docker.io/library/alpine:3.19
           command: ["/bin/sh", "-c"]
           args: ["rm -rf /mnt/host_var/lib/rook"]
           volumeMounts:
