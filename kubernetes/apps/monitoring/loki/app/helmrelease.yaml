@@ -9,68 +9,67 @@ spec:
   chart:
     spec:
       chart: loki
-      version: 5.47.2
+      version: 6.1.0
       sourceRef:
         kind: HelmRepository
         name: grafana-charts
         namespace: flux-system
   install:
+    crds: CreateReplace
     remediation:
       retries: 3
   upgrade:
     cleanupOnFail: true
+    crds: CreateReplace
     remediation:
       strategy: rollback
       retries: 3
   values:
+    deploymentMode: SimpleScalable
     loki:
+      podAnnotations:
+        configmap.reloader.stakater.com/reload: loki-ceph-bucket
+        secret.reloader.stakater.com/reload: loki-ceph-bucket
+      ingester:
+        chunk_encoding: snappy
+      storage:
+        type: s3
+        s3:
+          s3ForcePathStyle: true
+          insecure: true
+      schemaConfig:
+        configs:
+          - from: "2024-04-01"
+            store: tsdb
+            object_store: s3
+            schema: v13
+            index:
+              prefix: loki_index_
+              period: 24h
       structuredConfig:
         auth_enabled: false
         server:
           log_level: info
           http_listen_port: 3100
           grpc_listen_port: 9095
-        memberlist:
-          join_members:
-            - loki-memberlist
+          grpc_server_max_recv_msg_size: 8388608
+          grpc_server_max_send_msg_size: 8388608
         limits_config:
-          retention_period: 14d
-          enforce_metric_name: false
+          ingestion_burst_size_mb: 128
+          ingestion_rate_mb: 64
+          max_query_parallelism: 100
+          per_stream_rate_limit: 64M
+          per_stream_rate_limit_burst: 128M
           reject_old_samples: true
           reject_old_samples_max_age: 168h
-          max_cache_freshness_per_query: 10m
-          split_queries_by_interval: 1h
-          max_query_parallelism: 100
-          ingestion_rate_mb: 50
-          ingestion_burst_size_mb: 1000
-          per_stream_rate_limit: 5MB
-          per_stream_rate_limit_burst: 20MB
+          retention_period: 30d
           shard_streams:
             enabled: true
+          split_queries_by_interval: 1h
         query_scheduler:
           max_outstanding_requests_per_tenant: 4096
         frontend:
           max_outstanding_per_tenant: 4096
-        schema_config:
-          configs:
-            - from: "2022-01-11"
-              store: boltdb-shipper
-              object_store: s3
-              schema: v12
-              index:
-                prefix: loki_index_
-                period: 24h
-        common:
-          path_prefix: /var/loki
-          replication_factor: 3
-          storage:
-            s3:
-              s3: null
-              insecure: true
-              s3forcepathstyle: true
-          ring:
-            kvstore:
-              store: memberlist
         ruler:
           enable_api: true
           enable_alertmanager_v2: true
@@ -80,84 +79,10 @@ spec:
             local:
               directory: /rules
           rule_path: /tmp/scratch
-          ring:
-            kvstore:
-              store: memberlist
-        distributor:
-          ring:
-            kvstore:
-              store: memberlist
-        compactor:
-          working_directory: /var/loki/boltdb-shipper-compactor
-          shared_store: s3
-          compaction_interval: 10m
-          retention_enabled: true
-          retention_delete_delay: 2h
-          retention_delete_worker_count: 150
-        ingester:
-          max_chunk_age: 1h
-          lifecycler:
-            ring:
-              kvstore:
-                store: memberlist
         analytics:
           reporting_enabled: false
-    gateway:
-      replicas: 3
-      affinity: |
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-            - weight: 1
-              podAffinityTerm:
-                labelSelector:
-                  matchLabels:
-                    {{- include "loki.gatewaySelectorLabels" . | nindent 12 }}
-                topologyKey: kubernetes.io/hostname
-    read:
-      replicas: 3
-      affinity: |
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-            - weight: 1
-              podAffinityTerm:
-                labelSelector:
-                  matchLabels:
-                    {{- include "loki.readSelectorLabels" . | nindent 12 }}
-                topologyKey: kubernetes.io/hostname
-      extraVolumeMounts:
-        - name: rules
-          mountPath: /rules
-      extraVolumes:
-        - name: rules
-          emptyDir: {}
-      persistence:
-        size: 20Gi
-        storageClass: ${CLUSTER_STORAGE_HOSTPATH}
-    write:
-      replicas: 3
-      affinity: |
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-            - weight: 1
-              podAffinityTerm:
-                labelSelector:
-                  matchLabels:
-                    {{- include "loki.writeSelectorLabels" . | nindent 12 }}
-                topologyKey: kubernetes.io/hostname
-      persistence:
-        size: 20Gi
-        storageClass: ${CLUSTER_STORAGE_HOSTPATH}
     backend:
       replicas: 3
-      affinity: |
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-            - weight: 1
-              podAffinityTerm:
-                labelSelector:
-                  matchLabels:
-                    {{- include "loki.backendSelectorLabels" . | nindent 12 }}
-                topologyKey: kubernetes.io/hostname
       extraVolumeMounts:
         - name: rules
           mountPath: /rules/fake
@@ -169,6 +94,25 @@ spec:
             name: loki-alerting-rules
         - name: scratch
           emptyDir: {}
+      persistence:
+        size: 20Gi
+        storageClass: ${CLUSTER_STORAGE_HOSTPATH}
+    gateway:
+      replicas: 3
+      image:
+        registry: ghcr.io
+        repository: nginxinc/nginx-unprivileged
+        tag: 1.25-alpine@sha256:5b49ce26ad8555b649a5a5ea8ccdfabc742a284ab58cb7b7d7a56f178c5dd351
+    read:
+      replicas: 3
+      extraVolumeMounts:
+        - name: rules
+          mountPath: /rules
+      extraVolumes:
+        - name: rules
+          emptyDir: {}
+    write:
+      replicas: 3
       persistence:
         size: 20Gi
         storageClass: ${CLUSTER_STORAGE_HOSTPATH}
@@ -184,24 +128,28 @@ spec:
         enabled: false
         grafanaAgent:
           installOperator: false
-      lokiCanary:
-        enabled: false
+    lokiCanary:
+      enabled: false
     test:
       enabled: false
   valuesFrom:
     - kind: ConfigMap
-      targetPath: loki.structuredConfig.common.storage.s3.bucketnames
+      targetPath: loki.storage.bucketNames.chunks
       name: loki-ceph-bucket
       valuesKey: BUCKET_NAME
     - kind: ConfigMap
-      targetPath: loki.structuredConfig.common.storage.s3.endpoint
+      targetPath: loki.storage.s3.endpoint
       name: loki-ceph-bucket
       valuesKey: BUCKET_HOST
+    - kind: ConfigMap
+      targetPath: loki.storage.s3.region
+      name: loki-ceph-bucket
+      valuesKey: BUCKET_REGION
     - kind: Secret
-      targetPath: loki.structuredConfig.common.storage.s3.access_key_id
+      targetPath: loki.storage.s3.accessKeyId
       name: loki-ceph-bucket
       valuesKey: AWS_ACCESS_KEY_ID
     - kind: Secret
-      targetPath: loki.structuredConfig.common.storage.s3.secret_access_key
+      targetPath: loki.storage.s3.secretAccessKey
       name: loki-ceph-bucket
       valuesKey: AWS_SECRET_ACCESS_KEY
