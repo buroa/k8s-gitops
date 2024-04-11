@@ -8,7 +8,7 @@ resources:
 configMapGenerator:
   - name: zigbee2mqtt-loki-rules
     files:
-      - zigbee2mqtt.yaml=./resources/lokirule.yaml
+      - ./resources/lokirule.yaml
     options:
       labels:
         loki_rule: "true"

@@ -9,7 +9,7 @@ configMapGenerator:
       - config.js=./resources/config.js
   - name: cross-seed-loki-rules
     files:
-      - cross-seed.yaml=./resources/lokirule.yaml
+      - ./resources/lokirule.yaml
     options:
       labels:
         loki_rule: "true"
