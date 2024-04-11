@@ -6,6 +6,12 @@ resources:
 configMapGenerator:
   - name: cross-seed-configmap
     files:
-      - ./configs/config.js
+      - config.js=./resources/config.js
+  - name: cross-seed-loki-rules
+    files:
+      - cross-seed.yaml=./resources/lokirule.yaml
+    options:
+      labels:
+        loki_rule: "true"
 generatorOptions:
   disableNameSuffixHash: true

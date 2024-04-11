@@ -6,6 +6,6 @@ resources:
 configMapGenerator:
   - name: mbpfan-configmap
     files:
-      - ./configs/mbpfan.conf
+      - mbpfan.conf=./resources/mbpfan.conf
 generatorOptions:
   disableNameSuffixHash: true

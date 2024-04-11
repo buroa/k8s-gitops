@@ -4,9 +4,3 @@ kind: Kustomization
 resources:
   - ./helmrelease.yaml
   - ./objectbucketclaim.yaml
-configMapGenerator:
-  - name: loki-alerting-rules
-    files:
-      - ./rules/loki-alerting-rules.yaml
-generatorOptions:
-  disableNameSuffixHash: true

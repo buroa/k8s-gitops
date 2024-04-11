@@ -134,7 +134,7 @@ graph TD;
 
 The UDM Pro resolves DNS queries via [blocky](https://github.com/0xERR0R/blocky), which provides first-hop DNS resolution for my network. Blocky forwards requests targeted towards my public domain via [k8s-gateway](https://github.com/ori-edge/k8s_gateway). Last-hop DNS resolution resolves via [1.1.1.1](https://1.1.1.1/dns), which is configured as my primary DNS upstream provider. If for any reason blocky becomes unavailable, the UDM Pro is configured to fallback to 1.1.1.1 until blocky becomes available again.
 
-🔸 _[Click here](./kubernetes/apps/networking/blocky/app/configs/config.yml) to see my `blocky` configuration or [here](./kubernetes/apps/networking/k8s-gateway/app/configs/Corefile) to see my `k8s-gateway` configuration._
+🔸 _[Click here](./kubernetes/apps/networking/blocky/app/resources/config.yml) to see my `blocky` configuration or [here](./kubernetes/apps/networking/k8s-gateway/app/resources/Corefile) to see my `k8s-gateway` configuration._
 
 ### Public DNS
 

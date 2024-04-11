@@ -4,3 +4,12 @@ kind: Kustomization
 resources:
   - ./helmrelease.yaml
   - ./volsync.yaml
+configMapGenerator:
+  - name: plex-loki-rules
+    files:
+      - plex.yaml=./resources/lokirule.yaml
+    options:
+      labels:
+        loki_rule: "true"
+generatorOptions:
+  disableNameSuffixHash: true

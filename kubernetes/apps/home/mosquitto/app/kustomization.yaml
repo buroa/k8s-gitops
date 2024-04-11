@@ -8,6 +8,6 @@ resources:
 configMapGenerator:
   - name: mosquitto-configmap
     files:
-      - ./configs/mosquitto.conf
+      - mosquitto.conf=./resources/mosquitto.conf
 generatorOptions:
   disableNameSuffixHash: true

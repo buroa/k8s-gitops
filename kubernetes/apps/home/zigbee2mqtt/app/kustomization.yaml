@@ -5,3 +5,12 @@ resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
   - ./volsync.yaml
+configMapGenerator:
+  - name: zigbee2mqtt-loki-rules
+    files:
+      - zigbee2mqtt.yaml=./resources/lokirule.yaml
+    options:
+      labels:
+        loki_rule: "true"
+generatorOptions:
+  disableNameSuffixHash: true

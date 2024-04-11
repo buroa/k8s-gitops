@@ -28,8 +28,8 @@ spec:
     deploymentMode: SimpleScalable
     loki:
       podAnnotations:
-        configmap.reloader.stakater.com/reload: loki-ceph-bucket
-        secret.reloader.stakater.com/reload: loki-ceph-bucket
+        configmap.reloader.stakater.com/reload: &cephBucket loki-ceph-bucket
+        secret.reloader.stakater.com/reload: *cephBucket
       ingester:
         chunk_encoding: snappy
       storage:
@@ -39,7 +39,7 @@ spec:
           insecure: true
       schemaConfig:
         configs:
-          - from: "2024-04-01"
+          - from: "2024-04-01" # quote
             store: tsdb
             object_store: s3
             schema: v13
@@ -78,22 +78,11 @@ spec:
             type: local
             local:
               directory: /rules
-          rule_path: /tmp/scratch
+          rule_path: /rules/fake
         analytics:
           reporting_enabled: false
     backend:
       replicas: 3
-      extraVolumeMounts:
-        - name: rules
-          mountPath: /rules/fake
-        - name: scratch
-          mountPath: /tmp/scratch
-      extraVolumes:
-        - name: rules
-          configMap:
-            name: loki-alerting-rules
-        - name: scratch
-          emptyDir: {}
       persistence:
         size: 20Gi
         storageClass: ${CLUSTER_STORAGE_HOSTPATH}
@@ -101,55 +90,46 @@ spec:
       replicas: 3
       image:
         registry: ghcr.io
-        repository: nginxinc/nginx-unprivileged
-        tag: 1.25-alpine@sha256:5b49ce26ad8555b649a5a5ea8ccdfabc742a284ab58cb7b7d7a56f178c5dd351
     read:
       replicas: 3
-      extraVolumeMounts:
-        - name: rules
-          mountPath: /rules
-      extraVolumes:
-        - name: rules
-          emptyDir: {}
     write:
       replicas: 3
       persistence:
         size: 20Gi
         storageClass: ${CLUSTER_STORAGE_HOSTPATH}
+    lokiCanary:
+      enabled: false
     monitoring:
-      dashboards:
-        annotations:
-          grafana_folder: Loki
       serviceMonitor:
         enabled: true
         metricsInstance:
           enabled: false
-      selfMonitoring:
-        enabled: false
-        grafanaAgent:
-          installOperator: false
-    lokiCanary:
-      enabled: false
+    sidecar:
+      image:
+        repository: ghcr.io/kiwigrid/k8s-sidecar
+      rules:
+        searchNamespace: ALL
+        folder: /rules/fake
     test:
       enabled: false
   valuesFrom:
     - kind: ConfigMap
       targetPath: loki.storage.bucketNames.chunks
-      name: loki-ceph-bucket
+      name: *cephBucket
       valuesKey: BUCKET_NAME
     - kind: ConfigMap
       targetPath: loki.storage.s3.endpoint
-      name: loki-ceph-bucket
+      name: *cephBucket
       valuesKey: BUCKET_HOST
     - kind: ConfigMap
       targetPath: loki.storage.s3.region
-      name: loki-ceph-bucket
+      name: *cephBucket
       valuesKey: BUCKET_REGION
     - kind: Secret
       targetPath: loki.storage.s3.accessKeyId
-      name: loki-ceph-bucket
+      name: *cephBucket
       valuesKey: AWS_ACCESS_KEY_ID
     - kind: Secret
       targetPath: loki.storage.s3.secretAccessKey
-      name: loki-ceph-bucket
+      name: *cephBucket
       valuesKey: AWS_SECRET_ACCESS_KEY

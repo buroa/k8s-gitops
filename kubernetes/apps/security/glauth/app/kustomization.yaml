@@ -7,8 +7,8 @@ resources:
 configMapGenerator:
   - name: glauth-config-tpl
     files:
-      - ./configs/groups.toml
-      - ./configs/server.toml
-      - ./configs/users.toml
+      - groups.toml=./resources/groups.toml
+      - server.toml=./resources/server.toml
+      - users.toml=./resources/users.toml
 generatorOptions:
   disableNameSuffixHash: true

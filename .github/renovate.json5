@@ -28,7 +28,7 @@
   rebaseWhen: "conflicted",
   assigneesFromCodeOwners: true,
   reviewersFromCodeOwners: true,
-  ignorePaths: ["**/*.sops.*", "**/configs/**"],
+  ignorePaths: ["**/*.sops.*", "**/resources/**"],
   flux: {
     fileMatch: ["(^|/)kubernetes/.+\\.ya?ml$"],
   },

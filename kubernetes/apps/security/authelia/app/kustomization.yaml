@@ -7,6 +7,6 @@ resources:
 configMapGenerator:
   - name: authelia-configmap
     files:
-      - ./configs/configuration.yml
+      - configuration.yml=./resources/configuration.yml
 generatorOptions:
   disableNameSuffixHash: true
