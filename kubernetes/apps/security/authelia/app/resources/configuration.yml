@@ -19,12 +19,11 @@ authentication_backend:
     users_filter: (&({username_attribute}={input})(objectClass=posixAccount))
     additional_groups_dn: ou=users
     groups_filter: (&(uniqueMember={dn})(objectClass=posixGroup))
-    group_search_mode: filter
     user: cn=search,ou=svcaccts,ou=users,dc=home,dc=arpa
     attributes:
       username: uid
-      display_name: description
-      group_name: uid
+      display_name: givenName
+      group_name: ou
       mail: mail
       member_of: memberOf
   password_reset:

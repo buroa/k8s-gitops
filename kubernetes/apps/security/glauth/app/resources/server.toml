@@ -2,11 +2,14 @@
     enabled = true
     tls = false
     listen = "0.0.0.0:5555"
-[ldap]
-    enabled = true
-    listen = "0.0.0.0:389"
-[ldaps]
-    enabled = false
+
 [backend]
     datastore = "config"
     baseDN = "dc=home,dc=arpa"
+
+[ldap]
+    enabled = true
+    listen = "0.0.0.0:389"
+
+[ldaps]
+    enabled = false

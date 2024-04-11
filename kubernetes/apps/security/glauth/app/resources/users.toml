@@ -6,6 +6,7 @@
     [[users.capabilities]]
         action = "search"
         object = "*"
+
 [[users]]
     name = "steven"
     mail = "{{ .GLAUTH_STEVEN_EMAIL }}"
