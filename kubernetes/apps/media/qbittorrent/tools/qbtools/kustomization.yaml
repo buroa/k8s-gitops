@@ -6,6 +6,6 @@ resources:
 configMapGenerator:
   - name: qbtools-configmap
     files:
-      - config.yaml=./resources/config.yaml
+      - ./resources/config.yaml
 generatorOptions:
   disableNameSuffixHash: true

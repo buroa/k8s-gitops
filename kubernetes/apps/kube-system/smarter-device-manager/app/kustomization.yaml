@@ -6,6 +6,6 @@ resources:
 configMapGenerator:
   - name: smarter-device-manager-configmap
     files:
-      - conf.yaml=./resources/conf.yaml
+      - ./resources/conf.yaml
 generatorOptions:
   disableNameSuffixHash: true

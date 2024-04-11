@@ -7,6 +7,6 @@ resources:
 configMapGenerator:
   - name: vector-agent-configmap
     files:
-      - vector.yaml=./resources/vector.yaml
+      - ./resources/vector.yaml
 generatorOptions:
   disableNameSuffixHash: true

@@ -7,9 +7,9 @@ resources:
 configMapGenerator:
   - name: blocky-config-tpl
     files:
-      - config.yml=./resources/config.yml
+      - ./resources/config.yml
   - name: blocky-configmap
     files:
-      - whitelist.txt=./resources/whitelist.txt
+      - ./resources/whitelist.txt
 generatorOptions:
   disableNameSuffixHash: true

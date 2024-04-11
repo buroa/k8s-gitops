@@ -6,6 +6,6 @@ resources:
 configMapGenerator:
   - name: blocky-datasource-tpl
     files:
-      - datasource.yaml=./resources/datasource.yaml
+      - ./resources/datasource.yaml
 generatorOptions:
   disableNameSuffixHash: true

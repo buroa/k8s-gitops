@@ -6,6 +6,6 @@ resources:
 configMapGenerator:
   - name: kromgo-configmap
     files:
-      - config.yaml=./resources/config.yaml
+      - ./resources/config.yaml
 generatorOptions:
   disableNameSuffixHash: true
