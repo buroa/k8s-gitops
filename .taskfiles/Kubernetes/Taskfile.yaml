@@ -19,7 +19,7 @@ tasks:
               {
                 "name": "debug",
                 "image": "docker.io/library/alpine:3.19",
-                "command": ["/bin/bash"],
+                "command": ["/bin/sh"],
                 "stdin": true,
                 "stdinOnce": true,
                 "tty": true,
@@ -56,60 +56,57 @@ tasks:
         ns: Namespace the PVC is in (default: default)
         node: The node (required)
     interactive: true
-    cmds:
-      - |
-        kubectl run -n {{.ns}} debug-privileged-{{.node}} -i --tty --rm --image=null --overrides='
-          {
-            "apiVersion": "v1",
-            "spec": {
-              "containers": [
-                {
-                  "name": "debug",
-                  "image": "docker.io/library/alpine:3.19",
-                  "command": [
-                    "/bin/bash"
-                  ],
-                  "stdin": true,
-                  "stdinOnce": true,
-                  "tty": true,
-                  "securityContext": {
-                    "allowPrivilegeEscalation": true,
-                    "privileged": true
-                  },
-                  "volumeMounts": [
-                    {
-                      "name": "hostfs",
-                      "mountPath": "/rootfs"
-                    },
-                    {
-                      "name": "run-containerd",
-                      "mountPath": "/run/containerd"
-                    }
-                  ]
-                }
-              ],
-              "dnsPolicy": "ClusterFirstWithHostNet",
-              "hostIPC": true,
-              "hostNetwork": true,
-              "hostPID": true,
-              "nodeName": "{{.node}}",
-              "restartPolicy": "Never",
-              "volumes": [
-                {
-                  "name": "hostfs",
-                  "hostPath": {
-                    "path": "/"
-                  }
+    cmd: |
+      kubectl run -n {{.ns}} debug-privileged-{{.node}} -i --tty --rm --image=null --overrides='
+        {
+          "apiVersion": "v1",
+          "spec": {
+            "containers": [
+              {
+                "name": "debug",
+                "image": "docker.io/library/alpine:3.19",
+                "command": ["/bin/sh"],
+                "stdin": true,
+                "stdinOnce": true,
+                "tty": true,
+                "securityContext": {
+                  "allowPrivilegeEscalation": true,
+                  "privileged": true
                 },
-                {
-                  "name": "run-containerd",
-                  "hostPath": {
-                    "path": "/run/containerd"
+                "volumeMounts": [
+                  {
+                    "name": "hostfs",
+                    "mountPath": "/rootfs"
+                  },
+                  {
+                    "name": "run-containerd",
+                    "mountPath": "/run/containerd"
                   }
+                ]
+              }
+            ],
+            "dnsPolicy": "ClusterFirstWithHostNet",
+            "hostIPC": true,
+            "hostNetwork": true,
+            "hostPID": true,
+            "nodeName": "{{.node}}",
+            "restartPolicy": "Never",
+            "volumes": [
+              {
+                "name": "hostfs",
+                "hostPath": {
+                  "path": "/"
                 }
-              ]
-            }
-          }'
+              },
+              {
+                "name": "run-containerd",
+                "hostPath": {
+                  "path": "/run/containerd"
+                }
+              }
+            ]
+          }
+        }'
     requires:
       vars: ["node"]
     vars:
@@ -117,8 +114,8 @@ tasks:
     preconditions:
       - { msg: "Node not found", sh: "kubectl -n {{.ns}} get node {{.node}}" }
 
-  delete-pods:
-    desc: Deletes pods in a phase
-    requires:
-      vars: ["phase"]
-    cmd: kubectl delete pods --field-selector status.phase={{.phase}} -A --ignore-not-found=true
+  delete-failed-pods:
+    desc: Deletes pods with a fucked status
+    cmds:
+      - for: ["Evicted", "Failed", "Succeeded"]
+        cmd: kubectl delete pods --field-selector status.phase={{.ITEM}} -A --ignore-not-found=true
