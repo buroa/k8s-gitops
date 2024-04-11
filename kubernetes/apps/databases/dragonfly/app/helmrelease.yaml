@@ -24,8 +24,6 @@ spec:
   values:
     controllers:
       dragonfly-operator:
-        replicas: 2
-        strategy: RollingUpdate
         containers:
           app:
             image:
@@ -34,7 +32,6 @@ spec:
             args:
               - --health-probe-bind-address=:8081
               - --metrics-bind-address=:8080
-              - --leader-elect
             command:
               - /manager
             probes:
@@ -76,13 +73,6 @@ spec:
             runAsUser: 65534
             runAsGroup: 65534
             runAsNonRoot: true
-          topologySpreadConstraints:
-            - maxSkew: 1
-              topologyKey: kubernetes.io/hostname
-              whenUnsatisfiable: DoNotSchedule
-              labelSelector:
-                matchLabels:
-                  app.kubernetes.io/name: *app
     service:
       app:
         controller: *app
