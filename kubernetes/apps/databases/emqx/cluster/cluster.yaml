@@ -1,0 +1,56 @@
+---
+apiVersion: apps.emqx.io/v2beta1
+kind: EMQX
+metadata:
+  name: emqx
+spec:
+  image: public.ecr.aws/emqx/emqx:5.6.0
+  config:
+    data: |
+      authentication {
+        backend = "built_in_database"
+        mechanism = "password_based"
+        password_hash_algorithm {
+            name = "bcrypt",
+        }
+        user_id_type = "username"
+      }
+      authorization {
+        sources = [
+          {
+            type = built_in_database
+            enable = true
+          }
+        ]
+        no_match: "deny"
+      }
+  coreTemplate:
+    metadata:
+      annotations:
+        reloader.stakater.com/auto: "true"
+    spec:
+      replicas: 3
+      envFrom: &envFrom
+        - secretRef:
+            name: emqx-secret
+      extraContainers:
+        - name: init-mqtt
+          image: docker.io/library/python:3.12-alpine
+          env:
+            - name: X_EMQX_ADDRESS
+              value: emqx-dashboard.databases.svc.cluster.local:18083
+          envFrom: *envFrom
+          command:
+            - python
+            - /init-mqtt.py
+          volumeMounts:
+            - name: init-mqtt
+              mountPath: /init-mqtt.py
+              subPath: init-mqtt.py
+      extraVolumes:
+        - name: init-mqtt
+          configMap:
+            name: emqx-init-mqtt-configmap
+  listenersServiceTemplate:
+    spec:
+      type: ClusterIP

@@ -1,0 +1,39 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cluster-apps-emqx
+  namespace: flux-system
+spec:
+  targetNamespace: databases
+  dependsOn:
+    - name: cluster-apps-cert-manager
+    - name: cluster-apps-external-secrets-stores
+  path: ./kubernetes/apps/databases/emqx/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: k8s-gitops
+  wait: true
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cluster-apps-emqx-cluster
+  namespace: flux-system
+spec:
+  targetNamespace: databases
+  dependsOn:
+    - name: cluster-apps-emqx
+  path: ./kubernetes/apps/databases/emqx/cluster
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: k8s-gitops
+  wait: true
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
