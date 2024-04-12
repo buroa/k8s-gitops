@@ -76,7 +76,6 @@ spec:
       app:
         className: external
         annotations:
-          gatus.io/enabled: "true"
           gatus.io/path: *path
           hajimari.io/enable: "false"
           external-dns.alpha.kubernetes.io/target: external.${PUBLIC_DOMAIN}

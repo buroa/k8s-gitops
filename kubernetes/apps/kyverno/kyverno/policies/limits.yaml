@@ -2,7 +2,7 @@
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
-  name: remove-cpu-limits
+  name: limits
   annotations:
     policies.kyverno.io/title: Remove CPU limits
     policies.kyverno.io/category: Best Practices

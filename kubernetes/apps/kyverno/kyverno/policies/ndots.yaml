@@ -2,7 +2,7 @@
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
-  name: add-ndots
+  name: &name ndots
   annotations:
     policies.kyverno.io/title: Add ndots
     policies.kyverno.io/category: DNS Optimization
@@ -15,7 +15,7 @@ metadata:
     pod-policies.kyverno.io/autogen-controllers: none
 spec:
   rules:
-    - name: add-ndots
+    - name: *name
       match:
         any:
           - resources:
@@ -23,15 +23,15 @@ spec:
                 - Pod
               namespaceSelector:
                 matchExpressions:
-                  - key: kyverno.io/add-ndots
+                  - key: kyverno.io/ndots
                     operator: Exists
       exclude:
         any:
-        - resources:
-            kinds:
-              - Pod
-            annotations:
-              kyverno.io/exclude: "true"
+          - resources:
+              kinds:
+                - Pod
+              annotations:
+                kyverno.io/exclude: "true"
       mutate:
         patchStrategicMerge:
           spec:

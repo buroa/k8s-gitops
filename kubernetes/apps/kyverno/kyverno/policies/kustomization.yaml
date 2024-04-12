@@ -2,6 +2,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - ./add-ndots.yaml
-  - ./generate-gatus.yaml
-  - ./remove-cpu-limits.yaml
+  - ./gatus.yaml
+  - ./limits.yaml
+  - ./ndots.yaml

@@ -90,7 +90,6 @@ spec:
       app:
         className: external
         annotations:
-          gatus.io/enabled: "true"
           gatus.io/path: *path
           hajimari.io/icon: mdi:shield-account
           hajimari.io/url: https://auth.${PUBLIC_DOMAIN}

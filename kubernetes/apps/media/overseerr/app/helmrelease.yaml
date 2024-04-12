@@ -68,7 +68,6 @@ spec:
       app:
         className: external
         annotations:
-          gatus.io/enabled: "true"
           gatus.io/path: *path
           hajimari.io/icon: mdi:eye-circle
           hajimari.io/url: https://requests.${PUBLIC_DOMAIN}

@@ -83,7 +83,6 @@ spec:
       app:
         className: external
         annotations:
-          gatus.io/enabled: "true"
           gatus.io/path: *path
           hajimari.io/icon: mdi:plex
           nginx.ingress.kubernetes.io/backend-protocol: HTTPS
