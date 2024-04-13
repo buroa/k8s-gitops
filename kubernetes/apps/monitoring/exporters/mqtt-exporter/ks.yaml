@@ -7,7 +7,7 @@ metadata:
 spec:
   targetNamespace: monitoring
   dependsOn:
-    - name: cluster-apps-mosquitto
+    - name: cluster-apps-emqx-cluster
     - name: cluster-apps-external-secrets-stores
   path: ./kubernetes/apps/monitoring/exporters/mqtt-exporter/app
   prune: true

@@ -8,7 +8,7 @@ spec:
   targetNamespace: home
   dependsOn:
     - name: cluster-apps-volsync
-    - name: cluster-apps-mosquitto
+    - name: cluster-apps-emqx-cluster
     - name: cluster-apps-multus-configs
     - name: cluster-apps-rook-ceph-cluster
     - name: cluster-apps-cloudnative-pg-cluster
