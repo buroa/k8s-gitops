@@ -23,10 +23,5 @@ spec:
       retries: 3
   values:
     manageCRDs: true
-    image: &image
-      repository: ghcr.io/buroa/volsync
-      tag: 0.9.1@sha256:dddb8d2903872c1d7fee48f871ca2d15ac3debd47eb6a39cf57ddcbccc424154
-    restic:
-      <<: *image
     metrics:
       disableAuth: true
