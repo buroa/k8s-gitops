@@ -38,7 +38,7 @@ spec:
           app:
             image:
               repository: ghcr.io/buroa/sonarr-develop
-              tag: 4.0.3.1486@sha256:456cc5dca70d9e67a95e2b6be1c802ad334266207e06a0a8384708d755c8c7f6
+              tag: 4.0.4.1515@sha256:9026f3fa4a799a192c3cde898d3b92ca87eff83d365ca31ec6539434f361e0ba
             env:
               TZ: ${TIMEZONE}
               SONARR__AUTHENTICATION_METHOD: External
