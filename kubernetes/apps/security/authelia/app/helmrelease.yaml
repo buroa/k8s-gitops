@@ -100,18 +100,14 @@ spec:
             add_header X-XSS-Protection "1; mode=block";
           external-dns.alpha.kubernetes.io/target: external.${PUBLIC_DOMAIN}
         hosts:
-          - host: &host "{{ .Release.Name }}.${PUBLIC_DOMAIN}"
+          - host: "{{ .Release.Name }}.${PUBLIC_DOMAIN}"
             paths: &paths
               - path: /
                 service:
                   identifier: app
                   port: http
-          - host: &customHost auth.${PUBLIC_DOMAIN}
+          - host: auth.${PUBLIC_DOMAIN}
             paths: *paths
-        tls:
-          - hosts:
-              - *host
-              - *customHost
     persistence:
       config:
         type: configMap

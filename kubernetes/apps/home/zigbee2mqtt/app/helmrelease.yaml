@@ -99,18 +99,14 @@ spec:
           hajimari.io/icon: cbi:zigbee2mqtt
           hajimari.io/url: https://zigbee.${PUBLIC_DOMAIN}
         hosts:
-          - host: &host "{{ .Release.Name }}.${PUBLIC_DOMAIN}"
+          - host: "{{ .Release.Name }}.${PUBLIC_DOMAIN}"
             paths: &paths
               - path: /
                 service:
                   identifier: app
                   port: http
-          - host: &customHost zigbee.${PUBLIC_DOMAIN}
+          - host: zigbee.${PUBLIC_DOMAIN}
             paths: *paths
-        tls:
-          - hosts:
-              - *host
-              - *customHost
     persistence:
       config:
         existingClaim: *app

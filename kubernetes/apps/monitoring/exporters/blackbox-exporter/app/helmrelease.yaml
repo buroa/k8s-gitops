@@ -30,13 +30,10 @@ spec:
       annotations:
         hajimari.io/enable: "false"
       hosts:
-        - host: &host blackbox.${PUBLIC_DOMAIN}
+        - host: blackbox-exporter.${PUBLIC_DOMAIN}
           paths:
             - path: /
               pathType: Prefix
-      tls:
-        - hosts:
-            - *host
     securityContext:
       readOnlyRootFilesystem: true
       allowPrivilegeEscalation: false

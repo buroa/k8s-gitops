@@ -71,18 +71,14 @@ spec:
           hajimari.io/icon: cib:node-red
           hajimari.io/url: https://nr.${PUBLIC_DOMAIN}
         hosts:
-          - host: &host "{{ .Release.Name }}.${PUBLIC_DOMAIN}"
+          - host: "{{ .Release.Name }}.${PUBLIC_DOMAIN}"
             paths: &paths
               - path: /
                 service:
                   identifier: app
                   port: http
-          - host: &customHost nr.${PUBLIC_DOMAIN}
+          - host: nr.${PUBLIC_DOMAIN}
             paths: *paths
-        tls:
-          - hosts:
-              - *host
-              - *customHost
     persistence:
       data:
         existingClaim: *app

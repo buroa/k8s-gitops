@@ -34,13 +34,10 @@ spec:
           hajimari.io/appName: Alertmanager
           hajimari.io/icon: fluent:alert-16-filled
         hosts:
-          - &host am.${PUBLIC_DOMAIN}
+          - am.${PUBLIC_DOMAIN}
         paths:
           - /
         pathType: Prefix
-        tls:
-          - hosts:
-              - *host
       alertmanagerSpec:
         replicas: 3
         useExistingSecret: true
@@ -99,13 +96,10 @@ spec:
           hajimari.io/appName: Prometheus
           hajimari.io/icon: simple-icons:prometheus
         hosts:
-          - &host prometheus.${PUBLIC_DOMAIN}
+          - prometheus.${PUBLIC_DOMAIN}
         paths:
           - /
         pathType: Prefix
-        tls:
-          - hosts:
-              - *host
       thanosService:
         enabled: true
       thanosServiceMonitor:

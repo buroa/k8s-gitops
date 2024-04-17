@@ -8,7 +8,7 @@ metadata:
 spec:
   ingressClassName: internal
   rules:
-    - host: &host emqx.${PUBLIC_DOMAIN}
+    - host: emqx.${PUBLIC_DOMAIN}
       http:
         paths:
           - path: /
@@ -18,6 +18,3 @@ spec:
                 name: emqx-dashboard
                 port:
                   number: 18083
-  tls:
-    - hosts:
-        - *host

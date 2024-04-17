@@ -95,18 +95,14 @@ spec:
           hajimari.io/icon: mdi:download
           hajimari.io/url: https://sab.${PUBLIC_DOMAIN}
         hosts:
-          - host: &host "{{ .Release.Name }}.${PUBLIC_DOMAIN}"
+          - host: "{{ .Release.Name }}.${PUBLIC_DOMAIN}"
             paths: &paths
               - path: /
                 service:
                   identifier: app
                   port: http
-          - host: &customHost sab.${PUBLIC_DOMAIN}
+          - host: sab.${PUBLIC_DOMAIN}
             paths: *paths
-        tls:
-          - hosts:
-              - *host
-              - *customHost
     persistence:
       config:
         existingClaim: *app

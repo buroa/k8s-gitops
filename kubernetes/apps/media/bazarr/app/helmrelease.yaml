@@ -96,15 +96,12 @@ spec:
         annotations:
           hajimari.io/icon: mdi:subtitles-outline
         hosts:
-          - host: &host "{{ .Release.Name }}.${PUBLIC_DOMAIN}"
+          - host: "{{ .Release.Name }}.${PUBLIC_DOMAIN}"
             paths:
               - path: /
                 service:
                   identifier: app
                   port: http
-        tls:
-          - hosts:
-              - *host
     persistence:
       add-ons:
         type: emptyDir

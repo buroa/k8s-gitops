@@ -10,7 +10,7 @@ metadata:
 spec:
   ingressClassName: external
   rules:
-    - host: &host flux-webhook.${PUBLIC_DOMAIN}
+    - host: flux-webhook.${PUBLIC_DOMAIN}
       http:
         paths:
           - path: /hook/
@@ -20,6 +20,3 @@ spec:
                 name: webhook-receiver
                 port:
                   number: 80
-  tls:
-    - hosts:
-        - *host

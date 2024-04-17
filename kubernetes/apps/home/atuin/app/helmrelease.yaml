@@ -96,18 +96,14 @@ spec:
         annotations:
           hajimari.io/enable: "false"
         hosts:
-          - host: &host "{{ .Release.Name }}.${PUBLIC_DOMAIN}"
+          - host: "{{ .Release.Name }}.${PUBLIC_DOMAIN}"
             paths: &paths
               - path: /
                 service:
                   identifier: app
                   port: http
-          - host: &customHost sh.${PUBLIC_DOMAIN}
+          - host: sh.${PUBLIC_DOMAIN}
             paths: *paths
-        tls:
-          - hosts:
-              - *host
-              - *customHost
     persistence:
       config:
         type: emptyDir

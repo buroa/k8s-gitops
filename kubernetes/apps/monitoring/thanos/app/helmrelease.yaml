@@ -68,10 +68,7 @@ spec:
           hajimari.io/appName: Thanos
           hajimari.io/icon: material-symbols:health-metrics
         hosts:
-          - &host thanos.${PUBLIC_DOMAIN}
-        tls:
-          - hosts:
-              - *host
+          - thanos.${PUBLIC_DOMAIN}
       podAnnotations: &podAnnotations
         configmap.reloader.stakater.com/reload: *configMap
     rule:
