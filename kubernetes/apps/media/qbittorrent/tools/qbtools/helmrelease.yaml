@@ -132,4 +132,5 @@ spec:
         advancedMounts:
           orphaned:
             app:
-              - path: /media
+              - path: /media/downloads/torrents
+                subPath: downloads/torrents

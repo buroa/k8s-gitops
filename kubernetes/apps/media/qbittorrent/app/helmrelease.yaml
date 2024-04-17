@@ -119,6 +119,9 @@ spec:
         type: nfs
         server: nas.${PUBLIC_DOMAIN}
         path: /volume1/media
+        globalMounts:
+          - path: /media/downloads/torrents
+            subPath: downloads/torrents
     service:
       app:
         controller: *app

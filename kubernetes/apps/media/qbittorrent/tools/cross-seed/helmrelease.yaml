@@ -79,7 +79,6 @@ spec:
         globalMounts:
           - path: /media/downloads/torrents
             subPath: downloads/torrents
-            readOnly: false
     service:
       app:
         controller: *app
