@@ -135,5 +135,9 @@ spec:
         annotations:
           io.cilium/lb-ipam-ips: ${TORRENT_LB_IP}
         ports:
-          bittorrent:
+          bittorrent-tcp:
             port: *bittorrentPort
+            protocol: TCP
+          bittorrent-udp:
+            port: *bittorrentPort
+            protocol: UDP
