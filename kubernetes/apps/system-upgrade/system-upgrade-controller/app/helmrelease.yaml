@@ -51,27 +51,27 @@ spec:
               capabilities:
                 drop:
                   - ALL
-        pod:
-          affinity:
-            nodeAffinity:
-              requiredDuringSchedulingIgnoredDuringExecution:
-                nodeSelectorTerms:
-                  - matchExpressions:
-                      - key: node-role.kubernetes.io/control-plane
-                        operator: Exists
-          securityContext:
-            runAsUser: 65534
-            runAsGroup: 65534
-            runAsNonRoot: true
-          tolerations:
-            - key: CriticalAddonsOnly
-              operator: Exists
-            - key: node-role.kubernetes.io/control-plane
-              operator: Exists
-              effect: NoSchedule
-            - key: node-role.kubernetes.io/master
-              operator: Exists
-              effect: NoSchedule
+    defaultPodOptions:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: node-role.kubernetes.io/control-plane
+                    operator: Exists
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 568
+        runAsGroup: 568
+      tolerations:
+        - key: CriticalAddonsOnly
+          operator: Exists
+        - key: node-role.kubernetes.io/control-plane
+          operator: Exists
+          effect: NoSchedule
+        - key: node-role.kubernetes.io/master
+          operator: Exists
+          effect: NoSchedule
     persistence:
       etc-ssl:
         type: hostPath

@@ -68,11 +68,11 @@ spec:
               capabilities:
                 drop:
                   - ALL
-        pod:
-          securityContext:
-            runAsUser: 65534
-            runAsGroup: 65534
-            runAsNonRoot: true
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 568
+        runAsGroup: 568
     service:
       app:
         controller: *app

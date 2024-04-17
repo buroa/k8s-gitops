@@ -81,17 +81,17 @@ spec:
               capabilities:
                 drop:
                   - ALL
-        pod:
-          nodeSelector:
-            phoscon.feature.node.kubernetes.io/conbee: "true"
-          securityContext:
-            runAsUser: 568
-            runAsGroup: 568
-            runAsNonRoot: true
-            fsGroup: 568
-            fsGroupChangePolicy: OnRootMismatch
-            supplementalGroups:
-              - 20
+    defaultPodOptions:
+      nodeSelector:
+        phoscon.feature.node.kubernetes.io/conbee: "true"
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
+        supplementalGroups:
+          - 20
     ingress:
       app:
         className: internal

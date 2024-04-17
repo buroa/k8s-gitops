@@ -42,8 +42,8 @@ spec:
               capabilities:
                 drop:
                   - ALL
-        pod:
-          priorityClassName: system-node-critical
+    defaultPodOptions:
+      priorityClassName: system-node-critical
     persistence:
       config:
         type: configMap

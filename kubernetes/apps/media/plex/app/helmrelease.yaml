@@ -56,29 +56,29 @@ spec:
               capabilities:
                 drop:
                   - ALL
-        pod:
-          affinity:
-            podAntiAffinity:
-              requiredDuringSchedulingIgnoredDuringExecution:
-                - labelSelector:
-                    matchExpressions:
-                      - key: app.kubernetes.io/name
-                        operator: In
-                        values:
-                          - qbittorrent
-                          - sabnzbd
-                  topologyKey: kubernetes.io/hostname
-          nodeSelector:
-            intel.feature.node.kubernetes.io/gpu: "true"
-          securityContext:
-            runAsUser: 568
-            runAsGroup: 568
-            runAsNonRoot: true
-            fsGroup: 568
-            fsGroupChangePolicy: OnRootMismatch
-            supplementalGroups:
-              - 44
-              - 65537
+    defaultPodOptions:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app.kubernetes.io/name
+                    operator: In
+                    values:
+                      - qbittorrent
+                      - sabnzbd
+              topologyKey: kubernetes.io/hostname
+      nodeSelector:
+        intel.feature.node.kubernetes.io/gpu: "true"
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
+        supplementalGroups:
+          - 44
+          - 65537
     ingress:
       app:
         className: external
