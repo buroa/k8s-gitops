@@ -28,6 +28,7 @@ spec:
   targetNamespace: media
   dependsOn:
     - name: cluster-apps-qbittorrent
+    - name: cluster-apps-external-secrets-stores
   path: ./kubernetes/apps/media/qbittorrent/tools
   prune: true
   sourceRef:

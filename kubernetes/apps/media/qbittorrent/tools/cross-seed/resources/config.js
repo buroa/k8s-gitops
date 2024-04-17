@@ -1,23 +1,27 @@
 // Torrent content layout: Original
-// Default Torrent Management Mode: Automatic
+// Default Torrent Management Mode: Manual
 // Default Save Path: /media/downloads/torrents/complete
 // Incomplete Save Path: /media/downloads/torrents/incomplete
 
 module.exports = {
-  delay: 20,
-  port: process.env.PORT || 2468,
-  qbittorrentUrl: "http://qbittorrent.media.svc.cluster.local:8080",
-
-  apiAuth: false,
   action: "inject",
-  matchMode: "safe",
-  skipRecheck: true,
+  apiKey: process.env.CROSS_SEED_API_KEY,
+  dataDirs: [
+    "/media/downloads/torrents/complete/radarr",
+    "/media/downloads/torrents/complete/sonarr",
+    "/media/downloads/torrents/complete/manual",
+  ],
+  delay: 15,
   duplicateCategories: true,
-
-  includeNonVideos: true,
   includeEpisodes: true,
+  includeNonVideos: true,
   includeSingleEpisodes: true,
-
+  linkDir: "/media/downloads/torrents/complete/cross-seed",
+  linkType: "hardlink",
+  matchMode: "safe",
   outputDir: "/config",
+  qbittorrentUrl: "http://qbittorrent.media.svc.cluster.local:8080",
+  skipRecheck: true,
   torrentDir: "/config/qBittorrent/BT_backup",
+  torznab: [], // Only using annoucements from autobrr
 };

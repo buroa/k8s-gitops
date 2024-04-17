@@ -29,12 +29,13 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/buroa/cross-seed
-              tag: dev@sha256:90e39081a0db18e0ea37a76354df218ce861a1cde7713e3a01a9eb626bd459ac
+              repository: ghcr.io/cross-seed/cross-seed
+              tag: v6-unstable@sha256:3a440f268d95793b29ea6e61cfb09ec188ea94ed3b16421d0222a3ebd351ad3c
             args:
               - daemon
-            env:
-              PORT: &port 2468
+            envFrom:
+              - secretRef:
+                  name: cross-seed-secret
             resources:
               requests:
                 cpu: 10m
@@ -51,6 +52,10 @@ spec:
         runAsNonRoot: true
         runAsUser: 568
         runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
+        supplementalGroups:
+          - 65536
     persistence:
       config:
         type: emptyDir
@@ -67,9 +72,17 @@ spec:
           - path: /config/qBittorrent/BT_backup
             subPath: qBittorrent/BT_backup
             readOnly: true
+      media:
+        type: nfs
+        server: nas.${PUBLIC_DOMAIN}
+        path: /volume1/media
+        globalMounts:
+          - path: /media/downloads/torrents
+            subPath: downloads/torrents
+            readOnly: false
     service:
       app:
         controller: *app
         ports:
           http:
-            port: *port
+            port: 2468
