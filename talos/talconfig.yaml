@@ -11,7 +11,7 @@ endpoint: https://k8s.${PUBLIC_DOMAIN}:6443
 # renovate: depName=ghcr.io/buroa/installer datasource=docker
 talosVersion: v1.6.7
 # renovate: depName=ghcr.io/siderolabs/kubelet datasource=docker
-kubernetesVersion: v1.29.3
+kubernetesVersion: v1.29.4
 
 additionalApiServerCertSans: &sans
   - ${CLUSTER_ENDPOINT_IP}
