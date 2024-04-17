@@ -11,7 +11,7 @@ module.exports = {
   includeEpisodes: true,
   includeNonVideos: true,
   includeSingleEpisodes: true,
-  linkDir: "/media/downloads/torrents/complete/xseed",
+  linkDir: "/media/downloads/torrents/complete/cross-seed",
   linkType: "hardlink",
   matchMode: "safe",
   outputDir: "/config",
