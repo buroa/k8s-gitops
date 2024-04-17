@@ -6,17 +6,12 @@
 module.exports = {
   action: "inject",
   apiKey: process.env.CROSS_SEED_API_KEY,
-  dataDirs: [
-    "/media/downloads/torrents/complete/radarr",
-    "/media/downloads/torrents/complete/sonarr",
-    "/media/downloads/torrents/complete/manual",
-  ],
   delay: 15,
   duplicateCategories: true,
   includeEpisodes: true,
   includeNonVideos: true,
   includeSingleEpisodes: true,
-  linkDir: "/media/downloads/torrents/complete/cross-seed",
+  linkDir: "/media/downloads/torrents/complete/xseed",
   linkType: "hardlink",
   matchMode: "safe",
   outputDir: "/config",
