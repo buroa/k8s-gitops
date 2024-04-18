@@ -1,5 +1,5 @@
 // Torrent content layout: Original
-// Default Torrent Management Mode: Manual
+// Default Torrent Management Mode: Automatic
 // Default Save Path: /media/downloads/torrents/complete
 // Incomplete Save Path: /media/downloads/torrents/incomplete
 
