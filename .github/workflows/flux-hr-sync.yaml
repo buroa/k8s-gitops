@@ -48,7 +48,7 @@ jobs:
       - if: ${{ github.event.inputs.helmRepoNamespace == '' && github.event.inputs.helmRepoName == '' }}
         name: Get changed files
         id: changed-files
-        uses: tj-actions/changed-files@e052d30e1c0bdf27cd806b01ca3b393f47b50c62 # v44.1.0
+        uses: tj-actions/changed-files@4c5f5d698fbf2d763d5f13815ac7c2ccbef1ff7f # v44.2.0
         with:
           files: kubernetes/**/helmrelease.yaml
           safe_output: false
