@@ -6,8 +6,9 @@
 module.exports = {
   action: "inject",
   apiKey: process.env.CROSS_SEED_API_KEY,
+  dataCategory: "cross-seed",
   delay: 15,
-  duplicateCategories: true,
+  duplicateCategories: false,
   includeEpisodes: true,
   includeNonVideos: true,
   includeSingleEpisodes: true,
