@@ -46,7 +46,7 @@ spec:
       enabled: true
       annotations:
         grafana_folder: Cilium
-    devices: eth+ thunderbolt+
+    devices: eth+
     enableRuntimeDeviceDetection: true
     endpointRoutes:
       enabled: true
