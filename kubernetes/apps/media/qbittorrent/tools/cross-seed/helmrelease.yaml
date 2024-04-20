@@ -30,7 +30,7 @@ spec:
           app:
             image:
               repository: ghcr.io/cross-seed/cross-seed
-              tag: v6-unstable@sha256:1678dcb6a29e1ed151879be4dfd2b37dbcf69850022d4a32336dede0c3702dcd
+              tag: v6-unstable@sha256:d21ed08ee44b935731d61718ef12c76f2c451708da16a2c198247e4306bec88c
             args:
               - daemon
             envFrom:
