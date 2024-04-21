@@ -88,9 +88,9 @@ jobs:
           echo "images=${images}" >> $GITHUB_OUTPUT
           echo "${images}"
 
-  test-images:
+  inspect-images:
     if: ${{ needs.extract-images.outputs.matrix != '[]' }}
-    name: Test images
+    name: Inspect Images
     runs-on: ubuntu-latest
     needs: ["extract-images"]
     strategy:
@@ -99,14 +99,14 @@ jobs:
       max-parallel: 4
       fail-fast: false
     steps:
-      - name: Test Images
-        run: docker pull ${{ matrix.images }}
+      - name: Inspect Image
+        run: docker manifest inspect ${{ matrix.images }}
 
   # Summarize matrix https://github.community/t/status-check-for-a-matrix-jobs/127354/7
-  test-images-success:
+  inspect-images-success:
     if: ${{ always() }}
-    needs: ["test-images"]
-    name: Test Images Successful
+    needs: ["inspect-images"]
+    name: Inspect Images Successful
     runs-on: ubuntu-latest
     steps:
       - if: ${{ contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled') }}
