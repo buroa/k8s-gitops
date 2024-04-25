@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: cloudnative-pg
-      version: 0.20.2
+      version: 0.21.0
       sourceRef:
         kind: HelmRepository
         name: cloudnative-pg-charts
@@ -29,5 +29,5 @@ spec:
       create: true
     monitoring:
       podMonitorEnabled: false
-      grafanaDashboard:
-        create: true
+      # grafanaDashboard:
+      #   create: true
