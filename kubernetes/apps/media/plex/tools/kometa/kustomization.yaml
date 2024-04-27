@@ -6,7 +6,7 @@ resources:
   - ./helmrelease.yaml
   - ./volsync.yaml
 configMapGenerator:
-  - name: plex-meta-manager-configmap
+  - name: kometa-configmap
     files:
       - ./resources/config.yml
 generatorOptions:

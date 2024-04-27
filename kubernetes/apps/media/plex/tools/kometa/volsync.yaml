@@ -2,18 +2,18 @@
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
-  name: plex-meta-manager-restic
+  name: kometa-restic
 spec:
   secretStoreRef:
     kind: ClusterSecretStore
     name: onepassword-connect
   target:
-    name: plex-meta-manager-restic-secret
+    name: kometa-restic-secret
     creationPolicy: Owner
     template:
       engineVersion: v2
       data:
-        RESTIC_REPOSITORY: "{{ .REPOSITORY_TEMPLATE }}/plex-meta-manager"
+        RESTIC_REPOSITORY: "{{ .REPOSITORY_TEMPLATE }}/kometa"
         RESTIC_PASSWORD: "{{ .RESTIC_PASSWORD }}"
         AWS_ACCESS_KEY_ID: "{{ .AWS_ACCESS_KEY_ID }}"
         AWS_SECRET_ACCESS_KEY: "{{ .AWS_SECRET_ACCESS_KEY }}"
@@ -24,13 +24,13 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: plex-meta-manager
+  name: kometa
 spec:
   accessModes: ["ReadWriteOnce"]
   dataSourceRef:
     kind: ReplicationDestination
     apiGroup: volsync.backube
-    name: plex-meta-manager-rdst
+    name: kometa-rdst
   resources:
     requests:
       storage: 10Gi
@@ -39,12 +39,12 @@ spec:
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
 metadata:
-  name: plex-meta-manager-rdst
+  name: kometa-rdst
 spec:
   trigger:
     manual: restore-once
   restic:
-    repository: plex-meta-manager-restic-secret
+    repository: kometa-restic-secret
     copyMethod: Snapshot
     accessModes: ["ReadWriteOnce"]
     storageClassName: ${CLUSTER_STORAGE_BLOCK}
@@ -61,15 +61,15 @@ spec:
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: plex-meta-manager-rsrc
+  name: kometa-rsrc
 spec:
-  sourcePVC: plex-meta-manager
+  sourcePVC: kometa
   trigger:
     schedule: "15 */8 * * *"
   restic:
     copyMethod: Snapshot
     pruneIntervalDays: 10
-    repository: plex-meta-manager-restic-secret
+    repository: kometa-restic-secret
     accessModes: ["ReadWriteOnce"]
     storageClassName: ${CLUSTER_STORAGE_BLOCK}
     volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}

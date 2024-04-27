@@ -4,4 +4,4 @@ kind: Kustomization
 resources:
   - ./auto-languages
   - ./image-cleanup
-  - ./meta-manager
+  - ./kometa
