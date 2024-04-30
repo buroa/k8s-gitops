@@ -30,7 +30,7 @@ spec:
           app:
             image:
               repository: ghcr.io/buroa/sabnzbd
-              tag: 4.2.3@sha256:da770aaf0a0a9c7a6d77bfa8994159d935992bd75e3f085bfa1bbc889bb2311e
+              tag: 4.2.3@sha256:940fb35946bf88a3ab21b4f658558c5678f820c40d0af63dd7c6729da0d67491
             env:
               TZ: ${TIMEZONE}
               SABNZBD__PORT: &port 8080
