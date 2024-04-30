@@ -38,7 +38,7 @@ spec:
           app:
             image:
               repository: ghcr.io/buroa/radarr-develop
-              tag: 5.5.1.8747@sha256:14a71d8f11596c6a5c2e2af93dcc9291b787e3a6b4cd9f40257395d1709667e7
+              tag: 5.5.1.8747@sha256:c7a3110f7c4296340873d0404af8d2e12aea1ca539bed35854fb1744f6b20bd4
             env:
               TZ: ${TIMEZONE}
               RADARR__AUTHENTICATION_METHOD: External
