@@ -28,7 +28,7 @@ spec:
           app:
             image:
               repository: ghcr.io/buroa/tautulli
-              tag: 2.13.4@sha256:a9df6753143f249f1a3dd644406a8ee48fee5aaa8b53b909f99a7f62d3c58728
+              tag: 2.13.4@sha256:b43862037b25b98bbc5fa1e2f8cd7c88ac472eade6fb6eddc04622095a1ae813
             env:
               TZ: ${TIMEZONE}
             probes:
