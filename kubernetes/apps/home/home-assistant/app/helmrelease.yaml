@@ -38,7 +38,7 @@ spec:
           app:
             image:
               repository: ghcr.io/buroa/home-assistant
-              tag: 2024.4.4@sha256:698c163f5c30eaaa1f32d86c00d35c4ac120546c87e9fde6ce619643481b95d0
+              tag: 2024.4.4@sha256:a471cad766556f93afb04fbf2558b2a8faea198e8f905946554a6d97220bd509
             env:
               TZ: ${TIMEZONE}
               HOME_ASSISTANT_EXTERNAL_URL: https://hass.${PUBLIC_DOMAIN}
