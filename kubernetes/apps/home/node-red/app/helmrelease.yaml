@@ -32,12 +32,12 @@ spec:
               repository: docker.io/nodered/node-red
               tag: 3.1.9@sha256:4f7f84b8e8b8ad67cab30ce1283affe2b3f7cd6ccfb6fc260ad6290202430218
             env:
-              TZ: ${TIMEZONE}
               NODE_RED_OAUTH_ISSUER_URL: https://auth.${PUBLIC_DOMAIN}
               NODE_RED_OAUTH_AUTH_URL: https://auth.${PUBLIC_DOMAIN}/api/oidc/authorization
               NODE_RED_OAUTH_CALLBACK_URL: https://nr.${PUBLIC_DOMAIN}/auth/strategy/callback
               NODE_RED_OAUTH_TOKEN_URL: http://authelia.security.svc.cluster.local:9091/api/oidc/token
               NODE_RED_OAUTH_USER_URL: http://authelia.security.svc.cluster.local:9091/api/oidc/userinfo
+              TZ: ${TIMEZONE}
             envFrom:
               - secretRef:
                   name: node-red-secret

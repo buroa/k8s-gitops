@@ -40,13 +40,13 @@ spec:
               repository: ghcr.io/buroa/radarr-develop
               tag: 5.5.1.8747@sha256:c7a3110f7c4296340873d0404af8d2e12aea1ca539bed35854fb1744f6b20bd4
             env:
-              TZ: ${TIMEZONE}
               RADARR__AUTHENTICATION_METHOD: External
               RADARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
               RADARR__INSTANCE_NAME: Radarr
               RADARR__LOG_LEVEL: info
               RADARR__PORT: &port 7878
               RADARR__THEME: dark
+              TZ: ${TIMEZONE}
             envFrom: *envFrom
             probes:
               liveness: &probes

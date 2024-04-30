@@ -40,11 +40,11 @@ spec:
               repository: ghcr.io/buroa/home-assistant
               tag: 2024.4.4@sha256:a471cad766556f93afb04fbf2558b2a8faea198e8f905946554a6d97220bd509
             env:
-              TZ: ${TIMEZONE}
               HOME_ASSISTANT_EXTERNAL_URL: https://hass.${PUBLIC_DOMAIN}
               HOME_ASSISTANT_PURGE_KEEP_DAYS: 30
               HOME_ASSISTANT_TRUSTED_PROXIES: ${CLUSTER_POD_IP_CIDR}
               HOME_ASSISTANT_UNIT_SYSTEM: imperial
+              TZ: ${TIMEZONE}
             envFrom: *envFrom
             resources:
               requests:

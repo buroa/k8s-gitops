@@ -37,11 +37,11 @@ spec:
               repository: docker.io/meisnate12/plex-image-cleanup
               tag: v1.0.2@sha256:257634cb149f104658079274139bd55d652962ecf331bfda01e71c10686f9e32
             env:
-              TZ: *timeZone
               MODE: remove
               PHOTO_TRANSCODER: true
               PLEX_PATH: /plex/Library/Application Support/Plex Media Server
               PLEX_URL: http://plex.media.svc.cluster.local:32400
+              TZ: *timeZone
             envFrom:
               - secretRef:
                   name: plex-image-cleanup-secret

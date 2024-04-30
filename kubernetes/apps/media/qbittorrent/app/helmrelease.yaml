@@ -30,7 +30,6 @@ spec:
               repository: ghcr.io/buroa/qbittorrent-beta
               tag: 4.6.4@sha256:c9c8d7f4700039c165906538b6fa40b9d621e1c6e2414c7a6c4315c68ade002e
             env:
-              TZ: ${TIMEZONE}
               QBITTORRENT__PORT: &port 8080
               QBITTORRENT__BT_PORT: &bittorrentPort ${TORRENT_PUBLIC_PORT}
               QBT_Application__MemoryWorkingSetLimit:
@@ -50,6 +49,7 @@ spec:
                   fieldRef:
                     fieldPath: status.podIP
               QBT_BitTorrent__Session__InterfaceName: eth0
+              TZ: ${TIMEZONE}
             probes:
               liveness: &probes
                 enabled: true

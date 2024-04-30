@@ -40,13 +40,13 @@ spec:
               repository: ghcr.io/buroa/prowlarr-develop
               tag: 1.17.0.4448@sha256:68b5d558eb3aa56575cf10e0f10546b2e76b38c567a9b407695da3cfde509f4b
             env:
-              TZ: ${TIMEZONE}
               PROWLARR__AUTHENTICATION_METHOD: External
               PROWLARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
               PROWLARR__INSTANCE_NAME: Prowlarr
               PROWLARR__PORT: &port 9696
               PROWLARR__LOG_LEVEL: info
               PROWLARR__THEME: dark
+              TZ: ${TIMEZONE}
             envFrom: *envFrom
             probes:
               liveness: &probes

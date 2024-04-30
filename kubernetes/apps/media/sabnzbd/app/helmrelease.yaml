@@ -32,7 +32,6 @@ spec:
               repository: ghcr.io/buroa/sabnzbd
               tag: 4.2.3@sha256:940fb35946bf88a3ab21b4f658558c5678f820c40d0af63dd7c6729da0d67491
             env:
-              TZ: ${TIMEZONE}
               SABNZBD__PORT: &port 8080
               SABNZBD__HOST_WHITELIST_ENTRIES: >-
                 sabnzbd,
@@ -42,6 +41,7 @@ spec:
                 sabnzbd.media.svc.cluster.local,
                 {{ .Release.Name }}.${PUBLIC_DOMAIN},
                 sab.${PUBLIC_DOMAIN}
+              TZ: ${TIMEZONE}
             envFrom:
               - secretRef:
                   name: sabnzbd-secret

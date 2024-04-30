@@ -39,8 +39,8 @@ spec:
             args:
               - sync
             env:
-              TZ: *timeZone
               COMPlus_EnableDiagnostics: 0
+              TZ: *timeZone
             envFrom:
               - secretRef:
                   name: recyclarr-secret
