@@ -26,7 +26,7 @@ spec:
     image:
       # TODO: Update the image to a semver tag
       repository: quay.io/prometheus/snmp-exporter
-      tag: main@sha256:a42fbc16fd1f389f199a32a75c1401785ad0f445da1841c44aba8bef98112a93
+      tag: main@sha256:2e9306915ceb0926f64f6b3f9093981307e9b056ea7f757caa972723aa866434
     serviceMonitor:
       enabled: true
       params:
