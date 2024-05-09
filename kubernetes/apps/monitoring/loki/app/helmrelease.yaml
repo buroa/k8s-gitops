@@ -99,11 +99,6 @@ spec:
         storageClass: ${CLUSTER_STORAGE_HOSTPATH}
     lokiCanary:
       enabled: false
-    monitoring:
-      serviceMonitor:
-        enabled: true
-        metricsInstance:
-          enabled: false
     sidecar:
       image:
         repository: ghcr.io/kiwigrid/k8s-sidecar
