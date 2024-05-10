@@ -57,6 +57,7 @@ spec:
             readOnly: true
       run:
         type: emptyDir
+        medium: Memory
       sys:
         type: hostPath
         hostPath: /sys
