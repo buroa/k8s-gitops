@@ -24,9 +24,8 @@ spec:
   values:
     fullnameOverride: *app
     image:
-      # TODO: Update the image to a semver tag
       repository: quay.io/prometheus/snmp-exporter
-      tag: main@sha256:960d42f713bc5b74a31b4103b6c835d863efaf2cdb216f56a6cdb1b3edf236e8
+      tag: v0.26.0@sha256:b3da18ef33033c043f050d4c3fa63431715bfba2e1b12745210a0bcbfb7079b5
     serviceMonitor:
       enabled: true
       params:
