@@ -2,18 +2,18 @@
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
-  name: tautulli-restic
+  name: scrypted-restic
 spec:
   secretStoreRef:
     kind: ClusterSecretStore
     name: onepassword-connect
   target:
-    name: tautulli-restic-secret
+    name: scrypted-restic-secret
     creationPolicy: Owner
     template:
       engineVersion: v2
       data:
-        RESTIC_REPOSITORY: "{{ .REPOSITORY_TEMPLATE }}/tautulli"
+        RESTIC_REPOSITORY: "{{ .REPOSITORY_TEMPLATE }}/scrypted"
         RESTIC_PASSWORD: "{{ .RESTIC_PASSWORD }}"
         AWS_ACCESS_KEY_ID: "{{ .AWS_ACCESS_KEY_ID }}"
         AWS_SECRET_ACCESS_KEY: "{{ .AWS_SECRET_ACCESS_KEY }}"
@@ -24,27 +24,27 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: tautulli
+  name: scrypted
 spec:
   accessModes: ["ReadWriteOnce"]
   dataSourceRef:
     kind: ReplicationDestination
     apiGroup: volsync.backube
-    name: tautulli-rdst
+    name: scrypted-rdst
   resources:
     requests:
-      storage: 2Gi
+      storage: 5Gi
   storageClassName: ${CLUSTER_STORAGE_BLOCK}
 ---
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
 metadata:
-  name: tautulli-rdst
+  name: scrypted-rdst
 spec:
   trigger:
     manual: restore-once
   restic:
-    repository: tautulli-restic-secret
+    repository: scrypted-restic-secret
     copyMethod: Snapshot
     accessModes: ["ReadWriteOnce"]
     storageClassName: ${CLUSTER_STORAGE_BLOCK}
@@ -52,19 +52,19 @@ spec:
     cacheAccessModes: ["ReadWriteOnce"]
     cacheCapacity: 8Gi
     cacheStorageClassName: ${CLUSTER_STORAGE_HOSTPATH}
-    capacity: 2Gi # must match the PersistentVolumeClaim `.resources.requests.storage` size above
+    capacity: 5Gi # must match the PersistentVolumeClaim `.resources.requests.storage` size above
 ---
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: tautulli-rsrc
+  name: scrypted-rsrc
 spec:
-  sourcePVC: tautulli
+  sourcePVC: scrypted
   trigger:
     schedule: "15 */8 * * *"
   restic:
     pruneIntervalDays: 7
-    repository: tautulli-restic-secret
+    repository: scrypted-restic-secret
     copyMethod: Snapshot
     accessModes: ["ReadWriteOnce"]
     storageClassName: ${CLUSTER_STORAGE_BLOCK}

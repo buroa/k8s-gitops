@@ -8,5 +8,6 @@ resources:
   - ./home-assistant/ks.yaml
   - ./miniflux/ks.yaml
   - ./node-red/ks.yaml
+  - ./scrypted/ks.yaml
   - ./thelounge/ks.yaml
   - ./zigbee2mqtt/ks.yaml

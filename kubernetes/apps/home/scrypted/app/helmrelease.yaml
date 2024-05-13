@@ -1,0 +1,106 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: &app scrypted
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  values:
+    controllers:
+      scrypted:
+        containers:
+          app:
+            image:
+              repository: ghcr.io/koush/scrypted
+              tag: v0.102.0-jammy-full@sha256:019ca3a15fae3fe8dea7fbc7fddfbf1f4c9af9310812cd1a2a40dbd958182c2f
+            env:
+              TZ: ${TIMEZONE}
+            resources:
+              requests:
+                cpu: 100m
+              limits:
+                gpu.intel.com/i915: 1
+                smarter-devices/tpu: 1
+                memory: 8Gi
+            securityContext:
+              privileged: true
+    defaultPodOptions:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app.kubernetes.io/name
+                    operator: In
+                    values:
+                      - plex
+              topologyKey: kubernetes.io/hostname
+      annotations:
+        k8s.v1.cni.cncf.io/networks: |
+          [{
+            "name": "multus-iot",
+            "namespace": "networking",
+            "ips": ["10.0.2.253/24"]
+          }]
+      nodeSelector:
+        google.feature.node.kubernetes.io/coral: "true"
+        intel.feature.node.kubernetes.io/gpu: "true"
+    service:
+      app:
+        controller: *app
+        ports:
+          http:
+            port: 10443
+          rebroadcast:
+            port: 34135
+    ingress:
+      app:
+        className: internal
+        annotations:
+          hajimari.io/icon: cbi:scrypted
+          hajimari.io/url: https://nvr.${PUBLIC_DOMAIN}
+          nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+        hosts:
+          - host: &host "{{ .Release.Name }}.${PUBLIC_DOMAIN}"
+            paths: &paths
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+          - host: &customHost nvr.${PUBLIC_DOMAIN}
+            paths: *paths
+        tls:
+          - hosts:
+              - *host
+              - *customHost
+    persistence:
+      cache:
+        type: emptyDir
+        globalMounts:
+          - path: /.cache
+      config:
+        existingClaim: *app
+        globalMounts:
+          - path: /server/volume
+      npm:
+        type: emptyDir
+        globalMounts:
+          - path: /.npm
+      recs:
+        existingClaim: scrypted-recs

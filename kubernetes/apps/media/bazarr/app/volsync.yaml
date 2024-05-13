@@ -52,10 +52,6 @@ spec:
     cacheAccessModes: ["ReadWriteOnce"]
     cacheCapacity: 8Gi
     cacheStorageClassName: ${CLUSTER_STORAGE_HOSTPATH}
-    moverSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
     capacity: 2Gi # must match the PersistentVolumeClaim `.resources.requests.storage` size above
 ---
 apiVersion: volsync.backube/v1alpha1
@@ -67,7 +63,7 @@ spec:
   trigger:
     schedule: "15 */8 * * *"
   restic:
-    pruneIntervalDays: 10
+    pruneIntervalDays: 7
     repository: bazarr-restic-secret
     copyMethod: Snapshot
     accessModes: ["ReadWriteOnce"]
@@ -81,5 +77,6 @@ spec:
       runAsGroup: 568
       fsGroup: 568
     retain:
-      daily: 10
-      within: 3d
+      hourly: 24
+      daily: 7
+      weekly: 5
