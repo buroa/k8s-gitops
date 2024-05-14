@@ -273,7 +273,7 @@ spec:
             - name: DS_PROMETHEUS
               value: Prometheus
             - name: VAR_BLOCKY_URL
-              value: https:\\/\\/blocky.${PUBLIC_DOMAIN}
+              value: https:\/\/blocky.${PUBLIC_DOMAIN}
         blocky-query:
           url: https://raw.githubusercontent.com/0xERR0R/blocky/main/docs/blocky-query-grafana-postgres.json
           datasource:
