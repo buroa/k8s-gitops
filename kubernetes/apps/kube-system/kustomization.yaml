@@ -6,11 +6,11 @@ resources:
   - ./coredns/ks.yaml
   - ./descheduler/ks.yaml
   - ./fstrim/ks.yaml
+  - ./generic-device-plugin/ks.yaml
   - ./intel-device-plugin/ks.yaml
   - ./kubelet-csr-approver/ks.yaml
   - ./mbpfan/ks.yaml
   - ./metrics-server/ks.yaml
   - ./node-feature-discovery/ks.yaml
   - ./reloader/ks.yaml
-  - ./smarter-device-manager/ks.yaml
   - ./spegel/ks.yaml

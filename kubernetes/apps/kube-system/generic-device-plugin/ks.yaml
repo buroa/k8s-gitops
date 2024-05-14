@@ -2,13 +2,11 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-smarter-device-manager
+  name: cluster-apps-generic-device-plugin
   namespace: flux-system
 spec:
   targetNamespace: kube-system
-  dependsOn:
-    - name: cluster-apps-node-feature-discovery-features
-  path: ./kubernetes/apps/kube-system/smarter-device-manager/app
+  path: ./kubernetes/apps/kube-system/generic-device-plugin/app
   prune: true
   sourceRef:
     kind: GitRepository

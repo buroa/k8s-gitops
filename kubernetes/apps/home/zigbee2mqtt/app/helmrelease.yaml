@@ -59,7 +59,7 @@ spec:
               ZIGBEE2MQTT_CONFIG_PERMIT_JOIN: false
               ZIGBEE2MQTT_CONFIG_SERIAL_BAUDRATE: 38400
               ZIGBEE2MQTT_CONFIG_SERIAL_DISABLE_LED: false
-              ZIGBEE2MQTT_CONFIG_SERIAL_PORT: /dev/ttyACM0
+              ZIGBEE2MQTT_CONFIG_SERIAL_PORT: /dev/serial/by-id/usb-dresden_elektronik_ingenieurtechnik_GmbH_ConBee_II_DE2218307-if00
               ZIGBEE2MQTT_CONFIG_SERIAL_ADAPTER: deconz
             envFrom:
               - secretRef:
@@ -73,7 +73,7 @@ spec:
               requests:
                 cpu: 10m
               limits:
-                smarter-devices/ttyACM0: 1
+                squat.ai/conbee: 1
                 memory: 256Mi
             securityContext:
               allowPrivilegeEscalation: false

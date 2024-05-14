@@ -1,0 +1,92 @@
+---
+logger:
+  default: info
+  # logs:
+  #   frigate.record: debug
+
+mqtt:
+  host: emqx-listeners.databases.svc.cluster.local
+  topic_prefix: frigate
+  user: "{{ .X_EMQX_MQTT_USERNAME }}"
+  password: "{{ .X_EMQX_MQTT_PASSWORD }}"
+
+database:
+  path: /config/frigate.db
+
+detectors:
+  coral:
+    type: edgetpu
+    device: usb
+
+ffmpeg:
+  hwaccel_args: preset-vaapi
+  output_args:
+    record: preset-record-ubiquiti
+
+snapshots:
+  enabled: true
+  timestamp: false
+  bounding_box: true
+  retain:
+    default: 1
+
+record:
+  enabled: true
+  retain:
+    days: 1
+    mode: all
+  events:
+    retain:
+      default: 1
+      mode: active_objects
+
+objects:
+  track: ["person"]
+  filters:
+    person:
+      min_area: 5000
+      max_area: 100000
+      threshold: 0.7
+
+go2rtc:
+  streams:
+    frigate_entry_hq: rtspx://unifi.${PUBLIC_DOMAIN}:7441/N33NndYP9jDIKdjc
+    frigate_entry_lq: rtspx://unifi.${PUBLIC_DOMAIN}:7441/2hpZHKYsVVOmRz7N
+    frigate_living_room_hq: rtspx://unifi.${PUBLIC_DOMAIN}:7441/N1GGxypfxkFtIMiN
+    frigate_living_room_lq: rtspx://unifi.${PUBLIC_DOMAIN}:7441/46ec8ZfsLrg38cIV
+  homekit:
+    frigate_entry_hq:
+      name: Frigate Entry
+      pairings:
+        - client_id={{ .FRIGATE_HOMEKIT_CLIENT_ID_0 }}&client_public={{ .FRIGATE_HOMEKIT_CLIENT_PUBLIC_0 }}&permissions=0
+        - client_id={{ .FRIGATE_HOMEKIT_CLIENT_ID_1 }}&client_public={{ .FRIGATE_HOMEKIT_CLIENT_PUBLIC_1 }}&permissions=1
+    frigate_living_room_hq:
+      name: Frigate Living Room
+      pairings:
+        - client_id={{ .FRIGATE_HOMEKIT_CLIENT_ID_0 }}&client_public={{ .FRIGATE_HOMEKIT_CLIENT_PUBLIC_0 }}&permissions=0
+        - client_id={{ .FRIGATE_HOMEKIT_CLIENT_ID_1 }}&client_public={{ .FRIGATE_HOMEKIT_CLIENT_PUBLIC_1 }}&permissions=1
+
+cameras:
+  frigate_entry:
+    ffmpeg:
+      inputs:
+        - path: rtsp://localhost:8554/frigate_entry_lq
+          roles: ["detect"]
+        - path: rtsp://localhost:8554/frigate_entry_hq
+          roles: ["record"]
+    detect:
+      width: 1024
+      height: 576
+      fps: 24
+
+  frigate_living_room:
+    ffmpeg:
+      inputs:
+        - path: rtsp://localhost:8554/frigate_living_room_lq
+          roles: ["detect"]
+        - path: rtsp://localhost:8554/frigate_living_room_hq
+          roles: ["record"]
+    detect:
+      width: 1024
+      height: 576
+      fps: 24

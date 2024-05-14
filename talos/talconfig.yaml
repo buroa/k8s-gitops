@@ -462,11 +462,11 @@ controlPlane:
             - ACTION=="add", SUBSYSTEM=="thunderbolt", ATTR{authorized}=="0", ATTR{authorized}="1"
             # Intel GPU
             - SUBSYSTEM=="drm", KERNEL=="renderD*", GROUP="44", MODE="0660"
-            # Zigbee2MQTT USB
-            - KERNEL=="ttyACM[0-9]", GROUP="20", MODE="0660"
+            # Phoscon ConBee II The Universal Zigbee USB Gateway
+            - SUBSYSTEMS=="usb", ATTRS{idVendor}=="1cf1", ATTRS{idProduct}=="0030", GROUP="20", MODE="0660"
             # Google Coral USB Accelerator
-            - SUBSYSTEMS=="usb", ATTRS{idVendor}=="1a6e", ATTRS{idProduct}=="089a", GROUP="20", MODE="0660", SYMLINK+="tpu"
-            - SUBSYSTEMS=="usb", ATTRS{idVendor}=="18d1", ATTRS{idProduct}=="9302", GROUP="20", MODE="0660", SYMLINK+="tpu"
+            - SUBSYSTEMS=="usb", ATTRS{idVendor}=="1a6e", ATTRS{idProduct}=="089a", GROUP="20", MODE="0660"
+            - SUBSYSTEMS=="usb", ATTRS{idVendor}=="18d1", ATTRS{idProduct}=="9302", GROUP="20", MODE="0660"
 
     # Cluster configuration
     - |-

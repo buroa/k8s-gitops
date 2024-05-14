@@ -10,7 +10,7 @@ spec:
     - name: cluster-apps-volsync
     - name: cluster-apps-emqx-cluster
     - name: cluster-apps-rook-ceph-cluster
-    - name: cluster-apps-smarter-device-manager
+    - name: cluster-apps-generic-device-plugin
     - name: cluster-apps-external-secrets-stores
   path: ./kubernetes/apps/home/zigbee2mqtt/app
   prune: true

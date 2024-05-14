@@ -2,18 +2,18 @@
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
-  name: scrypted-restic
+  name: frigate-restic
 spec:
   secretStoreRef:
     kind: ClusterSecretStore
     name: onepassword-connect
   target:
-    name: scrypted-restic-secret
+    name: frigate-restic-secret
     creationPolicy: Owner
     template:
       engineVersion: v2
       data:
-        RESTIC_REPOSITORY: "{{ .REPOSITORY_TEMPLATE }}/scrypted"
+        RESTIC_REPOSITORY: "{{ .REPOSITORY_TEMPLATE }}/frigate"
         RESTIC_PASSWORD: "{{ .RESTIC_PASSWORD }}"
         AWS_ACCESS_KEY_ID: "{{ .AWS_ACCESS_KEY_ID }}"
         AWS_SECRET_ACCESS_KEY: "{{ .AWS_SECRET_ACCESS_KEY }}"
@@ -24,13 +24,13 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: scrypted
+  name: frigate
 spec:
   accessModes: ["ReadWriteOnce"]
   dataSourceRef:
     kind: ReplicationDestination
     apiGroup: volsync.backube
-    name: scrypted-rdst
+    name: frigate-rdst
   resources:
     requests:
       storage: 5Gi
@@ -39,12 +39,12 @@ spec:
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
 metadata:
-  name: scrypted-rdst
+  name: frigate-rdst
 spec:
   trigger:
     manual: restore-once
   restic:
-    repository: scrypted-restic-secret
+    repository: frigate-restic-secret
     copyMethod: Snapshot
     accessModes: ["ReadWriteOnce"]
     storageClassName: ${CLUSTER_STORAGE_BLOCK}
@@ -57,14 +57,14 @@ spec:
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: scrypted-rsrc
+  name: frigate-rsrc
 spec:
-  sourcePVC: scrypted
+  sourcePVC: frigate
   trigger:
     schedule: "15 */8 * * *"
   restic:
     pruneIntervalDays: 7
-    repository: scrypted-restic-secret
+    repository: frigate-restic-secret
     copyMethod: Snapshot
     accessModes: ["ReadWriteOnce"]
     storageClassName: ${CLUSTER_STORAGE_BLOCK}

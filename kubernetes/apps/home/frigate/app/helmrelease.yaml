@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: &app scrypted
+  name: &app frigate
 spec:
   interval: 30m
   chart:
@@ -23,23 +23,39 @@ spec:
       retries: 3
   values:
     controllers:
-      scrypted:
+      frigate:
+        annotations:
+          reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
-              repository: ghcr.io/koush/scrypted
-              tag: v0.105.0-jammy-full@sha256:ae408f96b85641e67fbb527c7226a9b9dc25f536aae2fffdfd4cea86c19db7ec
+              repository: ghcr.io/blakeblackshear/frigate
+              tag: 0.13.2@sha256:2906991ccad85035b176941f9dedfd35088ff710c39d45ef1baa9a49f2b16734
             env:
               TZ: ${TIMEZONE}
+            envFrom:
+              - secretRef:
+                  name: frigate-secret
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/version
+                    port: &port 5000
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
             resources:
               requests:
                 cpu: 100m
               limits:
                 gpu.intel.com/i915: 1
-                smarter-devices/tpu: 1
+                squat.ai/coral: 1
                 memory: 8Gi
-            securityContext:
-              privileged: true
     defaultPodOptions:
       affinity:
         podAntiAffinity:
@@ -61,21 +77,24 @@ spec:
       nodeSelector:
         google.feature.node.kubernetes.io/coral: "true"
         intel.feature.node.kubernetes.io/gpu: "true"
+      securityContext:
+        supplementalGroups:
+          - 20
+          - 65536
     service:
       app:
         controller: *app
         ports:
           http:
-            port: 10443
-          rebroadcast:
-            port: 34135
+            port: *port
+          rtsp:
+            port: 8554
     ingress:
       app:
         className: internal
         annotations:
-          hajimari.io/icon: cbi:scrypted
+          hajimari.io/icon: cbi:frigate
           hajimari.io/url: https://nvr.${PUBLIC_DOMAIN}
-          nginx.ingress.kubernetes.io/backend-protocol: HTTPS
         hosts:
           - host: &host "{{ .Release.Name }}.${PUBLIC_DOMAIN}"
             paths: &paths
@@ -92,15 +111,22 @@ spec:
     persistence:
       cache:
         type: emptyDir
+        medium: Memory
+        sizeLimit: 4Gi
         globalMounts:
-          - path: /.cache
+          - path: /dev/shm
       config:
         existingClaim: *app
+      config-file:
+        type: secret
+        name: frigate-secret
         globalMounts:
-          - path: /server/volume
-      npm:
-        type: emptyDir
+          - path: /config/config.yml
+            subPath: config.yml
+            readOnly: true
+      media:
+        type: nfs
+        server: nas.${PUBLIC_DOMAIN}
+        path: /volume1/media
         globalMounts:
-          - path: /.npm
-      recs:
-        existingClaim: scrypted-recs
+          - subPath: cameras
