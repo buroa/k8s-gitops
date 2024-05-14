@@ -38,7 +38,7 @@ spec:
           app:
             image:
               repository: ghcr.io/buroa/radarr-develop
-              tag: 5.5.3.8819@sha256:b287e00991060c2401848ff78d84cd306783f590bcef3dedfe23115f86d6afaa
+              tag: 5.6.0.8846@sha256:8b8dceacb9bdff2d5fa2f52b8279e49a0fc03a144eee7c89faefd069602a9c31
             env:
               RADARR__AUTHENTICATION_METHOD: External
               RADARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
