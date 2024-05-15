@@ -19,8 +19,7 @@ detectors:
     device: usb
 
 ffmpeg:
-  global_args: ["-hide_banner", "-loglevel", "warning"]
-  hwaccel_args: ["-hwaccel", "vaapi", "-hwaccel_device", "/dev/dri/renderD128", "-hwaccel_output_format", "yuv420p"]
+  hwaccel_args: preset-intel-qsv-h264
   output_args:
     record: preset-record-ubiquiti
 
@@ -55,15 +54,15 @@ go2rtc:
     frigate_entry_lq: rtspx://unifi.${PUBLIC_DOMAIN}:7441/S0dI682kz5qAWSaZ
     frigate_living_room_hq: rtspx://unifi.${PUBLIC_DOMAIN}:7441/N1GGxypfxkFtIMiN
     frigate_living_room_lq: rtspx://unifi.${PUBLIC_DOMAIN}:7441/v69eXXecDdWQq9fk
-  # homekit:
-  #   frigate_entry_hq:
-  #     pairings:
-  #       - client_id={{ .FRIGATE_HOMEKIT_CLIENT_ID_0 }}&client_public={{ .FRIGATE_HOMEKIT_CLIENT_PUBLIC_0 }}&permissions=0
-  #       - client_id={{ .FRIGATE_HOMEKIT_CLIENT_ID_1 }}&client_public={{ .FRIGATE_HOMEKIT_CLIENT_PUBLIC_1 }}&permissions=1
-  #   frigate_living_room_hq:
-  #     pairings:
-  #       - client_id={{ .FRIGATE_HOMEKIT_CLIENT_ID_0 }}&client_public={{ .FRIGATE_HOMEKIT_CLIENT_PUBLIC_0 }}&permissions=0
-  #       - client_id={{ .FRIGATE_HOMEKIT_CLIENT_ID_1 }}&client_public={{ .FRIGATE_HOMEKIT_CLIENT_PUBLIC_1 }}&permissions=1
+  homekit:
+    frigate_entry_hq:
+      pairings:
+        - client_id={{ .FRIGATE_HOMEKIT_CLIENT_ID_0 }}&client_public={{ .FRIGATE_HOMEKIT_CLIENT_PUBLIC_0 }}&permissions=0
+        - client_id={{ .FRIGATE_HOMEKIT_CLIENT_ID_1 }}&client_public={{ .FRIGATE_HOMEKIT_CLIENT_PUBLIC_1 }}&permissions=1
+    frigate_living_room_hq:
+      pairings:
+        - client_id={{ .FRIGATE_HOMEKIT_CLIENT_ID_0 }}&client_public={{ .FRIGATE_HOMEKIT_CLIENT_PUBLIC_0 }}&permissions=0
+        - client_id={{ .FRIGATE_HOMEKIT_CLIENT_ID_1 }}&client_public={{ .FRIGATE_HOMEKIT_CLIENT_PUBLIC_1 }}&permissions=1
 
 cameras:
   frigate_entry:
@@ -89,3 +88,7 @@ cameras:
       width: 1280
       height: 720
       fps: 10
+
+telemetry:
+  stats:
+    intel_gpu_stats: false
