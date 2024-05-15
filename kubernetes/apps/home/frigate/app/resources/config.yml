@@ -50,16 +50,22 @@ objects:
 
 go2rtc:
   streams:
-    frigate_entry: rtspx://unifi.${PUBLIC_DOMAIN}:7441/N33NndYP9jDIKdjc
-    frigate_living_room: rtspx://unifi.${PUBLIC_DOMAIN}:7441/N1GGxypfxkFtIMiN
+    frigate_entry_hq: rtspx://unifi.${PUBLIC_DOMAIN}:7441/N33NndYP9jDIKdjc
+    frigate_entry_lq: rtspx://unifi.${PUBLIC_DOMAIN}:7441/2hpZHKYsVVOmRz7N
+    frigate_living_room_hq: rtspx://unifi.${PUBLIC_DOMAIN}:7441/N1GGxypfxkFtIMiN
+    frigate_living_room_lq: rtspx://unifi.${PUBLIC_DOMAIN}:7441/46ec8ZfsLrg38cIV
+    frigate_entry_homekit:
+      - rtspx://unifi.${PUBLIC_DOMAIN}:7441/N33NndYP9jDIKdjc
+      - ffmpeg:frigate_entry_hk#audio=opus
+    frigate_living_room_homekit:
+      - rtspx://unifi.${PUBLIC_DOMAIN}:7441/N1GGxypfxkFtIMiN
+      - ffmpeg:frigate_living_room_hk#audio=opus
   homekit:
-    frigate_entry:
-      name: Frigate Entry
+    frigate_entry_homekit:
       pairings:
         - client_id={{ .FRIGATE_HOMEKIT_CLIENT_ID_0 }}&client_public={{ .FRIGATE_HOMEKIT_CLIENT_PUBLIC_0 }}&permissions=0
         - client_id={{ .FRIGATE_HOMEKIT_CLIENT_ID_1 }}&client_public={{ .FRIGATE_HOMEKIT_CLIENT_PUBLIC_1 }}&permissions=1
-    frigate_living_room:
-      name: Frigate Living Room
+    frigate_living_room_homekit:
       pairings:
         - client_id={{ .FRIGATE_HOMEKIT_CLIENT_ID_0 }}&client_public={{ .FRIGATE_HOMEKIT_CLIENT_PUBLIC_0 }}&permissions=0
         - client_id={{ .FRIGATE_HOMEKIT_CLIENT_ID_1 }}&client_public={{ .FRIGATE_HOMEKIT_CLIENT_PUBLIC_1 }}&permissions=1
@@ -68,19 +74,27 @@ cameras:
   frigate_entry:
     ffmpeg:
       inputs:
-        - path: rtsp://localhost:8554/frigate_entry
-          roles: ["detect", "record"]
+        - path: rtsp://localhost:8554/frigate_entry_lq
+          roles: ["detect"]
+        - path: rtsp://localhost:8554/frigate_entry_hq
+          roles: ["record"]
     detect:
-      width: 1920
-      height: 1080
-      fps: 30
+      width: 1280
+      height: 720
+      fps: 10
 
   frigate_living_room:
     ffmpeg:
       inputs:
-        - path: rtsp://localhost:8554/frigate_living_room
-          roles: ["detect", "record"]
+        - path: rtsp://localhost:8554/frigate_living_room_lq
+          roles: ["detect"]
+        - path: rtsp://localhost:8554/frigate_living_room_hq
+          roles: ["record"]
     detect:
-      width: 1920
-      height: 1080
-      fps: 30
+      width: 1280
+      height: 720
+      fps: 10
+
+telemetry:
+  stats:
+    intel_gpu_stats: false
