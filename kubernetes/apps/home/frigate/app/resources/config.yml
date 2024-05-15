@@ -19,8 +19,7 @@ detectors:
     device: usb
 
 ffmpeg:
-  global_args: ["-hide_banner", "-loglevel", "warning"]
-  hwaccel_args: ["-hwaccel", "vaapi", "-hwaccel_device", "/dev/dri/renderD128", "-hwaccel_output_format", "yuv420p"]
+  hwaccel_args: preset-vaapi
   output_args:
     record: preset-record-ubiquiti
 
@@ -73,6 +72,7 @@ cameras:
       inputs:
         - path: rtsp://localhost:8554/frigate_entry_lq
           roles: ["detect"]
+          hwaccel_args: # not used for stream
         - path: rtsp://localhost:8554/frigate_entry_hq
           roles: ["record"]
     detect:
@@ -85,6 +85,7 @@ cameras:
       inputs:
         - path: rtsp://localhost:8554/frigate_living_room_lq
           roles: ["detect"]
+          hwaccel_args: # not used for stream
         - path: rtsp://localhost:8554/frigate_living_room_hq
           roles: ["record"]
     detect:
