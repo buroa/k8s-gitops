@@ -28,7 +28,7 @@ spec:
           app:
             image:
               repository: ghcr.io/buroa/qbittorrent-beta
-              tag: 4.6.4@sha256:c9c8d7f4700039c165906538b6fa40b9d621e1c6e2414c7a6c4315c68ade002e
+              tag: 4.6.4@sha256:405183fa3f9ffcf5b42890747569807f3c1c6ee33ac713a77afa601cf0858052
             env:
               QBITTORRENT__PORT: &port 8080
               QBITTORRENT__BT_PORT: &bittorrentPort ${TORRENT_PUBLIC_PORT}
