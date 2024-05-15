@@ -4,10 +4,7 @@
     {
       description: ["Actions Runner Controller Group"],
       groupName: "Actions Runner Controller",
-      matchPackagePatterns: [
-        "gha-runner-scale-set-controller",
-        "gha-runner-scale-set",
-      ],
+      matchPackagePatterns: ["gha-runner-scale-set"],
       matchDatasources: ["docker", "helm"],
       group: {
         commitMessageTopic: "{{{groupName}}} group",
@@ -38,10 +35,7 @@
     {
       description: ["Intel-Device-Plugins Group"],
       groupName: "Intel-Device-Plugins",
-      matchPackagePatterns: [
-        "intel-device-plugins-operator",
-        "intel-device-plugins-gpu",
-      ],
+      matchPackagePatterns: ["intel-device-plugins"],
       matchDatasources: ["helm"],
       group: {
         commitMessageTopic: "{{{groupName}}} group",
@@ -59,31 +53,10 @@
       separateMinorPatch: true,
     },
     {
-      description: ["System Upgrade Controller Group"],
-      groupName: "System Upgrade Controller",
-      matchPackagePatterns: ["system-upgrade-controller"],
-      matchDatasources: ["docker", "github-releases"],
-      group: {
-        commitMessageTopic: "{{{groupName}}} group",
-      },
-      separateMinorPatch: true,
-    },
-    {
       description: ["Talos Group"],
       groupName: "Talos",
       matchPackagePatterns: ["buroa/installer", "siderolabs/talosctl"],
       matchDatasources: ["docker"],
-      group: {
-        commitMessageTopic: "{{{groupName}}} group",
-      },
-      separateMinorPatch: true,
-    },
-    {
-      description: ["Volsync Group"],
-      groupName: "Volsync",
-      matchPackagePatterns: ["volsync"],
-      matchDatasources: ["docker", "helm"],
-      matchUpdateTypes: ["minor", "patch"],
       group: {
         commitMessageTopic: "{{{groupName}}} group",
       },
