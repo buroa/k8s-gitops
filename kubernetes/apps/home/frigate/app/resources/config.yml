@@ -72,7 +72,7 @@ cameras:
       inputs:
         - path: rtsp://localhost:8554/frigate_entry_lq
           roles: ["detect"]
-          hwaccel_args: # not used for stream
+          hwaccel_args: "" # not used for stream
         - path: rtsp://localhost:8554/frigate_entry_hq
           roles: ["record"]
     detect:
@@ -85,7 +85,7 @@ cameras:
       inputs:
         - path: rtsp://localhost:8554/frigate_living_room_lq
           roles: ["detect"]
-          hwaccel_args: # not used for stream
+          hwaccel_args: "" # not used for stream
         - path: rtsp://localhost:8554/frigate_living_room_hq
           roles: ["record"]
     detect:
