@@ -36,6 +36,19 @@
       separateMinorPatch: true,
     },
     {
+      description: ["Intel-Device-Plugins Group"],
+      groupName: "Intel-Device-Plugins",
+      matchPackagePatterns: [
+        "intel-device-plugins-operator",
+        "intel-device-plugins-gpu",
+      ],
+      matchDatasources: ["helm"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+      separateMinorPatch: true,
+    },
+    {
       description: ["Rook-Ceph Group"],
       groupName: "Rook-Ceph",
       matchPackagePatterns: ["rook.ceph"],
