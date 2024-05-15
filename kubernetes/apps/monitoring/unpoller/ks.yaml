@@ -6,6 +6,8 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: monitoring
+  dependsOn:
+    - name: cluster-apps-external-secrets-stores
   path: ./kubernetes/apps/monitoring/unpoller/app
   prune: true
   sourceRef:
