@@ -63,8 +63,8 @@ receivers:
         send_resolved: true
         sound: gamelan
         title: >-
-          {{ "{{" }} .CommonLabels.alertname {{ "}}" }}
           [{{ "{{" }} .Status | toUpper {{ "}}" }}{{ "{{" }} if eq .Status "firing" {{ "}}" }}:{{ "{{" }} .Alerts.Firing | len {{ "}}" }}{{ "{{" }} end {{ "}}" }}]
+          {{ "{{" }} .CommonLabels.alertname {{ "}}" }}
         token: "{{ .ALERTMANAGER_PUSHOVER_APP_TOKEN }}"
         # ttl: "{{ .ALERTMANAGER_PUSHOVER_TTL }}"
         url_title: View in Alertmanager
