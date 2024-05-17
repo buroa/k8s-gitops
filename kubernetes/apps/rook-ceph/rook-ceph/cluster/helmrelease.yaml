@@ -213,6 +213,7 @@ spec:
               size: 3
           preservePoolsOnDelete: true
           gateway:
+            hostNetwork: false
             port: 80
             resources:
               requests:
