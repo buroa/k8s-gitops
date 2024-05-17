@@ -3,7 +3,7 @@ version: "3"
 
 vars:
   # renovate: depName=prometheus-operator/prometheus-operator datasource=github-releases
-  PROMETHEUS_OPERATOR_VERSION: v0.73.2
+  PROMETHEUS_OPERATOR_VERSION: v0.74.0
 
 tasks:
 
