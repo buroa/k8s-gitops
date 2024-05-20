@@ -3,11 +3,12 @@ alerting:
   pushover:
     application-token: $${GATUS_PUSHOVER_APP_TOKEN}
     user-key: $${GATUS_PUSHOVER_USER_KEY}
+    priority: 1
     default-alert:
       description: healthcheck failed
       send-on-resolved: true
       failure-threshold: 3
-      success-threshold: 5
+      success-threshold: 3
 
 connectivity:
   checker:
@@ -26,4 +27,4 @@ ui:
   header: Status
 
 web:
-  port: $${CUSTOM_WEB_PORT}
+  port: $${GATUS_WEB_PORT}
