@@ -34,7 +34,7 @@ record:
   enabled: true
   retain:
     days: 1
-    mode: all
+    mode: motion
   events:
     retain:
       default: 1

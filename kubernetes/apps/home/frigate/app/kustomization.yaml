@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
+  - ./pvc.yaml
   - ./volsync.yaml
 configMapGenerator:
   - name: frigate-config-tpl

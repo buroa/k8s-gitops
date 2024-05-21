@@ -81,7 +81,6 @@ spec:
       securityContext:
         supplementalGroups:
           - 20
-          - 65536
     service:
       app:
         controller: *app
@@ -126,8 +125,6 @@ spec:
             subPath: config.yml
             readOnly: true
       media:
-        type: nfs
-        server: nas.${PUBLIC_DOMAIN}
-        path: /volume1/media
-        globalMounts:
-          - subPath: cameras
+        existingClaim: frigate-media
+      tmp:
+        type: emptyDir
