@@ -22,7 +22,7 @@ metadata:
   name: cluster-apps-cilium-configs
   namespace: flux-system
 spec:
-  targetNamespace: home
+  targetNamespace: kube-system
   dependsOn:
     - name: cluster-apps-cilium
   path: ./kubernetes/apps/kube-system/cilium/configs
