@@ -9,7 +9,7 @@ data:
 
   # Domains
   PUBLIC_DOMAIN: kreitzer.io
-  PRIVATE_DOMAIN: kreitzer.local
+  PRIVATE_DOMAIN: kreitzer.casa
 
   # Email
   PUBLIC_EMAIL: skre@skre.me
