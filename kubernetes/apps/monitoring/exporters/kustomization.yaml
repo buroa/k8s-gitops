@@ -2,7 +2,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - ./bazarr-exporter/ks.yaml
   - ./blackbox-exporter/ks.yaml
   - ./mqtt-exporter/ks.yaml
   - ./overseerr-exporter/ks.yaml
