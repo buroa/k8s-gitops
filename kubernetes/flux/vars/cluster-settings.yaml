@@ -8,8 +8,8 @@ data:
   TIMEZONE: America/Chicago
 
   # Domains
-  PUBLIC_DOMAIN: kreitzer.io
-  PRIVATE_DOMAIN: kreitzer.casa
+  PUBLIC_DOMAIN: ktwo.io
+  PRIVATE_DOMAIN: internal
 
   # Email
   PUBLIC_EMAIL: skre@skre.me
