@@ -6,7 +6,7 @@ metadata:
 spec:
   loadBalancerIPs: true
   interfaces:
-    - bond0.13
+    - bond0.20
   nodeSelector:
     matchLabels:
       kubernetes.io/os: linux

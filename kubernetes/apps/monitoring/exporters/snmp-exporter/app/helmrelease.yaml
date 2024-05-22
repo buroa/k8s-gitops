@@ -32,15 +32,15 @@ spec:
         - name: nas
           auth: [public_v1]
           module: [synology]
-          target: nas.${PUBLIC_DOMAIN}
+          target: nas.${PRIVATE_DOMAIN}
         - name: ups
           auth: [public_v1]
           module: [cyberpower]
-          target: ups.${PUBLIC_DOMAIN}
+          target: ups.${PRIVATE_DOMAIN}
         - name: pdu
           auth: [public_v1]
           module: [cyberpower]
-          target: pdu.${PUBLIC_DOMAIN}
+          target: pdu.${PRIVATE_DOMAIN}
       path: /snmp
       scrapeTimeout: 10s
       relabelings:

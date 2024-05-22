@@ -31,7 +31,7 @@ spec:
               tag: 4.6.4@sha256:405183fa3f9ffcf5b42890747569807f3c1c6ee33ac713a77afa601cf0858052
             env:
               QBITTORRENT__PORT: &port 8080
-              QBITTORRENT__BT_PORT: &bittorrentPort ${TORRENT_PUBLIC_PORT}
+              QBITTORRENT__BT_PORT: &bittorrentPort ${NET_SERVICES_TORRENT_PORT}
               QBT_Application__MemoryWorkingSetLimit:
                 valueFrom:
                   resourceFieldRef:
@@ -41,7 +41,7 @@ spec:
               QBT_Preferences__WebUI__AlternativeUIEnabled: false
               QBT_Preferences__WebUI__AuthSubnetWhitelistEnabled: true
               QBT_Preferences__WebUI__AuthSubnetWhitelist: |-
-                ${CLUSTER_POD_IP_CIDR}, ${LAN_SERVER_IP_CIDR}
+                ${CLUSTER_POD_CIDR}, ${NET_SERVERS_CIDR}
               QBT_Preferences__WebUI__LocalHostAuth: false
               QBT_BitTorrent__Session__Interface: eth0
               QBT_BitTorrent__Session__InterfaceAddress:
@@ -117,7 +117,7 @@ spec:
         existingClaim: *app
       media:
         type: nfs
-        server: nas.${PUBLIC_DOMAIN}
+        server: nas.${PRIVATE_DOMAIN}
         path: /volume1/media
         globalMounts:
           - path: /media/downloads/torrents
@@ -133,7 +133,7 @@ spec:
         controller: *app
         type: LoadBalancer
         annotations:
-          io.cilium/lb-ipam-ips: ${TORRENT_LB_IP}
+          io.cilium/lb-ipam-ips: ${NET_SERVICES_TORRENT_IP}
         ports:
           bittorrent-tcp:
             port: *bittorrentPort

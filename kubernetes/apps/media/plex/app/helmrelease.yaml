@@ -106,7 +106,7 @@ spec:
           - path: /config/Library/Application Support/Plex Media Server/Logs
       media:
         type: nfs
-        server: nas.${PUBLIC_DOMAIN}
+        server: nas.${PRIVATE_DOMAIN}
         path: /volume1/media
         globalMounts:
           - readOnly: true

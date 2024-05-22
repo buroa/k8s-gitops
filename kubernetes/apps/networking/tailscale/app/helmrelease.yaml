@@ -35,9 +35,9 @@ spec:
               tag: v1.66.3@sha256:cf8e97667e8be250caaed88694cec0befe11040bbd5a3de3b33086cc52ef4eb1
             env:
               NO_AUTOUPDATE: true
-              PORT: &port ${TAILNET_PUBLIC_PORT}
+              PORT: &port ${NET_SERVICES_TAILSCALE_PORT}
               TS_EXTRA_ARGS: --advertise-exit-node --advertise-tags=tag:k8s
-              TS_ROUTES: ${LAN_SERVER_IP_CIDR},${CILIUM_LB_CIDR}
+              TS_ROUTES: ${NET_SERVERS_CIDR},${NET_SERVICES_CIDR}
               TS_STATE_DIR: &path /tmp
               TS_TAILSCALED_EXTRA_ARGS: --debug=0.0.0.0:3000
               TS_USERSPACE: true
@@ -95,7 +95,7 @@ spec:
         controller: *app
         type: LoadBalancer
         annotations:
-          io.cilium/lb-ipam-ips: ${TAILSCALE_LB_IP}
+          io.cilium/lb-ipam-ips: ${NET_SERVICES_TAILSCALE_IP}
         ports:
           tailnet:
             port: *port

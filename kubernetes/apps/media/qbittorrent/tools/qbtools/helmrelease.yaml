@@ -127,7 +127,7 @@ spec:
                 readOnly: true
       media:
         type: nfs
-        server: nas.${PUBLIC_DOMAIN}
+        server: nas.${PRIVATE_DOMAIN}
         path: /volume1/media
         advancedMounts:
           orphaned:

@@ -17,5 +17,5 @@ spec:
             values:
               - will-match-and-announce-all-services
       neighbors:
-        - peerAddress: ${CILIUM_BGP_PEER}/32
+        - peerAddress: ${NET_SERVICES_GATEWAY_IP}/32
           peerASN: 64513

@@ -116,7 +116,7 @@ spec:
           - path: /config/logs
       media:
         type: nfs
-        server: nas.${PUBLIC_DOMAIN}
+        server: nas.${PRIVATE_DOMAIN}
         path: /volume1/media
       tmp:
         type: emptyDir
