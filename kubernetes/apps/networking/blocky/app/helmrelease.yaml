@@ -124,7 +124,6 @@ spec:
         type: LoadBalancer
         annotations:
           io.cilium/lb-ipam-ips: ${NET_SERVICES_BLOCKY_IP}
-          external-dns.alpha.kubernetes.io/hostname: dns.${PUBLIC_DOMAIN}
         ports:
           dns-tcp:
             port: *port
