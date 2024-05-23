@@ -26,7 +26,7 @@ spec:
     k8sAppLabelOverride: kube-dns
     service:
       name: kube-dns
-      clusterIP: ${CLUSTER_DNS_IP}
+      clusterIP: 10.245.0.10
     serviceAccount:
       create: true
     deployment:
@@ -54,7 +54,7 @@ spec:
               fallthrough in-addr.arpa ip6.arpa
               ttl 30
           - name: forward
-            parameters: . ${BLOCKY_LB_IP} 127.0.0.1:5301
+            parameters: . ${NET_SERVICES_BLOCKY_IP} 127.0.0.1:5301
             configBlock: |-
               policy sequential
               health_check 5s

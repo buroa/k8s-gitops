@@ -5,4 +5,4 @@ metadata:
   name: lb-pool
 spec:
   cidrs:
-    - cidr: ${CILIUM_LB_CIDR}
+    - cidr: ${NET_SERVICES_CIDR}

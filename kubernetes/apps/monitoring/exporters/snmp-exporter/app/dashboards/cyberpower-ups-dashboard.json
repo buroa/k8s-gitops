@@ -1126,8 +1126,8 @@
       {
         "current": {
           "selected": false,
-          "text": "ups.${PUBLIC_DOMAIN}",
-          "value": "ups.${PUBLIC_DOMAIN}"
+          "text": "ups.${PRIVATE_DOMAIN}",
+          "value": "ups.${PRIVATE_DOMAIN}"
         },
         "datasource": {
           "type": "prometheus",

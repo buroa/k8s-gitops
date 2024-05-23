@@ -92,7 +92,7 @@ spec:
       dns:
         controller: *app
         type: ClusterIP
-        clusterIP: ${K8S_GATEWAY_IP}
+        clusterIP: 10.245.0.53
         ports:
           dns-tcp:
             port: 53

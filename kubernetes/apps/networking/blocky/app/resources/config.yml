@@ -68,7 +68,7 @@ blocking:
       - other
       - suspicious
       - tracking
-    ${LAN_GUEST_IP_CIDR}:
+    ${NET_GUEST_CIDR}:
       - malicious
       - suspicious
       - tracking
@@ -79,12 +79,13 @@ caching:
   prefetchExpires: 2h
 
 clientLookup:
-  upstream: ${CILIUM_BGP_PEER}
+  upstream: ${NET_SERVICES_GATEWAY_IP}
 
 conditional:
   mapping:
-    cluster.local: ${CLUSTER_DNS_IP}
-    ${PUBLIC_DOMAIN}: ${K8S_GATEWAY_IP}
+    cluster.local: 10.245.0.10
+    ${PUBLIC_DOMAIN}: 10.245.0.53
+    ${PRIVATE_DOMAIN}: ${NET_SERVICES_GATEWAY_IP}
 
 connectIPVersion: v4
 
@@ -95,13 +96,6 @@ hostsFile:
   filterLoopback: true
   sources:
     - /etc/hosts
-    - |
-      10.0.0.10 m0.k8s.${PUBLIC_DOMAIN}
-      10.0.0.11 m1.k8s.${PUBLIC_DOMAIN}
-      10.0.0.12 m2.k8s.${PUBLIC_DOMAIN}
-      10.0.0.20 w0.k8s.${PUBLIC_DOMAIN}
-      10.0.0.21 w1.k8s.${PUBLIC_DOMAIN}
-      10.0.0.22 w2.k8s.${PUBLIC_DOMAIN}
 
 log:
   level: info

@@ -67,7 +67,7 @@ spec:
         type: emptyDir
       media:
         type: nfs
-        server: nas.${PUBLIC_DOMAIN}
+        server: nas.${PRIVATE_DOMAIN}
         path: /volume1/media
         globalMounts:
           - path: /media/downloads/torrents
