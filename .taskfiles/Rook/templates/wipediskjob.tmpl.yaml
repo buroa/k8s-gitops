@@ -21,5 +21,12 @@ spec:
               dd if=/dev/zero bs=1M count=1000 oflag=direct of=${disk};
               blkdiscard ${disk};
               partprobe ${disk};
+          volumeMounts:
+            - mountPath: ${disk}
+              name: disk
           securityContext:
             privileged: true
+      volumes:
+        - name: disk
+          hostPath:
+            path: ${disk}
