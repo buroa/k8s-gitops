@@ -17,5 +17,5 @@ spec:
             values:
               - will-match-and-announce-all-services
       neighbors:
-        - peerAddress: ${NET_SERVICES_GATEWAY_IP}/32
+        - peerAddress: ${NET_LOCAL_GATEWAY_IP}/32
           peerASN: 64513
