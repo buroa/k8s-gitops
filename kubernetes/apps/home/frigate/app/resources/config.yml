@@ -50,10 +50,10 @@ objects:
 
 go2rtc:
   streams:
-    frigate_entry_hq: rtspx://unifi.${PUBLIC_DOMAIN}:7441/N33NndYP9jDIKdjc
-    frigate_entry_lq: rtspx://unifi.${PUBLIC_DOMAIN}:7441/S0dI682kz5qAWSaZ
-    frigate_living_room_hq: rtspx://unifi.${PUBLIC_DOMAIN}:7441/N1GGxypfxkFtIMiN
-    frigate_living_room_lq: rtspx://unifi.${PUBLIC_DOMAIN}:7441/v69eXXecDdWQq9fk
+    frigate_entry_hq: rtspx://unifi.${PRIVATE_DOMAIN}:7441/N33NndYP9jDIKdjc
+    frigate_entry_lq: rtspx://unifi.${PRIVATE_DOMAIN}:7441/S0dI682kz5qAWSaZ
+    frigate_living_room_hq: rtspx://unifi.${PRIVATE_DOMAIN}:7441/N1GGxypfxkFtIMiN
+    frigate_living_room_lq: rtspx://unifi.${PRIVATE_DOMAIN}:7441/v69eXXecDdWQq9fk
   homekit:
     frigate_entry_hq:
       pairings:

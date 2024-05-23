@@ -378,12 +378,6 @@ controlPlane:
             - ip: ${CLUSTER_ENDPOINT_IP}
               aliases:
                 - k8s.${PRIVATE_DOMAIN}
-            - ip: 192.168.0.1
-              aliases:
-                - unifi.${PRIVATE_DOMAIN}
-            - ip: 192.168.20.4
-              aliases:
-                - vector.${PRIVATE_DOMAIN}
 
     # Custom sysctl settings
     - &sysctlPatch |-
