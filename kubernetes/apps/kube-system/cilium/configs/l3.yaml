@@ -8,7 +8,7 @@ spec:
     matchLabels:
       kubernetes.io/os: linux
   virtualRouters:
-    - localASN: 64513
+    - localASN: 64514
       exportPodCIDR: false
       serviceSelector:
         matchExpressions:
