@@ -42,7 +42,7 @@ spec:
             env:
               HOME_ASSISTANT_EXTERNAL_URL: https://hass.${PUBLIC_DOMAIN}
               HOME_ASSISTANT_PURGE_KEEP_DAYS: 30
-              HOME_ASSISTANT_TRUSTED_PROXIES: ${NET_POD_CIDR}
+              HOME_ASSISTANT_TRUSTED_PROXIES: ${CLUSTER_POD_CIDR}
               HOME_ASSISTANT_UNIT_SYSTEM: imperial
               TZ: ${TIMEZONE}
             envFrom: *envFrom
