@@ -335,7 +335,7 @@ controlPlane:
       machine:
         logging:
           destinations:
-            - endpoint: udp://vector.${PRIVATE_DOMAIN}:6002
+            - endpoint: udp://vector.${PUBLIC_DOMAIN}:6002
               format: json_lines
 
     # Force nameserver
@@ -411,7 +411,7 @@ controlPlane:
             - mitigations=off
             - module_blacklist=tg3
             - net.ifnames=0
-            - talos.logging.kernel=udp://vector.${PRIVATE_DOMAIN}:6001/
+            - talos.logging.kernel=udp://vector.${PUBLIC_DOMAIN}:6001/
           legacyBIOSSupport: true
 
     # Various udev rules

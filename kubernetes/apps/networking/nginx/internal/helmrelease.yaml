@@ -71,8 +71,8 @@ spec:
           memory: 512Mi
       service:
         annotations:
-          io.cilium/lb-ipam-ips: ${NET_SERVICES_INGRESS_IP_INT}
           external-dns.alpha.kubernetes.io/hostname: internal.${PUBLIC_DOMAIN}
+          io.cilium/lb-ipam-ips: ${NET_SERVICES_INGRESS_IP_INT}
       topologySpreadConstraints:
         - maxSkew: 1
           topologyKey: kubernetes.io/hostname

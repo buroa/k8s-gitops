@@ -130,15 +130,7 @@ graph TD;
 
 ## 🌐 DNS
 
-### Private DNS
-
-The UDM Pro Max resolves DNS queries via [blocky](https://github.com/0xERR0R/blocky), which provides first-hop DNS resolution for my network. Blocky forwards requests targeted towards my public domain via [k8s-gateway](https://github.com/ori-edge/k8s_gateway). Last-hop DNS resolution resolves via [1.1.1.1](https://1.1.1.1/dns), which is configured as my primary DNS upstream provider. If for any reason blocky becomes unavailable, the UDM Pro Max is configured to fallback to 1.1.1.1 until blocky becomes available again.
-
-🔸 _[Click here](./kubernetes/apps/networking/blocky/app/resources/config.yml) to see my `blocky` configuration or [here](./kubernetes/apps/networking/k8s-gateway/app/resources/Corefile) to see my `k8s-gateway` configuration._
-
-### Public DNS
-
-Outside DNS records are synced to [Cloudflare](https://www.cloudflare.com) using [external-dns](https://github.com/kubernetes-sigs/external-dns). The only DNS records this instance syncs to `Cloudflare` are ones that have an ingress class name of `external` and contain an ingress annotation `external-dns.alpha.kubernetes.io/target`.
+DNS records are synced to my [UDM Pro Max](https://store.ui.com/us/en/collections/unifi-dream-machine/products/udm-pro-max) and [Cloudflare](https://www.cloudflare.com) using [external-dns](https://github.com/kubernetes-sigs/external-dns). This provides split-horizon DNS resolution for my public domain.
 
 ---
 
