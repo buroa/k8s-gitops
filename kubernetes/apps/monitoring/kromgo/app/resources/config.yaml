@@ -27,7 +27,7 @@ metrics:
       - { color: red, min: 76, max: 9999 }
 
   - name: cluster_power_usage
-    query: round(atsLoadStatusPhasePower, 0.1)
+    query: round(upsAdvanceOutputPower, 0.1)
     suffix: w
     colors:
       - { color: green, min: 0, max: 400 }
