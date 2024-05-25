@@ -80,6 +80,7 @@ spec:
           enabled: true
           className: internal
           annotations:
+            external-dns.alpha.kubernetes.io/target: internal.${PUBLIC_DOMAIN}
             hajimari.io/icon: simple-icons:cilium
           hosts:
             - &host hubble.${PUBLIC_DOMAIN}
