@@ -86,6 +86,7 @@ conditional:
     cluster.local: 10.245.0.10
     ${PUBLIC_DOMAIN}: ${NET_LOCAL_GATEWAY_IP}
     ${PRIVATE_DOMAIN}: ${NET_LOCAL_GATEWAY_IP}
+    168.192.in-addr.arpa: ${NET_LOCAL_GATEWAY_IP}
 
 connectIPVersion: v4
 
