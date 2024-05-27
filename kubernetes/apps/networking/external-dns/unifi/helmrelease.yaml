@@ -31,7 +31,7 @@ spec:
       webhook:
         image:
           repository: ghcr.io/kashalls/external-dns-unifi-webhook
-          tag: v0.0.6@sha256:f946c6381e6c0395f5f0e78f46e935f3250ee0f713e98a9cd54df2a728c8f547
+          tag: v0.0.7@sha256:750202cd27bfaab2928744131dae01e88830454076ab04cda753725080903e11
         env:
           - name: LOG_LEVEL
             value: debug
@@ -47,6 +47,18 @@ spec:
               secretKeyRef:
                 name: *secret
                 key: EXTERNAL_DNS_UNIFI_PASS
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: http-wh-metrics
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /readyz
+            port: http-wh-metrics
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
     policy: sync
     sources:
       - ingress
