@@ -11,6 +11,7 @@ x-env: &env
   app: '{{.app}}'
   controller: '{{.controller}}'
   claim: '{{.claim}}'
+  ks: 'cluster-apps-{{.app}}'
   puid: '{{.puid}}'
   pgid: '{{.pgid}}'
   ns: '{{.ns}}'
@@ -116,9 +117,7 @@ tasks:
         previous: Previous number of snapshots to restore (default: 2)
     cmds:
       - task: .suspend
-        vars:
-          <<: *env
-          ks: 'cluster-apps-{{.app}}'
+        vars: *env
       - task: .scale
         vars: *env
       - task: .wipe
@@ -126,9 +125,7 @@ tasks:
       - task: .restore
         vars: *env
       - task: .resume
-        vars:
-          <<: *env
-          ks: 'cluster-apps-{{.app}}'
+        vars: *env
     env: *env
     requires:
       vars: ["app"]
