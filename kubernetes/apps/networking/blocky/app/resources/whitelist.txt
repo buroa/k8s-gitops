@@ -1,3 +1,0 @@
-# My personal whitelist
-*.lifetime.life
-*.microsoftonline.us
