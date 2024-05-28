@@ -21,7 +21,7 @@ spec:
   postBuild:
     substitute:
       # renovate: depName=quay.io/thanos/thanos datasource=docker
-      THANOS_VERSION: v0.35.0
+      THANOS_VERSION: v0.35.1
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
