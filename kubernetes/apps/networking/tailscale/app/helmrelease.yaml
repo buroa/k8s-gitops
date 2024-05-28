@@ -39,17 +39,12 @@ spec:
               TS_EXTRA_ARGS: --advertise-exit-node --advertise-tags=tag:k8s
               TS_ROUTES: ${NET_LOCAL_CIDR},${NET_SERVERS_CIDR},${NET_SERVICES_CIDR}
               TS_STATE_DIR: &path /tmp
-              TS_TAILSCALED_EXTRA_ARGS: --debug=0.0.0.0:3000
+              TS_TAILSCALED_EXTRA_ARGS: --debug=0.0.0.0:9001
               TS_USERSPACE: true
               TZ: ${TIMEZONE}
             envFrom:
               - secretRef:
                   name: tailscale-secret
-            probes:
-              liveness:
-                enabled: true
-              readiness:
-                enabled: true
             resources:
               requests:
                 cpu: 10m
@@ -90,7 +85,7 @@ spec:
         nameOverride: *app
         ports:
           http:
-            port: 3000
+            port: 9001
       tailnet:
         controller: *app
         type: LoadBalancer
