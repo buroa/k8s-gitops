@@ -37,10 +37,6 @@ spec:
           auth: [public_v1]
           module: [cyberpower]
           target: ups.${PRIVATE_DOMAIN}
-        - name: pdu
-          auth: [public_v1]
-          module: [cyberpower]
-          target: pdu.${PRIVATE_DOMAIN}
       path: /snmp
       scrapeTimeout: 10s
       relabelings:

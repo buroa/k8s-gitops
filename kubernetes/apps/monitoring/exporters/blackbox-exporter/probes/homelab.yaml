@@ -13,4 +13,3 @@ spec:
         - unifi.${PRIVATE_DOMAIN}
         - nas.${PRIVATE_DOMAIN}
         - ups.${PRIVATE_DOMAIN}
-        - pdu.${PRIVATE_DOMAIN}
