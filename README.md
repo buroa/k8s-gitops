@@ -142,19 +142,19 @@ I have two instances of `external-dns` running in my cluster. The private DNS in
   <img src="https://github.com/buroa/k8s-gitops/assets/36205263/516d9f08-9bbd-443f-a01f-62089fdc6acc" align="center" alt="rack"/>
 </details>
 
-| Device                                          | Count | OS Disk Size | Data Disk Size | Ram  | Operating System | Purpose      |
-|-------------------------------------------------|-------|--------------|----------------|------|------------------|--------------|
-| [Apple Mac Mini](## "Intel i7 3.2GHz w/ 10GbE") | 3     | 1TB          | -              | 64GB | Talos            | Workers      |
-| [Apple Mac Mini](## "Intel i7 3.2GHz w/ 1GbE")  | 3     | 512GB        | -              | 32GB | Talos            | Masters      |
-| APC SMT15000RM2UNC                              | 1     | -            | -              | -    | -                | UPS          |
-| Sabrent NVMe M.2 Thunderbolt 3 Enclosure        | 6     | -            | 2TB            | -    | -                | Rook Ceph    |
-| Sonnet 10GbE Thunderbolt 3 Adapter              | 3     | -            | -              | -    | -                | 10GbE        |
-| Synology NAS RS1221+                            | 1     | -            | 8x22TB         | 32GB | -                | NFS          |
-| UDM Pro Max                                     | 1     | -            | 2x16TB         | -    | UniFi OS         | Router       |
-| USP PDU Pro                                     | 1     | -            | -              | -    | UniFi OS         | PDU          |
-| USW Aggregation                                 | 1     | -            | -              | -    | UniFi OS         | Aggregation  |
-| USW Enterprise XG 24                            | 1     | -            | -              | -    | UniFi OS         | 10GbE Switch |
-| USW Pro Max 24 PoE                              | 1     | -            | -              | -    | UniFi OS         | PoE Switch   |
+| Device                                          | Count | OS Disk Size | Data Disk Size | Ram  | Operating System | Purpose            |
+|-------------------------------------------------|-------|--------------|----------------|------|------------------|--------------------|
+| [Apple Mac Mini](## "Intel i7 3.2GHz w/ 10GbE") | 3     | 1TB NVMe     | -              | 64GB | Talos            | Kubernetes Workers |
+| [Apple Mac Mini](## "Intel i7 3.2GHz w/ 1GbE")  | 3     | 512GB NVMe   | -              | 32GB | Talos            | Kubernetes Masters |
+| APC SMT15000RM2UNC                              | 1     | -            | -              | -    | -                | UPS                |
+| Sabrent NVMe M.2 Thunderbolt 3 Enclosure        | 6     | -            | 2TB NVMe       | -    | -                | Rook Ceph          |
+| Sonnet 10GbE Thunderbolt 3 Adapter              | 3     | -            | -              | -    | -                | 10GbE              |
+| Synology NAS RS1221+                            | 1     | -            | 8x22TB HDD     | 32GB | -                | NFS                |
+| UDM Pro Max                                     | 1     | -            | 2x16TB HDD     | -    | UniFi OS         | Router & NVR       |
+| USP PDU Pro                                     | 1     | -            | -              | -    | UniFi OS         | PDU                |
+| USW Aggregation                                 | 1     | -            | -              | -    | UniFi OS         | Core Switch        |
+| USW Enterprise XG 24                            | 1     | -            | -              | -    | UniFi OS         | 10GbE Switch       |
+| USW Pro Max 24 PoE                              | 1     | -            | -              | -    | UniFi OS         | 2.5GbE PoE Switch  |
 
 ---
 
