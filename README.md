@@ -130,7 +130,7 @@ graph TD;
 
 ## 🌐 DNS
 
-DNS records are synced to my [UDM Pro Max](https://store.ui.com/us/en/collections/unifi-dream-machine/products/udm-pro-max) and [Cloudflare](https://www.cloudflare.com) using [external-dns](https://github.com/kubernetes-sigs/external-dns). This provides split-horizon DNS resolution for my public domain.
+I have two instances of `external-dns` running in my cluster. The private DNS instance synchronizes DNS records with a `UDM Pro Max`, while the public DNS instance does the same with `Cloudflare`. This setup is managed by creating ingresses with specific ingress classes: `internal` for the private DNS and `external` for the public DNS. Both ingresses use the `external-dns.alpha.kubernetes.io/target` annotation to specify the target. The `external-dns` instances then syncs the DNS records to their respective platforms accordingly.
 
 ---
 
@@ -142,19 +142,19 @@ DNS records are synced to my [UDM Pro Max](https://store.ui.com/us/en/collection
   <img src="https://github.com/buroa/k8s-gitops/assets/36205263/516d9f08-9bbd-443f-a01f-62089fdc6acc" align="center" alt="rack"/>
 </details>
 
-| Device                                   | Count | OS Disk Size | Data Disk Size      | Ram  | Operating System | Purpose             |
-|------------------------------------------|-------|--------------|---------------------|------|------------------|---------------------|
-| Apple Mac Mini (3.2GHz Intel i7 + 10GbE) | 3     | 1TB NVMe     | -                   | 64GB | Talos            | Kubernetes Workers  |
-| Apple Mac Mini (3.2GHz Intel i7)         | 3     | 512GB NVMe   | -                   | 32GB | Talos            | Kubernetes Masters  |
-| CyberPower UPS                           | 1     | -            | -                   | -    | -                | PSU                 |
-| Sabrent NVMe M.2 Thunderbolt 3 Enclosure | 6     | -            | 2TB NVMe ea.        | -    | -                | Rook Ceph / Workers |
-| Sonnet 10GbE Thunderbolt 3 Adapter       | 3     | -            | -                   | -    | -                | 10GbE / Masters     |
-| Synology NAS RS1221+                     | 1     | -            | 8x22TB | 32GB | -                | NFS                 |
-| UDM Pro Max                              | 1     | -            | -                   | -    | -                | Router              |
-| USP PDU Pro                              | 1     | -            | -                   | -    | -                | PDU                 |
-| USW Aggregation                     | 1     | -            | -                   | -    | -                | Aggregation        |
-| USW Enterprise XG 24                     | 1     | -            | -                   | -    | -                | 10GbE Switch        |
-| USW Pro Max 24 PoE                     | 1     | -            | -                   | -    | -                | PoE Switch        |
+| Device                                          | Count | OS Disk Size | Data Disk Size | Ram  | Operating System | Purpose      |
+|-------------------------------------------------|-------|--------------|----------------|------|------------------|--------------|
+| [Apple Mac Mini](## "Intel i7 3.2GHz w/ 10GbE") | 3     | 1TB          | -              | 64GB | Talos            | Workers      |
+| [Apple Mac Mini](## "Intel i7 3.2GHz w/ 1GbE")  | 3     | 512GB        | -              | 32GB | Talos            | Masters      |
+| APC SMT15000RM2UNC                              | 1     | -            | -              | -    | -                | UPS          |
+| Sabrent NVMe M.2 Thunderbolt 3 Enclosure        | 6     | -            | 2TB            | -    | -                | Rook Ceph    |
+| Sonnet 10GbE Thunderbolt 3 Adapter              | 3     | -            | -              | -    | -                | 10GbE        |
+| Synology NAS RS1221+                            | 1     | -            | 8x22TB         | 32GB | -                | NFS          |
+| UDM Pro Max                                     | 1     | -            | 2x16TB         | -    | UniFi OS         | Router       |
+| USP PDU Pro                                     | 1     | -            | -              | -    | UniFi OS         | PDU          |
+| USW Aggregation                                 | 1     | -            | -              | -    | UniFi OS         | Aggregation  |
+| USW Enterprise XG 24                            | 1     | -            | -              | -    | UniFi OS         | 10GbE Switch |
+| USW Pro Max 24 PoE                              | 1     | -            | -              | -    | UniFi OS         | PoE Switch   |
 
 ---
 
