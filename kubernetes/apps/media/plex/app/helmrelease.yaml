@@ -28,7 +28,7 @@ spec:
           app:
             image:
               repository: ghcr.io/buroa/plex-beta
-              tag: 1.40.2.8395-c67dce28e@sha256:30c5ff1e5875c58b9783f23658efc5c12c59e9f3f641c9ca4c7fff477ac01217
+              tag: 1.40.3.8502-f4f0b17e1@sha256:101fd9ff0510c4f41eee023e976fae20088f86eddaee51ad82d875034cc4bcf3
             env:
               TZ: ${TIMEZONE}
             probes:
