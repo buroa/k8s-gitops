@@ -37,16 +37,16 @@ spec:
             value: debug
           - name: UNIFI_HOST
             value: https://unifi.${PRIVATE_DOMAIN}
-          - name: UNIFI_USER
+          - name: &name UNIFI_USER
             valueFrom:
               secretKeyRef:
                 name: &secret external-dns-unifi-secret
-                key: EXTERNAL_DNS_UNIFI_USER
-          - name: UNIFI_PASS
+                key: *name
+          - name: &name UNIFI_PASS
             valueFrom:
               secretKeyRef:
                 name: *secret
-                key: EXTERNAL_DNS_UNIFI_PASS
+                key: *name
         livenessProbe:
           httpGet:
             path: /healthz
