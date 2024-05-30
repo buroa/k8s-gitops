@@ -25,7 +25,6 @@ spec:
       retries: 3
   values:
     fullnameOverride: *app
-    logLevel: debug
     provider:
       name: webhook
       webhook:
@@ -33,8 +32,6 @@ spec:
           repository: ghcr.io/kashalls/external-dns-unifi-webhook
           tag: v0.0.8@sha256:a3e54980abe00f9c511010952dcfd4dc15351cb474b337761cc4766d34292ca7
         env:
-          - name: LOG_LEVEL
-            value: debug
           - name: UNIFI_HOST
             value: https://unifi.${PRIVATE_DOMAIN}
           - name: &name UNIFI_USER
