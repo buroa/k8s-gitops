@@ -38,7 +38,7 @@ spec:
           app:
             image:
               repository: ghcr.io/buroa/prowlarr-develop
-              tag: 1.17.2.4511@sha256:136d5cc82257b33c554702247d832d98c8b01e7dc0bc372f8ef64bdc85dae76f
+              tag: 1.18.0.4543@sha256:b5890e1028dd43098fc1e26612bfd119898df245835a36395bf91fef60933c96
             env:
               PROWLARR__AUTHENTICATION_METHOD: External
               PROWLARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
