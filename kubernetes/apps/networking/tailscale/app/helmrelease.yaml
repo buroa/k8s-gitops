@@ -37,6 +37,10 @@ spec:
               NO_AUTOUPDATE: true
               PORT: &port ${NET_SERVICES_TAILSCALE_PORT}
               TS_EXTRA_ARGS: --advertise-exit-node --advertise-tags=tag:k8s
+              TS_HOSTNAME:
+                valueFrom:
+                  fieldRef:
+                    fieldPath: metadata.name
               TS_ROUTES: ${NET_LOCAL_CIDR},${NET_SERVERS_CIDR},${NET_SERVICES_CIDR}
               TS_STATE_DIR: &path /tmp
               TS_TAILSCALED_EXTRA_ARGS: --debug=0.0.0.0:9001
