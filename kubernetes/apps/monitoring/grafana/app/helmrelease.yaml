@@ -191,6 +191,11 @@ spec:
             isDefault: true
     dashboards:
       default:
+        apc-ups:
+          # renovate: depName="APC UPS (SNMP)"
+          gnetId: 12340
+          revision: 1
+          datasource: Prometheus
         blackbox-exporter:
           # renovate: depName="Prometheus Blackbox Exporter"
           gnetId: 7587
