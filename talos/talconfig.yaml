@@ -377,7 +377,7 @@ controlPlane:
         time:
           disabled: false
           servers:
-            - time.apple.com
+            - time.cloudflare.com
 
     # Static host entries
     - &staticHostEntriesPatch |-
