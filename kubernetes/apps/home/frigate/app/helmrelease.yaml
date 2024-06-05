@@ -73,7 +73,8 @@ spec:
           [{
             "name": "multus-iot",
             "namespace": "networking",
-            "ips": ["192.168.30.201/24"]
+            "ips": ["192.168.30.201/24"],
+            "mac": "00:00:00:00:30:01"
           }]
       nodeSelector:
         google.feature.node.kubernetes.io/coral: "true"
