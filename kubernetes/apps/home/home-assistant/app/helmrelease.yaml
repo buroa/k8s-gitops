@@ -38,7 +38,7 @@ spec:
           app:
             image:
               repository: ghcr.io/buroa/home-assistant
-              tag: 2024.5.5@sha256:1fa64f63c0aa34ba2d447d35fb5eb409488cfa1c7c20e57abcac98b639b36585
+              tag: 2024.6.0@sha256:9be004417762a94ed15cefca72fd6040ad1ef96444e9e6d4a760e4b43491e53b
             env:
               HOME_ASSISTANT_EXTERNAL_URL: https://hass.${PUBLIC_DOMAIN}
               HOME_ASSISTANT_PURGE_KEEP_DAYS: 30
