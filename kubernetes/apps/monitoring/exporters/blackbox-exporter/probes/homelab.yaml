@@ -10,6 +10,8 @@ spec:
   targets:
     staticConfig:
       static:
-        - unifi.${PRIVATE_DOMAIN}
         - nas.${PRIVATE_DOMAIN}
+        - unifi.${PRIVATE_DOMAIN}
         - ups.${PRIVATE_DOMAIN}
+        - verizon.${PRIVATE_DOMAIN} # backup wan
+        - xfinity.${PRIVATE_DOMAIN} # primary wan
