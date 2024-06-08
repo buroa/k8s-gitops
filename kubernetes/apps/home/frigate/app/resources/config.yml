@@ -51,15 +51,15 @@ objects:
 go2rtc:
   streams:
     frigate_entry_hq: rtspx://unifi.${PRIVATE_DOMAIN}:7441/N33NndYP9jDIKdjc
-    frigate_entry_lq: rtspx://unifi.${PRIVATE_DOMAIN}:7441/S0dI682kz5qAWSaZ
-    frigate_living_room_hq: rtspx://unifi.${PRIVATE_DOMAIN}:7441/N1GGxypfxkFtIMiN
-    frigate_living_room_lq: rtspx://unifi.${PRIVATE_DOMAIN}:7441/v69eXXecDdWQq9fk
+    frigate_entry_mq: rtspx://unifi.${PRIVATE_DOMAIN}:7441/S0dI682kz5qAWSaZ
+    frigate_server_room_hq: rtspx://unifi.${PRIVATE_DOMAIN}:7441/N1GGxypfxkFtIMiN
+    frigate_server_room_mq: rtspx://unifi.${PRIVATE_DOMAIN}:7441/JfG6tCCIxGuvvFGc
   homekit:
     frigate_entry_hq:
       pairings:
         - client_id={{ .FRIGATE_HOMEKIT_CLIENT_ID_0 }}&client_public={{ .FRIGATE_HOMEKIT_CLIENT_PUBLIC_0 }}&permissions=0
         - client_id={{ .FRIGATE_HOMEKIT_CLIENT_ID_1 }}&client_public={{ .FRIGATE_HOMEKIT_CLIENT_PUBLIC_1 }}&permissions=1
-    frigate_living_room_hq:
+    frigate_server_room_hq:
       pairings:
         - client_id={{ .FRIGATE_HOMEKIT_CLIENT_ID_0 }}&client_public={{ .FRIGATE_HOMEKIT_CLIENT_PUBLIC_0 }}&permissions=0
         - client_id={{ .FRIGATE_HOMEKIT_CLIENT_ID_1 }}&client_public={{ .FRIGATE_HOMEKIT_CLIENT_PUBLIC_1 }}&permissions=1
@@ -68,25 +68,25 @@ cameras:
   frigate_entry:
     ffmpeg:
       inputs:
-        - path: rtsp://localhost:8554/frigate_entry_lq
+        - path: rtsp://localhost:8554/frigate_entry_mq
           roles: ["detect"]
         - path: rtsp://localhost:8554/frigate_entry_hq
           roles: ["record"]
     detect:
-      width: 1280
-      height: 720
+      width: 1024
+      height: 576
       fps: 10
 
-  frigate_living_room:
+  frigate_server_room:
     ffmpeg:
       inputs:
-        - path: rtsp://localhost:8554/frigate_living_room_lq
+        - path: rtsp://localhost:8554/frigate_server_room_mq
           roles: ["detect"]
-        - path: rtsp://localhost:8554/frigate_living_room_hq
+        - path: rtsp://localhost:8554/frigate_server_room_hq
           roles: ["record"]
     detect:
-      width: 1280
-      height: 720
+      width: 1024
+      height: 576
       fps: 10
 
 telemetry:
