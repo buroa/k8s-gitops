@@ -56,13 +56,15 @@ go2rtc:
     frigate_server_room_mq: rtspx://unifi.${PRIVATE_DOMAIN}:7441/JfG6tCCIxGuvvFGc
   homekit:
     frigate_entry_hq:
-      pairings:
-        - client_id={{ .FRIGATE_HOMEKIT_CLIENT_ID_0 }}&client_public={{ .FRIGATE_HOMEKIT_CLIENT_PUBLIC_0 }}&permissions=0
-        - client_id={{ .FRIGATE_HOMEKIT_CLIENT_ID_1 }}&client_public={{ .FRIGATE_HOMEKIT_CLIENT_PUBLIC_1 }}&permissions=1
+      name: Frigate Entry
+      # pairings:
+      #   - client_id={{ .FRIGATE_HOMEKIT_CLIENT_ID_0 }}&client_public={{ .FRIGATE_HOMEKIT_CLIENT_PUBLIC_0 }}&permissions=0
+      #   - client_id={{ .FRIGATE_HOMEKIT_CLIENT_ID_1 }}&client_public={{ .FRIGATE_HOMEKIT_CLIENT_PUBLIC_1 }}&permissions=1
     frigate_server_room_hq:
-      pairings:
-        - client_id={{ .FRIGATE_HOMEKIT_CLIENT_ID_0 }}&client_public={{ .FRIGATE_HOMEKIT_CLIENT_PUBLIC_0 }}&permissions=0
-        - client_id={{ .FRIGATE_HOMEKIT_CLIENT_ID_1 }}&client_public={{ .FRIGATE_HOMEKIT_CLIENT_PUBLIC_1 }}&permissions=1
+      name: Frigate Server Room
+      # pairings:
+      #   - client_id={{ .FRIGATE_HOMEKIT_CLIENT_ID_0 }}&client_public={{ .FRIGATE_HOMEKIT_CLIENT_PUBLIC_0 }}&permissions=0
+      #   - client_id={{ .FRIGATE_HOMEKIT_CLIENT_ID_1 }}&client_public={{ .FRIGATE_HOMEKIT_CLIENT_PUBLIC_1 }}&permissions=1
 
 cameras:
   frigate_entry:
