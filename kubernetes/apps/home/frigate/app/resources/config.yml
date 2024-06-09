@@ -57,14 +57,14 @@ go2rtc:
   homekit:
     frigate_entry_hq:
       name: Frigate Entry
-      # pairings:
-      #   - client_id={{ .FRIGATE_HOMEKIT_CLIENT_ID_0 }}&client_public={{ .FRIGATE_HOMEKIT_CLIENT_PUBLIC_0 }}&permissions=0
-      #   - client_id={{ .FRIGATE_HOMEKIT_CLIENT_ID_1 }}&client_public={{ .FRIGATE_HOMEKIT_CLIENT_PUBLIC_1 }}&permissions=1
+      pairings:
+        - client_id={{ .FRIGATE_HOMEKIT_CLIENT_ID_0 }}&client_public={{ .FRIGATE_HOMEKIT_CLIENT_PUBLIC_0 }}&permissions=0
+        - client_id={{ .FRIGATE_HOMEKIT_CLIENT_ID_1 }}&client_public={{ .FRIGATE_HOMEKIT_CLIENT_PUBLIC_1 }}&permissions=1
     frigate_server_room_hq:
       name: Frigate Server Room
-      # pairings:
-      #   - client_id={{ .FRIGATE_HOMEKIT_CLIENT_ID_0 }}&client_public={{ .FRIGATE_HOMEKIT_CLIENT_PUBLIC_0 }}&permissions=0
-      #   - client_id={{ .FRIGATE_HOMEKIT_CLIENT_ID_1 }}&client_public={{ .FRIGATE_HOMEKIT_CLIENT_PUBLIC_1 }}&permissions=1
+      pairings:
+        - client_id={{ .FRIGATE_HOMEKIT_CLIENT_ID_0 }}&client_public={{ .FRIGATE_HOMEKIT_CLIENT_PUBLIC_0 }}&permissions=0
+        - client_id={{ .FRIGATE_HOMEKIT_CLIENT_ID_1 }}&client_public={{ .FRIGATE_HOMEKIT_CLIENT_PUBLIC_1 }}&permissions=1
 
 cameras:
   frigate_entry:
