@@ -408,18 +408,21 @@ controlPlane:
       machine:
         sysfs:
           block.nvme0n1.queue.scheduler: none
-          devices.system.cpu.intel_pstate.no_turbo: 1
-          devices.system.cpu.cpu0.cpufreq.scaling_governor: performance
-          devices.system.cpu.cpu0.cpufreq.energy_performance_preference: performance
+          devices.system.cpu.cpufreq.boost: 0
 
     # Custom Talos installer patch
     - &talosPatch |-
       machine:
         install:
           extraKernelArgs:
+            - cpufreq.default_governor=performance
+            - intel_iommu=on
+            - intel_pstate=disable
+            - iommu=pt
             - mitigations=off
             - module_blacklist=tg3
             - net.ifnames=0
+            - pcie_ports=native
             - talos.logging.kernel=udp://vector.${PUBLIC_DOMAIN}:6001/
           legacyBIOSSupport: true
 
