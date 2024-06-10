@@ -24,10 +24,7 @@ helmCharts:
       cluster:
         id: 1
         name: main
-      containerRuntime:
-        integration: containerd
       devices: bond+
-      enableRuntimeDeviceDetection: true
       endpointRoutes:
         enabled: true
       hubble:
@@ -45,8 +42,6 @@ helmCharts:
       localRedirectPolicy: true
       operator:
         rollOutPods: true
-      podAnnotations:
-        webhooks.kyverno.io/exclude: "true"
       rollOutCiliumPods: true
       routingMode: native
       securityContext:

@@ -40,8 +40,6 @@ spec:
     cluster:
       name: k8s
       id: 1
-    containerRuntime:
-      integration: containerd
     dashboards:
       enabled: true
       annotations:
