@@ -16,7 +16,7 @@ repositories:
 
 releases:
   - name: prometheus-operator-crds
-    namespace: observability
+    namespace: monitoring
     chart: oci://ghcr.io/prometheus-community/charts/prometheus-operator-crds
     version: 12.0.0
 
@@ -27,7 +27,7 @@ releases:
     values:
       - ../kubernetes/apps/kube-system/cilium/app/resources/values.yaml
     needs:
-      - observability/prometheus-operator-crds
+      - monitoring/prometheus-operator-crds
 
   - name: coredns
     namespace: kube-system
@@ -36,7 +36,7 @@ releases:
     values:
       - ../kubernetes/apps/kube-system/coredns/app/resources/values.yaml
     needs:
-      - observability/prometheus-operator-crds
+      - monitoring/prometheus-operator-crds
       - kube-system/cilium
 
   - name: kubelet-csr-approver
@@ -46,7 +46,7 @@ releases:
     values:
       - ../kubernetes/apps/kube-system/kubelet-csr-approver/app/resources/values.yaml
     needs:
-      - observability/prometheus-operator-crds
+      - monitoring/prometheus-operator-crds
       - kube-system/cilium
       - kube-system/coredns
 
@@ -57,7 +57,7 @@ releases:
     values:
       - ../kubernetes/apps/kube-system/spegel/app/resources/values.yaml
     needs:
-      - observability/prometheus-operator-crds
+      - monitoring/prometheus-operator-crds
       - kube-system/cilium
       - kube-system/coredns
       - kube-system/kubelet-csr-approver

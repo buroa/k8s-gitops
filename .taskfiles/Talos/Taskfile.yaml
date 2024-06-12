@@ -33,8 +33,7 @@ tasks:
 
   fetch-kubeconfig:
     desc: Fetch kubeconfig from Talos controllers
-    cmd: |
-      talosctl kubeconfig --nodes {{.CONTROLLER}} --force {{.KUBERNETES_DIR}}
+    cmd: talosctl kubeconfig --nodes {{.CONTROLLER}} --force {{.KUBERNETES_DIR}}
     vars: *vars
     preconditions:
       - talosctl config info >/dev/null 2>&1
@@ -59,7 +58,7 @@ tasks:
 
   upgrade:
     desc: Upgrade Talos on a node
-    prompt: Upgrade Talos node '{{.node}}' ... continue?
+    prompt: Upgrade Talos node {{.node}} ... continue?
     cmd: talosctl --nodes {{.node}} upgrade --image=ghcr.io/buroa/installer:{{.TALOS_VERSION}} --preserve=true --reboot-mode=powercycle
     vars: *vars
     requires:
@@ -71,8 +70,7 @@ tasks:
 
   upgrade-k8s:
     desc: Upgrade Kubernetes
-    cmds:
-      - talosctl --nodes {{.CONTROLLER}} upgrade-k8s --to {{.KUBERNETES_VERSION}}
+    cmd: talosctl --nodes {{.CONTROLLER}} upgrade-k8s --to {{.KUBERNETES_VERSION}}
     vars: *vars
     preconditions:
       - test -f {{.TALOS_DIR}}/clusterconfig/talosconfig
@@ -81,7 +79,7 @@ tasks:
 
   reset-node:
     desc: Reset a Talos node
-    prompt: Reset Talos node '{{.node}}' ... continue?
+    prompt: Reset Talos node {{.node}} ... continue?
     cmd: talosctl reset --nodes {{.node}} --system-labels-to-wipe STATE --system-labels-to-wipe EPHEMERAL --graceful=false --reboot
     requires:
       vars: ["node"]
@@ -92,7 +90,7 @@ tasks:
 
   reset-cluster:
     desc: Reset all the Talos nodes
-    prompt: Reset Talos nodes '{{.nodes}}' ... continue?
+    prompt: Reset Talos nodes {{.nodes}} ... continue?
     cmd: talosctl reset --nodes {{.nodes}} --system-labels-to-wipe STATE --system-labels-to-wipe EPHEMERAL --graceful=false --reboot
     vars:
       nodes:
