@@ -47,7 +47,7 @@ tasks:
     vars:
       ns: '{{.ns | default "default"}}'
     preconditions:
-      - { msg: "PVC not found", sh: "kubectl -n {{.ns}} get persistentvolumeclaim {{.claim}}" }
+      - kubectl -n {{.ns}} get persistentvolumeclaim {{.claim}}
 
   privileged:
     desc: Run a privileged pod on a node
@@ -79,6 +79,10 @@ tasks:
                     "mountPath": "/rootfs"
                   },
                   {
+                    "name": "efivars",
+                    "mountPath": "/sys/firmware/efi/efivars"
+                  },
+                  {
                     "name": "run-containerd",
                     "mountPath": "/run/containerd"
                   }
@@ -99,6 +103,12 @@ tasks:
                 }
               },
               {
+                "name": "efivars",
+                "hostPath": {
+                  "path": "/sys/firmware/efi/efivars"
+                }
+              },
+              {
                 "name": "run-containerd",
                 "hostPath": {
                   "path": "/run/containerd"
@@ -112,7 +122,7 @@ tasks:
     vars:
       ns: '{{.ns | default "default"}}'
     preconditions:
-      - { msg: "Node not found", sh: "kubectl -n {{.ns}} get node {{.node}}" }
+      - kubectl -n {{.ns}} get node {{.node}}
 
   delete-failed-pods:
     desc: Deletes pods with a fucked status

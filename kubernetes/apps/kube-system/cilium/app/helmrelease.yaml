@@ -21,32 +21,10 @@ spec:
     remediation:
       strategy: rollback
       retries: 3
+  valuesFrom:
+    - kind: ConfigMap
+      name: cilium-helm-values
   values:
-    autoDirectNodeRoutes: true
-    bandwidthManager:
-      enabled: true
-      bbr: true
-    bpf:
-      masquerade: true
-      tproxy: true
-    bgpControlPlane:
-      enabled: true
-    cni:
-      exclusive: false
-    cgroup:
-      autoMount:
-        enabled: false
-      hostRoot: /sys/fs/cgroup
-    cluster:
-      name: k8s
-      id: 1
-    dashboards:
-      enabled: true
-      annotations:
-        grafana_folder: Cilium
-    devices: bond+
-    endpointRoutes:
-      enabled: true
     hubble:
       enabled: true
       metrics:
@@ -84,22 +62,7 @@ spec:
           tls:
             - hosts:
                 - *host
-    ipam:
-      mode: kubernetes
-    ipv4NativeRoutingCIDR: ${CLUSTER_POD_CIDR}
-    k8sServiceHost: 127.0.0.1
-    k8sServicePort: 7445
-    kubeProxyReplacement: true
-    kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
-    l2announcements:
-      enabled: true
-    loadBalancer:
-      algorithm: maglev
-      mode: dsr
-    localRedirectPolicy: true
     operator:
-      enabled: true
-      rollOutPods: true
       prometheus:
         enabled: true
         serviceMonitor:
@@ -108,31 +71,12 @@ spec:
         enabled: true
         annotations:
           grafana_folder: Cilium
-    podAnnotations:
-      webhooks.kyverno.io/exclude: "true"
     prometheus:
       enabled: true
       serviceMonitor:
         enabled: true
         trustCRDsExist: true
-    rollOutCiliumPods: true
-    routingMode: native
-    securityContext:
-      privileged: false
-      capabilities:
-        ciliumAgent:
-          - CHOWN
-          - KILL
-          - NET_ADMIN
-          - NET_RAW
-          - IPC_LOCK
-          - SYS_ADMIN
-          - SYS_RESOURCE
-          - DAC_OVERRIDE
-          - FOWNER
-          - SETGID
-          - SETUID
-        cleanCiliumState:
-          - NET_ADMIN
-          - SYS_ADMIN
-          - SYS_RESOURCE
+    dashboards:
+      enabled: true
+      annotations:
+        grafana_folder: Cilium

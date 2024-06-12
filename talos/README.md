@@ -2,32 +2,24 @@
 
 ## Talos
 
-### Create Talos Secrets
+### Generate Talos Secrets
 
 ```
-task talos:gensecret
-task talos:genconfig
+task talos:generate-secret
+task talos:generate-config
 ```
 
-### Boostrap Talos
+### Boostrap Talos 🍿
 
 ```
 task talos:bootstrap
-task talos:kubeconfig
 ```
 
-### Bootstrap Extras
+### Verify EFI Boot Order
 
 ```
-task talos:apply-extras
+task kubernetes:privileged node=...
+apk add efibootmgr;
+efibootmgr;
+efibootmgr --create --disk /dev/nvme0n1 --part 1 -l "\EFI\BOOT\BOOTX64.EFI" --label "Talos Linux" --unicode;
 ```
-
-### Update Mac EFI
-
-_use reFINd ensure boot order and delete other boot entries_
-
-1. Download [refind](https://sourceforge.net/projects/refind/files/0.14.0/refind-flashdrive-0.14.0.zip/download) here
-2. Add [exfat_x64.efi](https://github.com/pbatard/efifs/releases/download/v1.9/exfat_x64.efi) driver
-3. Set boot order to Talos: `bcfg boot add 0 fs1:\EFI\BOOT\BOOTX64.efi "Talos"`
-
-If you don't do this, your system reboots will be _extremely_ slow.

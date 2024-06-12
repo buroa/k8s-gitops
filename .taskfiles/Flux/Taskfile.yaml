@@ -1,64 +1,30 @@
 ---
 version: "3"
 
-vars:
-  # renovate: depName=prometheus-operator/prometheus-operator datasource=github-releases
-  PROMETHEUS_OPERATOR_VERSION: v0.74.0
-
 tasks:
 
   bootstrap:
     desc: Bootstrap Flux into a Kubernetes cluster
     prompt: Bootstrap Flux into the cluster... continue?
     cmds:
-      # Install essential Prometheus Operator CRDs
-      - kubectl apply --server-side --filename https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/{{.PROMETHEUS_OPERATOR_VERSION}}/example/prometheus-operator-crd/monitoring.coreos.com_podmonitors.yaml
-      - kubectl apply --server-side --filename https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/{{.PROMETHEUS_OPERATOR_VERSION}}/example/prometheus-operator-crd/monitoring.coreos.com_prometheusrules.yaml
-      - kubectl apply --server-side --filename https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/{{.PROMETHEUS_OPERATOR_VERSION}}/example/prometheus-operator-crd/monitoring.coreos.com_scrapeconfigs.yaml
-      - kubectl apply --server-side --filename https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/{{.PROMETHEUS_OPERATOR_VERSION}}/example/prometheus-operator-crd/monitoring.coreos.com_servicemonitors.yaml
-      - kubectl apply --server-side --filename https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/{{.PROMETHEUS_OPERATOR_VERSION}}/example/prometheus-operator-crd/monitoring.coreos.com_probes.yaml
       # Install Flux
       - kubectl apply --server-side --kustomize {{.KUBERNETES_DIR}}/bootstrap/flux
-      - sops --decrypt {{.KUBERNETES_DIR}}/bootstrap/flux/age-key.sops.yaml | kubectl apply -f -
-      - sops --decrypt {{.KUBERNETES_DIR}}/bootstrap/flux/github-deploy-key.sops.yaml | kubectl apply -f -
-      - sops --decrypt --in-place {{.KUBERNETES_DIR}}/flux/vars/cluster-secrets.sops.yaml
-      - kubectl apply --server-side --kustomize {{.KUBERNETES_DIR}}/flux/vars
+      # Install secrets and configmaps
+      - sops --decrypt {{.KUBERNETES_DIR}}/bootstrap/flux/age-key.sops.yaml | kubectl apply --server-side --filename -
+      - sops --decrypt {{.KUBERNETES_DIR}}/bootstrap/flux/github-deploy-key.sops.yaml | kubectl apply --server-side --filename -
+      - sops --decrypt {{.KUBERNETES_DIR}}/flux/vars/cluster-secrets.sops.yaml | kubectl apply --server-side --filename -
+      - kubectl apply --server-side --filename {{.KUBERNETES_DIR}}/flux/vars/cluster-settings.yaml
+      # Install Flux Kustomization resources
       - kubectl apply --server-side --kustomize {{.KUBERNETES_DIR}}/flux/config
-      - defer: sops --encrypt --in-place {{.KUBERNETES_DIR}}/flux/vars/cluster-secrets.sops.yaml
     preconditions:
-      - { msg: "Flux appears already installed", sh: "kubectl get namespace flux-system &>/dev/null && exit 1 || exit 0" }
-      - { msg: "Age private key not found", sh: "test -f {{.ROOT_DIR}}/age.key" }
-      - { msg: "Age secret not found", sh: "test -f {{.KUBERNETES_DIR}}/bootstrap/flux/age-key.sops.yaml" }
-      - { msg: "Github deploy secret not found", sh: "test -f {{.KUBERNETES_DIR}}/bootstrap/flux/github-deploy-key.sops.yaml" }
-      - { msg: "Cluster settings not found", sh: "test -f {{.KUBERNETES_DIR}}/flux/vars/cluster-settings.yaml" }
-      - { msg: "Cluster secrets not found", sh: "test -f {{.KUBERNETES_DIR}}/flux/vars/cluster-secrets.sops.yaml" }
-      - { msg: "Unable to decrypt sops secret", sh: "sops --decrypt {{.KUBERNETES_DIR}}/bootstrap/flux/age-key.sops.yaml" }
-      - { msg: "Unable to decrypt sops secret", sh: "sops --decrypt {{.KUBERNETES_DIR}}/bootstrap/flux/github-deploy-key.sops.yaml" }
-      - { msg: "Unable to decrypt sops secret", sh: "sops --decrypt {{.KUBERNETES_DIR}}/flux/vars/cluster-secrets.sops.yaml" }
-
-  apply:
-    desc: Apply a Flux Kustomization resource
-    summary: |
-      Args:
-        path: Path to the Flux Kustomization resource (required)
-        ns: Namespace the Flux Kustomization exists in (default: flux-system)
-    cmd: |
-      flux build ks cluster-apps-$(basename {{.path}}) \
-          --namespace {{.ns}} \
-          --kustomization-file {{.KUBERNETES_DIR}}/apps/{{.path}}/ks.yaml \
-          --path {{.KUBERNETES_DIR}}/apps/{{.path}} \
-          {{- if contains "not found" .ks }}--dry-run \{{ end }}
-      | \
-      kubectl apply --server-side \
-          --field-manager=kustomize-controller -f -
-    requires:
-      vars: ["path"]
-    vars:
-      ns: '{{.ns | default "flux-system"}}'
-      ks:
-        sh: flux --namespace {{.ns}} get kustomizations cluster-apps-$(basename {{.path}}) 2>&1
-    preconditions:
-      - { msg: "Kustomization file not found", sh: "test -f {{.KUBERNETES_DIR}}/apps/{{.path}}/ks.yaml" }
+      - test -f {{.ROOT_DIR}}/age.key
+      - test -f {{.KUBERNETES_DIR}}/bootstrap/flux/age-key.sops.yaml
+      - test -f {{.KUBERNETES_DIR}}/bootstrap/flux/github-deploy-key.sops.yaml
+      - test -f {{.KUBERNETES_DIR}}/flux/vars/cluster-settings.yaml
+      - test -f {{.KUBERNETES_DIR}}/flux/vars/cluster-secrets.sops.yaml
+      - sops --decrypt {{.KUBERNETES_DIR}}/bootstrap/flux/age-key.sops.yaml
+      - sops --decrypt {{.KUBERNETES_DIR}}/bootstrap/flux/github-deploy-key.sops.yaml
+      - sops --decrypt {{.KUBERNETES_DIR}}/flux/vars/cluster-secrets.sops.yaml
 
   gr-sync:
     desc: Sync all Flux GitRepositories

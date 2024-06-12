@@ -1,0 +1,3 @@
+---
+bypassDnsResolution: true
+providerRegex: ^[m|w]\d$

@@ -1,79 +1,127 @@
 ---
 version: "3"
 
+x-vars: &vars
+  TALOS_VERSION:
+    sh: yq 'select(document_index == 1).spec.postBuild.substitute.TALOS_VERSION' {{.KUBERNETES_DIR}}/apps/system-upgrade/system-upgrade-controller/ks.yaml
+  KUBERNETES_VERSION:
+    sh: yq 'select(document_index == 1).spec.postBuild.substitute.KUBERNETES_VERSION' {{.KUBERNETES_DIR}}/apps/system-upgrade/system-upgrade-controller/ks.yaml
+  CONTROLLER:
+    sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
+
 vars:
   TALHELPER_SECRET_FILE: "{{.TALOS_DIR}}/talsecret.sops.yaml"
   TALHELPER_CONFIG_FILE: "{{.TALOS_DIR}}/talconfig.yaml"
 
 tasks:
 
-  gensecret:
+  bootstrap:
+    desc: Bootstrap Talos
+    prompt: Bootstrap Talos on the cluster ... continue?
+    cmds:
+      - task: bootstrap-etcd
+      - task: fetch-kubeconfig
+      - task: bootstrap-apps
+      - task: bootstrap-labels
+
+  bootstrap-etcd:
+    desc: Bootstrap Etcd
+    cmd: until talosctl --nodes {{.CONTROLLER}} bootstrap; do sleep 10; done
+    vars: *vars
+    preconditions:
+      - talosctl config info >/dev/null 2>&1
+
+  fetch-kubeconfig:
+    desc: Fetch kubeconfig from Talos controllers
+    cmd: |
+      talosctl kubeconfig --nodes {{.CONTROLLER}} --force {{.KUBERNETES_DIR}}
+    vars: *vars
+    preconditions:
+      - talosctl config info >/dev/null 2>&1
+
+  bootstrap-apps:
+    desc: Bootstrap core apps needed for Talos
+    cmds:
+      - until kubectl wait --for=condition=Ready=False nodes --all --timeout=10m; do sleep 10; done
+      - helmfile --quiet --file {{.TALOS_DIR}}/apps/helmfile.yaml apply --skip-diff-on-install --suppress-diff
+      - until kubectl wait --for=condition=Ready nodes --all --timeout=10m; do sleep 10; done
+    preconditions:
+      - talosctl config info >/dev/null 2>&1
+      - test -f {{.TALOS_DIR}}/apps/helmfile.yaml
+
+  bootstrap-labels:
+    desc: Bootstrap labels on the nodes
+    cmds:
+      - for: { var: workers }
+        cmd: kubectl label node {{.ITEM}} node-role.kubernetes.io/worker=
+    vars:
+      workers: w0 w1 w2
+
+  upgrade:
+    desc: Upgrade Talos on a node
+    prompt: Upgrade Talos node '{{.node}}' ... continue?
+    cmd: talosctl --nodes {{.node}} upgrade --image=ghcr.io/buroa/installer:{{.TALOS_VERSION}} --preserve=true --reboot-mode=powercycle
+    vars: *vars
+    requires:
+      vars: ["node"]
+    preconditions:
+      - test -f {{.TALOS_DIR}}/clusterconfig/talosconfig
+      - talosctl config info >/dev/null 2>&1
+      - talosctl --nodes {{.node}} get machineconfig >/dev/null 2>&1
+
+  upgrade-k8s:
+    desc: Upgrade Kubernetes
+    cmds:
+      - talosctl --nodes {{.CONTROLLER}} upgrade-k8s --to {{.KUBERNETES_VERSION}}
+    vars: *vars
+    preconditions:
+      - test -f {{.TALOS_DIR}}/clusterconfig/talosconfig
+      - talosctl config info >/dev/null 2>&1
+      - talosctl --nodes {{.CONTROLLER}} get machineconfig >/dev/null 2>&1
+
+  reset-node:
+    desc: Reset a Talos node
+    prompt: Reset Talos node '{{.node}}' ... continue?
+    cmd: talosctl reset --nodes {{.node}} --system-labels-to-wipe STATE --system-labels-to-wipe EPHEMERAL --graceful=false --reboot
+    requires:
+      vars: ["node"]
+    preconditions:
+      - test -f {{.TALOS_DIR}}/clusterconfig/talosconfig
+      - talosctl config info >/dev/null 2>&1
+      - talosctl --nodes {{.node}} get machineconfig >/dev/null 2>&1
+
+  reset-cluster:
+    desc: Reset all the Talos nodes
+    prompt: Reset Talos nodes '{{.nodes}}' ... continue?
+    cmd: talosctl reset --nodes {{.nodes}} --system-labels-to-wipe STATE --system-labels-to-wipe EPHEMERAL --graceful=false --reboot
+    vars:
+      nodes:
+        sh: talosctl config info --output json | jq --join-output '[.nodes[]] | join(",")'
+    preconditions:
+      - test -f {{.TALOS_DIR}}/clusterconfig/talosconfig
+      - talosctl config info >/dev/null 2>&1
+      - talosctl --nodes {{.nodes}} get machineconfig >/dev/null 2>&1
+
+  generate-secret:
     desc: Generate Talos secret
-    prompt: This will overwrite the existing secret... continue?
+    prompt: This will overwrite the existing secret ... continue?
     dir: "{{.TALOS_DIR}}"
     cmds:
       - talhelper gensecret > {{.TALHELPER_SECRET_FILE}}
       - sops --encrypt --in-place {{.TALHELPER_SECRET_FILE}}
     preconditions:
-      - { msg: "Missing talhelper config file", sh: "test -f {{.TALHELPER_CONFIG_FILE}}" }
+      - test -f {{.TALHELPER_CONFIG_FILE}}
 
-  genconfig:
+  generate-config:
     desc: Generate Talos config
     dir: "{{.TALOS_DIR}}"
     cmd: talhelper genconfig
     preconditions:
-      - { msg: "Missing talhelper config file", sh: "test -f {{.TALHELPER_CONFIG_FILE}}" }
-
-  kubeconfig:
-    desc: Generate Talos kubeconfig
-    prompt: This will overwrite the existing kubeconfig... continue?
-    dir: "{{.TALOS_DIR}}"
-    cmd: talosctl kubeconfig {{.ROOT_DIR}} --force
-
-  bootstrap:
-    desc: Bootstrap the Talos cluster
-    dir: "{{.TALOS_DIR}}"
-    cmd: talhelper gencommand bootstrap | bash
+      - test -f {{.TALHELPER_CONFIG_FILE}}
 
   apply-config:
     desc: Apply Talos config to the nodes
     dir: "{{.TALOS_DIR}}"
     cmd: talhelper gencommand apply | bash
-
-  apply-extras:
-    desc: Apply extras
-    cmds:
-      - for: { var: apps }
-        task: .bootstrap-helm-app
-        vars:
-          app: "{{.ITEM}}"
-      - for: { var: workers }
-        cmd: kubectl label node {{.ITEM}} node-role.kubernetes.io/worker=
-    vars:
-      apps: cilium coredns kubelet-csr-approver
-      workers: w0 w1 w2
-
-  upgrade-talos:
-    desc: Upgrade Talos on a node
-    cmd: talosctl --nodes {{.node}} upgrade --image {{.image}} --preserve=true --reboot-mode=powercycle
-    requires:
-      vars: ["node", "image"]
     preconditions:
-      - { msg: "Node not found", sh: "talosctl --nodes {{.node}} get mc" }
-
-  upgrade-k8s:
-    desc: Upgrade k8s on a node
-    cmd: talosctl --nodes {{.node}} upgrade-k8s --to {{.to}}
-    requires:
-      vars: ["node", "to"]
-    preconditions:
-      - { msg: "Node not found", sh: "talosctl --nodes {{.node}} get mc" }
-
-  .bootstrap-helm-app:
-    internal: true
-    dir: "{{.TALOS_DIR}}/apps/{{.app}}"
-    cmds:
-      - kubectl kustomize --enable-helm . | kubectl apply --server-side --filename -
-      - defer: rm -rf ./charts
-    requires:
-      vars: ["app"]
+      - test -f {{.TALHELPER_CONFIG_FILE}}

@@ -45,7 +45,7 @@ spec:
               BASE_URL: https://{{ .Release.Name }}.${PUBLIC_DOMAIN}
               CREATE_ADMIN: 1
               LOG_DATE_TIME: 1
-              METRICS_ALLOWED_NETWORKS: ${CLUSTER_POD_CIDR}
+              METRICS_ALLOWED_NETWORKS: 10.244.0.0/16
               METRICS_COLLECTOR: 1
               OAUTH2_CLIENT_ID: miniflux
               OAUTH2_OIDC_DISCOVERY_ENDPOINT: https://auth.${PUBLIC_DOMAIN}
