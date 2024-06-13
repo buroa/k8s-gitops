@@ -1,0 +1,14 @@
+---
+version: "3"
+
+tasks:
+
+  k8s:
+    desc: Bootstrap K8s from start to finish
+    cmds:
+      - task: :talos:bootstrap
+      - task: :rook:reset
+      - task: :flux:bootstrap
+    preconditions:
+      - test -f {{.KUBERNETES_DIR}}/talosconfig
+      - talosctl config info >/dev/null 2>&1

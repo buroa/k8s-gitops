@@ -1,9 +1,6 @@
 ---
 version: "3"
 
-# TODO: Clean up `--context` usage
-# Ref: https://github.com/go-task/task/issues/1038
-
 vars:
   KUBERNETES_DIR: "{{.ROOT_DIR}}/kubernetes"
   TALOS_DIR: "{{.ROOT_DIR}}/talos"
@@ -13,6 +10,7 @@ env:
   SOPS_AGE_KEY_FILE: "{{.ROOT_DIR}}/age.key"
 
 includes:
+  bootstrap: .taskfiles/Bootstrap
   external-secrets: .taskfiles/ExternalSecrets
   flux: .taskfiles/Flux
   kubernetes: .taskfiles/Kubernetes

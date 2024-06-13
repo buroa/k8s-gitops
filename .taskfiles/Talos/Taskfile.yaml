@@ -10,8 +10,8 @@ x-vars: &vars
     sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
 
 vars:
-  TALHELPER_SECRET_FILE: "{{.TALOS_DIR}}/talsecret.sops.yaml"
-  TALHELPER_CONFIG_FILE: "{{.TALOS_DIR}}/talconfig.yaml"
+  TALHELPER_SECRET_FILE: '{{.TALOS_DIR}}/talsecret.sops.yaml'
+  TALHELPER_CONFIG_FILE: '{{.TALOS_DIR}}/talconfig.yaml'
 
 tasks:
 
@@ -107,7 +107,7 @@ tasks:
   generate-secret:
     desc: Generate Talos secret
     prompt: This will overwrite the existing secret ... continue?
-    dir: "{{.TALOS_DIR}}"
+    dir: '{{.TALOS_DIR}}'
     cmds:
       - talhelper gensecret > {{.TALHELPER_SECRET_FILE}}
       - sops --encrypt --in-place {{.TALHELPER_SECRET_FILE}}
@@ -116,14 +116,14 @@ tasks:
 
   generate-config:
     desc: Generate Talos config
-    dir: "{{.TALOS_DIR}}"
+    dir: '{{.TALOS_DIR}}'
     cmd: talhelper genconfig
     preconditions:
       - test -f {{.TALHELPER_CONFIG_FILE}}
 
   apply-config:
     desc: Apply Talos config to the nodes
-    dir: "{{.TALOS_DIR}}"
+    dir: '{{.TALOS_DIR}}'
     cmd: talhelper gencommand apply | bash
     preconditions:
       - test -f {{.TALHELPER_CONFIG_FILE}}
