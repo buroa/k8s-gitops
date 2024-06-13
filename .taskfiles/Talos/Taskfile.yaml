@@ -44,6 +44,10 @@ tasks:
       - until kubectl wait --for=condition=Ready=False nodes --all --timeout=10m; do sleep 10; done
       - helmfile --quiet --file {{.TALOS_DIR}}/apps/helmfile.yaml apply --skip-diff-on-install --suppress-diff
       - until kubectl wait --for=condition=Ready nodes --all --timeout=10m; do sleep 10; done
+    env:
+      CLUSTER_POD_CIDR:
+        sh: yq '.data.CLUSTER_POD_CIDR' {{.KUBERNETES_DIR}}/flux/vars/cluster-settings.yaml
+      KUBERNETES_DIR: '{{.KUBERNETES_DIR}}'
     preconditions:
       - talosctl config info >/dev/null 2>&1
       - test -f {{.TALOS_DIR}}/apps/helmfile.yaml

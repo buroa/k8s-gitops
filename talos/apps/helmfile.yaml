@@ -25,7 +25,10 @@ releases:
     chart: cilium/cilium
     version: 1.15.6
     values:
-      - ../kubernetes/apps/kube-system/cilium/app/resources/values.yaml
+      - '{{ requiredEnv "KUBERNETES_DIR" }}/apps/kube-system/cilium/app/resources/values.yaml'
+    set:
+      - name: ipv4NativeRoutingCIDR
+        value: '{{ requiredEnv "CLUSTER_POD_CIDR" }}'
     needs:
       - monitoring/prometheus-operator-crds
 
@@ -34,7 +37,7 @@ releases:
     chart: coredns/coredns
     version: 1.30.0
     values:
-      - ../kubernetes/apps/kube-system/coredns/app/resources/values.yaml
+      - '{{ requiredEnv "KUBERNETES_DIR" }}/apps/kube-system/coredns/app/resources/values.yaml'
     needs:
       - monitoring/prometheus-operator-crds
       - kube-system/cilium
@@ -44,7 +47,7 @@ releases:
     chart: postfinance/kubelet-csr-approver
     version: 1.2.1
     values:
-      - ../kubernetes/apps/kube-system/kubelet-csr-approver/app/resources/values.yaml
+      - '{{ requiredEnv "KUBERNETES_DIR" }}/apps/kube-system/kubelet-csr-approver/app/resources/values.yaml'
     needs:
       - monitoring/prometheus-operator-crds
       - kube-system/cilium
@@ -55,7 +58,7 @@ releases:
     chart: oci://ghcr.io/spegel-org/helm-charts/spegel
     version: v0.0.23
     values:
-      - ../kubernetes/apps/kube-system/spegel/app/resources/values.yaml
+      - '{{ requiredEnv "KUBERNETES_DIR" }}/apps/kube-system/spegel/app/resources/values.yaml'
     needs:
       - monitoring/prometheus-operator-crds
       - kube-system/cilium

@@ -23,6 +23,10 @@ data:
   CLUSTER_STORAGE_HOSTPATH: democratic-csi-local-hostpath
   CLUSTER_SNAPSHOT_HOSTPATH: csi-democratic-csi-local-hostpath
 
+  # K8s
+  CLUSTER_POD_CIDR: 10.244.0.0/16
+  CLUSTER_SERVICE_CIDR: 10.245.0.0/16
+
   # Networks
   NET_LOCAL_CIDR: 192.168.0.0/24
   NET_TRUSTED_CIDR: 192.168.1.0/24
