@@ -20,6 +20,8 @@ cni:
 devices: bond+
 endpointRoutes:
   enabled: true
+externalIPs:
+  enabled: true
 hubble:
   enabled: false
 ipam:
