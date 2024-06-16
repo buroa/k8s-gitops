@@ -31,3 +31,4 @@ resources:
   - ./spegel-charts.yaml
   - ./stakater-charts.yaml
   - ./stevehipwell-charts.yaml
+  - ./tailscale-charts.yaml

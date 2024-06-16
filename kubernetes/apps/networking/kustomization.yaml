@@ -9,4 +9,4 @@ resources:
   - ./multus/ks.yaml
   - ./nginx/ks.yaml
   - ./smtp-relay/ks.yaml
-  - ./tailscale/ks.yaml
+  - ./tailscale-operator/ks.yaml
