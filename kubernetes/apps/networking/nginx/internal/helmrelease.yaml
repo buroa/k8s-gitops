@@ -74,6 +74,7 @@ spec:
         annotations:
           external-dns.alpha.kubernetes.io/hostname: internal.${PUBLIC_DOMAIN}
           io.cilium/lb-ipam-ips: ${NET_SERVICES_INGRESS_IP_INT}
+        externalTrafficPolicy: Local
       topologySpreadConstraints:
         - maxSkew: 1
           topologyKey: kubernetes.io/hostname
