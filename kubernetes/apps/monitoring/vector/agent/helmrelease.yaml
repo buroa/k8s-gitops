@@ -33,7 +33,7 @@ spec:
           app:
             image:
               repository: docker.io/timberio/vector
-              tag: 0.38.0-debian@sha256:7605ccc5a57b6d37650037c7c6495a6331ecd18b5ec326842e76f9d70d445e0b
+              tag: 0.39.0-debian@sha256:adb9f2fc8b69eea7a61cda30a3ef32a335c720c1500837c16d4ba4aaf56a7456
             args:
               - --config
               - /etc/vector/vector.yaml
