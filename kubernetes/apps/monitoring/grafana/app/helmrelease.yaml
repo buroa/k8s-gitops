@@ -261,6 +261,15 @@ spec:
           datasource:
             - name: DS_PROMETHEUS
               value: Prometheus
+        volsync:
+          # removate: depNmae="VolSync Dashboard"
+          gnetId: 21356
+          revision: 1
+          datasource:
+            - name: DS_PROMETHEUS
+              value: Prometheus
+            - name: VAR_REPLICATIONDESTNAME
+              value: .*-rdst
       ceph:
         ceph-cluster:
           # renovate: depName="Ceph Cluster"
