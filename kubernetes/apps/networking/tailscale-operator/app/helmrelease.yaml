@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: tailscale-operator
-      version: 1.66.4
+      version: 1.68.1
       sourceRef:
         kind: HelmRepository
         name: tailscale-charts
