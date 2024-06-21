@@ -31,13 +31,9 @@ nodes:
       serial: C0785130064JRQ5AA
     controlPlane: true
     networkInterfaces:
-      - interface: bond0
-        bond:
-          mode: active-backup
-          miimon: 1000
-          deviceSelectors:
-            - hardwareAddr: 00:30:93:10:5c:f1
-              driver: atlantic
+      - deviceSelector:
+          hardwareAddr: 00:30:93:10:5c:f1
+          driver: atlantic
         dhcp: false
         mtu: 9000
         vlans:
@@ -65,13 +61,9 @@ nodes:
       serial: H280463005RJRV2C6
     controlPlane: true
     networkInterfaces:
-      - interface: bond0
-        bond:
-          mode: active-backup
-          miimon: 1000
-          deviceSelectors:
-            - hardwareAddr: 00:30:93:10:5c:f6
-              driver: atlantic
+      - deviceSelector:
+          hardwareAddr: 00:30:93:10:5c:f6
+          driver: atlantic
         dhcp: false
         mtu: 9000
         vlans:
@@ -99,13 +91,9 @@ nodes:
       serial: C070234007KJRT9AZ
     controlPlane: true
     networkInterfaces:
-      - interface: bond0
-        bond:
-          mode: active-backup
-          miimon: 1000
-          deviceSelectors:
-            - hardwareAddr: 00:30:93:10:5c:ee
-              driver: atlantic
+      - deviceSelector:
+          hardwareAddr: 00:30:93:10:5c:ee
+          driver: atlantic
         dhcp: false
         mtu: 9000
         vlans:
@@ -133,13 +121,9 @@ nodes:
       serial: H281495002CJRVGDX
     controlPlane: false
     networkInterfaces:
-      - interface: bond0
-        bond:
-          mode: active-backup
-          miimon: 1000
-          deviceSelectors:
-            - hardwareAddr: cc:2d:b7:0b:0c:40
-              driver: atlantic
+      - deviceSelector:
+          hardwareAddr: cc:2d:b7:0b:0c:40
+          driver: atlantic
         dhcp: false
         mtu: 9000
         vlans:
@@ -183,13 +167,9 @@ nodes:
       serial: C070173002EJRVGAW
     controlPlane: false
     networkInterfaces:
-      - interface: bond0
-        bond:
-          mode: active-backup
-          miimon: 1000
-          deviceSelectors:
-            - hardwareAddr: cc:2d:b7:07:c0:00
-              driver: atlantic
+      - deviceSelector:
+          hardwareAddr: cc:2d:b7:07:c0:00
+          driver: atlantic
         dhcp: false
         mtu: 9000
         vlans:
@@ -233,13 +213,9 @@ nodes:
       serial: C07843600H7JRVGA8
     controlPlane: false
     networkInterfaces:
-      - interface: bond0
-        bond:
-          mode: active-backup
-          miimon: 1000
-          deviceSelectors:
-            - hardwareAddr: cc:2d:b7:02:b9:b5
-              driver: atlantic
+      - deviceSelector:
+          hardwareAddr: cc:2d:b7:02:b9:b5
+          driver: atlantic
         dhcp: false
         mtu: 9000
         vlans:
