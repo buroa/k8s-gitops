@@ -5,13 +5,13 @@
       description: ["Loose versioning for non-semver packages"],
       matchDatasources: ["docker"],
       versioning: "loose",
-      matchPackagePatterns: ["cross-seed", "plex", "qbittorrent"],
+      matchPackagePatterns: ["plex"],
     },
     {
-      description: ["Custom versioning for miniflux"],
-      matchDatasources: ["docker"],
-      versioning: "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)-(?<compatibility>)$",
-      matchPackagePatterns: ["miniflux"],
+      description: ["Custom schedule for frequently updated packages"],
+      matchDatasources: ["docker", "helm"],
+      schedule: ["on the first day of the month"],
+      matchPackagePatterns: ["reloader"],
     },
   ],
 }
