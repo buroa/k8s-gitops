@@ -31,7 +31,7 @@ spec:
               tag: 4.6.5@sha256:a90555ebe0a25585dfccec604c295b278fe40e14a1254426c52f629e51441554
             env:
               QBITTORRENT__PORT: &port 8080
-              QBITTORRENT__BT_PORT: &bittorrentPort ${NET_SERVICES_TORRENT_PORT}
+              QBITTORRENT__BT_PORT: &bittorrentPort ${NET_SERVICES_QBITTORRENT_PORT}
               QBT_Application__MemoryWorkingSetLimit:
                 valueFrom:
                   resourceFieldRef:
@@ -117,7 +117,7 @@ spec:
         existingClaim: *app
       media:
         type: nfs
-        server: nas.${PRIVATE_DOMAIN}
+        server: nas.${INTERNAL_DOMAIN}
         path: /volume1/media
         globalMounts:
           - path: /media/downloads/torrents

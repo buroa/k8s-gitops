@@ -33,7 +33,7 @@ spec:
           tag: v0.2.0@sha256:4f0d996ba6932f38e921b0717ba44cb58b7d687dcf6a55c9d3843396d23b22d1
         env:
           - name: UNIFI_HOST
-            value: https://unifi.${PRIVATE_DOMAIN}
+            value: https://unifi.${INTERNAL_DOMAIN}
           - name: &name UNIFI_USER
             valueFrom:
               secretKeyRef:
@@ -65,7 +65,7 @@ spec:
     domainFilters:
       - ${PUBLIC_DOMAIN}
     excludeDomains:
-      - ${PRIVATE_DOMAIN}
+      - ${INTERNAL_DOMAIN}
     serviceMonitor:
       enabled: true
     podAnnotations:

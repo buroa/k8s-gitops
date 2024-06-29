@@ -9,7 +9,7 @@ data:
 
   # Domains
   PUBLIC_DOMAIN: ktwo.io
-  PRIVATE_DOMAIN: internal
+  INTERNAL_DOMAIN: internal
 
   # Email
   PUBLIC_EMAIL: skre@skre.me
@@ -49,4 +49,4 @@ data:
 
   # Shh :-)
   NET_SERVICES_TAILSCALE_PORT: "41642"
-  NET_SERVICES_TORRENT_PORT: "50415"
+  NET_SERVICES_QBITTORRENT_PORT: "50415"
