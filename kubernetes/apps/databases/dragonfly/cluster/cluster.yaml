@@ -4,7 +4,7 @@ kind: Dragonfly
 metadata:
   name: dragonfly
 spec:
-  image: ghcr.io/dragonflydb/dragonfly:v1.19.1
+  image: ghcr.io/dragonflydb/dragonfly:v1.19.2
   replicas: 3
   args:
     - --maxmemory=$(MAX_MEMORY)Mi
