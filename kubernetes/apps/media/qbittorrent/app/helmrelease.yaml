@@ -134,7 +134,6 @@ spec:
         type: LoadBalancer
         annotations:
           io.cilium/lb-ipam-ips: ${NET_SERVICES_QBITTORRENT_IP}
-        externalTrafficPolicy: Local
         ports:
           bittorrent-tcp:
             port: *bittorrentPort

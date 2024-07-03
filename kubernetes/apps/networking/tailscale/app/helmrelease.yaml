@@ -93,7 +93,6 @@ spec:
         type: LoadBalancer
         annotations:
           io.cilium/lb-ipam-ips: ${NET_SERVICES_TAILSCALE_IP}
-        externalTrafficPolicy: Local
         ports:
           tailnet:
             port: *port
