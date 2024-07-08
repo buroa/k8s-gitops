@@ -36,18 +36,18 @@ spec:
                 - external
       config:
         client-body-buffer-size: 100M
-        client-body-timeout: 2m
-        client-header-timeout: 2m
+        client-body-timeout: 120
+        client-header-timeout: 120
         enable-brotli: true
         enable-ocsp: true
         enable-real-ip: true
         hsts-max-age: 31449600
         keep-alive-requests: 10000
-        keep-alive: 2m
+        keep-alive: 120
         proxy-body-size: 0
         proxy-buffer-size: 16k
-        proxy-read-timeout: 7d
-        proxy-send-timeout: 7d
+        proxy-read-timeout: 604800
+        proxy-send-timeout: 604800
         ssl-protocols: TLSv1.3 TLSv1.2
         use-forwarded-headers: true
       extraArgs:
