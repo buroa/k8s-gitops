@@ -35,20 +35,27 @@ spec:
               values:
                 - external
       config:
+        block-user-agents: "GPTBot,~*GPTBot*,ChatGPT-User,~*ChatGPT-User*,Google-Extended,~*Google-Extended*,CCBot,~*CCBot*,Omgilibot,~*Omgilibot*,FacebookBot,~*FacebookBot*" # taken from https://github.com/superseriousbusiness/gotosocial/blob/main/internal/web/robots.go
         client-body-buffer-size: 100M
         client-body-timeout: 120
         client-header-timeout: 120
         enable-brotli: true
         enable-ocsp: true
         enable-real-ip: true
+        force-ssl-redirect: true
+        hide-headers: Server,X-Powered-By
         hsts-max-age: 31449600
         keep-alive-requests: 10000
         keep-alive: 120
+        log-format-escape-json: true
+        log-format-upstream: >
+          {"time": "$time_iso8601", "remote_addr": "$proxy_protocol_addr", "x_forwarded_for": "$proxy_add_x_forwarded_for",
+          "request_id": "$req_id", "remote_user": "$remote_user", "bytes_sent": $bytes_sent, "request_time": $request_time,
+          "status": $status, "vhost": "$host", "request_proto": "$server_protocol", "path": "$uri", "request_query": "$args",
+          "request_length": $request_length, "duration": $request_time, "method": "$request_method", "http_referrer": "$http_referer",
+          "http_user_agent": "$http_user_agent"}
         proxy-body-size: 0
         proxy-buffer-size: 16k
-        proxy-read-timeout: 604800
-        proxy-send-timeout: 604800
-        ssl-early-data: true
         ssl-protocols: TLSv1.3 TLSv1.2
         use-forwarded-headers: true
       extraArgs:
@@ -74,7 +81,7 @@ spec:
         annotations:
           io.cilium/lb-ipam-ips: ${NET_SERVICES_INGRESS_IP_EXT}
           external-dns.alpha.kubernetes.io/hostname: external.${PUBLIC_DOMAIN}
-        externalTrafficPolicy: Local
+      terminationGracePeriodSeconds: 120
       topologySpreadConstraints:
         - maxSkew: 1
           topologyKey: kubernetes.io/hostname
