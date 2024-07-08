@@ -48,6 +48,7 @@ spec:
         proxy-buffer-size: 16k
         proxy-read-timeout: 604800
         proxy-send-timeout: 604800
+        ssl-early-data: true
         ssl-protocols: TLSv1.3 TLSv1.2
         use-forwarded-headers: true
       extraArgs:
