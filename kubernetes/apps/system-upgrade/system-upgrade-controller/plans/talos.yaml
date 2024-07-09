@@ -49,4 +49,3 @@ spec:
       - --image=ghcr.io/buroa/installer:$(SYSTEM_UPGRADE_PLAN_LATEST_VERSION)
       - --preserve=true
       - --wait=false
-      - --reboot-mode=powercycle # TODO: kexec thunderbolt-net issue

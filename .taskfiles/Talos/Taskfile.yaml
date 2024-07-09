@@ -63,7 +63,7 @@ tasks:
   upgrade:
     desc: Upgrade Talos on a node
     prompt: Upgrade Talos node {{.node}} ... continue?
-    cmd: talosctl --nodes {{.node}} upgrade --image=ghcr.io/buroa/installer:{{.TALOS_VERSION}} --preserve=true --reboot-mode=powercycle
+    cmd: talosctl --nodes {{.node}} upgrade --image=ghcr.io/buroa/installer:{{.TALOS_VERSION}} --preserve=true
     vars: *vars
     requires:
       vars: ["node"]
