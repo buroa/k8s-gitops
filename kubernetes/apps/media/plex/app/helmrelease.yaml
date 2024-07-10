@@ -27,9 +27,11 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/buroa/plex-beta
-              tag: 1.40.4.8626-f67205e8e@sha256:1121118dacc8e39db748f3c3f428a766f7fbcc4a54a53619a48b0a5f22c0329a
+              repository: ghcr.io/buroa/plex
+              tag: 1.40.3.8555-fef15d30c@sha256:3ee3e3af5be64c6c420e7e87e1c4556113421b181e2fd4eb42935188dbf3ba0e
             env:
+              PLEX_ADVERTISE_URL: https://{{ .Release.Name }}.${PUBLIC_DOMAIN}:443
+              PLEX_NO_AUTH_NETWORKS: ${NET_TRUSTED_CIDR}
               TZ: ${TIMEZONE}
             probes:
               liveness: &probes
