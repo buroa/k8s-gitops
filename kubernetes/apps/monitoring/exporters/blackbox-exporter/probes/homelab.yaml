@@ -13,3 +13,5 @@ spec:
         - nas.${INTERNAL_DOMAIN}
         - unifi.${INTERNAL_DOMAIN}
         - ups.${INTERNAL_DOMAIN}
+        - xfinity.${INTERNAL_DOMAIN} # WAN1 - XFINITY PON ONT
+        - verizon.${INTERNAL_DOMAIN} # WAN2 - Verizon Wireless LTE/5G
