@@ -25,30 +25,16 @@ spec:
     controllers:
       generic-device-plugin:
         type: daemonset
+        annotations:
+          reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
               repository: ghcr.io/squat/generic-device-plugin
               tag: latest@sha256:ba6f0b4cf6c858d6ad29ba4d32e4da11638abbc7d96436bf04f582a97b2b8821
             args:
-              - --log-level
-              - info
-              - --device=$(DEVICE_CONBEE)
-              - --device=$(DEVICE_CORAL)
-            env:
-              DEVICE_CONBEE: |-
-                name: conbee
-                groups:
-                  - paths:
-                      - path: /dev/serial/by-id/usb-dresden_elektronik_ingenieurtechnik_GmbH_ConBee_II_DE2218307-if00
-              DEVICE_CORAL: |-
-                name: coral
-                groups:
-                  - usb:
-                    - vendor: 1a6e
-                      product: 089a
-                    - vendor: 18d1
-                      product: 9302
+              - --log-level=info
+              - --config=/config/config.yaml
             resources:
               requests:
                 cpu: 10m
@@ -63,6 +49,13 @@ spec:
     defaultPodOptions:
       priorityClassName: system-node-critical
     persistence:
+      config:
+        type: configMap
+        name: generic-device-plugin-configmap
+        globalMounts:
+          - path: /config/config.yaml
+            subPath: config.yaml
+            readOnly: true
       dev:
         type: hostPath
         hostPath: /dev
