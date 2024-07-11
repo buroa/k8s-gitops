@@ -30,7 +30,7 @@ spec:
           app:
             image:
               repository: docker.io/nodered/node-red
-              tag: 4.0.2@sha256:b5e59501539b5d8eba19c77964785ba16a936057fc553b5d34886a4b5665d91a
+              tag: 4.0.2@sha256:ad5108795c9c198d56490b4a9fe4c97618cec330dd2a3178f0b8d3f1f092f691
             env:
               NODE_RED_OAUTH_ISSUER_URL: https://auth.${PUBLIC_DOMAIN}
               NODE_RED_OAUTH_AUTH_URL: https://auth.${PUBLIC_DOMAIN}/api/oidc/authorization
