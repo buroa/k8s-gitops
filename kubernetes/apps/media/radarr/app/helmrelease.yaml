@@ -38,7 +38,7 @@ spec:
           app:
             image:
               repository: ghcr.io/buroa/radarr-develop
-              tag: 5.8.1.8906@sha256:54924b49f211162228c65b68c38f82a3fb46acbc48c80ed6ff9ed5fbb1a25e5f
+              tag: 5.8.2.8915@sha256:8c8d8cf83094cb73ede2cdd7ced1294e4d341d5c03f06a40ea3b14dfdf32a5e0
             env:
               RADARR__APP__INSTANCENAME: Radarr
               RADARR__APP__THEME: dark
