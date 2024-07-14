@@ -76,6 +76,8 @@ spec:
                 drop:
                   - ALL
     defaultPodOptions:
+      dnsPolicy: ClusterFirstWithHostNet
+      hostNetwork: true
       securityContext:
         runAsNonRoot: true
         runAsUser: 568

@@ -35,7 +35,6 @@ spec:
               tag: v1.68.1@sha256:a0d1a9ed2abfacf905c0e3423aea00181064162e548f875f422a03924b9cc5c4
             env:
               NO_AUTOUPDATE: true
-              PORT: &port ${NET_SERVICES_TAILSCALE_PORT}
               TS_EXTRA_ARGS: --advertise-exit-node --advertise-tags=tag:k8s
               TS_HOSTNAME:
                 valueFrom:
@@ -61,6 +60,8 @@ spec:
                 drop:
                   - ALL
     defaultPodOptions:
+      dnsPolicy: ClusterFirstWithHostNet
+      hostNetwork: true
       securityContext:
         runAsNonRoot: true
         runAsUser: 568
@@ -88,15 +89,6 @@ spec:
         ports:
           http:
             port: 9001
-      tailnet:
-        controller: *app
-        type: LoadBalancer
-        annotations:
-          io.cilium/lb-ipam-ips: ${NET_SERVICES_TAILSCALE_IP}
-        ports:
-          tailnet:
-            port: *port
-            protocol: UDP
     serviceMonitor:
       app:
         serviceName: *app
