@@ -28,7 +28,7 @@ spec:
           app:
             image:
               repository: ghcr.io/dragonflydb/operator
-              tag: v1.1.4@sha256:8eafdc4f4aafd3157b1056c763bc1951466f7ec42d5794e03e0072bb5582abe8
+              tag: v1.1.5@sha256:f0c6e6b36a17d7c5fc8978e340694041bd7d0a50ad56fcb00d8d7deffea83f35
             args:
               - --health-probe-bind-address=:8081
               - --metrics-bind-address=:8080
