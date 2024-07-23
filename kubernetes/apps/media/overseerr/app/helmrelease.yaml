@@ -85,14 +85,14 @@ spec:
               - *host
               - *customHost
     persistence:
+      cache:
+        existingClaim: overseerr-cache
+        globalMounts:
+          - path: /app/config/cache
       config:
         existingClaim: *app
         globalMounts:
           - path: /app/config
-      config-cache:
-        existingClaim: overseerr-cache
-        globalMounts:
-          - path: /app/config/cache
       logs:
         type: emptyDir
         globalMounts:
