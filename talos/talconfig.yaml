@@ -331,7 +331,7 @@ controlPlane:
             - 192.168.10.1
 
     # Configure NFS mount options
-    - &nfsPatch |-
+    - &nfsPatch |
       machine:
         files:
           - op: overwrite
