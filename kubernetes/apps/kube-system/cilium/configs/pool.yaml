@@ -5,5 +5,5 @@ metadata:
   name: lb-pool
 spec:
   allowFirstLastIPs: "No"
-  cidrs:
+  blocks:
     - cidr: ${NET_SERVICES_CIDR}
