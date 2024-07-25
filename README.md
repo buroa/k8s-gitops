@@ -123,7 +123,7 @@ graph TD;
 <details>
   <summary>Click to see a high-level network diagram</summary>
 
-  <img src="https://github.com/buroa/k8s-gitops/assets/36205263/8b3b5a75-7f27-4e62-a44b-203841d90d15" align="center" width="600px" alt="network"/>
+  <img src="https://github.com/user-attachments/assets/3296307c-ac4a-4479-8088-b15e209250ff" align="center" width="600px" alt="network"/>
 </details>
 
 ---
@@ -139,7 +139,7 @@ I have two instances of `external-dns` running in my cluster. The private DNS in
 <details>
   <summary>Click to see my rack</summary>
 
-  <img src="https://github.com/buroa/k8s-gitops/assets/36205263/516d9f08-9bbd-443f-a01f-62089fdc6acc" align="center" alt="rack"/>
+  <img src="https://github.com/user-attachments/assets/1b5c8151-11b4-422a-a8a9-366adc729aca" align="center" alt="rack"/>
 </details>
 
 | Device                                          | Count | OS Disk Size | Data Disk Size | Ram  | Operating System | Purpose            |
