@@ -110,6 +110,8 @@ spec:
     persistence:
       config:
         existingClaim: *app
+      incomplete:
+        type: emptyDir
       logs:
         type: emptyDir
         globalMounts:
