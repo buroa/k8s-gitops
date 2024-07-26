@@ -13,12 +13,12 @@ spec:
       nodeName: ${node}
       containers:
         - name: main
-          image: docker.io/library/alpine:3.20
+          image: docker.io/library/alpine:latest
           command: ["/bin/sh", "-c"]
           args:
             - apk add --no-cache sgdisk util-linux util-linux-misc parted device-mapper;
               sgdisk --zap-all ${disk};
-              dd if=/dev/zero bs=1M count=1000 oflag=direct of=${disk};
+              dd if=/dev/zero of=${disk} bs=1M count=100 oflag=direct,dsync;
               blkdiscard ${disk};
               partprobe ${disk};
           volumeMounts:

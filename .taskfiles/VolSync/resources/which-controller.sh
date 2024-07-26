@@ -16,5 +16,6 @@ if is_deployment; then
 elif is_statefulset; then
     echo "statefulset.apps/${APP}"
 else
-    echo ""
+    echo "No deployment or statefulset found for ${APP}"
+    exit 1
 fi

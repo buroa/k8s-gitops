@@ -2,13 +2,16 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-kube-prometheus-stack
+  name: &app kube-prometheus-stack
   namespace: flux-system
 spec:
   targetNamespace: monitoring
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
   dependsOn:
-    - name: cluster-apps-external-secrets-stores
-    - name: cluster-apps-democratic-csi-local-hostpath
+    - name: external-secrets-stores
+    - name: democratic-csi-local-hostpath
   path: ./kubernetes/apps/monitoring/kube-prometheus-stack/app
   prune: true
   sourceRef:
@@ -26,12 +29,15 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-kube-prometheus-stack-tools
+  name: &app kube-prometheus-stack-tools
   namespace: flux-system
 spec:
   targetNamespace: monitoring
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
   dependsOn:
-    - name: cluster-apps-kube-prometheus-stack
+    - name: kube-prometheus-stack
   path: ./kubernetes/apps/monitoring/kube-prometheus-stack/tools
   prune: true
   sourceRef:

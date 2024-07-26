@@ -2,12 +2,15 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-actions-runner-controller
+  name: &app actions-runner-controller
   namespace: flux-system
 spec:
   targetNamespace: actions-runner-system
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
   dependsOn:
-    - name: cluster-apps-external-secrets-stores
+    - name: external-secrets-stores
   path: ./kubernetes/apps/actions-runner-system/actions-runner-controller/app
   prune: true
   sourceRef:
@@ -21,12 +24,15 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-actions-runner-controller-runner
+  name: &app actions-runner-controller-runner
   namespace: flux-system
 spec:
   targetNamespace: actions-runner-system
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
   dependsOn:
-    - name: cluster-apps-actions-runner-controller
+    - name: actions-runner-controller
   path: ./kubernetes/apps/actions-runner-system/actions-runner-controller/runner
   prune: true
   sourceRef:

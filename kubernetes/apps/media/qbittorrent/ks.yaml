@@ -2,13 +2,16 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-qbittorrent
+  name: &app qbittorrent
   namespace: flux-system
 spec:
   targetNamespace: media
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
   dependsOn:
-    - name: cluster-apps-volsync
-    - name: cluster-apps-rook-ceph-cluster
+    - name: volsync
+    - name: rook-ceph-cluster
   path: ./kubernetes/apps/media/qbittorrent/app
   prune: true
   sourceRef:
@@ -22,13 +25,16 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-qbittorrent-tools
+  name: &app qbittorrent-tools
   namespace: flux-system
 spec:
   targetNamespace: media
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
   dependsOn:
-    - name: cluster-apps-qbittorrent
-    - name: cluster-apps-external-secrets-stores
+    - name: qbittorrent
+    - name: external-secrets-stores
   path: ./kubernetes/apps/media/qbittorrent/tools
   prune: true
   sourceRef:

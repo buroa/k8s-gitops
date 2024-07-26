@@ -2,13 +2,16 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-radarr-exporter
+  name: &app radarr-exporter
   namespace: flux-system
 spec:
   targetNamespace: monitoring
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
   dependsOn:
-    - name: cluster-apps-radarr
-    - name: cluster-apps-external-secrets-stores
+    - name: radarr
+    - name: external-secrets-stores
   path: ./kubernetes/apps/monitoring/exporters/radarr-exporter/app
   prune: true
   sourceRef:

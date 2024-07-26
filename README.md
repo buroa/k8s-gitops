@@ -94,12 +94,12 @@ Below is a a high level look at the layout of how my directory structure with Fl
 graph TD;
   id1[Kustomization: cluster];
   id2[Kustomization: cluster-apps];
-  id3[Kustomization: cluster-apps-cloudnative-pg];
+  id3[Kustomization: cloudnative-pg];
   id4[HelmRelease: postgres];
-  id5[Kustomization: cluster-apps-cloudnative-pg-cluster];
-  id6[Kustomization: cluster-apps-glauth];
+  id5[Kustomization: cloudnative-pg-cluster];
+  id6[Kustomization: glauth];
   id7[HelmRelease: glauth];
-  id8[Kustomization: cluster-apps-authelia];
+  id8[Kustomization: authelia];
   id9[HelmRelease: authelia];
   id10[Cluster: postgres];
 

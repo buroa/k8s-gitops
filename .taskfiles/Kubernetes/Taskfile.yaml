@@ -1,131 +1,105 @@
 ---
 version: "3"
 
+vars:
+  KUBERNETES_RESOURCES_DIR: "{{.ROOT_DIR}}/.taskfiles/kubernetes/resources"
+
 tasks:
 
-  mount:
-    desc: Mount a PersistentVolumeClaim to a temporary pod
+  apply-ks:
+    desc: Apply a Flux Kustomization resource
     summary: |
-      Args:
-        ns: Namespace the PVC is in (default: default)
-        claim: PVC to mount (required)
-    interactive: true
+      path: Path to the Flux Kustomization resource (required)
+      ns: Namespace the Flux Kustomization exists in (default: flux-system)
     cmd: |
-      kubectl run -n {{.ns}} debug-{{.claim}} -i --tty --rm --image=null --privileged --overrides='
-        {
-          "apiVersion": "v1",
-          "spec": {
-            "containers": [
-              {
-                "name": "debug",
-                "image": "docker.io/library/alpine:3.19",
-                "command": ["/bin/sh"],
-                "stdin": true,
-                "stdinOnce": true,
-                "tty": true,
-                "volumeMounts": [
-                  {
-                    "name": "config",
-                    "mountPath": "/config"
-                  }
-                ]
-              }
-            ],
-            "volumes": [
-              {
-                "name": "config",
-                "persistentVolumeClaim": {
-                  "claimName": "{{.claim}}"
-                }
-              }
-            ],
-            "restartPolicy": "Never"
-          }
-        }'
+      flux build ks $(basename {{.path}}) \
+          --namespace {{.ns}} \
+          --kustomization-file {{.KUBERNETES_DIR}}/apps/{{.path}}/ks.yaml \
+          --path {{.KUBERNETES_DIR}}/apps/{{.path}} \
+          {{- if contains "not found" .ks }}--dry-run \{{ end }}
+      | \
+      kubectl apply --server-side \
+          --field-manager=kustomize-controller -f -
+    requires:
+      vars: ["path"]
+    vars:
+      ns: '{{.ns | default "flux-system"}}'
+      ks:
+        sh: flux --namespace {{.ns}} get kustomizations $(basename {{.path}}) 2>&1
+    preconditions:
+      - test -f {{.KUBERNETES_DIR}}/apps/{{.path}}/ks.yaml
+
+  sync-ks:
+    desc: Sync a Flux Kustomization resource
+    cmds:
+      - |
+        {{if eq .ks ""}}
+          kubectl get kustomization --all-namespaces --no-headers | awk '{print $1, $2}' \
+            | xargs -P 4 -L 1 bash -c \
+              'kubectl -n $0 annotate kustomization/$1 reconcile.fluxcd.io/requestedAt="$(date +%s)" --field-manager=flux-client-side-apply --overwrite'
+        {{else}}
+          kubectl -n {{.ns}} annotate kustomization {{.ks}} reconcile.fluxcd.io/requestedAt="$(date +%s)" --field-manager=flux-client-side-apply --overwrite
+        {{end}}
+    vars:
+      ks: '{{.ks | default ""}}'
+      ns: '{{.ns | default "flux-system"}}'
+    preconditions:
+      - kubectl --namespace {{.ns}} get kustomization {{.ks}}
+
+  browse-pvc:
+    desc: Browse a PersistentVolumeClaim
+    summary: |
+      ns: Namespace to browse PersistentVolumeClaims in (default: default)
+      claim: PersistentVolumeClaim to browse (required)
+    interactive: true
+    cmd: kubectl browse-pvc --namespace {{.ns}} {{.claim}}
+    vars:
+      ns: '{{.ns | default "default"}}'
     requires:
       vars: ["claim"]
-    vars:
-      ns: '{{.ns | default "default"}}'
     preconditions:
-      - kubectl -n {{.ns}} get persistentvolumeclaim {{.claim}}
+      - kubectl --namespace {{.ns}} get persistentvolumeclaims {{.claim}}
 
   privileged:
-    desc: Run a privileged pod on a node
-    summary: |
-      Args:
-        ns: Namespace the PVC is in (default: default)
-        node: The node (required)
-    interactive: true
-    cmd: |
-      kubectl run -n {{.ns}} debug-privileged-{{.node}} -i --tty --rm --image=null --overrides='
-        {
-          "apiVersion": "v1",
-          "spec": {
-            "containers": [
-              {
-                "name": "debug",
-                "image": "docker.io/library/alpine:3.19",
-                "command": ["/bin/sh"],
-                "stdin": true,
-                "stdinOnce": true,
-                "tty": true,
-                "securityContext": {
-                  "allowPrivilegeEscalation": true,
-                  "privileged": true
-                },
-                "volumeMounts": [
-                  {
-                    "name": "hostfs",
-                    "mountPath": "/rootfs"
-                  },
-                  {
-                    "name": "efivars",
-                    "mountPath": "/sys/firmware/efi/efivars"
-                  },
-                  {
-                    "name": "run-containerd",
-                    "mountPath": "/run/containerd"
-                  }
-                ]
-              }
-            ],
-            "dnsPolicy": "ClusterFirstWithHostNet",
-            "hostIPC": true,
-            "hostNetwork": true,
-            "hostPID": true,
-            "nodeName": "{{.node}}",
-            "restartPolicy": "Never",
-            "volumes": [
-              {
-                "name": "hostfs",
-                "hostPath": {
-                  "path": "/"
-                }
-              },
-              {
-                "name": "efivars",
-                "hostPath": {
-                  "path": "/sys/firmware/efi/efivars"
-                }
-              },
-              {
-                "name": "run-containerd",
-                "hostPath": {
-                  "path": "/run/containerd"
-                }
-              }
-            ]
-          }
-        }'
-    requires:
-      vars: ["node"]
+    desc: Run a privileged pod
+    cmd: kubectl run privileged-{{.node}} -i --tty --rm --image=null --overrides='{{.overrides}}'
+    env:
+      node: '{{.node}}'
     vars:
-      ns: '{{.ns | default "default"}}'
+      overrides:
+        sh: yq eval -o=json '{{.KUBERNETES_RESOURCES_DIR}}/privileged-pod.tmpl.yaml' | envsubst
     preconditions:
-      - kubectl -n {{.ns}} get node {{.node}}
+      - test -f {{.KUBERNETES_RESOURCES_DIR}}/privileged-pod.tmpl.yaml
 
   delete-failed-pods:
-    desc: Deletes pods with a fucked status
+    desc: Delete all pods with an Evicted/Failed/Succeeded status
     cmds:
       - for: ["Evicted", "Failed", "Succeeded"]
         cmd: kubectl delete pods --field-selector status.phase={{.ITEM}} -A --ignore-not-found=true
+
+  sync-secrets:
+    desc: Sync ExternalSecret resources from provider
+    summary: |
+      ns: Namespace to sync secret in (default: default)
+      secret: Secret to sync (default: unset/all secrets)
+    cmd: |
+      {{if eq .secret ""}}
+        kubectl get externalsecret --all-namespaces --no-headers -A | awk '{print $1, $2}' \
+          | xargs --max-procs=2 -l bash -c 'kubectl -n $0 annotate externalsecret $1 force-sync=$(date +%s) --overwrite'
+      {{else}}
+        kubectl --namespace {{.ns}} annotate externalsecret {{.secret}} force-sync=$(date +%s) --overwrite
+      {{end}}
+    vars:
+      secret: '{{ .secret | default ""}}'
+      ns: '{{.ns | default "default"}}'
+    preconditions:
+      - kubectl --namespace {{.ns}} get externalsecret {{.secret}}
+
+  rook-password:
+    desc: Retrieve the rook-ceph password
+    cmd: kubectl -n rook-ceph get secret rook-ceph-dashboard-password -o jsonpath="{['data']['password']}" | base64 --decode | pbcopy && echo "Copied to clipboard"
+
+  rook-toolbox:
+    desc: Exec into the rook-ceph toolbox
+    interactive: true
+    cmd: kubectl -n rook-ceph exec -it $(kubectl -n rook-ceph get pod -l "app=rook-ceph-tools" -o jsonpath='{.items[0].metadata.name}') -- bash

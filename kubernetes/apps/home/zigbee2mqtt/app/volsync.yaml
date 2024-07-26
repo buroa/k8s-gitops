@@ -30,7 +30,7 @@ spec:
   dataSourceRef:
     kind: ReplicationDestination
     apiGroup: volsync.backube
-    name: zigbee2mqtt-rdst
+    name: zigbee2mqtt
   resources:
     requests:
       storage: 1Gi
@@ -39,7 +39,7 @@ spec:
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
 metadata:
-  name: zigbee2mqtt-rdst
+  name: zigbee2mqtt
 spec:
   trigger:
     manual: restore-once
@@ -61,7 +61,7 @@ spec:
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: zigbee2mqtt-rsrc
+  name: zigbee2mqtt
 spec:
   sourcePVC: zigbee2mqtt
   trigger:

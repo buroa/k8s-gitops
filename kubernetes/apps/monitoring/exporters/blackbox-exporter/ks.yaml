@@ -2,10 +2,13 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-blackbox-exporter
+  name: &app blackbox-exporter
   namespace: flux-system
 spec:
   targetNamespace: monitoring
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
   path: ./kubernetes/apps/monitoring/exporters/blackbox-exporter/app
   prune: true
   sourceRef:
@@ -19,12 +22,15 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-blackbox-exporter-probes
+  name: &app blackbox-exporter-probes
   namespace: flux-system
 spec:
   targetNamespace: monitoring
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
   dependsOn:
-    - name: cluster-apps-blackbox-exporter
+    - name: blackbox-exporter
   path: ./kubernetes/apps/monitoring/exporters/blackbox-exporter/probes
   prune: true
   sourceRef:

@@ -2,12 +2,15 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-vector-aggregator
+  name: &app vector-aggregator
   namespace: flux-system
 spec:
   targetNamespace: monitoring
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
   dependsOn:
-    - name: cluster-apps-loki
+    - name: loki
   path: ./kubernetes/apps/monitoring/vector/aggregator
   prune: true
   sourceRef:
@@ -21,12 +24,15 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-vector-agent
+  name: &app vector-agent
   namespace: flux-system
 spec:
   targetNamespace: monitoring
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
   dependsOn:
-    - name: cluster-apps-vector-aggregator
+    - name: vector-aggregator
   path: ./kubernetes/apps/monitoring/vector/agent
   prune: true
   sourceRef:
