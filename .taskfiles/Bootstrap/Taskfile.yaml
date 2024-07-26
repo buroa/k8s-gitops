@@ -1,14 +1,125 @@
 ---
 version: "3"
 
+vars:
+  BOOTSTRAP_RESOURCES_DIR: "{{.ROOT_DIR}}/.taskfiles/bootstrap/resources"
+
 tasks:
 
-  k8s:
-    desc: Bootstrap K8s from start to finish
+  kubernetes:
+    desc: Bootstrap a Talos Kubernetes cluster backed by flux, sops, and rook
+    prompt: Bootstrap a Talos Kubernetes cluster ... continue?
     cmds:
-      - task: :talos:bootstrap
-      - task: :rook:reset
-      - task: :flux:bootstrap
+      - task: etcd
+      - task: kubeconfig
+      - task: apps
+      - task: labels
+      - task: rook
+      - task: flux
     preconditions:
-      - test -f {{.KUBERNETES_DIR}}/talosconfig
       - talosctl config info >/dev/null 2>&1
+      - test -f {{.TALOS_DIR}}/clusterconfig/talosconfig
+
+  etcd:
+    internal: true
+    cmd: until talosctl --nodes {{.TALOS_CONTROLLER}} bootstrap; do sleep 10; done
+
+  kubeconfig:
+    internal: true
+    cmd: talosctl kubeconfig --nodes {{.TALOS_CONTROLLER}} --force {{.KUBERNETES_DIR}}
+
+  apps:
+    internal: true
+    cmds:
+      - until kubectl wait --for=condition=Ready=False nodes --all --timeout=10m; do sleep 10; done
+      - helmfile --quiet --file {{.TALOS_DIR}}/apps/helmfile.yaml apply --skip-diff-on-install --suppress-diff
+      - until kubectl wait --for=condition=Ready nodes --all --timeout=10m; do sleep 10; done
+    preconditions:
+      - test -f {{.TALOS_DIR}}/apps/helmfile.yaml
+
+  labels:
+    internal: true
+    cmds:
+      - for: { var: workers }
+        cmd: kubectl label node {{.ITEM}} node-role.kubernetes.io/worker=
+    vars:
+      workers: w0 w1 w2
+
+  rook:
+    internal: true
+    cmds:
+      - for: { var: nodes }
+        task: rook-data
+        vars:
+          node: '{{.ITEM}}'
+      - for: ["S6S2NS0TC14873N", "S6S2NS0TC14865L"]
+        task: rook-disk
+        vars:
+          node: w0
+          serial: '{{.ITEM}}'
+      - for: ["S6S2NS0TC14871H", "S6S2NS0W122087H"]
+        task: rook-disk
+        vars:
+          node: w1
+          serial: '{{.ITEM}}'
+      - for: ["S6S2NS0W120772T", "S6S2NS0TC14864B"]
+        task: rook-disk
+        vars:
+          node: w2
+          serial: '{{.ITEM}}'
+    vars:
+      nodes: m0 m1 m2 w0 w1 w2
+
+  rook-data:
+    internal: true
+    cmds:
+      - envsubst < <(cat {{.BOOTSTRAP_RESOURCES_DIR}}/rook-data-job.tmpl.yaml) | kubectl apply -f -
+      - bash {{.BOOTSTRAP_RESOURCES_DIR}}/wait-for-job.sh {{.job}} default
+      - kubectl --namespace default wait job/{{.job}} --for condition=complete --timeout=1m
+      - kubectl --namespace default logs job/{{.job}}
+      - kubectl --namespace default delete job {{.job}}
+    env:
+      job: '{{.job}}'
+      node: '{{.node}}'
+    vars:
+      job: wipe-data-{{.node}}
+    preconditions:
+      - test -f {{.BOOTSTRAP_RESOURCES_DIR}}/wait-for-job.sh
+      - test -f {{.BOOTSTRAP_RESOURCES_DIR}}/rook-data-job.tmpl.yaml
+
+  rook-disk:
+    internal: true
+    cmds:
+      - envsubst < <(cat {{.BOOTSTRAP_RESOURCES_DIR}}/rook-disk-job.tmpl.yaml) | kubectl apply -f -
+      - bash {{.BOOTSTRAP_RESOURCES_DIR}}/wait-for-job.sh {{.job}} default
+      - kubectl --namespace default wait job/{{.job}} --for condition=complete --timeout=1m
+      - kubectl --namespace default logs job/{{.job}}
+      - kubectl --namespace default delete job {{.job}}
+    env:
+      disk: /dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_2TB_{{.serial}}
+      job: '{{.job}}'
+      node: '{{.node}}'
+    vars:
+      job: wipe-disk-{{.node}}-{{.serial | lower}}
+    preconditions:
+      - test -f {{.BOOTSTRAP_RESOURCES_DIR}}/wait-for-job.sh
+      - test -f {{.BOOTSTRAP_RESOURCES_DIR}}/rook-disk-job.tmpl.yaml
+
+  flux:
+    internal: true
+    cmds:
+      - kubectl apply --server-side --kustomize {{.KUBERNETES_DIR}}/bootstrap/flux
+      - sops --decrypt {{.KUBERNETES_DIR}}/bootstrap/flux/age-key.sops.yaml | kubectl apply --server-side --filename -
+      - sops --decrypt {{.KUBERNETES_DIR}}/bootstrap/flux/github-deploy-key.sops.yaml | kubectl apply --server-side --filename -
+      - sops --decrypt {{.KUBERNETES_DIR}}/flux/vars/cluster-secrets.sops.yaml | kubectl apply --server-side --filename -
+      - kubectl apply --server-side --filename {{.KUBERNETES_DIR}}/flux/vars/cluster-settings.yaml
+      - kubectl apply --server-side --kustomize {{.KUBERNETES_DIR}}/flux/config
+    preconditions:
+      - test -f {{.ROOT_DIR}}/age.key
+      - test -f {{.KUBERNETES_DIR}}/bootstrap/flux/age-key.sops.yaml
+      - test -f {{.KUBERNETES_DIR}}/bootstrap/flux/github-deploy-key.sops.yaml
+      - test -f {{.KUBERNETES_DIR}}/flux/vars/cluster-settings.yaml
+      - test -f {{.KUBERNETES_DIR}}/flux/vars/cluster-secrets.sops.yaml
+      - sops filestatus {{.KUBERNETES_DIR}}/bootstrap/flux/age-key.sops.yaml | jq --exit-status '.encrypted'
+      - sops filestatus {{.KUBERNETES_DIR}}/bootstrap/flux/github-deploy-key.sops.yaml | jq --exit-status '.encrypted'
+      - sops filestatus {{.KUBERNETES_DIR}}/flux/vars/cluster-secrets.sops.yaml | jq --exit-status '.encrypted'

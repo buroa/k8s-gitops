@@ -30,7 +30,7 @@ spec:
   dataSourceRef:
     kind: ReplicationDestination
     apiGroup: volsync.backube
-    name: thelounge-rdst
+    name: thelounge
   resources:
     requests:
       storage: 2Gi
@@ -39,7 +39,7 @@ spec:
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
 metadata:
-  name: thelounge-rdst
+  name: thelounge
 spec:
   trigger:
     manual: restore-once
@@ -61,7 +61,7 @@ spec:
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: thelounge-rsrc
+  name: thelounge
 spec:
   sourcePVC: thelounge
   trigger:

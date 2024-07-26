@@ -1,23 +1,13 @@
-# Bootstrap
+# Bootstrap Secrets and Config
 
-## Talos
-
-### Generate Talos Secrets
-
-```
+```sh
 task talos:generate-secret
 task talos:generate-config
 ```
 
-### Boostrap Talos 🍿
+# Verify EFI Boot Order
 
-```
-task talos:bootstrap
-```
-
-### Verify EFI Boot Order
-
-```
+```sh
 task kubernetes:privileged node=...
 apk add efibootmgr;
 efibootmgr;

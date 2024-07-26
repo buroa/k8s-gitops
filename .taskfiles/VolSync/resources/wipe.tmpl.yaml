@@ -2,7 +2,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: wipe-${app}-${ts}
+  name: ${job}
   namespace: ${ns}
 spec:
   ttlSecondsAfterFinished: 3600
@@ -11,14 +11,15 @@ spec:
       automountServiceAccountToken: false
       restartPolicy: OnFailure
       containers:
-        - name: wipe
-          image: docker.io/library/busybox:1.36.1
+        - name: main
+          image: docker.io/library/alpine:latest
           command: ["/bin/sh", "-c", "cd /config; find . -delete"]
           volumeMounts:
             - name: config
               mountPath: /config
           securityContext:
             privileged: true
+          resources: {}
       volumes:
         - name: config
           persistentVolumeClaim:

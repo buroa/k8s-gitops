@@ -30,7 +30,7 @@ spec:
   dataSourceRef:
     kind: ReplicationDestination
     apiGroup: volsync.backube
-    name: plex-rdst
+    name: plex
   resources:
     requests:
       storage: 50Gi
@@ -39,7 +39,7 @@ spec:
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
 metadata:
-  name: plex-rdst
+  name: plex
 spec:
   trigger:
     manual: restore-once
@@ -61,7 +61,7 @@ spec:
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: plex-rsrc
+  name: plex
 spec:
   sourcePVC: plex
   trigger:

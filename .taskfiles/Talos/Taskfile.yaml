@@ -1,70 +1,44 @@
 ---
 version: "3"
 
-x-vars: &vars
+vars:
+  TALOS_CONTROLLER:
+    sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
   TALOS_VERSION:
     sh: yq 'select(document_index == 1).spec.postBuild.substitute.TALOS_VERSION' {{.KUBERNETES_DIR}}/apps/system-upgrade/system-upgrade-controller/ks.yaml
   KUBERNETES_VERSION:
     sh: yq 'select(document_index == 1).spec.postBuild.substitute.KUBERNETES_VERSION' {{.KUBERNETES_DIR}}/apps/system-upgrade/system-upgrade-controller/ks.yaml
-  CONTROLLER:
-    sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
-
-vars:
-  TALHELPER_SECRET_FILE: '{{.TALOS_DIR}}/talsecret.sops.yaml'
-  TALHELPER_CONFIG_FILE: '{{.TALOS_DIR}}/talconfig.yaml'
 
 tasks:
 
-  bootstrap:
-    desc: Bootstrap Talos
-    prompt: Bootstrap Talos on the cluster ... continue?
+  generate-secret:
+    desc: Generate Talos secret
+    prompt: This will overwrite the existing secret ... continue?
+    dir: '{{.TALOS_DIR}}'
     cmds:
-      - task: bootstrap-etcd
-      - task: fetch-kubeconfig
-      - task: bootstrap-apps
-      - task: bootstrap-labels
-
-  bootstrap-etcd:
-    desc: Bootstrap Etcd
-    cmd: until talosctl --nodes {{.CONTROLLER}} bootstrap; do sleep 10; done
-    vars: *vars
+      - talhelper gensecret > {{.TALOS_DIR}}/talsecret.sops.yaml
+      - sops --encrypt --in-place {{.TALOS_DIR}}/talsecret.sops.yaml
     preconditions:
-      - talosctl config info >/dev/null 2>&1
+      - test -f {{.TALOS_DIR}}/talconfig.yaml
 
-  fetch-kubeconfig:
-    desc: Fetch kubeconfig from Talos controllers
-    cmd: talosctl kubeconfig --nodes {{.CONTROLLER}} --force {{.KUBERNETES_DIR}}
-    vars: *vars
+  generate-config:
+    desc: Generate Talos config
+    dir: '{{.TALOS_DIR}}'
+    cmd: talhelper genconfig
     preconditions:
-      - talosctl config info >/dev/null 2>&1
+      - test -f {{.TALOS_DIR}}/talconfig.yaml
 
-  bootstrap-apps:
-    desc: Bootstrap core apps needed for Talos
-    cmds:
-      - until kubectl wait --for=condition=Ready=False nodes --all --timeout=10m; do sleep 10; done
-      - helmfile --quiet --file {{.TALOS_DIR}}/apps/helmfile.yaml apply --skip-diff-on-install --suppress-diff
-      - until kubectl wait --for=condition=Ready nodes --all --timeout=10m; do sleep 10; done
-    env:
-      CLUSTER_POD_CIDR:
-        sh: yq '.data.CLUSTER_POD_CIDR' {{.KUBERNETES_DIR}}/flux/vars/cluster-settings.yaml
-      KUBERNETES_DIR: '{{.KUBERNETES_DIR}}'
+  apply-config:
+    desc: Apply Talos config to the nodes
+    dir: '{{.TALOS_DIR}}'
+    cmd: talhelper gencommand apply | bash
     preconditions:
-      - talosctl config info >/dev/null 2>&1
-      - test -f {{.TALOS_DIR}}/apps/helmfile.yaml
-
-  bootstrap-labels:
-    desc: Bootstrap labels on the nodes
-    cmds:
-      - for: { var: workers }
-        cmd: kubectl label node {{.ITEM}} node-role.kubernetes.io/worker=
-    vars:
-      workers: w0 w1 w2
+      - test -f {{.TALOS_DIR}}/talconfig.yaml
 
   upgrade:
     desc: Upgrade Talos on a node
     prompt: Upgrade Talos node {{.node}} ... continue?
     cmd: talosctl --nodes {{.node}} upgrade --image=ghcr.io/buroa/installer:{{.TALOS_VERSION}} --preserve=true
-    vars: *vars
     requires:
       vars: ["node"]
     preconditions:
@@ -74,12 +48,11 @@ tasks:
 
   upgrade-k8s:
     desc: Upgrade Kubernetes
-    cmd: talosctl --nodes {{.CONTROLLER}} upgrade-k8s --to {{.KUBERNETES_VERSION}}
-    vars: *vars
+    cmd: talosctl --nodes {{.TALOS_CONTROLLER}} upgrade-k8s --to {{.KUBERNETES_VERSION}}
     preconditions:
       - test -f {{.TALOS_DIR}}/clusterconfig/talosconfig
       - talosctl config info >/dev/null 2>&1
-      - talosctl --nodes {{.CONTROLLER}} get machineconfig >/dev/null 2>&1
+      - talosctl --nodes {{.TALOS_CONTROLLER}} get machineconfig >/dev/null 2>&1
 
   reset-node:
     desc: Reset a Talos node
@@ -103,27 +76,3 @@ tasks:
       - test -f {{.TALOS_DIR}}/clusterconfig/talosconfig
       - talosctl config info >/dev/null 2>&1
       - talosctl --nodes {{.nodes}} get machineconfig >/dev/null 2>&1
-
-  generate-secret:
-    desc: Generate Talos secret
-    prompt: This will overwrite the existing secret ... continue?
-    dir: '{{.TALOS_DIR}}'
-    cmds:
-      - talhelper gensecret > {{.TALHELPER_SECRET_FILE}}
-      - sops --encrypt --in-place {{.TALHELPER_SECRET_FILE}}
-    preconditions:
-      - test -f {{.TALHELPER_CONFIG_FILE}}
-
-  generate-config:
-    desc: Generate Talos config
-    dir: '{{.TALOS_DIR}}'
-    cmd: talhelper genconfig
-    preconditions:
-      - test -f {{.TALHELPER_CONFIG_FILE}}
-
-  apply-config:
-    desc: Apply Talos config to the nodes
-    dir: '{{.TALOS_DIR}}'
-    cmd: talhelper gencommand apply | bash
-    preconditions:
-      - test -f {{.TALHELPER_CONFIG_FILE}}

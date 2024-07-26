@@ -30,7 +30,7 @@ spec:
   dataSourceRef:
     kind: ReplicationDestination
     apiGroup: volsync.backube
-    name: home-assistant-rdst
+    name: home-assistant
   resources:
     requests:
       storage: 5Gi
@@ -39,7 +39,7 @@ spec:
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
 metadata:
-  name: home-assistant-rdst
+  name: home-assistant
 spec:
   trigger:
     manual: restore-once
@@ -61,7 +61,7 @@ spec:
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: home-assistant-rsrc
+  name: home-assistant
 spec:
   sourcePVC: home-assistant
   trigger:

@@ -30,7 +30,7 @@ spec:
   dataSourceRef:
     kind: ReplicationDestination
     apiGroup: volsync.backube
-    name: node-red-rdst
+    name: node-red
   resources:
     requests:
       storage: 1Gi
@@ -39,7 +39,7 @@ spec:
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
 metadata:
-  name: node-red-rdst
+  name: node-red
 spec:
   trigger:
     manual: restore-once
@@ -61,7 +61,7 @@ spec:
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: node-red-rsrc
+  name: node-red
 spec:
   sourcePVC: node-red
   trigger:

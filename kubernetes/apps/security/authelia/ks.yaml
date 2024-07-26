@@ -2,15 +2,18 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-authelia
+  name: &app authelia
   namespace: flux-system
 spec:
   targetNamespace: security
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
   dependsOn:
-    - name: cluster-apps-glauth
-    - name: cluster-apps-dragonfly-cluster
-    - name: cluster-apps-cloudnative-pg-cluster
-    - name: cluster-apps-external-secrets-stores
+    - name: glauth
+    - name: dragonfly-cluster
+    - name: cloudnative-pg-cluster
+    - name: external-secrets-stores
   path: ./kubernetes/apps/security/authelia/app
   prune: true
   sourceRef:

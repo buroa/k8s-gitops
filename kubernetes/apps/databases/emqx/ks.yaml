@@ -2,13 +2,16 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-emqx
+  name: &app emqx
   namespace: flux-system
 spec:
   targetNamespace: databases
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
   dependsOn:
-    - name: cluster-apps-cert-manager
-    - name: cluster-apps-external-secrets-stores
+    - name: cert-manager
+    - name: external-secrets-stores
   path: ./kubernetes/apps/databases/emqx/app
   prune: true
   sourceRef:
@@ -22,12 +25,15 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-emqx-cluster
+  name: &app emqx-cluster
   namespace: flux-system
 spec:
   targetNamespace: databases
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
   dependsOn:
-    - name: cluster-apps-emqx
+    - name: emqx
   path: ./kubernetes/apps/databases/emqx/cluster
   prune: true
   sourceRef:

@@ -2,14 +2,17 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-thanos
+  name: &app thanos
   namespace: flux-system
 spec:
   targetNamespace: monitoring
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
   dependsOn:
-    - name: cluster-apps-dragonfly-cluster
-    - name: cluster-apps-rook-ceph-cluster
-    - name: cluster-apps-democratic-csi-local-hostpath
+    - name: dragonfly-cluster
+    - name: rook-ceph-cluster
+    - name: democratic-csi-local-hostpath
   path: ./kubernetes/apps/monitoring/thanos/app
   prune: true
   sourceRef:

@@ -1,9 +1,5 @@
-# Bootstrap
-
-## Flux
-
-### Bootstrap Flux 🍿
+# Boostrap Kubernetes
 
 ```sh
-task flux:bootstrap
+task kubernetes:bootstrap
 ```
