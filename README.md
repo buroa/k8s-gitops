@@ -123,7 +123,7 @@ graph TD;
 <details>
   <summary>Click to see a high-level network diagram</summary>
 
-  <img src="https://github.com/user-attachments/assets/3296307c-ac4a-4479-8088-b15e209250ff" align="center" width="600px" alt="network"/>
+  <img src="https://github.com/user-attachments/assets/5308c046-90ab-4d89-890a-c9d4fbe2a7c6" align="center" width="600px" alt="network"/>
 </details>
 
 ---
