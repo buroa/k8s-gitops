@@ -393,6 +393,9 @@ spec:
       tls:
         - hosts:
             - *host
+    imageRenderer:
+      enabled: true
+      replicas: 3
     persistence:
       enabled: false
     testFramework:
