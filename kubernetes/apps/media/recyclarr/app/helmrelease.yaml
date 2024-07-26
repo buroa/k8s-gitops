@@ -64,6 +64,10 @@ spec:
     persistence:
       config:
         existingClaim: *app
+      config-logs:
+        type: emptyDir
+        globalMounts:
+          - path: /config/logs
       config-file:
         type: configMap
         name: recyclarr-configmap
