@@ -40,10 +40,10 @@ tasks:
   labels:
     internal: true
     cmds:
-      - for: { var: workers }
+      - for: { var: nodes }
         cmd: kubectl label node {{.ITEM}} node-role.kubernetes.io/worker=
     vars:
-      workers: w0 w1 w2
+      nodes: w0 w1 w2
 
   rook:
     internal: true
@@ -52,23 +52,26 @@ tasks:
         task: rook-data
         vars:
           node: '{{.ITEM}}'
-      - for: ["S6S2NS0TC14873N", "S6S2NS0TC14865L"]
+      - for: { var: w0 }
         task: rook-disk
         vars:
           node: w0
           serial: '{{.ITEM}}'
-      - for: ["S6S2NS0TC14871H", "S6S2NS0W122087H"]
+      - for: { var: w1 }
         task: rook-disk
         vars:
           node: w1
           serial: '{{.ITEM}}'
-      - for: ["S6S2NS0W120772T", "S6S2NS0TC14864B"]
+      - for: { var: w2 }
         task: rook-disk
         vars:
           node: w2
           serial: '{{.ITEM}}'
     vars:
       nodes: m0 m1 m2 w0 w1 w2
+      w0: S6S2NS0TC14873N S6S2NS0TC14865L
+      w1: S6S2NS0TC14871H S6S2NS0W122087H
+      w2: S6S2NS0W120772T S6S2NS0TC14864B
 
   rook-data:
     internal: true
