@@ -20,6 +20,8 @@ cni:
 devices: eth+
 endpointRoutes:
   enabled: true
+envoy:
+  enabled: false
 externalIPs:
   enabled: true
 hubble:
