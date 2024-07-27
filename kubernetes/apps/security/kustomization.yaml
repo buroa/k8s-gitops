@@ -6,3 +6,4 @@ resources:
   - ./authelia/ks.yaml
   - ./external-secrets/ks.yaml
   - ./glauth/ks.yaml
+  - ./onepassword-connect/ks.yaml
