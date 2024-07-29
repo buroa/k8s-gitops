@@ -1,7 +1,8 @@
 ---
 creation_rules:
-  - path_regex: talos/talsecret.+(\.sops)?\.ya?ml
+  - path_regex: talos/talsecret(\.sops)?\.ya?ml
     input_type: yaml
+    encrypted_regex: ^(cluster|secrets|trustdinfo|certs)$
     mac_only_encrypted: true
     key_groups:
       - age:
