@@ -80,8 +80,6 @@ spec:
                     values:
                       - qbittorrent
               topologyKey: kubernetes.io/hostname
-      nodeSelector:
-        topology.kubernetes.io/zone: w
       securityContext:
         runAsNonRoot: true
         runAsUser: 568
