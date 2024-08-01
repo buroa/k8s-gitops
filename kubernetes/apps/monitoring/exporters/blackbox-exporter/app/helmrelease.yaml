@@ -23,7 +23,6 @@ spec:
       retries: 3
   values:
     fullnameOverride: *app
-    pspEnabled: false
     ingress:
       enabled: true
       className: internal
