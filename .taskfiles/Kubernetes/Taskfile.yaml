@@ -6,46 +6,6 @@ vars:
 
 tasks:
 
-  apply-ks:
-    desc: Apply a Flux Kustomization resource
-    summary: |
-      path: Path to the Flux Kustomization resource (required)
-      ns: Namespace the Flux Kustomization exists in (default: flux-system)
-    cmd: |
-      flux build ks $(basename {{.path}}) \
-          --namespace {{.ns}} \
-          --kustomization-file {{.KUBERNETES_DIR}}/apps/{{.path}}/ks.yaml \
-          --path {{.KUBERNETES_DIR}}/apps/{{.path}} \
-          {{- if contains "not found" .ks }}--dry-run \{{ end }}
-      | \
-      kubectl apply --server-side \
-          --field-manager=kustomize-controller -f -
-    requires:
-      vars: ["path"]
-    vars:
-      ns: '{{.ns | default "flux-system"}}'
-      ks:
-        sh: flux --namespace {{.ns}} get kustomizations $(basename {{.path}}) 2>&1
-    preconditions:
-      - test -f {{.KUBERNETES_DIR}}/apps/{{.path}}/ks.yaml
-
-  sync-ks:
-    desc: Sync a Flux Kustomization resource
-    cmds:
-      - |
-        {{- if eq .ks ""}}
-        kubectl get kustomization --all-namespaces --no-headers -A \
-          | awk '{print $1, $2}' \
-          | xargs --max-procs=8 -l bash -c 'flux reconcile kustomization --namespace $0 $1'
-        {{- else}}
-        flux reconcile kustomization --namespace {{.ns}} {{.ks}}
-        {{- end}}
-    vars:
-      ks: '{{.ks | default ""}}'
-      ns: '{{.ns | default "flux-system"}}'
-    preconditions:
-      - kubectl --namespace {{.ns}} get kustomization {{.ks}}
-
   browse-pvc:
     desc: Browse a PersistentVolumeClaim
     summary: |
@@ -60,6 +20,12 @@ tasks:
     preconditions:
       - kubectl --namespace {{.ns}} get persistentvolumeclaims {{.claim}}
 
+  delete-failed-pods:
+    desc: Delete all pods with an Evicted/Failed/Succeeded status
+    cmds:
+      - for: ["Evicted", "Failed", "Succeeded"]
+        cmd: kubectl delete pods --field-selector status.phase={{.ITEM}} -A --ignore-not-found=true
+
   privileged:
     desc: Run a privileged pod
     cmd: |
@@ -69,43 +35,3 @@ tasks:
       node: '{{.node}}'
     preconditions:
       - test -f {{.KUBERNETES_RESOURCES_DIR}}/privileged-pod.tmpl.yaml
-
-  delete-failed-pods:
-    desc: Delete all pods with an Evicted/Failed/Succeeded status
-    cmds:
-      - for: ["Evicted", "Failed", "Succeeded"]
-        cmd: kubectl delete pods --field-selector status.phase={{.ITEM}} -A --ignore-not-found=true
-
-  sync-secrets:
-    desc: Sync ExternalSecret resources from provider
-    summary: |
-      ns: Namespace to sync secret in (default: default)
-      secret: Secret to sync (default: unset/all secrets)
-    cmd: |
-      {{- if eq .secret ""}}
-        kubectl get externalsecret --all-namespaces --no-headers -A \
-          | awk '{print $1, $2}' \
-          | xargs --max-procs=4 -l bash -c 'kubectl --namespace $0 annotate externalsecret $1 force-sync=$(date +%s) --overwrite'
-      {{- else}}
-      kubectl --namespace {{.ns}} annotate externalsecret {{.secret}} force-sync=$(date +%s) --overwrite
-      {{- end}}
-    vars:
-      secret: '{{ .secret | default ""}}'
-      ns: '{{.ns | default "default"}}'
-    preconditions:
-      - kubectl --namespace {{.ns}} get externalsecret {{.secret}}
-
-  rook-password:
-    desc: Retrieve the rook-ceph password
-    cmd: |
-      kubectl --namespace rook-ceph get secret rook-ceph-dashboard-password -o jsonpath="{['data']['password']}" \
-        | base64 --decode \
-        | pbcopy && echo "Copied to clipboard"
-
-  rook-toolbox:
-    desc: Exec into the rook-ceph toolbox
-    interactive: true
-    cmd: kubectl --namespace rook-ceph exec -it {{.pod}} -- bash
-    vars:
-      pod:
-        sh: kubectl --namespace rook-ceph get pod -l "app=rook-ceph-tools" -o jsonpath='{.items[0].metadata.name}'
