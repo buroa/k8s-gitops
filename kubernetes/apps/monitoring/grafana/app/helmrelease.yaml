@@ -354,8 +354,6 @@ spec:
           datasource:
             - name: DS_PROMETHEUS
               value: Prometheus
-            - name: VAR_REPLICATIONDESTNAME
-              value: .*
     sidecar:
       dashboards:
         enabled: true
