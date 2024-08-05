@@ -64,6 +64,7 @@ spec:
             args:
               - prune
               - --exclude-tag=expired
+              - --exclude-tag=added:24h
               - --include-tag=unregistered
               - --server=qbittorrent.media.svc.cluster.local
               - --port=8080
