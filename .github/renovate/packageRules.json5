@@ -5,7 +5,7 @@
       description: ["Loose versioning for non-semver packages"],
       matchDatasources: ["docker"],
       versioning: "loose",
-      matchPackagePatterns: ["plex"],
+      matchPackagePatterns: ["cross-seed", "plex"],
     },
     {
       description: ["Custom schedule for frequently updated packages"],
