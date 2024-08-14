@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app jellyseerr
+  name: &app overseerr
 spec:
   interval: 30m
   chart:
@@ -23,12 +23,12 @@ spec:
       retries: 3
   values:
     controllers:
-      jellyseerr:
+      overseerr:
         containers:
           app:
             image:
-              repository: docker.io/fallenbagel/jellyseerr
-              tag: 1.9.2@sha256:8f708df0ce3f202056bde5d7bff625eb59efe38f4ee47bdddc7560b6e4a5a214
+              repository: ghcr.io/sct/overseerr
+              tag: 1.33.2@sha256:714ea6db2bc007a2262d112bef7eec74972eb33d9c72bddb9cbd98b8742de950
             env:
               LOG_LEVEL: info
               PORT: &port 5055
@@ -86,7 +86,7 @@ spec:
               - *customHost
     persistence:
       cache:
-        existingClaim: jellyseerr-cache
+        existingClaim: overseerr-cache
         globalMounts:
           - path: /app/config/cache
       config:
