@@ -96,8 +96,16 @@ spec:
     persistence:
       add-ons:
         type: emptyDir
+      cache:
+        existingClaim: tautulli-cache
+        globalMounts:
+          - path: /config/cache
       config:
         existingClaim: *app
+      logs:
+        type: emptyDir
+        globalMounts:
+          - path: /config/logs
       tmp:
         type: emptyDir
     service:
