@@ -90,6 +90,9 @@ spec:
         tls:
           - hosts:
               - *host
+    persistence:
+      tmp:
+        type: emptyDir
     service:
       app:
         controller: *app
