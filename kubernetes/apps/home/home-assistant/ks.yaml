@@ -12,7 +12,7 @@ spec:
   dependsOn:
     - name: volsync
     - name: emqx-cluster
-    - name: multus-configs
+    - name: multus-networks
     - name: rook-ceph-cluster
     - name: cloudnative-pg-cluster
     - name: external-secrets-stores

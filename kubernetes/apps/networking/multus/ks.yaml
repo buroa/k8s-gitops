@@ -22,7 +22,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app multus-configs
+  name: &app multus-networks
   namespace: flux-system
 spec:
   targetNamespace: networking
@@ -31,7 +31,7 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: multus
-  path: ./kubernetes/apps/networking/multus/configs
+  path: ./kubernetes/apps/networking/multus/networks
   prune: true
   sourceRef:
     kind: GitRepository

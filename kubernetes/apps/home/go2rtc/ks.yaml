@@ -10,6 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
+    - name: multus-networks
     - name: external-secrets-stores
     - name: intel-device-plugin-gpu
   path: ./kubernetes/apps/home/go2rtc/app
