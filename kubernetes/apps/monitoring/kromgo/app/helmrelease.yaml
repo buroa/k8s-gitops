@@ -34,16 +34,19 @@ spec:
               repository: ghcr.io/kashalls/kromgo
               tag: v0.4.0@sha256:526c7b84d290bcfc484a981a02a23e39210a97bb60f048fa26e55e34fe2a0478
             env:
+              HEALTH_HOST: 0.0.0.0
+              HEALTH_PORT: &healthPort 8888
               PROMETHEUS_URL: http://thanos-query-frontend.monitoring.svc.cluster.local:10902
-              PORT: &port 8080
+              SERVER_HOST: 0.0.0.0
+              SERVER_PORT: &port 8080
             probes:
               liveness: &probes
                 enabled: true
                 custom: true
                 spec:
                   httpGet:
-                    path: &path /-/ready
-                    port: *port
+                    path: /-/ready
+                    port: *healthPort
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
@@ -80,7 +83,7 @@ spec:
       app:
         className: external
         annotations:
-          gatus.io/path: *path
+          gatus.io/status-code: "404"
           hajimari.io/enable: "false"
         hosts:
           - host: &host "{{ .Release.Name }}.${PUBLIC_DOMAIN}"
@@ -106,3 +109,14 @@ spec:
         ports:
           http:
             port: *port
+          health:
+            port: *healthPort
+    serviceMonitor:
+      app:
+        serviceName: *app
+        endpoints:
+          - port: health
+            scheme: http
+            path: /metrics
+            interval: 1m
+            scrapeTimeout: 10s
