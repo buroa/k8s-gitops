@@ -33,6 +33,19 @@ spec:
               tag: v1.13.1@sha256:ea3fca614459b6ffa0cd6b86c52195eb2a0705bfe0d9a2d88588afaa83762494
             env:
               TZ: ${TIMEZONE}
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/healthz/liveness
+                    port: &port 7441
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
             resources:
               requests:
                 cpu: 10m
@@ -62,4 +75,4 @@ spec:
         controller: *app
         ports:
           http:
-            port: 7441
+            port: *port
