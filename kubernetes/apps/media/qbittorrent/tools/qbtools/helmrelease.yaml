@@ -111,7 +111,6 @@ spec:
             <<: *container
             args:
               - reannounce
-              - --process-seeding
               - --server=qbittorrent.media.svc.cluster.local
               - --port=8080
         pod:
