@@ -8,7 +8,7 @@ module.exports = {
   apiKey: process.env.CROSS_SEED_API_KEY,
   delay: 30,
   duplicateCategories: true,
-  flatLinking: true,
+  flatLinking: false,
   includeEpisodes: true,
   includeNonVideos: true,
   includeSingleEpisodes: true,
