@@ -139,7 +139,7 @@ I have two instances of `external-dns` running in my cluster. The private DNS in
 <details>
   <summary>Click to see my rack</summary>
 
-  <img src="https://github.com/user-attachments/assets/1b5c8151-11b4-422a-a8a9-366adc729aca" align="center" alt="rack"/>
+  <img src="https://github.com/user-attachments/assets/e983d6c8-0899-4046-8325-b865cacb0ff9" align="center" alt="rack"/>
 </details>
 
 | Device                                          | Count | OS Disk Size | Data Disk Size | Ram  | Operating System | Purpose            |
