@@ -3,6 +3,6 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   # renovate: depName=dragonflydb/dragonfly-operator datasource=github-releases
-  - https://raw.githubusercontent.com/dragonflydb/dragonfly-operator/v1.1.6/manifests/crd.yaml
+  - https://raw.githubusercontent.com/dragonflydb/dragonfly-operator/v1.1.7/manifests/crd.yaml
   - ./helmrelease.yaml
   - ./rbac.yaml
