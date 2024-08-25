@@ -82,8 +82,8 @@ spec:
         server: nas.${INTERNAL_DOMAIN}
         path: /volume1/media
         globalMounts:
-          - path: /media/downloads/torrents
-            subPath: downloads/torrents
+          - path: /media/downloads
+            subPath: downloads
     service:
       app:
         controller: *app
