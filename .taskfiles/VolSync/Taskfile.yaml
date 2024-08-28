@@ -66,8 +66,7 @@ tasks:
       - envsubst < <(cat {{.VOLSYNC_RESOURCES_DIR}}/unlock.tmpl.yaml) | kubectl apply -f -
       - bash {{.VOLSYNC_RESOURCES_DIR}}/wait-for-job.sh {{.job}} {{.ns}}
       - kubectl -n {{.ns}} wait job/{{.job}} --for condition=complete --timeout=1m
-      - kubectl -n {{.ns}} logs job/{{.job}} --container minio
-      - kubectl -n {{.ns}} logs job/{{.job}} --container r2
+      - kubectl -n {{.ns}} logs job/{{.job}} --container unlock
       - kubectl -n {{.ns}} delete job {{.job}}
     env: *env-vars
     requires:
