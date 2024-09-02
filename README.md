@@ -88,34 +88,19 @@ This Git repository contains the following directories under [kubernetes](./kube
 
 ### Cluster layout
 
-Below is a a high level look at the layout of how my directory structure with Flux works. In this brief example you are able to see that `authelia` will not be able to run until `glauth` and `cloudnative-pg` are running. It also shows that the `Cluster` custom resource depends on the `cloudnative-pg` Helm chart. This is needed because `cloudnative-pg` installs the `Cluster` custom resource definition in the Helm chart.
+This is a high-level look how Flux deploys my applications with dependencies. Below there are 3 Flux kustomizations `cloudnative-pg`, `cloudnative-pg-cluster`, and `atuin`. `cloudnative-pg` is the first app that needs to be running and healthy before `cloudnative-pg-cluster` and once `cloudnative-pg-cluster` is healthy `atuin` will be deployed.
 
 ```mermaid
 graph TD;
-  id1[Kustomization: cluster];
-  id2[Kustomization: cluster-apps];
-  id3[Kustomization: cloudnative-pg];
-  id4[HelmRelease: postgres];
-  id5[Kustomization: cloudnative-pg-cluster];
-  id6[Kustomization: glauth];
-  id7[HelmRelease: glauth];
-  id8[Kustomization: authelia];
-  id9[HelmRelease: authelia];
-  id10[Cluster: postgres];
-
-  id1 -->|Creates| id2;
-  id2 -->|Creates| id3;
-  id2 -->|Creates| id6;
-  id2 -->|Creates| id8;
-  id2 -->|Creates| id5;
-  id3 -->|Creates| id4;
-  id5 -->|Depends| id3;
-  id5 -->|Creates| id10;
-  id6 -->|Creates| id7;
-  id6 -->|Depends| id5;
-  id8 -->|Creates| id9;
-  id8 -->|Depends| id5;
-  id8 -->|Depends| id6;
+  id1>Kustomization: cluster] -->|Creates| id2>Kustomization: cluster-apps];
+  id2>Kustomization: cluster-apps] -->|Creates| id3>Kustomization: cloudnative-pg];
+  id2>Kustomization: cluster-apps] -->|Creates| id5>Kustomization: cloudnative-pg-cluster]
+  id2>Kustomization: cluster-apps] -->|Creates| id8>Kustomization: atuin]
+  id3>Kustomization: cloudnative-pg] -->|Creates| id4[HelmRelease: cloudnative-pg];
+  id5>Kustomization: cloudnative-pg-cluster] -->|Depends on| id3>Kustomization: cloudnative-pg];
+  id5>Kustomization: cloudnative-pg-cluster] -->|Creates| id10[Cluster: postgres];
+  id8>Kustomization: atuin] -->|Creates| id9(HelmRelease: atuin);
+  id8>Kustomization: atuin] -->|Depends on| id5>Kustomization: cloudnative-pg-cluster];
 ```
 
 ### Networking
