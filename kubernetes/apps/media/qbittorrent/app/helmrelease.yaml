@@ -27,28 +27,16 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/buroa/qbittorrent-beta
-              tag: 4.6.6@sha256:441d62ae58b8904a5b4dc294f18b47d4cf2bf76f379815819b63b4600d3d6d97
+              repository: ghcr.io/buroa/qbittorrent
+              tag: 4.6.6@sha256:e574795cfaea48e523bcee8a3a76f9324c640076dc2a98de0aa56b0c062d2218
             env:
               QBITTORRENT__PORT: &port 8080
               QBITTORRENT__BT_PORT: &bittorrentPort ${NET_SERVICES_QBITTORRENT_PORT}
-              QBT_Application__MemoryWorkingSetLimit:
-                valueFrom:
-                  resourceFieldRef:
-                    containerName: app
-                    resource: limits.memory
-                    divisor: 1Mi
               QBT_Preferences__WebUI__AlternativeUIEnabled: false
               QBT_Preferences__WebUI__AuthSubnetWhitelistEnabled: true
               QBT_Preferences__WebUI__AuthSubnetWhitelist: |-
                 ${CLUSTER_POD_CIDR}, ${NET_SERVERS_CIDR}
               QBT_Preferences__WebUI__LocalHostAuth: false
-              QBT_BitTorrent__Session__Interface: eth0
-              QBT_BitTorrent__Session__InterfaceAddress:
-                valueFrom:
-                  fieldRef:
-                    fieldPath: status.podIP
-              QBT_BitTorrent__Session__InterfaceName: eth0
               TZ: ${TIMEZONE}
             probes:
               liveness: &probes
@@ -75,16 +63,6 @@ spec:
                 drop:
                   - ALL
     defaultPodOptions:
-      affinity:
-        podAntiAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            - labelSelector:
-                matchExpressions:
-                  - key: app.kubernetes.io/name
-                    operator: In
-                    values:
-                      - sabnzbd
-              topologyKey: kubernetes.io/hostname
       securityContext:
         runAsNonRoot: true
         runAsUser: 568
