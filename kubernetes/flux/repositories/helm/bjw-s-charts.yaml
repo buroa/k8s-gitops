@@ -7,4 +7,4 @@ metadata:
 spec:
   type: oci
   interval: 5m
-  url: oci://ghcr.io/bjw-s/helm
+  url: oci://ghcr.io/bernd-schorgers/helm
