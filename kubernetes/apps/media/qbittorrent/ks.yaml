@@ -12,6 +12,7 @@ spec:
   dependsOn:
     - name: volsync
     - name: rook-ceph-cluster
+    - name: external-secrets-stores
   path: ./kubernetes/apps/media/qbittorrent/app
   prune: true
   sourceRef:

@@ -24,6 +24,48 @@ spec:
   values:
     controllers:
       qbittorrent:
+        initContainers:
+          gluetun:
+            image:
+              repository: ghcr.io/qdm12/gluetun
+              tag: v3.39.0@sha256:2f011a9aca767af62008d879eefcbc80a8645bd4fd4466ab312cc941cb658ad1
+            env:
+              DOT: off
+              FIREWALL_INPUT_PORTS: 8080,9999
+              HEALTH_SERVER_ADDRESS: :9999
+              PORT_FORWARD_ONLY: on
+              VPN_INTERFACE: wg0
+              VPN_PORT_FORWARDING: on
+              VPN_PORT_FORWARDING_PROVIDER: protonvpn
+              VPN_SERVICE_PROVIDER: protonvpn
+              VPN_TYPE: wireguard
+            envFrom:
+              - secretRef:
+                  name: qbittorrent-secret
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: 9999
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 128Mi
+            restartPolicy: Always
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities:
+                add:
+                  - NET_ADMIN
         containers:
           app:
             image:
@@ -31,7 +73,8 @@ spec:
               tag: 4.6.6@sha256:e574795cfaea48e523bcee8a3a76f9324c640076dc2a98de0aa56b0c062d2218
             env:
               QBITTORRENT__PORT: &port 8080
-              QBITTORRENT__BT_PORT: &bittorrentPort ${NET_SERVICES_QBITTORRENT_PORT}
+              QBT_BitTorrent__Session__Interface: wg0
+              QBT_BitTorrent__Session__InterfaceName: wg0
               QBT_Preferences__WebUI__AlternativeUIEnabled: false
               QBT_Preferences__WebUI__AuthSubnetWhitelistEnabled: true
               QBT_Preferences__WebUI__AuthSubnetWhitelist: |-
@@ -57,6 +100,9 @@ spec:
               limits:
                 memory: 12Gi
             securityContext:
+              runAsNonRoot: true
+              runAsUser: 568
+              runAsGroup: 568
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities:
@@ -64,9 +110,6 @@ spec:
                   - ALL
     defaultPodOptions:
       securityContext:
-        runAsNonRoot: true
-        runAsUser: 568
-        runAsGroup: 568
         fsGroup: 568
         fsGroupChangePolicy: OnRootMismatch
         supplementalGroups:
@@ -93,13 +136,19 @@ spec:
     persistence:
       config:
         existingClaim: *app
+        advancedMounts:
+          qbittorrent:
+            app:
+              - path: /config
       media:
         type: nfs
         server: nas.${INTERNAL_DOMAIN}
         path: /volume1/media
-        globalMounts:
-          - path: /media/downloads/torrents
-            subPath: downloads/torrents
+        advancedMounts:
+          qbittorrent:
+            app:
+              - path: /media/downloads/torrents
+                subPath: downloads/torrents
     service:
       app:
         controller: *app
@@ -107,15 +156,3 @@ spec:
         ports:
           http:
             port: *port
-      bittorrent:
-        controller: *app
-        type: LoadBalancer
-        annotations:
-          io.cilium/lb-ipam-ips: ${NET_SERVICES_QBITTORRENT_IP}
-        ports:
-          bittorrent-tcp:
-            port: *bittorrentPort
-            protocol: TCP
-          bittorrent-udp:
-            port: *bittorrentPort
-            protocol: UDP

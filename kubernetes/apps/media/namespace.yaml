@@ -6,3 +6,4 @@ metadata:
   labels:
     kustomize.toolkit.fluxcd.io/prune: disabled
     kyverno.io/ndots: "true"
+    vpn: "true"
