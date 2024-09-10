@@ -70,7 +70,7 @@ spec:
           app:
             image:
               repository: ghcr.io/buroa/qbittorrent
-              tag: 4.6.6@sha256:f80f110faaf2b81924b8383433d8bb12dbf5a797dde230656c77c4903e11cf9a
+              tag: 4.6.6@sha256:f45574ffdfa2571f912b01432f99b3f956b347b2e2855088d6c8871ea85f9961
             env:
               GLUETUN_PORT_FORWARDING: true
               QBITTORRENT__PORT: &port 8080
@@ -150,6 +150,8 @@ spec:
             app:
               - path: /media/downloads/torrents
                 subPath: downloads/torrents
+      tmp:
+        type: emptyDir
     service:
       app:
         controller: *app
