@@ -72,6 +72,7 @@ spec:
               repository: ghcr.io/buroa/qbittorrent
               tag: 4.6.6@sha256:f80f110faaf2b81924b8383433d8bb12dbf5a797dde230656c77c4903e11cf9a
             env:
+              GLUETUN_PORT_FORWARDING: true
               QBITTORRENT__PORT: &port 8080
               QBT_BitTorrent__Session__Interface: wg0
               QBT_BitTorrent__Session__InterfaceName: wg0
