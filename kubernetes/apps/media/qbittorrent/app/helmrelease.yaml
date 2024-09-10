@@ -24,6 +24,8 @@ spec:
   values:
     controllers:
       qbittorrent:
+        annotations:
+          reloader.stakater.com/auto: "true"
         initContainers:
           gluetun:
             image:
@@ -34,6 +36,7 @@ spec:
               FIREWALL_INPUT_PORTS: 8080,9999
               HEALTH_SERVER_ADDRESS: :9999
               PORT_FORWARD_ONLY: on
+              SERVER_CITIES: Chicago
               VPN_INTERFACE: wg0
               VPN_PORT_FORWARDING: on
               VPN_PORT_FORWARDING_PROVIDER: protonvpn
