@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./autobrr/ks.yaml
+  - ./bazarr/ks.yaml
   - ./cross-seed/ks.yaml
   - ./omegabrr/ks.yaml
   - ./overseerr/ks.yaml

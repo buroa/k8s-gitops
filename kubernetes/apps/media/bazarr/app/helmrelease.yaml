@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app tautulli
+  name: &app bazarr
 spec:
   interval: 30m
   chart:
@@ -23,22 +23,27 @@ spec:
       retries: 3
   values:
     controllers:
-      tautulli:
+      bazarr:
+        annotations:
+          reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
-              repository: ghcr.io/buroa/tautulli
-              tag: 2.14.4@sha256:716c4a90f11a9572a26f84448352f8da7d4290d018ed523cb7bc7bc2549a36e4
+              repository: ghcr.io/buroa/bazarr
+              tag: 1.4.3@sha256:6b40ba4fcc0f4157e7d9476598bfbccf3f2e94ad4e9842c29e87f6bb63ddeb09
             env:
               TZ: ${TIMEZONE}
+            envFrom:
+              - secretRef:
+                  name: bazarr-secret
             probes:
               liveness: &probes
                 enabled: true
                 custom: true
                 spec:
                   httpGet:
-                    path: &path /status
-                    port: &port 8181
+                    path: /health
+                    port: &port 6767
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
@@ -48,19 +53,19 @@ spec:
               requests:
                 cpu: 10m
               limits:
-                memory: 512Mi
+                memory: 1Gi
             securityContext: &securityContext
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities:
                 drop:
                   - ALL
-          jbops:
+          subcleaner:
             image:
               repository: registry.k8s.io/git-sync/git-sync
               tag: v4.2.4@sha256:8bfbf28623690fba06c65ec392e42023d28ecfc7e0fbfd4443388d020dc112ea
             env:
-              GITSYNC_REPO: https://github.com/blacktwin/JBOPS
+              GITSYNC_REPO: https://github.com/KBlixt/subcleaner
               GITSYNC_REF: master
               GITSYNC_PERIOD: 24h
               GITSYNC_ROOT: /add-ons
@@ -77,12 +82,13 @@ spec:
         runAsGroup: 568
         fsGroup: 568
         fsGroupChangePolicy: OnRootMismatch
+        supplementalGroups:
+          - 65536
     ingress:
       app:
-        className: external
+        className: internal
         annotations:
-          gatus.io/path: *path
-          hajimari.io/icon: mdi:chart-bar
+          hajimari.io/icon: mdi:subtitles-outline
         hosts:
           - host: &host "{{ .Release.Name }}.${PUBLIC_DOMAIN}"
             paths:
@@ -97,15 +103,25 @@ spec:
       add-ons:
         type: emptyDir
       cache:
-        existingClaim: tautulli-cache
+        type: emptyDir
         globalMounts:
           - path: /config/cache
       config:
         existingClaim: *app
-      logs:
+      log:
         type: emptyDir
         globalMounts:
-          - path: /config/logs
+          - path: /config/log
+      media:
+        type: nfs
+        server: nas.${INTERNAL_DOMAIN}
+        path: /volume1/media
+      scripts:
+        type: configMap
+        name: bazarr-scripts
+        defaultMode: 0775
+        globalMounts:
+          - readOnly: true
       tmp:
         type: emptyDir
     service:
