@@ -113,9 +113,6 @@ spec:
         annotations:
           io.cilium/lb-ipam-ips: ${NET_SERVICES_QBITTORRENT_IP}
         ports:
-          bittorrent-tcp:
+          bittorrent:
             port: *bittorrentPort
             protocol: TCP
-          bittorrent-udp:
-            port: *bittorrentPort
-            protocol: UDP
