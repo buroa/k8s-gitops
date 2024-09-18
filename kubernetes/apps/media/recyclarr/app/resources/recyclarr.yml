@@ -25,12 +25,6 @@ sonarr:
         assign_scores_to:
           - name: WEB-1080p
 
-      - trash_ids:
-          - 47435ece6b99a0b477caf360e79ba0bb # x265 (HD)
-        assign_scores_to:
-          - name: WEB-1080p
-            score: 0
-
 radarr:
   radarr:
     base_url: http://radarr.media.svc.cluster.local:7878
