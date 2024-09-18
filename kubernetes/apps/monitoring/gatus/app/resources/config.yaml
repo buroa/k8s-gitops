@@ -25,6 +25,13 @@ storage:
 ui:
   title: Status | Gatus
   header: Status
+  logo: https://github.com/buroa/k8s-gitops/assets/36205263/14771e67-0c36-4b7c-923f-31f54529067d
+  link: https://github.com/buroa
+  buttons:
+    - name: Github
+      link: https://github.com/buroa
+    - name: Homelab
+      link: https://github.com/buroa/k8s-gitops
 
 web:
   port: $${GATUS_WEB_PORT}
