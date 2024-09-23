@@ -35,7 +35,7 @@ spec:
           app:
             image:
               repository: ghcr.io/onedr0p/kubanetics
-              tag: 2024.9.1@sha256:125ad56a9e10070dce7f7b5989729894659a01622ab5696bafbd6f09d88a8a91
+              tag: 2024.9.2@sha256:4235f4ac14d7f4d26216d552c0b2fdc0c51a85ecdb976600fd22760f97ba07a7
             env:
               SCRIPT_NAME: fstrim.sh
             resources:
