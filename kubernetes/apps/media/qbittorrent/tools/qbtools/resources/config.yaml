@@ -25,6 +25,11 @@ trackers:
     required_seed_ratio: 0
     required_seed_days: 7.1
 
+  - name: fearnopeer
+    urls: ["fearnopeer.com"]
+    required_seed_ratio: 0
+    required_seed_days: 0
+
   - name: filelist
     urls: ["filelist.io", "flro.org"]
     required_seed_ratio: 1.01
