@@ -23,14 +23,18 @@ spec:
       retries: 3
   values:
     installCRDs: true
+    image: &image
+      repository: ghcr.io/external-secrets/external-secrets
+    certController:
+      image: *image
+      serviceMonitor:
+        enabled: true
+        interval: 1m
+    webhook:
+      image: *image
+      serviceMonitor:
+        enabled: true
+        interval: 1m
     serviceMonitor:
       enabled: true
       interval: 1m
-    webhook:
-      serviceMonitor:
-        enabled: true
-        interval: 1m
-    certController:
-      serviceMonitor:
-        enabled: true
-        interval: 1m
