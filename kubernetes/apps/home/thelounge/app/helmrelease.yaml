@@ -30,7 +30,7 @@ spec:
           app:
             image:
               repository: ghcr.io/thelounge/thelounge
-              tag: 4.4.3@sha256:4a6e7fff9e8682283fa52f97f583edc7f73b3946c3bf2754f3789bcc8015dd19
+              tag: 4.4.3@sha256:36abe60ddf60e49bc771a0ba5de1a8a0ceee7a44485dbe07cff535079bd554cf
             env:
               THELOUNGE_HOME: /config
             probes:
