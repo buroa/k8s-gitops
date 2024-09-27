@@ -10,16 +10,14 @@ env:
   SOPS_AGE_KEY_FILE: "{{.ROOT_DIR}}/age.key"
 
 includes:
-  bootstrap: .taskfiles/Bootstrap
-  external-secrets: .taskfiles/ExternalSecrets
-  flux: .taskfiles/Flux
-  kubernetes: .taskfiles/Kubernetes
-  rook: .taskfiles/Rook
-  talos: .taskfiles/Talos
-  volsync: .taskfiles/VolSync
+  bootstrap: .taskfiles/bootstrap
+  external-secrets: .taskfiles/externalsecrets
+  flux: .taskfiles/flux
+  kubernetes: .taskfiles/kubernetes
+  rook: .taskfiles/rook
+  talos: .taskfiles/talos
+  volsync: .taskfiles/volsync
 
 tasks:
 
-  default:
-    silent: true
-    cmd: task -l
+  default: task -l
