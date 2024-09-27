@@ -15,7 +15,7 @@ module.exports = {
   linkDir: "/media/downloads/torrents/complete/cross-seed",
   linkType: "hardlink",
   matchMode: "safe",
-  outputDir: "/config",
+  outputDir: "/tmp",
   qbittorrentUrl: "http://qbittorrent.media.svc.cluster.local:8080",
   skipRecheck: true,
   torrentDir: "/config/qBittorrent/BT_backup",
