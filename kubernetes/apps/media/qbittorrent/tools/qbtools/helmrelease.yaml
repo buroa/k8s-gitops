@@ -35,7 +35,7 @@ spec:
           tagging: &container
             image:
               repository: ghcr.io/buroa/qbtools
-              tag: v0.16.10@sha256:fec06dd13ec90694110ca912eb9003d3a46d29be83944538599b35fc78dcbf18
+              tag: pr-64@sha256:5d853c43b441e0e959d5bbc239aa91e2ae7a71f53c981eaf45fea6a14619315f
             args:
               - tagging
               - --added-on
@@ -63,6 +63,7 @@ spec:
             <<: *container
             args:
               - prune
+              - --dry-run # Test mode
               - --exclude-tag=expired
               - --exclude-tag=added:24h
               - --include-tag=unregistered
@@ -72,6 +73,7 @@ spec:
             <<: *container
             args:
               - prune
+              - --dry-run # Test mode
               - --exclude-category=manual
               - --exclude-tag=activity:24h
               - --include-tag=expired
@@ -93,6 +95,7 @@ spec:
             <<: *container
             args:
               - orphaned
+              - --dry-run # Test mode
               - --exclude-pattern="*_unpackerred"
               - --exclude-pattern="*/manual/*"
               - --server=qbittorrent.media.svc.cluster.local
