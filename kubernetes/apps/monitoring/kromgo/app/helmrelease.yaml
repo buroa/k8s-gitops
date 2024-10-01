@@ -34,10 +34,8 @@ spec:
               repository: ghcr.io/kashalls/kromgo
               tag: v0.4.2@sha256:89eab1c6604d8ef79fb0e7340620d6559ef296cc469c4eabf22598bbaf93ff42
             env:
-              HEALTH_HOST: 0.0.0.0
-              HEALTH_PORT: &healthPort 8888
               PROMETHEUS_URL: http://thanos-query-frontend.monitoring.svc.cluster.local:10902
-              SERVER_HOST: 0.0.0.0
+              HEALTH_PORT: &healthPort 8888
               SERVER_PORT: &port 8080
             probes:
               liveness: &probes
