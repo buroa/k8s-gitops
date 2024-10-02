@@ -35,7 +35,7 @@ spec:
           tagging: &container
             image:
               repository: ghcr.io/buroa/qbtools
-              tag: v0.17.5@sha256:2b2755921201b64ae757d6f08dce99b9ee2fa62c0397245c8c3babd462864431
+              tag: v0.17.6@sha256:a248dc3e1d885838532830e15743846b73554b8af7e01fd728758f191458c10f
             args:
               - tagging
               - --added-on
@@ -43,9 +43,9 @@ spec:
               - --last-activity
               - --sites
               - --unregistered
-              - --server=qbittorrent.media.svc.cluster.local
-              - --port=8080
             env:
+              QBITTORRENT_HOST: qbittorrent.media.svc.cluster.local
+              QBITTORRENT_PORT: 8080
               TZ: *timeZone
             resources:
               requests:
@@ -66,8 +66,6 @@ spec:
               - --exclude-tag=expired
               - --exclude-tag=added:24h
               - --include-tag=unregistered
-              - --server=qbittorrent.media.svc.cluster.local
-              - --port=8080
           expired:
             <<: *container
             args:
@@ -75,8 +73,6 @@ spec:
               - --exclude-category=manual
               - --exclude-tag=activity:24h
               - --include-tag=expired
-              - --server=qbittorrent.media.svc.cluster.local
-              - --port=8080
         pod:
           restartPolicy: OnFailure
           securityContext: &podSecurityContext
@@ -95,8 +91,6 @@ spec:
               - orphaned
               - --exclude-pattern="*_unpackerred"
               - --exclude-pattern="*/manual/*"
-              - --server=qbittorrent.media.svc.cluster.local
-              - --port=8080
         pod:
           restartPolicy: OnFailure
           securityContext:
@@ -111,8 +105,6 @@ spec:
             <<: *container
             args:
               - reannounce
-              - --server=qbittorrent.media.svc.cluster.local
-              - --port=8080
         pod:
           securityContext: *podSecurityContext
     persistence:
