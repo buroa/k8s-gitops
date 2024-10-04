@@ -80,8 +80,8 @@ spec:
           memory: 512Mi
       service:
         annotations:
+          lbipam.cilium.io/ips: ${NET_SERVICES_INGRESS_IP_INT}
           external-dns.alpha.kubernetes.io/hostname: internal.${PUBLIC_DOMAIN}
-          io.cilium/lb-ipam-ips: ${NET_SERVICES_INGRESS_IP_INT}
       terminationGracePeriodSeconds: 120
       topologySpreadConstraints:
         - maxSkew: 1

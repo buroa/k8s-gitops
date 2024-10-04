@@ -118,7 +118,7 @@ spec:
         controller: *app
         type: LoadBalancer
         annotations:
-          io.cilium/lb-ipam-ips: ${NET_SERVICES_QBITTORRENT_IP}
+          lbipam.cilium.io/ips: ${NET_SERVICES_QBITTORRENT_IP}
         ports:
           bittorrent-tcp:
             port: *bittorrentPort
