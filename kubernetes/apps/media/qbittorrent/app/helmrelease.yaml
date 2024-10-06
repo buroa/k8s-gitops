@@ -31,7 +31,7 @@ spec:
               tag: 5.0.0@sha256:033eb4b297801b7fca1a5faba35de683f5c8e2fd324f7ce0a8703bbca7849d7a
             env:
               QBT_TORRENTING_PORT: &bittorrentPort 50413
-              QBT_WEBUI_PORT: &port 80
+              QBT_WEBUI_PORT: &port 8080
               TZ: ${TIMEZONE}
             probes:
               liveness: &probes
