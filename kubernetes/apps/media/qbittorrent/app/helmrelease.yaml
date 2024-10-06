@@ -30,20 +30,8 @@ spec:
               repository: ghcr.io/buroa/qbittorrent
               tag: 5.0.0@sha256:033eb4b297801b7fca1a5faba35de683f5c8e2fd324f7ce0a8703bbca7849d7a
             env:
-              QBITTORRENT__PORT: &port 8080
-              QBITTORRENT__BT_PORT: &bittorrentPort ${NET_SERVICES_QBITTORRENT_PORT}
-              QBT_BitTorrent__Session__Interface: eth0
-              QBT_BitTorrent__Session__InterfaceAddress:
-                valueFrom:
-                  fieldRef:
-                    fieldPath: status.podIP
-              QBT_BitTorrent__Session__InterfaceName: eth0
-              QBT_BitTorrent__Session__Port: *bittorrentPort
-              QBT_Preferences__WebUI__AlternativeUIEnabled: false
-              QBT_Preferences__WebUI__AuthSubnetWhitelistEnabled: true
-              QBT_Preferences__WebUI__AuthSubnetWhitelist: |-
-                ${CLUSTER_POD_CIDR}, ${NET_SERVERS_CIDR}
-              QBT_Preferences__WebUI__LocalHostAuth: false
+              QBT_TORRENTING_PORT: &bittorrentPort 50413
+              QBT_WEBUI_PORT: &port 80
               TZ: ${TIMEZONE}
             probes:
               liveness: &probes
