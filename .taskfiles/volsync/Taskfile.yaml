@@ -8,6 +8,7 @@ version: "3"
 #   4. Each application only has one PVC that is being replicated
 
 x-env-vars: &env-vars
+  am: "{{.am}}"
   app: "{{.app}}"
   claim: "{{.claim}}"
   controller: "{{.controller}}"
@@ -16,6 +17,7 @@ x-env-vars: &env-vars
   pgid: "{{.pgid}}"
   previous: "{{.previous}}"
   puid: "{{.puid}}"
+  sc: "{{.sc}}"
 
 vars:
   VOLSYNC_RESOURCES_DIR: "{{.ROOT_DIR}}/.taskfiles/volsync/resources"
@@ -123,14 +125,18 @@ tasks:
     vars:
       ns: '{{.ns | default "default"}}'
       previous: '{{.previous | default 2}}'
-      controller:
-        sh: "{{.VOLSYNC_RESOURCES_DIR}}/which-controller.sh {{.app}} {{.ns}}"
+      am:
+        sh: kubectl -n {{.ns}} get replicationsources/{{.app}} -o jsonpath="{.spec.restic.accessModes}"
       claim:
         sh: kubectl -n {{.ns}} get replicationsources/{{.app}} -o jsonpath="{.spec.sourcePVC}"
-      puid:
-        sh: kubectl -n {{.ns}} get replicationsources/{{.app}} -o jsonpath="{.spec.restic.moverSecurityContext.runAsUser}"
+      controller:
+        sh: "{{.VOLSYNC_RESOURCES_DIR}}/which-controller.sh {{.app}} {{.ns}}"
       pgid:
         sh: kubectl -n {{.ns}} get replicationsources/{{.app}} -o jsonpath="{.spec.restic.moverSecurityContext.runAsGroup}"
+      puid:
+        sh: kubectl -n {{.ns}} get replicationsources/{{.app}} -o jsonpath="{.spec.restic.moverSecurityContext.runAsUser}"
+      sc:
+        sh: kubectl -n {{.ns}} get replicationsources/{{.app}} -o jsonpath="{.spec.restic.storageClassName}"
     preconditions:
       - test -f {{.VOLSYNC_RESOURCES_DIR}}/which-controller.sh
 

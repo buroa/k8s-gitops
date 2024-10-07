@@ -11,9 +11,8 @@ spec:
     repository: ${app}-restic-secret
     destinationPVC: ${claim}
     copyMethod: Direct
-    storageClassName: ceph-block
-    # storageClassName: ceph-filesystem
-    # accessModes: ["ReadWriteMany"]
+    storageClassName: ${sc}
+    accessModes: ${am}
     # IMPORTANT NOTE:
     #   Set to the last X number of snapshots to restore from
     previous: ${previous}
