@@ -35,7 +35,7 @@ spec:
           tagging: &container
             image:
               repository: ghcr.io/buroa/qbtools
-              tag: pr-78@sha256:e79428ec60ec7b4f9a5824ea00c1cecf6a637345465ad89a673e3193d7cb62bf
+              tag: v0.18.0@sha256:a17305d3c880fd05636545deaa07fea2ecaabd02a1465dfa005e91f3cb8c90e0
             args:
               - tagging
               - --added-on
@@ -64,14 +64,14 @@ spec:
             args:
               - prune
               - --exclude-tag=expired
-              - --exclude-tag=added:24h
+              - --exclude-tag=added:1d
               - --include-tag=unregistered
           expired:
             <<: *container
             args:
               - prune
               - --exclude-category=manual
-              - --exclude-tag=activity:24h
+              - --exclude-tag=activity:1d
               - --include-tag=expired
         pod:
           restartPolicy: OnFailure

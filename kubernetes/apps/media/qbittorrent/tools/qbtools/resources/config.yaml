@@ -1,101 +1,22 @@
 ---
 trackers:
-  - name: aither
-    urls: ["aither.cc"]
-    required_seed_ratio: 0
-    required_seed_days: 0 # 7.1
-
-  - name: alpharatio
-    urls: ["alpharatio.cc"]
-    required_seed_ratio: 1.01
-    required_seed_days: 7.1
-
-  - name: anthelion
-    urls: ["anthelion.me"]
-    required_seed_ratio: 1.01
-    required_seed_days: 7.1
-
-  - name: beyond-hd
-    urls: ["beyond-hd.me"]
-    required_seed_ratio: 0
-    required_seed_days: 0
-
-  - name: blutopia
-    urls: ["blutopia.cc", "blutopia.xyz"]
-    required_seed_ratio: 0
-    required_seed_days: 7.1
-
-  - name: fearnopeer
-    urls: ["fearnopeer.com"]
-    required_seed_ratio: 0
-    required_seed_days: 0
-
-  - name: filelist
-    urls: ["filelist.io", "flro.org"]
-    required_seed_ratio: 1.01
-    required_seed_days: 2.1
-
-  - name: hd-space
-    urls: ["hd-space.pw"]
-    required_seed_ratio: 0
-    required_seed_days: 2.1
-
-  - name: hd-torrents
-    urls: ["hdts-announce.ru"]
-    required_seed_ratio: 1.01
-    required_seed_days: 3.1
-
-  - name: iptorrents
-    urls: ["bgp.technology", "empirehost.me", "stackoverflow.tech"]
-    required_seed_ratio: 1.01
-    required_seed_days: 14.1
-
-  - name: milkie
-    urls: ["cow.milkie.cc"]
-    required_seed_ratio: 1.01
-    required_seed_days: 7.1
-
-  - name: morethantv
-    urls: ["morethantv.me"]
-    required_seed_ratio: 1.01
-    required_seed_days: 7.1
-
-  - name: nebulance
-    urls: ["nebulance.io"]
-    required_seed_ratio: 0
-    required_seed_days: 5.1
-
-  - name: passthepopcorn
-    urls: ["passthepopcorn.me"]
-    required_seed_ratio: 1.01
-    required_seed_days: 7.1
-
-  - name: privatehd
-    urls: ["privatehd.to"]
-    required_seed_ratio: 0.91
-    required_seed_days: 14.1
-
-  - name: scenetime
-    urls: ["scenetime.com"]
-    required_seed_ratio: 1.01
-    required_seed_days: 3.1
-
-  - name: torrentday
-    urls: ["jumbohostpro.eu", "td-peers.com"]
-    required_seed_ratio: 1.01
-    required_seed_days: 3.1
-
-  - name: torrentleech
-    urls: ["tleechreload.org", "torrentleech.org"]
-    required_seed_ratio: 1.01
-    required_seed_days: 6.1
-
-  - name: torrentseeds
-    urls: ["torrentseeds.org"]
-    required_seed_ratio: 1.01
-    required_seed_days: 7.1
-
-  - name: uhdbits
-    urls: ["uhdbits.org"]
-    required_seed_ratio: 1.01
-    required_seed_days: 7.1
+  - { name: ath,    required_seed_ratio: 0,    required_seed_days: 0,    urls: ["aither.cc"] }
+  - { name: ar,     required_seed_ratio: 1.01, required_seed_days: 7.1,  urls: ["alpharatio.cc"] }
+  - { name: ant,    required_seed_ratio: 1.01, required_seed_days: 7.1,  urls: ["anthelion.me"] }
+  - { name: bhd,    required_seed_ratio: 0,    required_seed_days: 0,    urls: ["beyond-hd.me"] }
+  - { name: blu,    required_seed_ratio: 0,    required_seed_days: 7.1,  urls: ["blutopia.cc", "blutopia.xyz"] }
+  - { name: fnp,    required_seed_ratio: 0,    required_seed_days: 0,    urls: ["fearnopeer.com"] }
+  - { name: fl,     required_seed_ratio: 1.01, required_seed_days: 2.1,  urls: ["filelist.io", "flro.org"] }
+  - { name: hds,    required_seed_ratio: 0,    required_seed_days: 2.1,  urls: ["hd-space.pw"] }
+  - { name: hdt,    required_seed_ratio: 1.01, required_seed_days: 3.1,  urls: ["hdts-announce.ru"] }
+  - { name: ipt,    required_seed_ratio: 1.01, required_seed_days: 14.1, urls: ["bgp.technology", "empirehost.me", "stackoverflow.tech"] }
+  - { name: milkie, required_seed_ratio: 1.01, required_seed_days: 7.1,  urls: ["cow.milkie.cc"] }
+  - { name: mtv,    required_seed_ratio: 1.01, required_seed_days: 7.1,  urls: ["morethantv.me"] }
+  - { name: nbl,    required_seed_ratio: 0,    required_seed_days: 5.1,  urls: ["nebulance.io"] }
+  - { name: ptp,    required_seed_ratio: 1.01, required_seed_days: 7.1,  urls: ["passthepopcorn.me"] }
+  - { name: phd,    required_seed_ratio: 0.91, required_seed_days: 14.1, urls: ["privatehd.to"] }
+  - { name: st,     required_seed_ratio: 1.01, required_seed_days: 3.1,  urls: ["scenetime.com"] }
+  - { name: td,     required_seed_ratio: 1.01, required_seed_days: 3.1,  urls: ["jumbohostpro.eu", "td-peers.com"] }
+  - { name: tl,     required_seed_ratio: 1.01, required_seed_days: 6.1,  urls: ["tleechreload.org", "torrentleech.org"] }
+  - { name: ts,     required_seed_ratio: 1.01, required_seed_days: 7.1,  urls: ["torrentseeds.org"] }
+  - { name: uhd,    required_seed_ratio: 1.01, required_seed_days: 7.1,  urls: ["uhdbits.org"] }
