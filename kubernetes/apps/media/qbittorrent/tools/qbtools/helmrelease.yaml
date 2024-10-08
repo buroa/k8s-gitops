@@ -35,7 +35,7 @@ spec:
           tagging: &container
             image:
               repository: ghcr.io/buroa/qbtools
-              tag: pr-83@sha256:2c31208d6896976aa6e0d02126175b6bb0d1ee41db6c351908ba690b1fbec1d7
+              tag: v0.18.2@sha256:c778cca1c844e604850716c6d702f0b0b1239e0c538d07ae8521361ff11c875e
             args:
               - tagging
               - --added-on
@@ -66,7 +66,6 @@ spec:
               - --exclude-tag=expired
               - --exclude-tag=added:1d
               - --include-tag=unregistered
-              - --dry-run
           expired:
             <<: *container
             args:
@@ -74,7 +73,6 @@ spec:
               - --exclude-category=manual
               - --exclude-tag=activity:1d
               - --include-tag=expired
-              - --dry-run
         pod:
           restartPolicy: OnFailure
           securityContext: &podSecurityContext
@@ -85,7 +83,7 @@ spec:
         type: cronjob
         cronjob:
           <<: *cronjob
-          schedule: "@daily"
+          schedule: "@weekly"
         containers:
           app:
             <<: *container
@@ -93,7 +91,6 @@ spec:
               - orphaned
               - --exclude-pattern="*_unpackerred"
               - --exclude-pattern="*/manual/*"
-              - --dry-run
         pod:
           restartPolicy: OnFailure
           securityContext:
