@@ -7,7 +7,7 @@ module.exports = {
   action: "inject",
   apiKey: process.env.CROSS_SEED_API_KEY,
   delay: 30,
-  duplicateCategories: true,
+  duplicateCategories: false,
   includeEpisodes: true,
   includeNonVideos: true,
   includeSingleEpisodes: true,
