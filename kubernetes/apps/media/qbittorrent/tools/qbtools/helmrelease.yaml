@@ -46,7 +46,8 @@ spec:
             env:
               QBITTORRENT_HOST: qbittorrent.media.svc.cluster.local
               QBITTORRENT_PORT: 8080
-              SABNZBD_HOST: http://sabnzbd.media.svc.cluster.local:8080
+              SABNZBD_HOST: sabnzbd.media.svc.cluster.local
+              SABNZBD_PORT: 8080
               TZ: *timeZone
             envFrom:
               - secretRef:
