@@ -46,7 +46,11 @@ spec:
             env:
               QBITTORRENT_HOST: qbittorrent.media.svc.cluster.local
               QBITTORRENT_PORT: 8080
+              SABNZBD_HOST: http://sabnzbd.media.svc.cluster.local:8080
               TZ: *timeZone
+            envFrom:
+              - secretRef:
+                  name: qbtools-secret
             resources:
               requests:
                 cpu: 25m
@@ -59,14 +63,14 @@ spec:
                 drop:
                   - ALL
         containers:
-          unregistered:
+          prune-unregistered:
             <<: *container
             args:
               - prune
               - --exclude-tag=expired
               - --exclude-tag=added:1d
               - --include-tag=unregistered
-          expired:
+          prune-expired:
             <<: *container
             args:
               - prune
@@ -75,10 +79,6 @@ spec:
               - --include-tag=expired
         pod:
           restartPolicy: OnFailure
-          securityContext: &podSecurityContext
-            runAsNonRoot: true
-            runAsUser: 568
-            runAsGroup: 568
       orphaned:
         type: cronjob
         cronjob:
@@ -94,9 +94,9 @@ spec:
         pod:
           restartPolicy: OnFailure
           securityContext:
-            <<: *podSecurityContext
-            fsGroup: 568
-            fsGroupChangePolicy: OnRootMismatch
+            runAsNonRoot: true
+            runAsUser: 568
+            runAsGroup: 568
             supplementalGroups:
               - 65536
       reannounce:
@@ -105,8 +105,20 @@ spec:
             <<: *container
             args:
               - reannounce
-        pod:
-          securityContext: *podSecurityContext
+      limiter:
+        containers:
+          app:
+            <<: *container
+            args:
+              - limiter
+              - --max-line-speed-mbps=100
+              - --max-percent=0.8
+              - --limit-percent=0.4
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 568
+        runAsGroup: 568
     persistence:
       config:
         type: configMap
