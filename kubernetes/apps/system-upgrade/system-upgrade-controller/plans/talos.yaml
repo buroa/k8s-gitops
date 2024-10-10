@@ -47,5 +47,4 @@ spec:
       - --nodes=$(NODE_IP)
       - upgrade
       - --image=ghcr.io/buroa/installer:$(SYSTEM_UPGRADE_PLAN_LATEST_VERSION)
-      - --preserve=true
       - --wait=false
