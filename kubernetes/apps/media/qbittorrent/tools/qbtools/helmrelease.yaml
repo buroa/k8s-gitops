@@ -94,12 +94,6 @@ spec:
               - --exclude-pattern="*/manual/*"
         pod:
           restartPolicy: OnFailure
-          securityContext:
-            runAsNonRoot: true
-            runAsUser: 568
-            runAsGroup: 568
-            supplementalGroups:
-              - 65536
       reannounce:
         containers:
           app:
@@ -120,6 +114,10 @@ spec:
         runAsNonRoot: true
         runAsUser: 568
         runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
+        supplementalGroups:
+          - 65536
     persistence:
       config:
         type: configMap
