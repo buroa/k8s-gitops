@@ -94,7 +94,7 @@ spec:
             secret.reloader.stakater.com/reload: &secret thanos-objstore-config
         replicas: 3
         replicaExternalLabelName: __replica__
-        ruleselectorniluseshelmvalues: false
+        ruleSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false
         probeSelectorNilUsesHelmValues: false
