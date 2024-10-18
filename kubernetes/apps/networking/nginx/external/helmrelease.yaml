@@ -82,6 +82,7 @@ spec:
         annotations:
           external-dns.alpha.kubernetes.io/hostname: external.${PUBLIC_DOMAIN}
           lbipam.cilium.io/ips: ${NET_SERVICES_INGRESS_IP_EXT}
+        externalTrafficPolicy: Local
       terminationGracePeriodSeconds: 120
       topologySpreadConstraints:
         - maxSkew: 1
