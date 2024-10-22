@@ -25,7 +25,7 @@ spec:
     controllers:
       tagging:
         type: cronjob
-        cronjob: &cronjob
+        cronjob:
           schedule: "@hourly"
           timeZone: &timeZone ${TIMEZONE}
           concurrencyPolicy: Forbid
@@ -71,6 +71,7 @@ spec:
               - --exclude-tag=expired
               - --exclude-tag=added:1d
               - --include-tag=unregistered
+              - --with-data
           prune-expired:
             <<: *container
             args:
@@ -78,20 +79,7 @@ spec:
               - --exclude-category=manual
               - --exclude-tag=activity:1d
               - --include-tag=expired
-        pod:
-          restartPolicy: OnFailure
-      orphaned:
-        type: cronjob
-        cronjob:
-          <<: *cronjob
-          schedule: "@weekly"
-        containers:
-          app:
-            <<: *container
-            args:
-              - orphaned
-              - --exclude-pattern="*_unpackerred"
-              - --exclude-pattern="*/manual/*"
+              - --with-data
         pod:
           restartPolicy: OnFailure
       reannounce:
@@ -114,26 +102,11 @@ spec:
         runAsNonRoot: true
         runAsUser: 568
         runAsGroup: 568
-        fsGroup: 568
-        fsGroupChangePolicy: OnRootMismatch
-        supplementalGroups:
-          - 65536
     persistence:
       config:
         type: configMap
         name: qbtools-configmap
-        advancedMounts:
-          tagging:
-            tagging:
-              - path: /config/config.yaml
-                subPath: config.yaml
-                readOnly: true
-      media:
-        type: nfs
-        server: nas.${INTERNAL_DOMAIN}
-        path: /volume1/media
-        advancedMounts:
-          orphaned:
-            app:
-              - path: /media/downloads/torrents
-                subPath: downloads/torrents
+        globalMounts:
+          - path: /config/config.yaml
+            subPath: config.yaml
+            readOnly: true
