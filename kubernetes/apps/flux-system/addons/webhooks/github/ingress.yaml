@@ -9,7 +9,7 @@ metadata:
 spec:
   ingressClassName: external
   rules:
-    - host: &host flux-webhook.${PUBLIC_DOMAIN}
+    - host: &host flux-webhook.ktwo.io
       http:
         paths:
           - path: /hook/

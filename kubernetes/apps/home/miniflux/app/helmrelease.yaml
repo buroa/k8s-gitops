@@ -42,15 +42,15 @@ spec:
               repository: ghcr.io/miniflux/miniflux
               tag: 2.2.1-distroless@sha256:89e73e27f88c25864f6c4643d0e00d01f79095a603ffbf5331cd866f665ee569
             env:
-              BASE_URL: https://{{ .Release.Name }}.${PUBLIC_DOMAIN}
+              BASE_URL: https://{{ .Release.Name }}.ktwo.io
               CREATE_ADMIN: 1
               LOG_DATE_TIME: 1
-              METRICS_ALLOWED_NETWORKS: ${CLUSTER_POD_CIDR}
+              METRICS_ALLOWED_NETWORKS: 10.244.0.0/16
               METRICS_COLLECTOR: 1
               OAUTH2_CLIENT_ID: miniflux
-              OAUTH2_OIDC_DISCOVERY_ENDPOINT: https://auth.${PUBLIC_DOMAIN}
+              OAUTH2_OIDC_DISCOVERY_ENDPOINT: https://auth.ktwo.io
               OAUTH2_PROVIDER: oidc
-              OAUTH2_REDIRECT_URL: https://{{ .Release.Name }}.${PUBLIC_DOMAIN}/oauth2/oidc/callback
+              OAUTH2_REDIRECT_URL: https://{{ .Release.Name }}.ktwo.io/oauth2/oidc/callback
               OAUTH2_USER_CREATION: 1
               POLLING_FREQUENCY: 15
               POLLING_SCHEDULER: entry_frequency
@@ -100,7 +100,7 @@ spec:
           gatus.io/path: *path
           hajimari.io/icon: mdi:rss
         hosts:
-          - host: &host "{{ .Release.Name }}.${PUBLIC_DOMAIN}"
+          - host: &host "{{ .Release.Name }}.ktwo.io"
             paths:
               - path: /
                 service:

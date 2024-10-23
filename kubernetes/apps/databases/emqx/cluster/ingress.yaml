@@ -8,7 +8,7 @@ metadata:
 spec:
   ingressClassName: internal
   rules:
-    - host: &host emqx.${PUBLIC_DOMAIN}
+    - host: &host emqx.ktwo.io
       http:
         paths:
           - path: /

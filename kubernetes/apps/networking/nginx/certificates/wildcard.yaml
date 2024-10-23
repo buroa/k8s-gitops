@@ -8,7 +8,7 @@ spec:
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
-  commonName: ${PUBLIC_DOMAIN}
+  commonName: ktwo.io
   dnsNames:
-    - ${PUBLIC_DOMAIN}
-    - "*.${PUBLIC_DOMAIN}"
+    - ktwo.io
+    - "*.ktwo.io"

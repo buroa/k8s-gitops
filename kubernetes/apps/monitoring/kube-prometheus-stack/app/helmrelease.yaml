@@ -34,7 +34,7 @@ spec:
           hajimari.io/appName: Alertmanager
           hajimari.io/icon: fluent:alert-16-filled
         hosts:
-          - &host am.${PUBLIC_DOMAIN}
+          - &host am.ktwo.io
         paths:
           - /
         pathType: Prefix
@@ -45,11 +45,11 @@ spec:
         replicas: 3
         useExistingSecret: true
         configSecret: alertmanager-secret
-        externalUrl: https://am.${PUBLIC_DOMAIN}
+        externalUrl: https://am.ktwo.io
         storage:
           volumeClaimTemplate:
             spec:
-              storageClassName: ${CLUSTER_STORAGE_HOSTPATH}
+              storageClassName: democratic-csi-local-hostpath
               resources:
                 requests:
                   storage: 1Gi
@@ -77,7 +77,7 @@ spec:
           hajimari.io/appName: Prometheus
           hajimari.io/icon: simple-icons:prometheus
         hosts:
-          - &host prometheus.${PUBLIC_DOMAIN}
+          - &host prometheus.ktwo.io
         paths:
           - /
         pathType: Prefix
@@ -105,7 +105,7 @@ spec:
           - auto-gomemlimit
           - memory-snapshot-on-shutdown
           - new-service-discovery-manager
-        externalUrl: https://prometheus.${PUBLIC_DOMAIN}
+        externalUrl: https://prometheus.ktwo.io
         thanos:
           image: quay.io/thanos/thanos:${THANOS_VERSION}
           version: ${THANOS_VERSION#v}
@@ -123,7 +123,7 @@ spec:
         storageSpec:
           volumeClaimTemplate:
             spec:
-              storageClassName: ${CLUSTER_STORAGE_HOSTPATH}
+              storageClassName: democratic-csi-local-hostpath
               resources:
                 requests:
                   storage: 20Gi

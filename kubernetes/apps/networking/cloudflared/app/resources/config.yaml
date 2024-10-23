@@ -1,10 +1,10 @@
 ---
 originRequest:
-  originServerName: external.${PUBLIC_DOMAIN}
+  originServerName: external.ktwo.io
 
 ingress:
-  - hostname: ${PUBLIC_DOMAIN}
+  - hostname: ktwo.io
     service: https://nginx-external-controller.networking.svc.cluster.local
-  - hostname: "*.${PUBLIC_DOMAIN}"
+  - hostname: "*.ktwo.io"
     service: https://nginx-external-controller.networking.svc.cluster.local
   - service: http_status:404

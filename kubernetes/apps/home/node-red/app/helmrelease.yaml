@@ -32,9 +32,9 @@ spec:
               repository: docker.io/nodered/node-red
               tag: 4.0.5@sha256:7b635f720d9d1aba676925a93fcf20811bbb62b476752b896177faccb28e5ee9
             env:
-              NODE_RED_OAUTH_ISSUER_URL: https://auth.${PUBLIC_DOMAIN}
-              NODE_RED_OAUTH_AUTH_URL: https://auth.${PUBLIC_DOMAIN}/api/oidc/authorization
-              NODE_RED_OAUTH_CALLBACK_URL: https://nr.${PUBLIC_DOMAIN}/auth/strategy/callback
+              NODE_RED_OAUTH_ISSUER_URL: https://auth.ktwo.io
+              NODE_RED_OAUTH_AUTH_URL: https://auth.ktwo.io/api/oidc/authorization
+              NODE_RED_OAUTH_CALLBACK_URL: https://nr.ktwo.io/auth/strategy/callback
               NODE_RED_OAUTH_TOKEN_URL: http://authelia.security.svc.cluster.local:9091/api/oidc/token
               NODE_RED_OAUTH_USER_URL: http://authelia.security.svc.cluster.local:9091/api/oidc/userinfo
               TZ: ${TIMEZONE}
@@ -69,15 +69,15 @@ spec:
         className: internal
         annotations:
           hajimari.io/icon: cib:node-red
-          hajimari.io/url: https://nr.${PUBLIC_DOMAIN}
+          hajimari.io/url: https://nr.ktwo.io
         hosts:
-          - host: &host "{{ .Release.Name }}.${PUBLIC_DOMAIN}"
+          - host: &host "{{ .Release.Name }}.ktwo.io"
             paths: &paths
               - path: /
                 service:
                   identifier: app
                   port: http
-          - host: &customHost nr.${PUBLIC_DOMAIN}
+          - host: &customHost nr.ktwo.io
             paths: *paths
         tls:
           - hosts:

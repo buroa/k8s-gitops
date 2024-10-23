@@ -5,4 +5,4 @@ metadata:
   name: thanos-ceph-bucket
 spec:
   bucketName: thanos
-  storageClassName: ${CLUSTER_STORAGE_BUCKET}
+  storageClassName: ceph-bucket

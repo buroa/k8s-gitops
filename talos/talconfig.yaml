@@ -6,7 +6,7 @@ clusterPodNets:
 clusterSvcNets:
   - 10.245.0.0/16
 
-endpoint: https://k8s.${INTERNAL_DOMAIN}:6443
+endpoint: https://k8s.internal:6443
 
 # renovate: depName=ghcr.io/buroa/installer datasource=docker
 talosVersion: v1.8.1
@@ -14,8 +14,8 @@ talosVersion: v1.8.1
 kubernetesVersion: v1.31.1
 
 additionalApiServerCertSans: &sans
-  - ${CLUSTER_ENDPOINT_IP}
-  - k8s.${INTERNAL_DOMAIN}
+  - 192.168.10.250
+  - k8s.internal
   - 127.0.0.1
 
 additionalMachineCertSans: *sans
@@ -25,7 +25,7 @@ cniConfig:
 
 nodes:
   # macm 2018 3.2GHz / 32GB / 256GB SSD / 10GbE via TB3
-  - hostname: m0.k8s.${INTERNAL_DOMAIN}
+  - hostname: m0.k8s.internal
     ipAddress: 192.168.10.10
     installDiskSelector:
       serial: C0785130064JRQ5AA
@@ -46,7 +46,7 @@ nodes:
               - network: 0.0.0.0/0
                 gateway: 192.168.10.1
             vip:
-              ip: ${CLUSTER_ENDPOINT_IP}
+              ip: 192.168.10.250
           - vlanId: 20
             dhcp: false
             mtu: 1500
@@ -55,7 +55,7 @@ nodes:
             mtu: 1500
 
   # macm 2018 3.2GHz / 32GB / 256GB SSD / 10GbE via TB3
-  - hostname: m1.k8s.${INTERNAL_DOMAIN}
+  - hostname: m1.k8s.internal
     ipAddress: 192.168.10.11
     installDiskSelector:
       serial: H280463005RJRV2C6
@@ -76,7 +76,7 @@ nodes:
               - network: 0.0.0.0/0
                 gateway: 192.168.10.1
             vip:
-              ip: ${CLUSTER_ENDPOINT_IP}
+              ip: 192.168.10.250
           - vlanId: 20
             dhcp: false
             mtu: 1500
@@ -85,7 +85,7 @@ nodes:
             mtu: 1500
 
   # macm 2018 3.2GHz / 32GB / 256GB SSD / 10GbE via TB3
-  - hostname: m2.k8s.${INTERNAL_DOMAIN}
+  - hostname: m2.k8s.internal
     ipAddress: 192.168.10.12
     installDiskSelector:
       serial: C070234007KJRT9AZ
@@ -106,7 +106,7 @@ nodes:
               - network: 0.0.0.0/0
                 gateway: 192.168.10.1
             vip:
-              ip: ${CLUSTER_ENDPOINT_IP}
+              ip: 192.168.10.250
           - vlanId: 20
             dhcp: false
             mtu: 1500
@@ -115,7 +115,7 @@ nodes:
             mtu: 1500
 
   # macm 2018 3.2GHz / 64GB / 1TB SSD / 10GbE
-  - hostname: w0.k8s.${INTERNAL_DOMAIN}
+  - hostname: w0.k8s.internal
     ipAddress: 192.168.10.20
     installDiskSelector:
       serial: H281495002CJRVGDX
@@ -161,7 +161,7 @@ nodes:
             metric: 2048
 
   # macm 2018 3.2GHz / 64GB / 1TB SSD / 10GbE
-  - hostname: w1.k8s.${INTERNAL_DOMAIN}
+  - hostname: w1.k8s.internal
     ipAddress: 192.168.10.21
     installDiskSelector:
       serial: C070173002EJRVGAW
@@ -207,7 +207,7 @@ nodes:
             metric: 2048
 
   # macm 2018 3.2GHz / 64GB / 1TB SSD / 10GbE
-  - hostname: w2.k8s.${INTERNAL_DOMAIN}
+  - hostname: w2.k8s.internal
     ipAddress: 192.168.10.22
     installDiskSelector:
       serial: C07843600H7JRVGA8
@@ -320,7 +320,7 @@ controlPlane:
       machine:
         logging:
           destinations:
-            - endpoint: udp://vector.${PUBLIC_DOMAIN}:6002
+            - endpoint: udp://vector.ktwo.io:6002
               format: json_lines
 
     # Force nameserver
@@ -360,9 +360,9 @@ controlPlane:
       machine:
         network:
           extraHostEntries:
-            - ip: ${CLUSTER_ENDPOINT_IP}
+            - ip: 192.168.10.250
               aliases:
-                - k8s.${INTERNAL_DOMAIN}
+                - k8s.internal
 
     # Custom sysctl settings
     - &sysctlPatch |-
@@ -400,7 +400,7 @@ controlPlane:
             - module_blacklist=tg3
             - net.ifnames=0
             - pcie_ports=native
-            - talos.logging.kernel=udp://vector.${PUBLIC_DOMAIN}:6001/
+            - talos.logging.kernel=udp://vector.ktwo.io:6001/
           legacyBIOSSupport: true
 
     # Various udev rules

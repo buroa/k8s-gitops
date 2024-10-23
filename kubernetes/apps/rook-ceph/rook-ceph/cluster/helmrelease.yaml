@@ -33,7 +33,7 @@ spec:
           hajimari.io/appName: Rook
           hajimari.io/icon: mdi:chess-rook
         host:
-          name: &host rook.${PUBLIC_DOMAIN}
+          name: &host rook.ktwo.io
           path: /
         tls:
           - hosts:
@@ -128,7 +128,7 @@ spec:
             size: 3
         storageClass:
           enabled: true
-          name: ${CLUSTER_STORAGE_BLOCK}
+          name: ceph-block
           isDefault: true
           reclaimPolicy: Delete
           allowVolumeExpansion: true
@@ -144,7 +144,7 @@ spec:
             csi.storage.k8s.io/fstype: ext4
     cephBlockPoolsVolumeSnapshotClass:
       enabled: true
-      name: ${CLUSTER_SNAPSHOT_BLOCK}
+      name: csi-ceph-block
       isDefault: true
       deletionPolicy: Delete
     cephFileSystems:
@@ -180,7 +180,7 @@ spec:
         storageClass:
           enabled: true
           isDefault: false
-          name: ${CLUSTER_STORAGE_FILESYSTEM}
+          name: ceph-filesystem
           pool: data0
           reclaimPolicy: Delete
           allowVolumeExpansion: true
@@ -194,7 +194,7 @@ spec:
             csi.storage.k8s.io/fstype: ext4
     cephFileSystemVolumeSnapshotClass:
       enabled: true
-      name: ${CLUSTER_SNAPSHOT_FILESYSTEM}
+      name: csi-ceph-filesystem
       isDefault: false
       deletionPolicy: Delete
     cephObjectStores:
@@ -225,7 +225,7 @@ spec:
               interval: 60s
         storageClass:
           enabled: true
-          name: ${CLUSTER_STORAGE_BUCKET}
+          name: ceph-bucket
           reclaimPolicy: Delete
           parameters:
             region: ceph-objectstore

@@ -26,9 +26,6 @@ releases:
     version: 1.16.3
     values:
       - '{{ requiredEnv "KUBERNETES_DIR" }}/apps/kube-system/cilium/app/resources/values.yaml'
-    set:
-      - name: ipv4NativeRoutingCIDR
-        value: '{{ requiredEnv "CLUSTER_POD_CIDR" }}'
     needs:
       - monitoring/prometheus-operator-crds
 

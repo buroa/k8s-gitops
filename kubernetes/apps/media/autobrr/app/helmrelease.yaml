@@ -81,7 +81,7 @@ spec:
         annotations:
           hajimari.io/icon: mdi:bunny
         hosts:
-          - host: &host "{{ .Release.Name }}.${PUBLIC_DOMAIN}"
+          - host: &host "{{ .Release.Name }}.ktwo.io"
             paths:
               - path: /
                 service:

@@ -36,8 +36,6 @@ tasks:
       - until kubectl wait --for=condition=Ready nodes --all --timeout=10m; do sleep 10; done
     env:
       KUBERNETES_DIR: '{{.KUBERNETES_DIR}}'
-      CLUSTER_POD_CIDR:
-        sh: yq '.data.CLUSTER_POD_CIDR' {{.KUBERNETES_DIR}}/flux/vars/cluster-settings.yaml
     preconditions:
       - test -f {{.TALOS_DIR}}/apps/helmfile.yaml
 

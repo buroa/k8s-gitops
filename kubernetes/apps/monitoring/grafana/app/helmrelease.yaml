@@ -32,7 +32,7 @@ spec:
     env:
       GF_AUTH_GENERIC_OAUTH_TOKEN_URL: http://authelia.security.svc.cluster.local:9091/api/oidc/token
       GF_AUTH_GENERIC_OAUTH_API_URL: http://authelia.security.svc.cluster.local:9091/api/oidc/userinfo
-      GF_AUTH_GENERIC_OAUTH_AUTH_URL: https://auth.${PUBLIC_DOMAIN}/api/oidc/authorization
+      GF_AUTH_GENERIC_OAUTH_AUTH_URL: https://auth.ktwo.io/api/oidc/authorization
       GF_AUTH_GENERIC_OAUTH_CLIENT_ID: grafana
       GF_DATE_FORMATS_USE_BROWSER_LOCALE: true
       GF_EXPLORE_ENABLED: true
@@ -43,7 +43,7 @@ spec:
       GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS: natel-discrete-panel,pr0ps-trackmap-panel,panodata-map-panel
       GF_SECURITY_ANGULAR_SUPPORT_ENABLED: true # Ref: https://grafana.com/docs/grafana/latest/developers/angular_deprecation
       GF_SECURITY_COOKIE_SAMESITE: grafana
-      GF_SERVER_ROOT_URL: https://{{ .Release.Name }}.${PUBLIC_DOMAIN}
+      GF_SERVER_ROOT_URL: https://{{ .Release.Name }}.ktwo.io
     envFromSecrets:
       - name: *secret
     grafana.ini:
@@ -54,7 +54,7 @@ spec:
       auth:
         oauth_auto_login: true
         oauth_allow_insecure_email_lookup: true # Ref: https://github.com/grafana/grafana/issues/70203
-        signout_redirect_url: https://auth.${PUBLIC_DOMAIN}/logout
+        signout_redirect_url: https://auth.ktwo.io/logout
       auth.basic:
         enabled: true
       auth.anonymous:
@@ -385,7 +385,7 @@ spec:
         hajimari.io/appName: Grafana
         hajimari.io/icon: simple-icons:grafana
       hosts:
-        - &host "{{ .Release.Name }}.${PUBLIC_DOMAIN}"
+        - &host "{{ .Release.Name }}.ktwo.io"
       paths:
         - /
       tls:

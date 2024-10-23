@@ -8,4 +8,4 @@ spec:
   resources:
     requests:
       storage: 10Gi
-  storageClassName: ${CLUSTER_STORAGE_FILESYSTEM}
+  storageClassName: ceph-filesystem

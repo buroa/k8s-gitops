@@ -80,7 +80,7 @@ spec:
           memory: 512Mi
       service:
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: external.${PUBLIC_DOMAIN}
+          external-dns.alpha.kubernetes.io/hostname: external.ktwo.io
           lbipam.cilium.io/ips: ${NET_SERVICES_INGRESS_IP_EXT}
         externalTrafficPolicy: Local
       terminationGracePeriodSeconds: 120

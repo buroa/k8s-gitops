@@ -49,7 +49,7 @@ spec:
               ZIGBEE2MQTT_CONFIG_DEVICE_OPTIONS_RETAIN: true
               ZIGBEE2MQTT_CONFIG_EXPERIMENTAL_NEW_API: true
               ZIGBEE2MQTT_CONFIG_FRONTEND_PORT: &port 8080
-              ZIGBEE2MQTT_CONFIG_FRONTEND_URL: https://zigbee.${PUBLIC_DOMAIN}
+              ZIGBEE2MQTT_CONFIG_FRONTEND_URL: https://zigbee.ktwo.io
               ZIGBEE2MQTT_CONFIG_HOMEASSISTANT: true
               ZIGBEE2MQTT_CONFIG_MQTT_INCLUDE_DEVICE_INFORMATION: true
               ZIGBEE2MQTT_CONFIG_MQTT_KEEPALIVE: 60
@@ -97,15 +97,15 @@ spec:
         className: internal
         annotations:
           hajimari.io/icon: cbi:zigbee2mqtt
-          hajimari.io/url: https://zigbee.${PUBLIC_DOMAIN}
+          hajimari.io/url: https://zigbee.ktwo.io
         hosts:
-          - host: &host "{{ .Release.Name }}.${PUBLIC_DOMAIN}"
+          - host: &host "{{ .Release.Name }}.ktwo.io"
             paths: &paths
               - path: /
                 service:
                   identifier: app
                   port: http
-          - host: &customHost zigbee.${PUBLIC_DOMAIN}
+          - host: &customHost zigbee.ktwo.io
             paths: *paths
         tls:
           - hosts:

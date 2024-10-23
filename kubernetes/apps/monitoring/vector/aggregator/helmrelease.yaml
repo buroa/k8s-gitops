@@ -75,7 +75,7 @@ spec:
         controller: *app
         type: LoadBalancer
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: vector.${PUBLIC_DOMAIN}
+          external-dns.alpha.kubernetes.io/hostname: vector.ktwo.io
           lbipam.cilium.io/ips: ${NET_SERVICES_VECTOR_IP}
         externalTrafficPolicy: Local
         ports:

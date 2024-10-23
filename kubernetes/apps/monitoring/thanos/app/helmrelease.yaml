@@ -44,12 +44,12 @@ spec:
         - --retention.resolution-1h=60d
       persistence: &persistence
         enabled: true
-        storageClass: ${CLUSTER_STORAGE_HOSTPATH}
+        storageClass: democratic-csi-local-hostpath
         size: 15Gi
     query:
       replicas: 3
       extraArgs:
-        - --alert.query-url=https://thanos.${PUBLIC_DOMAIN}
+        - --alert.query-url=https://thanos.ktwo.io
     queryFrontend:
       enabled: true
       replicas: 3
@@ -68,7 +68,7 @@ spec:
           hajimari.io/appName: Thanos
           hajimari.io/icon: material-symbols:health-metrics
         hosts:
-          - &host thanos.${PUBLIC_DOMAIN}
+          - &host thanos.ktwo.io
         tls:
           - hosts:
               - *host

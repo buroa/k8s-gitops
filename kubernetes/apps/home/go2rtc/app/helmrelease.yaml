@@ -90,7 +90,7 @@ spec:
         annotations:
           hajimari.io/icon: simple-icons:webrtc
         hosts:
-          - host: &host "{{ .Release.Name }}.${PUBLIC_DOMAIN}"
+          - host: &host "{{ .Release.Name }}.ktwo.io"
             paths:
               - path: /
                 service:

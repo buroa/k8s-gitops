@@ -28,13 +28,13 @@ spec:
       attachRequired: false
       fsGroupPolicy: File
     storageClasses:
-      - name: ${CLUSTER_STORAGE_HOSTPATH}
+      - name: democratic-csi-local-hostpath
         defaultClass: false
         reclaimPolicy: Delete
         volumeBindingMode: WaitForFirstConsumer
         allowVolumeExpansion: false
     volumeSnapshotClasses:
-      - name: ${CLUSTER_SNAPSHOT_HOSTPATH}
+      - name: csi-democratic-csi-local-hostpath
         deletionPolicy: Delete
         parameters:
           cluster: k8s

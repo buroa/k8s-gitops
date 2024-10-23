@@ -5,4 +5,4 @@ metadata:
   name: loki-ceph-bucket
 spec:
   bucketName: loki
-  storageClassName: ${CLUSTER_STORAGE_BUCKET}
+  storageClassName: ceph-bucket

@@ -79,7 +79,7 @@ spec:
           gatus.io/path: *path
           hajimari.io/enable: "false"
         hosts:
-          - host: &host "{{ .Release.Name }}.${PUBLIC_DOMAIN}"
+          - host: &host "{{ .Release.Name }}.ktwo.io"
             paths:
               - path: /
                 service:

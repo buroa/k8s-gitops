@@ -15,9 +15,9 @@ webrtc:
 
 streams:
   entry:
-    - rtspx://unifi.${INTERNAL_DOMAIN}:7441/N33NndYP9jDIKdjc
+    - rtspx://unifi.internal:7441/N33NndYP9jDIKdjc
   server_room:
-    - rtspx://unifi.${INTERNAL_DOMAIN}:7441/N1GGxypfxkFtIMiN
+    - rtspx://unifi.internal:7441/N1GGxypfxkFtIMiN
 
 homekit:
   entry:

@@ -40,9 +40,9 @@ spec:
               repository: ghcr.io/buroa/home-assistant
               tag: 2024.10.3@sha256:0e2b607ac791a9de7d4b84dffb93a91c9d77f26227f9f414595f0f9aae481f04
             env:
-              HOME_ASSISTANT_EXTERNAL_URL: https://hass.${PUBLIC_DOMAIN}
+              HOME_ASSISTANT_EXTERNAL_URL: https://hass.ktwo.io
               HOME_ASSISTANT_PURGE_KEEP_DAYS: 30
-              HOME_ASSISTANT_TRUSTED_PROXIES: ${CLUSTER_POD_CIDR}
+              HOME_ASSISTANT_TRUSTED_PROXIES: 10.244.0.0/16
               HOME_ASSISTANT_UNIT_SYSTEM: imperial
               TZ: ${TIMEZONE}
             envFrom: *envFrom
@@ -76,15 +76,15 @@ spec:
         className: internal
         annotations:
           hajimari.io/icon: mdi:home-assistant
-          hajimari.io/url: https://hass.${PUBLIC_DOMAIN}
+          hajimari.io/url: https://hass.ktwo.io
         hosts:
-          - host: &host "{{ .Release.Name }}.${PUBLIC_DOMAIN}"
+          - host: &host "{{ .Release.Name }}.ktwo.io"
             paths: &paths
               - path: /
                 service:
                   identifier: app
                   port: http
-          - host: &customHost hass.${PUBLIC_DOMAIN}
+          - host: &customHost hass.ktwo.io
             paths: *paths
         tls:
           - hosts:

@@ -32,11 +32,11 @@ spec:
         - name: nas
           auth: [public_v2]
           module: [synology]
-          target: nas.${INTERNAL_DOMAIN}
+          target: nas.internal
         - name: ups
           auth: [public_v2]
           module: [apcups]
-          target: ups.${INTERNAL_DOMAIN}
+          target: ups.internal
       path: /snmp
       scrapeTimeout: 10s
       relabelings:

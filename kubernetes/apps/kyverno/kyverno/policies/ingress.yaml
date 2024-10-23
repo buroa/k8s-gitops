@@ -29,4 +29,4 @@ spec:
         patchStrategicMerge:
           metadata:
             annotations:
-              external-dns.alpha.kubernetes.io/target: "{{ INGRESS_CLASS_NAME }}.${PUBLIC_DOMAIN}"
+              external-dns.alpha.kubernetes.io/target: "{{ INGRESS_CLASS_NAME }}.ktwo.io"

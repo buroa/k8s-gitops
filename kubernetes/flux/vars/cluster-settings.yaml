@@ -7,26 +7,6 @@ metadata:
 data:
   TIMEZONE: America/Chicago
 
-  # Domains
-  PUBLIC_DOMAIN: ktwo.io
-  INTERNAL_DOMAIN: internal
-
-  # Email
-  PUBLIC_EMAIL: skre@skre.me
-
-  # Storage
-  CLUSTER_STORAGE_BLOCK: ceph-block
-  CLUSTER_SNAPSHOT_BLOCK: csi-ceph-block
-  CLUSTER_STORAGE_FILESYSTEM: ceph-filesystem
-  CLUSTER_SNAPSHOT_FILESYSTEM: csi-ceph-filesystem
-  CLUSTER_STORAGE_BUCKET: ceph-bucket
-  CLUSTER_STORAGE_HOSTPATH: democratic-csi-local-hostpath
-  CLUSTER_SNAPSHOT_HOSTPATH: csi-democratic-csi-local-hostpath
-
-  # K8s
-  CLUSTER_POD_CIDR: 10.244.0.0/16
-  CLUSTER_SERVICE_CIDR: 10.245.0.0/16
-
   # Networks
   NET_LOCAL_CIDR: 192.168.0.0/24
   NET_TRUSTED_CIDR: 192.168.1.0/24
@@ -45,6 +25,3 @@ data:
   NET_SERVICES_QBITTORRENT_IP: 192.168.20.3
   NET_SERVICES_INGRESS_IP_EXT: 192.168.20.80
   NET_SERVICES_INGRESS_IP_INT: 192.168.20.81
-
-  # Shh :-)
-  NET_SERVICES_QBITTORRENT_PORT: "50413"

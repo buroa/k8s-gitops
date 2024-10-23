@@ -33,7 +33,7 @@ spec:
           tag: v0.3.0@sha256:1d898f10f894c784f4516c7188d92cf928f7f03e8010fa83b9384eb569164cc1
         env:
           - name: UNIFI_HOST
-            value: https://unifi.${INTERNAL_DOMAIN}
+            value: https://unifi.internal
           - name: &name UNIFI_USER
             valueFrom:
               secretKeyRef:
@@ -63,9 +63,9 @@ spec:
     txtOwnerId: k8s
     txtPrefix: k8s.
     domainFilters:
-      - ${PUBLIC_DOMAIN}
+      - ktwo.io
     excludeDomains:
-      - ${INTERNAL_DOMAIN}
+      - internal
     serviceMonitor:
       enabled: true
     podAnnotations:

@@ -85,7 +85,7 @@ spec:
       replicas: 3
       persistence:
         size: 20Gi
-        storageClass: ${CLUSTER_STORAGE_HOSTPATH}
+        storageClass: democratic-csi-local-hostpath
     gateway:
       replicas: 3
       image:
@@ -96,7 +96,7 @@ spec:
       replicas: 3
       persistence:
         size: 20Gi
-        storageClass: ${CLUSTER_STORAGE_HOSTPATH}
+        storageClass: democratic-csi-local-hostpath
     lokiCanary:
       enabled: false
     sidecar:

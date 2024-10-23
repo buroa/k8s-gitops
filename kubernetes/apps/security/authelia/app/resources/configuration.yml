@@ -55,7 +55,7 @@ identity_providers:
           - groups
           - email
         redirect_uris:
-          - https://grafana.$${PUBLIC_DOMAIN}/login/generic_oauth
+          - https://grafana.ktwo.io/login/generic_oauth
         userinfo_signed_response_alg: none
 
       - client_name: Miniflux
@@ -70,7 +70,7 @@ identity_providers:
           - groups
           - email
         redirect_uris:
-          - https://miniflux.$${PUBLIC_DOMAIN}/oauth2/oidc/callback
+          - https://miniflux.ktwo.io/oauth2/oidc/callback
         userinfo_signed_response_alg: none
 
       - client_name: Node-RED
@@ -85,7 +85,7 @@ identity_providers:
           - groups
           - email
         redirect_uris:
-          - https://nr.$${PUBLIC_DOMAIN}/auth/strategy/callback
+          - https://nr.ktwo.io/auth/strategy/callback
         userinfo_signed_response_alg: none
         token_endpoint_auth_method: client_secret_post
 
@@ -93,7 +93,7 @@ notifier:
   disable_startup_check: true
   smtp:
     address: smtp://smtp-relay.networking.svc.cluster.local:25
-    sender: Authelia <authelia@$${PUBLIC_DOMAIN}>
+    sender: Authelia <authelia@ktwo.io>
     disable_require_tls: true
 
 session:
@@ -103,9 +103,9 @@ session:
   remember_me: 1M
   cookies:
     - name: k_session
-      domain: $${PUBLIC_DOMAIN}
-      authelia_url: https://auth.$${PUBLIC_DOMAIN}
-      default_redirection_url: https://$${PUBLIC_DOMAIN}
+      domain: ktwo.io
+      authelia_url: https://auth.ktwo.io
+      default_redirection_url: https://ktwo.io
   redis:
     database_index: 3
     host: dragonfly.databases.svc.cluster.local

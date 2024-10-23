@@ -71,15 +71,15 @@ spec:
         className: internal
         annotations:
           hajimari.io/icon: mdi:seedling
-          hajimari.io/url: https://qb.${PUBLIC_DOMAIN}
+          hajimari.io/url: https://qb.ktwo.io
         hosts:
-          - host: &host "{{ .Release.Name }}.${PUBLIC_DOMAIN}"
+          - host: &host "{{ .Release.Name }}.ktwo.io"
             paths: &paths
               - path: /
                 service:
                   identifier: app
                   port: http
-          - host: &customHost qb.${PUBLIC_DOMAIN}
+          - host: &customHost qb.ktwo.io
             paths: *paths
         tls:
           - hosts:
@@ -90,7 +90,7 @@ spec:
         existingClaim: *app
       media:
         type: nfs
-        server: nas.${INTERNAL_DOMAIN}
+        server: nas.internal
         path: /volume1/media
         globalMounts:
           - path: /media/downloads/torrents

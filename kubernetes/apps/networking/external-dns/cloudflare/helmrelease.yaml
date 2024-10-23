@@ -48,7 +48,7 @@ spec:
     txtOwnerId: k8s
     txtPrefix: k8s.
     domainFilters:
-      - ${PUBLIC_DOMAIN}
+      - ktwo.io
     serviceMonitor:
       enabled: true
     podAnnotations:

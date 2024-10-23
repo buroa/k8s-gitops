@@ -34,7 +34,7 @@ spec:
   resources:
     requests:
       storage: 1Gi
-  storageClassName: ${CLUSTER_STORAGE_BLOCK}
+  storageClassName: ceph-block
 ---
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
@@ -47,11 +47,11 @@ spec:
     repository: node-red-restic-secret
     copyMethod: Snapshot
     accessModes: ["ReadWriteOnce"]
-    storageClassName: ${CLUSTER_STORAGE_BLOCK}
-    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
+    storageClassName: ceph-block
+    volumeSnapshotClassName: csi-ceph-block
     cacheAccessModes: ["ReadWriteOnce"]
     cacheCapacity: 8Gi
-    cacheStorageClassName: ${CLUSTER_STORAGE_HOSTPATH}
+    cacheStorageClassName: democratic-csi-local-hostpath
     moverSecurityContext:
       runAsUser: 568
       runAsGroup: 568
@@ -71,11 +71,11 @@ spec:
     repository: node-red-restic-secret
     copyMethod: Snapshot
     accessModes: ["ReadWriteOnce"]
-    storageClassName: ${CLUSTER_STORAGE_BLOCK}
-    volumeSnapshotClassName: ${CLUSTER_SNAPSHOT_BLOCK}
+    storageClassName: ceph-block
+    volumeSnapshotClassName: csi-ceph-block
     cacheAccessModes: ["ReadWriteOnce"]
     cacheCapacity: 8Gi
-    cacheStorageClassName: ${CLUSTER_STORAGE_HOSTPATH}
+    cacheStorageClassName: democratic-csi-local-hostpath
     moverSecurityContext:
       runAsUser: 1000
       runAsGroup: 1000

@@ -39,8 +39,8 @@ spec:
                 sabnzbd.media.svc,
                 sabnzbd.media.svc.cluster,
                 sabnzbd.media.svc.cluster.local,
-                {{ .Release.Name }}.${PUBLIC_DOMAIN},
-                sab.${PUBLIC_DOMAIN}
+                {{ .Release.Name }}.ktwo.io,
+                sab.ktwo.io
               TZ: ${TIMEZONE}
             envFrom:
               - secretRef:
@@ -83,15 +83,15 @@ spec:
         className: internal
         annotations:
           hajimari.io/icon: mdi:download
-          hajimari.io/url: https://sab.${PUBLIC_DOMAIN}
+          hajimari.io/url: https://sab.ktwo.io
         hosts:
-          - host: &host "{{ .Release.Name }}.${PUBLIC_DOMAIN}"
+          - host: &host "{{ .Release.Name }}.ktwo.io"
             paths: &paths
               - path: /
                 service:
                   identifier: app
                   port: http
-          - host: &customHost sab.${PUBLIC_DOMAIN}
+          - host: &customHost sab.ktwo.io
             paths: *paths
         tls:
           - hosts:
@@ -102,7 +102,7 @@ spec:
         existingClaim: *app
       media:
         type: nfs
-        server: nas.${INTERNAL_DOMAIN}
+        server: nas.internal
         path: /volume1/media
         globalMounts:
           - path: /media/downloads/nzbs

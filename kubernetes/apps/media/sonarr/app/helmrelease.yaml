@@ -88,7 +88,7 @@ spec:
         annotations:
           hajimari.io/icon: mdi:television-classic
         hosts:
-          - host: &host "{{ .Release.Name }}.${PUBLIC_DOMAIN}"
+          - host: &host "{{ .Release.Name }}.ktwo.io"
             paths:
               - path: /
                 service:
@@ -106,7 +106,7 @@ spec:
           - path: /config/logs
       media:
         type: nfs
-        server: nas.${INTERNAL_DOMAIN}
+        server: nas.internal
         path: /volume1/media
       tmp:
         type: emptyDir

@@ -6,7 +6,7 @@ metadata:
 spec:
   acme:
     server: https://acme-v02.api.letsencrypt.org/directory
-    email: &email ${PUBLIC_EMAIL}
+    email: &email skre@skre.me
     privateKeySecretRef:
       name: letsencrypt-production
     solvers:
@@ -18,7 +18,7 @@ spec:
               key: CLOUDFLARE_API_TOKEN
         selector:
           dnsZones:
-            - ${PUBLIC_DOMAIN}
+            - ktwo.io
 ---
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
@@ -27,7 +27,7 @@ metadata:
 spec:
   acme:
     server: https://acme-staging-v02.api.letsencrypt.org/directory
-    email: &email ${PUBLIC_EMAIL}
+    email: &email skre@skre.me
     privateKeySecretRef:
       name: letsencrypt-staging
     solvers:
@@ -39,4 +39,4 @@ spec:
               key: CLOUDFLARE_API_TOKEN
         selector:
           dnsZones:
-            - ${PUBLIC_DOMAIN}
+            - ktwo.io

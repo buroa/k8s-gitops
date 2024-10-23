@@ -70,15 +70,15 @@ spec:
         annotations:
           gatus.io/path: *path
           hajimari.io/icon: mdi:eye-circle
-          hajimari.io/url: https://requests.${PUBLIC_DOMAIN}
+          hajimari.io/url: https://requests.ktwo.io
         hosts:
-          - host: &host "{{ .Release.Name }}.${PUBLIC_DOMAIN}"
+          - host: &host "{{ .Release.Name }}.ktwo.io"
             paths: &paths
               - path: /
                 service:
                   identifier: app
                   port: http
-          - host: &customHost requests.${PUBLIC_DOMAIN}
+          - host: &customHost requests.ktwo.io
             paths: *paths
         tls:
           - hosts:

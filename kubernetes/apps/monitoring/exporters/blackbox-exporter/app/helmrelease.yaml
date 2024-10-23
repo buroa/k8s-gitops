@@ -29,7 +29,7 @@ spec:
       annotations:
         hajimari.io/enable: "false"
       hosts:
-        - host: &host blackbox.${PUBLIC_DOMAIN}
+        - host: &host blackbox.ktwo.io
           paths:
             - path: /
               pathType: Prefix

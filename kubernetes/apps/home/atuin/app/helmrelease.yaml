@@ -94,13 +94,13 @@ spec:
         annotations:
           hajimari.io/enable: "false"
         hosts:
-          - host: &host "{{ .Release.Name }}.${PUBLIC_DOMAIN}"
+          - host: &host "{{ .Release.Name }}.ktwo.io"
             paths: &paths
               - path: /
                 service:
                   identifier: app
                   port: http
-          - host: &customHost sh.${PUBLIC_DOMAIN}
+          - host: &customHost sh.ktwo.io
             paths: *paths
         tls:
           - hosts:

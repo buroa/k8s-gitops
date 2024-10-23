@@ -34,7 +34,7 @@ spec:
             env:
               TZ: ${TIMEZONE}
               UP_UNIFI_DEFAULT_ROLE: k8s-gitops
-              UP_UNIFI_DEFAULT_URL: https://unifi.${INTERNAL_DOMAIN}
+              UP_UNIFI_DEFAULT_URL: https://unifi.internal
               UP_UNIFI_DEFAULT_VERIFY_SSL: false
               UP_INFLUXDB_DISABLE: true
             envFrom:

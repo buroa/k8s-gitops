@@ -30,7 +30,7 @@ spec:
               repository: ghcr.io/buroa/plex
               tag: 1.41.0.8994-f2c27da23@sha256:dbe5bed7a19b24f43312877a0b11f7b36e2efa10a0b185cc40b94bf59efc857a
             env:
-              PLEX_ADVERTISE_URL: https://{{ .Release.Name }}.${PUBLIC_DOMAIN}:443
+              PLEX_ADVERTISE_URL: https://{{ .Release.Name }}.ktwo.io:443
               PLEX_NO_AUTH_NETWORKS: ${NET_TRUSTED_CIDR}
               TZ: ${TIMEZONE}
             probes:
@@ -89,7 +89,7 @@ spec:
           hajimari.io/icon: mdi:plex
           nginx.ingress.kubernetes.io/backend-protocol: HTTPS
         hosts:
-          - host: &host "{{ .Release.Name }}.${PUBLIC_DOMAIN}"
+          - host: &host "{{ .Release.Name }}.ktwo.io"
             paths:
               - path: /
                 service:
@@ -111,7 +111,7 @@ spec:
           - path: /config/Library/Application Support/Plex Media Server/Logs
       media:
         type: nfs
-        server: nas.${INTERNAL_DOMAIN}
+        server: nas.internal
         path: /volume1/media
         globalMounts:
           - readOnly: true

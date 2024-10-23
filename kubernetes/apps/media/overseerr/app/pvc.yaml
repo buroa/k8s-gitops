@@ -8,4 +8,4 @@ spec:
   resources:
     requests:
       storage: 15Gi
-  storageClassName: ${CLUSTER_STORAGE_BLOCK}
+  storageClassName: ceph-block

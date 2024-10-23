@@ -92,20 +92,20 @@ spec:
         annotations:
           gatus.io/path: *path
           hajimari.io/icon: mdi:shield-account
-          hajimari.io/url: https://auth.${PUBLIC_DOMAIN}
+          hajimari.io/url: https://auth.ktwo.io
           nginx.ingress.kubernetes.io/configuration-snippet: |
             add_header Cache-Control "no-store";
             add_header Pragma "no-cache";
             add_header X-Frame-Options "SAMEORIGIN";
             add_header X-XSS-Protection "1; mode=block";
         hosts:
-          - host: &host "{{ .Release.Name }}.${PUBLIC_DOMAIN}"
+          - host: &host "{{ .Release.Name }}.ktwo.io"
             paths: &paths
               - path: /
                 service:
                   identifier: app
                   port: http
-          - host: &customHost auth.${PUBLIC_DOMAIN}
+          - host: &customHost auth.ktwo.io
             paths: *paths
         tls:
           - hosts:
