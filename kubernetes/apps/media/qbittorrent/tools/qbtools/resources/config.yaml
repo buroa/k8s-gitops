@@ -5,7 +5,7 @@ trackers:
   - { name: ant,      required_seed_ratio: 1.01, required_seed_days: 7.1,  urls: ["anthelion.me"] }
   - { name: bhd,      required_seed_ratio: 0,    required_seed_days: 0,    urls: ["beyond-hd.me"] }
   - { name: blu,      required_seed_ratio: 0,    required_seed_days: 7.1,  urls: ["blutopia.cc", "blutopia.xyz"] }
-  - { name: fnp,      required_seed_ratio: 0,    required_seed_days: 0,    urls: ["fearnopeer.com"] }
+  - { name: fnp,      required_seed_ratio: 1.01, required_seed_days: 7.1,  urls: ["fearnopeer.com"] }
   - { name: fl,       required_seed_ratio: 1.01, required_seed_days: 2.1,  urls: ["filelist.io", "flro.org"] }
   - { name: hds,      required_seed_ratio: 0,    required_seed_days: 2.1,  urls: ["hd-space.pw"] }
   - { name: hdt,      required_seed_ratio: 1.01, required_seed_days: 3.1,  urls: ["hdts-announce.ru"] }
