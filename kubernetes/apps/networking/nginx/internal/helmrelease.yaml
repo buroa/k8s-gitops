@@ -84,13 +84,5 @@ spec:
           lbipam.cilium.io/ips: ${NET_SERVICES_INGRESS_IP_INT}
         externalTrafficPolicy: Local
       terminationGracePeriodSeconds: 120
-      topologySpreadConstraints:
-        - maxSkew: 1
-          topologyKey: kubernetes.io/hostname
-          whenUnsatisfiable: DoNotSchedule
-          labelSelector:
-            matchLabels:
-              app.kubernetes.io/instance: *app
-              app.kubernetes.io/component: controller
     defaultBackend:
       enabled: false
