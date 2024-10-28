@@ -82,7 +82,6 @@ spec:
         annotations:
           external-dns.alpha.kubernetes.io/hostname: external.ktwo.io
           lbipam.cilium.io/ips: ${NET_SERVICES_INGRESS_IP_EXT}
-        externalTrafficPolicy: Local
       terminationGracePeriodSeconds: 120
     defaultBackend:
       enabled: false

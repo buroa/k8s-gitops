@@ -69,7 +69,6 @@ spec:
         annotations:
           external-dns.alpha.kubernetes.io/hostname: vector.ktwo.io
           lbipam.cilium.io/ips: ${NET_SERVICES_VECTOR_IP}
-        externalTrafficPolicy: Local
         ports:
           http:
             port: *port
