@@ -92,6 +92,8 @@ spec:
         globalMounts:
           - path: /media/downloads/torrents
             subPath: downloads/torrents
+      tmp:
+        type: emptyDir
     service:
       app:
         controller: *app
