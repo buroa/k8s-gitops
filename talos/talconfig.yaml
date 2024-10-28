@@ -340,9 +340,9 @@ controlPlane:
             content: |
               [ NFSMount_Global_Options ]
               nfsvers=4.1
+              async=True
               hard=True
               noatime=True
-              nodiratime=True
               rsize=131072
               wsize=131072
               nconnect=8
@@ -371,7 +371,6 @@ controlPlane:
           fs.inotify.max_user_watches: 1048576
           fs.inotify.max_user_instances: 8192
           kernel.kexec_load_disabled: 1
-          kernel.randomize_va_space: 0
           net.core.netdev_max_backlog: 30000
           net.core.rmem_max: 67108864
           net.core.wmem_max: 67108864
