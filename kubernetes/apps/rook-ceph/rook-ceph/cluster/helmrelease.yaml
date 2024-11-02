@@ -12,7 +12,7 @@ spec:
       version: v1.15.4
       sourceRef:
         kind: HelmRepository
-        name: rook-ceph-charts
+        name: rook-ceph
         namespace: flux-system
   install:
     remediation:
@@ -108,18 +108,15 @@ spec:
         config:
           osdsPerDevice: "1"
         nodes:
-          - name: w0
+          - name: m0
             devices:
-              - name: /dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_2TB_S6S2NS0TC14873N
-              - name: /dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_2TB_S6S2NS0TC14865L
-          - name: w1
+              - name: /dev/disk/by-id/nvme-XYZ-1 # TODO: UPDATE ME
+          - name: m1
             devices:
-              - name: /dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_2TB_S6S2NS0TC14871H
-              - name: /dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_2TB_S6S2NS0W122087H
-          - name: w2
+              - name: /dev/disk/by-id/nvme-XYZ-1 # TODO: UPDATE ME
+          - name: m2
             devices:
-              - name: /dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_2TB_S6S2NS0W120772T
-              - name: /dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_2TB_S6S2NS0TC14864B
+              - name: /dev/disk/by-id/nvme-XYZ-1 # TODO: UPDATE ME
     cephBlockPools:
       - name: ceph-blockpool
         spec:

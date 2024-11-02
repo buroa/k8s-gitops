@@ -17,7 +17,7 @@ cluster:
   name: main
 cni:
   exclusive: false
-devices: eth+
+devices: bond+
 endpointRoutes:
   enabled: true
 envoy:

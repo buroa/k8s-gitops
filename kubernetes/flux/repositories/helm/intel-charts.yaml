@@ -1,9 +1,0 @@
----
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
-metadata:
-  name: intel-charts
-  namespace: flux-system
-spec:
-  interval: 2h
-  url: https://intel.github.io/helm-charts

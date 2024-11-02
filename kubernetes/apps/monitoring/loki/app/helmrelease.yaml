@@ -12,7 +12,7 @@ spec:
       version: 6.18.0
       sourceRef:
         kind: HelmRepository
-        name: grafana-charts
+        name: grafana
         namespace: flux-system
   install:
     crds: Skip
@@ -85,7 +85,7 @@ spec:
       replicas: 3
       persistence:
         size: 20Gi
-        storageClass: democratic-csi-local-hostpath
+        storageClass: openebs-hostpath
     gateway:
       replicas: 3
       image:
@@ -96,7 +96,7 @@ spec:
       replicas: 3
       persistence:
         size: 20Gi
-        storageClass: democratic-csi-local-hostpath
+        storageClass: openebs-hostpath
     lokiCanary:
       enabled: false
     sidecar:

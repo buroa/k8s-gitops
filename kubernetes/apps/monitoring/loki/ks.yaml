@@ -10,8 +10,8 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
+    - name: openebs
     - name: rook-ceph-cluster
-    - name: democratic-csi-local-hostpath
   path: ./kubernetes/apps/monitoring/loki/app
   prune: true
   sourceRef:

@@ -32,8 +32,8 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
+    - name: openebs
     - name: cloudnative-pg
-    - name: democratic-csi-local-hostpath
   path: ./kubernetes/apps/databases/cloudnative-pg/cluster
   prune: true
   sourceRef:

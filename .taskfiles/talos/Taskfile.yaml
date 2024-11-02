@@ -4,6 +4,8 @@ version: "3"
 vars:
   TALOS_CONTROLLER:
     sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
+  TALOS_SCHEMATIC_ID:
+    sh: yq 'select(document_index == 1).spec.postBuild.substitute.TALOS_SCHEMATIC_ID' {{.KUBERNETES_DIR}}/apps/system-upgrade/system-upgrade-controller/ks.yaml
   TALOS_VERSION:
     sh: yq 'select(document_index == 1).spec.postBuild.substitute.TALOS_VERSION' {{.KUBERNETES_DIR}}/apps/system-upgrade/system-upgrade-controller/ks.yaml
   KUBERNETES_VERSION:
@@ -38,7 +40,7 @@ tasks:
   upgrade:
     desc: Upgrade Talos on a node
     prompt: Upgrade Talos node {{.node}} ... continue?
-    cmd: talosctl --nodes {{.node}} upgrade --image=ghcr.io/buroa/installer:{{.TALOS_VERSION}}
+    cmd: talosctl --nodes {{.node}} upgrade --image=factory.talos.dev/installer/{{.TALOS_SCHEMATIC_ID}}:{{.TALOS_VERSION}}
     requires:
       vars: ["node"]
     preconditions:
