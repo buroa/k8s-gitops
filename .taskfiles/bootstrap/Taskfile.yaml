@@ -62,9 +62,9 @@ tasks:
           serial: '{{.ITEM}}'
     vars:
       nodes: m0 m1 m2
-      m0: S6S2NS0TC14865L # TODO: UPDATE ME
-      m1: S6S2NS0W122087H # TODO: UPDATE ME
-      m2: S6S2NS0TC14864B # TODO: UPDATE ME
+      m0: S72ANJ0TC02334R
+      m1: S72ANJ0TC01288Z
+      m2: S72ANJ0TC02325Y
 
   rook-data:
     internal: true
@@ -92,7 +92,7 @@ tasks:
       - kubectl --namespace default logs job/{{.job}}
       - kubectl --namespace default delete job {{.job}}
     env:
-      disk: /dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_2TB_{{.serial}} # TODO: UPDATE ME
+      disk: /dev/disk/by-id/nvme-SAMSUNG_MZQL23T8HCLS-00A07_{{.serial}}
       job: '{{.job}}'
       node: '{{.node}}'
     vars:

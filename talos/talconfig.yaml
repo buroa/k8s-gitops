@@ -49,7 +49,7 @@ nodes:
           - vlanId: 10
             dhcp: false
             addresses:
-              - 192.168.10.20/24
+              - 192.168.10.10/24
             mtu: 9000
             routes:
               - network: 0.0.0.0/0
