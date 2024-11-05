@@ -72,7 +72,7 @@ nodes:
           - network: 169.254.255.11/32
             metric: 2048
       - deviceSelector:
-          busPath: 1-3.0 # m2
+          busPath: 0-1.0 # m2
         dhcp: false
         mtu: 65520
         addresses:
@@ -120,7 +120,7 @@ nodes:
             dhcp: false
             mtu: 1500
       - deviceSelector:
-          busPath: 1-1.0 # m0
+          busPath: 0-1.0 # m0
         dhcp: false
         mtu: 65520
         addresses:
@@ -129,7 +129,7 @@ nodes:
           - network: 169.254.255.10/32
             metric: 2048
       - deviceSelector:
-          busPath: 1-3.0 # m2
+          busPath: 1-1.0 # m2
         dhcp: false
         mtu: 65520
         addresses:
@@ -177,7 +177,7 @@ nodes:
             dhcp: false
             mtu: 1500
       - deviceSelector:
-          busPath: 1-1.0 # m0
+          busPath: 0-1.0 # m0
         dhcp: false
         mtu: 65520
         addresses:
@@ -186,7 +186,7 @@ nodes:
           - network: 169.254.255.10/32
             metric: 2048
       - deviceSelector:
-          busPath: 1-3.0 # m1
+          busPath: 1-1.0 # m1
         dhcp: false
         mtu: 65520
         addresses:
@@ -211,6 +211,7 @@ controlPlane:
 
       systemExtensions:
         officialExtensions:
+          - siderolabs/gasket-driver
           - siderolabs/i915-ucode
           - siderolabs/intel-ucode
           - siderolabs/mei
@@ -310,10 +311,9 @@ controlPlane:
               nfsvers=4.1
               async=True
               hard=True
-              noatime=True
-              rsize=131072
-              wsize=131072
-              nconnect=8
+              rsize=1048576
+              wsize=1048576
+              nconnect=16
 
     # Configure NTP
     - |-
@@ -348,6 +348,14 @@ controlPlane:
           net.ipv4.tcp_window_scaling: 1
           vm.nr_hugepages: 1024
 
+    # Enable thunderbolt + net
+    - |-
+      machine:
+        kernel:
+          modules:
+            - name: thunderbolt
+            - name: thunderbolt_net
+
     # Various udev rules
     - |-
       machine:
@@ -357,11 +365,10 @@ controlPlane:
             - ACTION=="add", SUBSYSTEM=="thunderbolt", ATTR{authorized}=="0", ATTR{authorized}="1"
             # Intel GPU
             - SUBSYSTEM=="drm", KERNEL=="renderD*", GROUP="44", MODE="0660"
+            # Coral Edge TPU
+            - SUBSYSTEM=="apex", KERNEL=="apex*", GROUP="44", MODE="0660"
             # Phoscon ConBee II The Universal Zigbee USB Gateway
             - SUBSYSTEMS=="usb", ATTRS{idVendor}=="1cf1", ATTRS{idProduct}=="0030", GROUP="20", MODE="0660"
-            # Google Coral USB Accelerator
-            - SUBSYSTEMS=="usb", ATTRS{idVendor}=="1a6e", ATTRS{idProduct}=="089a", GROUP="20", MODE="0660"
-            - SUBSYSTEMS=="usb", ATTRS{idVendor}=="18d1", ATTRS{idProduct}=="9302", GROUP="20", MODE="0660"
 
     # Cluster configuration
     - |-

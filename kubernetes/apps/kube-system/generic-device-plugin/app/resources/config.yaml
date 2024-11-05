@@ -4,10 +4,3 @@ devices:
     groups:
       - paths:
           - path: /dev/serial/by-id/usb-dresden_elektronik_ingenieurtechnik_GmbH_ConBee_II_DE2218307-if00
-  - name: coral
-    groups:
-      - usb:
-          - vendor: 1a6e
-            product: 089a
-          - vendor: 18d1
-            product: 9302
