@@ -47,7 +47,7 @@ This is a repository for my home infrastructure and Kubernetes cluster. I try to
 
 ## ⛵ Kubernetes
 
-This semi hyper-converged cluster operates on [Talos Linux](https://github.com/siderolabs/talos), an immutable and ephemeral Linux distribution tailored for [Kubernetes](https://github.com/kubernetes/kubernetes), and is deployed on bare-metal [Apple Mac Minis](https://www.apple.com/mac-mini). [Rook](https://github.com/rook/rook) supplies my workloads with persistent block, object, and file storage, while a separate server handles media file storage. The cluster is designed to enable a full teardown without any data loss.
+This semi hyper-converged cluster operates on [Talos Linux](https://github.com/siderolabs/talos), an immutable and ephemeral Linux distribution tailored for [Kubernetes](https://github.com/kubernetes/kubernetes), and is deployed on bare-metal [MS-01](https://store.minisforum.com/products/minisforum-ms-01) workstations. [Rook](https://github.com/rook/rook) supplies my workloads with persistent block, object, and file storage, while a separate server handles media file storage. The cluster is designed to enable a full teardown without any data loss.
 
 There is a template at [onedr0p/cluster-template](https://github.com/onedr0p/cluster-template) if you want to follow along with some of the practices I use here.
 
@@ -127,20 +127,17 @@ I have two instances of `external-dns` running in my cluster. The private DNS in
   <img src="https://github.com/user-attachments/assets/e983d6c8-0899-4046-8325-b865cacb0ff9" align="center" alt="rack"/>
 </details>
 
-| Device                                          | Count | OS Disk Size | Data Disk Size | Ram  | Operating System | Purpose            |
-|-------------------------------------------------|-------|--------------|----------------|------|------------------|--------------------|
-| [Apple Mac Mini](## "Intel i7 3.2GHz w/ 10GbE") | 3     | 1TB NVMe     | -              | 64GB | Talos            | Kubernetes Workers |
-| [Apple Mac Mini](## "Intel i7 3.2GHz w/ 1GbE")  | 3     | 512GB NVMe   | -              | 32GB | Talos            | Kubernetes Masters |
-| APC SMT15000RM2UNC                              | 1     | -            | -              | -    | -                | UPS                |
-| Sabrent NVMe M.2 Thunderbolt 3 Enclosure        | 6     | -            | 2TB NVMe       | -    | -                | Rook Ceph          |
-| Sonnet 10GbE Thunderbolt 3 Adapter              | 3     | -            | -              | -    | -                | 10GbE              |
-| Synology NAS RS1221+                            | 1     | -            | 8x22TB HDD     | 32GB | -                | NFS                |
-| UDM Pro Max                                     | 1     | -            | 2x16TB HDD     | -    | UniFi OS         | Router & NVR       |
-| USP PDU Pro                                     | 1     | -            | -              | -    | UniFi OS         | PDU                |
-| USW Aggregation                                 | 1     | -            | -              | -    | UniFi OS         | Core Switch        |
-| USW Enterprise XG 24                            | 1     | -            | -              | -    | UniFi OS         | 10GbE Switch       |
-| USW Pro Max 24 PoE                              | 1     | -            | -              | -    | UniFi OS         | 2.5GbE PoE Switch  |
-
+| Device                    | Count | OS Disk Size    | Data Disk Size              | Ram  | Operating System | Purpose         |
+|---------------------------|-------|-----------------|-----------------------------|------|------------------|-----------------|
+| MS-01 (i9-13900H)         | 3     | 1.92TB M.2 NVMe | 3.84TB U.2 NVMe (rook-ceph) | 96GB | Talos            | Kubernetes      |
+| USW Pro Max 24 PoE        | 1     | -               | -                           | -    | UniFi OS         | 2.5G PoE Switch |
+| USW Pro Aggregation       | 1     | -               | -                           | -    | UniFi OS         | 10G/25G Switch  |
+| USP PDU Pro               | 1     | -               | -                           | -    | UniFi OS         | PDU             |
+| UDM Pro Max               | 1     | -               | 2x16TB HDD                  | -    | UniFi OS         | Router & NVR    |
+| Synology NAS RS1221+      | 1     | -               | 8x22TB HDD                  | 32GB | -                | NFS             |
+| APC SMT15000RM2UNC        | 1     | -               | -                           | -    | -                | UPS             |
+| TESmart 8 Port KVM Switch | 1     | -               | -                           | -    | -                | KVM             |
+| PiKVM (RasPi 4)           | 1     | 64GB (SD)       | -                           | 4GB  | PiKVM (Arch)     | KVM             |
 ---
 
 ## ⭐ Stargazers

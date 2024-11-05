@@ -10,9 +10,9 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
+    - name: openebs
     - name: dragonfly-cluster
     - name: rook-ceph-cluster
-    - name: democratic-csi-local-hostpath
   path: ./kubernetes/apps/monitoring/thanos/app
   prune: true
   sourceRef:

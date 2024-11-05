@@ -8,13 +8,13 @@ clusterSvcNets:
 
 endpoint: https://k8s.internal:6443
 
-# renovate: depName=ghcr.io/buroa/installer datasource=docker
+# renovate: depName=ghcr.io/siderolabs/installer datasource=docker
 talosVersion: v1.8.2
 # renovate: depName=ghcr.io/siderolabs/kubelet datasource=docker
 kubernetesVersion: v1.31.2
 
 additionalApiServerCertSans: &sans
-  - 192.168.10.250
+  - 192.168.10.200
   - k8s.internal
   - 127.0.0.1
 
@@ -24,16 +24,25 @@ cniConfig:
   name: none
 
 nodes:
-  # macm 2018 3.2GHz / 32GB / 256GB SSD / 10GbE via TB3
   - hostname: m0.k8s.internal
     ipAddress: 192.168.10.10
     installDiskSelector:
-      serial: C0785130064JRQ5AA
+      serial: 052410221DA7
     controlPlane: true
     networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: 00:30:93:10:5c:f1
-          driver: atlantic
+      - interface: bond0
+        bond:
+          mode: 802.3ad
+          lacpRate: fast
+          xmitHashPolicy: layer3+4
+          miimon: 100
+          updelay: 200
+          downdelay: 200
+          deviceSelectors:
+            - hardwareAddr: 58:47:ca:77:c5:8e
+              driver: i40e
+            - hardwareAddr: 58:47:ca:77:c5:8f
+              driver: i40e
         dhcp: false
         mtu: 9000
         vlans:
@@ -46,24 +55,51 @@ nodes:
               - network: 0.0.0.0/0
                 gateway: 192.168.10.1
             vip:
-              ip: 192.168.10.250
+              ip: 192.168.10.200
           - vlanId: 20
             dhcp: false
             mtu: 1500
           - vlanId: 30
             dhcp: false
             mtu: 1500
+      - deviceSelector:
+          busPath: 1-1.0 # m1
+        dhcp: false
+        mtu: 65520
+        addresses:
+          - 169.254.255.10/32
+        routes:
+          - network: 169.254.255.11/32
+            metric: 2048
+      - deviceSelector:
+          busPath: 1-3.0 # m2
+        dhcp: false
+        mtu: 65520
+        addresses:
+          - 169.254.255.10/32
+        routes:
+          - network: 169.254.255.12/32
+            metric: 2048
 
-  # macm 2018 3.2GHz / 32GB / 256GB SSD / 10GbE via TB3
   - hostname: m1.k8s.internal
     ipAddress: 192.168.10.11
     installDiskSelector:
-      serial: H280463005RJRV2C6
+      serial: 052410221DA8
     controlPlane: true
     networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: 00:30:93:10:5c:f6
-          driver: atlantic
+      - interface: bond0
+        bond:
+          mode: 802.3ad
+          lacpRate: fast
+          xmitHashPolicy: layer3+4
+          miimon: 100
+          updelay: 200
+          downdelay: 200
+          deviceSelectors:
+            - hardwareAddr: 58:47:ca:77:ce:da
+              driver: i40e
+            - hardwareAddr: 58:47:ca:77:ce:db
+              driver: i40e
         dhcp: false
         mtu: 9000
         vlans:
@@ -76,24 +112,51 @@ nodes:
               - network: 0.0.0.0/0
                 gateway: 192.168.10.1
             vip:
-              ip: 192.168.10.250
+              ip: 192.168.10.200
           - vlanId: 20
             dhcp: false
             mtu: 1500
           - vlanId: 30
             dhcp: false
             mtu: 1500
+      - deviceSelector:
+          busPath: 1-1.0 # m0
+        dhcp: false
+        mtu: 65520
+        addresses:
+          - 169.254.255.11/32
+        routes:
+          - network: 169.254.255.10/32
+            metric: 2048
+      - deviceSelector:
+          busPath: 1-3.0 # m2
+        dhcp: false
+        mtu: 65520
+        addresses:
+          - 169.254.255.11/32
+        routes:
+          - network: 169.254.255.12/32
+            metric: 2048
 
-  # macm 2018 3.2GHz / 32GB / 256GB SSD / 10GbE via TB3
   - hostname: m2.k8s.internal
     ipAddress: 192.168.10.12
     installDiskSelector:
-      serial: C070234007KJRT9AZ
+      serial: 052410221B9A
     controlPlane: true
     networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: 00:30:93:10:5c:ee
-          driver: atlantic
+      - interface: bond0
+        bond:
+          mode: 802.3ad
+          lacpRate: fast
+          xmitHashPolicy: layer3+4
+          miimon: 100
+          updelay: 200
+          downdelay: 200
+          deviceSelectors:
+            - hardwareAddr: 58:47:ca:77:c6:ba
+              driver: i40e
+            - hardwareAddr: 58:47:ca:77:c6:bb
+              driver: i40e
         dhcp: false
         mtu: 9000
         vlans:
@@ -106,35 +169,7 @@ nodes:
               - network: 0.0.0.0/0
                 gateway: 192.168.10.1
             vip:
-              ip: 192.168.10.250
-          - vlanId: 20
-            dhcp: false
-            mtu: 1500
-          - vlanId: 30
-            dhcp: false
-            mtu: 1500
-
-  # macm 2018 3.2GHz / 64GB / 1TB SSD / 10GbE
-  - hostname: w0.k8s.internal
-    ipAddress: 192.168.10.20
-    installDiskSelector:
-      serial: H281495002CJRVGDX
-    controlPlane: false
-    networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: cc:2d:b7:0b:0c:40
-          driver: atlantic
-        dhcp: false
-        mtu: 9000
-        vlans:
-          - vlanId: 10
-            dhcp: false
-            addresses:
-              - 192.168.10.20/24
-            mtu: 9000
-            routes:
-              - network: 0.0.0.0/0
-                gateway: 192.168.10.1
+              ip: 192.168.10.200
           - vlanId: 20
             dhcp: false
             mtu: 1500
@@ -142,123 +177,48 @@ nodes:
             dhcp: false
             mtu: 1500
       - deviceSelector:
-          busPath: 1-1.0 # w1
+          busPath: 1-1.0 # m0
         dhcp: false
         mtu: 65520
         addresses:
-          - 169.254.255.20/32
+          - 169.254.255.12/32
         routes:
-          - network: 169.254.255.21/32
+          - network: 169.254.255.10/32
             metric: 2048
       - deviceSelector:
-          busPath: 1-3.0 # w2
+          busPath: 1-3.0 # m1
         dhcp: false
         mtu: 65520
         addresses:
-          - 169.254.255.20/32
+          - 169.254.255.12/32
         routes:
-          - network: 169.254.255.22/32
-            metric: 2048
-
-  # macm 2018 3.2GHz / 64GB / 1TB SSD / 10GbE
-  - hostname: w1.k8s.internal
-    ipAddress: 192.168.10.21
-    installDiskSelector:
-      serial: C070173002EJRVGAW
-    controlPlane: false
-    networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: cc:2d:b7:07:c0:00
-          driver: atlantic
-        dhcp: false
-        mtu: 9000
-        vlans:
-          - vlanId: 10
-            dhcp: false
-            addresses:
-              - 192.168.10.21/24
-            mtu: 9000
-            routes:
-              - network: 0.0.0.0/0
-                gateway: 192.168.10.1
-          - vlanId: 20
-            dhcp: false
-            mtu: 1500
-          - vlanId: 30
-            dhcp: false
-            mtu: 1500
-      - deviceSelector:
-          busPath: 1-1.0 # w0
-        dhcp: false
-        mtu: 65520
-        addresses:
-          - 169.254.255.21/32
-        routes:
-          - network: 169.254.255.20/32
-            metric: 2048
-      - deviceSelector:
-          busPath: 1-3.0 # w2
-        dhcp: false
-        mtu: 65520
-        addresses:
-          - 169.254.255.21/32
-        routes:
-          - network: 169.254.255.22/32
-            metric: 2048
-
-  # macm 2018 3.2GHz / 64GB / 1TB SSD / 10GbE
-  - hostname: w2.k8s.internal
-    ipAddress: 192.168.10.22
-    installDiskSelector:
-      serial: C07843600H7JRVGA8
-    controlPlane: false
-    networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: cc:2d:b7:02:b9:b5
-          driver: atlantic
-        dhcp: false
-        mtu: 9000
-        vlans:
-          - vlanId: 10
-            dhcp: false
-            addresses:
-              - 192.168.10.22/24
-            mtu: 9000
-            routes:
-              - network: 0.0.0.0/0
-                gateway: 192.168.10.1
-          - vlanId: 20
-            dhcp: false
-            mtu: 1500
-          - vlanId: 30
-            dhcp: false
-            mtu: 1500
-      - deviceSelector:
-          busPath: 1-1.0 # w0
-        dhcp: false
-        mtu: 65520
-        addresses:
-          - 169.254.255.22/32
-        routes:
-          - network: 169.254.255.20/32
-            metric: 2048
-      - deviceSelector:
-          busPath: 1-3.0 # w1
-        dhcp: false
-        mtu: 65520
-        addresses:
-          - 169.254.255.22/32
-        routes:
-          - network: 169.254.255.21/32
+          - network: 169.254.255.11/32
             metric: 2048
 
 controlPlane:
   nodeLabels:
     topology.kubernetes.io/region: *cluster
     topology.kubernetes.io/zone: m
+
+  schematic:
+    customization:
+      extraKernelArgs:
+        - intel_iommu=on
+        - iommu=pt
+        - mitigations=off
+        - net.ifnames=0
+        - talos.logging.kernel=udp://vector.ktwo.io:6001/
+
+      systemExtensions:
+        officialExtensions:
+          - siderolabs/i915-ucode
+          - siderolabs/intel-ucode
+          - siderolabs/mei
+          - siderolabs/thunderbolt
+
   patches:
     # Configure containerd
-    - &containerdPatch |-
+    - |-
       machine:
         files:
           - op: create
@@ -273,13 +233,13 @@ controlPlane:
                 discard_unpacked_layers = false
 
     # Disable search domain everywhere
-    - &disableSearchDomainPatch |-
+    - |-
       machine:
         network:
           disableSearchDomain: true
 
     # Enable cluster discovery
-    - &discoveryPatch |-
+    - |-
       cluster:
         discovery:
           registries:
@@ -289,7 +249,7 @@ controlPlane:
               disabled: true
 
     # Enable host dns
-    - &hostDnsPatch |-
+    - |-
       machine:
         features:
           hostDNS:
@@ -298,17 +258,25 @@ controlPlane:
             forwardKubeDNSToHost: false
 
     # Configure kubelet
-    - &kubeletPatch |-
+    - |-
       machine:
         kubelet:
           extraArgs:
             rotate-server-certificates: true
+          extraMounts:
+            - destination: /var/openebs/local
+              source: /var/openebs/local
+              type: bind
+              options:
+                - bind
+                - rshared
+                - rw
           nodeIP:
             validSubnets:
               - 192.168.10.0/24
 
     # Enable KubePrism
-    - &kubePrismPatch |-
+    - |-
       machine:
         features:
           kubePrism:
@@ -316,7 +284,7 @@ controlPlane:
             port: 7445
 
     # Enable logging
-    - &loggingPatch |-
+    - |-
       machine:
         logging:
           destinations:
@@ -324,14 +292,14 @@ controlPlane:
               format: json_lines
 
     # Force nameserver
-    - &nameserverPatch |-
+    - |-
       machine:
         network:
           nameservers:
             - 192.168.10.1
 
     # Configure NFS mount options
-    - &nfsPatch |
+    - |
       machine:
         files:
           - op: overwrite
@@ -348,7 +316,7 @@ controlPlane:
               nconnect=8
 
     # Configure NTP
-    - &ntpPatch |-
+    - |-
       machine:
         time:
           disabled: false
@@ -356,16 +324,16 @@ controlPlane:
             - time.cloudflare.com
 
     # Static host entries
-    - &staticHostEntriesPatch |-
+    - |-
       machine:
         network:
           extraHostEntries:
-            - ip: 192.168.10.250
+            - ip: 192.168.10.200
               aliases:
                 - k8s.internal
 
     # Custom sysctl settings
-    - &sysctlPatch |-
+    - |-
       machine:
         sysctls:
           fs.inotify.max_user_watches: 1048576
@@ -378,32 +346,10 @@ controlPlane:
           net.ipv4.tcp_wmem: 4096 65536 33554432
           net.ipv4.tcp_tw_reuse: 1
           net.ipv4.tcp_window_scaling: 1
-
-    # Custom sysfs settings
-    - &sysfsPatch |-
-      machine:
-        sysfs:
-          block.nvme0n1.queue.scheduler: none
-          devices.system.cpu.cpufreq.boost: 0
-
-    # Custom Talos installer patch
-    - &talosPatch |-
-      machine:
-        install:
-          extraKernelArgs:
-            - cpufreq.default_governor=performance
-            - intel_iommu=on
-            - intel_pstate=disable
-            - iommu=pt
-            - mitigations=off
-            - module_blacklist=tg3
-            - net.ifnames=0
-            - pcie_ports=native
-            - talos.logging.kernel=udp://vector.ktwo.io:6001/
-          legacyBIOSSupport: true
+          vm.nr_hugepages: 1024
 
     # Various udev rules
-    - &udevPatch |-
+    - |-
       machine:
         udev:
           rules:
@@ -469,24 +415,3 @@ controlPlane:
               - os:admin
             allowedKubernetesNamespaces:
               - system-upgrade
-
-worker:
-  nodeLabels:
-    topology.kubernetes.io/region: *cluster
-    topology.kubernetes.io/zone: w
-  patches:
-    - *containerdPatch
-    - *disableSearchDomainPatch
-    - *discoveryPatch
-    - *hostDnsPatch
-    - *kubeletPatch
-    - *kubePrismPatch
-    - *loggingPatch
-    - *nameserverPatch
-    - *nfsPatch
-    - *ntpPatch
-    - *staticHostEntriesPatch
-    - *sysctlPatch
-    - *sysfsPatch
-    - *talosPatch
-    - *udevPatch

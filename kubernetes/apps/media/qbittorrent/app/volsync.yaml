@@ -51,7 +51,7 @@ spec:
     volumeSnapshotClassName: csi-ceph-filesystem
     cacheAccessModes: ["ReadWriteOnce"]
     cacheCapacity: 8Gi
-    cacheStorageClassName: democratic-csi-local-hostpath
+    cacheStorageClassName: openebs-hostpath
     moverSecurityContext:
       runAsUser: 568
       runAsGroup: 568
@@ -75,7 +75,7 @@ spec:
     volumeSnapshotClassName: csi-ceph-filesystem
     cacheAccessModes: ["ReadWriteOnce"]
     cacheCapacity: 8Gi
-    cacheStorageClassName: democratic-csi-local-hostpath
+    cacheStorageClassName: openebs-hostpath
     moverSecurityContext:
       runAsUser: 568
       runAsGroup: 568

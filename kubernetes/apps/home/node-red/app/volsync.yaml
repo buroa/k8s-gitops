@@ -51,11 +51,11 @@ spec:
     volumeSnapshotClassName: csi-ceph-block
     cacheAccessModes: ["ReadWriteOnce"]
     cacheCapacity: 8Gi
-    cacheStorageClassName: democratic-csi-local-hostpath
+    cacheStorageClassName: openebs-hostpath
     moverSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
     capacity: 1Gi # must match the PersistentVolumeClaim `.resources.requests.storage` size above
 ---
 apiVersion: volsync.backube/v1alpha1
@@ -75,7 +75,7 @@ spec:
     volumeSnapshotClassName: csi-ceph-block
     cacheAccessModes: ["ReadWriteOnce"]
     cacheCapacity: 8Gi
-    cacheStorageClassName: democratic-csi-local-hostpath
+    cacheStorageClassName: openebs-hostpath
     moverSecurityContext:
       runAsUser: 1000
       runAsGroup: 1000

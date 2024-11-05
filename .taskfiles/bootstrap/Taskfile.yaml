@@ -13,7 +13,6 @@ tasks:
       - task: etcd
       - task: kubeconfig
       - task: apps
-      - task: labels
       - task: rook
       - task: flux
     preconditions:
@@ -39,14 +38,6 @@ tasks:
     preconditions:
       - test -f {{.TALOS_DIR}}/apps/helmfile.yaml
 
-  labels:
-    internal: true
-    cmds:
-      - for: { var: nodes }
-        cmd: kubectl label node {{.ITEM}} node-role.kubernetes.io/worker=
-    vars:
-      nodes: w0 w1 w2
-
   rook:
     internal: true
     cmds:
@@ -54,26 +45,26 @@ tasks:
         task: rook-data
         vars:
           node: '{{.ITEM}}'
-      - for: { var: w0 }
+      - for: { var: m0 }
         task: rook-disk
         vars:
-          node: w0
+          node: m0
           serial: '{{.ITEM}}'
-      - for: { var: w1 }
+      - for: { var: m1 }
         task: rook-disk
         vars:
-          node: w1
+          node: m1
           serial: '{{.ITEM}}'
-      - for: { var: w2 }
+      - for: { var: m2 }
         task: rook-disk
         vars:
-          node: w2
+          node: m2
           serial: '{{.ITEM}}'
     vars:
-      nodes: m0 m1 m2 w0 w1 w2
-      w0: S6S2NS0TC14873N S6S2NS0TC14865L
-      w1: S6S2NS0TC14871H S6S2NS0W122087H
-      w2: S6S2NS0W120772T S6S2NS0TC14864B
+      nodes: m0 m1 m2
+      m0: S72ANJ0TC02334R
+      m1: S72ANJ0TC01288Z
+      m2: S72ANJ0TC02325Y
 
   rook-data:
     internal: true
@@ -101,7 +92,7 @@ tasks:
       - kubectl --namespace default logs job/{{.job}}
       - kubectl --namespace default delete job {{.job}}
     env:
-      disk: /dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_2TB_{{.serial}}
+      disk: /dev/disk/by-id/nvme-SAMSUNG_MZQL23T8HCLS-00A07_{{.serial}}
       job: '{{.job}}'
       node: '{{.node}}'
     vars:

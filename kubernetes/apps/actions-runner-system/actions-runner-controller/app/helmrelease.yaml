@@ -11,7 +11,7 @@ spec:
       version: 0.9.3
       sourceRef:
         kind: HelmRepository
-        name: actions-runner-controller-charts
+        name: actions-runner-controller
         namespace: flux-system
   install:
     crds: CreateReplace

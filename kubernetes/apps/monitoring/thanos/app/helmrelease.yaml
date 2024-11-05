@@ -12,7 +12,7 @@ spec:
       version: 1.18.1
       sourceRef:
         kind: HelmRepository
-        name: stevehipwell-charts
+        name: stevehipwell
         namespace: flux-system
   install:
     remediation:
@@ -44,7 +44,7 @@ spec:
         - --retention.resolution-1h=60d
       persistence: &persistence
         enabled: true
-        storageClass: democratic-csi-local-hostpath
+        storageClass: openebs-hostpath
         size: 15Gi
     query:
       replicas: 3

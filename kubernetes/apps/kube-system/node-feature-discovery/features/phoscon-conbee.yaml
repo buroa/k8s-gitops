@@ -5,8 +5,7 @@ metadata:
   name: phoscon-conbee-device
 spec:
   rules:
-    - # Phoscon ConBee II The Universal Zigbee USB Gateway
-      name: phoscon.conbee
+    - name: phoscon.conbee
       labels:
         phoscon.feature.node.kubernetes.io/conbee: "true"
       matchFeatures:

@@ -12,7 +12,7 @@ spec:
       version: 65.7.0
       sourceRef:
         kind: HelmRepository
-        name: prometheus-community-charts
+        name: prometheus-community
         namespace: flux-system
   install:
     crds: CreateReplace
@@ -49,7 +49,7 @@ spec:
         storage:
           volumeClaimTemplate:
             spec:
-              storageClassName: democratic-csi-local-hostpath
+              storageClassName: openebs-hostpath
               resources:
                 requests:
                   storage: 1Gi
@@ -123,7 +123,7 @@ spec:
         storageSpec:
           volumeClaimTemplate:
             spec:
-              storageClassName: democratic-csi-local-hostpath
+              storageClassName: openebs-hostpath
               resources:
                 requests:
                   storage: 20Gi

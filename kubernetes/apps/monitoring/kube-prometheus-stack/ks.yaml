@@ -10,8 +10,8 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
+    - name: openebs
     - name: external-secrets-stores
-    - name: democratic-csi-local-hostpath
   path: ./kubernetes/apps/monitoring/kube-prometheus-stack/app
   prune: true
   sourceRef:
