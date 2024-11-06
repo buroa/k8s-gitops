@@ -38,14 +38,9 @@ spec:
           - name: LowNodeUtilization
             args:
               targetThresholds:
-                cpu: 50
-                memory: 50
-                pods: 50
+                pods: 70
               thresholds:
-                cpu: 20
-                memory: 20
-                pods: 20
-              useDeviationThresholds: true
+                pods: 50
           - name: RemoveDuplicates
           - name: RemovePodsHavingTooManyRestarts
             args:
