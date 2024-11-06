@@ -33,11 +33,8 @@ nodes:
       - interface: bond0
         bond:
           mode: 802.3ad
-          lacpRate: fast
           xmitHashPolicy: layer3+4
-          miimon: 100
-          updelay: 200
-          downdelay: 200
+          miimon: 1000
           deviceSelectors:
             - hardwareAddr: 58:47:ca:77:c5:8e
               driver: i40e
@@ -90,11 +87,8 @@ nodes:
       - interface: bond0
         bond:
           mode: 802.3ad
-          lacpRate: fast
           xmitHashPolicy: layer3+4
-          miimon: 100
-          updelay: 200
-          downdelay: 200
+          miimon: 1000
           deviceSelectors:
             - hardwareAddr: 58:47:ca:77:ce:da
               driver: i40e
@@ -147,11 +141,8 @@ nodes:
       - interface: bond0
         bond:
           mode: 802.3ad
-          lacpRate: fast
           xmitHashPolicy: layer3+4
-          miimon: 100
-          updelay: 200
-          downdelay: 200
+          miimon: 1000
           deviceSelectors:
             - hardwareAddr: 58:47:ca:77:c6:ba
               driver: i40e
@@ -311,9 +302,8 @@ controlPlane:
               nfsvers=4.1
               async=True
               hard=True
-              rsize=1048576
-              wsize=1048576
-              nconnect=16
+              nconnect=8
+              noatime=True
 
     # Configure NTP
     - |-
