@@ -5,7 +5,7 @@ metadata:
   name: postgres
 spec:
   instances: 3
-  imageName: ghcr.io/cloudnative-pg/postgresql:16.4-28
+  imageName: ghcr.io/cloudnative-pg/postgresql:17.0-29
   primaryUpdateStrategy: unsupervised
   storage:
     size: 20Gi
@@ -42,7 +42,7 @@ spec:
       endpointURL: https://ba20be062ff7623f9d887afa37183c8f.r2.cloudflarestorage.com
       # Note: serverName version needs to be inclemented
       # when recovering from an existing cnpg cluster
-      serverName: postgres-v5
+      serverName: postgres-v7
       s3Credentials:
         accessKeyId:
           name: cloudnative-pg-secret
@@ -54,7 +54,7 @@ spec:
   # # cluster when recovering from an existing cnpg cluster
   # bootstrap:
   #   recovery:
-  #     source: &previousCluster postgres-v5
+  #     source: &previousCluster postgres-v7
   # # Note: externalClusters is needed when recovering from an existing cnpg cluster
   # externalClusters:
   #   - name: *previousCluster

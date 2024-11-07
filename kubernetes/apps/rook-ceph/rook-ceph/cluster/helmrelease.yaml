@@ -63,8 +63,7 @@ spec:
       network:
         provider: host
         addressRanges:
-          public: ["${NET_SERVERS_CIDR}"]
-          cluster: ["${NET_THUNDERBOLT_CIDR}"]
+          public: ["${NET_THUNDERBOLT_CIDR}"]
         connections:
           requireMsgr2: true
       placement:
