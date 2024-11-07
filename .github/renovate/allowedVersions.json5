@@ -4,7 +4,7 @@
     {
       matchDatasources: ["docker"],
       matchPackagePatterns: ["postgresql"],
-      allowedVersions: "<=16",
+      allowedVersions: "<=17",
     },
   ],
 }
