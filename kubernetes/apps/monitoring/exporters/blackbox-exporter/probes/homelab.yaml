@@ -10,8 +10,10 @@ spec:
   targets:
     staticConfig:
       static:
-        - nas.internal
         - unifi.internal
+        - nas.internal
         - ups.internal
+        - kvm-switch.internal
+        - pikvm.internal
         - wan1.internal # WAN1 - XFINITY PON ONT
         - wan2.internal # WAN2 - T-MOBILE 4G/5G
