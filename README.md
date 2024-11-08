@@ -108,7 +108,7 @@ graph TD;
 <details>
   <summary>Click to see a high-level network diagram</summary>
 
-  <img src="https://github.com/user-attachments/assets/5308c046-90ab-4d89-890a-c9d4fbe2a7c6" align="center" width="600px" alt="network"/>
+  <img src="https://github.com/user-attachments/assets/c24d1d42-0cab-4aff-8b75-d2ebc1d15ab8" align="center" width="600px" alt="network"/>
 </details>
 
 ---
@@ -124,7 +124,7 @@ I have two instances of `external-dns` running in my cluster. The private DNS in
 <details>
   <summary>Click to see my rack</summary>
 
-  <img src="https://github.com/user-attachments/assets/e983d6c8-0899-4046-8325-b865cacb0ff9" align="center" alt="rack"/>
+  <img src="https://github.com/user-attachments/assets/43bd0ca8-a1a8-49d5-9b9a-04fbdcecdd3f" align="center" alt="rack"/>
 </details>
 
 | Device                    | Count | OS Disk Size    | Data Disk Size              | Ram  | Operating System | Purpose         |
