@@ -51,10 +51,7 @@ transforms:
       r1 = replace!(.__host, "192.168.10.10", "m0")
       r2 = replace(r1, "192.168.10.11", "m1")
       r3 = replace(r2, "192.168.10.12", "m2")
-      r4 = replace(r3, "192.168.10.20", "w0")
-      r5 = replace(r4, "192.168.10.21", "w1")
-      r6 = replace(r5, "192.168.10.22", "w2")
-      .node = r6
+      .node = r3
 
   talos_service_transform:
     type: remap
@@ -64,11 +61,7 @@ transforms:
       r1 = replace!(.__host, "192.168.10.10", "m0")
       r2 = replace(r1, "192.168.10.11", "m1")
       r3 = replace(r2, "192.168.10.12", "m2")
-      r4 = replace(r3, "192.168.10.20", "w0")
-      r5 = replace(r4, "192.168.10.21", "w1")
-      r6 = replace(r5, "192.168.10.22", "w2")
-      r7 = replace(r6, r'192.168.10.*', "talos")
-      .node = r7
+      .node = r3
 
   unifi_kernel_transform:
     type: remap

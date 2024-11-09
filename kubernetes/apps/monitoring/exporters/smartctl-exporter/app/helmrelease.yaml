@@ -27,7 +27,6 @@ spec:
       devices:
         - /dev/nvme0n1
         - /dev/nvme1n1
-        - /dev/nvme2n1
     serviceMonitor:
       enabled: true
       relabelings:
