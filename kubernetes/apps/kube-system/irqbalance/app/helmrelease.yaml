@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app irqbalance
+  name: irqbalance
 spec:
   interval: 30m
   chart:
@@ -23,13 +23,15 @@ spec:
       retries: 3
   values:
     controllers:
-      fstrim:
+      irqbalance:
         type: daemonset
         containers:
           app:
             image:
               repository: ghcr.io/buroa/irqbalance
-              tag: 1.9.4@sha256:1101ffbc14ac1e10b9bf4a82020cd092bf8f09716e6314d283e45281f712005c
+              tag: 1.9.4@sha256:cb2490b830d60508507f99458a2beb32e9175ed2222f1b225342f58ae8cf2d40
+            env:
+              IRQBALANCE_BANNED_CPULIST: 12-19 # 12-19 are E-cores
             resources:
               requests:
                 cpu: 25m
@@ -41,3 +43,8 @@ spec:
     defaultPodOptions:
       hostIPC: true
       hostPID: true
+    persistence:
+      run:
+        type: emptyDir
+        globalMounts:
+          - path: /run/irqbalance
