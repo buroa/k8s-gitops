@@ -103,7 +103,7 @@ spec:
             memory: 256Mi
       storage:
         useAllNodes: true
-        useAllDevices: true
+        useAllDevices: false
         config:
           osdsPerDevice: "1"
         devicePathFilter: /dev/disk/by-id/nvme-SAMSUNG_MZQL23T8HCLS-.*
