@@ -1,0 +1,43 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app irqbalance
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  values:
+    controllers:
+      fstrim:
+        type: daemonset
+        containers:
+          app:
+            image:
+              repository: ghcr.io/buroa/irqbalance
+              tag: 1.9.4@sha256:d3bd360a2a010ebaa27243b6d8c8736c2bf71872264d893e86bddb78c97abd11
+            resources:
+              requests:
+                cpu: 25m
+                memory: 128Mi
+              limits:
+                memory: 128Mi
+            securityContext:
+              privileged: true
+    defaultPodOptions:
+      hostIPC: true
+      hostPID: true
