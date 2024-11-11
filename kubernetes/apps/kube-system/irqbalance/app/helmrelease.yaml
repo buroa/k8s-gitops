@@ -29,7 +29,7 @@ spec:
           app:
             image:
               repository: ghcr.io/buroa/irqbalance
-              tag: 1.9.4@sha256:d3bd360a2a010ebaa27243b6d8c8736c2bf71872264d893e86bddb78c97abd11
+              tag: 1.9.4@sha256:1101ffbc14ac1e10b9bf4a82020cd092bf8f09716e6314d283e45281f712005c
             resources:
               requests:
                 cpu: 25m
