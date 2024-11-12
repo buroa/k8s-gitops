@@ -102,20 +102,11 @@ spec:
           limits:
             memory: 256Mi
       storage:
-        useAllNodes: false
+        useAllNodes: true
         useAllDevices: false
         config:
           osdsPerDevice: "1"
-        nodes:
-          - name: m0
-            devices:
-              - name: /dev/disk/by-id/nvme-SAMSUNG_MZQL23T8HCLS-00A07_S72ANJ0TC02334R
-          - name: m1
-            devices:
-              - name: /dev/disk/by-id/nvme-SAMSUNG_MZQL23T8HCLS-00A07_S72ANJ0TC01288Z
-          - name: m2
-            devices:
-              - name: /dev/disk/by-id/nvme-SAMSUNG_MZQL23T8HCLS-00A07_S72ANJ0TC02325Y
+        devicePathFilter: /dev/disk/by-id/nvme-SAMSUNG_MZQL23T8HCLS-00A07_.*
     cephBlockPools:
       - name: ceph-blockpool
         spec:
