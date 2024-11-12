@@ -106,7 +106,7 @@ spec:
         useAllDevices: false
         config:
           osdsPerDevice: "1"
-        devicePathFilter: /dev/disk/by-id/nvme-SAMSUNG_MZQL23T8HCLS-.*
+        devicePathFilter: /dev/disk/by-id/nvme-SAMSUNG_MZQL23T8HCLS-00A07_.*
     cephBlockPools:
       - name: ceph-blockpool
         spec:
