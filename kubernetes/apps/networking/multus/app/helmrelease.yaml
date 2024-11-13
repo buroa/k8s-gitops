@@ -40,16 +40,3 @@ spec:
         memory: 1024Mi
     hostPaths:
       netns: /var/run/netns
-  postRenderers:
-    - kustomize:
-        patches:
-          - patch: |-
-              apiVersion: apps/v1
-              kind: DaemonSet
-              metadata:
-                name: multus
-              spec:
-                template:
-                  metadata:
-                    labels:
-                      webhooks.kyverno.io/exclude: "true"
