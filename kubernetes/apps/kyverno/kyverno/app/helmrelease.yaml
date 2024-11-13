@@ -69,9 +69,3 @@ spec:
     reportsController:
       serviceMonitor:
         enabled: true
-    config:
-      webhooks:
-        - objectSelector:
-            matchExpressions:
-              - key: webhooks.kyverno.io/exclude
-                operator: DoesNotExist
