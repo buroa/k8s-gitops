@@ -26,19 +26,21 @@ cniConfig:
 nodes:
   - hostname: m0.k8s.internal
     ipAddress: 192.168.10.10
-    installDiskSelector:
-      serial: 052410221DA7
     controlPlane: true
+    installDiskSelector:
+      serial: XYZ # TODO: Samsung PM9A3 1.92TB NVMe PCIe 4.0x4 M.2 22110 (PCIe 3.0 x2)
+    machineDisks:
+      - device: /dev/disk/by-id/nvme-SAMSUNG_MZ1L21T9HCLS-00A07_XYZ # TODO: Samsung PM9A3 1.92TB NVMe PCIe 4.0x4 M.2 22110 (PCIe 3.0 x4)
+        partitions:
+          - mountpoint: /var/mnt/extra
     networkInterfaces:
       - interface: bond0
         bond:
           mode: 802.3ad
           xmitHashPolicy: layer3+4
-          miimon: 1000
+          miimon: 100
           deviceSelectors:
-            - hardwareAddr: 58:47:ca:77:c5:8e
-              driver: i40e
-            - hardwareAddr: 58:47:ca:77:c5:8f
+            - hardwareAddr: 58:47:ca:77:c5:*
               driver: i40e
         dhcp: false
         mtu: 9000
@@ -77,22 +79,26 @@ nodes:
         routes:
           - network: 169.254.255.12/32
             metric: 2048
+    nodeAnnotations:
+      network.rook.io/mon-ip: 169.254.255.10
 
   - hostname: m1.k8s.internal
     ipAddress: 192.168.10.11
-    installDiskSelector:
-      serial: 052410221DA8
     controlPlane: true
+    installDiskSelector:
+      serial: XYZ # TODO: Samsung PM9A3 1.92TB NVMe PCIe 4.0x4 M.2 22110 (PCIe 3.0 x2)
+    machineDisks:
+      - device: /dev/disk/by-id/nvme-SAMSUNG_MZ1L21T9HCLS-00A07_XYZ # TODO: Samsung PM9A3 1.92TB NVMe PCIe 4.0x4 M.2 22110 (PCIe 3.0 x4)
+        partitions:
+          - mountpoint: /var/mnt/extra
     networkInterfaces:
       - interface: bond0
         bond:
           mode: 802.3ad
           xmitHashPolicy: layer3+4
-          miimon: 1000
+          miimon: 100
           deviceSelectors:
-            - hardwareAddr: 58:47:ca:77:ce:da
-              driver: i40e
-            - hardwareAddr: 58:47:ca:77:ce:db
+            - hardwareAddr: 58:47:ca:77:ce:*
               driver: i40e
         dhcp: false
         mtu: 9000
@@ -131,22 +137,26 @@ nodes:
         routes:
           - network: 169.254.255.12/32
             metric: 2048
+    nodeAnnotations:
+      network.rook.io/mon-ip: 169.254.255.11
 
   - hostname: m2.k8s.internal
     ipAddress: 192.168.10.12
-    installDiskSelector:
-      serial: 052410221B9A
     controlPlane: true
+    installDiskSelector:
+      serial: XYZ # TODO: Samsung PM9A3 1.92TB NVMe PCIe 4.0x4 M.2 22110 (PCIe 3.0 x2)
+    machineDisks:
+      - device: /dev/disk/by-id/nvme-SAMSUNG_MZ1L21T9HCLS-00A07_XYZ # TODO: Samsung PM9A3 1.92TB NVMe PCIe 4.0x4 M.2 22110 (PCIe 3.0 x4)
+        partitions:
+          - mountpoint: /var/mnt/extra
     networkInterfaces:
       - interface: bond0
         bond:
           mode: 802.3ad
           xmitHashPolicy: layer3+4
-          miimon: 1000
+          miimon: 100
           deviceSelectors:
-            - hardwareAddr: 58:47:ca:77:c6:ba
-              driver: i40e
-            - hardwareAddr: 58:47:ca:77:c6:bb
+            - hardwareAddr: 58:47:ca:77:c6:*
               driver: i40e
         dhcp: false
         mtu: 9000
@@ -185,6 +195,8 @@ nodes:
         routes:
           - network: 169.254.255.11/32
             metric: 2048
+    nodeAnnotations:
+      network.rook.io/mon-ip: 169.254.255.12
 
 controlPlane:
   nodeLabels:
@@ -255,9 +267,11 @@ controlPlane:
         kubelet:
           extraArgs:
             rotate-server-certificates: true
+          extraConfig:
+            maxPods: 150
           extraMounts:
-            - destination: /var/openebs/local
-              source: /var/openebs/local
+            - destination: /var/mnt/extra
+              source: /var/mnt/extra
               type: bind
               options:
                 - bind
@@ -300,9 +314,8 @@ controlPlane:
             content: |
               [ NFSMount_Global_Options ]
               nfsvers=4.1
-              async=True
               hard=True
-              nconnect=8
+              nconnect=16
               noatime=True
 
     # Configure NTP
@@ -344,6 +357,7 @@ controlPlane:
       machine:
         kernel:
           modules:
+            - name: nbd
             - name: thunderbolt
             - name: thunderbolt_net
 
@@ -365,11 +379,19 @@ controlPlane:
     - |-
       cluster:
         allowSchedulingOnMasters: true
+        apiServer:
+          extraArgs:
+            enable-aggregator-routing: "true"
         controllerManager:
           extraArgs:
             bind-address: 0.0.0.0
         coreDNS:
           disabled: true
+        etcd:
+          extraArgs:
+            listen-metrics-urls: http://0.0.0.0:2381
+          advertisedSubnets:
+            - 169.254.255.0/24
         proxy:
           disabled: true
         scheduler:
@@ -388,15 +410,6 @@ controlPlane:
                         - maxSkew: 1
                           topologyKey: kubernetes.io/hostname
                           whenUnsatisfiable: ScheduleAnyway
-
-    # ETCD configuration
-    - |-
-      cluster:
-        etcd:
-          extraArgs:
-            listen-metrics-urls: http://0.0.0.0:2381
-          advertisedSubnets:
-            - 192.168.10.0/24
 
     # Disable default API server admission plugins.
     - |-
