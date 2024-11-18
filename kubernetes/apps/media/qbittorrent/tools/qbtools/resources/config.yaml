@@ -13,6 +13,7 @@ trackers:
   - { name: mlk, required_seed_ratio: 1.01, required_seed_days: 7.1,  urls: ["milkie.cc"] }
   - { name: mtv, required_seed_ratio: 1.01, required_seed_days: 7.1,  urls: ["morethantv.me"] }
   - { name: nbl, required_seed_ratio: 0,    required_seed_days: 5.1,  urls: ["nebulance.io"] }
+  - { name: oe,  required_seed_ratio: 1.01, required_seed_days: 7.1,  urls: ["onlyencodes.cc"] }
   - { name: ptp, required_seed_ratio: 1.01, required_seed_days: 7.1,  urls: ["passthepopcorn.me"] }
   - { name: phd, required_seed_ratio: 0.91, required_seed_days: 14.1, urls: ["privatehd.to"] }
   - { name: rfx, required_seed_ratio: 1.01, required_seed_days: 7.1,  urls: ["reelflix.xyz"] }
