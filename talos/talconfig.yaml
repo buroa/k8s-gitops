@@ -37,7 +37,7 @@ nodes:
       - interface: bond0
         bond:
           mode: 802.3ad
-          xmitHashPolicy: layer3+4
+          xmitHashPolicy: layer2+3
           miimon: 100
           deviceSelectors:
             - hardwareAddr: 58:47:ca:77:c5:*
@@ -95,7 +95,7 @@ nodes:
       - interface: bond0
         bond:
           mode: 802.3ad
-          xmitHashPolicy: layer3+4
+          xmitHashPolicy: layer2+3
           miimon: 100
           deviceSelectors:
             - hardwareAddr: 58:47:ca:77:ce:*
@@ -153,7 +153,7 @@ nodes:
       - interface: bond0
         bond:
           mode: 802.3ad
-          xmitHashPolicy: layer3+4
+          xmitHashPolicy: layer2+3
           miimon: 100
           deviceSelectors:
             - hardwareAddr: 58:47:ca:77:c6:*
