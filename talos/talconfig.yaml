@@ -38,6 +38,7 @@ nodes:
         bond:
           mode: 802.3ad
           xmitHashPolicy: layer2+3
+          lacpRate: fast
           miimon: 100
           deviceSelectors:
             - hardwareAddr: 58:47:ca:77:c5:*
@@ -96,6 +97,7 @@ nodes:
         bond:
           mode: 802.3ad
           xmitHashPolicy: layer2+3
+          lacpRate: fast
           miimon: 100
           deviceSelectors:
             - hardwareAddr: 58:47:ca:77:ce:*
@@ -154,6 +156,7 @@ nodes:
         bond:
           mode: 802.3ad
           xmitHashPolicy: layer2+3
+          lacpRate: fast
           miimon: 100
           deviceSelectors:
             - hardwareAddr: 58:47:ca:77:c6:*
