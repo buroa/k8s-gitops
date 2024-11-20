@@ -80,8 +80,6 @@ nodes:
         routes:
           - network: 169.254.255.12/32
             metric: 2048
-    nodeAnnotations:
-      network.rook.io/mon-ip: 169.254.255.10
 
   - hostname: m1.k8s.internal
     ipAddress: 192.168.10.11
@@ -139,8 +137,6 @@ nodes:
         routes:
           - network: 169.254.255.12/32
             metric: 2048
-    nodeAnnotations:
-      network.rook.io/mon-ip: 169.254.255.11
 
   - hostname: m2.k8s.internal
     ipAddress: 192.168.10.12
@@ -198,8 +194,6 @@ nodes:
         routes:
           - network: 169.254.255.11/32
             metric: 2048
-    nodeAnnotations:
-      network.rook.io/mon-ip: 169.254.255.12
 
 controlPlane:
   nodeLabels:
@@ -385,7 +379,7 @@ controlPlane:
           extraArgs:
             listen-metrics-urls: http://0.0.0.0:2381
           advertisedSubnets:
-            - 169.254.255.0/24
+            - 192.168.10.0/24
         proxy:
           disabled: true
         scheduler:
