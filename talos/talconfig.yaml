@@ -28,9 +28,9 @@ nodes:
     ipAddress: 192.168.10.10
     controlPlane: true
     installDiskSelector:
-      serial: XYZ # TODO: Samsung PM9A3 1.92TB NVMe PCIe 4.0x4 M.2 22110 (PCIe 3.0 x2)
+      serial: S666NN0W402512
     machineDisks:
-      - device: /dev/disk/by-id/nvme-SAMSUNG_MZ1L21T9HCLS-00A07_XYZ # TODO: Samsung PM9A3 1.92TB NVMe PCIe 4.0x4 M.2 22110 (PCIe 3.0 x4)
+      - device: /dev/disk/by-id/nvme-SAMSUNG_MZ1L21T9HCLS-00A07_S666NG0X101174
         partitions:
           - mountpoint: /var/mnt/extra
     networkInterfaces:
@@ -87,9 +87,9 @@ nodes:
     ipAddress: 192.168.10.11
     controlPlane: true
     installDiskSelector:
-      serial: XYZ # TODO: Samsung PM9A3 1.92TB NVMe PCIe 4.0x4 M.2 22110 (PCIe 3.0 x2)
+      serial: S666NG0X101148
     machineDisks:
-      - device: /dev/disk/by-id/nvme-SAMSUNG_MZ1L21T9HCLS-00A07_XYZ # TODO: Samsung PM9A3 1.92TB NVMe PCIe 4.0x4 M.2 22110 (PCIe 3.0 x4)
+      - device: /dev/disk/by-id/nvme-SAMSUNG_MZ1L21T9HCLS-00A07_S666NN0W110861
         partitions:
           - mountpoint: /var/mnt/extra
     networkInterfaces:
@@ -146,9 +146,9 @@ nodes:
     ipAddress: 192.168.10.12
     controlPlane: true
     installDiskSelector:
-      serial: XYZ # TODO: Samsung PM9A3 1.92TB NVMe PCIe 4.0x4 M.2 22110 (PCIe 3.0 x2)
+      serial: S666NN0W401713
     machineDisks:
-      - device: /dev/disk/by-id/nvme-SAMSUNG_MZ1L21T9HCLS-00A07_XYZ # TODO: Samsung PM9A3 1.92TB NVMe PCIe 4.0x4 M.2 22110 (PCIe 3.0 x4)
+      - device: /dev/disk/by-id/nvme-SAMSUNG_MZ1L21T9HCLS-00A07_S666NN0X221313
         partitions:
           - mountpoint: /var/mnt/extra
     networkInterfaces:
