@@ -27,7 +27,10 @@ spec:
         image:
           registry: quay.io/
       hostpathClass:
+        enabled: true
         name: openebs-hostpath
+        isDefaultClass: false
+        basePath: /var/mnt/extra/openebs/local
       helperPod:
         image:
           registry: quay.io/
