@@ -19,6 +19,7 @@ cluster:
 cni:
   exclusive: false
 devices: bond+
+enableIPv4BIGTCP: true
 endpointRoutes:
   enabled: true
 envoy:
