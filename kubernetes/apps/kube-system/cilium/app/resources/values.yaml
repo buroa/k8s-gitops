@@ -1,11 +1,11 @@
 ---
 autoDirectNodeRoutes: true
 bandwidthManager:
-  enabled: false
+  enabled: true
   bbr: true
 bpf:
-  hostLegacyRouting: true
   masquerade: true
+  preallocateMaps: true
   tproxy: true
 bgpControlPlane:
   enabled: true
@@ -54,6 +54,8 @@ securityContext:
       - IPC_LOCK
       - SYS_ADMIN
       - SYS_RESOURCE
+      - PERFMON
+      - BPF
       - DAC_OVERRIDE
       - FOWNER
       - SETGID

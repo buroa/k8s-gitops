@@ -256,7 +256,7 @@ controlPlane:
           hostDNS:
             enabled: true
             resolveMemberNames: true
-            forwardKubeDNSToHost: true
+            forwardKubeDNSToHost: false
 
     # Configure kubelet
     - |-
