@@ -28,7 +28,7 @@ spec:
         cronjob:
           schedule: 0 0 * * 1
           timeZone: ${TIMEZONE}
-          parallelism: 6 # Set to my total number of nodes
+          parallelism: 3 # Set to my total number of nodes
           successfulJobsHistory: 1
           failedJobsHistory: 1
         containers:
