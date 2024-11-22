@@ -340,6 +340,32 @@ controlPlane:
           fs.inotify.max_user_instances: 8192
           vm.nr_hugepages: 1024
 
+    # Custom sysfs settings
+    - |-
+      machine:
+        sysfs:
+          devices.system.cpu.intel_pstate.hwp_dynamic_boost: 1
+          devices.system.cpu.cpu0.cpufreq.energy_performance_preference: balance_performance
+          devices.system.cpu.cpu1.cpufreq.energy_performance_preference: balance_performance
+          devices.system.cpu.cpu2.cpufreq.energy_performance_preference: balance_performance
+          devices.system.cpu.cpu3.cpufreq.energy_performance_preference: balance_performance
+          devices.system.cpu.cpu4.cpufreq.energy_performance_preference: balance_performance
+          devices.system.cpu.cpu5.cpufreq.energy_performance_preference: balance_performance
+          devices.system.cpu.cpu6.cpufreq.energy_performance_preference: balance_performance
+          devices.system.cpu.cpu7.cpufreq.energy_performance_preference: balance_performance
+          devices.system.cpu.cpu8.cpufreq.energy_performance_preference: balance_performance
+          devices.system.cpu.cpu9.cpufreq.energy_performance_preference: balance_performance
+          devices.system.cpu.cpu10.cpufreq.energy_performance_preference: balance_performance
+          devices.system.cpu.cpu11.cpufreq.energy_performance_preference: balance_performance
+          devices.system.cpu.cpu12.cpufreq.energy_performance_preference: balance_performance
+          devices.system.cpu.cpu13.cpufreq.energy_performance_preference: balance_performance
+          devices.system.cpu.cpu14.cpufreq.energy_performance_preference: balance_performance
+          devices.system.cpu.cpu15.cpufreq.energy_performance_preference: balance_performance
+          devices.system.cpu.cpu16.cpufreq.energy_performance_preference: balance_performance
+          devices.system.cpu.cpu17.cpufreq.energy_performance_preference: balance_performance
+          devices.system.cpu.cpu18.cpufreq.energy_performance_preference: balance_performance
+          devices.system.cpu.cpu19.cpufreq.energy_performance_preference: balance_performance
+
     # Enable thunderbolt + net
     - |-
       machine:
