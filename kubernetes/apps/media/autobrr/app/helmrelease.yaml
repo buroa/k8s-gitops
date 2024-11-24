@@ -96,10 +96,6 @@ spec:
     service:
       app:
         controller: *app
-        # labels:
-        #   com.dashbrr.service.type: *app
-        #   com.dashbrr.service.url: http://autobrr.media.svc.cluser.local:7474
-        #   com.dashbrr.service.apikey: $${AUTOBRR_API_KEY}
         ports:
           http:
             port: *port
