@@ -17,9 +17,6 @@ spec:
     parameters:
       max_connections: "200"
       shared_buffers: 256MB
-  nodeMaintenanceWindow:
-    inProgress: false
-    reusePVC: true
   resources:
     requests:
       cpu: 500m
@@ -52,12 +49,12 @@ spec:
           key: AWS_SECRET_ACCESS_KEY
   # # Note: previousCluster needs to be set to the name of the previous
   # # cluster when recovering from an existing cnpg cluster
-  bootstrap:
-    recovery:
-      source: &previousCluster postgres-v7
+  # bootstrap:
+  #   recovery:
+  #     source: &previousCluster postgres-v8
   # # Note: externalClusters is needed when recovering from an existing cnpg cluster
-  externalClusters:
-    - name: *previousCluster
-      barmanObjectStore:
-        <<: *barmanObjectStore
-        serverName: *previousCluster
+  # externalClusters:
+  #   - name: *previousCluster
+  #     barmanObjectStore:
+  #       <<: *barmanObjectStore
+  #       serverName: *previousCluster
