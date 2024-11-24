@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app autobrr
+  name: &app dashbrr
 spec:
   interval: 30m
   chart:
@@ -23,7 +23,7 @@ spec:
       retries: 3
   values:
     controllers:
-      autobrr:
+      dashbrr:
         annotations:
           reloader.stakater.com/auto: "true"
         initContainers:
@@ -33,17 +33,16 @@ spec:
               tag: 16
             envFrom: &envFrom
               - secretRef:
-                  name: autobrr-secret
+                  name: dashbrr-secret
         containers:
           app:
             image:
-              repository: ghcr.io/autobrr/autobrr
-              tag: v1.50.0@sha256:6a6f23570ab6b418318ab12bf2558712714e2f243cf18b139afa414f8417e97d
+              repository: ghcr.io/autobrr/dashbrr
+              tag: v0.2.0@sha256:b3b898d4bf9b463bf802e7af188de45e6ca08eb96e828b4e9cbfde6e418441ad
             env:
-              AUTOBRR__CHECK_FOR_UPDATES: false
-              AUTOBRR__HOST: 0.0.0.0
-              AUTOBRR__PORT: &port 7474
-              AUTOBRR__LOG_LEVEL: INFO
+              CACHE_TYPE: redis
+              REDIS_HOST: dragonfly.databases.svc.cluster.local
+              REDIS_PORT: 6379
               TZ: ${TIMEZONE}
             envFrom: *envFrom
             probes:
@@ -52,8 +51,8 @@ spec:
                 custom: true
                 spec:
                   httpGet:
-                    path: /api/healthz/liveness
-                    port: *port
+                    path: /health
+                    port: &port 8080
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
@@ -78,8 +77,6 @@ spec:
     ingress:
       app:
         className: internal
-        annotations:
-          hajimari.io/icon: mdi:bunny
         hosts:
           - host: &host "{{ .Release.Name }}.ktwo.io"
             paths:
@@ -90,16 +87,12 @@ spec:
         tls:
           - hosts:
               - *host
-    persistence:
-      tmp:
-        type: emptyDir
     service:
       app:
         controller: *app
-        # labels:
-        #   com.dashbrr.service.type: *app
-        #   com.dashbrr.service.url: http://autobrr.media.svc.cluser.local:7474
-        #   com.dashbrr.service.apikey: $${AUTOBRR_API_KEY}
         ports:
           http:
             port: *port
+    serviceAccount:
+      create: true
+      name: *app
