@@ -145,7 +145,9 @@ spec:
           revision: 9
           datasource: Prometheus
         cert-manager:
-          url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/cert-manager/dashboards/cert-manager.json
+          # renovate: depName="Cert-manager-Kubernetes"
+          gnetId: 20842
+          revision: 3
           datasource: Prometheus
         cloudflared:
           # renovate: depName="Cloudflare Tunnels (cloudflared)"
@@ -239,10 +241,9 @@ spec:
           revision: 14
           datasource: Prometheus
         nginx:
-          url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json
-          datasource: Prometheus
-        nginx-request-handling-performance:
-          url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/request-handling-performance.json
+          # renovate: depName="Kubernetes Nginx Ingress Prometheus NextGen"
+          gnetId: 14314
+          revision: 2
           datasource: Prometheus
         node-exporter-full:
           # renovate: depName="Node Exporter Full"
@@ -266,11 +267,11 @@ spec:
             - name: DS_PROMETHEUS
               value: Prometheus
         smartctl-exporter:
-          # renovate: depName="Dashboard for smartctl_exporter"
-          gnetId: 20204
+          # renovate: depName="smartctl_exporter"
+          gnetId: 22381
           revision: 1
           datasource:
-            - name: DS_PROMETHEUS
+            - name: DS_VICTORIAMETRICS
               value: Prometheus
         speedtest-exporter:
           # renovate: depName="Speedtest-Exporter Dashboard"
