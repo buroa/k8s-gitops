@@ -74,6 +74,10 @@ spec:
     persistence:
       config:
         existingClaim: *app
+      logs:
+        type: emptyDir
+        globalMounts:
+          - path: /config/logs
     service:
       app:
         controller: *app
