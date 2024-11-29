@@ -30,7 +30,7 @@ spec:
           app:
             image:
               repository: ghcr.io/kpetremann/mqtt-exporter
-              tag: 1.4.7@sha256:28e0888aab7d0b3a40a05cb3f5e64f5a9822cae3e268165fce814dce13ae6cf0
+              tag: 1.5.0@sha256:f930a8940b6ba4879a78e869e684eb82b6e453bbdaae1a47b059cb6ec8730877
             env:
               MQTT_ADDRESS: emqx-listeners.databases.svc.cluster.local
               MQTT_TOPIC: zigbee2mqtt/#
