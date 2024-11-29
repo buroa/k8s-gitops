@@ -400,7 +400,7 @@ controlPlane:
         allowSchedulingOnMasters: true
         apiServer:
           extraArgs:
-            enable-aggregator-routing: "true"
+            enable-aggregator-routing: true
         controllerManager:
           extraArgs:
             bind-address: 0.0.0.0
