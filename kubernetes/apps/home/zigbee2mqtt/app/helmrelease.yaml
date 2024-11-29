@@ -43,13 +43,12 @@ spec:
               ZIGBEE2MQTT_CONFIG_ADVANCED_LEGACY_AVAILABILITY_PAYLOAD: false
               ZIGBEE2MQTT_CONFIG_ADVANCED_LOG_LEVEL: info # debug
               ZIGBEE2MQTT_CONFIG_ADVANCED_LOG_OUTPUT: '["console"]'
+              ZIGBEE2MQTT_CONFIG_ADVANCED_TRANSMIT_POWER: 20
               ZIGBEE2MQTT_CONFIG_AVAILABILITY_ACTIVE_TIMEOUT: 60
               ZIGBEE2MQTT_CONFIG_AVAILABILITY_PASSIVE_TIMEOUT: 2000
               ZIGBEE2MQTT_CONFIG_DEVICE_OPTIONS_LEGACY: false
               ZIGBEE2MQTT_CONFIG_DEVICE_OPTIONS_RETAIN: true
               ZIGBEE2MQTT_CONFIG_EXPERIMENTAL_NEW_API: true
-              ZIGBEE2MQTT_CONFIG_FRONTEND_PORT: &port 8080
-              ZIGBEE2MQTT_CONFIG_FRONTEND_URL: https://zigbee.ktwo.io
               ZIGBEE2MQTT_CONFIG_HOMEASSISTANT: true
               ZIGBEE2MQTT_CONFIG_MQTT_INCLUDE_DEVICE_INFORMATION: true
               ZIGBEE2MQTT_CONFIG_MQTT_KEEPALIVE: 60
@@ -57,10 +56,10 @@ spec:
               ZIGBEE2MQTT_CONFIG_MQTT_SERVER: mqtt://emqx-listeners.databases.svc.cluster.local
               ZIGBEE2MQTT_CONFIG_MQTT_VERSION: 5
               ZIGBEE2MQTT_CONFIG_PERMIT_JOIN: false
-              ZIGBEE2MQTT_CONFIG_SERIAL_BAUDRATE: 38400
+              ZIGBEE2MQTT_CONFIG_SERIAL_BAUDRATE: 115200
               ZIGBEE2MQTT_CONFIG_SERIAL_DISABLE_LED: false
-              ZIGBEE2MQTT_CONFIG_SERIAL_PORT: /dev/serial/by-id/usb-dresden_elektronik_ingenieurtechnik_GmbH_ConBee_II_DE2218307-if00
-              ZIGBEE2MQTT_CONFIG_SERIAL_ADAPTER: deconz
+              ZIGBEE2MQTT_CONFIG_SERIAL_PORT: tcp://slzb.internal:6638
+              ZIGBEE2MQTT_CONFIG_SERIAL_ADAPTER: zstack
             envFrom:
               - secretRef:
                   name: zigbee2mqtt-secret
@@ -73,7 +72,6 @@ spec:
               requests:
                 cpu: 10m
               limits:
-                squat.ai/conbee: 1
                 memory: 256Mi
             securityContext:
               allowPrivilegeEscalation: false
@@ -82,16 +80,12 @@ spec:
                 drop:
                   - ALL
     defaultPodOptions:
-      nodeSelector:
-        phoscon.feature.node.kubernetes.io/conbee: "true"
       securityContext:
         runAsNonRoot: true
         runAsUser: 568
         runAsGroup: 568
         fsGroup: 568
         fsGroupChangePolicy: OnRootMismatch
-        supplementalGroups:
-          - 20
     ingress:
       app:
         className: internal
@@ -114,9 +108,13 @@ spec:
     persistence:
       config:
         existingClaim: *app
+      logs:
+        type: emptyDir
+        globalMounts:
+          - path: /config/log
     service:
       app:
         controller: *app
         ports:
           http:
-            port: *port
+            port: 8080

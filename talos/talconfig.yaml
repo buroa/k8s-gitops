@@ -393,8 +393,6 @@ controlPlane:
             - SUBSYSTEM=="drm", KERNEL=="renderD*", GROUP="44", MODE="0660"
             # Coral Edge TPU
             - SUBSYSTEM=="apex", KERNEL=="apex*", GROUP="44", MODE="0660"
-            # Phoscon ConBee II The Universal Zigbee USB Gateway
-            - SUBSYSTEMS=="usb", ATTRS{idVendor}=="1cf1", ATTRS{idProduct}=="0030", GROUP="20", MODE="0660"
 
     # Cluster configuration
     - |-

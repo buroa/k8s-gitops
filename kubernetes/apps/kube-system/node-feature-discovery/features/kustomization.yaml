@@ -4,4 +4,3 @@ kind: Kustomization
 resources:
   - ./google-coral.yaml
   - ./intel-gpu.yaml
-  - ./phoscon-conbee.yaml
