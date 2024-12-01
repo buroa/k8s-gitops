@@ -64,7 +64,6 @@ There is a template at [onedr0p/cluster-template](https://github.com/onedr0p/clu
 - [rook](https://github.com/rook/rook): Distributed block storage for peristent storage.
 - [sops](https://github.com/getsops/sops): Managed secrets for Kubernetes which are commited to Git.
 - [spegel](https://github.com/spegel-org/spegel): Stateless cluster local OCI registry mirror.
-- [tailscale](https://github.com/tailscale/tailscale): Private WireGuard based VPN.
 - [volsync](https://github.com/backube/volsync): Backup and recovery of persistent volume claims.
 
 ### GitOps
