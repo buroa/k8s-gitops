@@ -126,17 +126,17 @@ I have two instances of `external-dns` running in my cluster. The private DNS in
   <img src="https://github.com/user-attachments/assets/43bd0ca8-a1a8-49d5-9b9a-04fbdcecdd3f" align="center" alt="rack"/>
 </details>
 
-| Device                    | Count | OS Disk Size    | Data Disk Size               | Ram  | Operating System | Purpose                 |
-|---------------------------|-------|-----------------|------------------------------|------|------------------|-------------------------|
-| MS-01 (i9-13900H)         | 3     | 1.92TB M.2 NVMe | 3.84TB U.2 & 1.92TB M.2 NVMe | 96GB | Talos            | Kubernetes              |
-| Synology NAS RS1221+      | 1     | -               | 8x22TB HDD                   | 32GB | -                | NFS                     |
-| PiKVM (RasPi 4)           | 1     | 64GB (SD)       | -                            | 4GB  | PiKVM            | KVM                     |
-| TESmart 8 Port KVM Switch | 1     | -               | -                            | -    | -                | Network KVM (for PiKVM) |
-| UniFi UDM Pro Max         | 1     | -               | 2x16TB HDD                   | -    | UniFi OS         | Router & NVR            |
-| UniFi USW Pro Aggregation | 1     | -               | -                            | -    | UniFi OS         | 10G/25Gb Core Switch    |
-| UniFi USW Pro Max 24 PoE  | 1     | -               | -                            | -    | UniFi OS         | 2.5Gb PoE Switch        |
-| UniFi USP PDU Pro         | 1     | -               | -                            | -    | UniFi OS         | PDU                     |
-| APC SMT15000RM2UNC        | 1     | -               | -                            | -    | -                | UPS                     |
+| Device                    | Count | OS Disk Size | Data Disk Size          | Ram  | Operating System | Purpose                 |
+|---------------------------|-------|--------------|-------------------------|------|------------------|-------------------------|
+| MS-01 (i9-13900H)         | 3     | 1.92TB M.2   | 3.84TB U.2 + 1.92TB M.2 | 96GB | Talos            | Kubernetes              |
+| Synology NAS RS1221+      | 1     | -            | 8x22TB HDD              | 32GB | DSM 7            | NFS                     |
+| PiKVM (RasPi 4)           | 1     | 64GB (SD)    | -                       | 4GB  | PiKVM            | KVM                     |
+| TESmart 8 Port KVM Switch | 1     | -            | -                       | -    | -                | Network KVM (for PiKVM) |
+| UniFi UDM Pro Max         | 1     | -            | 2x16TB HDD              | -    | UniFi OS         | Router & NVR            |
+| UniFi USW Pro Aggregation | 1     | -            | -                       | -    | UniFi OS         | 10G/25Gb Core Switch    |
+| UniFi USW Pro Max 24 PoE  | 1     | -            | -                       | -    | UniFi OS         | 2.5Gb PoE Switch        |
+| UniFi USP PDU Pro         | 1     | -            | -                       | -    | UniFi OS         | PDU                     |
+| APC SMT15000RM2UNC        | 1     | -            | -                       | -    | -                | UPS                     |
 ---
 
 ## ⭐ Stargazers
