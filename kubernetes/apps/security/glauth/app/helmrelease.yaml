@@ -32,7 +32,7 @@ spec:
           app:
             image:
               repository: docker.io/glauth/glauth
-              tag: v2.3.2@sha256:5112abbb2b5145dadb1a2fed57242ad3718e4af11062d0bb812b50cda6c708ab
+              tag: v2.3.2@sha256:29fcfbf30dbac71d2df9bb17aa9d0c82986ea4faf789ba51f3d42575acab959c
             command:
               - /app/glauth
             args:
