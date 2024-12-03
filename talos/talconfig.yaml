@@ -9,7 +9,7 @@ clusterSvcNets:
 endpoint: https://k8s.internal:6443
 
 # renovate: depName=ghcr.io/siderolabs/installer datasource=docker
-talosVersion: v1.8.3
+talosVersion: v1.9.0-beta.0
 # renovate: depName=ghcr.io/siderolabs/kubelet datasource=docker
 kubernetesVersion: v1.31.3
 
@@ -203,16 +203,20 @@ controlPlane:
   schematic:
     customization:
       extraKernelArgs:
+        - apparmor=0
+        - init_on_alloc=0
+        - init_on_free=0
         - intel_iommu=on
         - iommu=pt
         - mitigations=off
         - net.ifnames=0
+        - security=none
         - talos.logging.kernel=udp://vector.ktwo.io:6001/
 
       systemExtensions:
         officialExtensions:
           - siderolabs/gasket-driver
-          - siderolabs/i915-ucode
+          - siderolabs/i915
           - siderolabs/intel-ucode
           - siderolabs/mei
           - siderolabs/thunderbolt

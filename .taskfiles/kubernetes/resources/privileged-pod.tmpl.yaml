@@ -16,8 +16,8 @@ spec:
           name: rootfs
         - mountPath: /sys/firmware/efi/efivars
           name: efivars
-        - mountPath: /run/containerd
-          name: containerd
+        - mountPath: /run
+          name: run
   dnsPolicy: ClusterFirstWithHostNet
   hostIPC: true
   hostNetwork: true
@@ -31,6 +31,6 @@ spec:
     - name: efivars
       hostPath:
         path: /sys/firmware/efi/efivars
-    - name: containerd
+    - name: run
       hostPath:
-        path: /run/containerd
+        path: /run
