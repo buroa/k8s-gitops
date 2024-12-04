@@ -31,6 +31,9 @@ spec:
             image:
               repository: ghcr.io/alexxit/go2rtc
               tag: 1.9.7@sha256:41fc2431fc3c867364ab7c8d935d2bddd9736597694afd3a983fe14c175347e8
+            envFrom:
+              - secretRef:
+                  name: go2rtc-secret
             probes:
               liveness: &probes
                 enabled: true
@@ -101,8 +104,8 @@ spec:
               - *host
     persistence:
       config:
-        type: secret
-        name: go2rtc-secret
+        type: configMap
+        name: go2rtc-configmap
         globalMounts:
           - path: /config/go2rtc.yaml
             subPath: go2rtc.yaml

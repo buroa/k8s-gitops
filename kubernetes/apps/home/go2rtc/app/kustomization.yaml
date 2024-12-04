@@ -5,7 +5,7 @@ resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
 configMapGenerator:
-  - name: go2rtc-config-tpl
+  - name: go2rtc-configmap
     files:
       - ./resources/go2rtc.yaml
 generatorOptions:
