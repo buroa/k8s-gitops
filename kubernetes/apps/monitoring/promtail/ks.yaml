@@ -2,18 +2,14 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app thanos
+  name: &app promtail
   namespace: flux-system
 spec:
   targetNamespace: monitoring
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  dependsOn:
-    - name: openebs
-    - name: dragonfly-cluster
-    - name: rook-ceph-cluster
-  path: ./kubernetes/apps/monitoring/thanos/app
+  path: ./kubernetes/apps/monitoring/promtail/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -21,4 +17,4 @@ spec:
   wait: true
   interval: 30m
   retryInterval: 1m
-  timeout: 15m
+  timeout: 5m

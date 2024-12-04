@@ -211,7 +211,6 @@ controlPlane:
         - mitigations=off
         - net.ifnames=0
         - security=none
-        - talos.logging.kernel=udp://vector.ktwo.io:6001/
 
       systemExtensions:
         officialExtensions:
@@ -289,14 +288,6 @@ controlPlane:
           kubePrism:
             enabled: true
             port: 7445
-
-    # Enable logging
-    - |-
-      machine:
-        logging:
-          destinations:
-            - endpoint: udp://vector.ktwo.io:6002
-              format: json_lines
 
     # Force nameserver
     - |-

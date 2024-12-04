@@ -7,9 +7,8 @@ resources:
   - ./grafana/ks.yaml
   - ./karma/ks.yaml
   - ./kromgo/ks.yaml
-  - ./loki/ks.yaml
-  - ./thanos/ks.yaml
-  - ./unpoller/ks.yaml
   - ./kube-prometheus-stack/ks.yaml
-  - ./vector/ks.yaml
+  - ./loki/ks.yaml
+  - ./promtail/ks.yaml
+  - ./unpoller/ks.yaml
   - ./exporters

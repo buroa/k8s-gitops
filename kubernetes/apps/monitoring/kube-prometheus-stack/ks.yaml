@@ -10,7 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: openebs
+    - name: rook-ceph-cluster
     - name: external-secrets-stores
   path: ./kubernetes/apps/monitoring/kube-prometheus-stack/app
   prune: true
@@ -21,10 +21,6 @@ spec:
   interval: 30m
   retryInterval: 1m
   timeout: 15m
-  postBuild:
-    substitute:
-      # renovate: depName=quay.io/thanos/thanos datasource=docker
-      THANOS_VERSION: v0.37.0
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
