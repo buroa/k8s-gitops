@@ -10,7 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: overseerr
+    - name: jellyseerr
     - name: external-secrets-stores
   path: ./kubernetes/apps/monitoring/exporters/overseerr-exporter/app
   prune: true
