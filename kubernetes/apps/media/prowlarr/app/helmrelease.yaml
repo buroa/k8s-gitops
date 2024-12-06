@@ -30,7 +30,7 @@ spec:
           init-db:
             image:
               repository: ghcr.io/buroa/postgres-init
-              tag: 16
+              tag: 17
             envFrom: &envFrom
               - secretRef:
                   name: prowlarr-secret
