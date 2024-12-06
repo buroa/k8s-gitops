@@ -2,9 +2,9 @@
 
 <img src="https://github.com/buroa/k8s-gitops/assets/36205263/14771e67-0c36-4b7c-923f-31f54529067d" align="center" width="144px" height="144px"/>
 
-### My _geeked_ homelab k8s cluster :wheel_of_dharma:
+### My _geeked_ homelab k8s cluster <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f680/512.gif" alt="🚀" width="16" height="16">
 
-_... automated via [Flux](https://github.com/fluxcd/flux2), [Renovate](https://github.com/renovatebot/renovate) and [GitHub Actions](https://github.com/features/actions)_ :robot:
+_... automated via [Flux](https://github.com/fluxcd/flux2), [Renovate](https://github.com/renovatebot/renovate) and [GitHub Actions](https://github.com/features/actions)_ <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f916/512.gif" alt="🤖" width="16" height="16">
 
 </div>
 
@@ -39,13 +39,13 @@ _... automated via [Flux](https://github.com/fluxcd/flux2), [Renovate](https://g
 
 ---
 
-## 📖 Overview
+## <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/270f_fe0f/512.gif" alt="✏" width="20" height="20"> Overview
 
 This is a repository for my home infrastructure and Kubernetes cluster. I try to adhere to Infrastructure as Code (IaC) and GitOps practices using tools like [Kubernetes](https://github.com/kubernetes/kubernetes), [Flux](https://github.com/fluxcd/flux2), [Renovate](https://github.com/renovatebot/renovate) and [GitHub Actions](https://github.com/features/actions).
 
 ---
 
-## ⛵ Kubernetes
+## <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f331/512.gif" alt="🌱" width="20" height="20"> Kubernetes
 
 This semi hyper-converged cluster operates on [Talos Linux](https://github.com/siderolabs/talos), an immutable and ephemeral Linux distribution tailored for [Kubernetes](https://github.com/kubernetes/kubernetes), and is deployed on bare-metal [MS-01](https://store.minisforum.com/products/minisforum-ms-01) workstations. [Rook](https://github.com/rook/rook) supplies my workloads with persistent block, object, and file storage, while a separate server handles media file storage. The cluster is designed to enable a full teardown without any data loss.
 
@@ -112,13 +112,13 @@ graph TD;
 
 ---
 
-## 🌐 DNS
+## <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f30e/512.gif" alt="🌎" width="20" height="20"> DNS
 
 I have two instances of `external-dns` running in my cluster. The private DNS instance synchronizes DNS records with a `UDM Pro Max`, while the public DNS instance does the same with `Cloudflare`. This setup is managed by creating ingresses with specific ingress classes: `internal` for the private DNS and `external` for the public DNS. Both ingresses use the `external-dns.alpha.kubernetes.io/target` annotation to specify the target. The `external-dns` instances then syncs the DNS records to their respective platforms accordingly.
 
 ---
 
-## 🔧 Hardware
+## <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/2699_fe0f/512.gif" alt="⚙" width="20" height="20"> Hardware
 
 <details>
   <summary>Click to see my rack</summary>
@@ -139,7 +139,7 @@ I have two instances of `external-dns` running in my cluster. The private DNS in
 | APC SMT15000RM2UNC        | 1     | -            | -                       | -    | -                | UPS                     |
 ---
 
-## ⭐ Stargazers
+## <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f31f/512.gif" alt="🌟" width="20" height="20"> Stargazers
 
 <div align="center">
 
@@ -155,18 +155,18 @@ I have two instances of `external-dns` running in my cluster. The private DNS in
 
 ---
 
-## 🤝 Gratitude and Thanks
+## <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f64f/512.gif" alt="🙏" width="20" height="20"> Gratitude and Thanks
 
 Many thanks to my friend [@onedrop](https://github.com/onedr0p) and all the fantastic people who donate their time to the [Home Operations](https://discord.gg/home-operations) Discord community. Be sure to check out [kubesearch.dev](https://kubesearch.dev) for ideas on how to deploy applications or get ideas on what you may deploy.
 
 ---
 
-## 📜 Changelog
+## <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f6a7/512.gif" alt="🚧" width="20" height="20"> Changelog
 
 See the latest [release](https://github.com/buroa/k8s-gitops/releases/latest) notes.
 
 ---
 
-## 🔏 License
+## <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/2696_fe0f/512.gif" alt="⚖" width="20" height="20"> License
 
 See [LICENSE](./LICENSE).
