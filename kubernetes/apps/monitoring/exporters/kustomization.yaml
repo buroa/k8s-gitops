@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - ./blackbox-exporter/ks.yaml
   - ./mqtt-exporter/ks.yaml
+  - ./nextdns-exporter/ks.yaml
   - ./overseerr-exporter/ks.yaml
   - ./prowlarr-exporter/ks.yaml
   - ./qbittorrent-exporter/ks.yaml
