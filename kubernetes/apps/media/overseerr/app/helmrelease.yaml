@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app jellyseerr
+  name: &app overseerr
 spec:
   interval: 30m
   chart:
@@ -23,27 +23,16 @@ spec:
       retries: 3
   values:
     controllers:
-      jellyseerr:
-        annotations:
-          reloader.stakater.com/auto: "true"
-        initContainers:
-          init-db:
-            image:
-              repository: ghcr.io/buroa/postgres-init
-              tag: 17
-            envFrom: &envFrom
-              - secretRef:
-                  name: jellyseerr-secret
+      overseerr:
         containers:
           app:
             image:
-              repository: docker.io/fallenbagel/jellyseerr
-              tag: preview-postgres@sha256:f189c58bf2692babc3f2dd7ce6bb4931a4942679eaedcc00a4ddbc4cd49bc002
+              repository: ghcr.io/sct/overseerr
+              tag: develop@sha256:568f126f69663cf764d12bf19ba5a250be2246cca49852e556f363d0acac2603
             env:
               LOG_LEVEL: info
               PORT: &port 5055
               TZ: ${TIMEZONE}
-            envFrom: *envFrom
             probes:
               liveness: &probes
                 enabled: true
@@ -80,7 +69,7 @@ spec:
         className: external
         annotations:
           gatus.io/path: *path
-          hajimari.io/icon: cbi:jellyseerr
+          hajimari.io/icon: mdi:eye-circle
           hajimari.io/url: https://requests.ktwo.io
         hosts:
           - host: &host "{{ .Release.Name }}.ktwo.io"
@@ -97,7 +86,7 @@ spec:
               - *customHost
     persistence:
       cache:
-        existingClaim: jellyseerr-cache
+        existingClaim: overseerr-cache
         globalMounts:
           - path: /app/config/cache
       config:
