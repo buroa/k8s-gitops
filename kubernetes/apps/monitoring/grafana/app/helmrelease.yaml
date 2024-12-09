@@ -206,9 +206,6 @@ spec:
           gnetId: 11454
           revision: 14
           datasource: Prometheus
-        nextdns-exporter:
-          url: https://raw.githubusercontent.com/raylas/nextdns-exporter/main/grafana/dashboards/nextdns.json
-          datasource: Prometheus
         nginx:
           # renovate: depName="Kubernetes Nginx Ingress Prometheus NextGen"
           gnetId: 14314
