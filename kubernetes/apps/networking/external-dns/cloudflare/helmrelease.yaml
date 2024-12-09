@@ -38,7 +38,6 @@ spec:
             name: *secret
             key: *name
     extraArgs:
-      - --annotation-filter=external-dns.alpha.kubernetes.io/target
       - --cloudflare-proxied
       - --ingress-class=external
       - --zone-id-filter=$(CF_ZONE_ID)

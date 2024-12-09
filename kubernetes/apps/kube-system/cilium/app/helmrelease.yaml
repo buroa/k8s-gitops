@@ -53,7 +53,6 @@ spec:
           enabled: true
           className: internal
           annotations:
-            external-dns.alpha.kubernetes.io/target: internal.ktwo.io
             hajimari.io/icon: simple-icons:cilium
           hosts:
             - &host hubble.ktwo.io

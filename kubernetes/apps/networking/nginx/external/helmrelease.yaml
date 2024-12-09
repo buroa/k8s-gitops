@@ -61,6 +61,7 @@ spec:
         use-forwarded-headers: true
       extraArgs:
         default-ssl-certificate: networking/wildcard-tls
+        publish-status-address: &hostname external.ktwo.io
       ingressClass: external
       ingressClassResource:
         name: external
@@ -73,6 +74,8 @@ spec:
           namespace: networking
           namespaceSelector:
             any: true
+      publishService:
+        enabled: false
       resources:
         requests:
           cpu: 100m
@@ -80,7 +83,7 @@ spec:
           memory: 512Mi
       service:
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: external.ktwo.io
+          external-dns.alpha.kubernetes.io/hostname: *hostname
           lbipam.cilium.io/ips: ${NET_SERVICES_INGRESS_IP_EXT}
       terminationGracePeriodSeconds: 120
     defaultBackend:
