@@ -4,8 +4,6 @@ kind: Kustomization
 resources:
   - ./blackbox-exporter/ks.yaml
   - ./mqtt-exporter/ks.yaml
-  - ./qbittorrent-exporter/ks.yaml
   - ./smartctl-exporter/ks.yaml
   - ./snmp-exporter/ks.yaml
   - ./speedtest-exporter/ks.yaml
-  - ./tautulli-exporter/ks.yaml
