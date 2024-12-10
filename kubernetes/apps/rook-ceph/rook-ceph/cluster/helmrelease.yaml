@@ -30,11 +30,8 @@ spec:
       dashboard:
         ingressClassName: internal
         host:
-          name: &host rook.ktwo.io
+          name: rook.ktwo.io
           path: /
-        tls:
-          - hosts:
-              - *host
     toolbox:
       enabled: true
     configOverride: |

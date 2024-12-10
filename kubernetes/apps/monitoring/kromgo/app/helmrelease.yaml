@@ -76,15 +76,12 @@ spec:
         annotations:
           gatus.io/status-code: "404"
         hosts:
-          - host: &host "{{ .Release.Name }}.ktwo.io"
+          - host: "{{ .Release.Name }}.ktwo.io"
             paths:
               - path: /
                 service:
                   identifier: app
                   port: http
-        tls:
-          - hosts:
-              - *host
     persistence:
       config:
         type: configMap

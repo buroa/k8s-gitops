@@ -52,11 +52,7 @@ spec:
         ingress:
           enabled: true
           className: internal
-          hosts:
-            - &host hubble.ktwo.io
-          tls:
-            - hosts:
-                - *host
+          hosts: ["hubble.ktwo.io"]
     operator:
       prometheus:
         enabled: true

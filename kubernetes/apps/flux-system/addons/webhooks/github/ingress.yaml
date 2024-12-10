@@ -8,7 +8,7 @@ metadata:
 spec:
   ingressClassName: external
   rules:
-    - host: &host flux-webhook.ktwo.io
+    - host: flux-webhook.ktwo.io
       http:
         paths:
           - path: /hook/
@@ -18,6 +18,3 @@ spec:
                 name: webhook-receiver
                 port:
                   number: 80
-  tls:
-    - hosts:
-        - *host

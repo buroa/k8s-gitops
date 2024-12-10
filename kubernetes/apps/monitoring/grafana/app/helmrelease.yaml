@@ -321,13 +321,7 @@ spec:
     ingress:
       enabled: true
       ingressClassName: internal
-      hosts:
-        - &host "{{ .Release.Name }}.ktwo.io"
-      paths:
-        - /
-      tls:
-        - hosts:
-            - *host
+      hosts: ["{{ .Release.Name }}.ktwo.io"]
     persistence:
       enabled: false
     testFramework:

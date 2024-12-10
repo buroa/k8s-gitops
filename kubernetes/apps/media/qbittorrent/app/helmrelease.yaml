@@ -67,18 +67,14 @@ spec:
       app:
         className: internal
         hosts:
-          - host: &host "{{ .Release.Name }}.ktwo.io"
+          - host: "{{ .Release.Name }}.ktwo.io"
             paths: &paths
               - path: /
                 service:
                   identifier: app
                   port: http
-          - host: &customHost qb.ktwo.io
+          - host: qb.ktwo.io
             paths: *paths
-        tls:
-          - hosts:
-              - *host
-              - *customHost
     persistence:
       config:
         existingClaim: *app

@@ -27,13 +27,10 @@ spec:
       enabled: true
       className: internal
       hosts:
-        - host: &host blackbox.ktwo.io
+        - host: blackbox.ktwo.io
           paths:
             - path: /
               pathType: Prefix
-      tls:
-        - hosts:
-            - *host
     securityContext:
       readOnlyRootFilesystem: true
       allowPrivilegeEscalation: false

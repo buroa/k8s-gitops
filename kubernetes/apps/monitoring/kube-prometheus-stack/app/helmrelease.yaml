@@ -30,14 +30,7 @@ spec:
       ingress:
         enabled: true
         ingressClassName: internal
-        hosts:
-          - &host am.ktwo.io
-        paths:
-          - /
-        pathType: Prefix
-        tls:
-          - hosts:
-              - *host
+        hosts: ["am.ktwo.io"]
       alertmanagerSpec:
         useExistingSecret: true
         configSecret: alertmanager-secret
@@ -69,14 +62,7 @@ spec:
       ingress:
         enabled: true
         ingressClassName: internal
-        hosts:
-          - &host prometheus.ktwo.io
-        paths:
-          - /
-        pathType: Prefix
-        tls:
-          - hosts:
-              - *host
+        hosts: ["prometheus.ktwo.io"]
       prometheusSpec:
         image:
           registry: quay.io

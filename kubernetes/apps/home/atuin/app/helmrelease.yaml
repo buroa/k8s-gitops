@@ -85,18 +85,14 @@ spec:
       app:
         className: internal
         hosts:
-          - host: &host "{{ .Release.Name }}.ktwo.io"
+          - host: "{{ .Release.Name }}.ktwo.io"
             paths: &paths
               - path: /
                 service:
                   identifier: app
                   port: http
-          - host: &customHost sh.ktwo.io
+          - host: sh.ktwo.io
             paths: *paths
-        tls:
-          - hosts:
-              - *host
-              - *customHost
     persistence:
       config:
         type: emptyDir

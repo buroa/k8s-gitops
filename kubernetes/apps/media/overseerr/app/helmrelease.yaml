@@ -70,18 +70,14 @@ spec:
         annotations:
           gatus.io/path: *path
         hosts:
-          - host: &host "{{ .Release.Name }}.ktwo.io"
+          - host: "{{ .Release.Name }}.ktwo.io"
             paths: &paths
               - path: /
                 service:
                   identifier: app
                   port: http
-          - host: &customHost requests.ktwo.io
+          - host: requests.ktwo.io
             paths: *paths
-        tls:
-          - hosts:
-              - *host
-              - *customHost
     persistence:
       cache:
         existingClaim: overseerr-cache

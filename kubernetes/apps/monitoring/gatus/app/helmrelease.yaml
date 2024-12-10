@@ -98,18 +98,14 @@ spec:
         annotations:
           gatus.io/path: *path
         hosts:
-          - host: &host "{{ .Release.Name }}.ktwo.io"
+          - host: "{{ .Release.Name }}.ktwo.io"
             paths: &paths
               - path: /
                 service:
                   identifier: app
                   port: http
-          - host: &customHost status.ktwo.io
+          - host: status.ktwo.io
             paths: *paths
-        tls:
-          - hosts:
-              - *host
-              - *customHost
     persistence:
       config:
         type: emptyDir

@@ -71,15 +71,12 @@ spec:
         annotations:
           gatus.io/path: *path
         hosts:
-          - host: &host "{{ .Release.Name }}.ktwo.io"
+          - host: "{{ .Release.Name }}.ktwo.io"
             paths:
               - path: /
                 service:
                   identifier: app
                   port: http
-        tls:
-          - hosts:
-              - *host
     service:
       app:
         controller: *app
