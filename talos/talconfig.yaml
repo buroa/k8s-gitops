@@ -196,6 +196,9 @@ nodes:
             metric: 2048
 
 controlPlane:
+  machineSpec:
+    secureboot: true
+
   nodeLabels:
     topology.kubernetes.io/region: *cluster
     topology.kubernetes.io/zone: m
