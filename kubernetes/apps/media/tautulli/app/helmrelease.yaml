@@ -79,7 +79,7 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     ingress:
       app:
-        className: external
+        className: internal
         annotations:
           gatus.io/path: *path
           hajimari.io/icon: mdi:chart-bar
