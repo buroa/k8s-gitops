@@ -30,9 +30,6 @@ spec:
       ingress:
         enabled: true
         ingressClassName: internal
-        annotations:
-          hajimari.io/appName: Alertmanager
-          hajimari.io/icon: fluent:alert-16-filled
         hosts:
           - &host am.ktwo.io
         paths:
@@ -72,9 +69,6 @@ spec:
       ingress:
         enabled: true
         ingressClassName: internal
-        annotations:
-          hajimari.io/appName: Prometheus
-          hajimari.io/icon: simple-icons:prometheus
         hosts:
           - &host prometheus.ktwo.io
         paths:

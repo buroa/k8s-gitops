@@ -69,8 +69,6 @@ spec:
         className: external
         annotations:
           gatus.io/path: *path
-          hajimari.io/icon: mdi:eye-circle
-          hajimari.io/url: https://requests.ktwo.io
         hosts:
           - host: &host "{{ .Release.Name }}.ktwo.io"
             paths: &paths

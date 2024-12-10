@@ -84,8 +84,6 @@ spec:
     ingress:
       app:
         className: internal
-        annotations:
-          hajimari.io/enable: "false"
         hosts:
           - host: &host "{{ .Release.Name }}.ktwo.io"
             paths: &paths

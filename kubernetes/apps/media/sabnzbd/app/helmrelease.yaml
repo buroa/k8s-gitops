@@ -67,17 +67,6 @@ spec:
                 drop:
                   - ALL
     defaultPodOptions:
-      affinity:
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-            - weight: 100
-              podAffinityTerm:
-                labelSelector:
-                  matchExpressions:
-                    - key: app.kubernetes.io/name
-                      operator: In
-                      values: ["qbittorrent"]
-                topologyKey: kubernetes.io/hostname
       securityContext:
         runAsNonRoot: true
         runAsUser: 568
@@ -89,9 +78,6 @@ spec:
     ingress:
       app:
         className: internal
-        annotations:
-          hajimari.io/icon: mdi:download
-          hajimari.io/url: https://sab.ktwo.io
         hosts:
           - host: &host "{{ .Release.Name }}.ktwo.io"
             paths: &paths

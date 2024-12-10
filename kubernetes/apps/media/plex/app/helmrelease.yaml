@@ -64,17 +64,6 @@ spec:
                 drop:
                   - ALL
     defaultPodOptions:
-      affinity:
-        podAntiAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            - labelSelector:
-                matchExpressions:
-                  - key: app.kubernetes.io/name
-                    operator: In
-                    values:
-                      - qbittorrent
-                      - sabnzbd
-              topologyKey: kubernetes.io/hostname
       nodeSelector:
         intel.feature.node.kubernetes.io/gpu: "true"
       securityContext:
@@ -91,7 +80,6 @@ spec:
         className: external
         annotations:
           gatus.io/path: *path
-          hajimari.io/icon: mdi:plex
           nginx.ingress.kubernetes.io/backend-protocol: HTTPS
         hosts:
           - host: &host "{{ .Release.Name }}.ktwo.io"

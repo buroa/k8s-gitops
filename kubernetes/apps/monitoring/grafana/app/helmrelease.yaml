@@ -321,9 +321,6 @@ spec:
     ingress:
       enabled: true
       ingressClassName: internal
-      annotations:
-        hajimari.io/appName: Grafana
-        hajimari.io/icon: simple-icons:grafana
       hosts:
         - &host "{{ .Release.Name }}.ktwo.io"
       paths:

@@ -82,7 +82,6 @@ spec:
         className: internal
         annotations:
           gatus.io/path: *path
-          hajimari.io/icon: mdi:chart-bar
         hosts:
           - host: &host "{{ .Release.Name }}.ktwo.io"
             paths:

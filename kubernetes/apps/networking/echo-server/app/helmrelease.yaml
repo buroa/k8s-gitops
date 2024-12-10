@@ -70,7 +70,6 @@ spec:
         className: external
         annotations:
           gatus.io/path: *path
-          hajimari.io/enable: "false"
         hosts:
           - host: &host "{{ .Release.Name }}.ktwo.io"
             paths:

@@ -97,8 +97,6 @@ spec:
         className: external
         annotations:
           gatus.io/path: *path
-          hajimari.io/icon: simple-icons:statuspage
-          hajimari.io/url: https://status.ktwo.io
         hosts:
           - host: &host "{{ .Release.Name }}.ktwo.io"
             paths: &paths

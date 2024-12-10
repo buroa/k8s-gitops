@@ -94,9 +94,6 @@ spec:
     ingress:
       app:
         className: internal
-        annotations:
-          hajimari.io/icon: cbi:zigbee2mqtt
-          hajimari.io/url: https://zigbee.ktwo.io
         hosts:
           - host: &host "{{ .Release.Name }}.ktwo.io"
             paths: &paths

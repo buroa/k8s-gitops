@@ -5,7 +5,6 @@ metadata:
   name: flux-webhook
   annotations:
     gatus.io/status-code: "404"
-    hajimari.io/enable: "false"
 spec:
   ingressClassName: external
   rules:

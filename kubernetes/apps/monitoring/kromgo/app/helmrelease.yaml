@@ -75,7 +75,6 @@ spec:
         className: external
         annotations:
           gatus.io/status-code: "404"
-          hajimari.io/enable: "false"
         hosts:
           - host: &host "{{ .Release.Name }}.ktwo.io"
             paths:

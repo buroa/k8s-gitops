@@ -26,8 +26,6 @@ spec:
     ingress:
       enabled: true
       className: internal
-      annotations:
-        hajimari.io/enable: "false"
       hosts:
         - host: &host blackbox.ktwo.io
           paths:
