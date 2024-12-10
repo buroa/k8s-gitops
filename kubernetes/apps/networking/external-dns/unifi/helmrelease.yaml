@@ -56,16 +56,14 @@ spec:
             port: http-webhook
           initialDelaySeconds: 10
           timeoutSeconds: 5
+    extraArgs:
+      - --events
+      - --ignore-ingress-tls-spec
     policy: sync
-    sources:
-      - ingress
-      - service
+    sources: ["ingress", "service"]
     txtOwnerId: k8s
     txtPrefix: k8s.
-    domainFilters:
-      - ktwo.io
-    excludeDomains:
-      - internal
+    domainFilters: ["ktwo.io"]
     serviceMonitor:
       enabled: true
     podAnnotations:
