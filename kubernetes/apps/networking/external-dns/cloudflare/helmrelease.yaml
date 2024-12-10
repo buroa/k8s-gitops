@@ -40,10 +40,10 @@ spec:
     extraArgs:
       - --cloudflare-dns-records-per-page=1000
       - --cloudflare-proxied
-      - --events
       - --ignore-ingress-tls-spec
       - --ingress-class=external
       - --zone-id-filter=$(CF_ZONE_ID)
+    triggerLoopOnEvent: true
     policy: sync
     sources: ["ingress"]
     txtOwnerId: k8s
