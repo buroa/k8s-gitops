@@ -146,11 +146,6 @@ spec:
         emqx-rule-engine-rate:
           url: https://raw.githubusercontent.com/emqx/emqx-exporter/main/grafana-dashboard/template/emqx-5/rule-engine-rate.json
           datasource: Prometheus
-        exportarr:
-          url: https://raw.githubusercontent.com/onedr0p/exportarr/master/examples/grafana/dashboard2.json
-          datasource:
-            - name: DS_PROMETHEUS
-              value: Prometheus
         external-dns:
           # renovate: depName="External-dns"
           gnetId: 15038
