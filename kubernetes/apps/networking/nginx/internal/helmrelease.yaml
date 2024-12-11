@@ -35,7 +35,6 @@ spec:
               values:
                 - internal
       config:
-        block-user-agents: "GPTBot,~*GPTBot*,ChatGPT-User,~*ChatGPT-User*,Google-Extended,~*Google-Extended*,CCBot,~*CCBot*,Omgilibot,~*Omgilibot*,FacebookBot,~*FacebookBot*" # taken from https://github.com/superseriousbusiness/gotosocial/blob/main/internal/web/robots.go
         client-body-buffer-size: 100M
         client-body-timeout: 120
         client-header-timeout: 120
@@ -58,7 +57,6 @@ spec:
         proxy-buffer-size: 16k
         ssl-early-data: true
         ssl-protocols: TLSv1.3 TLSv1.2
-        use-forwarded-headers: true
       extraArgs:
         default-ssl-certificate: networking/wildcard-tls
         publish-status-address: &hostname internal.ktwo.io
