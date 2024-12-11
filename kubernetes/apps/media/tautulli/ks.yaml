@@ -10,10 +10,9 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: plex
-    - name: volsync
-    - name: rook-ceph-cluster
     - name: external-secrets-stores
+    - name: rook-ceph-cluster
+    - name: volsync
   path: ./kubernetes/apps/media/tautulli/app
   prune: true
   sourceRef:

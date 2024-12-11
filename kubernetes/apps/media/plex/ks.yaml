@@ -10,10 +10,10 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: volsync
-    - name: rook-ceph-cluster
     - name: external-secrets-stores
     - name: intel-device-plugin-gpu
+    - name: rook-ceph-cluster
+    - name: volsync
   path: ./kubernetes/apps/media/plex/app
   prune: true
   sourceRef:

@@ -10,11 +10,10 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: volsync
     - name: emqx-cluster
-    - name: rook-ceph-cluster
-    - name: generic-device-plugin
     - name: external-secrets-stores
+    - name: rook-ceph-cluster
+    - name: volsync
   path: ./kubernetes/apps/home/zigbee2mqtt/app
   prune: true
   sourceRef:

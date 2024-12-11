@@ -10,12 +10,11 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: volsync
     - name: emqx-cluster
+    - name: external-secrets-stores
     - name: multus-networks
     - name: rook-ceph-cluster
-    - name: cloudnative-pg-cluster
-    - name: external-secrets-stores
+    - name: volsync
   path: ./kubernetes/apps/home/home-assistant/app
   prune: true
   sourceRef:

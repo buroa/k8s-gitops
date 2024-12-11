@@ -10,8 +10,6 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: sonarr
-    - name: radarr
     - name: external-secrets-stores
   path: ./kubernetes/apps/media/unpackerr/app
   prune: true

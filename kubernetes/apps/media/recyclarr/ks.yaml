@@ -10,11 +10,9 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: sonarr
-    - name: radarr
-    - name: volsync
-    - name: rook-ceph-cluster
     - name: external-secrets-stores
+    - name: rook-ceph-cluster
+    - name: volsync
   path: ./kubernetes/apps/media/recyclarr/app
   prune: true
   sourceRef:

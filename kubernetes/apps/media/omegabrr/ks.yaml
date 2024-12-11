@@ -10,7 +10,6 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: autobrr
     - name: external-secrets-stores
   path: ./kubernetes/apps/media/omegabrr/app
   prune: true

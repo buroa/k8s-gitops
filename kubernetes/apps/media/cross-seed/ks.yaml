@@ -10,8 +10,8 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: qbittorrent
     - name: external-secrets-stores
+    - name: qbittorrent
   path: ./kubernetes/apps/media/cross-seed/app
   prune: true
   sourceRef:

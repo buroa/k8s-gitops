@@ -10,8 +10,8 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: volsync
     - name: rook-ceph-cluster
+    - name: volsync
   path: ./kubernetes/apps/media/qbittorrent/app
   prune: true
   sourceRef:
