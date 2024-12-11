@@ -25,6 +25,9 @@ spec:
       retries: 3
   values:
     fullnameOverride: *app
+    image: # TODO: https://github.com/kubernetes-sigs/external-dns/pull/4943
+      repository: ghcr.io/buroa/external-dns
+      tag: 7092b9d7
     provider:
       name: webhook
       webhook:
