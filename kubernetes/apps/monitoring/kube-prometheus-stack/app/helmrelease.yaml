@@ -15,12 +15,12 @@ spec:
         name: prometheus-community
         namespace: flux-system
   install:
-    crds: CreateReplace
+    crds: Skip
     remediation:
       retries: 3
   upgrade:
     cleanupOnFail: true
-    crds: CreateReplace
+    crds: Skip
     remediation:
       strategy: rollback
       retries: 3
@@ -32,8 +32,10 @@ spec:
         ingressClassName: internal
         hosts: ["am.ktwo.io"]
       alertmanagerSpec:
-        useExistingSecret: true
-        configSecret: alertmanager-secret
+        alertmanagerConfiguration:
+          name: alertmanager
+          global:
+            resolveTimeout: 5m
         externalUrl: https://am.ktwo.io
         storage:
           volumeClaimTemplate:
