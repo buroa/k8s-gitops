@@ -30,6 +30,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
+    - name: node-feature-discovery-features
     - name: system-upgrade-controller
   path: ./kubernetes/apps/system-upgrade/system-upgrade-controller/plans
   prune: true
