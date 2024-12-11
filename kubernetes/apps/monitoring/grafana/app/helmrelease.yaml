@@ -214,19 +214,11 @@ spec:
         node-feature-discovery:
           url: https://raw.githubusercontent.com/kubernetes-sigs/node-feature-discovery/master/examples/grafana-dashboard.json
           datasource: Prometheus
-        overseerr-exporter:
-          url: https://raw.githubusercontent.com/WillFantom/overseerr-exporter/main/grafana/dashboard.json
-          datasource: Prometheus
         prometheus:
           # renovate: depName="Prometheus"
           gnetId: 19105
           revision: 6
           datasource: Prometheus
-        qbittorrent-exporter:
-          url: https://raw.githubusercontent.com/esanchezm/prometheus-qbittorrent-exporter/master/grafana/dashboard.json
-          datasource:
-            - name: DS_PROMETHEUS
-              value: Prometheus
         smartctl-exporter:
           # renovate: depName="smartctl_exporter"
           gnetId: 22381

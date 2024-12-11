@@ -72,7 +72,5 @@ spec:
         serviceName: *app
         endpoints:
           - port: http
-            scheme: http
-            path: /metrics
             interval: 1h
             scrapeTimeout: 1m

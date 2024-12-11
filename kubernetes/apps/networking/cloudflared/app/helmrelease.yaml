@@ -106,5 +106,3 @@ spec:
         serviceName: *app
         endpoints:
           - port: http
-            interval: 1h
-            scrapeTimeout: 1m
