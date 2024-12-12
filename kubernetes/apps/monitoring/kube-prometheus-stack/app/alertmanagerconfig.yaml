@@ -20,7 +20,6 @@ spec:
         matchers: [{name: alertname, value: Watchdog, matchType: =}]
       - receiver: pushover
         matchers: [{name: severity, value: critical, matchType: =}]
-
   inhibitRules:
     - equal: ["alertname", "namespace"]
       sourceMatch:
@@ -30,7 +29,6 @@ spec:
         - name: severity
           value: warning
           matchType: =~
-
   receivers:
     - name: "null"
     - name: heartbeat

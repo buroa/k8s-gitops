@@ -17,7 +17,7 @@ spec:
   wait: true
   interval: 30m
   retryInterval: 1m
-  timeout: 15m
+  timeout: 5m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -31,6 +31,7 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: rook-ceph
+    - name: snapshot-controller
   path: ./kubernetes/apps/rook-ceph/rook-ceph/cluster
   prune: true
   sourceRef:
