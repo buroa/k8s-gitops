@@ -5,7 +5,7 @@ resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
 configMapGenerator:
-  - name: omegabrr-config-tpl
+  - name: omegabrr-configmap
     files:
       - ./resources/config.yaml
 generatorOptions:
