@@ -33,6 +33,8 @@ spec:
               tag: 6.1.1@sha256:5cb54b46a614f362c0332a91e5754d6998d45ae27ccc2c77b04b1a3493816331
             args:
               - daemon
+            env:
+              CROSS_SEED_PORT: &port 2468
             envFrom:
               - secretRef:
                   name: cross-seed-secret
@@ -91,4 +93,4 @@ spec:
         controller: *app
         ports:
           http:
-            port: 2468
+            port: *port

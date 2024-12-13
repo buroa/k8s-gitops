@@ -32,6 +32,7 @@ spec:
               repository: ghcr.io/buroa/bazarr
               tag: 1.4.5@sha256:1c81a8a44b806925d6650ad65f2be46a5d0ad76c24adbaf79f19e84ef61fee30
             env:
+              BAZARR__PORT: &port 6767
               TZ: ${TIMEZONE}
             envFrom:
               - secretRef:
@@ -43,7 +44,7 @@ spec:
                 spec:
                   httpGet:
                     path: /health
-                    port: &port 6767
+                    port: *port
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1

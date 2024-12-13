@@ -30,6 +30,7 @@ spec:
               repository: ghcr.io/buroa/tautulli
               tag: 2.15.0@sha256:4680892f835df5d94609ae1286fcb0f05a43b82c20b49ffb9b335212d584f35a
             env:
+              TAUTULLI__PORT: &port 8181
               TZ: ${TIMEZONE}
             probes:
               liveness: &probes
@@ -38,7 +39,7 @@ spec:
                 spec:
                   httpGet:
                     path: &path /status
-                    port: &port 8181
+                    port: *port
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1

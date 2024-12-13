@@ -1,7 +1,7 @@
 ---
 server:
   host: 0.0.0.0
-  port: 7441
+  port: $${OMEGABRR_PORT}
   apiToken: $${OMEGABRR_API_KEY}
 
 clients:

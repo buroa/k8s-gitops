@@ -16,6 +16,7 @@ module.exports = {
   linkType: "hardlink",
   matchMode: "safe",
   outputDir: "/tmp",
+  port: Number(process.env.CROSS_SEED_PORT),
   qbittorrentUrl: "http://qbittorrent.media.svc.cluster.local:8080",
   skipRecheck: true,
   torrentDir: "/config/qBittorrent/BT_backup",

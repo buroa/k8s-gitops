@@ -32,6 +32,7 @@ spec:
               repository: ghcr.io/autobrr/omegabrr
               tag: v1.16.0@sha256:fe529c331217e0624c505a1aa47d2a089314e8a284d38a621135b848eeef64ad
             env:
+              OMEGABRR_PORT: &port 7441
               TZ: ${TIMEZONE}
             envFrom:
               - secretRef:
@@ -43,7 +44,7 @@ spec:
                 spec:
                   httpGet:
                     path: /api/healthz/liveness
-                    port: &port 7441
+                    port: *port
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
