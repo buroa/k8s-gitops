@@ -11,7 +11,7 @@ endpoint: https://k8s.internal:6443
 # renovate: depName=ghcr.io/siderolabs/installer datasource=docker
 talosVersion: v1.9.0-beta.0
 # renovate: depName=ghcr.io/siderolabs/kubelet datasource=docker
-kubernetesVersion: v1.31.4
+kubernetesVersion: v1.32.0
 
 additionalApiServerCertSans: &sans
   - 192.168.10.200
