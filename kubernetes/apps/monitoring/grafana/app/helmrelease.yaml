@@ -71,8 +71,6 @@ spec:
             uid: prometheus
             access: proxy
             url: http://prometheus-operated.monitoring.svc.cluster.local:9090
-            jsonData:
-              timeInterval: 1m
             isDefault: true
     dashboardProviders:
       dashboardproviders.yaml:
