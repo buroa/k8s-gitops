@@ -196,6 +196,8 @@ nodes:
             metric: 2048
 
 controlPlane:
+  noSchematicValidate: true
+
   machineSpec:
     secureboot: true
 
