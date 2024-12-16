@@ -8,10 +8,11 @@
       matchPackagePatterns: ["plex"],
     },
     {
-      description: ["Custom schedule for frequently updated packages"],
-      matchDatasources: ["docker", "helm"],
-      schedule: ["on the first day of the month"],
+      description: ["Custom schedule for frequently updated container digests"],
+      matchDatasources: ["docker"],
       matchPackagePatterns: ["postgresql"],
+      matchUpdateTypes: ["digest"],
+      schedule: ["every 3 months on the first day of the month"]
     },
   ],
 }
