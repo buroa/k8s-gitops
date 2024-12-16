@@ -65,10 +65,6 @@ spec:
         ingressClassName: internal
         hosts: ["prometheus.ktwo.io"]
       prometheusSpec:
-        image:
-          registry: quay.io
-          repository: prometheus/prometheus
-          tag: v3.0.1
         scrapeInterval: 1m # Must match interval in Grafana Helm chart
         ruleSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
