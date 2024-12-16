@@ -53,7 +53,7 @@ releases:
   - name: spegel
     namespace: kube-system
     chart: oci://ghcr.io/spegel-org/helm-charts/spegel
-    version: v0.0.27
+    version: v0.0.28
     values:
       - '{{ requiredEnv "KUBERNETES_DIR" }}/apps/kube-system/spegel/app/resources/values.yaml'
     needs:
