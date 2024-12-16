@@ -9,7 +9,7 @@
       automerge: true,
       automergeType: "branch",
       matchUpdateTypes: ["digest"],
-      matchPackagePatterns: [
+      matchPackageNames: [
         "ghcr.io/buroa",
         "ghcr.io/bjw-s",
         "ghcr.io/onedr0p",

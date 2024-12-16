@@ -4,7 +4,7 @@
     {
       description: ["1Password Connect Group"],
       groupName: "1Password Connnect",
-      matchPackagePatterns: ["1password/connect"],
+      matchPackageNames: ["1password/connect"],
       matchDatasources: ["docker"],
       group: {
         commitMessageTopic: "{{{groupName}}} group",
@@ -14,7 +14,7 @@
     {
       description: ["Actions Runner Controller Group"],
       groupName: "Actions Runner Controller",
-      matchPackagePatterns: ["gha-runner-scale-set"],
+      matchPackageNames: ["gha-runner-scale-set"],
       matchDatasources: ["docker", "helm"],
       group: {
         commitMessageTopic: "{{{groupName}}} group",
@@ -24,7 +24,7 @@
     {
       description: ["Flux Group"],
       groupName: "Flux",
-      matchPackagePatterns: ["fluxcd"],
+      matchPackageNames: ["fluxcd"],
       matchDatasources: ["docker", "github-tags"],
       versioning: "semver",
       group: {
@@ -35,7 +35,7 @@
     {
       description: ["Intel-Device-Plugins Group"],
       groupName: "Intel-Device-Plugins",
-      matchPackagePatterns: ["intel-device-plugins"],
+      matchPackageNames: ["intel-device-plugins"],
       matchDatasources: ["helm"],
       group: {
         commitMessageTopic: "{{{groupName}}} group",
@@ -45,7 +45,7 @@
     {
       description: ["Rook-Ceph Group"],
       groupName: "Rook-Ceph",
-      matchPackagePatterns: ["rook.ceph"],
+      matchPackageNames: ["rook.ceph"],
       matchDatasources: ["helm"],
       group: {
         commitMessageTopic: "{{{groupName}}} group",
@@ -55,7 +55,7 @@
     {
       description: ["Talos Group"],
       groupName: "Talos",
-      matchPackagePatterns: ["siderolabs/installer", "siderolabs/talosctl"],
+      matchPackageNames: ["siderolabs/installer", "siderolabs/talosctl"],
       matchDatasources: ["docker"],
       group: {
         commitMessageTopic: "{{{groupName}}} group",

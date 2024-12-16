@@ -5,13 +5,13 @@
       description: ["Loose versioning for non-semver packages"],
       matchDatasources: ["docker"],
       versioning: "loose",
-      matchPackagePatterns: ["plex"],
+      matchPackageNames: ["plex"],
     },
     {
       description: ["Custom schedule for frequently updated packages"],
       matchDatasources: ["docker", "helm"],
       schedule: ["on the first day of the month"],
-      matchPackagePatterns: ["postgresql"],
+      matchPackageNames: ["postgresql"],
     },
   ],
 }
