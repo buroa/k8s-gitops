@@ -251,9 +251,9 @@ controlPlane:
         discovery:
           registries:
             kubernetes:
-              disabled: false
-            service:
               disabled: true
+            service:
+              disabled: false
 
     # Enable host dns
     - |-
