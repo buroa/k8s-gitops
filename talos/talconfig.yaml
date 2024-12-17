@@ -11,7 +11,7 @@ endpoint: https://k8s.internal:6443
 # renovate: depName=ghcr.io/siderolabs/installer datasource=docker
 talosVersion: v1.9.0
 # renovate: depName=ghcr.io/siderolabs/kubelet datasource=docker
-kubernetesVersion: v1.31.4
+kubernetesVersion: v1.32.0
 
 additionalApiServerCertSans: &sans
   - 192.168.10.200
@@ -237,8 +237,6 @@ controlPlane:
                 enable_unprivileged_ports = true
                 enable_unprivileged_icmp = true
               [plugins."io.containerd.grpc.v1.cri".containerd]
-                discard_unpacked_layers = false
-              [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
                 discard_unpacked_layers = false
 
     # Disable search domain everywhere
