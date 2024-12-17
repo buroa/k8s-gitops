@@ -22,7 +22,6 @@ spec:
       strategy: rollback
       retries: 3
   values:
-    enableVolumeGroupSnapshot: false # TODO: enable this when v1beta1 CRDs are available
     csi:
       cephFSKernelMountOptions: ms_mode=prefer-crc
       enableLiveness: true
