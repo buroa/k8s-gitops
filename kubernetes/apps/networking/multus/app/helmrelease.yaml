@@ -24,7 +24,7 @@ spec:
   values:
     image:
       repository: ghcr.io/buroa/multus-cni
-      tag: dev@sha256:eb8ae5cebffb092fb0e668de5ac988041c08eb2128cb3c43e02bf86004f08c9c
+      tag: dev@sha256:873788c07144c6339fde6b734b67208f425a533607a7d915291f0f46bad92084
     cni:
       image:
         repository: ghcr.io/buroa/cni-plugins
