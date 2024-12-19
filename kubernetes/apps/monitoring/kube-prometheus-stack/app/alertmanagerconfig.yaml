@@ -26,6 +26,7 @@ spec:
         - name: severity
           value: critical
           matchType: =
+      targetMatch:
         - name: severity
           value: warning
           matchType: =~
