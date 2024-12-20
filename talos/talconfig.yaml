@@ -242,16 +242,6 @@ controlPlane:
         network:
           disableSearchDomain: true
 
-    # Enable cluster discovery
-    - |-
-      cluster:
-        discovery:
-          registries:
-            kubernetes:
-              disabled: true
-            service:
-              disabled: false
-
     # Enable host dns
     - |-
       machine:
@@ -280,14 +270,6 @@ controlPlane:
           nodeIP:
             validSubnets:
               - 192.168.10.0/24
-
-    # Enable KubePrism
-    - |-
-      machine:
-        features:
-          kubePrism:
-            enabled: true
-            port: 7445
 
     # Force nameserver
     - |-
