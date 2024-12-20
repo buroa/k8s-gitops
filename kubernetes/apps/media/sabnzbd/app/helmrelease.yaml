@@ -30,7 +30,7 @@ spec:
           app:
             image:
               repository: ghcr.io/buroa/sabnzbd
-              tag: 4.4.0@sha256:6b92b95b87818a65600c5e5b335cea2c20b73c6da1ab57cf36b67eddfedfd0d2
+              tag: 4.4.1@sha256:291e736eb68dc5f4e2ffbe72d3d61eeadbe5d1a50cb6ed886d730e49bf4100c7
             env:
               SABNZBD__PORT: &port 8080
               SABNZBD__HOST_WHITELIST_ENTRIES: >-
