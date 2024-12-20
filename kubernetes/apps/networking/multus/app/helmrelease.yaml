@@ -30,8 +30,8 @@ spec:
         containers:
           multus:
             image:
-              repository: ghcr.io/buroa/multus-cni
-              tag: thin-dev@sha256:3b061386584a2b6c1e335768fdd0782e1d3ba379d67da41b013e5c81d73aee9b
+              repository: ghcr.io/k8snetworkplumbingwg/multus-cni
+              tag: v4.1.4@sha256:09fdfb7ce090ccbf8927d2728970c3cdeb5917d48209f692de849e384f00d893
             command:
               - /thin_entrypoint
             args:
