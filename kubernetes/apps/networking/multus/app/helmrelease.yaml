@@ -2,16 +2,16 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: multus
+  name: &app multus
 spec:
   interval: 30m
   chart:
     spec:
-      chart: multus
-      version: 5.0.7
+      chart: app-template
+      version: 3.5.1
       sourceRef:
         kind: HelmRepository
-        name: angelnu
+        name: bjw-s
         namespace: flux-system
   install:
     remediation:
@@ -22,21 +22,47 @@ spec:
       strategy: rollback
       retries: 3
   values:
-    image:
-      repository: ghcr.io/buroa/multus-cni
-      tag: dev@sha256:873788c07144c6339fde6b734b67208f425a533607a7d915291f0f46bad92084
-    cni:
-      image:
-        repository: ghcr.io/buroa/cni-plugins
-        tag: 1.6.1@sha256:01707442d33aa5fe57a19a669edc3e38e73ca9e9377aee4902f0c0dffd59f5f1
-      logLevel: error
-      paths:
-        bin: /opt/cni/bin
-        config: /etc/cni/net.d
-    resources:
-      requests:
-        cpu: 10m
-      limits:
-        memory: 1024Mi
-    hostPaths:
-      netns: /var/run/netns
+    controllers:
+      multus:
+        type: daemonset
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          multus:
+            image:
+              repository: ghcr.io/k8snetworkplumbingwg/multus-cni
+              tag: v4.1.4@sha256:09fdfb7ce090ccbf8927d2728970c3cdeb5917d48209f692de849e384f00d893
+            command:
+              - /thin_entrypoint
+            args:
+              - --multus-conf-file=/config/00-multus.conf
+              - --cni-bin-dir=/opt/cni/bin
+              - --cni-conf-dir=/etc/cni/net.d
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 512Mi
+            securityContext:
+              privileged: true
+    defaultPodOptions:
+      hostNetwork: true
+    persistence:
+      config:
+        type: configMap
+        name: multus-configmap
+        globalMounts:
+          - path: /config/00-multus.conf
+            subPath: 00-multus.conf
+            readOnly: true
+      etc-cni-net-d:
+        type: hostPath
+        hostPath: /etc/cni/net.d
+      opt-cni-bin:
+        type: hostPath
+        hostPath: /opt/cni/bin
+      tmp:
+        type: emptyDir
+    serviceAccount:
+      create: true
+      name: *app
