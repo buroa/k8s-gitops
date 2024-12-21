@@ -61,8 +61,6 @@ spec:
       opt-cni-bin:
         type: hostPath
         hostPath: /opt/cni/bin
-      tmp:
-        type: emptyDir
     serviceAccount:
       create: true
       name: *app
