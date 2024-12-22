@@ -242,6 +242,16 @@ controlPlane:
         network:
           disableSearchDomain: true
 
+    # Enable cluster discovery
+    - |-
+      cluster:
+        discovery:
+          registries:
+            kubernetes:
+              disabled: true
+            service:
+              disabled: false
+
     # Enable host dns
     - |-
       machine:
@@ -380,6 +390,7 @@ controlPlane:
         apiServer:
           extraArgs:
             enable-aggregator-routing: true
+            feature-gates: AuthorizeNodeWithSelectors=false
         controllerManager:
           extraArgs:
             bind-address: 0.0.0.0
