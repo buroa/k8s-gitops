@@ -35,9 +35,10 @@ spec:
             command:
               - /thin_entrypoint
             args:
-              - --multus-conf-file=/config/00-multus.conf
               - --cni-bin-dir=/opt/cni/bin
               - --cni-conf-dir=/etc/cni/net.d
+              - --cleanup-config-on-exit=true
+              - --multus-conf-file=/config/00-multus.conf
             resources:
               requests:
                 cpu: 10m
