@@ -82,8 +82,7 @@ spec:
       service:
         annotations:
           external-dns.alpha.kubernetes.io/hostname: *hostname
-          external-dns.alpha.kubernetes.io/target: 192.168.20.81, ::ffff:c0a8:1451
-          lbipam.cilium.io/ips: 192.168.20.81
+          lbipam.cilium.io/ips: 192.168.20.81, ::ffff:c0a8:1451
       terminationGracePeriodSeconds: 120
     defaultBackend:
       enabled: false

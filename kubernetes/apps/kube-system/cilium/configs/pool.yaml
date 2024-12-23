@@ -6,4 +6,5 @@ metadata:
 spec:
   allowFirstLastIPs: "No"
   blocks:
-    - cidr: ${NET_SERVICES_CIDR}
+    - cidr: 192.168.20.0/24
+    - cidr: ::ffff:c0a8:1400/120

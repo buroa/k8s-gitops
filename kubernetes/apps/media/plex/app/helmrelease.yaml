@@ -31,7 +31,7 @@ spec:
               tag: 1.41.3.9314-a0bfb8370@sha256:23e701ed2a8848d4f63c6201d4ae474f1e364c86558f54b57121983dac6be622
             env:
               PLEX_ADVERTISE_URL: https://{{ .Release.Name }}.ktwo.io:443
-              PLEX_NO_AUTH_NETWORKS: ${NET_TRUSTED_CIDR}
+              PLEX_NO_AUTH_NETWORKS: 192.168.1.0/24
               TZ: ${TIMEZONE}
             probes:
               liveness: &probes
