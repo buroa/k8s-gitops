@@ -29,7 +29,7 @@ spec:
       targetMatch:
         - name: severity
           value: warning
-          matchType: =~
+          matchType: =
   receivers:
     - name: "null"
     - name: heartbeat
