@@ -49,7 +49,7 @@ jobs:
           path: pull
 
       - name: Gather Images in Default Branch
-        uses: docker://ghcr.io/allenporter/flux-local:v6.0.2
+        uses: docker://ghcr.io/allenporter/flux-local:v6.1.1
         with:
           args: >-
             get cluster
@@ -59,7 +59,7 @@ jobs:
             --output-file default.yaml
 
       - name: Gather Images in Pull Request Branch
-        uses: docker://ghcr.io/allenporter/flux-local:v6.0.2
+        uses: docker://ghcr.io/allenporter/flux-local:v6.1.1
         with:
           args: >-
             get cluster
