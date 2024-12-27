@@ -1,5 +1,5 @@
 ---
-name: Flux Image Test
+name: Pre-pull Images
 
 on:
   pull_request:
@@ -87,11 +87,13 @@ jobs:
           images=$(jo -a $(grep -vf default.txt pull.txt))
           echo "images=${images}" >> $GITHUB_OUTPUT
           echo "${images}"
+          echo "### Images" >> $GITHUB_STEP_SUMMARY
+          echo "${images}" | jq -r 'to_entries[] | "* \(.value)"' >> $GITHUB_STEP_SUMMARY
 
-  inspect-images:
+  pre-pull-images:
     if: ${{ needs.extract-images.outputs.matrix != '[]' }}
-    name: Inspect Images
-    runs-on: ubuntu-latest
+    name: Pre-pull Images
+    runs-on: ["gha-runner-scale-set"]
     needs: ["extract-images"]
     strategy:
       matrix:
@@ -99,14 +101,31 @@ jobs:
       max-parallel: 4
       fail-fast: false
     steps:
-      - name: Inspect Image
-        run: docker buildx imagetools inspect ${{ matrix.images }}
+      - name: Setup Path
+        run: echo "/home/linuxbrew/.linuxbrew/bin" >> $GITHUB_PATH
+
+      - name: Setup Workflow Tools
+        run: brew update && brew install siderolabs/tap/talosctl
+
+      - name: Write talosconfig
+        id: talosconfig
+        uses: timheuer/base64-to-file@v1
+        with:
+          encodedString: "${{ secrets.TALOSCONFIG }}"
+          fileName: talosconfig
+
+      - name: Pre-pull Image
+        env:
+          TALOSCONFIG: "${{ steps.talosconfig.outputs.filePath }}"
+        run: |
+          NODE=$(talosctl config info --output json | jq --raw-output '.nodes[]' | shuf -n 1)
+          talosctl -n $NODE image pull ${{ matrix.images }}
 
   # Summarize matrix https://github.community/t/status-check-for-a-matrix-jobs/127354/7
-  inspect-images-success:
+  pre-pull-images-success:
     if: ${{ always() }}
-    needs: ["inspect-images"]
-    name: Inspect Images Successful
+    needs: ["pre-pull-images"]
+    name: Pre-pull Images Successful
     runs-on: ubuntu-latest
     steps:
       - if: ${{ contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled') }}
