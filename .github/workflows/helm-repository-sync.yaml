@@ -26,7 +26,6 @@ jobs:
           mise_toml: |-
             [tools]
             "aqua:fluxcd/flux2" = "latest"
-            "aqua:mikefarah/yq" = "latest"
 
       - name: Generate Token
         uses: actions/create-github-app-token@v1
