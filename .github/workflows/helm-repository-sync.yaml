@@ -20,12 +20,11 @@ jobs:
     name: Helm Repository Sync
     runs-on: ["gha-runner-scale-set"]
     steps:
-      - name: Setup mise
-        uses: jdx/mise-action@v2
-        with:
-          mise_toml: |-
-            [tools]
-            "aqua:fluxcd/flux2" = "latest"
+      - name: Setup Path
+        run: echo "/home/linuxbrew/.linuxbrew/bin" >> $GITHUB_PATH
+
+      - name: Setup Workflow Tools
+        run: brew update && brew install fluxcd/tap/flux yq
 
       - name: Generate Token
         uses: actions/create-github-app-token@v1
