@@ -17,7 +17,7 @@ on:
 
 jobs:
   sync:
-    name: Flux Helm Repository Sync
+    name: Helm Repository Sync
     runs-on: ["gha-runner-scale-set"]
     steps:
       - name: Generate Token
@@ -27,11 +27,13 @@ jobs:
           app-id: "${{ secrets.BOT_APP_ID }}"
           private-key: "${{ secrets.BOT_APP_PRIVATE_KEY }}"
 
-      - name: Setup Path
-        run: echo "/home/linuxbrew/.linuxbrew/bin" >> $GITHUB_PATH
-
-      - name: Setup Workflow Tools
-        run: brew update && brew install fluxcd/tap/flux yq
+      - name: Setup mise
+        uses: jdx/mise-action@v2
+        with:
+          mise_toml: |
+            [tools]
+            "aqua:fluxcd/flux2" = "latest"
+            "aqua:mikefarah/yq" = "latest"
 
       - name: Checkout
         uses: actions/checkout@v4
