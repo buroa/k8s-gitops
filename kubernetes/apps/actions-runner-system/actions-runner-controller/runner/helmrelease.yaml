@@ -13,6 +13,8 @@ spec:
         kind: HelmRepository
         name: actions-runner-controller
         namespace: flux-system
+  driftDetection:
+    mode: enabled
   install:
     remediation:
       retries: 3
@@ -34,9 +36,9 @@ spec:
         automountServiceAccountToken: true
         containers:
           - name: runner
-            image: ghcr.io/buroa/actions-runner:2.321.0@sha256:56f7e1268f0130d02de8f015eca085ce56c45e35fefc5861e7bcf82e38024683
-            command:
-              - /home/runner/run.sh
+            # image: ghcr.io/buroa/actions-runner:2.321.0@sha256:56f7e1268f0130d02de8f015eca085ce56c45e35fefc5861e7bcf82e38024683
+            image: ghcr.io/onedr0p/actions-runner:2.321.0@sha256:3665cbbcd2a3b7e1626e6100a6924d316d501650b9863a24b5639aee68bdb110
+            command: ["/home/runner/run.sh"]
             env:
               - name: NODE_IP
                 valueFrom:
