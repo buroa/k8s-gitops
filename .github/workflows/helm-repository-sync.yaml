@@ -20,11 +20,11 @@ jobs:
     name: Helm Repository Sync
     runs-on: ["gha-runner-scale-set"]
     steps:
-      - name: Setup Path
-        run: echo "/home/linuxbrew/.linuxbrew/bin" >> $GITHUB_PATH
+      - name: Setup Homebrew
+        uses: Homebrew/actions/setup-homebrew@master
 
       - name: Setup Workflow Tools
-        run: brew update && brew install fluxcd/tap/flux yq
+        run: brew install fluxcd/tap/flux yq
 
       - name: Generate Token
         uses: actions/create-github-app-token@v1

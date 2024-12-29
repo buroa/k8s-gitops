@@ -19,11 +19,11 @@ jobs:
     outputs:
       matrix: ${{ steps.extract-images.outputs.images }}
     steps:
-      - name: Setup Path
-        run: echo "/home/linuxbrew/.linuxbrew/bin" >> $GITHUB_PATH
+      - name: Setup Homebrew
+        uses: Homebrew/actions/setup-homebrew@master
 
       - name: Setup Workflow Tools
-        run: brew update && brew install jq yq
+        run: brew install jo yq
 
       - name: Generate Token
         uses: actions/create-github-app-token@v1
@@ -81,7 +81,7 @@ jobs:
         id: extract-images
         shell: bash
         run: |
-          images=$(jq --compact-output --raw-input --null-input '[inputs]' < <(grep -vf default.txt pull.txt))
+          images=$(jo -a $(grep -vf default.txt pull.txt))
           echo "images=${images}" >> $GITHUB_OUTPUT
           echo "${images}"
           echo "### Images" >> $GITHUB_STEP_SUMMARY
@@ -98,11 +98,11 @@ jobs:
       max-parallel: 4
       fail-fast: false
     steps:
-      - name: Setup Path
-        run: echo "/home/linuxbrew/.linuxbrew/bin" >> $GITHUB_PATH
+      - name: Setup Homebrew
+        uses: Homebrew/actions/setup-homebrew@master
 
       - name: Setup Workflow Tools
-        run: brew update && brew install siderolabs/tap/talosctl
+        run: brew install siderolabs/tap/talosctl
 
       - name: Pre-pull Image
         run: talosctl -n $NODE_IP image pull ${{ matrix.images }}
