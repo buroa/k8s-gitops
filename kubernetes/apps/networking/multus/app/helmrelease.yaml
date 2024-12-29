@@ -31,7 +31,7 @@ spec:
           cni-plugins:
             image:
               repository: ghcr.io/buroa/cni-plugins
-              tag: 1.6.1@sha256:4599a0e982c362d4d013eea077f118ddd9e0d989619659e3fb1aa7fe14c65173
+              tag: 1.6.1@sha256:b6e77bcf43e6d49a1e73271331380501fda10715df9a266d07cf1ad28805d717
             env:
               CNI_BIN_DIR: &dir /opt/cni/bin
         containers:
