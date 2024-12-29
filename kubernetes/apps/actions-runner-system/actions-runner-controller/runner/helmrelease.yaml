@@ -33,7 +33,6 @@ spec:
       type: dind
     template:
       spec:
-        automountServiceAccountToken: true
         containers:
           - name: runner
             image: ghcr.io/buroa/actions-runner:2.321.0@sha256:56f7e1268f0130d02de8f015eca085ce56c45e35fefc5861e7bcf82e38024683
