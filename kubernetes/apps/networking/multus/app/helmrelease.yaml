@@ -39,8 +39,6 @@ spec:
             image:
               repository: ghcr.io/k8snetworkplumbingwg/multus-cni
               tag: v4.1.4@sha256:09fdfb7ce090ccbf8927d2728970c3cdeb5917d48209f692de849e384f00d893
-            command:
-              - /thin_entrypoint
             args:
               - --cni-bin-dir=/opt/cni/bin
               - --cni-conf-dir=/etc/cni/net.d
