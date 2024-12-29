@@ -27,6 +27,11 @@ spec:
         type: daemonset
         annotations:
           reloader.stakater.com/auto: "true"
+        initContainers:
+          cni-plugins:
+            image:
+              repository: ghcr.io/buroa/cni-plugins
+              tag: 1.6.1@sha256:f52d8402a52d33efbd037c5c06fdfcf06b7dd9f78c345b50636c4360afb73f5f
         containers:
           multus:
             image:
