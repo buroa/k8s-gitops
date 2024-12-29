@@ -32,6 +32,8 @@ spec:
             image:
               repository: ghcr.io/buroa/cni-plugins
               tag: 1.6.1@sha256:4599a0e982c362d4d013eea077f118ddd9e0d989619659e3fb1aa7fe14c65173
+            env:
+              CNI_BIN_DIR: &dir /opt/cni/bin
         containers:
           multus:
             image:
@@ -66,7 +68,7 @@ spec:
         hostPath: /etc/cni/net.d
       opt-cni-bin:
         type: hostPath
-        hostPath: /opt/cni/bin
+        hostPath: *dir
     serviceAccount:
       create: true
       name: *app
