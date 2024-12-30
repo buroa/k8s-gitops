@@ -34,8 +34,7 @@ spec:
               IRQBALANCE_BANNED_CPULIST: 12-19 # 12-19 are E-cores
             resources:
               requests:
-                cpu: 25m
-                memory: 128Mi
+                cpu: 10m
               limits:
                 memory: 128Mi
             securityContext:
