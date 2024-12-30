@@ -2,27 +2,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app flux-monitoring
-  namespace: flux-system
-spec:
-  targetNamespace: flux-system
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
-  path: ./kubernetes/apps/flux-system/addons/monitoring
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: k8s-gitops
-  wait: true
-  interval: 30m
-  retryInterval: 1m
-  timeout: 5m
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: &app flux-notifications
+  name: &app flux-addons
   namespace: flux-system
 spec:
   targetNamespace: flux-system
@@ -31,29 +11,7 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: external-secrets-stores
-  path: ./kubernetes/apps/flux-system/addons/notifications
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: k8s-gitops
-  wait: true
-  interval: 30m
-  retryInterval: 1m
-  timeout: 5m
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: &app flux-webhooks
-  namespace: flux-system
-spec:
-  targetNamespace: flux-system
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
-  dependsOn:
-    - name: external-secrets-stores
-  path: ./kubernetes/apps/flux-system/addons/webhooks
+  path: ./kubernetes/apps/flux-system/addons/app
   prune: true
   sourceRef:
     kind: GitRepository
