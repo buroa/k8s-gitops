@@ -242,16 +242,6 @@ controlPlane:
         network:
           disableSearchDomain: true
 
-    # Enable cluster discovery
-    - |-
-      cluster:
-        discovery:
-          registries:
-            kubernetes:
-              disabled: false
-            service:
-              disabled: true
-
     # Enable host dns
     - |-
       machine:
@@ -309,15 +299,6 @@ controlPlane:
           disabled: false
           servers:
             - time.cloudflare.com
-
-    # Static host entries
-    - |-
-      machine:
-        network:
-          extraHostEntries:
-            - ip: 192.168.10.200
-              aliases:
-                - k8s.internal
 
     # Custom sysctl settings
     - |-
@@ -390,7 +371,6 @@ controlPlane:
         apiServer:
           extraArgs:
             enable-aggregator-routing: true
-            feature-gates: AuthorizeNodeWithSelectors=false
         controllerManager:
           extraArgs:
             bind-address: 0.0.0.0
@@ -411,6 +391,10 @@ controlPlane:
             kind: KubeSchedulerConfiguration
             profiles:
               - schedulerName: default-scheduler
+                plugins:
+                  score:
+                    disabled:
+                      - name: ImageLocality
                 pluginConfig:
                   - name: PodTopologySpread
                     args:
