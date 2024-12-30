@@ -43,7 +43,7 @@ spec:
               requests:
                 cpu: 10m
               limits:
-                memory: 64Mi
+                memory: 32Mi
             securityContext:
               privileged: true
     defaultPodOptions:
