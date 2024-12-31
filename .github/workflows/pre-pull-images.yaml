@@ -63,6 +63,7 @@ jobs:
         shell: bash
         run: |
           images=$(jq --compact-output --raw-input --null-input '[inputs]' images.txt)
+          echo "$images" >> $GITHUB_STEP_SUMMARY
           echo "images=${images}" >> $GITHUB_OUTPUT
 
   compare-images:
