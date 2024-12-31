@@ -72,7 +72,7 @@ jobs:
     outputs:
       matrix: ${{ steps.compare-images.outputs.images }}
     steps:
-      - name: Compare Default and Pull Request Images
+      - name: Compare Images
         id: compare-images
         shell: bash
         run: |
