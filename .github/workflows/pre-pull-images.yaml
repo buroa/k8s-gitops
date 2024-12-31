@@ -19,6 +19,7 @@ jobs:
         branches: ["default", "pull"]
       fail-fast: false
     outputs:
+      # TODO: https://github.com/actions/runner/pull/2477
       default: ${{ steps.extract-images.outputs.default }}
       pull: ${{ steps.extract-images.outputs.pull }}
     steps:
@@ -55,7 +56,8 @@ jobs:
         id: extract-images
         shell: bash
         run: |
-          images=$(jq --compact-output --raw-input --null-input '[inputs]' images.txt)
+          images=$(jq --compact-output --raw-input --raw-output --null-input '[inputs]' images.txt)
+          echo "$images" >> $GITHUB_STEP_SUMMARY
           echo "${{ matrix.branches }}=${images}" >> $GITHUB_OUTPUT
 
   compare-images:
@@ -69,11 +71,8 @@ jobs:
         id: compare-images
         shell: bash
         run: |
-          images=$(jq --compact-output --null-input \
-              --argjson f1 '${{ needs.extract-images.outputs.default }}' \
-              --argjson f2 '${{ needs.extract-images.outputs.pull }}' \
-              '$f2 - $f1' \
-          )
+          images=$(echo '${{ toJSON(needs.extract-images.outputs) }}' | jq --compact-output 'to_entries as $entries | ($entries[0].value - $entries[1].value)')
+          echo "$images" >> $GITHUB_STEP_SUMMARY
           echo "images=${images}" >> $GITHUB_OUTPUT
 
   pre-pull-images:
