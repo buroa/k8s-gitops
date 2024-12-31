@@ -19,7 +19,6 @@ jobs:
     strategy:
       matrix:
         resources: ["helmrelease", "kustomization"]
-      max-parallel: 4
       fail-fast: false
     steps:
       - name: Generate Token

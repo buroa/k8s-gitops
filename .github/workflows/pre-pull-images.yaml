@@ -17,10 +17,10 @@ jobs:
     strategy:
       matrix:
         branches: ["default", "pull"]
-      max-parallel: 4
       fail-fast: false
     outputs:
-      ${{ matrix.branches }}: ${{ steps.extract-images.outputs.images }}
+      default: ${{ steps.extract-images.outputs.default }}
+      pull: ${{ steps.extract-images.outputs.pull }}
     steps:
       - name: Generate Token
         uses: actions/create-github-app-token@v1
@@ -56,7 +56,7 @@ jobs:
         shell: bash
         run: |
           images=$(jq --compact-output --raw-input --null-input '[inputs]' images.txt)
-          echo "images=${images}" >> $GITHUB_OUTPUT
+          echo "${{ matrix.branches }}=${images}" >> $GITHUB_OUTPUT
 
   compare-images:
     name: Compare Images
