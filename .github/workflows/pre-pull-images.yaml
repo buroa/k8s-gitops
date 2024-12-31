@@ -19,7 +19,6 @@ jobs:
         branches: ["default", "pull"]
       fail-fast: false
     outputs:
-      # TODO: https://github.com/actions/runner/pull/2477
       default: ${{ steps.extract-images.outputs.default }}
       pull: ${{ steps.extract-images.outputs.pull }}
     steps:
