@@ -19,7 +19,6 @@ jobs:
     strategy:
       matrix:
         resources: ["helmrelease", "kustomization"]
-      max-parallel: 4
       fail-fast: false
     steps:
       - name: Generate Token
@@ -29,18 +28,18 @@ jobs:
           app-id: "${{ secrets.BOT_APP_ID }}"
           private-key: "${{ secrets.BOT_APP_PRIVATE_KEY }}"
 
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          token: "${{ steps.app-token.outputs.token }}"
-          ref: "${{ github.event.repository.default_branch }}"
-          path: default
-
       - name: Checkout Pull Request Branch
         uses: actions/checkout@v4
         with:
           token: "${{ steps.app-token.outputs.token }}"
           path: pull
+
+      - name: Checkout Default Branch
+        uses: actions/checkout@v4
+        with:
+          token: "${{ steps.app-token.outputs.token }}"
+          ref: "${{ github.event.repository.default_branch }}"
+          path: default
 
       - name: Diff Resources
         uses: docker://ghcr.io/allenporter/flux-local:v6.1.1
@@ -48,29 +47,28 @@ jobs:
           args: >-
             diff ${{ matrix.resources }}
             --unified 6
-            --path-orig /github/workspace/default/kubernetes/flux
             --path /github/workspace/pull/kubernetes/flux
+            --path-orig /github/workspace/default/kubernetes/flux
             --strip-attrs "helm.sh/chart,checksum/config,app.kubernetes.io/version,chart"
             --limit-bytes 10000
             --all-namespaces
-            --sources "${{ github.event.repository.name }}"
+            --sources "k8s-gitops"
             --output-file diff.patch
 
       - name: Generate Diff
         id: diff
         run: |
-          cat diff.patch;
           {
-            echo 'diff<<EOF'
-            cat diff.patch
-            echo EOF
-          } >> "$GITHUB_OUTPUT";
+              echo 'diff<<EOF'
+              cat diff.patch
+              echo EOF
+          } >> $GITHUB_OUTPUT
           {
-            echo "### Diff"
-            echo '```diff'
-            cat diff.patch
-            echo '```'
-          } >> "$GITHUB_STEP_SUMMARY"
+              echo "### Diff"
+              echo '```diff'
+              cat diff.patch
+              echo '```'
+          } >> $GITHUB_STEP_SUMMARY
 
       - if: ${{ steps.diff.outputs.diff != '' }}
         name: Add Comment
@@ -79,7 +77,7 @@ jobs:
           repo-token: "${{ steps.app-token.outputs.token }}"
           message-id: "${{ github.event.pull_request.number }}/kubernetes/${{ matrix.resources }}"
           message-failure: Diff was not successful
-          message: |
+          message: |-
             ```diff
             ${{ steps.diff.outputs.diff }}
             ```
