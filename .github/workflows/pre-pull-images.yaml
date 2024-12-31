@@ -20,7 +20,8 @@ jobs:
       max-parallel: 4
       fail-fast: false
     outputs:
-      images: ${{ steps.extract-images.outputs.images }}
+      default: ${{ steps.extract-images.outputs.default }}
+      pull: ${{ steps.extract-images.outputs.pull }}
     steps:
       - name: Generate Token
         uses: actions/create-github-app-token@v1
@@ -57,7 +58,7 @@ jobs:
         run: |
           images=$(jq --compact-output --raw-input --null-input '[inputs]' images.txt)
           echo "$images" >> $GITHUB_STEP_SUMMARY
-          echo "images=${images}" >> $GITHUB_OUTPUT
+          echo "${{ matrix.branches }}=${images}" >> $GITHUB_OUTPUT
 
   compare-images:
     name: Compare Images
@@ -70,7 +71,8 @@ jobs:
         id: compare-images
         shell: bash
         run: |
-          echo "${{ needs.extract-images.outputs.images }}"
+          echo "${{ needs.extract-images.outputs.pull }}"
+          echo "${{ needs.extract-images.outputs.default }}"
 
   pre-pull-images:
     if: ${{ needs.compare-images.outputs.matrix != '[]' }}
