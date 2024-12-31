@@ -24,7 +24,8 @@ jobs:
         uses: Homebrew/actions/setup-homebrew@master
 
       - name: Setup Workflow Tools
-        run: brew install fluxcd/tap/flux yq
+        shell: bash
+        run: brew install fluxcd/tap/flux
 
       - name: Generate Token
         uses: actions/create-github-app-token@v1
@@ -40,7 +41,7 @@ jobs:
           fetch-depth: 0
 
       - if: ${{ github.event.inputs.helmRepoNamespace == '' && github.event.inputs.helmRepoName == '' }}
-        name: Get changed files
+        name: Get Changed Files
         id: changed-files
         uses: tj-actions/changed-files@v45
         with:
