@@ -48,7 +48,7 @@ jobs:
       - name: Filter Images
         shell: bash
         run: |
-          yq -r '[.. | .images? | select(. != null)] | flatten | sort | unique | .[]' \
+          yq -r '[.. | .images? | select(. != null)] | sort | unique' \
               images.yaml > images.txt
           echo "$(cat images.txt)" >> $GITHUB_STEP_SUMMARY
 
