@@ -56,12 +56,6 @@ jobs:
             --sources "k8s-gitops"
             --output-file diff.patch
 
-      - name: Generate Diff
-        id: diff
-        run: |
-          diff=$(cat diff.patch)
-          echo "::set-output name=diff::${diff}"
-
       - if: ${{ steps.diff.outputs.diff != '' }}
         name: Add Comment
         uses: mshick/add-pr-comment@v2
@@ -69,10 +63,7 @@ jobs:
           repo-token: "${{ steps.app-token.outputs.token }}"
           message-id: "${{ github.event.pull_request.number }}/kubernetes/${{ matrix.resources }}"
           message-failure: Diff was not successful
-          message: |
-            ```diff
-            ${{ steps.diff.outputs.diff }}
-            ```
+          message-path: diff.patch
 
   # Summarize matrix https://github.community/t/status-check-for-a-matrix-jobs/127354/7
   flux-diff-success:

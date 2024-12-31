@@ -57,7 +57,7 @@ jobs:
         shell: bash
         run: |
           images=$(jq --compact-output --raw-input --null-input '[inputs]' images.txt)
-          echo "::set-output name=${{ matrix.branches }}::${images}"
+          echo "${{ matrix.branches }}=${images}" >> $GITHUB_OUTPUT
 
   compare-images:
     name: Compare Images
