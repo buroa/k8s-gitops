@@ -62,8 +62,10 @@ jobs:
       - name: Compare Images
         id: compare-images
         shell: bash
+        env:
+          IMAGES: ${{ toJSON(needs.extract-images.outputs) }}
         run: |
-          echo "${{ toJSON(needs.extract-images.outputs) }}" >> $GITHUB_STEP_SUMMARY
+          echo "${IMAGES}" >> $GITHUB_STEP_SUMMARY
           images=$(jq --compact-output --null-input \
               --argjson f1 '${{ needs.extract-images.outputs.default }}' \
               --argjson f2 '${{ needs.extract-images.outputs.pull }}' \
