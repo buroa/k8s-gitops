@@ -1,0 +1,8 @@
+[tools]
+python = "3.12"
+"aqua:astral-sh/uv" = "0.5.13"
+"aqua:fluxcd/flux2" = "2.4.0"
+"aqua:helm/helm" = "3.16.4"
+"aqua:kubernetes-sigs/kustomize" = "5.5.0"
+"pipx:flux-local" = "6.1.1"
+"aqua:mikefarah/yq" = "4.44.6"
