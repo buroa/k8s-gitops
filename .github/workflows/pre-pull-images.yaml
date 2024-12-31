@@ -64,27 +64,24 @@ jobs:
     runs-on: ubuntu-latest
     needs: ["extract-images"]
     outputs:
-      matrix: ${{ steps.compare-images.outputs.images }}
+      images: ${{ steps.compare-images.outputs.images }}
     steps:
       - name: Compare Images
         id: compare-images
         shell: bash
         run: |
-          images=$(jq --compact-output --null-input \
-              --argjson f1 '${{ needs.extract-images.outputs.default }}' \
-              --argjson f2 '${{ needs.extract-images.outputs.pull }}' \
-              '$f2 - $f1' \
-          )
-          echo "::set-output name=images::${images}"
+          images="${{ needs.extract-images.outputs }}"
+          images=$(jq 'to_entries as $entries | ($entries[0].value - $entries[1].value)' "${images}")
+          echo "images=${images}" >> $GITHUB_OUTPUT
 
   pre-pull-images:
-    if: ${{ needs.compare-images.outputs.matrix != '[]' }}
+    if: ${{ needs.compare-images.outputs.images != '[]' }}
     name: Pre-pull Images
     runs-on: ["gha-runner-scale-set"]
     needs: ["compare-images"]
     strategy:
       matrix:
-        images: ${{ fromJSON(needs.compare-images.outputs.matrix) }}
+        images: ${{ fromJSON(needs.compare-images.outputs.images) }}
       max-parallel: 4
       fail-fast: false
     steps:
