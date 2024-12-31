@@ -45,18 +45,11 @@ jobs:
             --output yaml
             --output-file images.yaml
 
-      - name: Filter Images
-        shell: bash
-        run: |
-          yq -r '[.. | .images? | select(. != null)] | flatten | sort | unique' \
-              images.yaml > images.txt
-          echo "$(cat images.txt)" >> $GITHUB_STEP_SUMMARY
-
       - name: Extract Images
         id: extract-images
         shell: bash
         run: |
-          images=$(jq --compact-output --raw-input --null-input '[inputs]' images.txt)
+          images=$(yq -o=j -I=0 '[.. | .images? | select(. != null)] | flatten | sort | unique' images.yaml)
           echo "${{ matrix.branches }}=${images}" >> $GITHUB_OUTPUT
 
   compare-images:
