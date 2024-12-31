@@ -49,7 +49,7 @@ jobs:
         id: extract-images
         shell: bash
         run: |
-          images=$(yq -o=j -I=0 '[.. | .images? | select(. != null)] | flatten | sort | unique' images.yaml)
+          images=$(yq -o=json '[.. | .images? | select(. != null)] | flatten | sort | unique' images.yaml)
           echo "${{ matrix.branches }}=${images}" >> $GITHUB_OUTPUT
 
   compare-images:
