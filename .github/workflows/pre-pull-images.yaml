@@ -57,8 +57,7 @@ jobs:
         shell: bash
         run: |
           images=$(jq --compact-output --raw-input --null-input '[inputs]' images.txt)
-          echo "$images" >> $GITHUB_STEP_SUMMARY
-          echo "${{ matrix.branches }}=${images}" >> $GITHUB_OUTPUT
+          echo "::set-output name=${{ matrix.branches }}::${images}"
 
   compare-images:
     name: Compare Images
@@ -71,8 +70,12 @@ jobs:
         id: compare-images
         shell: bash
         run: |
-          echo "${{ needs.extract-images.outputs.pull }}"
-          echo "${{ needs.extract-images.outputs.default }}"
+          images=$(jq --compact-output --null-input \
+              --argjson f1 '${{ needs.extract-images.outputs.default }}' \
+              --argjson f2 '${{ needs.extract-images.outputs.pull }}' \
+              '$f2 - $f1' \
+          )
+          echo "::set-output name=images::${images}"
 
   pre-pull-images:
     if: ${{ needs.compare-images.outputs.matrix != '[]' }}

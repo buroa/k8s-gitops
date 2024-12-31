@@ -59,18 +59,8 @@ jobs:
       - name: Generate Diff
         id: diff
         run: |
-          cat diff.patch;
-          {
-              echo 'diff<<EOF'
-              cat diff.patch
-              echo EOF
-          } >> "$GITHUB_OUTPUT";
-          {
-              echo "### Diff"
-              echo '```diff'
-              cat diff.patch
-              echo '```'
-          } >> "$GITHUB_STEP_SUMMARY"
+          diff=$(cat diff.patch)
+          echo "::set-output name=diff::${diff}"
 
       - if: ${{ steps.diff.outputs.diff != '' }}
         name: Add Comment
