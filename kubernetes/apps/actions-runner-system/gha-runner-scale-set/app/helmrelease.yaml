@@ -30,7 +30,13 @@ spec:
     minRunners: 1
     maxRunners: 3
     containerMode:
-      type: dind
+      type: kubernetes
+      kubernetesModeWorkVolumeClaim:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 20Gi
+        storageClassName: ceph-block
     template:
       spec:
         containers:
@@ -39,6 +45,8 @@ spec:
             command:
               - /home/runner/run.sh
             env:
+              - name: ACTIONS_RUNNER_REQUIRE_JOB_CONTAINER
+                value: "false"
               - name: NODE_IP
                 valueFrom:
                   fieldRef:
@@ -47,6 +55,8 @@ spec:
               - mountPath: /var/run/secrets/talos.dev
                 name: talos
                 readOnly: true
+        securityContext:
+          fsGroup: 123
         serviceAccountName: actions-runner
         volumes:
           - name: talos

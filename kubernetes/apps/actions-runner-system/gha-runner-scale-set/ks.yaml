@@ -11,6 +11,7 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: gha-runner-scale-set-controller
+    - name: rook-ceph-cluster
   path: ./kubernetes/apps/actions-runner-system/gha-runner-scale-set/app
   prune: true
   sourceRef:
