@@ -48,9 +48,9 @@ jobs:
       - name: Filter Images
         shell: bash
         run: |
-          echo "$(cat images.yaml)" >> $GITHUB_STEP_SUMMARY
           yq -r '[.. | .images? | select(. != null)] | flatten | sort | unique | .[]' \
               images.yaml > images.txt
+          echo "$(cat images.txt)" >> $GITHUB_STEP_SUMMARY
 
       - name: Extract Images
         id: extract-images
