@@ -15,6 +15,10 @@ on:
     branches: ["master"]
     paths: ["kubernetes/**/helmrelease.yaml"]
 
+defaults:
+  run:
+    shell: bash
+
 jobs:
   sync:
     name: Helm Repository Sync
@@ -24,7 +28,6 @@ jobs:
         uses: Homebrew/actions/setup-homebrew@master
 
       - name: Setup Workflow Tools
-        shell: bash
         run: brew install fluxcd/tap/flux
 
       - name: Generate Token
@@ -50,7 +53,6 @@ jobs:
 
       - if: ${{ github.event.inputs.helmRepoNamespace == '' && github.event.inputs.helmRepoName == '' }}
         name: Sync Helm Repository
-        shell: bash
         run: |
           declare -a repos=()
           for f in ${{ steps.changed-files.outputs.all_changed_and_modified_files }}; do
@@ -67,7 +69,6 @@ jobs:
 
       - if: ${{ github.event.inputs.helmRepoNamespace != '' && github.event.inputs.helmRepoName != '' }}
         name: Sync Helm Repository
-        shell: bash
         run: |
           flux --namespace ${{ github.event.inputs.helmRepoNamespace }} \
               reconcile source helm ${{ github.event.inputs.helmRepoName }} || true

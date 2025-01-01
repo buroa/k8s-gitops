@@ -10,6 +10,10 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
   cancel-in-progress: true
 
+defaults:
+  run:
+    shell: bash
+
 jobs:
   extract-images:
     name: Extract Images
@@ -47,7 +51,6 @@ jobs:
 
       - name: Extract Images
         id: extract-images
-        shell: bash
         run: |
           images=$(yq --indent=0 --output-format=json \
               '[.. | .images? | select(. != null)] | flatten | sort | unique' images.yaml \
@@ -63,7 +66,6 @@ jobs:
     steps:
       - name: Compare Images
         id: compare-images
-        shell: bash
         run: |
           images=$(jq --compact-output --null-input \
               --argjson f1 '${{ needs.extract-images.outputs.default }}' \
@@ -87,7 +89,6 @@ jobs:
         uses: Homebrew/actions/setup-homebrew@master
 
       - name: Setup Workflow Tools
-        shell: bash
         run: brew install siderolabs/tap/talosctl
 
       - name: Pre-pull Image
@@ -100,6 +101,6 @@ jobs:
     name: Pre-pull Images Successful
     runs-on: ubuntu-latest
     steps:
-      - if: ${{ contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled') }}
+      - if: ${{ !contains(needs.*.result, 'success') }}
         name: Check matrix status
         run: exit 1
