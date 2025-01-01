@@ -54,9 +54,9 @@ spec:
                   name: qbtools-secret
             resources:
               requests:
-                cpu: 25m
+                cpu: 10m
               limits:
-                memory: 256Mi
+                memory: 128Mi
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
