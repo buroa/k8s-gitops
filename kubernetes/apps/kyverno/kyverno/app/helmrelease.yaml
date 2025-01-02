@@ -31,31 +31,30 @@ spec:
       rbac:
         clusterRole:
           extraResources:
-            - apiGroups:
-                - ""
-              resources:
-                - pods
-              verbs:
-                - create
-                - update
-                - delete
+            - apiGroups: [""]
+              resources: ["pods"]
+              verbs: ["create", "update", "delete"]
+            - apiGroups: ["external-secrets.io"]
+              resources: ["externalsecrets"]
+              verbs: ["create", "update", "patch", "delete", "get", "list"]
+            - apiGroups: ["volsync.backube"]
+              resources: ["replicationsources", "replicationdestinations"]
+              verbs: ["create", "update", "patch", "delete", "get", "list"]
       serviceMonitor:
         enabled: true
     backgroundController:
       rbac:
         clusterRole:
           extraResources:
-            - apiGroups:
-                - ""
-              resources:
-                - pods
-              verbs:
-                - create
-                - update
-                - patch
-                - delete
-                - get
-                - list
+            - apiGroups: [""]
+              resources: ["pods"]
+              verbs: ["create", "update", "patch", "delete", "get", "list"]
+            - apiGroups: ["external-secrets.io"]
+              resources: ["externalsecrets"]
+              verbs: ["create", "update", "patch", "delete", "get", "list"]
+            - apiGroups: ["volsync.backube"]
+              resources: ["replicationsources", "replicationdestinations"]
+              verbs: ["create", "update", "patch", "delete", "get", "list"]
       resources:
         requests:
           cpu: 100m

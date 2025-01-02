@@ -30,8 +30,9 @@ tasks:
     desc: Run a privileged pod
     cmd: |
       kubectl run privileged-{{.node}} -i --rm --image=null \
-        --overrides="$(yq {{.KUBERNETES_RESOURCES_DIR}}/privileged-pod.tmpl.yaml -o=json | envsubst)"
+        --overrides="$(yq {{.KUBERNETES_RESOURCES_DIR}}/privileged-pod.yaml.j2 -o json | minijinja-cli)"
     env:
-      node: '{{.node}}'
+      NODE: '{{.node}}'
     preconditions:
-      - test -f {{.KUBERNETES_RESOURCES_DIR}}/privileged-pod.tmpl.yaml
+      - test -f {{.KUBERNETES_RESOURCES_DIR}}/privileged-pod.yaml.j2
+      - which kubectl minijinja-cli

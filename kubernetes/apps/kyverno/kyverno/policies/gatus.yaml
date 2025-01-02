@@ -13,7 +13,6 @@ metadata:
       all Ingresses with the ingressClassName set to external.
     pod-policies.kyverno.io/autogen-controllers: none
 spec:
-  generateExisting: true
   rules:
     - name: *name
       match:
@@ -36,21 +35,22 @@ spec:
       context:
         - name: GATUS_HOST
           variable:
-            value: '{{ request.object.metadata.annotations."gatus.io/host" || request.object.spec.rules[0].host }}'
+            value: "{{ request.object.metadata.annotations.\"gatus.io/host\" || request.object.spec.rules[0].host }}"
             jmesPath: "to_string(@)"
         - name: GATUS_NAME
           variable:
-            value: '{{ request.object.metadata.annotations."gatus.io/name" || request.object.metadata.name }}'
+            value: "{{ request.object.metadata.annotations.\"gatus.io/name\" || request.object.metadata.name }}"
             jmesPath: "to_string(@)"
         - name: GATUS_PATH
           variable:
-            value: '{{ request.object.metadata.annotations."gatus.io/path" || request.object.spec.rules[0].http.paths[0].path }}'
+            value: "{{ request.object.metadata.annotations.\"gatus.io/path\" || request.object.spec.rules[0].http.paths[0].path }}"
             jmesPath: "to_string(@)"
         - name: GATUS_STATUS_CODE
           variable:
-            value: '{{ request.object.metadata.annotations."gatus.io/status-code" || `200` }}'
+            value: "{{ request.object.metadata.annotations.\"gatus.io/status-code\" || '200' }}"
             jmesPath: "to_string(@)"
       generate:
+        generateExisting: true
         apiVersion: v1
         kind: ConfigMap
         name: "{{ request.object.metadata.name }}-gatus-ep"

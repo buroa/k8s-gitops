@@ -22,7 +22,7 @@ spec:
   hostIPC: true
   hostNetwork: true
   hostPID: true
-  nodeName: ${node}
+  nodeName: "{{ ENV.NODE }}"
   restartPolicy: Never
   volumes:
     - name: rootfs

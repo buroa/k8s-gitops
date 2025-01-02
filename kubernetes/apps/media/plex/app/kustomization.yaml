@@ -4,7 +4,6 @@ kind: Kustomization
 resources:
   - ./helmrelease.yaml
   - ./pvc.yaml
-  - ./volsync.yaml
 configMapGenerator:
   - name: plex-loki-rules
     files:

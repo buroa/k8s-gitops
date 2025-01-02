@@ -5,3 +5,4 @@ resources:
   - ./gatus.yaml
   - ./limits.yaml
   - ./ndots.yaml
+  - ./volsync.yaml
