@@ -93,6 +93,10 @@ spec:
                   identifier: app
                   port: http
     persistence:
+      backups:
+        type: emptyDir
+        globalMounts:
+          - path: /config/Backups
       config:
         existingClaim: *app
       logs:
