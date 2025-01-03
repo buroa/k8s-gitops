@@ -61,8 +61,7 @@ spec:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities:
-                drop:
-                  - ALL
+                drop: [ALL]
         containers:
           prune-unregistered:
             <<: *container

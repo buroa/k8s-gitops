@@ -59,8 +59,7 @@ spec:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities:
-                drop:
-                  - ALL
+                drop: [ALL]
           subcleaner:
             image:
               repository: registry.k8s.io/git-sync/git-sync
@@ -83,8 +82,7 @@ spec:
         runAsGroup: 568
         fsGroup: 568
         fsGroupChangePolicy: OnRootMismatch
-        supplementalGroups:
-          - 65536
+        supplementalGroups: [65536]
     ingress:
       app:
         className: internal

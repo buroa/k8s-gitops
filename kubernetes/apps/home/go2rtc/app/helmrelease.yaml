@@ -57,8 +57,7 @@ spec:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities:
-                drop:
-                  - ALL
+                drop: [ALL]
     defaultPodOptions:
       annotations:
         k8s.v1.cni.cncf.io/networks: |
@@ -75,8 +74,7 @@ spec:
         runAsGroup: 568
         fsGroup: 568
         fsGroupChangePolicy: OnRootMismatch
-        supplementalGroups:
-          - 44
+        supplementalGroups: [44]
     ingress:
       app:
         className: internal

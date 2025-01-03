@@ -61,8 +61,7 @@ spec:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities:
-                drop:
-                  - ALL
+                drop: [ALL]
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
@@ -70,8 +69,7 @@ spec:
         runAsGroup: 568
         fsGroup: 568
         fsGroupChangePolicy: OnRootMismatch
-        supplementalGroups:
-          - 65536
+        supplementalGroups: [65536]
     persistence:
       config:
         type: emptyDir
