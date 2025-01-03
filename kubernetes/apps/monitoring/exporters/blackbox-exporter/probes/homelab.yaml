@@ -17,4 +17,4 @@ spec:
         - pikvm.internal
         - slzb.internal
         - wan1.internal # WAN1 - XFINITY PON ONT
-        - wan2.internal # WAN2 - T-MOBILE 4G/5G
+        - wan2.internal # WAN2 - VZW 4G/5G

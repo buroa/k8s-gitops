@@ -23,9 +23,6 @@ spec:
       retries: 3
   values:
     fullnameOverride: *app
-    image:
-      repository: quay.io/prometheus/snmp-exporter
-      tag: v0.26.0@sha256:b3da18ef33033c043f050d4c3fa63431715bfba2e1b12745210a0bcbfb7079b5
     serviceMonitor:
       enabled: true
       params:
@@ -40,5 +37,5 @@ spec:
       path: /snmp
       scrapeTimeout: 10s
       relabelings:
-        - action: labeldrop
-          regex: (pod)
+        - sourceLabels: [__param_target]
+          targetLabel: instance
