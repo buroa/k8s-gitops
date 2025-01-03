@@ -4,4 +4,3 @@ kind: Kustomization
 resources:
   - ./helmrelease.yaml
   - ./pvc.yaml
-  - ./volsync.yaml

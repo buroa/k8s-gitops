@@ -41,65 +41,17 @@ tasks:
   rook:
     internal: true
     cmds:
-      - for: { var: nodes }
-        task: rook-data
-        vars:
-          node: '{{.ITEM}}'
-      - for: { var: m0 }
-        task: rook-disk
-        vars:
-          node: m0
-          serial: '{{.ITEM}}'
-      - for: { var: m1 }
-        task: rook-disk
-        vars:
-          node: m1
-          serial: '{{.ITEM}}'
-      - for: { var: m2 }
-        task: rook-disk
-        vars:
-          node: m2
-          serial: '{{.ITEM}}'
-    vars:
-      nodes: m0 m1 m2
-      m0: S72ANJ0TC02334R
-      m1: S72ANJ0TC01288Z
-      m2: S72ANJ0TC02325Y
-
-  rook-data:
-    internal: true
-    cmds:
-      - envsubst < <(cat {{.BOOTSTRAP_RESOURCES_DIR}}/rook-data-job.tmpl.yaml) | kubectl apply -f -
-      - bash {{.BOOTSTRAP_RESOURCES_DIR}}/wait-for-job.sh {{.job}} default
-      - kubectl --namespace default wait job/{{.job}} --for condition=complete --timeout=1m
-      - kubectl --namespace default logs job/{{.job}}
-      - kubectl --namespace default delete job {{.job}}
+      - minijinja-cli {{.BOOTSTRAP_RESOURCES_DIR}}/wipe-rook.yaml.j2 | kubectl apply --server-side --filename -
+      - until kubectl --namespace default get job/wipe-rook &>/dev/null; do sleep 5; done
+      - kubectl --namespace default wait job/wipe-rook --for=condition=complete --timeout=5m
+      - stern --namespace default job/wipe-rook --no-follow
+      - kubectl --namespace default delete job wipe-rook
     env:
-      job: '{{.job}}'
-      node: '{{.node}}'
-    vars:
-      job: wipe-data-{{.node}}
+      MODEL: SAMSUNG_MZQL23T8HCLS-00A07
+      NODE_COUNT:
+        sh: talosctl config info --output json | jq --raw-output '.nodes | length'
     preconditions:
-      - test -f {{.BOOTSTRAP_RESOURCES_DIR}}/wait-for-job.sh
-      - test -f {{.BOOTSTRAP_RESOURCES_DIR}}/rook-data-job.tmpl.yaml
-
-  rook-disk:
-    internal: true
-    cmds:
-      - envsubst < <(cat {{.BOOTSTRAP_RESOURCES_DIR}}/rook-disk-job.tmpl.yaml) | kubectl apply -f -
-      - bash {{.BOOTSTRAP_RESOURCES_DIR}}/wait-for-job.sh {{.job}} default
-      - kubectl --namespace default wait job/{{.job}} --for condition=complete --timeout=1m
-      - kubectl --namespace default logs job/{{.job}}
-      - kubectl --namespace default delete job {{.job}}
-    env:
-      disk: /dev/disk/by-id/nvme-SAMSUNG_MZQL23T8HCLS-00A07_{{.serial}}
-      job: '{{.job}}'
-      node: '{{.node}}'
-    vars:
-      job: wipe-disk-{{.node}}-{{.serial | lower}}
-    preconditions:
-      - test -f {{.BOOTSTRAP_RESOURCES_DIR}}/wait-for-job.sh
-      - test -f {{.BOOTSTRAP_RESOURCES_DIR}}/rook-disk-job.tmpl.yaml
+      - test -f {{.BOOTSTRAP_RESOURCES_DIR}}/wipe-rook.yaml.j2
 
   flux:
     internal: true

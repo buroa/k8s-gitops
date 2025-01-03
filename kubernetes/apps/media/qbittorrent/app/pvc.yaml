@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: &name qbittorrent
+spec:
+  accessModes: ["ReadWriteMany"]
+  dataSourceRef:
+    kind: ReplicationDestination
+    apiGroup: volsync.backube
+    name: *name
+  resources:
+    requests:
+      storage: 2Gi
+  storageClassName: ceph-filesystem

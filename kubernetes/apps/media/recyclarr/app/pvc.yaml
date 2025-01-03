@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: &name tautulli
+  name: &name recyclarr
 spec:
   accessModes: ["ReadWriteOnce"]
   dataSourceRef:
@@ -11,16 +11,5 @@ spec:
     name: *name
   resources:
     requests:
-      storage: 5Gi
-  storageClassName: ceph-block
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: tautulli-cache
-spec:
-  accessModes: ["ReadWriteOnce"]
-  resources:
-    requests:
-      storage: 15Gi
+      storage: 2Gi
   storageClassName: ceph-block

@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: &name tautulli
+  name: &name home-assistant
 spec:
   accessModes: ["ReadWriteOnce"]
   dataSourceRef:
@@ -12,15 +12,4 @@ spec:
   resources:
     requests:
       storage: 5Gi
-  storageClassName: ceph-block
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: tautulli-cache
-spec:
-  accessModes: ["ReadWriteOnce"]
-  resources:
-    requests:
-      storage: 15Gi
   storageClassName: ceph-block

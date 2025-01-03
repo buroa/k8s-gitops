@@ -1,0 +1,133 @@
+---
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: volsync
+  annotations:
+    policies.kyverno.io/title: Volume Synchronization
+    policies.kyverno.io/category: Storage
+    policies.kyverno.io/severity: low
+    policies.kyverno.io/subject: PersistentVolumeClaim
+    policies.kyverno.io/description: >-
+      This policy will automatically generate the necessary resources for
+      volume synchronization for PersistentVolumeClaims with a dataSourceRef
+      pointing to a ReplicationDestination.
+    pod-policies.kyverno.io/autogen-controllers: none
+spec:
+  rules:
+    - &rule
+      name: volsync-external-secret
+      match:
+        resources:
+          kinds:
+            - PersistentVolumeClaim
+      preconditions:
+        all:
+          - key: "{{ request.object.spec.dataSourceRef.kind }}"
+            operator: Equals
+            value: ReplicationDestination
+          - key: "{{ request.object.spec.dataSourceRef.apiGroup }}"
+            operator: Equals
+            value: volsync.backube
+          - key: "{{ request.object.spec.dataSourceRef.name }}"
+            operator: Equals
+            value: "{{ request.object.metadata.name }}"
+      context:
+        - name: VOLSYNC_USER
+          variable:
+            value: "{{ request.object.metadata.annotations.\"volsync.io/user\" || '568' }}"
+            jmesPath: "to_number(@)"
+        - name: VOLSYNC_GROUP
+          variable:
+            value: "{{ request.object.metadata.annotations.\"volsync.io/group\" || '568' }}"
+            jmesPath: "to_number(@)"
+        - name: VOLSYNC_CACHE
+          variable:
+            value: "{{ request.object.metadata.annotations.\"volsync.io/cache\" || '8Gi' }}"
+            jmesPath: "to_string(@)"
+      generate:
+        generateExisting: true
+        apiVersion: external-secrets.io/v1beta1
+        kind: ExternalSecret
+        name: "{{ request.object.metadata.name }}-restic"
+        namespace: "{{ request.object.metadata.namespace }}"
+        synchronize: true
+        data:
+          spec:
+            secretStoreRef:
+              kind: ClusterSecretStore
+              name: onepassword-connect
+            target:
+              name: "{{ request.object.metadata.name }}-restic-secret"
+              creationPolicy: Owner
+              template:
+                engineVersion: v2
+                data:
+                  RESTIC_REPOSITORY: "\\{{ .REPOSITORY_TEMPLATE }}/{{ request.object.metadata.name }}"
+                  RESTIC_PASSWORD: "\\{{ .RESTIC_PASSWORD }}"
+                  AWS_ACCESS_KEY_ID: "\\{{ .AWS_ACCESS_KEY_ID }}"
+                  AWS_SECRET_ACCESS_KEY: "\\{{ .AWS_SECRET_ACCESS_KEY }}"
+            dataFrom:
+              - extract:
+                  key: volsync-restic-template
+    - <<: *rule
+      name: volsync-replication-destination
+      generate:
+        generateExisting: true
+        apiVersion: volsync.backube/v1alpha1
+        kind: ReplicationDestination
+        name: "{{ request.object.metadata.name }}"
+        namespace: "{{ request.object.metadata.namespace }}"
+        synchronize: true
+        data:
+          spec:
+            trigger:
+              manual: restore-once
+            restic:
+              repository: "{{ request.object.metadata.name }}-restic-secret"
+              copyMethod: Snapshot
+              volumeSnapshotClassName: "csi-{{ request.object.spec.storageClassName }}"
+              cacheStorageClassName: openebs-hostpath
+              cacheAccessModes: ["ReadWriteOnce"]
+              cacheCapacity: "{{ VOLSYNC_CACHE }}"
+              storageClassName: "{{ request.object.spec.storageClassName }}"
+              accessModes: "{{ request.object.spec.accessModes }}"
+              capacity: "{{ request.object.spec.resources.requests.storage }}"
+              moverSecurityContext:
+                runAsUser: "{{ VOLSYNC_USER }}"
+                runAsGroup: "{{ VOLSYNC_GROUP }}"
+                fsGroup: "{{ VOLSYNC_GROUP }}"
+              enableFileDeletion: true
+              cleanupCachePVC: true
+              cleanupTempPVC: true
+    - <<: *rule
+      name: volsync-replication-source
+      generate:
+        generateExisting: true
+        apiVersion: volsync.backube/v1alpha1
+        kind: ReplicationSource
+        name: "{{ request.object.metadata.name }}"
+        namespace: "{{ request.object.metadata.namespace }}"
+        synchronize: true
+        data:
+          spec:
+            sourcePVC: "{{ request.object.metadata.name }}"
+            trigger:
+              schedule: "0 * * * *"
+            restic:
+              copyMethod: Snapshot
+              pruneIntervalDays: 14
+              repository: "{{ request.object.metadata.name }}-restic-secret"
+              volumeSnapshotClassName: "csi-{{ request.object.spec.storageClassName }}"
+              cacheCapacity: "{{ VOLSYNC_CACHE }}"
+              cacheStorageClassName: openebs-hostpath
+              cacheAccessModes: ["ReadWriteOnce"]
+              storageClassName:  "{{ request.object.spec.storageClassName }}"
+              accessModes: "{{ request.object.spec.accessModes }}"
+              moverSecurityContext:
+                runAsUser: "{{ VOLSYNC_USER }}"
+                runAsGroup: "{{ VOLSYNC_GROUP }}"
+                fsGroup: "{{ VOLSYNC_GROUP }}"
+              retain:
+                hourly: 24
+                daily: 7
