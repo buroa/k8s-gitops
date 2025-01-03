@@ -10,7 +10,6 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: external-secrets-stores
     - name: intel-device-plugin-gpu
     - name: rook-ceph-cluster
     - name: volsync
