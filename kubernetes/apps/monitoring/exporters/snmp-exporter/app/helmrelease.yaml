@@ -25,7 +25,7 @@ spec:
     fullnameOverride: *app
     image:
       repository: quay.io/prometheus/snmp-exporter
-      tag: v0.26.0@sha256:b3da18ef33033c043f050d4c3fa63431715bfba2e1b12745210a0bcbfb7079b5
+      tag: v0.27.0@sha256:5f7743b3e356ee33159b01b543eb53c345e40f8f784c509402e55d7cec800a7d
     serviceMonitor:
       enabled: true
       params:
