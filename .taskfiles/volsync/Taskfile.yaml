@@ -1,6 +1,5 @@
 ---
-# yaml-language-server: $schema=https://taskfile.dev/schema.json
-version: "3"
+version: '3'
 
 # Taskfile used to manage certain VolSync tasks for a given application, limitations are as followed.
 #   1. Fluxtomization, HelmRelease, PVC, ReplicationSource all have the same name (e.g. plex)
@@ -8,7 +7,7 @@ version: "3"
 #   3. Each application only has one PVC that is being replicated
 
 vars:
-  VOLSYNC_RESOURCES_DIR: "{{.ROOT_DIR}}/.taskfiles/volsync/resources"
+  VOLSYNC_RESOURCES_DIR: '{{.ROOT_DIR}}/.taskfiles/volsync/resources'
 
 tasks:
 

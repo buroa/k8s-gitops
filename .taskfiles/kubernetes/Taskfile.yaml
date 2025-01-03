@@ -1,8 +1,8 @@
 ---
-version: "3"
+version: '3'
 
 vars:
-  KUBERNETES_RESOURCES_DIR: "{{.ROOT_DIR}}/.taskfiles/kubernetes/resources"
+  KUBERNETES_RESOURCES_DIR: '{{.ROOT_DIR}}/.taskfiles/kubernetes/resources'
 
 tasks:
 
@@ -24,7 +24,7 @@ tasks:
   delete-failed-pods:
     desc: Delete all pods with an Evicted/Failed/Succeeded status
     cmds:
-      - for: ["Evicted", "Failed", "Succeeded"]
+      - for: [Evicted, Failed, Succeeded]
         cmd: kubectl delete pods --field-selector status.phase={{.ITEM}} -A --ignore-not-found=true
 
   privileged:
@@ -38,4 +38,3 @@ tasks:
       vars: [node]
     preconditions:
       - test -f {{.KUBERNETES_RESOURCES_DIR}}/privileged-pod.yaml.j2
-      - which kubectl minijinja-cli

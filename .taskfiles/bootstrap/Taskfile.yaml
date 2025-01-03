@@ -1,8 +1,8 @@
 ---
-version: "3"
+version: '3'
 
 vars:
-  BOOTSTRAP_RESOURCES_DIR: "{{.ROOT_DIR}}/.taskfiles/bootstrap/resources"
+  BOOTSTRAP_RESOURCES_DIR: '{{.ROOT_DIR}}/.taskfiles/bootstrap/resources'
 
 tasks:
 
