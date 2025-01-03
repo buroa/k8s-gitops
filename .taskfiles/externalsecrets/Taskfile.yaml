@@ -4,7 +4,7 @@ version: "3"
 tasks:
 
   sync:
-    desc: Sync ExternalSecret resources from provider
+    desc: Sync ExternalSecret resources from provider [ns=*] [secret=*]
     summary: |
       ns: Namespace to sync secret in (default: default)
       secret: Secret to sync (default: unset/all secrets)

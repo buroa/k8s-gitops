@@ -4,7 +4,7 @@ version: "3"
 tasks:
 
   apply:
-    desc: Apply a Flux Kustomization resource
+    desc: Apply a Flux Kustomization resource [ns=flux-system] [path=required]
     summary: |
       path: Path to the Flux Kustomization resource (required)
       ns: Namespace the Flux Kustomization exists in (default: flux-system)
@@ -18,7 +18,7 @@ tasks:
       kubectl apply --server-side \
           --field-manager=kustomize-controller -f -
     requires:
-      vars: ["path"]
+      vars: [path]
     vars:
       ns: '{{.ns | default "flux-system"}}'
       ks:
@@ -27,7 +27,7 @@ tasks:
       - test -f {{.KUBERNETES_DIR}}/apps/{{.path}}/ks.yaml
 
   sync:
-    desc: Sync a Flux Kustomization resource
+    desc: Sync a Flux Kustomization resource [ns=flux-system] [ks=*]
     cmds:
       - |
         {{- if eq .ks ""}}

@@ -7,7 +7,7 @@ vars:
 tasks:
 
   browse-pvc:
-    desc: Browse a PersistentVolumeClaim
+    desc: Browse a PersistentVolumeClaim [ns=default] [claim=required]
     summary: |
       ns: Namespace to browse PersistentVolumeClaims in (default: default)
       claim: PersistentVolumeClaim to browse (required)
@@ -15,8 +15,9 @@ tasks:
     cmd: kubectl browse-pvc --namespace {{.ns}} {{.claim}}
     vars:
       ns: '{{.ns | default "default"}}'
+      claim: '{{.claim}}'
     requires:
-      vars: ["claim"]
+      vars: [claim]
     preconditions:
       - kubectl --namespace {{.ns}} get persistentvolumeclaims {{.claim}}
 
@@ -27,12 +28,14 @@ tasks:
         cmd: kubectl delete pods --field-selector status.phase={{.ITEM}} -A --ignore-not-found=true
 
   privileged:
-    desc: Run a privileged pod
+    desc: Run a privileged pod [node=required]
     cmd: |
       kubectl run privileged-{{.node}} -i --rm --image=null \
         --overrides="$(yq {{.KUBERNETES_RESOURCES_DIR}}/privileged-pod.yaml.j2 -o json | minijinja-cli)"
     env:
       NODE: '{{.node}}'
+    requires:
+      vars: [node]
     preconditions:
       - test -f {{.KUBERNETES_RESOURCES_DIR}}/privileged-pod.yaml.j2
       - which kubectl minijinja-cli

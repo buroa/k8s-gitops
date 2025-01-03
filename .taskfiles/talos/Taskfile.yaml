@@ -38,11 +38,11 @@ tasks:
       - test -f {{.TALOS_DIR}}/talconfig.yaml
 
   upgrade:
-    desc: Upgrade Talos on a node
+    desc: Upgrade Talos on a node [node=required]
     prompt: Upgrade Talos node {{.node}} ... continue?
     cmd: talosctl --nodes {{.node}} upgrade --image=factory.talos.dev/installer-secureboot/{{.TALOS_SCHEMATIC_ID}}:{{.TALOS_VERSION}}
     requires:
-      vars: ["node"]
+      vars: [node]
     preconditions:
       - test -f {{.TALOS_DIR}}/clusterconfig/talosconfig
       - talosctl config info >/dev/null 2>&1
@@ -57,11 +57,11 @@ tasks:
       - talosctl --nodes {{.TALOS_CONTROLLER}} get machineconfig >/dev/null 2>&1
 
   reset-node:
-    desc: Reset a Talos node
+    desc: Reset a Talos node [node=required]
     prompt: Reset Talos node {{.node}} ... continue?
     cmd: talosctl reset --nodes {{.node}} --system-labels-to-wipe STATE --system-labels-to-wipe EPHEMERAL --graceful=false --reboot
     requires:
-      vars: ["node"]
+      vars: [node]
     preconditions:
       - test -f {{.TALOS_DIR}}/clusterconfig/talosconfig
       - talosctl config info >/dev/null 2>&1
