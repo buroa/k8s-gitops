@@ -113,7 +113,7 @@ spec:
           spec:
             sourcePVC: "{{ request.object.metadata.name }}"
             trigger:
-              schedule: "0 * * * *"
+              schedule: "15 */8 * * *"
             restic:
               copyMethod: Snapshot
               pruneIntervalDays: 14
