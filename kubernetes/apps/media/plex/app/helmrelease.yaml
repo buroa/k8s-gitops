@@ -28,7 +28,7 @@ spec:
           app:
             image:
               repository: ghcr.io/buroa/plex
-              tag: 1.41.3.9314-a0bfb8370@sha256:23e701ed2a8848d4f63c6201d4ae474f1e364c86558f54b57121983dac6be622
+              tag: 1.41.3.9314-a0bfb8370@sha256:213f82eb33bfb7fae455e742595849a1c734fa386c0a199d2adde8c8c3a77770
             env:
               PLEX_ADVERTISE_URL: https://{{ .Release.Name }}.ktwo.io:443
               PLEX_NO_AUTH_NETWORKS: 192.168.1.0/24
