@@ -24,10 +24,7 @@ spec:
   values:
     fullnameOverride: *app
     config:
-      devices:
-        - /dev/nvme0n1
-        - /dev/nvme1n1
-        - /dev/nvme2n1
+      device_include: nvme.*
     serviceMonitor:
       enabled: true
       relabelings:
