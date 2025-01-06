@@ -367,7 +367,7 @@ controlPlane:
     # Cluster configuration
     - |-
       cluster:
-        allowSchedulingOnMasters: true
+        allowSchedulingOnControlPlanes: true
         apiServer:
           extraArgs:
             enable-aggregator-routing: true
