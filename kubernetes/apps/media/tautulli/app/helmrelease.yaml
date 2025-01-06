@@ -28,7 +28,7 @@ spec:
           app:
             image:
               repository: ghcr.io/buroa/tautulli
-              tag: 2.15.0@sha256:4680892f835df5d94609ae1286fcb0f05a43b82c20b49ffb9b335212d584f35a
+              tag: 2.15.0@sha256:0ad0486d1755f88ad35e75f55ea57c01817ca407fb6161dc8208650a5ded13ef
             env:
               TAUTULLI__PORT: &port 8181
               TZ: ${TIMEZONE}
