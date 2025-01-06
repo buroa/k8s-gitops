@@ -29,7 +29,7 @@ spec:
           cni-plugins:
             image:
               repository: ghcr.io/buroa/cni-plugins
-              tag: 1.6.1@sha256:dc4c6f4f9c53a4cbee61b43e069fb29eab0d1dbaaee54260d7caf589aaf3907f
+              tag: 1.6.1@sha256:1138797909aa02e7340b1fdbfbe0bee3a0c0644e3ce15a5791f83b25d8328cfc
         containers:
           multus:
             image:
