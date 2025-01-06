@@ -30,7 +30,7 @@ spec:
           app:
             image:
               repository: ghcr.io/buroa/bazarr
-              tag: 1.5.1@sha256:8fffbe8bb0a3500363c2ef852426ac47e64a9d2d7397047e325eb181c58bc464
+              tag: 1.5.1@sha256:3aa23bb76de54a39493e1439b6e65dd1622f124bdfe9d4a7373c811ec932a895
             env:
               BAZARR__PORT: &port 6767
               TZ: ${TIMEZONE}
