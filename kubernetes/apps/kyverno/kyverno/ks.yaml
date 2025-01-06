@@ -30,9 +30,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: external-secrets-stores
     - name: kyverno
-    - name: volsync
   path: ./kubernetes/apps/kyverno/kyverno/policies
   prune: true
   sourceRef:
