@@ -35,8 +35,8 @@ spec:
         accessModes: ["ReadWriteOnce"]
         resources:
           requests:
-            storage: 20Gi
-        storageClassName: ceph-block
+            storage: 25Gi
+        storageClassName: openebs-hostpath
     template:
       spec:
         containers:
@@ -55,8 +55,6 @@ spec:
               - mountPath: /var/run/secrets/talos.dev
                 name: talos
                 readOnly: true
-        securityContext:
-          fsGroup: 123
         serviceAccountName: actions-runner
         volumes:
           - name: talos
