@@ -23,8 +23,6 @@ spec:
       retries: 3
   values:
     fullnameOverride: *app
-    config:
-      device_include: nvme.*
     serviceMonitor:
       enabled: true
       relabelings:
