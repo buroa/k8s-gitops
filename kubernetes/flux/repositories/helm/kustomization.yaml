@@ -13,6 +13,7 @@ resources:
   - ./external-dns.yaml
   - ./external-secrets.yaml
   - ./fairwinds.yaml
+  - ./fluxcd-community.yaml
   - ./grafana.yaml
   - ./ingress-nginx.yaml
   - ./intel.yaml

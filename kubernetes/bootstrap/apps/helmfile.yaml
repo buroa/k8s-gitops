@@ -43,10 +43,29 @@ releases:
           helm.toolkit.fluxcd.io/namespace: *namespace
     needs: ["kube-system/cilium"]
 
-  - name: spegel
-    namespace: kube-system
+  - name: &name spegel
+    namespace: &namespace kube-system
     chart: oci://ghcr.io/spegel-org/helm-charts/spegel
     version: v0.0.28
     values:
       - '{{ requiredEnv "KUBERNETES_DIR" }}/apps/kube-system/spegel/app/resources/values.yaml'
+      # - commonLabels:
+      #     helm.toolkit.fluxcd.io/name: *name
+      #     helm.toolkit.fluxcd.io/namespace: *namespace
     needs: ["kube-system/coredns"]
+
+  - name: &name flux
+    namespace: &namespace flux-system
+    chart: oci://ghcr.io/fluxcd-community/charts/flux2
+    version: 2.14.0
+    values:
+      - '{{ requiredEnv "KUBERNETES_DIR" }}/apps/flux-system/flux/app/resources/values.yaml'
+      # TODO: https://github.com/spegel-org/spegel/pull/678
+      - helmController: &controller
+          labels:
+            helm.toolkit.fluxcd.io/name: *name
+            helm.toolkit.fluxcd.io/namespace: *namespace
+      - kustomizeController: *controller
+      - notificationController: *controller
+      - sourceController: *controller
+    needs: ["kube-system/spegel"]
