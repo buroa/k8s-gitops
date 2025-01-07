@@ -21,51 +21,34 @@ releases:
     chart: oci://ghcr.io/prometheus-community/charts/prometheus-operator-crds
     version: 17.0.2
 
-  - name: &name cilium
-    namespace: &namespace kube-system
+  - name: cilium
+    namespace: kube-system
     chart: cilium/cilium
     version: 1.16.5
     values:
       - '{{ requiredEnv "KUBERNETES_DIR" }}/apps/kube-system/cilium/app/resources/values.yaml'
-      - commonLabels:
-          helm.toolkit.fluxcd.io/name: *name
-          helm.toolkit.fluxcd.io/namespace: *namespace
     needs: ["monitoring/prometheus-operator-crds"]
 
-  - name: &name coredns
-    namespace: &namespace kube-system
+  - name: coredns
+    namespace: kube-system
     chart: coredns/coredns
     version: 1.37.0
     values:
       - '{{ requiredEnv "KUBERNETES_DIR" }}/apps/kube-system/coredns/app/resources/values.yaml'
-      - customLabels:
-          helm.toolkit.fluxcd.io/name: *name
-          helm.toolkit.fluxcd.io/namespace: *namespace
     needs: ["kube-system/cilium"]
 
-  - name: &name spegel
-    namespace: &namespace kube-system
+  - name: spegel
+    namespace: kube-system
     chart: oci://ghcr.io/spegel-org/helm-charts/spegel
     version: v0.0.28
     values:
       - '{{ requiredEnv "KUBERNETES_DIR" }}/apps/kube-system/spegel/app/resources/values.yaml'
-      # TODO: https://github.com/spegel-org/spegel/pull/678
-      # - commonLabels:
-      #     helm.toolkit.fluxcd.io/name: *name
-      #     helm.toolkit.fluxcd.io/namespace: *namespace
     needs: ["kube-system/coredns"]
 
-  - name: &name flux
-    namespace: &namespace flux-system
+  - name: flux
+    namespace: flux-system
     chart: oci://ghcr.io/fluxcd-community/charts/flux2
     version: 2.14.0
     values:
       - '{{ requiredEnv "KUBERNETES_DIR" }}/apps/flux-system/flux/app/resources/values.yaml'
-      - helmController: &controller
-          labels:
-            helm.toolkit.fluxcd.io/name: *name
-            helm.toolkit.fluxcd.io/namespace: *namespace
-      - kustomizeController: *controller
-      - notificationController: *controller
-      - sourceController: *controller
     needs: ["kube-system/spegel"]
