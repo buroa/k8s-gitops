@@ -5,7 +5,7 @@ metadata:
   name: k8s-gitops
   namespace: flux-system
 spec:
-  interval: 15m
+  interval: 30m
   url: ssh://git@github.com/buroa/k8s-gitops
   ref:
     branch: master
@@ -23,7 +23,7 @@ metadata:
   name: cluster
   namespace: flux-system
 spec:
-  interval: 15m
+  interval: 30m
   path: ./kubernetes/flux
   prune: true
   wait: false

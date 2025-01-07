@@ -5,7 +5,7 @@ metadata:
   name: cluster-apps
   namespace: flux-system
 spec:
-  interval: 10m
+  interval: 30m
   path: ./kubernetes/apps
   prune: true
   sourceRef:
