@@ -30,7 +30,6 @@
     // namespaces
     "actions-runner-system": "github",
     "cert-manager": "guard",
-    "default": "home",
     "flux-system": "pipe",
     "kube-system": "kubernetes",
     "media": "video",
@@ -38,7 +37,6 @@
     "networking": "connection",
     "openebs-system": "dump",
     "rook-ceph": "dump",
-    "security": "guard",
     "system-upgrade": "update",
     "volsync-system": "aws",
     // folders
