@@ -28,15 +28,15 @@ tasks:
     cmd: talosctl kubeconfig --nodes {{.TALOS_CONTROLLER}} --force {{.KUBERNETES_DIR}}
 
   apps:
-    internal: true
+    # internal: true
     cmds:
-      - until kubectl wait --for=condition=Ready=False nodes --all --timeout=10m; do sleep 10; done
-      - helmfile --quiet --file {{.TALOS_DIR}}/apps/helmfile.yaml apply --skip-diff-on-install --suppress-diff
-      - until kubectl wait --for=condition=Ready nodes --all --timeout=10m; do sleep 10; done
+      # - until kubectl wait --for=condition=Ready=False nodes --all --timeout=10m; do sleep 10; done
+      - helmfile --quiet --file {{.KUBERNETES_DIR}}/bootstrap/apps/helmfile.yaml apply --skip-diff-on-install --suppress-diff
+      # - until kubectl wait --for=condition=Ready nodes --all --timeout=10m; do sleep 10; done
     env:
       KUBERNETES_DIR: '{{.KUBERNETES_DIR}}'
     preconditions:
-      - test -f {{.TALOS_DIR}}/apps/helmfile.yaml
+      - test -f {{.KUBERNETES_DIR}}/bootstrap/apps/helmfile.yaml
 
   rook:
     internal: true
@@ -56,15 +56,15 @@ tasks:
   flux:
     internal: true
     cmds:
-      - kubectl apply --server-side --kustomize {{.KUBERNETES_DIR}}/bootstrap/flux
-      - sops --decrypt {{.KUBERNETES_DIR}}/bootstrap/flux/age-key.secret.sops.yaml | kubectl apply --server-side --filename -
-      - sops --decrypt {{.KUBERNETES_DIR}}/bootstrap/flux/github-deploy-key.secret.sops.yaml | kubectl apply --server-side --filename -
-      - kubectl apply --server-side --filename {{.KUBERNETES_DIR}}/flux/vars/cluster-settings.yaml
+      - for: { var: TEMPLATES }
+        cmd: op run --env-file {{.KUBERNETES_DIR}}/bootstrap/bootstrap.env --no-masking -- minijinja-cli {{.ITEM}} | kubectl apply --server-side --filename -
       - kubectl apply --server-side --kustomize {{.KUBERNETES_DIR}}/flux/config
+    vars:
+      TEMPLATES:
+        sh: ls {{.KUBERNETES_DIR}}/bootstrap/apps/*.j2
+    env:
+      VAULT: K8s
+      FLUX_GITHUB_PUBLIC_KEYS:
+        sh: curl -fsSL https://api.github.com/meta | jq --raw-output '"github.com "+.ssh_keys[]'
     preconditions:
-      - test -f {{.ROOT_DIR}}/age.key
-      - test -f {{.KUBERNETES_DIR}}/bootstrap/flux/age-key.secret.sops.yaml
-      - test -f {{.KUBERNETES_DIR}}/bootstrap/flux/github-deploy-key.secret.sops.yaml
-      - test -f {{.KUBERNETES_DIR}}/flux/vars/cluster-settings.yaml
-      - sops filestatus {{.KUBERNETES_DIR}}/bootstrap/flux/age-key.secret.sops.yaml | jq --exit-status '.encrypted'
-      - sops filestatus {{.KUBERNETES_DIR}}/bootstrap/flux/github-deploy-key.secret.sops.yaml | jq --exit-status '.encrypted'
+      - op user get --me

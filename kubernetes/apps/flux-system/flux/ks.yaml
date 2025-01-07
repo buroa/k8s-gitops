@@ -1,0 +1,42 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app flux
+  namespace: flux-system
+spec:
+  targetNamespace: flux-system
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  path: ./kubernetes/apps/flux-system/flux/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: k8s-gitops
+  wait: true
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app flux-config
+  namespace: flux-system
+spec:
+  targetNamespace: flux-system
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  dependsOn:
+    - name: flux
+  path: ./kubernetes/apps/flux-system/flux/config
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: k8s-gitops
+  wait: true
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
