@@ -48,7 +48,7 @@ releases:
   - name: flux
     namespace: flux-system
     chart: oci://ghcr.io/fluxcd-community/charts/flux2
-    version: 2.14.0
+    version: 2.14.1
     values:
       - '{{ requiredEnv "KUBERNETES_DIR" }}/apps/flux-system/flux/app/resources/values.yaml'
     needs: ["kube-system/spegel"]
