@@ -32,7 +32,7 @@ spec:
           args:
             - |
               apk add --no-cache findutils nvme-cli;
-              DISK=$(find /dev/disk/by-id/ -iname "*{{ ENV.MODEL }}*" -not -name "*-part[0-9+]");
+              DISK=$(find /dev/disk/by-id/ -iname "*{{ ENV.MODEL }}*" -not -name "*_[0-9]");
               echo "=== Wiping $DISK ===";
               nvme format --lbaf=1 $DISK --force;
               nvme format --block-size=4096 $DISK --force;
