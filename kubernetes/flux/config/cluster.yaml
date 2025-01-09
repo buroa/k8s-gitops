@@ -1,22 +1,4 @@
 ---
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: GitRepository
-metadata:
-  name: k8s-gitops
-  namespace: flux-system
-spec:
-  interval: 30m
-  url: ssh://git@github.com/buroa/k8s-gitops
-  ref:
-    branch: master
-  secretRef:
-    name: github-deploy-key
-  ignore: |
-    # exclude all
-    /*
-    # include kubernetes directory
-    !/kubernetes
----
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
@@ -29,7 +11,7 @@ spec:
   wait: false
   sourceRef:
     kind: GitRepository
-    name: k8s-gitops
+    name: flux-system
   decryption:
     provider: sops
     secretRef:

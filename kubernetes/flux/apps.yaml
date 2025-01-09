@@ -10,7 +10,7 @@ spec:
   prune: false # revert to true
   sourceRef:
     kind: GitRepository
-    name: k8s-gitops
+    name: flux-system
   decryption:
     provider: sops
     secretRef:
