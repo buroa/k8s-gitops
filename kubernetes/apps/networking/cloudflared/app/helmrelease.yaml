@@ -44,8 +44,7 @@ spec:
               TUNNEL_CRED_FILE: /etc/cloudflared/creds/credentials.json
               TUNNEL_METRICS: 0.0.0.0:2000
               TUNNEL_ORIGIN_ENABLE_HTTP2: true
-              TUNNEL_POST_QUANTUM: true
-              TUNNEL_TRANSPORT_PROTOCOL: quic
+              TUNNEL_TRANSPORT_PROTOCOL: http2
               TUNNEL_ID:
                 valueFrom:
                   secretKeyRef:
