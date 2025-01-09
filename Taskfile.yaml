@@ -1,12 +1,11 @@
 ---
 version: "3"
 
-&vars vars:
+vars:
   KUBERNETES_DIR: "{{.ROOT_DIR}}/kubernetes"
   TALOS_DIR: "{{.ROOT_DIR}}/talos"
 
 env:
-  <<: *vars
   KUBECONFIG: "{{.KUBERNETES_DIR}}/kubernetes/kubeconfig"
   SOPS_AGE_KEY_FILE: "{{.ROOT_DIR}}/age.key"
 
