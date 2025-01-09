@@ -10,7 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   path: ./kubernetes/apps/external-secrets/external-secrets/app
-  prune: true
+  prune: false # revert to true
   sourceRef:
     kind: GitRepository
     name: k8s-gitops
@@ -32,7 +32,7 @@ spec:
   dependsOn:
     - name: external-secrets
   path: ./kubernetes/apps/external-secrets/external-secrets/stores
-  prune: true
+  prune: false # revert to true
   sourceRef:
     kind: GitRepository
     name: k8s-gitops

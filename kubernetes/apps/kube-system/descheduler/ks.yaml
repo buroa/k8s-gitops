@@ -10,7 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   path: ./kubernetes/apps/kube-system/descheduler/app
-  prune: true
+  prune: false # revert to true
   sourceRef:
     kind: GitRepository
     name: k8s-gitops
