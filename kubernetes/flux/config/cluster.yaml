@@ -2,13 +2,12 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster
+  name: cluster-apps
   namespace: flux-system
 spec:
   interval: 30m
-  path: ./kubernetes/flux
-  prune: false # revert to true
-  wait: false
+  path: ./kubernetes/apps
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -24,3 +23,27 @@ spec:
       - kind: Secret
         name: cluster-secrets
         optional: true
+  patches:
+    - patch: |-
+        apiVersion: kustomize.toolkit.fluxcd.io/v1
+        kind: Kustomization
+        metadata:
+          name: not-used
+        spec:
+          decryption:
+            provider: sops
+            secretRef:
+              name: sops-age
+          postBuild:
+            substituteFrom:
+              - kind: ConfigMap
+                name: cluster-settings
+                optional: false
+              - kind: Secret
+                name: cluster-secrets
+                optional: true
+      target:
+        group: kustomize.toolkit.fluxcd.io
+        version: v1
+        kind: Kustomization
+        labelSelector: substitution.flux.home.arpa/disabled notin (true)

@@ -22,7 +22,7 @@ releases:
     chart: cilium/cilium
     version: 1.16.5
     values:
-      - '{{ requiredEnv "KUBERNETES_DIR" }}/apps/kube-system/cilium/app/resources/values.yaml'
+      - ../apps/kube-system/cilium/app/resources/values.yaml
     needs: ["monitoring/prometheus-operator-crds"]
 
   - name: coredns
@@ -30,7 +30,7 @@ releases:
     chart: coredns/coredns
     version: 1.37.0
     values:
-      - '{{ requiredEnv "KUBERNETES_DIR" }}/apps/kube-system/coredns/app/resources/values.yaml'
+      - ../apps/kube-system/coredns/app/resources/values.yaml
     needs: ["kube-system/cilium"]
 
   - name: spegel
@@ -38,7 +38,7 @@ releases:
     chart: oci://ghcr.io/spegel-org/helm-charts/spegel
     version: v0.0.28
     values:
-      - '{{ requiredEnv "KUBERNETES_DIR" }}/apps/kube-system/spegel/app/resources/values.yaml'
+      - ../apps/kube-system/spegel/app/resources/values.yaml
     needs: ["kube-system/coredns"]
 
   - name: wipe-rook
@@ -54,7 +54,7 @@ releases:
     chart: oci://ghcr.io/controlplaneio-fluxcd/charts/flux-operator
     version: 0.12.0
     values:
-      - '{{ requiredEnv "KUBERNETES_DIR" }}/apps/flux-system/flux-operator/app/resources/values.yaml'
+      - ../apps/flux-system/flux-operator/app/resources/values.yaml
     needs: ["kube-system/wipe-rook"]
 
   - name: flux-instance
@@ -63,5 +63,5 @@ releases:
     version: 0.12.0
     wait: false
     values:
-      - '{{ requiredEnv "KUBERNETES_DIR" }}/apps/flux-system/flux-operator/instance/resources/values.yaml'
+      - ../apps/flux-system/flux-operator/instance/resources/values.yaml
     needs: ["flux-system/flux-operator"]

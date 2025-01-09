@@ -11,7 +11,7 @@ instance:
     kind: GitRepository
     url: ssh://git@github.com/buroa/k8s-gitops
     ref: refs/heads/master
-    path: kubernetes/flux
+    path: ./kubernetes/flux
     pullSecret: github-deploy-key
   kustomize:
     patches:

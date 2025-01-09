@@ -13,7 +13,7 @@ spec:
     - name: gha-runner-scale-set-controller
     - name: openebs
   path: ./kubernetes/apps/actions-runner-system/gha-runner-scale-set/app
-  prune: false # revert to true
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system

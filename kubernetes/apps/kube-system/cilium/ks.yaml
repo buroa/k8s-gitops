@@ -32,7 +32,7 @@ spec:
   dependsOn:
     - name: cilium
   path: ./kubernetes/apps/kube-system/cilium/configs
-  prune: false # revert to true
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system

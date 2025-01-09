@@ -13,7 +13,7 @@ spec:
     - name: external-secrets-stores
     - name: qbittorrent
   path: ./kubernetes/apps/media/cross-seed/app
-  prune: false # revert to true
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
