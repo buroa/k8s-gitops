@@ -15,7 +15,7 @@ spec:
   prune: false # revert to true
   sourceRef:
     kind: GitRepository
-    name: k8s-gitops
+    name: flux-system
   wait: true
   interval: 30m
   retryInterval: 1m
@@ -38,7 +38,7 @@ spec:
   prune: false # revert to true
   sourceRef:
     kind: GitRepository
-    name: k8s-gitops
+    name: flux-system
   wait: true
   interval: 30m
   retryInterval: 1m

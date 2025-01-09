@@ -1,20 +1,15 @@
 ---
 version: '3'
 
-vars:
-  BOOTSTRAP_RESOURCES_DIR: '{{.ROOT_DIR}}/.taskfiles/bootstrap/resources'
-
 tasks:
 
   kubernetes:
-    desc: Bootstrap a Talos Kubernetes cluster backed by flux, sops, and rook
-    prompt: Bootstrap a Talos Kubernetes cluster ... continue?
+    desc: Bootstrap Talos
+    prompt: Bootstrap Talos Cluster?
     cmds:
       - task: etcd
       - task: kubeconfig
       - task: apps
-      - task: rook
-      - task: flux
     preconditions:
       - talosctl config info >/dev/null 2>&1
       - test -f {{.TALOS_DIR}}/clusterconfig/talosconfig
@@ -28,43 +23,19 @@ tasks:
     cmd: talosctl kubeconfig --nodes {{.TALOS_CONTROLLER}} --force {{.KUBERNETES_DIR}}
 
   apps:
-    internal: true
+    desc: Bootstrap Apps
+    prompt: Bootstrap apps into the Talos cluster?
     cmds:
-      - until kubectl wait --for=condition=Ready=False nodes --all --timeout=10m; do sleep 10; done
+      - until kubectl wait nodes --for=condition=Ready=False --all --timeout=10m; do sleep 5; done
+      - op run --env-file {{.KUBERNETES_DIR}}/bootstrap/bootstrap.env --no-masking -- minijinja-cli {{.KUBERNETES_DIR}}/bootstrap/apps/templates/resources.yaml.j2 | kubectl apply --server-side --filename -
       - helmfile --quiet --file {{.KUBERNETES_DIR}}/bootstrap/apps/helmfile.yaml apply --skip-diff-on-install --suppress-diff
-      - until kubectl wait --for=condition=Ready nodes --all --timeout=10m; do sleep 10; done
+      - helmfile --quiet --file {{.KUBERNETES_DIR}}/bootstrap/apps/helmfile.yaml destroy --selector release=wipe-rook
     env:
-      KUBERNETES_DIR: '{{.KUBERNETES_DIR}}'
-    preconditions:
-      - test -f {{.KUBERNETES_DIR}}/bootstrap/apps/helmfile.yaml
-
-  rook:
-    internal: true
-    cmds:
-      - minijinja-cli {{.BOOTSTRAP_RESOURCES_DIR}}/wipe-rook.yaml.j2 | kubectl apply --server-side --filename -
-      - until kubectl --namespace default get job/wipe-rook &>/dev/null; do sleep 5; done
-      - kubectl --namespace default wait job/wipe-rook --for=condition=complete --timeout=5m
-      - stern --namespace default job/wipe-rook --no-follow
-      - kubectl --namespace default delete job wipe-rook
-    env:
+      FLUX_GITHUB_PUBLIC_KEYS:
+        sh: curl -fsSL https://api.github.com/meta | jq --raw-output '"github.com "+.ssh_keys[]'
       MODEL: SAMSUNG_MZQL23T8HCLS-00A07
       NODE_COUNT:
         sh: talosctl config info --output json | jq --raw-output '.nodes | length'
-    preconditions:
-      - test -f {{.BOOTSTRAP_RESOURCES_DIR}}/wipe-rook.yaml.j2
-
-  flux:
-    internal: true
-    cmds:
-      - for: { var: TEMPLATES }
-        cmd: op run --env-file {{.KUBERNETES_DIR}}/bootstrap/bootstrap.env --no-masking -- minijinja-cli {{.ITEM}} | kubectl apply --server-side --filename -
-      - kubectl apply --server-side --kustomize {{.KUBERNETES_DIR}}/flux/config
-    vars:
-      TEMPLATES:
-        sh: ls {{.KUBERNETES_DIR}}/bootstrap/apps/*.j2
-    env:
       VAULT: K8s
-      FLUX_GITHUB_PUBLIC_KEYS:
-        sh: curl -fsSL https://api.github.com/meta | jq --raw-output '"github.com "+.ssh_keys[]'
     preconditions:
       - op user get --me

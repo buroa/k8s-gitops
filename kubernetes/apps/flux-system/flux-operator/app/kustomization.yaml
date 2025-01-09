@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
   - ./helmrelease.yaml
 configMapGenerator:
-  - name: flux-helm-values
+  - name: flux-operator-helm-values
     files:
       - ./resources/values.yaml
 generatorOptions:

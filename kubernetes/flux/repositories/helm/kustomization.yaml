@@ -7,13 +7,13 @@ resources:
   - ./bjw-s.yaml
   - ./cilium.yaml
   - ./cloudnative-pg.yaml
+  - ./controlplaneio.yaml
   - ./coredns.yaml
   - ./deliveryhero.yaml
   - ./emqx.yaml
   - ./external-dns.yaml
   - ./external-secrets.yaml
   - ./fairwinds.yaml
-  - ./fluxcd-community.yaml
   - ./grafana.yaml
   - ./ingress-nginx.yaml
   - ./intel.yaml
