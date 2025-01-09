@@ -22,6 +22,17 @@
       separateMinorPatch: true,
     },
     {
+      description: ["Flux Operator Group"],
+      groupName: "Flux Operator",
+      matchPackagePatterns: ["flux-operator", "flux-instance"],
+      matchDatasources: ["docker"],
+      versioning: "semver",
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+      separateMinorPatch: true,
+    },
+    {
       description: ["Intel-Device-Plugins Group"],
       groupName: "Intel-Device-Plugins",
       matchPackagePatterns: ["intel-device-plugins"],
