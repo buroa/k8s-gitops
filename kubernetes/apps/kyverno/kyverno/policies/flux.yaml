@@ -1,0 +1,64 @@
+---
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: flux
+  annotations:
+    policies.kyverno.io/title: Flux
+    policies.kyverno.io/category: Monitoring
+    policies.kyverno.io/severity: low
+    policies.kyverno.io/subject: Namespace
+    policies.kyverno.io/description: >-
+      This policy will automatically generate the necessary resources for
+      Flux monitoring for Namespaces.
+    pod-policies.kyverno.io/autogen-controllers: none
+spec:
+  rules:
+    - &rule
+      name: flux-provider
+      match:
+        resources:
+          kinds:
+            - Namespace
+      generate:
+        generateExisting: true
+        apiVersion: notification.toolkit.fluxcd.io/v1beta3
+        kind: Provider
+        name: alert-manager
+        namespace: "{{ request.object.metadata.name }}"
+        synchronize: true
+        data:
+          spec:
+            type: alertmanager
+            address: http://alertmanager-operated.monitoring.svc.cluster.local:9093/api/v2/alerts/
+    - <<: *rule
+      name: flux-alert
+      generate:
+        generateExisting: true
+        apiVersion: notification.toolkit.fluxcd.io/v1beta3
+        kind: Alert
+        name: alert-manager
+        namespace: "{{ request.object.metadata.name }}"
+        synchronize: true
+        data:
+          spec:
+            providerRef:
+              name: alert-manager
+            eventSeverity: error
+            eventSources:
+              - kind: GitRepository
+                name: "*"
+              - kind: HelmRelease
+                name: "*"
+              - kind: HelmRepository
+                name: "*"
+              - kind: Kustomization
+                name: "*"
+              - kind: OCIRepository
+                name: "*"
+            exclusionList:
+              - "error.*lookup github\\.com"
+              - "error.*lookup raw\\.githubusercontent\\.com"
+              - "dial.*tcp.*timeout"
+              - "waiting.*socket"
+            suspend: false

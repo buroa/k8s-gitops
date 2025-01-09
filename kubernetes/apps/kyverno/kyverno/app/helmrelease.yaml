@@ -40,6 +40,9 @@ spec:
             - apiGroups: ["volsync.backube"]
               resources: ["replicationsources", "replicationdestinations"]
               verbs: ["create", "update", "patch", "delete", "get", "list"]
+            - apiGroups: ["notification.toolkit.fluxcd.io"]
+              resources: ["alerts", "providers"]
+              verbs: ["create", "update", "patch", "delete", "get", "list"]
       serviceMonitor:
         enabled: true
     backgroundController:
@@ -54,6 +57,9 @@ spec:
               verbs: ["create", "update", "patch", "delete", "get", "list"]
             - apiGroups: ["volsync.backube"]
               resources: ["replicationsources", "replicationdestinations"]
+              verbs: ["create", "update", "patch", "delete", "get", "list"]
+            - apiGroups: ["notification.toolkit.fluxcd.io"]
+              resources: ["alerts", "providers"]
               verbs: ["create", "update", "patch", "delete", "get", "list"]
       resources:
         requests:
