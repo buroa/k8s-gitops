@@ -14,7 +14,7 @@ spec:
     - name: rook-ceph-cluster
     - name: volsync
   path: ./kubernetes/apps/media/plex/app
-  prune: true
+  prune: false # revert after verify
   sourceRef:
     kind: GitRepository
     name: flux-system

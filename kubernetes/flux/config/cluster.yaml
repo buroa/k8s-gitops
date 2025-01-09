@@ -7,7 +7,7 @@ metadata:
 spec:
   interval: 30m
   path: ./kubernetes/apps
-  prune: true
+  prune: false # revert after verify
   sourceRef:
     kind: GitRepository
     name: flux-system

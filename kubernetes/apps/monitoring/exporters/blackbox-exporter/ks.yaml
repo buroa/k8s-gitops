@@ -10,7 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   path: ./kubernetes/apps/monitoring/exporters/blackbox-exporter/app
-  prune: true
+  prune: false # revert after verify
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -32,7 +32,7 @@ spec:
   dependsOn:
     - name: blackbox-exporter
   path: ./kubernetes/apps/monitoring/exporters/blackbox-exporter/probes
-  prune: true
+  prune: false # revert after verify
   sourceRef:
     kind: GitRepository
     name: flux-system

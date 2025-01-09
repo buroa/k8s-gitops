@@ -12,7 +12,7 @@ spec:
   dependsOn:
     - name: cilium
   path: ./kubernetes/apps/networking/multus/app
-  prune: true
+  prune: false # revert after verify
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -34,7 +34,7 @@ spec:
   dependsOn:
     - name: multus
   path: ./kubernetes/apps/networking/multus/networks
-  prune: true
+  prune: false # revert after verify
   sourceRef:
     kind: GitRepository
     name: flux-system

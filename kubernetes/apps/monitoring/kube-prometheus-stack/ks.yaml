@@ -14,7 +14,7 @@ spec:
     - name: prometheus-operator-crds
     - name: rook-ceph-cluster
   path: ./kubernetes/apps/monitoring/kube-prometheus-stack/app
-  prune: true
+  prune: false # revert after verify
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -36,7 +36,7 @@ spec:
   dependsOn:
     - name: kube-prometheus-stack
   path: ./kubernetes/apps/monitoring/kube-prometheus-stack/tools
-  prune: true
+  prune: false # revert after verify
   sourceRef:
     kind: GitRepository
     name: flux-system
