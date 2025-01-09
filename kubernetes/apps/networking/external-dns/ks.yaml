@@ -12,7 +12,7 @@ spec:
   dependsOn:
     - name: external-secrets-stores
   path: ./kubernetes/apps/networking/external-dns/cloudflare
-  prune: true
+  prune: false # revert to true
   sourceRef:
     kind: GitRepository
     name: k8s-gitops
@@ -34,7 +34,7 @@ spec:
   dependsOn:
     - name: external-secrets-stores
   path: ./kubernetes/apps/networking/external-dns/unifi
-  prune: true
+  prune: false # revert to true
   sourceRef:
     kind: GitRepository
     name: k8s-gitops

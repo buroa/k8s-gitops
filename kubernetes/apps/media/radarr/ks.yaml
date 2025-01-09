@@ -14,7 +14,7 @@ spec:
     - name: external-secrets-stores
     - name: rook-ceph-cluster
   path: ./kubernetes/apps/media/radarr/app
-  prune: true
+  prune: false # revert to true
   sourceRef:
     kind: GitRepository
     name: k8s-gitops
