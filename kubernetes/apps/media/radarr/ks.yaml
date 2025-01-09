@@ -14,7 +14,7 @@ spec:
     - name: external-secrets-stores
     - name: rook-ceph-cluster
   path: ./kubernetes/apps/media/radarr/app
-  prune: false # revert after verify
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system

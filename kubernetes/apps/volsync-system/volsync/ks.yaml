@@ -12,7 +12,7 @@ spec:
   dependsOn:
     - name: snapshot-controller
   path: ./kubernetes/apps/volsync-system/volsync/app
-  prune: false # revert after verify
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system

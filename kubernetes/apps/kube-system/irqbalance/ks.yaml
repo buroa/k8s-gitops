@@ -10,7 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   path: ./kubernetes/apps/kube-system/irqbalance/app
-  prune: false # revert after verify
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system

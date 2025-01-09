@@ -12,7 +12,7 @@ spec:
   dependsOn:
     - name: external-secrets-stores
   path: ./kubernetes/apps/media/unpackerr/app
-  prune: false # revert after verify
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system

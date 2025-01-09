@@ -12,7 +12,7 @@ spec:
   dependsOn:
     - name: flux-instance
   path: ./kubernetes/apps/flux-system/github/app
-  prune: false # revert after verify
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system

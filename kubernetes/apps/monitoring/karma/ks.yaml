@@ -12,7 +12,7 @@ spec:
   dependsOn:
     - name: kube-prometheus-stack
   path: ./kubernetes/apps/monitoring/karma/app
-  prune: false # revert after verify
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
