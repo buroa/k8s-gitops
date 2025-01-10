@@ -52,7 +52,7 @@ releases:
   - name: flux-operator
     namespace: flux-system
     chart: oci://ghcr.io/controlplaneio-fluxcd/charts/flux-operator
-    version: 0.12.0
+    version: 0.13.0
     values:
       - ../apps/flux-system/flux-operator/app/resources/values.yaml
     needs: ["kube-system/wipe-rook"]
@@ -60,7 +60,7 @@ releases:
   - name: flux-instance
     namespace: flux-system
     chart: oci://ghcr.io/controlplaneio-fluxcd/charts/flux-instance
-    version: 0.12.0
+    version: 0.13.0
     wait: false
     values:
       - ../apps/flux-system/flux-operator/instance/resources/values.yaml
