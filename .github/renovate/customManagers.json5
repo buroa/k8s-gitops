@@ -5,17 +5,16 @@
       customType: "regex",
       description: ["Process YAML custom dependencies"],
       fileMatch: [
-        "(^|/).taskfiles/.+\\.ya?ml$",
         "(^|/)talos/.+\\.ya?ml$",
         "(^|/)kubernetes/.+\\.ya?ml$",
       ],
       matchStrings: [
         // # renovate: depName=kubernetes/kubernetes datasource=github-releases
         // version: 1.29.1
-        "depName=(?<depName>\\S+) datasource=(?<datasource>\\S+)\\n.+ (?<currentValue>(v|\\d)\\S+)",
+        "depName=(?<depName>\\S+) datasource=(?<datasource>\\S+)\\n.+ (?<currentValue>[v|\\d]\\S+)",
         // # renovate: depName=rancher/system-upgrade-controller datasource=github-releases
         // https://github.com/rancher/system-upgrade-controller/releases/download/v0.13.2/crd.yaml
-        "depName=(?<depName>\\S+) datasource=(?<datasource>\\S+)\\n.+/(?<currentValue>(v|\\d)[^/]+)",
+        "depName=(?<depName>\\S+) datasource=(?<datasource>\\S+)\\n.+/(?<currentValue>[v|\\d][^/]+)",
       ],
       datasourceTemplate: "{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}",
     },
