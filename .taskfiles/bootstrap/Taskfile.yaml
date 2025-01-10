@@ -9,8 +9,12 @@ tasks:
     cmds:
       - until talosctl --nodes {{.TALOS_CONTROLLER}} bootstrap; do sleep 10; done
       - talosctl kubeconfig --nodes {{.TALOS_CONTROLLER}} --force {{.KUBERNETES_DIR}}
+    vars:
+      TALOS_CONTROLLER:
+        sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
     preconditions:
-      - talosctl config info >/dev/null 2>&1
+      - talosctl config info
+      - which talosctl
 
   apps:
     desc: Bootstrap Kubernetes Apps
@@ -29,7 +33,9 @@ tasks:
       VAULT: K8s
     preconditions:
       - op user get --me
-      - talosctl config info >/dev/null 2>&1
+      - talosctl config info
       - test -f {{.KUBERNETES_DIR}}/bootstrap/bootstrap.env
       - test -f {{.KUBERNETES_DIR}}/bootstrap/helmfile.yaml
       - test -f {{.KUBERNETES_DIR}}/bootstrap/templates/resources.yaml.j2
+      - test -f {{.KUBERNETES_DIR}}/bootstrap/templates/wipe-rook.yaml.gotmpl
+      - which curl jq helmfile kubectl op talosctl

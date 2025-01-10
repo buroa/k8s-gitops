@@ -1,40 +1,68 @@
 ---
 version: '3'
 
-vars:
-  KUBERNETES_RESOURCES_DIR: '{{.ROOT_DIR}}/.taskfiles/kubernetes/resources'
-
 tasks:
 
-  browse-pvc:
-    desc: Browse a PersistentVolumeClaim [ns=default] [claim=required]
-    summary: |
-      ns: Namespace to browse PersistentVolumeClaims in (default: default)
-      claim: PersistentVolumeClaim to browse (required)
-    interactive: true
-    cmd: kubectl browse-pvc --namespace {{.ns}} {{.claim}}
+  ks-*:
+    desc: Apply a Flux KS [PATH=required]
+    cmd: >
+      flux build --namespace flux-system ks {{base .PATH}}
+      --kustomization-file {{.KUBERNETES_DIR}}/apps/{{.PATH}}/ks.yaml
+      --path {{.KUBERNETES_DIR}}/apps/{{.PATH}}{{if contains .KUSTOMIZATION "not found"}} --dry-run{{end}}
+      | yq 'with(select(.apiVersion == "kustomize.toolkit.fluxcd.io/v1" and .kind == "Kustomization"); .metadata.namespace = "flux-system")' -
+      | kubectl {{.OPERATION}} {{if eq .OPERATION "apply"}}--server-side  --field-manager=kustomize-controller{{end}} --filename -
+    requires:
+      vars: [PATH]
     vars:
-      ns: '{{.ns | default "default"}}'
-      claim: '{{.claim}}'
-    requires:
-      vars: [claim]
+      OPERATION: '{{index .MATCH 0}}'
+      KUSTOMIZATION:
+        sh: flux --namespace flux-system get kustomizations {{base .PATH}}
     preconditions:
-      - kubectl --namespace {{.ns}} get persistentvolumeclaims {{.claim}}
+      - test -f {{.KUBERNETES_DIR}}/apps/{{.PATH}}/ks.yaml
+      - which flux kubectl yq
 
-  delete-failed-pods:
-    desc: Delete all pods with an Evicted/Failed/Succeeded status
+  browse-pvc:
+    desc: Mount a PVC to an temp container [NS=default] [CLAIM=required]
+    interactive: true
+    cmd: kubectl browse-pvc --namespace {{.NS}} --image docker.io/library/alpine:latest {{.CLAIM}}
+    vars:
+      NS: '{{.NS | default "default"}}'
+    requires:
+      vars: [CLAIM]
+    preconditions:
+      - kubectl --namespace {{.NS}} get persistentvolumeclaims {{.CLAIM}}
+      - kubectl browse-pvc --version
+      - which kubectl
+
+  sync-secrets:
+    desc: Sync all ExternalSecrets
     cmds:
-      - for: [Evicted, Failed, Succeeded]
-        cmd: kubectl delete pods --field-selector status.phase={{.ITEM}} -A --ignore-not-found=true
-
-  privileged:
-    desc: Run a privileged pod [node=required]
-    cmd: |
-      kubectl run privileged-{{.node}} -i --rm --image=null \
-        --overrides="$(yq {{.KUBERNETES_RESOURCES_DIR}}/privileged-pod.yaml.j2 -o json | minijinja-cli)"
-    env:
-      NODE: '{{.node}}'
-    requires:
-      vars: [node]
+      - for: { var: SECRETS, split: "\n" }
+        cmd: kubectl --namespace {{splitList "," .ITEM | first}} annotate externalsecret {{splitList "," .ITEM | last}} force-sync="{{now | unixEpoch}}" --overwrite
+    vars:
+      SECRETS:
+        sh: kubectl get externalsecret --all-namespaces --no-headers --output=jsonpath='{range .items[*]}{.metadata.namespace},{.metadata.name}{"\n"}{end}'
     preconditions:
-      - test -f {{.KUBERNETES_RESOURCES_DIR}}/privileged-pod.yaml.j2
+      - which kubectl
+
+  cleanse-pods:
+    desc: Cleanse pods with a Failed/Pending/Succeeded phase
+    cmds:
+      - for:
+          matrix:
+            PHASE: [Failed, Pending, Succeeded]
+        cmd: kubectl delete pods --all-namespaces --field-selector status.phase={{.ITEM.PHASE}} --ignore-not-found=true
+    preconditions:
+      - which kubectl
+
+  # https://docs.github.com/en/enterprise-cloud@latest/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/deploying-runner-scale-sets-with-actions-runner-controller#upgrading-arc
+  upgrade-arc:
+    desc: Upgrade the ARC
+    cmds:
+      - helm -n actions-runner-system uninstall gha-runner-scale-set
+      - helm -n actions-runner-system uninstall gha-runner-scale-set-controller
+      - sleep 5
+      - flux -n actions-runner-system reconcile hr gha-runner-scale-set-controller
+      - flux -n actions-runner-system reconcile hr gha-runner-scale-set
+    preconditions:
+      - which flux helm
