@@ -3,17 +3,16 @@
   extends: [
     "config:recommended",
     "docker:enableMajor",
-    "replacements:k8s-registry-move",
     ":automergeBranch",
     ":disableRateLimiting",
     ":dependencyDashboard",
     ":gitSignOff",
     ":semanticCommits",
+    ":separatePatchReleases",
     ":skipStatusChecks",
     ":timezone(America/Chicago)",
     "github>buroa/k8s-gitops//.github/renovate/allowedVersions.json5",
     "github>buroa/k8s-gitops//.github/renovate/autoMerge.json5",
-    "github>buroa/k8s-gitops//.github/renovate/commitMessage.json5",
     "github>buroa/k8s-gitops//.github/renovate/customManagers.json5",
     "github>buroa/k8s-gitops//.github/renovate/grafanaDashboards.json5",
     "github>buroa/k8s-gitops//.github/renovate/groups.json5",
@@ -35,7 +34,6 @@
   },
   kubernetes: {
     fileMatch: [
-      "(^|/).taskfiles/.+\\.ya?ml$",
       "(^|/)talos/.+\\.ya?ml$",
       "(^|/)kubernetes/.+\\.ya?ml$",
     ],
