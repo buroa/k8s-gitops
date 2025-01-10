@@ -37,15 +37,10 @@ spec:
         env:
           - name: UNIFI_HOST
             value: https://unifi.internal
-          - name: &name UNIFI_USER
+          - name: &name UNIFI_API_KEY
             valueFrom:
               secretKeyRef:
-                name: &secret external-dns-unifi-secret
-                key: *name
-          - name: &name UNIFI_PASS
-            valueFrom:
-              secretKeyRef:
-                name: *secret
+                name: external-dns-unifi-secret
                 key: *name
         livenessProbe:
           httpGet:
