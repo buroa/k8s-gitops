@@ -2,30 +2,12 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-repositories
+  name: cluster-meta
   namespace: flux-system
 spec:
   interval: 30m
-  path: ./kubernetes/flux/repositories
-  prune: false # revert after
-  wait: true
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: cluster-settings
-  namespace: flux-system
-spec:
-  interval: 30m
-  path: ./kubernetes/flux/settings
-  prune: false # revert after
+  path: ./kubernetes/flux/meta
+  prune: true
   wait: true
   sourceRef:
     kind: GitRepository
@@ -43,8 +25,7 @@ metadata:
 spec:
   interval: 30m
   dependsOn:
-    - name: cluster-repositories
-    - name: cluster-settings
+    - name: cluster-meta
   path: ./kubernetes/apps
   prune: false # revert after
   sourceRef:

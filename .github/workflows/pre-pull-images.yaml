@@ -40,7 +40,7 @@ jobs:
         with:
           args: >-
             get cluster
-            --path /github/workspace/kubernetes/flux/config
+            --path /github/workspace/kubernetes/flux/cluster
             --enable-images
             --output yaml
             --output-file images.yaml
@@ -92,11 +92,11 @@ jobs:
 
   # Summarize matrix https://github.community/t/status-check-for-a-matrix-jobs/127354/7
   pre-pull-images-success:
-    if: ${{ needs.compare-images.outputs.images != '[]' }}
+    if: ${{ always() }}
     needs: ["pre-pull-images"]
     name: Pre-pull Images Successful
     runs-on: ubuntu-latest
     steps:
-      - if: ${{ !contains(needs.*.result, 'success') }}
+      - if: ${{ contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled') }}
         name: Check matrix status
         run: exit 1
