@@ -218,11 +218,11 @@ spec:
           revision: 6
           datasource: Prometheus
         smartctl-exporter:
-          # renovate: depName="smartctl_exporter"
-          gnetId: 22381
+          # renovate: depName="SMARTctl Exporter Dashboard"
+          gnetId: 22604
           revision: 1
           datasource:
-            - name: DS_VICTORIAMETRICS
+            - name: DS_PROMETHEUS
               value: Prometheus
         speedtest-exporter:
           # renovate: depName="Speedtest-Exporter Dashboard"
