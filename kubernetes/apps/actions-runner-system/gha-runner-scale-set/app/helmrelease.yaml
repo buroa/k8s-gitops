@@ -23,6 +23,19 @@ spec:
     remediation:
       strategy: rollback
       retries: 3
+  valuesFrom:
+    - kind: Secret
+      name: actions-runner-controller-auth-secret
+      valuesKey: ACTION_RUNNER_CONTROLLER_GITHUB_APP_ID
+      targetPath: githubConfigSecret.github_app_id
+    - kind: Secret
+      name: actions-runner-controller-auth-secret
+      valuesKey: ACTION_RUNNER_CONTROLLER_GITHUB_INSTALLATION_ID
+      targetPath: githubConfigSecret.github_app_installation_id
+    - kind: Secret
+      name: actions-runner-controller-auth-secret
+      valuesKey: ACTION_RUNNER_CONTROLLER_GITHUB_PRIVATE_KEY
+      targetPath: githubConfigSecret.github_app_private_key
   values:
     nameOverride: *app
     runnerScaleSetName: *app
@@ -63,16 +76,3 @@ spec:
     controllerServiceAccount:
       name: gha-runner-scale-set-controller
       namespace: actions-runner-system
-  valuesFrom:
-    - kind: Secret
-      name: actions-runner-controller-auth-secret
-      valuesKey: ACTION_RUNNER_CONTROLLER_GITHUB_APP_ID
-      targetPath: githubConfigSecret.github_app_id
-    - kind: Secret
-      name: actions-runner-controller-auth-secret
-      valuesKey: ACTION_RUNNER_CONTROLLER_GITHUB_INSTALLATION_ID
-      targetPath: githubConfigSecret.github_app_installation_id
-    - kind: Secret
-      name: actions-runner-controller-auth-secret
-      valuesKey: ACTION_RUNNER_CONTROLLER_GITHUB_PRIVATE_KEY
-      targetPath: githubConfigSecret.github_app_private_key
