@@ -23,7 +23,7 @@ tasks:
       - until kubectl wait nodes --for=condition=Ready=False --all --timeout=10m; do sleep 5; done
       - op run --env-file {{.KUBERNETES_DIR}}/bootstrap/bootstrap.env --no-masking -- minijinja-cli {{.KUBERNETES_DIR}}/bootstrap/templates/resources.yaml.j2 | kubectl apply --server-side --filename -
       - helmfile --quiet --file {{.KUBERNETES_DIR}}/bootstrap/helmfile.yaml apply --skip-diff-on-install --suppress-diff
-      - helmfile --quiet --file {{.KUBERNETES_DIR}}/bootstrap/helmfile.yaml destroy --selector release=wipe-rook
+      - helmfile --quiet --file {{.KUBERNETES_DIR}}/bootstrap/helmfile.yaml destroy --selector name=wipe-rook
     env:
       FLUX_GITHUB_PUBLIC_KEYS:
         sh: curl -fsSL https://api.github.com/meta | jq --raw-output '"github.com "+.ssh_keys[]'
