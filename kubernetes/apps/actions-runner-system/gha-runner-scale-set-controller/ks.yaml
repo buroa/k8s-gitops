@@ -12,7 +12,7 @@ spec:
   dependsOn:
     - name: external-secrets-stores
   path: ./kubernetes/apps/actions-runner-system/gha-runner-scale-set-controller/app
-  prune: false # revert after
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system

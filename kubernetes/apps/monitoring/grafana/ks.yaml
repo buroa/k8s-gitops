@@ -12,7 +12,7 @@ spec:
   dependsOn:
     - name: external-secrets-stores
   path: ./kubernetes/apps/monitoring/grafana/app
-  prune: false # revert after
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
