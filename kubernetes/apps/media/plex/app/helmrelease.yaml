@@ -32,7 +32,7 @@ spec:
             env:
               PLEX_ADVERTISE_URL: https://{{ .Release.Name }}.ktwo.io:443
               PLEX_NO_AUTH_NETWORKS: 192.168.1.0/24
-              TZ: America/Chicago
+              TZ: ${TIMEZONE}
             probes:
               liveness: &probes
                 enabled: true

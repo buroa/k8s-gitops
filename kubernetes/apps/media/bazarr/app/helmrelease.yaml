@@ -33,7 +33,7 @@ spec:
               tag: 1.5.1@sha256:bd7187f0fad40eef4136ae30591dc47417998e90a4b88971b78d72bfab772885
             env:
               BAZARR__PORT: &port 6767
-              TZ: America/Chicago
+              TZ: ${TIMEZONE}
             envFrom:
               - secretRef:
                   name: bazarr-secret

@@ -47,7 +47,7 @@ spec:
               SONARR__LOG__LEVEL: info
               SONARR__SERVER__PORT: &port 8989
               SONARR__UPDATE__BRANCH: develop
-              TZ: America/Chicago
+              TZ: ${TIMEZONE}
             envFrom: *envFrom
             probes:
               liveness: &probes

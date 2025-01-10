@@ -32,7 +32,7 @@ spec:
             env:
               QBT_TORRENTING_PORT: &bittorrentPort 50413
               QBT_WEBUI_PORT: &port 8080
-              TZ: America/Chicago
+              TZ: ${TIMEZONE}
             probes:
               liveness: &probes
                 enabled: true
