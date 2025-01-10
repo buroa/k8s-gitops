@@ -14,7 +14,7 @@ spec:
     - name: intel-device-plugin-gpu
     - name: multus-networks
   path: ./kubernetes/apps/home/go2rtc/app
-  prune: true
+  prune: false # revert after
   sourceRef:
     kind: GitRepository
     name: flux-system

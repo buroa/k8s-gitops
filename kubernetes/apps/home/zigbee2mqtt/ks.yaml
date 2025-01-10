@@ -15,7 +15,7 @@ spec:
     - name: rook-ceph-cluster
     - name: volsync
   path: ./kubernetes/apps/home/zigbee2mqtt/app
-  prune: true
+  prune: false # revert after
   sourceRef:
     kind: GitRepository
     name: flux-system

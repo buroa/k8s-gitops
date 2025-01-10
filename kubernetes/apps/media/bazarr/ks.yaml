@@ -14,7 +14,7 @@ spec:
     - name: rook-ceph-cluster
     - name: volsync
   path: ./kubernetes/apps/media/bazarr/app
-  prune: true
+  prune: false # revert after
   sourceRef:
     kind: GitRepository
     name: flux-system

@@ -10,7 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   path: ./kubernetes/apps/system-upgrade/system-upgrade-controller/app
-  prune: true
+  prune: false # revert after
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -33,7 +33,7 @@ spec:
     - name: node-feature-discovery-features
     - name: system-upgrade-controller
   path: ./kubernetes/apps/system-upgrade/system-upgrade-controller/plans
-  prune: true
+  prune: false # revert after
   sourceRef:
     kind: GitRepository
     name: flux-system
