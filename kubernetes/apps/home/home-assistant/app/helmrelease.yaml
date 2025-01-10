@@ -36,7 +36,7 @@ spec:
               HOME_ASSISTANT_PURGE_KEEP_DAYS: 30
               HOME_ASSISTANT_TRUSTED_PROXIES: 10.244.0.0/16
               HOME_ASSISTANT_UNIT_SYSTEM: imperial
-              TZ: ${TIMEZONE}
+              TZ: America/Chicago
             envFrom:
               - secretRef:
                   name: home-assistant-secret

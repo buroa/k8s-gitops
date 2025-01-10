@@ -58,7 +58,7 @@ spec:
     substituteFrom:
       - kind: ConfigMap
         name: cluster-settings
-        optional: false
+        optional: true
       - kind: Secret
         name: cluster-secrets
         optional: true
@@ -77,7 +77,7 @@ spec:
             substituteFrom:
               - kind: ConfigMap
                 name: cluster-settings
-                optional: false
+                optional: true
               - kind: Secret
                 name: cluster-secrets
                 optional: true

@@ -44,7 +44,7 @@ spec:
               AUTOBRR__HOST: 0.0.0.0
               AUTOBRR__PORT: &port 7474
               AUTOBRR__LOG_LEVEL: INFO
-              TZ: ${TIMEZONE}
+              TZ: America/Chicago
             envFrom: *envFrom
             probes:
               liveness: &probes

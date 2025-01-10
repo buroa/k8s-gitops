@@ -41,7 +41,7 @@ spec:
                 sabnzbd.media.svc.cluster.local,
                 {{ .Release.Name }}.ktwo.io,
                 sab.ktwo.io
-              TZ: ${TIMEZONE}
+              TZ: America/Chicago
             envFrom:
               - secretRef:
                   name: sabnzbd-secret

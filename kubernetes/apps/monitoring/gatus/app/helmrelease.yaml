@@ -61,7 +61,7 @@ spec:
               GATUS_WEB_PORT: &port 80
               GATUS_CONFIG_PATH: /config
               GATUS_DELAY_START_SECONDS: 5
-              TZ: ${TIMEZONE}
+              TZ: America/Chicago
             envFrom: *envFrom
             probes:
               liveness: &probes
