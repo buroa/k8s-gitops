@@ -31,7 +31,7 @@ spec:
               tag: 2.15.0@sha256:fa63a01dae9f11578d585b7b704b0e4474ddf783f5d7b55423de8a671a76bbda
             env:
               TAUTULLI__PORT: &port 8181
-              TZ: ${TIMEZONE}
+              TZ: America/Chicago
             probes:
               liveness: &probes
                 enabled: true

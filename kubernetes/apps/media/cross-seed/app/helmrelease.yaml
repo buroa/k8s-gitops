@@ -35,7 +35,7 @@ spec:
               - daemon
             env:
               CROSS_SEED_PORT: &port 2468
-              TZ: ${TIMEZONE}
+              TZ: America/Chicago
             envFrom:
               - secretRef:
                   name: cross-seed-secret

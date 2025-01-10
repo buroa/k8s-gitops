@@ -32,7 +32,7 @@ spec:
               repository: ghcr.io/koenkk/zigbee2mqtt
               tag: 2.0.0@sha256:6105a3a01a66bbfb98909a7c309d0707ec7b41728ac15d399747077225231545
             env:
-              TZ: ${TIMEZONE}
+              TZ: America/Chicago
               ZIGBEE2MQTT_DATA: /config
               ZIGBEE2MQTT_CONFIG_ADVANCED_LAST_SEEN: ISO_8601
               ZIGBEE2MQTT_CONFIG_ADVANCED_LOG_LEVEL: info # debug

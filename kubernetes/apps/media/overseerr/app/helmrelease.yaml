@@ -32,7 +32,7 @@ spec:
             env:
               LOG_LEVEL: info
               PORT: &port 5055
-              TZ: ${TIMEZONE}
+              TZ: America/Chicago
             probes:
               liveness: &probes
                 enabled: true
