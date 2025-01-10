@@ -40,7 +40,7 @@ spec:
           - name: &name UNIFI_API_KEY
             valueFrom:
               secretKeyRef:
-                name: external-dns-unifi-secret
+                name: &secret external-dns-unifi-secret
                 key: *name
         livenessProbe:
           httpGet:
