@@ -5,6 +5,7 @@ metadata:
   name: cluster-meta
   namespace: flux-system
 spec:
+  targetNamespace: flux-system
   interval: 30m
   path: ./kubernetes/flux/meta
   prune: true
