@@ -6,10 +6,8 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: flux-system
-  interval: 30m
   path: ./kubernetes/flux/meta
   prune: true
-  wait: true
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -17,6 +15,8 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
+  wait: true
+  interval: 30m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -24,7 +24,7 @@ metadata:
   name: cluster-apps
   namespace: flux-system
 spec:
-  interval: 30m
+  targetNamespace: flux-system
   dependsOn:
     - name: cluster-meta
   path: ./kubernetes/apps
@@ -36,6 +36,7 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
+  interval: 30m
   postBuild:
     substituteFrom:
       - kind: ConfigMap
