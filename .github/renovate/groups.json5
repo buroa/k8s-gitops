@@ -50,10 +50,7 @@
     {
       description: ["Talos Group"],
       groupName: "Talos",
-      matchPackagePatterns: [
-        "siderolabs/installer",
-        "siderolabs/talosctl"
-      ],
+      matchPackagePatterns: ["siderolabs/installer", "siderolabs/talosctl"],
       matchDatasources: ["docker"],
       group: {
         commitMessageTopic: "{{{groupName}}} group",

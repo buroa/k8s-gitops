@@ -4,7 +4,9 @@ name: Flux Diff
 on:
   pull_request:
     branches: ["master"]
-    paths: ["kubernetes/**"]
+    paths:
+      - kubernetes/apps/**
+      - kubernetes/flux/**
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.number || github.ref }}

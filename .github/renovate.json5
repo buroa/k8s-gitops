@@ -32,9 +32,6 @@
     fileMatch: ["(^|/)kubernetes/.+\\.ya?ml$"],
   },
   kubernetes: {
-    fileMatch: [
-      "(^|/)talos/.+\\.ya?ml$",
-      "(^|/)kubernetes/.+\\.ya?ml$",
-    ],
+    fileMatch: ["(^|/)kubernetes/.+\\.ya?ml$", "(^|/)talos/.+\\.ya?ml$"],
   },
 }
