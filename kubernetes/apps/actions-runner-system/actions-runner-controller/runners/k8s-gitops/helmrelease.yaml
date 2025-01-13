@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app gha-runner-scale-set
+  name: &app k8s-gitops-runner
 spec:
   interval: 30m
   chart:
@@ -13,8 +13,6 @@ spec:
         kind: HelmRepository
         name: actions-runner-controller
         namespace: flux-system
-  driftDetection:
-    mode: enabled
   install:
     remediation:
       retries: 3
@@ -24,18 +22,18 @@ spec:
       strategy: rollback
       retries: 3
   valuesFrom:
-    - kind: Secret
-      name: actions-runner-controller-auth-secret
+    - targetPath: githubConfigSecret.github_app_id
+      kind: Secret
+      name: actions-runner-controller-secret
       valuesKey: ACTION_RUNNER_CONTROLLER_GITHUB_APP_ID
-      targetPath: githubConfigSecret.github_app_id
-    - kind: Secret
-      name: actions-runner-controller-auth-secret
+    - targetPath: githubConfigSecret.github_app_installation_id
+      kind: Secret
+      name: actions-runner-controller-secret
       valuesKey: ACTION_RUNNER_CONTROLLER_GITHUB_INSTALLATION_ID
-      targetPath: githubConfigSecret.github_app_installation_id
-    - kind: Secret
-      name: actions-runner-controller-auth-secret
+    - targetPath: githubConfigSecret.github_app_private_key
+      kind: Secret
+      name: actions-runner-controller-secret
       valuesKey: ACTION_RUNNER_CONTROLLER_GITHUB_PRIVATE_KEY
-      targetPath: githubConfigSecret.github_app_private_key
   values:
     nameOverride: *app
     runnerScaleSetName: *app
@@ -50,6 +48,9 @@ spec:
           requests:
             storage: 25Gi
         storageClassName: openebs-hostpath
+    controllerServiceAccount:
+      name: actions-runner-controller
+      namespace: actions-runner-system
     template:
       spec:
         containers:
@@ -68,11 +69,8 @@ spec:
               - mountPath: /var/run/secrets/talos.dev
                 name: talos
                 readOnly: true
-        serviceAccountName: actions-runner
+        serviceAccountName: *app
         volumes:
           - name: talos
             secret:
-              secretName: actions-runner
-    controllerServiceAccount:
-      name: gha-runner-scale-set-controller
-      namespace: actions-runner-system
+              secretName: *app

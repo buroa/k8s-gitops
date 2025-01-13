@@ -18,7 +18,7 @@ on:
 jobs:
   sync:
     name: Helm Repository Sync
-    runs-on: ["gha-runner-scale-set"]
+    runs-on: ["k8s-gitops-runner"]
     steps:
       - name: Setup Homebrew
         uses: Homebrew/actions/setup-homebrew@master
