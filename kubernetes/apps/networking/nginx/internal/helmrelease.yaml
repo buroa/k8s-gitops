@@ -59,7 +59,7 @@ spec:
         ssl-early-data: true
         ssl-protocols: TLSv1.3 TLSv1.2
       extraArgs:
-        default-ssl-certificate: networking/wildcard-tls
+        default-ssl-certificate: cert-manager/ktwo-io-tls
         publish-status-address: &hostname internal.ktwo.io
       ingressClass: internal
       ingressClassResource:

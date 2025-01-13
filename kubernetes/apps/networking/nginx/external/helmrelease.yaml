@@ -60,7 +60,7 @@ spec:
         ssl-protocols: TLSv1.3 TLSv1.2
         use-forwarded-headers: true
       extraArgs:
-        default-ssl-certificate: networking/wildcard-tls
+        default-ssl-certificate: cert-manager/ktwo-io-tls
         publish-status-address: &hostname external.ktwo.io
       ingressClass: external
       ingressClassResource:
