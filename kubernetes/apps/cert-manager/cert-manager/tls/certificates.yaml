@@ -2,13 +2,11 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: wildcard
+  name: ktwo-io
 spec:
-  secretName: wildcard-tls
+  secretName: ktwo-io-tls
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
   commonName: ktwo.io
-  dnsNames:
-    - ktwo.io
-    - "*.ktwo.io"
+  dnsNames: ["ktwo.io", "*.ktwo.io"]
