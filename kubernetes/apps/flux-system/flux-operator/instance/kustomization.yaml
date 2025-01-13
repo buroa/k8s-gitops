@@ -9,5 +9,5 @@ configMapGenerator:
   - name: flux-instance-helm-values
     files:
       - ./resources/values.yaml
-generatorOptions:
-  disableNameSuffixHash: true
+configurations:
+  - ./kustomizeconfig.yaml
