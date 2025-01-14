@@ -82,7 +82,7 @@ This Git repository contains the following directories under [kubernetes](./kube
 ```sh
 📁 kubernetes      # Kubernetes cluster defined as code
 ├─📁 apps          # Apps deployed into my cluster grouped by namespace (see below)
-├─📁 bootstrap     # Flux installation
+├─📁 bootstrap     # Initial resources to bootstrap the cluster
 └─📁 flux          # Main Flux configuration of repository
 ```
 
@@ -92,13 +92,13 @@ This is a high-level look how Flux deploys my applications with dependencies. Be
 
 ```mermaid
 graph TD;
-  id1>Kustomization: cluster] -->|Creates| id2>Kustomization: cluster-apps];
+  id1>Kustomization: flux-system] -->|Creates| id2>Kustomization: cluster-apps];
   id2>Kustomization: cluster-apps] -->|Creates| id3>Kustomization: postgres];
   id2>Kustomization: cluster-apps] -->|Creates| id5>Kustomization: postgres-cluster]
   id2>Kustomization: cluster-apps] -->|Creates| id8>Kustomization: atuin]
-  id3>Kustomization: postgres] -->|Creates| id4[HelmRelease: postgres];
+  id3>Kustomization: postgres] -->|Creates| id4(HelmRelease: postgres);
   id5>Kustomization: postgres-cluster] -->|Depends on| id3>Kustomization: postgres];
-  id5>Kustomization: postgres-cluster] -->|Creates| id10[Postgres Cluster];
+  id5>Kustomization: postgres-cluster] -->|Creates| id10(Cluster: postgres);
   id8>Kustomization: atuin] -->|Creates| id9(HelmRelease: atuin);
   id8>Kustomization: atuin] -->|Depends on| id5>Kustomization: postgres-cluster];
 ```
