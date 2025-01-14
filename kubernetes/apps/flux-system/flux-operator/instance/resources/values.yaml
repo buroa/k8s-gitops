@@ -12,10 +12,9 @@ instance:
     - notification-controller
   sync:
     kind: GitRepository
-    url: ssh://git@github.com/buroa/k8s-gitops
+    url: https://github.com/buroa/k8s-gitops
     ref: refs/heads/master
     path: ./kubernetes/flux/cluster
-    pullSecret: github-deploy-key
   kustomize:
     patches:
       # Increase the number of workers and limits

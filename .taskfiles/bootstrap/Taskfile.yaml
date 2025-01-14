@@ -17,17 +17,17 @@ tasks:
       - which talosctl
 
   apps:
-    desc: Bootstrap Kubernetes Apps
+    desc: Bootstrap Kubernetes Apps [MODEL=SAMSUNG_MZQL23T8HCLS-00A07]
     prompt: Bootstrap Kubernetes Apps ...?
     cmds:
       - until kubectl wait nodes --for=condition=Ready=False --all --timeout=10m; do sleep 5; done
       - op run --env-file {{.KUBERNETES_DIR}}/bootstrap/bootstrap.env --no-masking -- minijinja-cli {{.KUBERNETES_DIR}}/bootstrap/templates/resources.yaml.j2 | kubectl apply --server-side --filename -
       - helmfile --quiet --file {{.KUBERNETES_DIR}}/bootstrap/helmfile.yaml apply --skip-diff-on-install --suppress-diff
       - helmfile --quiet --file {{.KUBERNETES_DIR}}/bootstrap/helmfile.yaml destroy --selector name=wipe-rook
+    vars:
+      MODEL: '{{.MODEL | default "SAMSUNG_MZQL23T8HCLS-00A07"}}'
     env:
-      FLUX_GITHUB_PUBLIC_KEYS:
-        sh: curl -fsSL https://api.github.com/meta | jq --raw-output '"github.com "+.ssh_keys[]'
-      MODEL: SAMSUNG_MZQL23T8HCLS-00A07
+      MODEL: '{{.MODEL}}'
       NODE_COUNT:
         sh: talosctl config info --output json | jq --raw-output '.nodes | length'
       VAULT: K8s
