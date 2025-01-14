@@ -9,11 +9,9 @@ resources:
   - ./cloudnative-pg.yaml
   - ./controlplaneio.yaml
   - ./coredns.yaml
-  - ./deliveryhero.yaml
   - ./emqx.yaml
   - ./external-dns.yaml
   - ./external-secrets.yaml
-  - ./fairwinds.yaml
   - ./grafana.yaml
   - ./ingress-nginx.yaml
   - ./intel.yaml
@@ -28,4 +26,3 @@ resources:
   - ./rook-ceph.yaml
   - ./spegel.yaml
   - ./stakater.yaml
-  - ./stevehipwell.yaml
