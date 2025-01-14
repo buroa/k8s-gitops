@@ -39,7 +39,7 @@ nodes:
           mode: 802.3ad
           xmitHashPolicy: layer3+4
           lacpRate: fast
-          miimon: 100
+          miimon: 1000
           deviceSelectors:
             - hardwareAddr: 58:47:ca:77:c5:*
               driver: i40e
@@ -96,7 +96,7 @@ nodes:
           mode: 802.3ad
           xmitHashPolicy: layer3+4
           lacpRate: fast
-          miimon: 100
+          miimon: 1000
           deviceSelectors:
             - hardwareAddr: 58:47:ca:77:ce:*
               driver: i40e
@@ -153,7 +153,7 @@ nodes:
           mode: 802.3ad
           xmitHashPolicy: layer3+4
           lacpRate: fast
-          miimon: 100
+          miimon: 1000
           deviceSelectors:
             - hardwareAddr: 58:47:ca:77:c6:*
               driver: i40e
