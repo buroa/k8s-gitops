@@ -35,8 +35,6 @@ spec:
       name: actions-runner-controller-secret
       valuesKey: ACTION_RUNNER_CONTROLLER_GITHUB_PRIVATE_KEY
   values:
-    nameOverride: *app
-    runnerScaleSetName: *app
     githubConfigUrl: https://github.com/buroa/k8s-gitops
     minRunners: 1
     maxRunners: 3
