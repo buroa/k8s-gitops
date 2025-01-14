@@ -17,7 +17,7 @@ tasks:
       - which talosctl
 
   apps:
-    desc: Bootstrap Kubernetes Apps [MODEL=SAMSUNG_MZQL23T8HCLS-00A07]
+    desc: Bootstrap Kubernetes Apps [ROOK_DISK=SAMSUNG_MZQL23T8HCLS-00A07]
     prompt: Bootstrap Kubernetes Apps ...?
     cmds:
       - until kubectl wait nodes --for=condition=Ready=False --all --timeout=10m; do sleep 5; done
@@ -25,11 +25,11 @@ tasks:
       - helmfile --quiet --file {{.KUBERNETES_DIR}}/bootstrap/helmfile.yaml apply --skip-diff-on-install --suppress-diff
       - helmfile --quiet --file {{.KUBERNETES_DIR}}/bootstrap/helmfile.yaml destroy --selector name=wipe-rook
     vars:
-      MODEL: '{{.MODEL | default "SAMSUNG_MZQL23T8HCLS-00A07"}}'
+      ROOK_DISK: '{{.ROOK_DISK | default "SAMSUNG_MZQL23T8HCLS-00A07"}}'
     env:
-      MODEL: '{{.MODEL}}'
       NODE_COUNT:
         sh: talosctl config info --output json | jq --raw-output '.nodes | length'
+      ROOK_DISK: '{{.ROOK_DISK}}'
       VAULT: K8s
     preconditions:
       - op user get --me
