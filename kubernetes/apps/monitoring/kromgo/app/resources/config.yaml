@@ -68,7 +68,7 @@ metrics:
     title: Uptime
 
   - name: cluster_alert_count
-    query: sum(ALERTS{alertname!="Watchdog"}) or vector(0)
+    query: sum(ALERTS{alertname!="Watchdog", alertstate="firing"}) or vector(0)
     colors:
       - { color: "green", min: 0, max: 0 }
       - { color: "red", min: 1, max: 9999 }
