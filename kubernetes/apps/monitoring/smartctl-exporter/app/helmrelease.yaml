@@ -23,10 +23,10 @@ spec:
       retries: 3
   values:
     fullnameOverride: *app
+    prometheusRules:
+      enabled: false
     serviceMonitor:
       enabled: true
       relabelings:
         - action: labeldrop
           regex: (pod)
-    prometheusRules:
-      enabled: false

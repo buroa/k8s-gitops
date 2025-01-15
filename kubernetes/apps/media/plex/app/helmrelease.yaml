@@ -61,7 +61,7 @@ spec:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities:
-                drop: [ALL]
+                drop: ["ALL"]
     defaultPodOptions:
       nodeSelector:
         intel.feature.node.kubernetes.io/gpu: "true"

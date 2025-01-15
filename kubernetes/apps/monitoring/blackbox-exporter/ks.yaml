@@ -9,7 +9,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  path: ./kubernetes/apps/monitoring/exporters/blackbox-exporter/app
+  path: ./kubernetes/apps/monitoring/blackbox-exporter/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -31,7 +31,7 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: blackbox-exporter
-  path: ./kubernetes/apps/monitoring/exporters/blackbox-exporter/probes
+  path: ./kubernetes/apps/monitoring/blackbox-exporter/probes
   prune: true
   sourceRef:
     kind: GitRepository

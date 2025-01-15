@@ -224,13 +224,6 @@ spec:
           datasource:
             - name: DS_PROMETHEUS
               value: Prometheus
-        speedtest-exporter:
-          # renovate: depName="Speedtest-Exporter Dashboard"
-          gnetId: 13665
-          revision: 4
-          datasource:
-            - name: DS_PROMETHEUS
-              value: Prometheus
         spegel:
           # renovate: depName="Spegel"
           gnetId: 18089

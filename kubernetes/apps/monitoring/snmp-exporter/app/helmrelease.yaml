@@ -34,8 +34,6 @@ spec:
           auth: [public_v2]
           module: [apcups]
           target: ups.internal
-      path: /snmp
-      scrapeTimeout: 10s
       relabelings:
         - sourceLabels: [__param_target]
           targetLabel: instance
