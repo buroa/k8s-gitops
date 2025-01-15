@@ -5,13 +5,13 @@ metadata:
   name: kubernetes
 spec:
   version: ${KUBERNETES_VERSION}
+  concurrency: 1
+  exclusive: true
   serviceAccountName: system-upgrade
   secrets:
     - name: system-upgrade
       path: /var/run/secrets/talos.dev
       ignoreUpdates: true
-  concurrency: 1
-  exclusive: true
   nodeSelector:
     matchExpressions:
       - key: feature.node.kubernetes.io/system-os_release.ID
