@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app grafana
+  name: grafana
 spec:
   interval: 30m
   chart:
