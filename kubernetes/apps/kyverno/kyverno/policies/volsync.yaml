@@ -61,7 +61,6 @@ spec:
               name: "{{ request.object.metadata.name }}-restic-secret"
               creationPolicy: Owner
               template:
-                engineVersion: v2
                 data:
                   RESTIC_REPOSITORY: "\\{{ .REPOSITORY_TEMPLATE }}/{{ request.object.metadata.name }}"
                   RESTIC_PASSWORD: "\\{{ .RESTIC_PASSWORD }}"
