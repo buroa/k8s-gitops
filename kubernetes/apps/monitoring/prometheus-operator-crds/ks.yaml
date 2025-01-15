@@ -9,8 +9,6 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  dependsOn:
-    - name: rook-ceph-cluster
   path: ./kubernetes/apps/monitoring/prometheus-operator-crds/app
   prune: true
   sourceRef:

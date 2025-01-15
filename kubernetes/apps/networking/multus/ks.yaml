@@ -9,8 +9,6 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  dependsOn:
-    - name: cilium
   path: ./kubernetes/apps/networking/multus/app
   prune: true
   sourceRef:
