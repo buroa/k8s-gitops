@@ -8,8 +8,7 @@ tasks:
 
   brew:
     desc: Set up Homebrew tools
-    cmds:
-      - brew bundle --file {{.WORKSTATION_RESOURCES_DIR}}/Brewfile
+    cmd: brew bundle --file {{.WORKSTATION_RESOURCES_DIR}}/Brewfile
     sources:
       - '{{.WORKSTATION_RESOURCES_DIR}}/Brewfile'
     generates:
@@ -21,8 +20,7 @@ tasks:
   krew:
     desc: Set up Krew tools
     deps: [brew]
-    cmds:
-      - kubectl krew install cert-manager cnpg browse-pvc node-shell rook-ceph view-secret
+    cmd: kubectl krew install cert-manager cnpg browse-pvc node-shell rook-ceph view-secret
     preconditions:
       - kubectl krew version
       - which kubectl

@@ -16,7 +16,7 @@ tasks:
     desc: Upgrade Talos on a single node [NODE=required]
     prompt: Upgrade Talos on {{.NODE}} to {{.TALOS_VERSION}} ... continue?
     cmds:
-      - talosctl --nodes {{.NODE}} upgrade --image=factory.talos.dev/installer-secureboot/{{.TALOS_SCHEMATIC_ID}}:{{.TALOS_VERSION}}
+      - talosctl --nodes {{.NODE}} upgrade --image=factory.talos.dev/installer/{{.TALOS_SCHEMATIC_ID}}:{{.TALOS_VERSION}}
       - talosctl --nodes {{.NODE}} health
     vars:
       NODE: '{{.NODE}}'

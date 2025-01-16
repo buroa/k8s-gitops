@@ -8,6 +8,7 @@ helmDefaults:
 repositories:
   - name: cilium
     url: https://helm.cilium.io
+
   - name: coredns
     url: https://coredns.github.io/helm
 
@@ -23,7 +24,8 @@ releases:
     version: 1.16.5
     values:
       - ../apps/kube-system/cilium/app/resources/values.yaml
-    needs: ["monitoring/prometheus-operator-crds"]
+    needs:
+      - monitoring/prometheus-operator-crds
 
   - name: coredns
     namespace: kube-system
@@ -31,7 +33,8 @@ releases:
     version: 1.37.1
     values:
       - ../apps/kube-system/coredns/app/resources/values.yaml
-    needs: ["kube-system/cilium"]
+    needs:
+      - kube-system/cilium
 
   - name: spegel
     namespace: kube-system
@@ -39,15 +42,8 @@ releases:
     version: v0.0.29
     values:
       - ../apps/kube-system/spegel/app/resources/values.yaml
-    needs: ["kube-system/coredns"]
-
-  - name: wipe-rook
-    namespace: kube-system
-    chart: oci://ghcr.io/bjw-s/helm/app-template
-    version: 3.6.1
-    values:
-      - ./templates/wipe-rook.yaml.gotmpl
-    needs: ["kube-system/spegel"]
+    needs:
+      - kube-system/coredns
 
   - name: flux-operator
     namespace: flux-system
@@ -55,7 +51,8 @@ releases:
     version: 0.13.0
     values:
       - ../apps/flux-system/flux-operator/app/resources/values.yaml
-    needs: ["kube-system/wipe-rook"]
+    needs:
+      - kube-system/spegel
 
   - name: flux-instance
     namespace: flux-system
@@ -64,4 +61,5 @@ releases:
     wait: false
     values:
       - ../apps/flux-system/flux-operator/instance/resources/values.yaml
-    needs: ["flux-system/flux-operator"]
+    needs:
+      - flux-system/flux-operator

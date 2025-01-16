@@ -14,8 +14,8 @@ talosVersion: v1.9.2
 kubernetesVersion: v1.32.1
 
 additionalApiServerCertSans: &sans
-  - 192.168.10.200
   - k8s.internal
+  - 192.168.10.100
   - 127.0.0.1
 
 additionalMachineCertSans: *sans
@@ -55,7 +55,7 @@ nodes:
               - network: 0.0.0.0/0
                 gateway: 192.168.10.1
             vip:
-              ip: 192.168.10.200
+              ip: 192.168.10.100
           - vlanId: 20
             dhcp: false
             mtu: 1500
@@ -112,7 +112,7 @@ nodes:
               - network: 0.0.0.0/0
                 gateway: 192.168.10.1
             vip:
-              ip: 192.168.10.200
+              ip: 192.168.10.100
           - vlanId: 20
             dhcp: false
             mtu: 1500
@@ -169,7 +169,7 @@ nodes:
               - network: 0.0.0.0/0
                 gateway: 192.168.10.1
             vip:
-              ip: 192.168.10.200
+              ip: 192.168.10.100
           - vlanId: 20
             dhcp: false
             mtu: 1500
@@ -197,9 +197,6 @@ nodes:
 
 controlPlane:
   noSchematicValidate: true
-
-  machineSpec:
-    secureboot: true
 
   nodeLabels:
     topology.kubernetes.io/region: *cluster
