@@ -95,13 +95,13 @@ spec:
     persistence:
       add-ons:
         type: emptyDir
-      cache:
+      config:
+        existingClaim: *app
+      config-cache:
         type: emptyDir
         globalMounts:
           - path: /config/cache
-      config:
-        existingClaim: *app
-      logs:
+      config-log:
         type: emptyDir
         globalMounts:
           - path: /config/log

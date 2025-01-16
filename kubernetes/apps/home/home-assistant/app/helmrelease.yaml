@@ -78,16 +78,16 @@ spec:
     persistence:
       config:
         existingClaim: *app
-      logs:
+      config-logs:
         type: emptyDir
         globalMounts:
           - path: /config/logs
-      tmp:
-        type: emptyDir
-      tts:
+      config-tts:
         type: emptyDir
         globalMounts:
           - path: /config/tts
+      tmp:
+        type: emptyDir
     service:
       app:
         controller: *app

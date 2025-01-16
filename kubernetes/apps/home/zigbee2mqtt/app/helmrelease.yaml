@@ -99,7 +99,7 @@ spec:
     persistence:
       config:
         existingClaim: *app
-      logs:
+      config-logs:
         type: emptyDir
         globalMounts:
           - path: /config/log
