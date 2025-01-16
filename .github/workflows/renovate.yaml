@@ -20,9 +20,7 @@ on:
     - cron: "0 * * * *" # Every hour
   push:
     branches: ["master"]
-    paths:
-      - .github/renovate.json5
-      - .github/renovate/**.json5
+    paths: [".github/renovate.json5", ".github/renovate/**.json5"]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.number || github.ref }}

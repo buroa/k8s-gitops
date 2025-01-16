@@ -3,11 +3,11 @@ name: Label Sync
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *" # Every day at midnight
   push:
     branches: ["master"]
     paths: [".github/labels.yaml"]
-  schedule:
-    - cron: "0 0 * * *" # Every day at midnight
 
 jobs:
   labels:
