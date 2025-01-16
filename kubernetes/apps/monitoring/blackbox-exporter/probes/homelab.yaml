@@ -15,6 +15,7 @@ spec:
         - ups.internal
         - kvm.internal
         - pikvm.internal
-        - slzb.internal
+        - zigbee-controller.internal
+        - lutron-bridge.internal
         - wan1.internal # WAN1 - XFINITY PON ONT
         - wan2.internal # WAN2 - VZW 4G/5G
