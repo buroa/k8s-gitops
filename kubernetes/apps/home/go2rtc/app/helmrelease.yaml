@@ -56,8 +56,7 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities:
-                drop: ["ALL"]
+              capabilities: { drop: ["ALL"] }
     defaultPodOptions:
       annotations:
         k8s.v1.cni.cncf.io/networks: |

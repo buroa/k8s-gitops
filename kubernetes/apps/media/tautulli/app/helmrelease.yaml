@@ -53,8 +53,7 @@ spec:
             securityContext: &securityContext
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities:
-                drop: ["ALL"]
+              capabilities: { drop: ["ALL"] }
           jbops:
             image:
               repository: registry.k8s.io/git-sync/git-sync

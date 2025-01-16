@@ -69,8 +69,7 @@ spec:
             securityContext: &securityContext
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities:
-                drop: ["ALL"]
+              capabilities: { drop: ["ALL"] }
           sync:
             image:
               repository: docker.io/1password/connect-sync
