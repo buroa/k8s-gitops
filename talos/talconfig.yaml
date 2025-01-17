@@ -45,17 +45,14 @@ nodes:
               driver: i40e
         dhcp: false
         mtu: 9000
+        addresses:
+          - 192.168.10.10/24
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 192.168.10.1
+        vip:
+          ip: 192.168.10.100
         vlans:
-          - vlanId: 10
-            dhcp: false
-            addresses:
-              - 192.168.10.10/24
-            mtu: 9000
-            routes:
-              - network: 0.0.0.0/0
-                gateway: 192.168.10.1
-            vip:
-              ip: 192.168.10.100
           - vlanId: 20
             dhcp: false
             mtu: 1500
@@ -102,17 +99,14 @@ nodes:
               driver: i40e
         dhcp: false
         mtu: 9000
+        addresses:
+          - 192.168.10.11/24
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 192.168.10.1
+        vip:
+          ip: 192.168.10.100
         vlans:
-          - vlanId: 10
-            dhcp: false
-            addresses:
-              - 192.168.10.11/24
-            mtu: 9000
-            routes:
-              - network: 0.0.0.0/0
-                gateway: 192.168.10.1
-            vip:
-              ip: 192.168.10.100
           - vlanId: 20
             dhcp: false
             mtu: 1500
@@ -159,17 +153,14 @@ nodes:
               driver: i40e
         dhcp: false
         mtu: 9000
+        addresses:
+          - 192.168.10.12/24
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 192.168.10.1
+        vip:
+          ip: 192.168.10.100
         vlans:
-          - vlanId: 10
-            dhcp: false
-            addresses:
-              - 192.168.10.12/24
-            mtu: 9000
-            routes:
-              - network: 0.0.0.0/0
-                gateway: 192.168.10.1
-            vip:
-              ip: 192.168.10.100
           - vlanId: 20
             dhcp: false
             mtu: 1500
@@ -198,6 +189,9 @@ nodes:
 controlPlane:
   noSchematicValidate: true
 
+  machineSpec:
+    secureboot: true
+
   nodeLabels:
     topology.kubernetes.io/region: *cluster
     topology.kubernetes.io/zone: m
@@ -205,14 +199,14 @@ controlPlane:
   schematic:
     customization:
       extraKernelArgs:
-        - apparmor=0
-        - init_on_alloc=0
-        - init_on_free=0
-        - intel_iommu=on
-        - iommu=pt
-        - mitigations=off
-        - net.ifnames=0
-        - security=none
+        - apparmor=0               # Less security, faster puter
+        - init_on_alloc=0          # Less security, faster puter
+        - init_on_free=0           # Less security, faster puter
+        - intel_iommu=on           # PCI Passthrough
+        - iommu=pt                 # PCI Passthrough
+        - mitigations=off          # Less security, faster puter
+        - security=none            # Less security, faster puter
+        - talos.auditd.disabled=1  # Less security, faster puter
 
       systemExtensions:
         officialExtensions:

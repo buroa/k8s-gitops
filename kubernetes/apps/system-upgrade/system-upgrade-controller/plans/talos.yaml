@@ -43,5 +43,5 @@ spec:
     args:
       - --nodes=$(NODE_IP)
       - upgrade
-      - --image=factory.talos.dev/installer/${TALOS_SCHEMATIC_ID}:$(SYSTEM_UPGRADE_PLAN_LATEST_VERSION)
+      - --image=factory.talos.dev/installer-secureboot/${TALOS_SCHEMATIC_ID}:$(SYSTEM_UPGRADE_PLAN_LATEST_VERSION)
       - --wait=false
