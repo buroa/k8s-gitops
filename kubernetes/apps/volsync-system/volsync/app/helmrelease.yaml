@@ -21,8 +21,6 @@ spec:
     remediation:
       strategy: rollback
       retries: 3
-  values:
-    manageCRDs: true
-    replicaCount: 2
-    metrics:
-      disableAuth: true
+  valuesFrom:
+    - kind: ConfigMap
+      name: volsync-helm-values

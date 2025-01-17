@@ -21,7 +21,7 @@ tasks:
     prompt: Bootstrap Kubernetes Apps ...?
     cmds:
       - for: { var: NODES }
-        task: wipe-rook
+        task: wipe
         vars:
           MODEL: '{{.MODEL}}'
           NODE: '{{.ITEM}}'
@@ -41,12 +41,12 @@ tasks:
       - test -f {{.KUBERNETES_DIR}}/bootstrap/templates/resources.yaml.tpl
       - which jq helmfile kubectl op talosctl
 
-  wipe-rook:
+  wipe:
     internal: true
     cmd: talosctl -n {{.NODE}} wipe disk {{.BLOCK}}
     vars:
       BLOCK:
-        sh: talosctl -n {{.NODE}} get disks -o json | jq --raw-output 'select(.spec.model == "{{.MODEL}}") | .metadata.id'
+        sh: talosctl -n {{.NODE}} get disks --output json | jq --raw-output 'select(.spec.model == "{{.MODEL}}") | .metadata.id' | xargs
     requires:
       vars: [MODEL, NODE]
     preconditions:
