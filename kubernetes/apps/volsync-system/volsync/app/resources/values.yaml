@@ -1,5 +1,0 @@
----
-manageCRDs: true
-replicaCount: 2
-metrics:
-  disableAuth: true

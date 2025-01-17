@@ -4,9 +4,3 @@ kind: Kustomization
 resources:
   - ./helmrelease.yaml
   - ./prometheusrule.yaml
-configMapGenerator:
-  - name: volsync-helm-values
-    files:
-      - ./resources/values.yaml
-configurations:
-  - ./kustomizeconfig.yaml
