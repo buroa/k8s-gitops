@@ -31,6 +31,7 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: kyverno
+    - name: volsync # Requires CRDs
   path: ./kubernetes/apps/kyverno/kyverno/policies
   prune: true
   sourceRef:
