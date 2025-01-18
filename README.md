@@ -71,7 +71,7 @@ There is a template at [onedr0p/cluster-template](https://github.com/onedr0p/clu
 
 [Flux](https://github.com/fluxcd/flux2) monitors my [kubernetes](./kubernetes) folder (see Directories below) and implements changes to my cluster based on the YAML manifests.
 
-Flux operates by recursively searching the [kubernetes/apps](./kubernetes/apps) folder until it locates the top-level `kustomization.yaml` in each directory. It then applies all the resources listed in it. This `kustomization.yaml` typically contains a namespace resource and one or more Flux kustomizations. These Flux kustomizations usually include a `HelmRelease` or other application-related resources, which are then applied.
+The way Flux works for me here is it will recursively search the `kubernetes/apps` folder until it finds the most top level `kustomization.yaml` per directory and then apply all the resources listed in it. That aforementioned `kustomization.yaml` will generally only have a namespace resource and one or many Flux kustomizations (`ks.yaml`). Under the control of those Flux kustomizations there will be a `HelmRelease` or other resources related to the application which will be applied.
 
 [Renovate](https://github.com/renovatebot/renovate) monitors my **entire** repository for dependency updates, automatically creating a PR when updates are found. When some PRs are merged, [Flux](https://github.com/fluxcd/flux2) applies the changes to my cluster.
 
@@ -82,8 +82,8 @@ This Git repository contains the following directories under [kubernetes](./kube
 ```sh
 📁 kubernetes      # Kubernetes cluster defined as code
 ├─📁 apps          # Apps deployed into my cluster grouped by namespace (see below)
-├─📁 bootstrap     # Initial resources to bootstrap the cluster
-└─📁 flux          # Main Flux configuration of repository
+├─📁 bootstrap     # Initial resources to bootstrap my cluster
+└─📁 flux          # Flux system configuration
 ```
 
 ### Cluster layout
