@@ -5,19 +5,20 @@ metadata:
   name: &app system-upgrade-controller
   namespace: flux-system
 spec:
-  targetNamespace: system-upgrade
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  interval: 30m
   path: ./kubernetes/apps/system-upgrade/system-upgrade-controller/app
   prune: true
+  retryInterval: 1m
   sourceRef:
     kind: GitRepository
     name: flux-system
-  wait: true
-  interval: 30m
-  retryInterval: 1m
+    namespace: flux-system
+  targetNamespace: system-upgrade
   timeout: 5m
+  wait: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -25,26 +26,25 @@ metadata:
   name: &app system-upgrade-controller-plans
   namespace: flux-system
 spec:
-  targetNamespace: system-upgrade
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: node-feature-discovery-features
     - name: system-upgrade-controller
+  interval: 30m
   path: ./kubernetes/apps/system-upgrade/system-upgrade-controller/plans
+  postBuild:
+    substitute:
+      KUBERNETES_VERSION: v1.32.1
+      TALOS_SCHEMATIC_ID: c4656257d36b75c5459a556bd4613c94badd08aaecd39734b2901637b5c93b0b
+      TALOS_VERSION: v1.9.2
   prune: true
+  retryInterval: 1m
   sourceRef:
     kind: GitRepository
     name: flux-system
-  wait: true
-  interval: 30m
-  retryInterval: 1m
+    namespace: flux-system
+  targetNamespace: system-upgrade
   timeout: 5m
-  postBuild:
-    substitute:
-      TALOS_SCHEMATIC_ID: c4656257d36b75c5459a556bd4613c94badd08aaecd39734b2901637b5c93b0b
-      # renovate: depName=ghcr.io/siderolabs/installer datasource=docker
-      TALOS_VERSION: v1.9.2
-      # renovate: depName=ghcr.io/siderolabs/kubelet datasource=docker
-      KUBERNETES_VERSION: v1.32.1
+  wait: true
