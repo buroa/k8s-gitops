@@ -5,7 +5,6 @@ metadata:
   name: &app nginx-internal
 spec:
   interval: 30m
-  timeout: 15m
   chart:
     spec:
       chart: ingress-nginx
