@@ -11,7 +11,6 @@ spec:
   interval: 30m
   path: ./kubernetes/apps/system-upgrade/system-upgrade-controller/app
   prune: true
-  retryInterval: 1m
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -40,7 +39,6 @@ spec:
       TALOS_SCHEMATIC_ID: c4656257d36b75c5459a556bd4613c94badd08aaecd39734b2901637b5c93b0b
       TALOS_VERSION: v1.9.2
   prune: true
-  retryInterval: 1m
   sourceRef:
     kind: GitRepository
     name: flux-system

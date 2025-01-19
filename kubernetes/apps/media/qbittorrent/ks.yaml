@@ -14,7 +14,6 @@ spec:
   interval: 30m
   path: ./kubernetes/apps/media/qbittorrent/app
   prune: true
-  retryInterval: 1m
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -38,7 +37,6 @@ spec:
   interval: 30m
   path: ./kubernetes/apps/media/qbittorrent/tools
   prune: true
-  retryInterval: 1m
   sourceRef:
     kind: GitRepository
     name: flux-system

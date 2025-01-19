@@ -15,7 +15,6 @@ spec:
   interval: 30m
   path: ./kubernetes/apps/monitoring/kube-prometheus-stack/app
   prune: true
-  retryInterval: 1m
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -38,7 +37,6 @@ spec:
   interval: 30m
   path: ./kubernetes/apps/monitoring/kube-prometheus-stack/tools
   prune: true
-  retryInterval: 1m
   sourceRef:
     kind: GitRepository
     name: flux-system

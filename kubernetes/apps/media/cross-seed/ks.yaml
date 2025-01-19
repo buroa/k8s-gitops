@@ -14,7 +14,6 @@ spec:
   interval: 30m
   path: ./kubernetes/apps/media/cross-seed/app
   prune: true
-  retryInterval: 1m
   sourceRef:
     kind: GitRepository
     name: flux-system
