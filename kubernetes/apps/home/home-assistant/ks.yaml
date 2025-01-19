@@ -5,7 +5,6 @@ metadata:
   name: &app home-assistant
   namespace: flux-system
 spec:
-  targetNamespace: home
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
@@ -15,12 +14,14 @@ spec:
     - name: multus-networks
     - name: rook-ceph-cluster
     - name: volsync
+  interval: 30m
   path: ./kubernetes/apps/home/home-assistant/app
   prune: true
+  retryInterval: 1m
   sourceRef:
     kind: GitRepository
     name: flux-system
-  wait: true
-  interval: 30m
-  retryInterval: 1m
+    namespace: flux-system
+  targetNamespace: home
   timeout: 5m
+  wait: true

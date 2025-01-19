@@ -5,18 +5,19 @@ metadata:
   name: &app loki
   namespace: flux-system
 spec:
-  targetNamespace: monitoring
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: rook-ceph-cluster
+  interval: 30m
   path: ./kubernetes/apps/monitoring/loki/app
   prune: true
+  retryInterval: 1m
   sourceRef:
     kind: GitRepository
     name: flux-system
-  wait: true
-  interval: 30m
-  retryInterval: 1m
+    namespace: flux-system
+  targetNamespace: monitoring
   timeout: 5m
+  wait: true

@@ -5,18 +5,19 @@ metadata:
   name: &app volsync
   namespace: flux-system
 spec:
-  targetNamespace: volsync-system
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: snapshot-controller
+  interval: 30m
   path: ./kubernetes/apps/volsync-system/volsync/app
   prune: true
+  retryInterval: 1m
   sourceRef:
     kind: GitRepository
     name: flux-system
-  wait: true
-  interval: 30m
-  retryInterval: 1m
+    namespace: flux-system
+  targetNamespace: volsync-system
   timeout: 5m
+  wait: true

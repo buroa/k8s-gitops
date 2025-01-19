@@ -5,7 +5,6 @@ metadata:
   name: &app recyclarr
   namespace: flux-system
 spec:
-  targetNamespace: media
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
@@ -13,12 +12,14 @@ spec:
     - name: external-secrets-stores
     - name: rook-ceph-cluster
     - name: volsync
+  interval: 30m
   path: ./kubernetes/apps/media/recyclarr/app
   prune: true
+  retryInterval: 1m
   sourceRef:
     kind: GitRepository
     name: flux-system
-  wait: true
-  interval: 30m
-  retryInterval: 1m
+    namespace: flux-system
+  targetNamespace: media
   timeout: 5m
+  wait: true

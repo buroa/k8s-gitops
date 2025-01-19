@@ -5,19 +5,20 @@ metadata:
   name: &app kyverno
   namespace: flux-system
 spec:
-  targetNamespace: kyverno
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  interval: 30m
   path: ./kubernetes/apps/kyverno/kyverno/app
   prune: true
+  retryInterval: 1m
   sourceRef:
     kind: GitRepository
     name: flux-system
-  wait: true
-  interval: 30m
-  retryInterval: 1m
+    namespace: flux-system
+  targetNamespace: kyverno
   timeout: 5m
+  wait: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -25,19 +26,20 @@ metadata:
   name: &app kyverno-policies
   namespace: flux-system
 spec:
-  targetNamespace: kyverno
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: kyverno
-    - name: volsync # Requires CRDs
+    - name: volsync
+  interval: 30m
   path: ./kubernetes/apps/kyverno/kyverno/policies
   prune: true
+  retryInterval: 1m
   sourceRef:
     kind: GitRepository
     name: flux-system
-  wait: true
-  interval: 30m
-  retryInterval: 1m
+    namespace: flux-system
+  targetNamespace: kyverno
   timeout: 5m
+  wait: true

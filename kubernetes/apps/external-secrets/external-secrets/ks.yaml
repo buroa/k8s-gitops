@@ -5,19 +5,20 @@ metadata:
   name: &app external-secrets
   namespace: flux-system
 spec:
-  targetNamespace: external-secrets
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  interval: 30m
   path: ./kubernetes/apps/external-secrets/external-secrets/app
   prune: true
+  retryInterval: 1m
   sourceRef:
     kind: GitRepository
     name: flux-system
-  wait: true
-  interval: 30m
-  retryInterval: 1m
+    namespace: flux-system
+  targetNamespace: external-secrets
   timeout: 5m
+  wait: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -25,18 +26,19 @@ metadata:
   name: &app external-secrets-stores
   namespace: flux-system
 spec:
-  targetNamespace: external-secrets
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: external-secrets
+  interval: 30m
   path: ./kubernetes/apps/external-secrets/external-secrets/stores
   prune: true
+  retryInterval: 1m
   sourceRef:
     kind: GitRepository
     name: flux-system
-  wait: true
-  interval: 30m
-  retryInterval: 1m
+    namespace: flux-system
+  targetNamespace: external-secrets
   timeout: 5m
+  wait: true

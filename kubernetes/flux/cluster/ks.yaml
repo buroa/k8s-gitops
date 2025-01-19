@@ -5,13 +5,14 @@ metadata:
   name: cluster-meta
   namespace: flux-system
 spec:
+  interval: 30m
   path: ./kubernetes/flux/meta
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
+    namespace: flux-system
   wait: true
-  interval: 30m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -21,10 +22,11 @@ metadata:
 spec:
   dependsOn:
     - name: cluster-meta
+  interval: 30m
   path: ./kubernetes/apps
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
+    namespace: flux-system
   wait: false
-  interval: 30m

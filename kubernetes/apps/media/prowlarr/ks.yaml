@@ -5,19 +5,20 @@ metadata:
   name: &app prowlarr
   namespace: flux-system
 spec:
-  targetNamespace: media
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: cloudnative-pg-cluster
     - name: external-secrets-stores
+  interval: 30m
   path: ./kubernetes/apps/media/prowlarr/app
   prune: true
+  retryInterval: 1m
   sourceRef:
     kind: GitRepository
     name: flux-system
-  wait: true
-  interval: 30m
-  retryInterval: 1m
+    namespace: flux-system
+  targetNamespace: media
   timeout: 5m
+  wait: true
