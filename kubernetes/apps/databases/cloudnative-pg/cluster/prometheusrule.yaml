@@ -2,74 +2,77 @@
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
-  name: cloudnative-pg-rules
-  labels:
-    prometheus: k8s
-    role: alert-rules
+  name: cloudnative-pg
 spec:
   groups:
     - name: cloudnative-pg.rules
       rules:
         - alert: LongRunningTransaction
-          annotations:
-            description: Pod {{ $labels.pod }} is taking more than 5 minutes (300 seconds) for a query.
-            summary: A query is taking longer than 5 minutes.
           expr: |-
             cnpg_backends_max_tx_duration_seconds > 300
-          for: 1m
-          labels:
-            severity: warning
-        - alert: BackendsWaiting
+          for: 5m
           annotations:
-            description: Pod {{ $labels.pod }} has been waiting for longer than 5 minutes
-            summary: If a backend is waiting for longer than 5 minutes
+            summary: >
+              Pod {{ $labels.pod }} is taking more than {{ $value }} seconds for a query.
+          labels:
+            severity: critical
+
+        - alert: BackendsWaiting
           expr: |-
             cnpg_backends_waiting_total > 300
-          for: 1m
-          labels:
-            severity: warning
-        - alert: PGDatabase
+          for: 5m
           annotations:
-            description: Over 300,000,000 transactions from frozen xid on pod {{ $labels.pod }}
-            summary: Number of transactions from the frozen XID to the current one
+            summary: >
+              Pod {{ $labels.pod }} has been waiting for longer than {{ $value }} seconds
+          labels:
+            severity: critical
+
+        - alert: PGDatabase
           expr: |-
             cnpg_pg_database_xid_age > 300000000
-          for: 1m
-          labels:
-            severity: warning
-        - alert: PGReplication
+          for: 5m
           annotations:
-            description: Standby is lagging behind by over 300 seconds (5 minutes)
-            summary: The standby is lagging behind the primary
+            summary: >
+              Over {{ $value }} transactions from frozen xid on pod {{ $labels.pod }}
+          labels:
+            severity: critical
+
+        - alert: PGReplication
           expr: |-
             cnpg_pg_replication_lag > 300
-          for: 1m
-          labels:
-            severity: warning
-        - alert: LastFailedArchiveTime
+          for: 5m
           annotations:
-            description: Archiving failed for {{ $labels.pod }}
-            summary: Checks the last time archiving failed. Will be < 0 when it has not failed.
+            summary: >
+              Standby is lagging behind by over {{ $value }} seconds
+          labels:
+            severity: critical
+
+        - alert: LastFailedArchiveTime
           expr: |-
             (cnpg_pg_stat_archiver_last_failed_time - cnpg_pg_stat_archiver_last_archived_time) > 1
-          for: 1m
-          labels:
-            severity: warning
-        - alert: DatabaseDeadlockConflicts
+          for: 5m
           annotations:
-            description: There are over 10 deadlock conflicts in {{ $labels.pod }}
-            summary: Checks the number of database conflicts
+            summary: >
+              Archiving failed for {{ $labels.pod }}
+          labels:
+            severity: critical
+
+        - alert: DatabaseDeadlockConflicts
           expr: |-
             cnpg_pg_stat_database_deadlocks > 10
-          for: 1m
-          labels:
-            severity: warning
-        - alert: ReplicaFailingReplication
+          for: 5m
           annotations:
-            description: Replica {{ $labels.pod }} is failing to replicate
-            summary: Checks if the replica is failing to replicate
+            summary: >
+              There are over {{ $value }} deadlock conflicts in {{ $labels.pod }}
+          labels:
+            severity: critical
+
+        - alert: ReplicaFailingReplication
           expr: |-
             cnpg_pg_replication_in_recovery > cnpg_pg_replication_is_wal_receiver_up
-          for: 1m
+          for: 5m
+          annotations:
+            summary: >
+              Replica {{ $labels.pod }} is failing to replicate
           labels:
-            severity: warning
+            severity: critical

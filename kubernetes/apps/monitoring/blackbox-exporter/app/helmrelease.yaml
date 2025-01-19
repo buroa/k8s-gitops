@@ -57,17 +57,3 @@ spec:
             preferred_ip_protocol: ipv4
     serviceMonitor:
       enabled: true
-      defaults:
-        interval: 1m
-        scrapeTimeout: 10s
-    prometheusRule:
-      enabled: true
-      rules:
-        - alert: BlackboxProbeFailed
-          expr: probe_success == 0
-          for: 15m
-          labels:
-            severity: critical
-          annotations:
-            description: |-
-              The host {{ $labels.instance }} is currently unreachable

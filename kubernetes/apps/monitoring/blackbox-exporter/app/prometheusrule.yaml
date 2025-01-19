@@ -1,0 +1,18 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: blackbox-exporter
+spec:
+  groups:
+    - name: blackbox-exporter.rules
+      rules:
+        - alert: BlackboxProbeFailed
+          expr: |
+            probe_success == 0
+          for: 5m
+          annotations:
+            summary: >
+              The host {{ $labels.instance }} is currently unreachable
+          labels:
+            severity: critical
