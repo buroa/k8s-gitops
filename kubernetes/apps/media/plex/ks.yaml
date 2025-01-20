@@ -8,12 +8,21 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components:
+    - ../../../../flux/components/gatus
+    - ../../../../flux/components/volsync
   dependsOn:
     - name: intel-device-plugin-gpu
     - name: rook-ceph-cluster
     - name: volsync
   interval: 30m
   path: ./kubernetes/apps/media/plex/app
+  postBuild:
+    substitute:
+      APP: *app
+      GATUS_PATH: /identity
+      VOLSYNC_CACHE_CAPACITY: 25Gi
+      VOLSYNC_CAPACITY: 50Gi
   prune: true
   sourceRef:
     kind: GitRepository

@@ -24,8 +24,6 @@ spec:
   values:
     controllers:
       home-assistant:
-        annotations:
-          reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
@@ -37,9 +35,6 @@ spec:
               HOME_ASSISTANT_TRUSTED_PROXIES: 10.244.0.0/16
               HOME_ASSISTANT_UNIT_SYSTEM: imperial
               TZ: America/Chicago
-            envFrom:
-              - secretRef:
-                  name: home-assistant-secret
             resources:
               requests:
                 cpu: 10m

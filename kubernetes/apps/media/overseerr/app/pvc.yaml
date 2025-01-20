@@ -2,21 +2,6 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: &name overseerr
-spec:
-  accessModes: ["ReadWriteOnce"]
-  dataSourceRef:
-    kind: ReplicationDestination
-    apiGroup: volsync.backube
-    name: *name
-  resources:
-    requests:
-      storage: 2Gi
-  storageClassName: ceph-block
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
   name: overseerr-cache
 spec:
   accessModes: ["ReadWriteOnce"]

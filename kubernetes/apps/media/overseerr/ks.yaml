@@ -8,11 +8,19 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components:
+    - ../../../../flux/components/gatus
+    - ../../../../flux/components/volsync
   dependsOn:
     - name: rook-ceph-cluster
     - name: volsync
   interval: 30m
   path: ./kubernetes/apps/media/overseerr/app
+  postBuild:
+    substitute:
+      APP: *app
+      GATUS_PATH: /api/v1/status
+      VOLSYNC_CAPACITY: 5Gi
   prune: true
   sourceRef:
     kind: GitRepository

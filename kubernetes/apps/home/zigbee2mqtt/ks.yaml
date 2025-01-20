@@ -8,6 +8,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components:
+    - ../../../../flux/components/volsync
   dependsOn:
     - name: emqx-cluster
     - name: external-secrets-stores
@@ -15,6 +17,10 @@ spec:
     - name: volsync
   interval: 30m
   path: ./kubernetes/apps/home/zigbee2mqtt/app
+  postBuild:
+    substitute:
+      APP: *app
+      VOLSYNC_CAPACITY: 1Gi
   prune: true
   sourceRef:
     kind: GitRepository

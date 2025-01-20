@@ -38,7 +38,7 @@ spec:
                 custom: true
                 spec:
                   httpGet:
-                    path: &path /status
+                    path: /status
                     port: *port
                   initialDelaySeconds: 0
                   periodSeconds: 10
@@ -79,8 +79,6 @@ spec:
     ingress:
       app:
         className: internal
-        annotations:
-          gatus.io/path: *path
         hosts:
           - host: "{{ .Release.Name }}.ktwo.io"
             paths:

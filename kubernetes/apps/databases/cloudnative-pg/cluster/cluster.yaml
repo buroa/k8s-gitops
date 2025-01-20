@@ -25,9 +25,6 @@ spec:
       memory: 4Gi
   monitoring:
     enablePodMonitor: true
-  inheritedMetadata:
-    annotations:
-      kyverno.io/exclude: "true"
   backup:
     retentionPolicy: 30d
     barmanObjectStore: &barmanObjectStore

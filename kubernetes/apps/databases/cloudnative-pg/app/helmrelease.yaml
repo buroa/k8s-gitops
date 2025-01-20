@@ -22,9 +22,6 @@ spec:
       strategy: rollback
       retries: 3
   values:
-    config:
-      data:
-        INHERITED_ANNOTATIONS: kyverno.io/ignore
     crds:
       create: true
     monitoring:
