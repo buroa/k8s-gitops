@@ -4,7 +4,6 @@ kind: Kustomization
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
-  - ./pvc.yaml
 configMapGenerator:
   - name: zigbee2mqtt-loki-rules
     files:

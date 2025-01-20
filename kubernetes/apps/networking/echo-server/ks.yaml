@@ -8,8 +8,14 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components:
+    - ../../../../flux/components/gatus
   interval: 30m
   path: ./kubernetes/apps/networking/echo-server/app
+  postBuild:
+    substitute:
+      APP: *app
+      GATUS_PATH: /healthz
   prune: true
   sourceRef:
     kind: GitRepository

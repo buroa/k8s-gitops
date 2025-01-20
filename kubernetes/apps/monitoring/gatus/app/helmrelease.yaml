@@ -69,7 +69,7 @@ spec:
                 custom: true
                 spec:
                   httpGet:
-                    path: &path /health
+                    path: /health
                     port: *port
                   initialDelaySeconds: 0
                   periodSeconds: 10
@@ -89,8 +89,6 @@ spec:
     ingress:
       app:
         className: external
-        annotations:
-          gatus.io/path: *path
         hosts:
           - host: "{{ .Release.Name }}.ktwo.io"
             paths: &paths

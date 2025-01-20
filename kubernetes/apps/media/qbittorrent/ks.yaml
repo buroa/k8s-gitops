@@ -8,6 +8,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components:
+    - ../../../../flux/components/volsync
   dependsOn:
     - name: rook-ceph-cluster
     - name: volsync

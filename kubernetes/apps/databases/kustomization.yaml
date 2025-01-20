@@ -5,3 +5,13 @@ resources:
   - ./namespace.yaml
   - ./cloudnative-pg/ks.yaml
   - ./emqx/ks.yaml
+components:
+  - ../../flux/components/alerts
+transformers:
+  - |-
+    apiVersion: builtin
+    kind: NamespaceTransformer
+    metadata:
+      name: not-used
+      namespace: cloudnative-pg
+    unsetOnly: true

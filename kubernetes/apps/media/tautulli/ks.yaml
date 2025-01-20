@@ -8,11 +8,17 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components:
+    - ../../../../flux/components/volsync
   dependsOn:
     - name: rook-ceph-cluster
     - name: volsync
   interval: 30m
   path: ./kubernetes/apps/media/tautulli/app
+  postBuild:
+    substitute:
+      APP: *app
+      VOLSYNC_CAPACITY: 5Gi
   prune: true
   sourceRef:
     kind: GitRepository

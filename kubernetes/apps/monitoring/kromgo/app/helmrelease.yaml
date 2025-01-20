@@ -67,8 +67,6 @@ spec:
     ingress:
       app:
         className: external
-        annotations:
-          gatus.io/status-code: "404"
         hosts:
           - host: "{{ .Release.Name }}.ktwo.io"
             paths:
