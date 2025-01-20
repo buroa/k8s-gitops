@@ -19,7 +19,6 @@ module.exports = {
   port: Number(process.env.CROSS_SEED_PORT),
   qbittorrentUrl: "http://qbittorrent.media.svc.cluster.local:8080",
   skipRecheck: true,
-  torrentDir: "/config/qBittorrent/BT_backup",
   torznab: [], // Only using annoucements from autobrr
   useClientTorrents: true,
 };
