@@ -1,0 +1,7 @@
+---
+apiVersion: builtin
+kind: NamespaceTransformer
+metadata:
+  name: not-used
+  namespace: rook-ceph
+unsetOnly: true

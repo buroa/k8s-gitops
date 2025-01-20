@@ -7,10 +7,4 @@ resources:
 components:
   - ../../flux/components/alerts
 transformers:
-  - |-
-    apiVersion: builtin
-    kind: NamespaceTransformer
-    metadata:
-      name: not-used
-      namespace: cert-manager
-    unsetOnly: true
+  - ./transformer.yaml
