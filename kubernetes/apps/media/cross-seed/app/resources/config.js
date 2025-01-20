@@ -10,7 +10,9 @@ module.exports = {
   includeNonVideos: true,
   includeSingleEpisodes: true,
   linkCategory: "cross-seed",
-  linkDir: "/media/downloads/torrents/complete/cross-seed",
+  linkDirs: [
+    "/media/downloads/torrents/complete/cross-seed"
+  ],
   linkType: "hardlink",
   matchMode: "partial",
   outputDir: "/tmp",
