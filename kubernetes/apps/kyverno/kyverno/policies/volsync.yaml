@@ -14,6 +14,7 @@ metadata:
       pointing to a ReplicationDestination.
     pod-policies.kyverno.io/autogen-controllers: none
 spec:
+  schemaValidation: false
   rules:
     - &rule
       name: volsync-external-secret

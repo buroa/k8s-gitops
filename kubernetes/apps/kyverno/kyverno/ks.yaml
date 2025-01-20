@@ -30,7 +30,6 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: kyverno
-    - name: volsync
   interval: 30m
   path: ./kubernetes/apps/kyverno/kyverno/policies
   prune: true
