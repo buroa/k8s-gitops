@@ -4,7 +4,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: &name qbittorrent
 spec:
-  accessModes: ["ReadWriteMany"]
+  accessModes: ["ReadWriteOnce"]
   dataSourceRef:
     kind: ReplicationDestination
     apiGroup: volsync.backube
@@ -12,4 +12,4 @@ spec:
   resources:
     requests:
       storage: 2Gi
-  storageClassName: ceph-filesystem
+  storageClassName: ceph-block
