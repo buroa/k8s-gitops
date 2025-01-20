@@ -71,7 +71,7 @@ spec:
         supplementalGroups: [65536]
     persistence:
       config:
-        type: emptyDir
+        existingClaim: *app
       config-file:
         type: configMap
         name: cross-seed-configmap
