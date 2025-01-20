@@ -1,0 +1,7 @@
+---
+apiVersion: builtin
+kind: NamespaceTransformer
+metadata:
+  name: not-used
+  namespace: cert-manager
+unsetOnly: true

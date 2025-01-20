@@ -8,10 +8,4 @@ resources:
 components:
   - ../../flux/components/alerts
 transformers:
-  - |-
-    apiVersion: builtin
-    kind: NamespaceTransformer
-    metadata:
-      name: not-used
-      namespace: databases
-    unsetOnly: true
+  - ./transformer.yaml
