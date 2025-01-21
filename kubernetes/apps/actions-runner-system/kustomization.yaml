@@ -6,5 +6,3 @@ resources:
   - ./actions-runner-controller/ks.yaml
 components:
   - ../../flux/components/alerts
-transformers:
-  - ./transformer.yaml
