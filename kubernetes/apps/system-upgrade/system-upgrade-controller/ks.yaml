@@ -35,9 +35,11 @@ spec:
   path: ./kubernetes/apps/system-upgrade/system-upgrade-controller/plans
   postBuild:
     substitute:
-      KUBERNETES_VERSION: v1.32.1
       TALOS_SCHEMATIC_ID: c4656257d36b75c5459a556bd4613c94badd08aaecd39734b2901637b5c93b0b
+      # renovate: depName=ghcr.io/siderolabs/installer datasource=docker
       TALOS_VERSION: v1.9.2
+      # renovate: depName=ghcr.io/siderolabs/kubelet datasource=docker
+      KUBERNETES_VERSION: v1.32.1
   prune: true
   sourceRef:
     kind: GitRepository
