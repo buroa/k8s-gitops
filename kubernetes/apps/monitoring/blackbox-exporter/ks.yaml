@@ -3,7 +3,6 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app blackbox-exporter
-  namespace: flux-system
 spec:
   commonMetadata:
     labels:
@@ -15,7 +14,6 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: monitoring
   timeout: 5m
   wait: true
 ---
@@ -23,7 +21,6 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app blackbox-exporter-probes
-  namespace: flux-system
 spec:
   commonMetadata:
     labels:
@@ -37,5 +34,4 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: monitoring
   timeout: 5m

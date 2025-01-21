@@ -1,6 +1,7 @@
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+namespace: home
 resources:
   - ./namespace.yaml
   - ./atuin/ks.yaml
@@ -9,5 +10,3 @@ resources:
   - ./zigbee2mqtt/ks.yaml
 components:
   - ../../flux/components/alerts
-transformers:
-  - ./transformer.yaml

@@ -1,7 +1,0 @@
----
-apiVersion: builtin
-kind: NamespaceTransformer
-metadata:
-  name: not-used
-  namespace: actions-runner-system
-unsetOnly: true

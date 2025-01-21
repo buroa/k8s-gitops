@@ -1,6 +1,7 @@
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+namespace: kube-system
 resources:
   - ./cilium/ks.yaml
   - ./coredns/ks.yaml
@@ -15,5 +16,3 @@ resources:
   - ./spegel/ks.yaml
 components:
   - ../../flux/components/alerts
-transformers:
-  - ./transformer.yaml
