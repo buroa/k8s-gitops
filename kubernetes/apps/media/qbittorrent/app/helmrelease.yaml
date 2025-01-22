@@ -108,6 +108,3 @@ spec:
           bittorrent-tcp:
             port: *bittorrentPort
             protocol: TCP
-          bittorrent-udp:
-            port: *bittorrentPort
-            protocol: UDP
