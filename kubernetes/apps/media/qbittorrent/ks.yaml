@@ -38,7 +38,6 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: external-secrets-stores
     - name: qbittorrent
   interval: 30m
   path: ./kubernetes/apps/media/qbittorrent/tools

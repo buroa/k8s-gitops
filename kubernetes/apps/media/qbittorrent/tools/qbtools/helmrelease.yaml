@@ -46,12 +46,7 @@ spec:
             env:
               QBITTORRENT_HOST: qbittorrent.media.svc.cluster.local
               QBITTORRENT_PORT: 8080
-              SABNZBD_HOST: sabnzbd.media.svc.cluster.local
-              SABNZBD_PORT: 8080
               TZ: *timeZone
-            envFrom:
-              - secretRef:
-                  name: qbtools-secret
             resources:
               requests:
                 cpu: 10m
@@ -86,15 +81,6 @@ spec:
             <<: *container
             args:
               - reannounce
-      limiter:
-        containers:
-          app:
-            <<: *container
-            args:
-              - limiter
-              - --max-line-speed-mbps=110
-              - --max-percent=0.8
-              - --limit-percent=0.4
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
