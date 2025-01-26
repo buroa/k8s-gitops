@@ -13,7 +13,7 @@ spec:
       namespace: external-secrets
   interval: 30m
   path: ./kubernetes/apps/networking/cloudflared/app
-  prune: false # revert
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system

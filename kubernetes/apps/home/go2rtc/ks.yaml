@@ -17,7 +17,7 @@ spec:
       namespace: networking
   interval: 30m
   path: ./kubernetes/apps/home/go2rtc/app
-  prune: false # revert
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
