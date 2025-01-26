@@ -1,8 +1,8 @@
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+namespace: monitoring
 resources:
-  - ./namespace.yaml
   - ./blackbox-exporter/ks.yaml
   - ./gatus/ks.yaml
   - ./grafana/ks.yaml
@@ -17,5 +17,4 @@ resources:
   - ./unpoller/ks.yaml
 components:
   - ../../flux/components/alerts
-transformers:
-  - ./transformer.yaml
+  - ../../flux/components/namespace
