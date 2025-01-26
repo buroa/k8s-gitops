@@ -14,7 +14,7 @@ spec:
     - name: rook-ceph-cluster
   interval: 30m
   path: ./kubernetes/apps/media/radarr/app
-  prune: true
+  prune: false # revert
   sourceRef:
     kind: GitRepository
     name: flux-system

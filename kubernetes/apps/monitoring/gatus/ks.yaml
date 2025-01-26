@@ -19,7 +19,7 @@ spec:
     substitute:
       APP: *app
       GATUS_PATH: /health
-  prune: true
+  prune: false # revert
   sourceRef:
     kind: GitRepository
     name: flux-system

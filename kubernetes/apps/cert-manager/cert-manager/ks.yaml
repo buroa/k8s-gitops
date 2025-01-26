@@ -10,7 +10,7 @@ spec:
       app.kubernetes.io/name: *app
   interval: 30m
   path: ./kubernetes/apps/cert-manager/cert-manager/app
-  prune: true
+  prune: false # revert
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -33,7 +33,7 @@ spec:
     - name: external-secrets-stores
   interval: 30m
   path: ./kubernetes/apps/cert-manager/cert-manager/issuers
-  prune: true
+  prune: false # revert
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -55,7 +55,7 @@ spec:
     - name: cert-manager-issuers
   interval: 30m
   path: ./kubernetes/apps/cert-manager/cert-manager/tls
-  prune: true
+  prune: false # revert
   sourceRef:
     kind: GitRepository
     name: flux-system
