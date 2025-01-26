@@ -13,7 +13,7 @@ spec:
       namespace: cert-manager
   interval: 30m
   path: ./kubernetes/apps/networking/nginx/external
-  prune: false # revert
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -36,7 +36,7 @@ spec:
       namespace: cert-manager
   interval: 30m
   path: ./kubernetes/apps/networking/nginx/internal
-  prune: false # revert
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system

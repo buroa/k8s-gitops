@@ -12,7 +12,7 @@ spec:
     - name: external-secrets
   interval: 30m
   path: ./kubernetes/apps/external-secrets/onepassword-connect/app
-  prune: false # revert
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system

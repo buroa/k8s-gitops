@@ -13,7 +13,7 @@ spec:
       namespace: *namespace
   interval: 30m
   path: ./kubernetes/apps/monitoring/karma/app
-  prune: false # revert
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
