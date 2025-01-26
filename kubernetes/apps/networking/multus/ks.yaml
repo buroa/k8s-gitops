@@ -3,7 +3,7 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app multus
-  namespace: flux-system
+  namespace: &namespace networking
 spec:
   commonMetadata:
     labels:
@@ -15,7 +15,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: networking
+  targetNamespace: *namespace
   timeout: 5m
   wait: true
 ---
@@ -23,7 +23,7 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app multus-networks
-  namespace: flux-system
+  namespace: &namespace networking
 spec:
   commonMetadata:
     labels:
@@ -37,6 +37,6 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: networking
+  targetNamespace: *namespace
   timeout: 5m
   wait: true

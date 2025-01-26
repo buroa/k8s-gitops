@@ -1,7 +1,0 @@
----
-apiVersion: builtin
-kind: NamespaceTransformer
-metadata:
-  name: not-used
-  namespace: kube-system
-unsetOnly: true

@@ -1,7 +1,0 @@
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: databases
-  annotations:
-    kustomize.toolkit.fluxcd.io/prune: disabled

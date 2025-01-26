@@ -1,10 +1,9 @@
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+namespace: rook-ceph
 resources:
-  - ./namespace.yaml
   - ./rook-ceph/ks.yaml
 components:
   - ../../flux/components/alerts
-transformers:
-  - ./transformer.yaml
+  - ../../flux/components/namespace

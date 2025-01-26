@@ -3,7 +3,7 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app zigbee2mqtt
-  namespace: flux-system
+  namespace: &namespace home
 spec:
   commonMetadata:
     labels:
@@ -26,6 +26,6 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: home
+  targetNamespace: *namespace
   timeout: 5m
   wait: true
