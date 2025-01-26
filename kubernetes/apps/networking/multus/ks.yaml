@@ -10,7 +10,7 @@ spec:
       app.kubernetes.io/name: *app
   interval: 30m
   path: ./kubernetes/apps/networking/multus/app
-  prune: true
+  prune: false # revert
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -32,7 +32,7 @@ spec:
     - name: multus
   interval: 30m
   path: ./kubernetes/apps/networking/multus/networks
-  prune: true
+  prune: false # revert
   sourceRef:
     kind: GitRepository
     name: flux-system

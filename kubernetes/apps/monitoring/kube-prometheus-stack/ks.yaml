@@ -14,7 +14,7 @@ spec:
     - name: rook-ceph-cluster
   interval: 30m
   path: ./kubernetes/apps/monitoring/kube-prometheus-stack/app
-  prune: true
+  prune: false # revert
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -36,7 +36,7 @@ spec:
     - name: kube-prometheus-stack
   interval: 30m
   path: ./kubernetes/apps/monitoring/kube-prometheus-stack/tools
-  prune: true
+  prune: false # revert
   sourceRef:
     kind: GitRepository
     name: flux-system

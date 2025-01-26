@@ -10,7 +10,7 @@ spec:
       app.kubernetes.io/name: *app
   interval: 30m
   path: ./kubernetes/apps/flux-system/flux-operator/app
-  prune: true
+  prune: false # revert
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -32,7 +32,7 @@ spec:
     - name: flux-operator
   interval: 30m
   path: ./kubernetes/apps/flux-system/flux-operator/instance
-  prune: true
+  prune: false # revert
   sourceRef:
     kind: GitRepository
     name: flux-system

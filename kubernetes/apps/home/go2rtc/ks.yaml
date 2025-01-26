@@ -14,7 +14,7 @@ spec:
     - name: multus-networks
   interval: 30m
   path: ./kubernetes/apps/home/go2rtc/app
-  prune: true
+  prune: false # revert
   sourceRef:
     kind: GitRepository
     name: flux-system
