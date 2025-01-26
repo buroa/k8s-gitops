@@ -15,7 +15,7 @@ spec:
       namespace: external-secrets
   interval: 30m
   path: ./kubernetes/apps/databases/emqx/app
-  prune: true
+  prune: false # revert
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -38,7 +38,7 @@ spec:
       namespace: *namespace
   interval: 30m
   path: ./kubernetes/apps/databases/emqx/cluster
-  prune: true
+  prune: false # revert
   sourceRef:
     kind: GitRepository
     name: flux-system
