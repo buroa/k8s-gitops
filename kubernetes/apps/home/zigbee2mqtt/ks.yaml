@@ -12,9 +12,13 @@ spec:
     - ../../../../flux/components/volsync
   dependsOn:
     - name: emqx-cluster
+      namespace: databases
     - name: external-secrets-stores
+      namespace: external-secrets
     - name: rook-ceph-cluster
+      namespace: rook-ceph
     - name: volsync
+      namespace: volsync-system
   interval: 30m
   path: ./kubernetes/apps/home/zigbee2mqtt/app
   postBuild:

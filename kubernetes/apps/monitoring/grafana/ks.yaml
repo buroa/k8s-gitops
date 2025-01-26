@@ -10,6 +10,7 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: external-secrets-stores
+      namespace: external-secrets
   interval: 30m
   path: ./kubernetes/apps/monitoring/grafana/app
   prune: false # revert

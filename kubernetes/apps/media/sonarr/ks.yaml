@@ -10,8 +10,11 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: cloudnative-pg-cluster
+      namespace: databases
     - name: external-secrets-stores
+      namespace: external-secrets
     - name: rook-ceph-cluster
+      namespace: rook-ceph
   interval: 30m
   path: ./kubernetes/apps/media/sonarr/app
   prune: false # revert

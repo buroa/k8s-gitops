@@ -12,9 +12,13 @@ spec:
     - ../../../../flux/components/volsync
   dependsOn:
     - name: emqx-cluster
+      namespace: databases
     - name: multus-networks
+      namespace: networking
     - name: rook-ceph-cluster
+      namespace: rook-ceph
     - name: volsync
+      namespace: volsync-system
   interval: 30m
   path: ./kubernetes/apps/home/home-assistant/app
   postBuild:

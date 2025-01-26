@@ -10,6 +10,7 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: kube-prometheus-stack
+      namespace: *namespace
   interval: 30m
   path: ./kubernetes/apps/monitoring/karma/app
   prune: false # revert

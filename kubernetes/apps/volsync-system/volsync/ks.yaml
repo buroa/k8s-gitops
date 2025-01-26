@@ -10,6 +10,7 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: snapshot-controller
+      namespace: *namespace
   interval: 30m
   path: ./kubernetes/apps/volsync-system/volsync/app
   prune: false # revert

@@ -12,7 +12,9 @@ spec:
     - ../../../../flux/components/volsync
   dependsOn:
     - name: rook-ceph-cluster
+      namespace: rook-ceph
     - name: volsync
+      namespace: volsync-system
   interval: 30m
   path: ./kubernetes/apps/media/qbittorrent/app
   postBuild:
@@ -39,6 +41,7 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: qbittorrent
+      namespace: *namespace
   interval: 30m
   path: ./kubernetes/apps/media/qbittorrent/tools
   prune: false # revert

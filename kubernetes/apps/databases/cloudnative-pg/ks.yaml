@@ -10,6 +10,7 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: external-secrets-stores
+      namespace: external-secrets
   interval: 30m
   path: ./kubernetes/apps/databases/cloudnative-pg/app
   prune: false # revert
@@ -32,7 +33,9 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: cloudnative-pg
+      namespace: *namespace
     - name: openebs
+      namespace: openebs-system
   interval: 30m
   path: ./kubernetes/apps/databases/cloudnative-pg/cluster
   prune: false # revert

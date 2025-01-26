@@ -10,6 +10,7 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: cert-manager-tls
+      namespace: cert-manager
   interval: 30m
   path: ./kubernetes/apps/networking/nginx/external
   prune: false # revert
@@ -32,6 +33,7 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: cert-manager-tls
+      namespace: cert-manager
   interval: 30m
   path: ./kubernetes/apps/networking/nginx/internal
   prune: false # revert

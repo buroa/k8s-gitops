@@ -13,8 +13,11 @@ spec:
     - ../../../../flux/components/volsync
   dependsOn:
     - name: intel-device-plugin-gpu
+      namespace: kube-system
     - name: rook-ceph-cluster
+      namespace: rook-ceph
     - name: volsync
+      namespace: volsync-system
   interval: 30m
   path: ./kubernetes/apps/media/plex/app
   postBuild:

@@ -10,8 +10,11 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: external-secrets-stores
+      namespace: external-secrets
     - name: prometheus-operator-crds
+      namespace: *namespace
     - name: rook-ceph-cluster
+      namespace: rook-ceph
   interval: 30m
   path: ./kubernetes/apps/monitoring/kube-prometheus-stack/app
   prune: false # revert
@@ -34,6 +37,7 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: kube-prometheus-stack
+      namespace: *namespace
   interval: 30m
   path: ./kubernetes/apps/monitoring/kube-prometheus-stack/tools
   prune: false # revert
