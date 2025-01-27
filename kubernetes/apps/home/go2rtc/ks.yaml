@@ -9,12 +9,12 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: external-secrets-stores
-      namespace: external-secrets
     - name: intel-device-plugin-gpu
       namespace: kube-system
     - name: multus-networks
       namespace: networking
+    - name: onepassword-store
+      namespace: external-secrets
   interval: 30m
   path: ./kubernetes/apps/home/go2rtc/app
   prune: true

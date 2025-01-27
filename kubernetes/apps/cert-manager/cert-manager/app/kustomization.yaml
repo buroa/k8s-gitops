@@ -4,3 +4,9 @@ kind: Kustomization
 resources:
   - ./helmrelease.yaml
   - ./prometheusrule.yaml
+configMapGenerator:
+  - name: cert-manager-helm-values
+    files:
+      - ./resources/values.yaml
+configurations:
+  - ./kustomizeconfig.yaml

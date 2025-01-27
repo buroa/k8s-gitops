@@ -1,4 +1,8 @@
 ---
+grafanaDashboard:
+  enabled: true
+serviceMonitor:
+  enabled: true
 spegel:
   appendMirrors: true
   containerdSock: /run/containerd/containerd.sock

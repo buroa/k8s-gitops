@@ -2,17 +2,17 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app actions-runner-controller
-  namespace: &namespace actions-runner-system
+  name: &app onepassword
+  namespace: &namespace external-secrets
 spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: onepassword-store
-      namespace: external-secrets
+    - name: external-secrets
+      namespace: *namespace
   interval: 30m
-  path: ./kubernetes/apps/actions-runner-system/actions-runner-controller/app
+  path: ./kubernetes/apps/external-secrets/onepassword/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -25,19 +25,17 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app actions-runner-controller-runners
-  namespace: &namespace actions-runner-system
+  name: &app onepassword-store
+  namespace: &namespace external-secrets
 spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: actions-runner-controller
+    - name: onepassword
       namespace: *namespace
-    - name: openebs
-      namespace: openebs-system
   interval: 30m
-  path: ./kubernetes/apps/actions-runner-system/actions-runner-controller/runners
+  path: ./kubernetes/apps/external-secrets/onepassword/store
   prune: true
   sourceRef:
     kind: GitRepository
