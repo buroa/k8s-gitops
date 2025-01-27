@@ -32,7 +32,7 @@ spec:
           app:
             image:
               repository: ghcr.io/buroa/maddy
-              tag: 0.8.1@sha256:e569cf4e116f1f050fbf464a61df40b27350849d6973656e4af7c3dd63d171ba
+              tag: 0.8.1@sha256:7ababaed8d65ac55ff05578578dc5437c841a091b7ac32310d86dc43e7e155e1
             env:
               SMTP_RELAY_METRICS_PORT: &metricsPort 8080
               SMTP_RELAY_SMTP_PORT: &smtpPort 25
