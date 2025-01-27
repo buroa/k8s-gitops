@@ -38,7 +38,7 @@ spec:
           app:
             image:
               repository: ghcr.io/buroa/prowlarr-develop
-              tag: 1.30.2.4939@sha256:0b4ae2eb96f7ec3e91095f8fecaf7727f8e411ce7e2e39cd38586e4a53cefedf
+              tag: 1.30.2.4939@sha256:fb15782d6c1fa7aec6ed82baeca08c73cab2fd48bb9167d699787cb260883cf3
             env:
               PROWLARR__APP__INSTANCENAME: Prowlarr
               PROWLARR__APP__THEME: dark
