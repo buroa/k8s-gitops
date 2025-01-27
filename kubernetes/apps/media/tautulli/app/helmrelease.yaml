@@ -28,7 +28,7 @@ spec:
           app:
             image:
               repository: ghcr.io/buroa/tautulli
-              tag: 2.15.1@sha256:c17fc04f946019c533ff28b07c62d77f278b832236f2e67fbc476818151ff25b
+              tag: 2.15.1@sha256:4961c715da47231c5c971c3e714afea3a34c36910bb4042cb71149c674c2ed4d
             env:
               TAUTULLI__PORT: &port 8181
               TZ: America/Chicago
