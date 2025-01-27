@@ -9,7 +9,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: external-secrets-stores
+    - name: onepassword-store
       namespace: external-secrets
   interval: 30m
   path: ./kubernetes/apps/networking/smtp-relay/app

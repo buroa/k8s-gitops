@@ -31,7 +31,7 @@ spec:
   dependsOn:
     - name: cert-manager
       namespace: *namespace
-    - name: external-secrets-stores
+    - name: onepassword-store
       namespace: external-secrets
   interval: 30m
   path: ./kubernetes/apps/cert-manager/cert-manager/issuers
