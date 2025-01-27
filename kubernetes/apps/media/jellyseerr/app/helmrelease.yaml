@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app overseerr
+  name: &app jellyseerr
 spec:
   interval: 30m
   chart:
@@ -23,16 +23,21 @@ spec:
       retries: 3
   values:
     controllers:
-      overseerr:
+      jellyseerr:
+        annotations:
+          reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
-              repository: ghcr.io/sct/overseerr
-              tag: develop@sha256:bcd1ef5c2501c3210b3a8bbaf124f9f3b241f23a3f55038f80412f20e625bd17
+              repository: ghcr.io/fallenbagel/jellyseerr
+              tag: 2.3.0@sha256:df53a7b06006e9da117a7072a55cf5d8b2071a6272f6bb329d8ca62b6f5c08a6
             env:
               LOG_LEVEL: info
               PORT: &port 5055
               TZ: America/Chicago
+            envFrom:
+              - secretRef:
+                  name: jellyseerr-secret
             probes:
               liveness: &probes
                 enabled: true
@@ -80,7 +85,7 @@ spec:
         globalMounts:
           - path: /app/config
       config-cache:
-        existingClaim: overseerr-cache
+        existingClaim: jellyseerr-cache
         globalMounts:
           - path: /app/config/cache
       config-logs:
