@@ -129,7 +129,7 @@ In my cluster there are two instances of [ExternalDNS](https://github.com/kubern
 
 | Device                    | Count | OS Disk Size | Data Disk Size          | Ram  | Operating System | Purpose                 |
 |---------------------------|-------|--------------|-------------------------|------|------------------|-------------------------|
-| MS-01 (i9-13900H)         | 3     | 1.92TB M.2   | 3.84TB U.2 + 1.92TB M.2 | 96GB | Talos            | Kubernetes              |
+| MS-01 (i9-13900H)         | 3     | [1.92TB M.2](https://store.supermicro.com/us_en/1-92tb-nvme-pcie4-hds-smn0-mz1l21t9hclsa7.html)   | [3.84TB U.2](https://store.supermicro.com/us_en/3-84tb-nvme-pcie4-hds-sun0-mzql23t8hclsa7.html) + [1.92TB M.2](https://store.supermicro.com/us_en/1-92tb-nvme-pcie4-hds-smn0-mz1l21t9hclsa7.html) | 96GB | Talos            | Kubernetes              |
 | Synology NAS RS1221+      | 1     | -            | 8x22TB HDD              | 32GB | DSM 7            | NFS                     |
 | PiKVM (RasPi 4)           | 1     | 64GB (SD)    | -                       | 4GB  | PiKVM            | KVM                     |
 | TESmart 8 Port KVM Switch | 1     | -            | -                       | -    | -                | Network KVM (for PiKVM) |
