@@ -30,7 +30,7 @@ spec:
           app:
             image:
               repository: ghcr.io/buroa/bazarr
-              tag: 1.5.1@sha256:b864e89478db72d67d20143ea1474e679c14cb491d05d4e340875d9e7cdd2949
+              tag: 1.5.1@sha256:48a1031a3cfd50c48c5e6c41e4dc7285b911c984f7d16c7116f371d60fa1965c
             env:
               BAZARR__PORT: &port 6767
               TZ: America/Chicago
