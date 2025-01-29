@@ -3,21 +3,10 @@ version: '3'
 
 tasks:
 
-  apply-cluster:
-    desc: Apply Talos config across the whole cluster
-    prompt: Apply Talos config across the whole cluster ... continue?
-    dir: '{{.TALOS_DIR}}'
-    cmd: talhelper gencommand apply | bash
-    preconditions:
-      - talosctl config info
-      - which talhelper
-
   upgrade-node:
     desc: Upgrade Talos on a single node [NODE=required]
     prompt: Upgrade Talos on {{.NODE}} to {{.TALOS_IMAGE}} ... continue?
-    cmds:
-      - talosctl --nodes {{.NODE}} upgrade --image={{.TALOS_IMAGE}}
-      - talosctl --nodes {{.NODE}} health
+    cmd: talosctl --nodes {{.NODE}} upgrade --image={{.TALOS_IMAGE}}
     vars:
       NODE: '{{.NODE}}'
       TALOS_IMAGE:
@@ -81,6 +70,23 @@ tasks:
     preconditions:
       - which jq talosctl
 
+  apply-cluster:
+    desc: Apply Talos config across the whole cluster
+    prompt: Apply Talos config across the whole cluster ... continue?
+    dir: '{{.TALOS_DIR}}'
+    cmd: talhelper gencommand apply | bash
+    preconditions:
+      - talosctl config info
+      - which talhelper
+
+  generate-config:
+    desc: Generate Talos config
+    dir: '{{.TALOS_DIR}}'
+    cmd: talhelper genconfig
+    preconditions:
+      - talosctl config info
+      - which talhelper
+
   generate-secret:
     desc: Generate Talos secret
     prompt: This will overwrite the existing secret ... continue?
@@ -91,11 +97,3 @@ tasks:
     preconditions:
       - talosctl config info
       - which talosctl talhelper sops
-
-  generate-config:
-    desc: Generate Talos config
-    dir: '{{.TALOS_DIR}}'
-    cmd: talhelper genconfig
-    preconditions:
-      - talosctl config info
-      - which talhelper
