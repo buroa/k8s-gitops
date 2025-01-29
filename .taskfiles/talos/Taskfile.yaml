@@ -14,22 +14,20 @@ tasks:
 
   upgrade-node:
     desc: Upgrade Talos on a single node [NODE=required]
-    prompt: Upgrade Talos on {{.NODE}} to {{.TALOS_VERSION}} ... continue?
+    prompt: Upgrade Talos on {{.NODE}} to {{.TALOS_IMAGE}} ... continue?
     cmds:
-      - talosctl --nodes {{.NODE}} upgrade --image=factory.talos.dev/installer-secureboot/{{.TALOS_SCHEMATIC_ID}}:{{.TALOS_VERSION}}
+      - talosctl --nodes {{.NODE}} upgrade --image={{.TALOS_IMAGE}}
       - talosctl --nodes {{.NODE}} health
     vars:
       NODE: '{{.NODE}}'
-      TALOS_SCHEMATIC_ID:
-        sh: talosctl --nodes {{.NODE}} get nodeannotationspecs --output json | jq --raw-output '.spec | select(.key == "extensions.talos.dev/schematic") | .value'
-      TALOS_VERSION:
-        sh: yq 'select(document_index == 1).spec.postBuild.substitute.TALOS_VERSION' {{.KUBERNETES_DIR}}/apps/system-upgrade/system-upgrade-controller/ks.yaml
+      TALOS_IMAGE:
+        sh: talosctl --nodes {{.NODE}} get machineconfig --output json | jq --raw-output '.spec' | yq '.machine.install.image'
     requires:
       vars: [NODE]
     preconditions:
       - talosctl config info
       - talosctl --nodes {{.NODE}} get machineconfig
-      - which talosctl yq jq
+      - which talosctl jq yq
 
   upgrade-cluster:
     desc: Upgrade Talos across the whole cluster
@@ -49,14 +47,14 @@ tasks:
     prompt: Upgrade Kubernetes to {{.KUBERNETES_VERSION}} ... continue?
     cmd: talosctl --nodes {{.TALOS_CONTROLLER}} upgrade-k8s --to {{.KUBERNETES_VERSION}}
     vars:
-      KUBERNETES_VERSION:
-        sh: yq 'select(document_index == 1).spec.postBuild.substitute.KUBERNETES_VERSION' {{.KUBERNETES_DIR}}/apps/system-upgrade/system-upgrade-controller/ks.yaml
       TALOS_CONTROLLER:
         sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
+      KUBERNETES_VERSION:
+        sh: talosctl --nodes {{.TALOS_CONTROLLER}} get kubeletspec --output json | jq --raw-output '.spec.image | split(":")[1]'
     preconditions:
       - talosctl config info
       - talosctl --nodes {{.TALOS_CONTROLLER}} get machineconfig
-      - which talosctl yq jq
+      - which talosctl jq
 
   reset-node:
     desc: Reset Talos on a single node [NODE=required]
