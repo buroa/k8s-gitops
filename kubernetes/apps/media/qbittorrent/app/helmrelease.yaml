@@ -103,7 +103,7 @@ spec:
         controller: *app
         type: LoadBalancer
         annotations:
-          lbipam.cilium.io/ips: 192.168.20.2, ::ffff:c0a8:1402
+          lbipam.cilium.io/ips: 192.168.20.3, ::ffff:c0a8:1403
         ports:
           bittorrent-tcp:
             port: *bittorrentPort
