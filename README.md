@@ -129,7 +129,7 @@ In my cluster there are two instances of [ExternalDNS](https://github.com/kubern
 
 | Device                    | Count | OS Disk Size | Data Disk Size          | Ram  | Operating System | Purpose                 |
 |---------------------------|-------|--------------|-------------------------|------|------------------|-------------------------|
-| MS-01 (i9-13900H)         | 3     | [1.92TB M.2](https://store.supermicro.com/us_en/1-92tb-nvme-pcie4-hds-smn0-mz1l21t9hclsa7.html)   | [3.84TB U.2](https://store.supermicro.com/us_en/3-84tb-nvme-pcie4-hds-sun0-mzql23t8hclsa7.html) + [1.92TB M.2](https://store.supermicro.com/us_en/1-92tb-nvme-pcie4-hds-smn0-mz1l21t9hclsa7.html) | 96GB | Talos            | Kubernetes              |
+| MS-01 (i9-13900H)         | 3     | 1.92TB M.2   | 3.84TB U.2 + 1.92TB M.2 | 96GB | Talos            | Kubernetes              |
 | Synology NAS RS1221+      | 1     | -            | 8x22TB HDD              | 32GB | DSM 7            | NFS                     |
 | PiKVM (RasPi 4)           | 1     | 64GB (SD)    | -                       | 4GB  | PiKVM            | KVM                     |
 | TESmart 8 Port KVM Switch | 1     | -            | -                       | -    | -                | Network KVM (for PiKVM) |
@@ -139,6 +139,13 @@ In my cluster there are two instances of [ExternalDNS](https://github.com/kubern
 | UniFi USP PDU Pro         | 1     | -            | -                       | -    | UniFi OS         | PDU                     |
 | APC SMT15000RM2UNC        | 1     | -            | -                       | -    | -                | UPS                     |
 ---
+
+My MS-01 workstations are configured with the following hardware:
+
+- [Crucial 96GB Kit (48GBx2) DDR5-5600 SODIMM](https://www.crucial.com/memory/ddr5/ct2k48g56c46s5)
+- [Samsung 1.92TB NVMe PCIe 4.0 M.2](https://store.supermicro.com/us_en/1-92tb-nvme-pcie4-hds-smn0-mz1l21t9hclsa7.html)
+- [Samsung 3.84TB NVMe PCIe 4.0 U.2](https://store.supermicro.com/us_en/3-84tb-nvme-pcie4-hds-sun0-mzql23t8hclsa7.html)
+- [Google Coral M.2 Accelerator A+E key](https://coral.ai/products/m2-accelerator-ae)
 
 ## <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f31f/512.gif" alt="🌟" width="20" height="20"> Stargazers
 
