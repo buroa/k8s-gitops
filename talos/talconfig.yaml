@@ -15,7 +15,6 @@ kubernetesVersion: v1.32.1
 
 additionalApiServerCertSans: &sans
   - k8s.internal
-  - 192.168.10.100
   - 127.0.0.1
 
 additionalMachineCertSans: *sans
@@ -45,8 +44,6 @@ nodes:
               driver: i40e
         dhcp: true
         mtu: 9000
-        vip:
-          ip: 192.168.10.100
         vlans:
           - vlanId: 20
             dhcp: false
@@ -94,8 +91,6 @@ nodes:
               driver: i40e
         dhcp: true
         mtu: 9000
-        vip:
-          ip: 192.168.10.100
         vlans:
           - vlanId: 20
             dhcp: false
@@ -143,8 +138,6 @@ nodes:
               driver: i40e
         dhcp: true
         mtu: 9000
-        vip:
-          ip: 192.168.10.100
         vlans:
           - vlanId: 20
             dhcp: false

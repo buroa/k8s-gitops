@@ -20,17 +20,23 @@ tasks:
     desc: Bootstrap Kubernetes Apps [MODEL=SAMSUNG MZQL23T8HCLS-00A07]
     prompt: Bootstrap Kubernetes Apps ...?
     cmds:
-      - for: { var: NODES }
+      - for: { var: TALOS_NODES }
         task: wipe
         vars:
           MODEL: '{{.MODEL}}'
           NODE: '{{.ITEM}}'
+      - kubectl config set-cluster {{.TALOS_CONTEXT}} --server "https://{{.TALOS_CONTROLLER}}:6443"
       - until kubectl wait nodes --for=condition=Ready=False --all --timeout=10m; do sleep 5; done
       - op inject --in-file {{.KUBERNETES_DIR}}/bootstrap/templates/resources.yaml.tpl | kubectl apply --server-side --filename -
       - helmfile --quiet --file {{.KUBERNETES_DIR}}/bootstrap/helmfile.yaml apply --skip-diff-on-install --suppress-diff
+      - talosctl kubeconfig --nodes {{.TALOS_CONTROLLER}} --force {{.KUBERNETES_DIR}}
     vars:
       MODEL: '{{.MODEL | default "SAMSUNG MZQL23T8HCLS-00A07"}}'
-      NODES:
+      TALOS_CONTEXT:
+        sh: talosctl config info --output json | jq --raw-output '.context'
+      TALOS_CONTROLLER:
+        sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
+      TALOS_NODES:
         sh: talosctl config info --output json | jq --join-output '[.nodes[]] | join(" ")'
     env:
       VAULT: K8s
