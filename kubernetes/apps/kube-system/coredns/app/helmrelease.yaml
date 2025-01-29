@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app coredns
+  name: coredns
 spec:
   interval: 30m
   chart:
