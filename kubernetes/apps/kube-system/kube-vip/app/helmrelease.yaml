@@ -1,0 +1,82 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app kube-vip
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.6.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  values:
+    controllers:
+      kube-vip:
+        type: daemonset
+        containers:
+          app:
+            image:
+              repository: ghcr.io/kube-vip/kube-vip
+              tag: v0.8.9@sha256:717b8bef2758c10042d64ae7949201ef7f243d928fce265b04e488e844bf9528
+            args:
+              - manager
+            env:
+              vip_arp: false
+              port: 7445
+              vip_interface: lo
+              vip_cidr: 32
+              cp_enable: true
+              cp_namespace: kube-system
+              vip_ddns: false
+              bgp_enable: true
+              bgp_peeraddress: 192.168.0.1
+              bgp_as: 64514
+              bgp_peeras: 64513
+              bgp_routerinterface: bond0
+              address: 192.168.10.101
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 64Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { add: ["NET_ADMIN", "NET_RAW", "SYS_TIME"], drop: ["ALL"] }
+    defaultPodOptions:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: node-role.kubernetes.io/master
+                    operator: Exists
+              - matchExpressions:
+                  - key: node-role.kubernetes.io/control-plane
+                    operator: Exists
+      hostNetwork: true
+      tolerations:
+        - effect: NoSchedule
+          operator: Exists
+        - effect: NoExecute
+          operator: Exists
+    serviceAccount:
+      create: true
+      name: *app
