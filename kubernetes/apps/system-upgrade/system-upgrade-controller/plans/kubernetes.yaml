@@ -14,16 +14,8 @@ spec:
       ignoreUpdates: true
   nodeSelector:
     matchExpressions:
-      - key: feature.node.kubernetes.io/system-os_release.ID
-        operator: In
-        values:
-          - talos
       - key: node-role.kubernetes.io/control-plane
         operator: Exists
-  tolerations:
-    - key: node-role.kubernetes.io/control-plane
-      operator: Exists
-      effect: NoSchedule
   prepare: &prepare
     image: ghcr.io/siderolabs/talosctl:${TALOS_VERSION}
     envs:

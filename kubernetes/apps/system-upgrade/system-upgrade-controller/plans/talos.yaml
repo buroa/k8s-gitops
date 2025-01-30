@@ -12,16 +12,6 @@ spec:
     - name: system-upgrade
       path: /var/run/secrets/talos.dev
       ignoreUpdates: true
-  nodeSelector:
-    matchExpressions:
-      - key: feature.node.kubernetes.io/system-os_release.ID
-        operator: In
-        values:
-          - talos
-  tolerations:
-    - key: node-role.kubernetes.io/control-plane
-      operator: Exists
-      effect: NoSchedule
   prepare:
     image: ghcr.io/siderolabs/talosctl:${TALOS_VERSION}
     envs: &envs
