@@ -21,24 +21,22 @@ spec:
       - key: node-role.kubernetes.io/control-plane
         operator: Exists
   tolerations:
-    - key: CriticalAddonsOnly
-      operator: Exists
     - key: node-role.kubernetes.io/control-plane
       operator: Exists
       effect: NoSchedule
   prepare: &prepare
     image: ghcr.io/siderolabs/talosctl:${TALOS_VERSION}
     envs:
-      - name: NODE_IP
+      - name: NODE
         valueFrom:
           fieldRef:
-            fieldPath: status.hostIP
+            fieldPath: spec.nodeName
     args:
-      - --nodes=$(NODE_IP)
+      - --nodes=$(NODE)
       - health
   upgrade:
     <<: *prepare
     args:
-      - --nodes=$(NODE_IP)
+      - --nodes=$(NODE)
       - upgrade-k8s
       - --to=$(SYSTEM_UPGRADE_PLAN_LATEST_VERSION)

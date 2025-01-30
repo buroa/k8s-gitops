@@ -18,30 +18,23 @@ spec:
         operator: In
         values:
           - talos
-      - key: feature.node.kubernetes.io/system-os_release.VERSION_ID
-        operator: NotIn
-        values:
-          - ${TALOS_VERSION}
   tolerations:
-    - key: CriticalAddonsOnly
-      operator: Exists
     - key: node-role.kubernetes.io/control-plane
       operator: Exists
       effect: NoSchedule
-  prepare: &prepare
+  prepare:
     image: ghcr.io/siderolabs/talosctl:${TALOS_VERSION}
-    envs:
-      - name: NODE_IP
+    envs: &envs
+      - name: NODE
         valueFrom:
           fieldRef:
-            fieldPath: status.hostIP
+            fieldPath: spec.nodeName
     args:
-      - --nodes=$(NODE_IP)
+      - --nodes=$(NODE)
       - health
   upgrade:
-    <<: *prepare
+    image: ghcr.io/jfroy/tnu:0.1.2
+    envs: *envs
     args:
-      - --nodes=$(NODE_IP)
-      - upgrade
-      - --image=factory.talos.dev/installer-secureboot/${TALOS_SCHEMATIC_ID}:$(SYSTEM_UPGRADE_PLAN_LATEST_VERSION)
-      - --wait=false
+      - $(NODE)
+      - $(SYSTEM_UPGRADE_PLAN_LATEST_VERSION)
