@@ -35,7 +35,7 @@ tasks:
       - which kubectl
 
   snapshot:
-    desc: Snapshot an app [NS=default] [APP=required]
+    desc: Snapshot an app [NS={{.NS}}] [APP=required]
     cmds:
       - kubectl --namespace {{.NS}} patch replicationsources {{.APP}} --type merge -p '{"spec":{"trigger":{"manual":"{{now | unixEpoch}}"}}}'
       - until kubectl --namespace {{.NS}} get job/{{.JOB}} &>/dev/null; do sleep 5; done
@@ -50,7 +50,7 @@ tasks:
       - which kubectl
 
   restore:
-    desc: Restore an app [NS=default] [APP=required] [PREVIOUS=required]
+    desc: Restore an app [NS={{.NS}}] [APP=required] [PREVIOUS=required]
     cmds:
       # Suspend
       - flux --namespace {{.NS}} suspend kustomization {{.APP}}
@@ -92,7 +92,7 @@ tasks:
       - which flux kubectl minijinja-cli
 
   unlock-local:
-    desc: Unlock a restic source repo from local machine [NS=default] [APP=required]
+    desc: Unlock a restic source repo from local machine [NS={{.NS}}] [APP=required]
     cmds:
       - minijinja-cli {{.VOLSYNC_RESOURCES_DIR}}/unlock.yaml.j2 | kubectl apply --server-side --filename -
       - until kubectl --namespace {{.NS}} get job/volsync-unlock-{{.APP}} &>/dev/null; do sleep 5; done

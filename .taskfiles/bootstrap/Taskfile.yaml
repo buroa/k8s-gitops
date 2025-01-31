@@ -4,7 +4,7 @@ version: '3'
 tasks:
 
   talos:
-    desc: Bootstrap Talos [MODEL=SAMSUNG MZQL23T8HCLS-00A07]
+    desc: Bootstrap Talos [MODEL={{.MODEL}}]
     prompt: Bootstrap Talos ...?
     cmds:
       - for: { var: TALOS_BLOCK_DEVICES }

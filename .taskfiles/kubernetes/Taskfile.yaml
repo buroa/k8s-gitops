@@ -4,7 +4,7 @@ version: '3'
 tasks:
 
   browse-pvc:
-    desc: Mount a PVC to an temp container [NS=default] [CLAIM=required]
+    desc: Mount a PVC to an temp container [NS={{.NS}}] [CLAIM=required]
     interactive: true
     cmd: kubectl browse-pvc --namespace {{.NS}} --image docker.io/library/alpine:latest {{.CLAIM}}
     vars:
@@ -17,7 +17,7 @@ tasks:
       - which kubectl
 
   node-shell:
-    desc: Open a shell to a node [NS=kube-system] [NODE=required]
+    desc: Open a shell to a node [NS={{.NS}}] [NODE=required]
     interactive: true
     cmd: kubectl node-shell -n {{.NS}} -x {{.NODE}}
     vars:
