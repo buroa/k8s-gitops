@@ -32,7 +32,7 @@ tasks:
     desc: Bootstrap Kubernetes Apps
     prompt: Bootstrap Kubernetes Apps ...?
     cmds:
-      - kubectl config set-cluster {{.TALOS_CONTEXT}} --server "https://{{.TALOS_CONTROLLER}}:6443"
+      - kubectl config set-cluster {{.TALOS_CONTEXT}} --server https://{{.TALOS_CONTROLLER}}:6443
       - until kubectl wait nodes --for=condition=Ready=False --all --timeout=10m; do sleep 5; done
       - op inject --in-file {{.KUBERNETES_DIR}}/bootstrap/templates/resources.yaml.tpl | kubectl apply --server-side --filename -
       - helmfile --quiet --file {{.KUBERNETES_DIR}}/bootstrap/helmfile.yaml apply --skip-diff-on-install --suppress-diff
@@ -42,8 +42,6 @@ tasks:
         sh: talosctl config info --output json | jq --raw-output '.context'
       TALOS_CONTROLLER:
         sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
-    env:
-      VAULT: K8s
     preconditions:
       - op user get --me
       - talosctl config info

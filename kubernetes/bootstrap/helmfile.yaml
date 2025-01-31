@@ -24,12 +24,18 @@ releases:
     version: 1.16.6
     values:
       - ../apps/kube-system/cilium/app/resources/values.yaml
+    hooks:
+      - events: ["postsync"]
+        command: kubectl
+        args:
+          - apply
+          - --server-side
+          - --namespace=kube-system
+          - --field-manager=kustomize-controller
+          - --kustomize
+          - ../apps/kube-system/cilium/configs
     needs:
       - monitoring/prometheus-operator-crds
-
-  - name: cilium-configs
-    namespace: kube-system
-    chart: ../apps/kube-system/cilium/configs
 
   - name: coredns
     namespace: kube-system
@@ -38,7 +44,7 @@ releases:
     values:
       - ../apps/kube-system/coredns/app/resources/values.yaml
     needs:
-      - kube-system/cilium-configs
+      - kube-system/cilium
 
   - name: spegel
     namespace: kube-system
