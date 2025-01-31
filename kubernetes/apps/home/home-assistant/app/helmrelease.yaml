@@ -33,7 +33,7 @@ spec:
               HOME_ASSISTANT_EXTERNAL_URL: https://hass.ktwo.io
               HOME_ASSISTANT_PURGE_KEEP_DAYS: 30
               HOME_ASSISTANT_TRUSTED_PROXIES: 10.244.0.0/16
-              HOME_ASSISTANT_UNIT_SYSTEM: imperial
+              HOME_ASSISTANT_UNIT_SYSTEM: us_customary
               TZ: America/Chicago
             resources:
               requests:
