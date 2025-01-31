@@ -27,6 +27,10 @@ releases:
     needs:
       - monitoring/prometheus-operator-crds
 
+  - name: cilium-configs
+    namespace: kube-system
+    chart: ../apps/kube-system/cilium/configs
+
   - name: coredns
     namespace: kube-system
     chart: oci://ghcr.io/coredns/charts/coredns
@@ -34,7 +38,7 @@ releases:
     values:
       - ../apps/kube-system/coredns/app/resources/values.yaml
     needs:
-      - kube-system/cilium
+      - kube-system/cilium-configs
 
   - name: spegel
     namespace: kube-system
