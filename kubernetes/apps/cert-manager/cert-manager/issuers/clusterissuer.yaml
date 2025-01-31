@@ -6,13 +6,12 @@ metadata:
 spec:
   acme:
     server: https://acme-v02.api.letsencrypt.org/directory
-    email: &email skre@skre.me
+    email: skre@skre.me
     privateKeySecretRef:
       name: letsencrypt-production
     solvers:
       - dns01:
           cloudflare:
-            email: *email
             apiTokenSecretRef:
               name: cloudflare-issuer-secret
               key: CLOUDFLARE_API_TOKEN
