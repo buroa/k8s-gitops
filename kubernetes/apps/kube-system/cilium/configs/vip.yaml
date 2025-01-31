@@ -7,7 +7,6 @@ metadata:
     io.cilium/lb-ipam-ips: 192.168.20.2, ::ffff:c0a8:1402
 spec:
   type: LoadBalancer
-  externalTrafficPolicy: Local
   selector:
     k8s-app: kube-apiserver
     tier: control-plane
