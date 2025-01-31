@@ -30,7 +30,7 @@ spec:
           app:
             image:
               repository: ghcr.io/fallenbagel/jellyseerr
-              tag: develop@sha256:d2e7d7741ba027412d757ca196dd561e0f59f57dc30e633255d16630dd333c7d
+              tag: develop@sha256:4170cae29388eb7e6739b3d0deba898fb11c4aba60f39176822646ee22492de0
             env:
               LOG_LEVEL: info
               PORT: &port 5055
