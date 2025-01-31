@@ -8,7 +8,7 @@ tasks:
     prompt: Bootstrap Talos ...?
     cmds:
       - for: { var: TALOS_BLOCK_DEVICES }
-        cmd: talosctl -n {{.KEY}} wipe disk {{.ITEM}}
+        cmd: talosctl --nodes {{.KEY}} wipe disk {{.ITEM}}
       - until talosctl --nodes {{.TALOS_CONTROLLER}} bootstrap; do sleep 10; done
       - talosctl kubeconfig --nodes {{.TALOS_CONTROLLER}} --force {{.KUBERNETES_DIR}}
     vars:
