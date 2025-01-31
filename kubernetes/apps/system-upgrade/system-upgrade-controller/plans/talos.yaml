@@ -26,5 +26,5 @@ spec:
     image: ghcr.io/jfroy/tnu:0.2.1
     envs: *envs
     args:
-      - $(NODE)
-      - $(SYSTEM_UPGRADE_PLAN_LATEST_VERSION)
+      - --node=$(NODE)
+      - --tag=$(SYSTEM_UPGRADE_PLAN_LATEST_VERSION)
