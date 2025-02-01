@@ -50,25 +50,10 @@ spec:
                 cpu: 10m
               limits:
                 memory: 512Mi
-            securityContext: &securityContext
+            securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
-          jbops:
-            image:
-              repository: registry.k8s.io/git-sync/git-sync
-              tag: v4.4.0@sha256:0330739a707a2969d617e859f096659ab6d149212658ac0ad7e550b59482ebf0
-            env:
-              GITSYNC_REPO: https://github.com/blacktwin/JBOPS
-              GITSYNC_REF: master
-              GITSYNC_PERIOD: 24h
-              GITSYNC_ROOT: /add-ons
-            resources:
-              requests:
-                cpu: 10m
-              limits:
-                memory: 128Mi
-            securityContext: *securityContext
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
@@ -87,8 +72,6 @@ spec:
                   identifier: app
                   port: http
     persistence:
-      add-ons:
-        type: emptyDir
       config:
         existingClaim: *app
       config-cache:
