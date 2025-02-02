@@ -148,35 +148,37 @@ spec:
       name: csi-ceph-filesystem
       isDefault: false
       deletionPolicy: Delete
-    cephObjectStores:
-      - name: ceph-objectstore
-        spec:
-          dataPool:
-            failureDomain: host
-            erasureCoded:
-              dataChunks: 2
-              codingChunks: 1
-          metadataPool:
-            failureDomain: host
-            replicated:
-              size: 3
-          preservePoolsOnDelete: true
-          gateway:
-            hostNetwork: false
-            port: 80
-            resources:
-              requests:
-                cpu: 1000m
-                memory: 1Gi
-              limits:
-                memory: 2Gi
-            instances: 2
-          healthCheck:
-            bucket:
-              interval: 60s
-        storageClass:
-          enabled: true
-          name: ceph-bucket
-          reclaimPolicy: Delete
-          parameters:
-            region: ceph-objectstore
+    cephObjectStores: []
+      # - name: ceph-objectstore
+      #   spec:
+      #     metadataPool:
+      #       failureDomain: host
+      #       replicated:
+      #         size: 3
+      #     dataPool:
+      #       failureDomain: host
+      #       erasureCoded:
+      #         dataChunks: 2
+      #         codingChunks: 1
+      #     preservePoolsOnDelete: true
+      #     gateway:
+      #       hostNetwork: false
+      #       port: 80
+      #       resources:
+      #         requests:
+      #           cpu: 100m
+      #           memory: 1Gi
+      #         limits:
+      #           memory: 2Gi
+      #       instances: 2
+      #       priorityClassName: system-cluster-critical
+      #     healthCheck:
+      #       bucket:
+      #         interval: 60s
+      #   storageClass:
+      #     enabled: true
+      #     name: ceph-bucket
+      #     reclaimPolicy: Delete
+      #     volumeBindingMode: Immediate
+      #     parameters:
+      #       region: us-east-1
