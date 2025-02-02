@@ -32,10 +32,7 @@ spec:
             - path: /
               pathType: Prefix
     securityContext:
-      readOnlyRootFilesystem: true
-      allowPrivilegeEscalation: false
-      capabilities:
-        add: ["NET_RAW"]
+      capabilities: { add: ["NET_RAW"] }
     config:
       modules:
         http_2xx:
