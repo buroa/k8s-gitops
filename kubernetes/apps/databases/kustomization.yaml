@@ -2,9 +2,9 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: databases
-resources:
-  - ./cloudnative-pg/ks.yaml
-  - ./emqx/ks.yaml
 components:
   - ../../flux/components/alerts
   - ../../flux/components/namespace
+resources:
+  - ./cloudnative-pg/ks.yaml
+  - ./emqx/ks.yaml

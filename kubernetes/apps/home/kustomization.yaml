@@ -2,11 +2,11 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: home
+components:
+  - ../../flux/components/alerts
+  - ../../flux/components/namespace
 resources:
   - ./atuin/ks.yaml
   - ./go2rtc/ks.yaml
   - ./home-assistant/ks.yaml
   - ./zigbee2mqtt/ks.yaml
-components:
-  - ../../flux/components/alerts
-  - ../../flux/components/namespace

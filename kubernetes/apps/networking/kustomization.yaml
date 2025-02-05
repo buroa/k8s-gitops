@@ -2,6 +2,9 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: networking
+components:
+  - ../../flux/components/alerts
+  - ../../flux/components/namespace
 resources:
   - ./cloudflared/ks.yaml
   - ./echo-server/ks.yaml
@@ -9,6 +12,3 @@ resources:
   - ./multus/ks.yaml
   - ./nginx/ks.yaml
   - ./smtp-relay/ks.yaml
-components:
-  - ../../flux/components/alerts
-  - ../../flux/components/namespace
