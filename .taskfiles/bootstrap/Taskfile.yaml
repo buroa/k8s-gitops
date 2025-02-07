@@ -20,11 +20,11 @@ tasks:
     desc: Bootstrap Kubernetes Apps [ROOK_DISK={{.ROOK_DISK}}]
     prompt: Bootstrap Kubernetes Apps ...?
     cmds:
+      - for: { var: TALOS_BLOCK_DEVICES }
+        cmd: talosctl --nodes {{.KEY}} wipe disk {{.ITEM}}
       - kubectl config set-cluster {{.TALOS_CONTEXT}} --server https://{{.TALOS_CONTROLLER}}:6443
       - until kubectl wait nodes --for=condition=Ready=False --all --timeout=10m; do sleep 5; done
       - op inject --in-file {{.KUBERNETES_DIR}}/bootstrap/templates/resources.yaml.tpl | kubectl apply --server-side --filename -
-      - for: { var: TALOS_BLOCK_DEVICES }
-        cmd: talosctl --nodes {{.KEY}} wipe disk {{.ITEM}}
       - helmfile --quiet --file {{.KUBERNETES_DIR}}/bootstrap/helmfile.yaml apply --skip-diff-on-install --suppress-diff
       - talosctl kubeconfig --nodes {{.TALOS_CONTROLLER}} --force {{.KUBERNETES_DIR}}
     vars:
