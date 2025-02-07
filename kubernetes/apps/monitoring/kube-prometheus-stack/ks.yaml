@@ -11,8 +11,6 @@ spec:
   dependsOn:
     - name: onepassword-store
       namespace: external-secrets
-    - name: prometheus-operator-crds
-      namespace: *namespace
     - name: rook-ceph-cluster
       namespace: rook-ceph
   interval: 30m
