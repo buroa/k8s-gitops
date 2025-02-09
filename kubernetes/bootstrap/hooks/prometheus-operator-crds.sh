@@ -3,7 +3,7 @@
 # renovate: datasource=github-releases depName=prometheus-operator/prometheus-operator
 PROMETHEUS_OPERATOR_VERSION="v0.80.0"
 
-apply_prometheus_operator_crds() {
+apply_crds() {
     local crds=(
         "alertmanagerconfigs"
         "alertmanagers"
@@ -18,6 +18,7 @@ apply_prometheus_operator_crds() {
     )
 
     for crd in "${crds[@]}"; do
+        echo "Applying ${crd} CRD..."
         kubectl apply \
             --server-side \
             --filename \
@@ -26,7 +27,7 @@ apply_prometheus_operator_crds() {
 }
 
 main() {
-    apply_prometheus_operator_crds
+    apply_crds
 }
 
 main
