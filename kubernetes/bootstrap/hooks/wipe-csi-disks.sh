@@ -11,6 +11,7 @@ wipe_csi_disks() {
                 | jq --raw-output 'select(.spec.model == env.CSI_DISK) | .metadata.id' \
                 | xargs
         )
+
         if [[ -n "${disks}" ]]; then
             echo "Wiping disks ${disks} on node ${node}..."
             talosctl --nodes "${node}" wipe disk $disks
