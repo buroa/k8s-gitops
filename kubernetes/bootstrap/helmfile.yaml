@@ -12,82 +12,65 @@ repositories:
   - name: jetstack
     url: https://charts.jetstack.io
 
-releases:
-  - name: prometheus-operator-crds
-    namespace: monitoring
-    chart: oci://ghcr.io/prometheus-community/charts/prometheus-operator-crds
-    version: 18.0.0
+hooks:
+  - events: ["prepare"]
+    command: bash
+    args: ["./hooks/wipe-csi-disks.sh"]
 
+  - events: ["prepare"]
+    command: bash
+    args: ["./hooks/prometheus-operator-crds.sh"]
+
+releases:
   - name: cilium
     namespace: kube-system
     chart: cilium/cilium
     version: 1.17.0
-    values:
-      - ../apps/kube-system/cilium/app/resources/values.yaml
+    values: ["../apps/kube-system/cilium/app/resources/values.yaml"]
     hooks:
       - events: ["postsync"]
-        command: kubectl
-        args:
-          - apply
-          - --server-side
-          - --namespace=kube-system
-          - --field-manager=kustomize-controller
-          - --kustomize
-          - ../apps/kube-system/cilium/configs
-    needs:
-      - monitoring/prometheus-operator-crds
+        command: bash
+        args: ["./hooks/cilium-configs.sh"]
 
   - name: coredns
     namespace: kube-system
     chart: oci://ghcr.io/coredns/charts/coredns
     version: 1.39.0
-    values:
-      - ../apps/kube-system/coredns/app/resources/values.yaml
-    needs:
-      - kube-system/cilium
+    values: ["../apps/kube-system/coredns/app/resources/values.yaml"]
+    needs: ["kube-system/cilium"]
 
   - name: spegel
     namespace: kube-system
     chart: oci://ghcr.io/spegel-org/helm-charts/spegel
     version: v0.0.30
-    values:
-      - ../apps/kube-system/spegel/app/resources/values.yaml
-    needs:
-      - kube-system/coredns
+    values: ["../apps/kube-system/spegel/app/resources/values.yaml"]
+    needs: ["kube-system/coredns"]
 
   - name: cert-manager
     namespace: cert-manager
     chart: jetstack/cert-manager
     version: v1.17.0
-    values:
-      - ../apps/cert-manager/cert-manager/app/resources/values.yaml
-    needs:
-      - kube-system/spegel
+    values: ["../apps/cert-manager/cert-manager/app/resources/values.yaml"]
+    needs: ["kube-system/spegel"]
 
   - name: external-secrets
     namespace: external-secrets
     chart: oci://ghcr.io/external-secrets/charts/external-secrets
     version: 0.14.1
-    values:
-      - ../apps/external-secrets/external-secrets/app/resources/values.yaml
-    needs:
-      - cert-manager/cert-manager
+    values: ["../apps/external-secrets/external-secrets/app/resources/values.yaml"]
+    needs: ["cert-manager/cert-manager"]
 
   - name: flux-operator
     namespace: flux-system
     chart: oci://ghcr.io/controlplaneio-fluxcd/charts/flux-operator
     version: 0.13.0
-    values:
-      - ../apps/flux-system/flux-operator/app/resources/values.yaml
-    needs:
-      - external-secrets/external-secrets
+    values: ["../apps/flux-system/flux-operator/app/resources/values.yaml"]
+    needs: ["external-secrets/external-secrets"]
 
   - name: flux-instance
     namespace: flux-system
     chart: oci://ghcr.io/controlplaneio-fluxcd/charts/flux-instance
     version: 0.13.0
     wait: false
-    values:
-      - ../apps/flux-system/flux-operator/instance/resources/values.yaml
-    needs:
-      - flux-system/flux-operator
+    values: ["../apps/flux-system/flux-operator/instance/resources/values.yaml"]
+    needs: ["flux-system/flux-operator"]
