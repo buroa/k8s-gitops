@@ -14,12 +14,7 @@ repositories:
 
 hooks:
   - events: ["prepare"]
-    command: bash
-    args: ["./hooks/wipe-csi-disks.sh"]
-
-  - events: ["prepare"]
-    command: bash
-    args: ["./hooks/prometheus-operator-crds.sh"]
+    args: ["./hooks/bootstrap.sh"]
 
 releases:
   - name: cilium
@@ -29,8 +24,7 @@ releases:
     values: ["../apps/kube-system/cilium/app/resources/values.yaml"]
     hooks:
       - events: ["postsync"]
-        command: bash
-        args: ["./hooks/cilium-configs.sh"]
+        args: ["./hooks/cilium-config.sh"]
 
   - name: coredns
     namespace: kube-system

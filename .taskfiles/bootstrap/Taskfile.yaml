@@ -17,24 +17,21 @@ tasks:
       - which talosctl
 
   apps:
-    desc: Bootstrap Kubernetes Apps [CSI_DISK={{.CSI_DISK}}]
+    desc: Bootstrap Kubernetes Apps [ROOK_DISK={{.ROOK_DISK}}]
     prompt: Bootstrap Kubernetes Apps ...?
     cmds:
       - kubectl config set-cluster {{.TALOS_CONTEXT}} --server https://{{.TALOS_CONTROLLER}}:6443
-      - until kubectl wait nodes --for=condition=Ready=False --all --timeout=10m; do sleep 5; done
-      - op inject --in-file {{.KUBERNETES_DIR}}/bootstrap/templates/resources.yaml.tpl | kubectl apply --server-side --filename -
+      - defer: talosctl kubeconfig --nodes {{.TALOS_CONTROLLER}} --force {{.KUBERNETES_DIR}}
       - helmfile --quiet --file {{.KUBERNETES_DIR}}/bootstrap/helmfile.yaml apply --skip-diff-on-install --suppress-diff
-      - talosctl kubeconfig --nodes {{.TALOS_CONTROLLER}} --force {{.KUBERNETES_DIR}}
     vars:
       TALOS_CONTEXT:
         sh: talosctl config info --output json | jq --raw-output '.context'
       TALOS_CONTROLLER:
         sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
     env:
-      CSI_DISK: '{{.CSI_DISK | default "SAMSUNG MZQL23T8HCLS-00A07"}}'
+      ROOK_DISK: '{{.ROOK_DISK | default "SAMSUNG MZQL23T8HCLS-00A07"}}'
     preconditions:
       - op user get --me
       - talosctl config info
       - test -f {{.KUBERNETES_DIR}}/bootstrap/helmfile.yaml
-      - test -f {{.KUBERNETES_DIR}}/bootstrap/templates/resources.yaml.tpl
       - which jq helmfile kubectl op talosctl
