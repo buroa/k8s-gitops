@@ -7,8 +7,6 @@ function log() {
     echo -e "\033[0;32m[$(date --iso-8601=seconds)] (${FUNCNAME[1]}) $*\033[0m"
 }
 
-#
-
 # Wait for all nodes to be up
 function wait_for_nodes() {
     if kubectl wait nodes --for=condition=Ready --all --timeout=10s &>/dev/null; then
@@ -23,8 +21,6 @@ function wait_for_nodes() {
 
 # Apply Prometheus CRDs
 function apply_prometheus_crds() {
-    # renovate: datasource=github-releases depName=prometheus-operator/prometheus-operator
-    local -r version=v0.80.0
     local -r crds=(
         "alertmanagerconfigs"
         "alertmanagers"
@@ -38,9 +34,12 @@ function apply_prometheus_crds() {
         "thanosrulers"
     )
 
+    # renovate: depName=prometheus-operator/prometheus-operator datasource=github-releases
+    local -r version=v0.80.0
+
     for crd in "${crds[@]}"; do
         if kubectl get crd "${crd}.monitoring.coreos.com" &>/dev/null; then
-            log "Prometheus CRD '${crd}' is up to date. Skipping..."
+            log "Prometheus CRD '${crd}' is up-to-date. Skipping..."
             continue
         fi
         log "Applying Prometheus CRD '${crd}'..."
@@ -50,11 +49,11 @@ function apply_prometheus_crds() {
 }
 
 # Apply bootstrap resources
-function apply_bootstrap_resources() {
-    local template="./templates/resources.yaml.tpl"
+function apply_bootstrap_config() {
+    local -r template="./templates/resources.yaml.tpl"
 
     if op inject --in-file "${template}" | kubectl diff --filename - &>/dev/null; then
-        log "Bootstrap resources are up to date. Skipping..."
+        log "Bootstrap resources are up-to-date. Skipping..."
         return
     fi
 
@@ -70,24 +69,20 @@ function wipe_rook_disks() {
     fi
 
     if kubectl --namespace rook-ceph get kustomization rook-ceph &>/dev/null; then
-        log "Rook is already deployed in the cluster. Skipping..."
+        log "Rook is deployed in the cluster. Skipping..."
         return
     fi
 
-    local nodes
-    nodes=$(talosctl config info --output json | jq --raw-output '.nodes | .[]')
-
-    for node in ${nodes}; do
-        local disks
-        disks=$(
+    for node in $(talosctl config info --output json | jq --raw-output '.nodes | .[]'); do
+        disk=$(
             talosctl --nodes "${node}" get disks --output json \
                 | jq --raw-output 'select(.spec.model == env.ROOK_DISK) | .metadata.id' \
                 | xargs
         )
 
-        if [[ -n "${disks}" ]]; then
-            log "Wiping disks '${disks}' on node '${node}'..."
-            talosctl --nodes "${node}" wipe "${disks}"
+        if [[ -n "${disk}" ]]; then
+            log "Wiping disk '${disk}' on node '${node}'..."
+            talosctl --nodes "${node}" wipe disk "${disk}"
         else
             log "No disks matching '${ROOK_DISK:-}' on node '${node}'. Skipping..."
         fi
@@ -97,7 +92,7 @@ function wipe_rook_disks() {
 function main() {
     wait_for_nodes
     apply_prometheus_crds
-    apply_bootstrap_resources
+    apply_bootstrap_config
     wipe_rook_disks
 }
 
