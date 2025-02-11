@@ -14,7 +14,7 @@ repositories:
 
 hooks:
   - events: ["prepare"]
-    command: ./hooks/bootstrap.sh
+    command: ./resources/bootstrap.sh
     showlogs: true
 
 releases:
@@ -25,7 +25,7 @@ releases:
     values: ["../apps/kube-system/cilium/app/resources/values.yaml"]
     hooks:
       - events: ["postsync"]
-        command: ./hooks/cilium-config.sh
+        command: ./resources/cilium-config.sh
         showlogs: true
 
   - name: coredns

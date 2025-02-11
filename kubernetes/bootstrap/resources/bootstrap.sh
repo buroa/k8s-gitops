@@ -2,12 +2,10 @@
 
 set -euo pipefail
 
-# Log messages with timestamps and function names
 function log() {
     echo -e "\033[0;32m[$(date --iso-8601=seconds)] (${FUNCNAME[1]}) $*\033[0m"
 }
 
-# Wait for all nodes to be up
 function wait_for_nodes() {
     if kubectl wait nodes --for=condition=Ready --all --timeout=10s &>/dev/null; then
         log "All nodes are ready. Skipping..."
@@ -19,19 +17,11 @@ function wait_for_nodes() {
     done
 }
 
-# Apply Prometheus CRDs
 function apply_prometheus_crds() {
     local -r crds=(
-        "alertmanagerconfigs"
-        "alertmanagers"
-        "podmonitors"
-        "probes"
-        "prometheusagents"
-        "prometheuses"
-        "prometheusrules"
-        "scrapeconfigs"
-        "servicemonitors"
-        "thanosrulers"
+        "alertmanagerconfigs" "alertmanagers" "podmonitors" "probes"
+        "prometheusagents" "prometheuses" "prometheusrules"
+        "scrapeconfigs" "servicemonitors" "thanosrulers"
     )
 
     # renovate: datasource=github-releases depName=prometheus-operator/prometheus-operator
@@ -48,20 +38,18 @@ function apply_prometheus_crds() {
     done
 }
 
-# Apply bootstrap resources
-function apply_bootstrap_config() {
-    local -r template="./templates/resources.yaml.tpl"
+function apply_secrets() {
+    local -r secrets_file="./resources/secrets.yaml.tpl"
 
-    if op inject --in-file "${template}" | kubectl diff --filename - &>/dev/null; then
-        log "Bootstrap resources are up-to-date. Skipping..."
+    if op inject --in-file "${secrets_file}" | kubectl diff --filename - &>/dev/null; then
+        log "Secret resources are up-to-date. Skipping..."
         return
     fi
 
-    log "Applying bootstrap resources..."
-    op inject --in-file "${template}" | kubectl apply --server-side --filename -
+    log "Applying secret resources..."
+    op inject --in-file "${secrets_file}" | kubectl apply --server-side --filename -
 }
 
-# Wipe Rook disks on the Talos nodes
 function wipe_rook_disks() {
     if [[ -z "${ROOK_DISK:-}" ]]; then
         log "Environment variable ROOK_DISK is not set. Skipping..."
@@ -92,7 +80,7 @@ function wipe_rook_disks() {
 function main() {
     wait_for_nodes
     apply_prometheus_crds
-    apply_bootstrap_config
+    apply_secrets
     wipe_rook_disks
 }
 
