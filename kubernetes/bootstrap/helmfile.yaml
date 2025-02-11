@@ -67,6 +67,6 @@ releases:
     namespace: flux-system
     chart: oci://ghcr.io/controlplaneio-fluxcd/charts/flux-instance
     version: 0.13.0
-    wait: false
     values: ["../apps/flux-system/flux-operator/instance/resources/values.yaml"]
     needs: ["flux-system/flux-operator"]
+    wait: false
