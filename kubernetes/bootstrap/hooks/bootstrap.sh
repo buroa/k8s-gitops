@@ -34,7 +34,7 @@ function apply_prometheus_crds() {
         "thanosrulers"
     )
 
-    # renovate: depName=prometheus-operator/prometheus-operator datasource=github-releases
+    # renovate: datasource=github-releases depName=prometheus-operator/prometheus-operator
     local -r version=v0.80.0
 
     for crd in "${crds[@]}"; do
