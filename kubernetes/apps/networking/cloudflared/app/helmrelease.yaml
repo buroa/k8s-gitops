@@ -77,6 +77,7 @@ spec:
         runAsNonRoot: true
         runAsUser: 568
         runAsGroup: 568
+        seccompProfile: { type: RuntimeDefault }
     persistence:
       config:
         type: configMap

@@ -70,6 +70,7 @@ spec:
         fsGroup: 568
         fsGroupChangePolicy: OnRootMismatch
         supplementalGroups: [65536]
+        seccompProfile: { type: RuntimeDefault }
     persistence:
       config:
         existingClaim: *app

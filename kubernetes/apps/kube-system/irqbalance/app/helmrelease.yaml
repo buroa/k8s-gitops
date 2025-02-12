@@ -38,10 +38,14 @@ spec:
               limits:
                 memory: 32Mi
             securityContext:
-              privileged: true
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
     defaultPodOptions:
       hostIPC: true
       hostPID: true
+      securityContext:
+        seccompProfile: { type: RuntimeDefault }
     persistence:
       run:
         type: emptyDir
