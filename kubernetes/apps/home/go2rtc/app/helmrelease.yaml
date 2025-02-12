@@ -72,7 +72,6 @@ spec:
         runAsUser: 568
         runAsGroup: 568
         supplementalGroups: [44]
-        seccompProfile: { type: RuntimeDefault }
     ingress:
       app:
         className: internal

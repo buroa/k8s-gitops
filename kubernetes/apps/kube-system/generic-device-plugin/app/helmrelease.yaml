@@ -46,8 +46,6 @@ spec:
               capabilities: { drop: ["ALL"] }
     defaultPodOptions:
       priorityClassName: system-node-critical
-      securityContext:
-        seccompProfile: { type: RuntimeDefault }
     persistence:
       config:
         type: configMap

@@ -71,7 +71,6 @@ spec:
         fsGroup: 568
         fsGroupChangePolicy: OnRootMismatch
         supplementalGroups: [44, 65537]
-        seccompProfile: { type: RuntimeDefault }
     ingress:
       app:
         className: external

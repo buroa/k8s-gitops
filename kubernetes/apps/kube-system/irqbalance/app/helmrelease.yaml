@@ -44,8 +44,6 @@ spec:
     defaultPodOptions:
       hostIPC: true
       hostPID: true
-      securityContext:
-        seccompProfile: { type: RuntimeDefault }
     persistence:
       run:
         type: emptyDir
