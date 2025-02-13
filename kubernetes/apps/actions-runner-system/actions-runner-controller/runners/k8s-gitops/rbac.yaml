@@ -22,5 +22,4 @@ kind: ServiceAccount
 metadata:
   name: k8s-gitops-runner
 spec:
-  roles:
-    - os:admin
+  roles: ["os:admin"]
