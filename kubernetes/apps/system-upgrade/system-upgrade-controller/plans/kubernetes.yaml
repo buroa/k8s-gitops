@@ -18,12 +18,7 @@ spec:
         operator: Exists
   upgrade:
     image: ghcr.io/siderolabs/talosctl:${TALOS_VERSION}
-    envs:
-      - name: NODE
-        valueFrom:
-          fieldRef:
-            fieldPath: spec.nodeName
     args:
-      - --nodes=$(NODE)
+      - --nodes=$(SYSTEM_UPGRADE_NODE_NAME)
       - upgrade-k8s
       - --to=$(SYSTEM_UPGRADE_PLAN_LATEST_VERSION)
