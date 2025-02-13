@@ -62,15 +62,15 @@ function wipe_rook_disks() {
     fi
 
     for node in $(talosctl config info --output json | jq --raw-output '.nodes | .[]'); do
-        disk=$(
+        disks=$(
             talosctl --nodes "${node}" get disks --output json \
                 | jq --raw-output 'select(.spec.model == env.ROOK_DISK) | .metadata.id' \
                 | xargs
         )
 
-        if [[ -n "${disk}" ]]; then
-            log "Wiping disk '${disk}' on node '${node}'..."
-            talosctl --nodes "${node}" wipe disk "${disk}"
+        if [[ -n "${disks}" ]]; then
+            log "Wiping disk(s) '${disks}' on node '${node}'..."
+            talosctl --nodes "${node}" wipe disk ${disks}
         else
             log "No disks matching '${ROOK_DISK:-}' on node '${node}'. Skipping..."
         fi
