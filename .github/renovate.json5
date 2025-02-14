@@ -8,7 +8,6 @@
     ":dependencyDashboard",
     ":gitSignOff",
     ":semanticCommits",
-    ":separatePatchReleases",
     ":skipStatusChecks",
     ":timezone(America/Chicago)",
     "github>buroa/k8s-gitops//.github/renovate/allowedVersions.json5",
