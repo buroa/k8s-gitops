@@ -33,42 +33,31 @@ nodes:
         partitions:
           - mountpoint: /var/mnt/extra
     networkInterfaces:
-      - interface: bond0
+      - &bond0
+        interface: bond0
         bond:
           mode: 802.3ad
           xmitHashPolicy: layer3+4
           lacpRate: fast
           miimon: 1000
-          deviceSelectors:
-            - hardwareAddr: 58:47:ca:77:*
-              driver: i40e
+          deviceSelectors: [{ hardwareAddr: "58:47:ca:77:*", driver: i40e }]
         dhcp: true
         mtu: 9000
         vlans:
-          - vlanId: 20
-            dhcp: false
-            mtu: 1500
-          - vlanId: 30
-            dhcp: false
-            mtu: 1500
+          - { vlanId: 20, dhcp: false, mtu: 1500 }
+          - { vlanId: 30, dhcp: false, mtu: 1500 }
       - deviceSelector:
           busPath: 1-1.0 # m1
         dhcp: false
         mtu: 65520
-        addresses:
-          - 169.254.255.10/32
-        routes:
-          - network: 169.254.255.11/32
-            metric: 2048
+        addresses: ["169.254.255.10/32"]
+        routes: [{ network: "169.254.255.11/32", metric: 2048 }]
       - deviceSelector:
           busPath: 0-1.0 # m2
         dhcp: false
         mtu: 65520
-        addresses:
-          - 169.254.255.10/32
-        routes:
-          - network: 169.254.255.12/32
-            metric: 2048
+        addresses: ["169.254.255.10/32"]
+        routes: [{ network: "169.254.255.12/32", metric: 2048 }]
 
   - hostname: m1.k8s.internal
     ipAddress: 192.168.10.11
@@ -80,42 +69,19 @@ nodes:
         partitions:
           - mountpoint: /var/mnt/extra
     networkInterfaces:
-      - interface: bond0
-        bond:
-          mode: 802.3ad
-          xmitHashPolicy: layer3+4
-          lacpRate: fast
-          miimon: 1000
-          deviceSelectors:
-            - hardwareAddr: 58:47:ca:77:*
-              driver: i40e
-        dhcp: true
-        mtu: 9000
-        vlans:
-          - vlanId: 20
-            dhcp: false
-            mtu: 1500
-          - vlanId: 30
-            dhcp: false
-            mtu: 1500
+      - <<: *bond0
       - deviceSelector:
           busPath: 0-1.0 # m0
         dhcp: false
         mtu: 65520
-        addresses:
-          - 169.254.255.11/32
-        routes:
-          - network: 169.254.255.10/32
-            metric: 2048
+        addresses: ["169.254.255.11/32"]
+        routes: [{ network: "169.254.255.10/32", metric: 2048 }]
       - deviceSelector:
           busPath: 1-1.0 # m2
         dhcp: false
         mtu: 65520
-        addresses:
-          - 169.254.255.11/32
-        routes:
-          - network: 169.254.255.12/32
-            metric: 2048
+        addresses: ["169.254.255.11/32"]
+        routes: [{ network: "169.254.255.12/32", metric: 2048 }]
 
   - hostname: m2.k8s.internal
     ipAddress: 192.168.10.12
@@ -127,52 +93,22 @@ nodes:
         partitions:
           - mountpoint: /var/mnt/extra
     networkInterfaces:
-      - interface: bond0
-        bond:
-          mode: 802.3ad
-          xmitHashPolicy: layer3+4
-          lacpRate: fast
-          miimon: 1000
-          deviceSelectors:
-            - hardwareAddr: 58:47:ca:77:*
-              driver: i40e
-        dhcp: true
-        mtu: 9000
-        vlans:
-          - vlanId: 20
-            dhcp: false
-            mtu: 1500
-          - vlanId: 30
-            dhcp: false
-            mtu: 1500
+      - <<: *bond0
       - deviceSelector:
           busPath: 0-1.0 # m0
         dhcp: false
         mtu: 65520
-        addresses:
-          - 169.254.255.12/32
-        routes:
-          - network: 169.254.255.10/32
-            metric: 2048
+        addresses: ["169.254.255.12/32"]
+        routes: [{ network: "169.254.255.10/32", metric: 2048 }]
       - deviceSelector:
           busPath: 1-1.0 # m1
         dhcp: false
         mtu: 65520
-        addresses:
-          - 169.254.255.12/32
-        routes:
-          - network: 169.254.255.11/32
-            metric: 2048
+        addresses: ["169.254.255.12/32"]
+        routes: [{ network: "169.254.255.11/32", metric: 2048 }]
 
 controlPlane:
   noSchematicValidate: true
-
-  machineSpec:
-    secureboot: true
-
-  nodeLabels:
-    topology.kubernetes.io/region: *cluster
-    topology.kubernetes.io/zone: m
 
   schematic:
     customization:
@@ -193,6 +129,13 @@ controlPlane:
           - siderolabs/intel-ucode
           - siderolabs/mei
           - siderolabs/thunderbolt
+
+  machineSpec:
+    secureboot: true
+
+  nodeLabels:
+    topology.kubernetes.io/region: *cluster
+    topology.kubernetes.io/zone: m
 
   patches:
     - "@./patches/cluster.yaml"
