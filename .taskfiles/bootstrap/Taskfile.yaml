@@ -4,24 +4,12 @@ version: '3'
 tasks:
 
   talos:
-    desc: Bootstrap Talos [CSI_DISK={{.CSI_DISK}}]
+    desc: Bootstrap Talos
     prompt: Bootstrap Talos ...?
     cmds:
-      - for: { var: TALOS_BLOCK_DEVICES }
-        cmd: talosctl --nodes {{.KEY}} wipe disk {{.ITEM}}
       - until talosctl --nodes {{.TALOS_CONTROLLER}} bootstrap; do sleep 10; done
       - talosctl kubeconfig --nodes {{.TALOS_CONTROLLER}} --force {{.KUBERNETES_DIR}}
     vars:
-      CSI_DISK: '{{.CSI_DISK | default "SAMSUNG MZQL23T8HCLS-00A07"}}'
-      TALOS_BLOCK_DEVICES_RAW:
-        sh: |-
-          talosctl get disks --output json | jq --slurp --compact-output '
-            map(select(.spec.model == "{{.CSI_DISK}}"))
-              | group_by(.node)
-              | map({ (.[0].node): (map(.metadata.id) | join(" ")) })
-              | add'
-      TALOS_BLOCK_DEVICES:
-        ref: fromJson .TALOS_BLOCK_DEVICES_RAW
       TALOS_CONTROLLER:
         sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
     preconditions:

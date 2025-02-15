@@ -10,7 +10,9 @@ tasks:
     vars:
       NODE: '{{.NODE}}'
       TALOS_IMAGE:
-        sh: talosctl --nodes {{.NODE}} get machineconfig --output json | jq --raw-output '.spec' | yq '.machine.install.image'
+        sh: |-
+          talosctl --nodes {{.NODE}} get machineconfig --output json \
+            | jq --raw-output '.spec' | yq '.machine.install.image'
     requires:
       vars: [NODE]
     preconditions:
@@ -39,16 +41,26 @@ tasks:
       TALOS_CONTROLLER:
         sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
       KUBERNETES_VERSION:
-        sh: talosctl --nodes {{.TALOS_CONTROLLER}} get kubeletspec --output json | jq --raw-output '.spec.image | split(":")[1]'
+        sh: |-
+          talosctl --nodes {{.TALOS_CONTROLLER}} get kubeletspec --output json \
+            | jq --raw-output '.spec.image | split(":")[1]'
     preconditions:
       - talosctl config info
       - talosctl --nodes {{.TALOS_CONTROLLER}} get machineconfig
       - which talosctl jq
 
   reset-node:
-    desc: Reset Talos on a single node [NODE=required]
+    desc: Reset Talos on a single node [NODE=required] [CSI_DISK={{.CSI_DISK}}]
     prompt: Reset Talos on {{.NODE}} ... continue?
-    cmd: talosctl reset --nodes {{.NODE}} --system-labels-to-wipe STATE --system-labels-to-wipe EPHEMERAL --graceful=false --reboot
+    cmds:
+      - talosctl --nodes {{.NODE}} wipe disk {{.CSI_DISKS}}
+      - talosctl --nodes {{.NODE}} reset --system-labels-to-wipe STATE --system-labels-to-wipe EPHEMERAL --graceful=false --reboot
+    vars:
+      CSI_DISK: '{{.CSI_DISK | default "SAMSUNG MZQL23T8HCLS-00A07"}}'
+      CSI_DISKS:
+        sh: |-
+          talosctl --nodes {{.NODE}} get disks --output json \
+            | jq --raw-output 'select(.spec.model == "{{.CSI_DISK}}") | .metadata.id' | xargs
     requires:
       vars: [NODE]
     preconditions:
