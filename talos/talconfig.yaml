@@ -1,26 +1,12 @@
 ---
 clusterName: &cluster k8s
-
-clusterPodNets:
-  - 10.244.0.0/16
-clusterSvcNets:
-  - 10.245.0.0/16
-
+clusterPodNets: ["10.244.0.0/16"]
+clusterSvcNets: ["10.245.0.0/16"]
+additionalApiServerCertSans: ["127.0.0.1"]
+additionalMachineCertSans: ["127.0.0.1"]
 endpoint: https://k8s.internal:6443
-
-# renovate: datasource=docker depName=ghcr.io/siderolabs/installer
-talosVersion: v1.9.4
-# renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
-kubernetesVersion: v1.32.2
-
-additionalApiServerCertSans: &sans
-  - k8s.internal
-  - 127.0.0.1
-
-additionalMachineCertSans: *sans
-
-cniConfig:
-  name: none
+kubernetesVersion: ${KUBERNETES_VERSION}
+talosVersion: ${TALOS_VERSION}
 
 nodes:
   - hostname: m0.k8s.internal
