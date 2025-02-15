@@ -12,11 +12,6 @@ repositories:
   - name: jetstack
     url: https://charts.jetstack.io
 
-hooks:
-  - events: ["prepare"]
-    command: ./resources/bootstrap.sh
-    showlogs: true
-
 releases:
   - name: cilium
     namespace: kube-system
@@ -25,8 +20,14 @@ releases:
     values: ["../apps/kube-system/cilium/app/resources/values.yaml"]
     hooks:
       - events: ["postsync"]
-        command: ./resources/cilium-config.sh
-        showlogs: true
+        command: kubectl
+        args:
+          - apply
+          - --server-side
+          - --namespace=kube-system
+          - --field-manager=kustomize-controller
+          - --kustomize
+          - ../apps/kube-system/cilium/config
 
   - name: coredns
     namespace: kube-system

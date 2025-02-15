@@ -177,14 +177,14 @@ controlPlane:
   schematic:
     customization:
       extraKernelArgs:
-        - apparmor=0               # Less security, faster puter
-        - init_on_alloc=0          # Less security, faster puter
-        - init_on_free=0           # Less security, faster puter
-        - intel_iommu=on           # PCI Passthrough
-        - iommu=pt                 # PCI Passthrough
-        - mitigations=off          # Less security, faster puter
-        - security=none            # Less security, faster puter
-        - talos.auditd.disabled=1  # Less security, faster puter
+        - apparmor=0              # Less security, faster puter
+        - init_on_alloc=0         # Less security, faster puter
+        - init_on_free=0          # Less security, faster puter
+        - intel_iommu=on          # PCI Passthrough
+        - iommu=pt                # PCI Passthrough
+        - mitigations=off         # Less security, faster puter
+        - security=none           # Less security, faster puter
+        - talos.auditd.disabled=1 # Less security, faster puter
 
       systemExtensions:
         officialExtensions:
@@ -195,195 +195,11 @@ controlPlane:
           - siderolabs/thunderbolt
 
   patches:
-    # Configure containerd
-    - |-
-      machine:
-        files:
-          - op: create
-            path: /etc/cri/conf.d/20-customization.part
-            content: |-
-              [plugins."io.containerd.cri.v1.images"]
-                discard_unpacked_layers = false
-
-    # Disable search domain everywhere
-    - |-
-      machine:
-        network:
-          disableSearchDomain: true
-
-    # Enable host dns
-    - |-
-      machine:
-        features:
-          hostDNS:
-            enabled: true
-            resolveMemberNames: true
-            forwardKubeDNSToHost: false
-
-    # Configure kubelet
-    - |-
-      machine:
-        kubelet:
-          extraConfig:
-            maxPods: 150
-          extraMounts:
-            - destination: /var/mnt/extra
-              source: /var/mnt/extra
-              type: bind
-              options:
-                - bind
-                - rshared
-                - rw
-          nodeIP:
-            validSubnets:
-              - 192.168.10.0/24
-
-    # Force nameserver
-    - |-
-      machine:
-        network:
-          nameservers:
-            - 192.168.10.1
-
-    # Configure NFS mount options
-    - |
-      machine:
-        files:
-          - op: overwrite
-            path: /etc/nfsmount.conf
-            permissions: 0o644
-            content: |
-              [ NFSMount_Global_Options ]
-              nfsvers=4.1
-              hard=True
-              nconnect=16
-              noatime=True
-
-    # Configure NTP
-    - |-
-      machine:
-        time:
-          disabled: false
-          servers:
-            - time.cloudflare.com
-
-    # Custom sysctl settings
-    - |-
-      machine:
-        sysctls:
-          fs.inotify.max_user_watches: 1048576   # Watchdog
-          fs.inotify.max_user_instances: 8192    # Watchdog
-          net.core.default_qdisc: fq             # 10Gb/s
-          net.core.rmem_max: 67108864            # 10Gb/s | Cloudflared / QUIC
-          net.core.wmem_max: 67108864            # 10Gb/s | Cloudflared / QUIC
-          net.ipv4.tcp_congestion_control: bbr   # 10Gb/s
-          net.ipv4.tcp_fastopen: 3               # Send and accept data in the opening SYN packet
-          net.ipv4.tcp_mtu_probing: 1            # 10Gb/s | Jumbo frames
-          net.ipv4.tcp_rmem: 4096 87380 33554432 # 10Gb/s
-          net.ipv4.tcp_wmem: 4096 65536 33554432 # 10Gb/s
-          net.ipv4.tcp_window_scaling: 1         # 10Gb/s
-          vm.nr_hugepages: 1024                  # PostgreSQL
-
-    # Custom sysfs settings
-    - |-
-      machine:
-        sysfs:
-          devices.system.cpu.intel_pstate.hwp_dynamic_boost: 1
-          devices.system.cpu.cpu0.cpufreq.energy_performance_preference: balance_performance
-          devices.system.cpu.cpu1.cpufreq.energy_performance_preference: balance_performance
-          devices.system.cpu.cpu2.cpufreq.energy_performance_preference: balance_performance
-          devices.system.cpu.cpu3.cpufreq.energy_performance_preference: balance_performance
-          devices.system.cpu.cpu4.cpufreq.energy_performance_preference: balance_performance
-          devices.system.cpu.cpu5.cpufreq.energy_performance_preference: balance_performance
-          devices.system.cpu.cpu6.cpufreq.energy_performance_preference: balance_performance
-          devices.system.cpu.cpu7.cpufreq.energy_performance_preference: balance_performance
-          devices.system.cpu.cpu8.cpufreq.energy_performance_preference: balance_performance
-          devices.system.cpu.cpu9.cpufreq.energy_performance_preference: balance_performance
-          devices.system.cpu.cpu10.cpufreq.energy_performance_preference: balance_performance
-          devices.system.cpu.cpu11.cpufreq.energy_performance_preference: balance_performance
-          devices.system.cpu.cpu12.cpufreq.energy_performance_preference: balance_performance
-          devices.system.cpu.cpu13.cpufreq.energy_performance_preference: balance_performance
-          devices.system.cpu.cpu14.cpufreq.energy_performance_preference: balance_performance
-          devices.system.cpu.cpu15.cpufreq.energy_performance_preference: balance_performance
-          devices.system.cpu.cpu16.cpufreq.energy_performance_preference: balance_performance
-          devices.system.cpu.cpu17.cpufreq.energy_performance_preference: balance_performance
-          devices.system.cpu.cpu18.cpufreq.energy_performance_preference: balance_performance
-          devices.system.cpu.cpu19.cpufreq.energy_performance_preference: balance_performance
-
-    # Enable thunderbolt + net
-    - |-
-      machine:
-        kernel:
-          modules:
-            - name: nbd
-            - name: thunderbolt
-            - name: thunderbolt_net
-
-    # Various udev rules
-    - |-
-      machine:
-        udev:
-          rules:
-            # Thunderbolt
-            - ACTION=="add", SUBSYSTEM=="thunderbolt", ATTR{authorized}=="0", ATTR{authorized}="1"
-            # Intel GPU
-            - SUBSYSTEM=="drm", KERNEL=="renderD*", GROUP="44", MODE="0660"
-            # Coral Edge TPU
-            - SUBSYSTEM=="apex", KERNEL=="apex*", GROUP="44", MODE="0660"
-
-    # Cluster configuration
-    - |-
-      cluster:
-        allowSchedulingOnControlPlanes: true
-        apiServer:
-          extraArgs:
-            enable-aggregator-routing: true
-        controllerManager:
-          extraArgs:
-            bind-address: 0.0.0.0
-        coreDNS:
-          disabled: true
-        etcd:
-          extraArgs:
-            listen-metrics-urls: http://0.0.0.0:2381
-          advertisedSubnets:
-            - 192.168.10.0/24
-        proxy:
-          disabled: true
-        scheduler:
-          extraArgs:
-            bind-address: 0.0.0.0
-          config:
-            apiVersion: kubescheduler.config.k8s.io/v1
-            kind: KubeSchedulerConfiguration
-            profiles:
-              - schedulerName: default-scheduler
-                plugins:
-                  score:
-                    disabled:
-                      - name: ImageLocality
-                pluginConfig:
-                  - name: PodTopologySpread
-                    args:
-                      defaultingType: List
-                      defaultConstraints:
-                        - maxSkew: 1
-                          topologyKey: kubernetes.io/hostname
-                          whenUnsatisfiable: ScheduleAnyway
-
-    # Disable default API server admission plugins.
+    - "@./patches/cluster.yaml"
+    - "@./patches/machine.yaml"
     - |-
       - op: remove
         path: /cluster/apiServer/admissionControl
-
-    # Enable K8s Talos API Access
     - |-
-      machine:
-        features:
-          kubernetesTalosAPIAccess:
-            enabled: true
-            allowedRoles:
-              - os:admin
-            allowedKubernetesNamespaces:
-              - actions-runner-system
-              - system-upgrade
+      - op: remove
+        path: /cluster/apiServer/auditPolicy

@@ -5,7 +5,6 @@
       customType: "regex",
       description: ["Process custom dependencies"],
       fileMatch: [
-        "(^|/)kubernetes/.+\\.sh$",
         "(^|/)kubernetes/.+\\.ya?ml$",
         "(^|/)talos/.+\\.ya?ml$",
       ],
