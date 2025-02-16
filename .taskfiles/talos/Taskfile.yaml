@@ -4,44 +4,43 @@ version: '3'
 tasks:
 
   apply-node:
-    desc: Apply Talos config to a node [IP=required] [MODE=auto]
+    desc: Apply Talos config to a node [NODE=required] [MODE=auto]
     cmd: |-
       minijinja-cli {{.TALOS_DIR}}/{{.MACHINE_TYPE}}.yaml.j2 \
         | op inject \
-        | talosctl --nodes {{.IP}} apply-config \
+        | talosctl --nodes {{.NODE}} apply-config \
           --mode {{.MODE}} \
-          --config-patch @{{.TALOS_DIR}}/{{.MACHINE_TYPE}}/{{.IP}}.yaml \
+          --config-patch @{{.TALOS_DIR}}/{{.MACHINE_TYPE}}/{{.NODE}}.yaml \
           --file /dev/stdin
     vars:
       MODE: '{{.MODE | default "auto"}}'
       MACHINE_TYPE:
-        sh: talosctl --nodes {{.IP}} get machinetypes --output jsonpath='{.spec}'
+        sh: talosctl --nodes {{.NODE}} get machinetypes --output jsonpath='{.spec}'
     requires:
-      vars: [IP]
+      vars: [NODE]
     preconditions:
-      - talosctl --nodes {{.IP}} get machineconfig
       - test -f {{.ROOT_DIR}}/.talos.env
       - test -f {{.TALOS_DIR}}/{{.MACHINE_TYPE}}.yaml.j2
-      - test -f {{.TALOS_DIR}}/{{.MACHINE_TYPE}}/{{.IP}}.yaml
+      - test -f {{.TALOS_DIR}}/{{.MACHINE_TYPE}}/{{.NODE}}.yaml
       - test -f {{.ROOT_DIR}}/talosconfig
       - which minijinja-cli op talosctl
 
   upgrade-node:
-    desc: Upgrade Talos on a single node [IP=required]
-    cmd: talosctl --nodes {{.IP}} upgrade --image="{{.TALOS_IMAGE}}" --timeout=10m
+    desc: Upgrade Talos on a single node [NODE=required]
+    cmd: talosctl --nodes {{.NODE}} upgrade --image="{{.TALOS_IMAGE}}" --timeout=10m
     vars:
       MACHINE_TYPE:
-        sh: talosctl --nodes {{.IP}} get machinetypes --output jsonpath='{.spec}'
+        sh: talosctl --nodes {{.NODE}} get machinetypes --output jsonpath='{.spec}'
       IMAGE:
         sh: minijinja-cli {{.TALOS_DIR}}/{{.MACHINE_TYPE}}.yaml.j2 | yq '.machine.install.image' -
     requires:
-      vars: [IP]
+      vars: [NODE]
     preconditions:
       - talosctl config info
-      - talosctl --nodes {{.IP}} get machineconfig
+      - talosctl --nodes {{.NODE}} get machineconfig
       - test -f {{.ROOT_DIR}}/.talos.env
       - test -f {{.TALOS_DIR}}/{{.MACHINE_TYPE}}.yaml.j2
-      - test -f {{.TALOS_DIR}}/{{.MACHINE_TYPE}}/{{.IP}}.yaml
+      - test -f {{.TALOS_DIR}}/{{.MACHINE_TYPE}}/{{.NODE}}.yaml
       - test -f {{.ROOT_DIR}}/talosconfig
       - which minijinja-cli talosctl yq
 
@@ -59,15 +58,15 @@ tasks:
       - which jq talosctl
 
   reboot-node:
-    desc: Reboot Talos on a single node [IP=required] [MODE=default]
-    cmd: talosctl --nodes {{.IP}} reboot --mode={{.MODE}}
+    desc: Reboot Talos on a single node [NODE=required] [MODE=default]
+    cmd: talosctl --nodes {{.NODE}} reboot --mode={{.MODE}}
     vars:
       MODE: '{{.MODE | default "default"}}'
     requires:
-      vars: [IP]
+      vars: [NODE]
     preconditions:
       - talosctl config info
-      - talosctl --nodes {{.IP}} get machineconfig
+      - talosctl --nodes {{.NODE}} get machineconfig
       - test -f {{.ROOT_DIR}}/.talos.env
       - test -f {{.ROOT_DIR}}/talosconfig
       - which talosctl
@@ -75,38 +74,38 @@ tasks:
   shutdown-cluster:
     desc: Shutdown Talos across the whole cluster
     prompt: Shutdown the Talos cluster ... continue?
-    cmd: talosctl shutdown --nodes {{.IPS}} --force
+    cmd: talosctl --nodes {{.NODES}} shutdown --force
     vars:
-      IPS:
+      NODES:
         sh: talosctl config info --output json | jq --join-output '[.nodes[]] | join(",")'
     preconditions:
       - talosctl config info
-      - talosctl --nodes {{.IPS}} get machineconfig
+      - talosctl --nodes {{.NODES}} get machineconfig
       - test -f {{.ROOT_DIR}}/talosconfig
       - which jq talosctl
 
   reset-node:
-    desc: Reset Talos on a single node [IP=required]
-    prompt: Reset Talos node '{{.IP}}' ... continue?
-    cmd: talosctl reset --nodes {{.IP}} --graceful=false
+    desc: Reset Talos on a single node [NODE=required]
+    prompt: Reset Talos node '{{.NODE}}' ... continue?
+    cmd: talosctl --nodes {{.NODE}} reset --graceful=false
     requires:
-      vars: [IP]
+      vars: [NODE]
     preconditions:
       - talosctl config info
-      - talosctl --nodes {{.IP}} get machineconfig
+      - talosctl --nodes {{.NODE}} get machineconfig
       - test -f {{.ROOT_DIR}}/talosconfig
       - which talosctl
 
   reset-cluster:
     desc: Reset Talos across the whole cluster
     prompt: Reset the Talos cluster ... continue?
-    cmd: talosctl reset --nodes {{.IPS}} --graceful=false
+    cmd: talosctl --nodes {{.NODES}} reset --graceful=false
     vars:
-      IPS:
+      NODES:
         sh: talosctl config info --output json | jq --join-output '[.nodes[]] | join(",")'
     preconditions:
       - talosctl config info
-      - talosctl --nodes {{.IPS}} get machineconfig
+      - talosctl --nodes {{.NODES}} get machineconfig
       - test -f {{.ROOT_DIR}}/talosconfig
       - which jq talosctl
 

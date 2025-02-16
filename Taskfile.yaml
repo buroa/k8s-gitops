@@ -12,7 +12,6 @@ vars:
 dotenv: ['{{.ROOT_DIR}}/.talos.env']
 
 env:
-  KUBERNETES_DIR: '{{.KUBERNETES_DIR}}'
   KUBECONFIG: '{{.ROOT_DIR}}/kubeconfig'
   MINIJINJA_CONFIG_FILE: '{{.ROOT_DIR}}/.minijinja.toml'
   SOPS_AGE_KEY_FILE: '{{.ROOT_DIR}}/age.key'

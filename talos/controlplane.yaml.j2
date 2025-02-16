@@ -26,17 +26,16 @@ machine:
     interfaces:
       - interface: bond0
         bond:
-          interfaces: []
           deviceSelectors: [{ hardwareAddr: "58:47:ca:77:*", driver: i40e }]
           mode: 802.3ad
           xmitHashPolicy: layer3+4
           lacpRate: fast
           miimon: 1000
+        dhcp: true
+        mtu: 9000
         vlans:
           - { vlanId: 20, dhcp: false, mtu: 1500 }
           - { vlanId: 30, dhcp: false, mtu: 1500 }
-        mtu: 9000
-        dhcp: true
     nameservers: ["192.168.10.1"]
     disableSearchDomain: true
   install:
@@ -175,6 +174,13 @@ cluster:
               disabled:
                 - name: ImageLocality
           schedulerName: default-scheduler
+  discovery:
+    enabled: true
+    registries:
+      kubernetes:
+        disabled: true
+      service:
+        disabled: false
   etcd:
     ca:
       crt: op://K8s/talos/CLUSTER_ETCD_CA_CRT
@@ -186,8 +192,9 @@ cluster:
     disabled: true
   extraManifests:
     {% for crd in [
-        "alertmanagerconfigs", "alertmanagers", "podmonitors", "probes", "prometheusagents",
-        "prometheuses", "prometheusrules", "scrapeconfigs", "servicemonitors", "thanosrulers"
+        "alertmanagerconfigs", "alertmanagers", "podmonitors", "probes",
+        "prometheusagents", "prometheuses", "prometheusrules", "scrapeconfigs",
+        "servicemonitors", "thanosrulers"
     ] %}
     - https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/{{ ENV.PROMETHEUS_OPERATOR_VERSION }}/example/prometheus-operator-crd/monitoring.coreos.com_{{ crd }}.yaml
     {% endfor %}
