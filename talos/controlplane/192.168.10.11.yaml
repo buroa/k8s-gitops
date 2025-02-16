@@ -8,7 +8,7 @@ machine:
     diskSelector:
       serial: S666NG0X101148
   network:
-    hostname: m1.k8s.internal
+    hostname: m1
     interfaces:
       - deviceSelector:
           busPath: 0-1.0 # m0
