@@ -6,9 +6,9 @@
     "mikestead.dotenv",
     "mitchdenny.ecdc",
     "redhat.vscode-yaml",
-    "signageos.signageos-vscode-sops",
     "tudoudou.json5-for-vscode",
     "will-stone.in-any-case",
+    "BriteSnow.vscode-toggle-quotes",
     "PKief.material-icon-theme"
   ]
 }

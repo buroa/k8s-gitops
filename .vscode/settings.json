@@ -6,7 +6,9 @@
   "editor.guides.bracketPairsHorizontal": true,
   "editor.guides.highlightActiveBracketPair": true,
   "editor.hover.delay": 1500,
-  "editor.rulers": [100],
+  "editor.rulers": [
+    100
+  ],
   "editor.stickyScroll.enabled": false,
   "explorer.autoReveal": false,
   "files.associations": {
@@ -31,18 +33,16 @@
     // namespaces
     "actions-runner-system": "github",
     "cert-manager": "guard",
+    "external-secrets": "secure",
     "flux-system": "pipe",
     "kube-system": "kubernetes",
     "media": "video",
     "monitoring": "event",
     "networking": "connection",
-    "openebs-system": "dump",
+    "openebs-system": "base",
     "rook-ceph": "dump",
     "system-upgrade": "update",
     "volsync-system": "aws",
-    // folders
-    "external-secrets": "secure",
-    "tools": "tools",
   },
   "sops.defaults.ageKeyFile": "age.key",
   "vs-kubernetes": {
