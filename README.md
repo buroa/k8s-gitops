@@ -64,7 +64,6 @@ There is a template at [onedr0p/cluster-template](https://github.com/onedr0p/clu
 - [ingress-nginx](https://github.com/kubernetes/ingress-nginx): Kubernetes ingress controller using NGINX as a reverse proxy and load balancer.
 - [multus](https://github.com/k8snetworkplumbingwg/multus-cni): Multi-homed pod networking.
 - [rook](https://github.com/rook/rook): Distributed block storage for peristent storage.
-- [sops](https://github.com/getsops/sops): Managed secrets for Kubernetes which are commited to Git.
 - [spegel](https://github.com/spegel-org/spegel): Stateless cluster local OCI registry mirror.
 - [volsync](https://github.com/backube/volsync): Backup and recovery of persistent volume claims.
 

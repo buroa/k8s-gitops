@@ -17,7 +17,6 @@
   "files.trimTrailingWhitespace": true,
   "material-icon-theme.files.associations": {
     // TODO: https://github.com/PKief/vscode-material-icon-theme/issues/330
-    "*.sops.yaml": "lock",
     "helmfile.yaml": "helm",
     "kubeconfig": "kubernetes",
     "talosconfig": "kubernetes"
@@ -44,7 +43,6 @@
     "system-upgrade": "update",
     "volsync-system": "aws",
   },
-  "sops.defaults.ageKeyFile": "age.key",
   "vs-kubernetes": {
     "vs-kubernetes.kubeconfig": "./kubeconfig",
     "vs-kubernetes.knownKubeconfigs": [
