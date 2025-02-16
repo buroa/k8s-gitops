@@ -1,0 +1,24 @@
+---
+machine:
+  disks:
+    - device: /dev/disk/by-id/nvme-SAMSUNG_MZ1L21T9HCLS-00A07_S666NG0X101174
+      partitions:
+        - mountpoint: /var/mnt/extra
+  install:
+    diskSelector:
+      serial: S666NN0W402512
+  network:
+    hostname: m0.k8s.internal
+    interfaces:
+      - deviceSelector:
+          busPath: 0-1.0 # m2
+        dhcp: false
+        mtu: 65520
+        addresses: ["169.254.255.10/32"]
+        routes: [{ network: "169.254.255.12/32", metric: 2048 }]
+      - deviceSelector:
+          busPath: 1-1.0 # m1
+        dhcp: false
+        mtu: 65520
+        addresses: ["169.254.255.10/32"]
+        routes: [{ network: "169.254.255.11/32", metric: 2048 }]

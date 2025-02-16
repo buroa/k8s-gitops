@@ -9,7 +9,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
-    - ../../../../flux/components/gatus
+    - ../../../../components/gatus
   interval: 30m
   path: ./kubernetes/apps/monitoring/kromgo/app
   postBuild:

@@ -6,7 +6,7 @@
   color: "0e8a16"
 - name: area/talos
   color: "0e8a16"
-- name: area/taskfiles
+- name: area/taskfile
   color: "0e8a16"
 # Renovate Types
 - name: renovate/container

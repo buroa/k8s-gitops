@@ -9,7 +9,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
-    - ../../../../flux/components/gatus
+    - ../../../../components/gatus
   dependsOn:
     - name: cloudnative-pg-cluster
       namespace: databases

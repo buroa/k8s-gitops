@@ -5,9 +5,11 @@ area/github:
 area/kubernetes:
   - changed-files:
       - any-glob-to-any-file: kubernetes/**/*
+area/taskfile:
+  - changed-files:
+      - any-glob-to-any-file:
+          - .taskfiles/**/*
+          - Taskfile.yaml
 area/talos:
   - changed-files:
       - any-glob-to-any-file: talos/**/*
-area/taskfiles:
-  - changed-files:
-      - any-glob-to-any-file: .taskfiles/**/*
