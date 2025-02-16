@@ -19,6 +19,7 @@ tasks:
     requires:
       vars: [NODE]
     preconditions:
+      - op user get --me
       - test -f {{.ROOT_DIR}}/.talos.env
       - test -f {{.TALOS_DIR}}/{{.MACHINE_TYPE}}.yaml.j2
       - test -f {{.TALOS_DIR}}/{{.MACHINE_TYPE}}/{{.NODE}}.yaml

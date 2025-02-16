@@ -14,7 +14,7 @@ tasks:
         sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
     preconditions:
       - talosctl config info
-      - which talosctl
+      - which jq talosctl
 
   apps:
     desc: Bootstrap Kubernetes Apps [ROOK_DISK=required]
