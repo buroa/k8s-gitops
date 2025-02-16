@@ -9,13 +9,13 @@ vars:
   KUBERNETES_DIR: '{{.ROOT_DIR}}/kubernetes'
   TALOS_DIR: '{{.ROOT_DIR}}/talos'
 
-dotenv: ['{{.ROOT_DIR}}/.talos.env']
+dotenv: ['{{.TALOS_DIR}}/.env']
 
 env:
-  KUBECONFIG: '{{.ROOT_DIR}}/kubeconfig'
+  KUBECONFIG: '{{.KUBERNETES_DIR}}/kubeconfig'
   MINIJINJA_CONFIG_FILE: '{{.ROOT_DIR}}/.minijinja.toml'
   SOPS_AGE_KEY_FILE: '{{.ROOT_DIR}}/age.key'
-  TALOSCONFIG: '{{.ROOT_DIR}}/talosconfig'
+  TALOSCONFIG: '{{.TALOS_DIR}}/talosconfig'
 
 includes:
   bootstrap: .taskfiles/bootstrap
@@ -29,9 +29,3 @@ tasks:
   default:
     cmd: task --list
     silent: true
-
-  # Ref: https://github.com/go-task/task/issues/608
-  noop:
-    internal: true
-    silent: true
-    cmd: noop() { :; }

@@ -20,10 +20,10 @@ tasks:
       vars: [NODE]
     preconditions:
       - op user get --me
-      - test -f {{.ROOT_DIR}}/.talos.env
+      - test -f {{.TALOS_DIR}}/.env
       - test -f {{.TALOS_DIR}}/{{.MACHINE_TYPE}}.yaml.j2
       - test -f {{.TALOS_DIR}}/{{.MACHINE_TYPE}}/{{.NODE}}.yaml
-      - test -f {{.ROOT_DIR}}/talosconfig
+      - test -f {{.TALOS_DIR}}/talosconfig
       - which minijinja-cli op talosctl
 
   upgrade-node:
@@ -39,10 +39,10 @@ tasks:
     preconditions:
       - talosctl config info
       - talosctl --nodes {{.NODE}} get machineconfig
-      - test -f {{.ROOT_DIR}}/.talos.env
+      - test -f {{.TALOS_DIR}}/.env
       - test -f {{.TALOS_DIR}}/{{.MACHINE_TYPE}}.yaml.j2
       - test -f {{.TALOS_DIR}}/{{.MACHINE_TYPE}}/{{.NODE}}.yaml
-      - test -f {{.ROOT_DIR}}/talosconfig
+      - test -f {{.TALOS_DIR}}/talosconfig
       - which minijinja-cli talosctl yq
 
   upgrade-k8s:
@@ -54,8 +54,8 @@ tasks:
     preconditions:
       - talosctl config info
       - talosctl --nodes {{.RANDOM_CONTROLLER}} get machineconfig
-      - test -f {{.ROOT_DIR}}/.talos.env
-      - test -f {{.ROOT_DIR}}/talosconfig
+      - test -f {{.TALOS_DIR}}/.env
+      - test -f {{.TALOS_DIR}}/talosconfig
       - which jq talosctl
 
   reboot-node:
@@ -68,8 +68,7 @@ tasks:
     preconditions:
       - talosctl config info
       - talosctl --nodes {{.NODE}} get machineconfig
-      - test -f {{.ROOT_DIR}}/.talos.env
-      - test -f {{.ROOT_DIR}}/talosconfig
+      - test -f {{.TALOS_DIR}}/talosconfig
       - which talosctl
 
   shutdown-cluster:
@@ -82,7 +81,7 @@ tasks:
     preconditions:
       - talosctl config info
       - talosctl --nodes {{.NODES}} get machineconfig
-      - test -f {{.ROOT_DIR}}/talosconfig
+      - test -f {{.TALOS_DIR}}/talosconfig
       - which jq talosctl
 
   reset-node:
@@ -94,7 +93,7 @@ tasks:
     preconditions:
       - talosctl config info
       - talosctl --nodes {{.NODE}} get machineconfig
-      - test -f {{.ROOT_DIR}}/talosconfig
+      - test -f {{.TALOS_DIR}}/talosconfig
       - which talosctl
 
   reset-cluster:
@@ -107,16 +106,16 @@ tasks:
     preconditions:
       - talosctl config info
       - talosctl --nodes {{.NODES}} get machineconfig
-      - test -f {{.ROOT_DIR}}/talosconfig
+      - test -f {{.TALOS_DIR}}/talosconfig
       - which jq talosctl
 
   kubeconfig:
     desc: Generate the kubeconfig for a Talos cluster
-    cmd: talosctl kubeconfig --nodes {{.RANDOM_CONTROLLER}} --force {{.ROOT_DIR}}
+    cmd: talosctl kubeconfig --nodes {{.RANDOM_CONTROLLER}} --force {{.KUBERNETES_DIR}}
     vars:
       RANDOM_CONTROLLER:
         sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
     preconditions:
       - talosctl config info
-      - test -f {{.ROOT_DIR}}/talosconfig
+      - test -f {{.TALOS_DIR}}/talosconfig
       - which jq talosctl
