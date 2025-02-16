@@ -17,7 +17,7 @@ releases:
     namespace: kube-system
     chart: cilium/cilium
     version: 1.17.1
-    values: ["../apps/kube-system/cilium/app/resources/values.yaml"]
+    values: ["../kubernetes/apps/kube-system/cilium/app/resources/values.yaml"]
     hooks:
       - events: ["postsync"]
         command: kubectl
@@ -27,47 +27,47 @@ releases:
           - --namespace=kube-system
           - --field-manager=kustomize-controller
           - --kustomize
-          - ../apps/kube-system/cilium/config
+          - ../kubernetes/apps/kube-system/cilium/config
 
   - name: coredns
     namespace: kube-system
     chart: oci://ghcr.io/coredns/charts/coredns
     version: 1.39.0
-    values: ["../apps/kube-system/coredns/app/resources/values.yaml"]
+    values: ["../kubernetes/apps/kube-system/coredns/app/resources/values.yaml"]
     needs: ["kube-system/cilium"]
 
   - name: spegel
     namespace: kube-system
     chart: oci://ghcr.io/spegel-org/helm-charts/spegel
     version: v0.0.30
-    values: ["../apps/kube-system/spegel/app/resources/values.yaml"]
+    values: ["../kubernetes/apps/kube-system/spegel/app/resources/values.yaml"]
     needs: ["kube-system/coredns"]
 
   - name: cert-manager
     namespace: cert-manager
     chart: jetstack/cert-manager
     version: v1.17.1
-    values: ["../apps/cert-manager/cert-manager/app/resources/values.yaml"]
+    values: ["../kubernetes/apps/cert-manager/cert-manager/app/resources/values.yaml"]
     needs: ["kube-system/spegel"]
 
   - name: external-secrets
     namespace: external-secrets
     chart: oci://ghcr.io/external-secrets/charts/external-secrets
     version: 0.14.2
-    values: ["../apps/external-secrets/external-secrets/app/resources/values.yaml"]
+    values: ["../kubernetes/apps/external-secrets/external-secrets/app/resources/values.yaml"]
     needs: ["cert-manager/cert-manager"]
 
   - name: flux-operator
     namespace: flux-system
     chart: oci://ghcr.io/controlplaneio-fluxcd/charts/flux-operator
     version: 0.14.0
-    values: ["../apps/flux-system/flux-operator/app/resources/values.yaml"]
+    values: ["../kubernetes/apps/flux-system/flux-operator/app/resources/values.yaml"]
     needs: ["external-secrets/external-secrets"]
 
   - name: flux-instance
     namespace: flux-system
     chart: oci://ghcr.io/controlplaneio-fluxcd/charts/flux-instance
     version: 0.14.0
-    values: ["../apps/flux-system/flux-operator/instance/resources/values.yaml"]
+    values: ["../kubernetes/apps/flux-system/flux-operator/instance/resources/values.yaml"]
     needs: ["flux-system/flux-operator"]
     wait: false
