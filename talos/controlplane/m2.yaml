@@ -7,7 +7,7 @@ machine:
     diskSelector:
       serial: S666NN0W401713
   network:
-    hostname: m2
+    hostname: m2.k8s.internal
     interfaces:
       - # m0
         deviceSelector:
