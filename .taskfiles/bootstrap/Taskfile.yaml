@@ -4,35 +4,47 @@ version: '3'
 tasks:
 
   talos:
-    desc: Bootstrap Talos
+    desc: Bootstrap Talos [CSI_DISK={{.CSI_DISK}}]
     prompt: Bootstrap Talos ...?
     cmds:
-      - until talosctl --nodes {{.TALOS_CONTROLLER}} bootstrap; do sleep 10; done
-      - talosctl kubeconfig --nodes {{.TALOS_CONTROLLER}} --force {{.KUBERNETES_DIR}}
+      - for: { var: TALOS_BLOCK_DEVICES }
+        cmd: talosctl --nodes {{.KEY}} wipe disk {{.ITEM}}
+      - until talosctl --nodes {{.RANDOM_CONTROLLER}} bootstrap; do sleep 5; done
+      - talosctl kubeconfig --nodes {{.RANDOM_CONTROLLER}} --force {{.ROOT_DIR}}
     vars:
-      TALOS_CONTROLLER:
+      CSI_DISK: '{{.CSI_DISK | default "SAMSUNG MZQL23T8HCLS-00A07"}}'
+      BLOCK_DEVICES_RAW:
+        sh: |-
+          talosctl get disks --output json | jq --slurp --compact-output '
+            map(select(.spec.model == "{{.CSI_DISK}}"))
+              | group_by(.node)
+              | map({ (.[0].node): (map(.metadata.id) | join(" ")) })
+              | add'
+      BLOCK_DEVICES:
+        ref: fromJson .BLOCK_DEVICES_RAW
+      RANDOM_CONTROLLER:
         sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
     preconditions:
       - talosctl config info
-      - which talosctl
+      - which jq talosctl
 
   apps:
     desc: Bootstrap Kubernetes Apps
     prompt: Bootstrap Kubernetes Apps ...?
     cmds:
-      - kubectl config set-cluster {{.TALOS_CONTEXT}} --server https://{{.TALOS_CONTROLLER}}:6443
-      - defer: talosctl kubeconfig --nodes {{.TALOS_CONTROLLER}} --force {{.KUBERNETES_DIR}}
+      - kubectl config set-cluster {{.CONTEXT}} --server https://{{.RANDOM_CONTROLLER}}:6443
+      - defer: talosctl kubeconfig --nodes {{.RANDOM_CONTROLLER}} --force {{.ROOT_DIR}}
       - until kubectl wait nodes --for=condition=Ready=False --all --timeout=10m; do sleep 5; done
-      - op inject --in-file {{.KUBERNETES_DIR}}/bootstrap/resources/secrets.yaml.tpl | kubectl apply --server-side --filename -
-      - helmfile --file {{.KUBERNETES_DIR}}/bootstrap/helmfile.yaml apply --skip-diff-on-install --suppress-diff
+      - op inject --in-file {{.BOOTSTRAP_DIR}}/resources/secrets.yaml.tpl | kubectl apply --server-side --filename -
+      - helmfile --file {{.BOOTSTRAP_DIR}}/helmfile.yaml apply --skip-diff-on-install --suppress-diff
     vars:
-      TALOS_CONTEXT:
+      CONTEXT:
         sh: talosctl config info --output json | jq --raw-output '.context'
-      TALOS_CONTROLLER:
+      RANDOM_CONTROLLER:
         sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
     preconditions:
       - op user get --me
       - talosctl config info
-      - test -f {{.KUBERNETES_DIR}}/bootstrap/helmfile.yaml
-      - test -f {{.KUBERNETES_DIR}}/bootstrap/resources/secrets.yaml.tpl
+      - test -f {{.BOOTSTRAP_DIR}}/helmfile.yaml
+      - test -f {{.BOOTSTRAP_DIR}}/resources/secrets.yaml.tpl
       - which helmfile jq kubectl op talosctl

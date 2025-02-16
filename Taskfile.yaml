@@ -5,14 +5,18 @@ set: [pipefail]
 shopt: [globstar]
 
 vars:
+  BOOTSTRAP_DIR: '{{.ROOT_DIR}}/bootstrap'
   KUBERNETES_DIR: '{{.ROOT_DIR}}/kubernetes'
   TALOS_DIR: '{{.ROOT_DIR}}/talos'
 
+dotenv: ['{{.ROOT_DIR}}/.talos.env']
+
 env:
-  KUBECONFIG: '{{.KUBERNETES_DIR}}/kubeconfig'
+  KUBERNETES_DIR: '{{.KUBERNETES_DIR}}'
+  KUBECONFIG: '{{.ROOT_DIR}}/kubeconfig'
   MINIJINJA_CONFIG_FILE: '{{.ROOT_DIR}}/.minijinja.toml'
   SOPS_AGE_KEY_FILE: '{{.ROOT_DIR}}/age.key'
-  TALOSCONFIG: '{{.TALOS_DIR}}/clusterconfig/talosconfig'
+  TALOSCONFIG: '{{.ROOT_DIR}}/talosconfig'
 
 includes:
   bootstrap: .taskfiles/bootstrap
@@ -23,4 +27,12 @@ includes:
 
 tasks:
 
-  default: task -l
+  default:
+    cmd: task --list
+    silent: true
+
+  # Ref: https://github.com/go-task/task/issues/608
+  noop:
+    internal: true
+    silent: true
+    cmd: noop() { :; }

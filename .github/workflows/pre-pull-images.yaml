@@ -4,7 +4,7 @@ name: Pre-pull Images
 on:
   pull_request:
     branches: ["master"]
-    paths: ["kubernetes/apps/**", "kubernetes/flux/**"]
+    paths: ["kubernetes/**"]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
@@ -91,7 +91,6 @@ jobs:
       - name: Pre-pull Image
         run: talosctl --nodes $NODE image pull ${{ matrix.images }}
 
-  # Summarize matrix https://github.community/t/status-check-for-a-matrix-jobs/127354/7
   pre-pull-images-success:
     if: ${{ always() }}
     needs: ["pre-pull-images"]

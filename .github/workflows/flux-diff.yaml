@@ -4,7 +4,7 @@ name: Flux Diff
 on:
   pull_request:
     branches: ["master"]
-    paths: ["kubernetes/apps/**", "kubernetes/flux/**"]
+    paths: ["kubernetes/**"]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
@@ -82,7 +82,6 @@ jobs:
             ${{ steps.diff.outputs.diff }}
             ```
 
-  # Summarize matrix https://github.community/t/status-check-for-a-matrix-jobs/127354/7
   flux-diff-success:
     if: ${{ always() }}
     needs: ["flux-diff"]

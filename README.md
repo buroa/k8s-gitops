@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://github.com/buroa/k8s-gitops/assets/36205263/14771e67-0c36-4b7c-923f-31f54529067d" align="center" width="144px" height="144px"/>
+<img src="https://avatars.githubusercontent.com/u/36205263?v=4" align="center" width="144px" height="144px"/>
 
 ### My _geeked_ homelab k8s cluster <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f680/512.gif" alt="🚀" width="16" height="16">
 
