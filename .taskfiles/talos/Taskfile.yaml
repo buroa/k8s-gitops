@@ -37,12 +37,12 @@ tasks:
 
   upgrade-node:
     desc: Upgrade Talos on a single node [NODE=required]
-    cmd: talosctl --nodes {{.NODE}} upgrade --image="{{.TALOS_IMAGE}}" --timeout=10m
+    cmd: talosctl --nodes {{.NODE}} upgrade --image={{.TALOS_IMAGE}} --timeout=10m
     vars:
       MACHINE_TYPE:
         sh: talosctl --nodes {{.NODE}} get machinetypes --output jsonpath='{.spec}'
-      IMAGE:
-        sh: minijinja-cli {{.TALOS_DIR}}/{{.MACHINE_TYPE}}.yaml.j2 | yq '.machine.install.image' -
+      TALOS_IMAGE:
+        sh: minijinja-cli {{.TALOS_DIR}}/{{.MACHINE_TYPE}}.yaml.j2 | yq '.machine.install.image'
     requires:
       vars: [NODE]
     preconditions:
