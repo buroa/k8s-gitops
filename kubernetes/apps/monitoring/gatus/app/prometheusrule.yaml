@@ -2,17 +2,17 @@
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
-  name: blackbox-exporter
+  name: gatus
 spec:
   groups:
-    - name: blackbox-exporter.rules
+    - name: gatus.rules
       rules:
-        - alert: BlackboxInstanceDown
+        - alert: GatusEndpointDown
           expr: |
-            probe_success == 0
+            gatus_results_endpoint_success == 0
           for: 5m
           annotations:
             summary: >
-              The host {{ $labels.instance }} is down
+              The Gatus endpoint {{ $labels.name }} is down
           labels:
             severity: critical
