@@ -38,6 +38,10 @@ spec:
       namespace: openebs-system
   interval: 30m
   path: ./kubernetes/apps/databases/cloudnative-pg/cluster
+  postBuild:
+    substitute:
+      # renovate: datasource=docker depName=ghcr.io/cloudnative-pg/postgresql
+      POSTGRESQL_VERSION: 17.2-bookworm
   prune: true
   sourceRef:
     kind: GitRepository

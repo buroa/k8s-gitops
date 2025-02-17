@@ -3,31 +3,17 @@
   customManagers: [
     {
       customType: "regex",
-      description: ["Process custom dependencies"],
-      fileMatch: [
-        "(^|/)kubernetes/.+\\.ya?ml$",
-        "(^|/)talos/.+\\.j2$",
-      ],
+      description: ["Process annotated dependencies"],
+      fileMatch: ["(^|/).+\\.ya?ml(?:\\.j2)?$"],
       matchStrings: [
-        // # renovate: datasource=github-releases depName=k3s-io/k3s
-        // k3s_release_version: &version v1.29.0+k3s1
-        // # renovate: datasource=helm depName=cilium repository=https://helm.cilium.io
-        // version: 1.15.1
-        // # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
-        // KUBERNETES_VERSION=v1.31.1
-        "datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( repository=(?<registryUrl>\\S+))?\\n.+(:\\s|=)(&\\S+\\s)?(?<currentValue>\\S+)",
+        // # renovate: datasource=github-releases depName=kubernetes/kubernetes
+        // version: 1.29.1
+        "datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\n.+ (?<currentValue>[v|\\d]\\S+)",
         // # renovate: datasource=github-releases depName=rancher/system-upgrade-controller
         // https://github.com/rancher/system-upgrade-controller/releases/download/v0.13.2/crd.yaml
-        "datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\n.+/(?<currentValue>(v|\\d)[^/]+)"
+        "datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\n.+/(?<currentValue>[v|\\d][^/]+)",
       ],
       datasourceTemplate: "{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}",
-    },
-    {
-      customType: "regex",
-      description: ["Process any imageName keys in YAML files (cloudnative-pg)"],
-      fileMatch: ["(^|/)kubernetes/.+\\.ya?ml$"],
-      matchStrings: ["imageName: (?<depName>\\S+):(?<currentValue>\\S+)@(?<currentDigest>\\S+)"],
-      datasourceTemplate: "docker",
     },
   ],
 }
