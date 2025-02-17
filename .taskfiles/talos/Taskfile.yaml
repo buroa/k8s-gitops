@@ -25,7 +25,7 @@ tasks:
     vars:
       MODE: '{{.MODE | default "auto"}}'
       MACHINE_TYPE:
-        sh: talosctl --nodes {{.NODE}} get machinetypes --output jsonpath='{.spec}'
+        sh: talosctl --nodes {{.NODE}} get machinetypes --output=jsonpath='{.spec}'
     requires:
       vars: [NODE]
     preconditions:
@@ -40,7 +40,7 @@ tasks:
     cmd: talosctl --nodes {{.NODE}} upgrade --image={{.TALOS_IMAGE}} --timeout=10m
     vars:
       MACHINE_TYPE:
-        sh: talosctl --nodes {{.NODE}} get machinetypes --output jsonpath='{.spec}'
+        sh: talosctl --nodes {{.NODE}} get machinetypes --output=jsonpath='{.spec}'
       TALOS_IMAGE:
         sh: minijinja-cli {{.TALOS_DIR}}/{{.MACHINE_TYPE}}.yaml.j2 | yq '.machine.install.image'
     requires:
