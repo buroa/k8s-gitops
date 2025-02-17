@@ -11,13 +11,13 @@ machine:
   certSANs: ["127.0.0.1"]
   kubelet:
     image: ghcr.io/siderolabs/kubelet:{{ ENV.KUBERNETES_VERSION }}
+    extraConfig:
+      maxPods: 150
     extraMounts:
       - destination: /var/mnt/extra
         type: bind
         source: /var/mnt/extra
         options: ["bind", "rshared", "rw"]
-    extraConfig:
-      maxPods: 150
     defaultRuntimeSeccompProfileEnabled: true
     nodeIP:
       validSubnets: ["192.168.10.0/24"]
@@ -100,8 +100,8 @@ machine:
       port: 7445
     hostDNS:
       enabled: true
-      forwardKubeDNSToHost: false
       resolveMemberNames: true
+      forwardKubeDNSToHost: false
   udev:
     rules:
       - # Thunderbolt
@@ -130,6 +130,23 @@ cluster:
     dnsDomain: cluster.local
     podSubnets: ["10.244.0.0/16"]
     serviceSubnets: ["10.245.0.0/16"]
+  coreDNS:
+    disabled: true
+  discovery:
+    enabled: true
+    registries:
+      kubernetes:
+        disabled: true
+      service:
+        disabled: false
+  extraManifests:
+    {% for crd in [
+        "alertmanagerconfigs", "alertmanagers", "podmonitors", "probes", "prometheusagents",
+        "prometheuses", "prometheusrules", "scrapeconfigs", "servicemonitors", "thanosrulers"
+    ] %}
+    - # renovate: datasource=docker depName=ghcr.io/prometheus-operator/prometheus-operator
+      https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.80.0/example/prometheus-operator-crd/monitoring.coreos.com_{{ crd }}.yaml
+    {% endfor %}
   token: op://K8s/talos/CLUSTER_TOKEN
   secretboxEncryptionSecret: op://K8s/talos/CLUSTER_SECRETBOXENCRYPTIONSECRET
   ca:
@@ -143,7 +160,7 @@ cluster:
   apiServer:
     image: registry.k8s.io/kube-apiserver:{{ ENV.KUBERNETES_VERSION }}
     extraArgs:
-      enable-aggregator-routing: "true"
+      enable-aggregator-routing: true
     certSANs: ["k8s.internal", "127.0.0.1"]
     disablePodSecurityPolicy: true
   controllerManager:
@@ -161,26 +178,19 @@ cluster:
       apiVersion: kubescheduler.config.k8s.io/v1
       kind: KubeSchedulerConfiguration
       profiles:
-        - pluginConfig:
-            - args:
-                defaultConstraints:
-                  - maxSkew: 1
-                    topologyKey: kubernetes.io/hostname
-                    whenUnsatisfiable: ScheduleAnyway
-                defaultingType: List
-              name: PodTopologySpread
+        - schedulerName: default-scheduler
           plugins:
             score:
               disabled:
                 - name: ImageLocality
-          schedulerName: default-scheduler
-  discovery:
-    enabled: true
-    registries:
-      kubernetes:
-        disabled: true
-      service:
-        disabled: false
+          pluginConfig:
+            - name: PodTopologySpread
+              args:
+                defaultingType: List
+                defaultConstraints:
+                  - maxSkew: 1
+                    topologyKey: kubernetes.io/hostname
+                    whenUnsatisfiable: ScheduleAnyway
   etcd:
     ca:
       crt: op://K8s/talos/CLUSTER_ETCD_CA_CRT
@@ -188,15 +198,4 @@ cluster:
     extraArgs:
       listen-metrics-urls: http://0.0.0.0:2381
     advertisedSubnets: ["192.168.10.0/24"]
-  coreDNS:
-    disabled: true
-  extraManifests:
-    {% for crd in [
-        "alertmanagerconfigs", "alertmanagers", "podmonitors", "probes",
-        "prometheusagents", "prometheuses", "prometheusrules", "scrapeconfigs",
-        "servicemonitors", "thanosrulers"
-    ] %}
-    # renovate: datasource=docker depName=ghcr.io/prometheus-operator/prometheus-operator
-    - https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.80.0/example/prometheus-operator-crd/monitoring.coreos.com_{{ crd }}.yaml
-    {% endfor %}
   allowSchedulingOnControlPlanes: true
