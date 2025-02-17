@@ -196,7 +196,7 @@ cluster:
         "prometheusagents", "prometheuses", "prometheusrules", "scrapeconfigs",
         "servicemonitors", "thanosrulers"
     ] %}
-    # renovate: datasource=github-releases depName=prometheus-operator/prometheus-operator
+    # renovate: datasource=docker depName=prometheus-operator/prometheus-operator
     - https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.80.0/example/prometheus-operator-crd/monitoring.coreos.com_{{ crd }}.yaml
     {% endfor %}
   allowSchedulingOnControlPlanes: true
