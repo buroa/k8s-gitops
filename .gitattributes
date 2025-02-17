@@ -1,3 +1,9 @@
 * text=auto eol=lf
+*.yml linguist-detectable=true
+*.yml linguist-language=YAML
+*.yaml linguist-detectable=true
+*.yaml linguist-language=YAML
+*.yaml.j2 linguist-detectable=true
 *.yaml.j2 linguist-language=YAML
+*.yaml.tpl linguist-detectable=true
 *.yaml.tpl linguist-language=YAML
