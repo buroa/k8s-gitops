@@ -5,9 +5,8 @@
       customType: "regex",
       description: ["Process custom dependencies"],
       fileMatch: [
-        "(^|/).+\\.env$",
-        "(^|/).+\\.j2$",
-        "(^|/).+\\.ya?ml$",
+        "(^|/)kubernetes/.+\\.ya?ml$",
+        "(^|/)talos/.+\\.j2$",
       ],
       matchStrings: [
         // # renovate: datasource=github-releases depName=k3s-io/k3s
