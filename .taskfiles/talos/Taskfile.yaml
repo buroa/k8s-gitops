@@ -1,6 +1,16 @@
 ---
 version: '3'
 
+vars:
+  SYSTEM_UPGRADE_KS: |-
+    '{{.ROOT_DIR}}/kubernetes/apps/system-upgrade/system-upgrade-controller/ks.yaml'
+
+env:
+  KUBERNETES_VERSION:
+    sh: yq '.spec.postBuild.substitute.KUBERNETES_VERSION | select(.)' {{.SYSTEM_UPGRADE_KS}}
+  TALOS_VERSION:
+    sh: yq '.spec.postBuild.substitute.TALOS_VERSION | select(.)' {{.SYSTEM_UPGRADE_KS}}
+
 tasks:
 
   apply-node:
@@ -20,7 +30,6 @@ tasks:
       vars: [NODE]
     preconditions:
       - op user get --me
-      - test -f {{.TALOS_DIR}}/talos.env
       - test -f {{.TALOS_DIR}}/{{.MACHINE_TYPE}}.yaml.j2
       - test -f {{.TALOS_DIR}}/{{.MACHINE_TYPE}}/{{.NODE}}.yaml
       - test -f {{.TALOS_DIR}}/talosconfig
@@ -39,7 +48,6 @@ tasks:
     preconditions:
       - talosctl config info
       - talosctl --nodes {{.NODE}} get machineconfig
-      - test -f {{.TALOS_DIR}}/talos.env
       - test -f {{.TALOS_DIR}}/{{.MACHINE_TYPE}}.yaml.j2
       - test -f {{.TALOS_DIR}}/{{.MACHINE_TYPE}}/{{.NODE}}.yaml
       - test -f {{.TALOS_DIR}}/talosconfig
@@ -54,7 +62,6 @@ tasks:
     preconditions:
       - talosctl config info
       - talosctl --nodes {{.RANDOM_CONTROLLER}} get machineconfig
-      - test -f {{.TALOS_DIR}}/talos.env
       - test -f {{.TALOS_DIR}}/talosconfig
       - which jq talosctl
 

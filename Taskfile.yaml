@@ -9,8 +9,6 @@ vars:
   KUBERNETES_DIR: '{{.ROOT_DIR}}/kubernetes'
   TALOS_DIR: '{{.ROOT_DIR}}/talos'
 
-dotenv: ['{{.TALOS_DIR}}/talos.env']
-
 env:
   KUBECONFIG: '{{.KUBERNETES_DIR}}/kubeconfig'
   MINIJINJA_CONFIG_FILE: '{{.ROOT_DIR}}/.minijinja.toml'
