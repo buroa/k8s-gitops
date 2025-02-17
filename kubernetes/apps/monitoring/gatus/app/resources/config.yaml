@@ -1,16 +1,4 @@
 ---
-alerting:
-  pushover:
-    application-token: ${GATUS_PUSHOVER_APP_TOKEN}
-    user-key: ${GATUS_PUSHOVER_USER_KEY}
-    priority: 1
-    resolved-priority: 0
-    default-alert:
-      description: health-check failed
-      send-on-resolved: true
-      failure-threshold: 3
-      success-threshold: 3
-
 connectivity:
   checker:
     target: 1.1.1.1:53
@@ -24,8 +12,6 @@ endpoints:
       dns-resolver: tcp://1.1.1.1:53
     conditions:
       - "[STATUS] == 404"
-    alerts:
-      - type: pushover
 
 metrics: true
 
