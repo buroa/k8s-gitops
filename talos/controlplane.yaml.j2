@@ -11,8 +11,6 @@ machine:
   certSANs: ["127.0.0.1"]
   kubelet:
     image: ghcr.io/siderolabs/kubelet:{{ ENV.KUBERNETES_VERSION }}
-    extraConfig:
-      maxPods: 150
     extraMounts:
       - destination: /var/mnt/extra
         type: bind
