@@ -8,7 +8,7 @@ groups:
         for: 5m
         annotations:
           summary: >-
-            {{ $labels.container }} is experiencing database issues
+            {{ $labels.app }} is experiencing database issues
         labels:
           severity: critical
 
@@ -18,6 +18,6 @@ groups:
         for: 5m
         annotations:
           summary: >-
-            {{ $labels.container }} failed to inject a torrent
+            {{ $labels.app }} failed to inject a torrent
         labels:
           severity: critical
