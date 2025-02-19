@@ -4,8 +4,7 @@ groups:
     rules:
       - alert: ZigbeeUnableToReachMQTT
         expr: |
-          sum by (app) (count_over_time({app="zigbee2mqtt"} |~ "(?i)not connected to mqtt server"[2m])) > 0
-        for: 5m
+          count_over_time({app="zigbee2mqtt"} |~ "(?i)not connected to mqtt server"[5m]) > 0
         annotations:
           summary: >-
             {{ $labels.app }} is unable to reach MQTT
