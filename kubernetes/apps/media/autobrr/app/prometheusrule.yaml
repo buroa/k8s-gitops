@@ -13,6 +13,6 @@ spec:
           for: 5m
           annotations:
             summary: >-
-              {{ $labels.network }} has unmonitored irc channels
+              {{ $labels.network }} has unmonitored IRC channels
           labels:
             severity: critical
