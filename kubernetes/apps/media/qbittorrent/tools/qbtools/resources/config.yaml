@@ -1,22 +1,22 @@
 ---
 trackers:
-  - { name: ath,  required_seed_ratio: 0,    required_seed_days: 0,    urls: ["aither.cc"] }
-  - { name: ar,   required_seed_ratio: 1.01, required_seed_days: 14.1, urls: ["alpharatio.cc"] }
   - { name: ant,  required_seed_ratio: 1.01, required_seed_days: 14.1, urls: ["anthelion.me"] }
+  - { name: ar,   required_seed_ratio: 1.01, required_seed_days: 14.1, urls: ["alpharatio.cc"] }
+  - { name: ath,  required_seed_ratio: 0,    required_seed_days: 0,    urls: ["aither.cc"] }
   - { name: bhd,  required_seed_ratio: 0,    required_seed_days: 0,    urls: ["beyond-hd.me"] }
   - { name: blu,  required_seed_ratio: 0,    required_seed_days: 14.1, urls: ["blutopia.cc", "blutopia.xyz"] }
-  - { name: fnp,  required_seed_ratio: 1.01, required_seed_days: 14.1, urls: ["fearnopeer.com"] }
   - { name: fl,   required_seed_ratio: 1.01, required_seed_days: 7.1,  urls: ["filelist.io", "thefl.org"] }
+  - { name: fnp,  required_seed_ratio: 1.01, required_seed_days: 14.1, urls: ["fearnopeer.com"] }
   - { name: hds,  required_seed_ratio: 0,    required_seed_days: 7.1,  urls: ["hd-space.pw"] }
   - { name: hdt,  required_seed_ratio: 1.01, required_seed_days: 7.1,  urls: ["hdts-announce.ru"] }
   - { name: huno, required_seed_ratio: 0,    required_seed_days: 0,    urls: ["hawke.uno"] }
   - { name: ipt,  required_seed_ratio: 1.01, required_seed_days: 14.1, urls: ["bgp.technology", "empirehost.me", "stackoverflow.tech"] }
-  - { name: mlk,  required_seed_ratio: 1.01, required_seed_days: 14.1, urls: ["milkie.cc"] }
+  - { name: milk, required_seed_ratio: 1.01, required_seed_days: 14.1, urls: ["milkie.cc"] }
   - { name: mtv,  required_seed_ratio: 1.01, required_seed_days: 14.1, urls: ["morethantv.me"] }
   - { name: nbl,  required_seed_ratio: 0,    required_seed_days: 7.1,  urls: ["nebulance.io"] }
   - { name: oe,   required_seed_ratio: 1.01, required_seed_days: 14.1, urls: ["onlyencodes.cc"] }
-  - { name: ptp,  required_seed_ratio: 1.01, required_seed_days: 14.1, urls: ["passthepopcorn.me"] }
   - { name: phd,  required_seed_ratio: 1.01, required_seed_days: 14.1, urls: ["privatehd.to"] }
+  - { name: ptp,  required_seed_ratio: 1.01, required_seed_days: 14.1, urls: ["passthepopcorn.me"] }
   - { name: rfx,  required_seed_ratio: 1.01, required_seed_days: 7.1,  urls: ["reelflix.xyz"] }
   - { name: st,   required_seed_ratio: 1.01, required_seed_days: 7.1,  urls: ["scenetime.com"] }
   - { name: td,   required_seed_ratio: 1.01, required_seed_days: 7.1,  urls: ["jumbohostpro.eu", "td-peers.com"] }
