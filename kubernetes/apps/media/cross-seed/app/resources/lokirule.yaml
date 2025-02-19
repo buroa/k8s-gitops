@@ -12,6 +12,7 @@ groups:
         annotations:
           app: "{{ $labels.container }}"
           summary: "{{ $labels.container }} is experiencing database issues"
+
       - alert: CrossSeedFailedToInject
         expr: |
           sum by (app) (count_over_time({app="cross-seed"} |~ "(?i)failed to inject"[1h])) > 0

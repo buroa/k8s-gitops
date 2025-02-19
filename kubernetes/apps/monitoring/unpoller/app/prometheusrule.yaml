@@ -12,7 +12,7 @@ spec:
             unpoller_device_speedtest_download < 100
           for: 5m
           annotations:
-            summary: >
+            summary: >-
               {{ $labels.name }} download bandwidth is below {{ $value }} Mbps
           labels:
             severity: critical
@@ -22,7 +22,7 @@ spec:
             unpoller_device_speedtest_upload < 100
           for: 5m
           annotations:
-            summary: >
+            summary: >-
               {{ $labels.name }} upload bandwidth is below {{ $value }} Mbps
           labels:
             severity: critical

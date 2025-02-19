@@ -11,7 +11,7 @@ spec:
           expr: |
             (upsAdvBatteryRunTimeRemaining/60/100 <= 20 and upsBasicBatteryTimeOnBattery > 0)
           annotations:
-            summary: >
+            summary: >-
               ZPM {{ $labels.instance }} is running on battery power and has less than {{ $value }} minutes of runtime remaining
           for: 5m
           labels:

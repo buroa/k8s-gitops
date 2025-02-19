@@ -12,7 +12,7 @@ spec:
             probe_success == 0
           for: 5m
           annotations:
-            summary: >
+            summary: >-
               The host {{ $labels.instance }} is down
           labels:
             severity: critical

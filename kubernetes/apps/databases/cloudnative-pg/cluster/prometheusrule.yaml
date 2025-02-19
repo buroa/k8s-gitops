@@ -12,7 +12,7 @@ spec:
             cnpg_backends_max_tx_duration_seconds > 300
           for: 5m
           annotations:
-            summary: >
+            summary: >-
               Pod {{ $labels.pod }} is taking more than {{ $value }} seconds for a query.
           labels:
             severity: critical
@@ -22,7 +22,7 @@ spec:
             cnpg_backends_waiting_total > 300
           for: 5m
           annotations:
-            summary: >
+            summary: >-
               Pod {{ $labels.pod }} has been waiting for longer than {{ $value }} seconds
           labels:
             severity: critical
@@ -32,7 +32,7 @@ spec:
             cnpg_pg_database_xid_age > 300000000
           for: 5m
           annotations:
-            summary: >
+            summary: >-
               Over {{ $value }} transactions from frozen xid on pod {{ $labels.pod }}
           labels:
             severity: critical
@@ -42,7 +42,7 @@ spec:
             cnpg_pg_replication_lag > 300
           for: 5m
           annotations:
-            summary: >
+            summary: >-
               Standby is lagging behind by over {{ $value }} seconds
           labels:
             severity: critical
@@ -52,7 +52,7 @@ spec:
             (cnpg_pg_stat_archiver_last_failed_time - cnpg_pg_stat_archiver_last_archived_time) > 1
           for: 5m
           annotations:
-            summary: >
+            summary: >-
               Archiving failed for {{ $labels.pod }}
           labels:
             severity: critical
@@ -62,7 +62,7 @@ spec:
             cnpg_pg_stat_database_deadlocks > 10
           for: 5m
           annotations:
-            summary: >
+            summary: >-
               There are over {{ $value }} deadlock conflicts in {{ $labels.pod }}
           labels:
             severity: critical
@@ -72,7 +72,7 @@ spec:
             cnpg_pg_replication_in_recovery > cnpg_pg_replication_is_wal_receiver_up
           for: 5m
           annotations:
-            summary: >
+            summary: >-
               Replica {{ $labels.pod }} is failing to replicate
           labels:
             severity: critical
