@@ -4,12 +4,4 @@ kind: Kustomization
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
-configMapGenerator:
-  - name: autobrr-loki-rules
-    files:
-      - ./resources/lokirule.yaml
-    options:
-      labels:
-        loki_rule: "true"
-generatorOptions:
-  disableNameSuffixHash: true
+  - ./prometheusrule.yaml

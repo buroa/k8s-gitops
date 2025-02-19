@@ -5,10 +5,9 @@ groups:
       - alert: PlexDatabaseBusy
         expr: |
           sum by (app) (count_over_time({app="plex"} |~ "(?i)retry busy DB"[2m])) > 0
-        for: 2m
+        for: 5m
+        annotations:
+          summary: >-
+            {{ $labels.app }} is experiencing database issues
         labels:
           severity: critical
-          category: logs
-        annotations:
-          app: "{{ $labels.app }}"
-          summary: "{{ $labels.app }} is experiencing database issues"
