@@ -5,6 +5,7 @@ groups:
       - alert: CrossSeedDatabaseMalformed
         expr: |
           count_over_time({app="cross-seed"} |~ "(?i)database disk image is malformed"[5m]) > 0
+        for: 5m
         annotations:
           summary: >-
             {{ $labels.app }} is experiencing database issues
@@ -14,6 +15,7 @@ groups:
       - alert: CrossSeedFailedToInject
         expr: |
           count_over_time({app="cross-seed"} |~ "(?i)failed to inject"[5m]) > 0
+        for: 5m
         annotations:
           summary: >-
             {{ $labels.app }} failed to inject a torrent
