@@ -36,6 +36,11 @@ spec:
       namespace: *namespace
     - name: openebs
       namespace: openebs-system
+  healthCheckExprs:
+    - apiVersion: postgresql.cnpg.io/v1
+      kind: Cluster
+      failed: status.conditions.filter(e, e.type == 'Ready').all(e, e.status == 'False')
+      current: status.conditions.filter(e, e.type == 'Ready').all(e, e.status == 'True')
   interval: 30m
   path: ./kubernetes/apps/databases/cloudnative-pg/cluster
   postBuild:
