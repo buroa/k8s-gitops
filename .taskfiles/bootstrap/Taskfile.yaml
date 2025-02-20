@@ -14,7 +14,7 @@ tasks:
         sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
     preconditions:
       - talosctl config info
-      - test -f {{.TALOS_DIR}}/talosconfig
+      - talosctl --nodes {{.RANDOM_CONTROLLER}} get machineconfig
       - which jq talosctl
 
   apps:
@@ -47,7 +47,7 @@ tasks:
     preconditions:
       - op user get --me
       - talosctl config info
-      - test -f {{.TALOS_DIR}}/talosconfig
+      - talosctl --nodes {{.RANDOM_CONTROLLER}} get machineconfig
       - test -f {{.BOOTSTRAP_DIR}}/helmfile.yaml
       - test -f {{.BOOTSTRAP_DIR}}/secrets.yaml.tpl
       - which helmfile jq kubectl op talosctl
