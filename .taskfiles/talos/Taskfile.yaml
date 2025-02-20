@@ -2,8 +2,7 @@
 version: '3'
 
 vars:
-  SYSTEM_UPGRADE_KS: |-
-    '{{.ROOT_DIR}}/kubernetes/apps/system-upgrade/system-upgrade-controller/ks.yaml'
+  SYSTEM_UPGRADE_KS: '{{.KUBERNETES_DIR}}/apps/system-upgrade/system-upgrade-controller/ks.yaml'
 
 env:
   KUBERNETES_VERSION:
@@ -12,24 +11,27 @@ env:
     sh: yq '.spec.postBuild.substitute.TALOS_VERSION | select(.)' {{.SYSTEM_UPGRADE_KS}}
 
 tasks:
-
   apply-node:
-    desc: Apply Talos config to a node [NODE=required] [MODE=auto]
+    desc: Apply Talos config to a node [NODE=required] [MODE=auto] [MACHINE_TYPE=autodetect]
     cmd: |-
-      minijinja-cli {{.TALOS_DIR}}/{{.MACHINE_TYPE}}.yaml.j2 \
-        | op inject \
-        | talosctl --nodes {{.NODE}} apply-config \
+      minijinja-cli {{.TALOS_DIR}}/{{.MACHINE_TYPE}}.yaml.j2 | op inject \
+        | talosctl --nodes {{.NODE}} apply-config {{if eq .INSECURE "true"}}--insecure{{end}} \
           --mode {{.MODE}} \
           --config-patch @{{.TALOS_DIR}}/{{.MACHINE_TYPE}}/{{.NODE}}.yaml \
           --file /dev/stdin
     vars:
       MODE: '{{.MODE | default "auto"}}'
+      INSECURE:
+        sh: talosctl --nodes {{.NODE}} get machineconfig &> /dev/null && echo false || echo true
       MACHINE_TYPE:
-        sh: talosctl --nodes {{.NODE}} get machinetypes --output=jsonpath='{.spec}'
+        sh: |-
+          talosctl --nodes {{.NODE}} get machinetypes --output=jsonpath='{.spec}' 2> /dev/null \
+            || echo {{.MACHINE_TYPE | default "controlplane"}}
     requires:
       vars: [NODE]
     preconditions:
       - op user get --me
+      - talosctl config info
       - test -f {{.TALOS_DIR}}/{{.MACHINE_TYPE}}.yaml.j2
       - test -f {{.TALOS_DIR}}/{{.MACHINE_TYPE}}/{{.NODE}}.yaml
       - test -f {{.TALOS_DIR}}/talosconfig
