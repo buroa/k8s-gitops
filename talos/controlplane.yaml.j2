@@ -80,7 +80,7 @@ machine:
     net.ipv4.tcp_window_scaling: 1         # 10Gb/s
     vm.nr_hugepages: 1024                  # PostgreSQL
   sysfs:
-    devices.system.cpu.intel_pstate.hwp_dynamic_boost: "1"
+    devices.system.cpu.intel_pstate.hwp_dynamic_boost: 1
     {% for i in range(0, 20) %}
     devices.system.cpu.cpu{{ i }}.cpufreq.energy_performance_preference: balance_performance
     {% endfor %}

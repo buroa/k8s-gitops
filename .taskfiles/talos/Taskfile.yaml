@@ -12,7 +12,7 @@ env:
 
 tasks:
   apply-node:
-    desc: Apply Talos config to a node [NODE=required] [MODE=auto] [MACHINE_TYPE=autodetect]
+    desc: Apply Talos config to a node [NODE=required] [MODE=auto]
     cmd: |-
       minijinja-cli {{.TALOS_DIR}}/{{.MACHINE_TYPE}}.yaml.j2 | op inject \
         | talosctl --nodes {{.NODE}} apply-config {{if eq .INSECURE "true"}}--insecure{{end}} \
@@ -26,7 +26,7 @@ tasks:
       MACHINE_TYPE:
         sh: |-
           talosctl --nodes {{.NODE}} get machinetypes --output=jsonpath='{.spec}' 2> /dev/null \
-            || echo {{.MACHINE_TYPE | default "controlplane"}}
+            || basename $(find '{{.TALOS_DIR}}' -name '{{.NODE}}.yaml' -printf '%h')
     requires:
       vars: [NODE]
     preconditions:
