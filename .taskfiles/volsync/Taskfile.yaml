@@ -37,7 +37,7 @@ tasks:
   snapshot:
     desc: Snapshot an app [NS={{.NS}}] [APP=required]
     cmds:
-      - kubectl --namespace {{.NS}} patch replicationsources {{.APP}} --type merge -p '{"spec":{"trigger":{"manual":"{{now | unixEpoch}}"}}}'
+      - kubectl --namespace {{.NS}} patch replicationsources/{{.APP}} --type merge -p '{"spec":{"trigger":{"manual":"{{now | unixEpoch}}"}}}'
       - until kubectl --namespace {{.NS}} get job/{{.JOB}} &>/dev/null; do sleep 5; done
       - kubectl --namespace {{.NS}} wait job/{{.JOB}} --for=condition=complete --timeout=120m
     vars:
@@ -88,6 +88,7 @@ tasks:
     requires:
       vars: [APP, PREVIOUS]
     preconditions:
+      - kubectl --namespace {{.NS}} get replicationsources {{.APP}}
       - test -f {{.VOLSYNC_RESOURCES_DIR}}/replicationdestination.yaml.j2
       - which flux kubectl minijinja-cli
 
