@@ -11,6 +11,7 @@ env:
     sh: yq '.spec.postBuild.substitute.TALOS_VERSION | select(.)' {{.SYSTEM_UPGRADE_KS}}
 
 tasks:
+
   apply-node:
     desc: Apply Talos config to a node [NODE=required] [MODE=auto]
     cmd: |-

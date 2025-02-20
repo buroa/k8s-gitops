@@ -31,13 +31,13 @@ tasks:
     requires:
       vars: [ROOK_DISK]
     vars:
+      BLOCK_DEVICES_JQ: |-
+        map(select(.spec.model == "{{.ROOK_DISK}}"))
+          | group_by(.node)
+          | map({ (.[0].node): (map(.metadata.id) | join(" ")) })
+          | add
       BLOCK_DEVICES_RAW:
-        sh: |-
-          talosctl get disks --output json | jq --slurp --compact-output '
-            map(select(.spec.model == "{{.ROOK_DISK}}"))
-              | group_by(.node)
-              | map({ (.[0].node): (map(.metadata.id) | join(" ")) })
-              | add'
+        sh: talosctl get disks --output json | jq --slurp --compact-output '{{.BLOCK_DEVICES_JQ}}'
       BLOCK_DEVICES:
         ref: fromJson .BLOCK_DEVICES_RAW
       CONTEXT:
