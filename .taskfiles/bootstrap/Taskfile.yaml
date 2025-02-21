@@ -37,7 +37,7 @@ tasks:
           | map({ (.[0].node): (map(.metadata.id) | join(" ")) })
           | add
       BLOCK_DEVICES_RAW:
-        sh: talosctl get disks --output json | jq --slurp --compact-output '{{.BLOCK_DEVICES_JQ}}'
+        sh: talosctl get disks --output json | jq --compact-output --slurp '{{.BLOCK_DEVICES_JQ}}'
       BLOCK_DEVICES:
         ref: fromJson .BLOCK_DEVICES_RAW
       CONTEXT:
