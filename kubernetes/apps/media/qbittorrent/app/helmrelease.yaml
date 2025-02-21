@@ -28,7 +28,7 @@ spec:
           app:
             image:
               repository: ghcr.io/buroa/qbittorrent
-              tag: 5.0.4@sha256:1cbd43ff7674ed9dce2e91d1a99ee389ab6eac533208a3f70a83dd03fd1c4cf1
+              tag: 5.0.4@sha256:7625b9e01640f8a54be8391ec9dda245e0c2b6427ad84ae34a250665ad974366
             env:
               QBT_TORRENTING_PORT: &bittorrentPort 50413
               QBT_WEBUI_PORT: &port 8080
