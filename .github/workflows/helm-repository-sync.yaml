@@ -9,7 +9,7 @@ on:
 jobs:
   sync:
     name: Helm Repository Sync
-    runs-on: ["k8s-gitops-runner"]
+    runs-on: k8s-gitops-runner
     steps:
       - name: Generate Token
         uses: actions/create-github-app-token@v1

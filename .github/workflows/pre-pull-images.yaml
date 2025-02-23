@@ -74,7 +74,7 @@ jobs:
   pre-pull-images:
     if: ${{ needs.compare-images.outputs.images != '[]' }}
     name: Pre-pull Images
-    runs-on: ["k8s-gitops-runner"]
+    runs-on: k8s-gitops-runner
     needs: ["compare-images"]
     strategy:
       matrix:
