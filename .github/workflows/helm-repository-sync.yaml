@@ -7,7 +7,7 @@ on:
     paths: ["kubernetes/**/helmrelease.yaml"]
 
 jobs:
-  sync:
+  helm-repository-sync:
     name: Helm Repository Sync
     runs-on: k8s-gitops-runner
     steps:

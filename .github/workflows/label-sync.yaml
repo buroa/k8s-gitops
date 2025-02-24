@@ -10,7 +10,7 @@ on:
     paths: [".github/labels.yaml"]
 
 jobs:
-  labels:
+  label-sync:
     name: Sync Labels
     runs-on: ubuntu-latest
     steps:
