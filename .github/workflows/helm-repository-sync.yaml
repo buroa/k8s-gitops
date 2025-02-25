@@ -25,8 +25,8 @@ jobs:
           files: kubernetes/**/helmrelease.yaml
 
   helm-repository-sync:
-    name: Helm Repository Sync
     needs: pre-job
+    name: Helm Repository Sync
     runs-on: k8s-gitops-runner
     if: ${{ needs.pre-job.outputs.any_changed == 'true' }}
     steps:

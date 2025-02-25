@@ -25,8 +25,8 @@ jobs:
           files: kubernetes/**
 
   test:
-    name: Flux Local Test
     needs: pre-job
+    name: Flux Local Test
     runs-on: ubuntu-latest
     if: ${{ needs.pre-job.outputs.any_changed == 'true' }}
     steps:
@@ -39,16 +39,16 @@ jobs:
           args: test --enable-helm --all-namespaces --path /github/workspace/kubernetes/flux/cluster -v
 
   diff:
-    name: Flux Local Diff
     needs: pre-job
+    name: Flux Local Diff
     runs-on: ubuntu-latest
+    if: ${{ needs.pre-job.outputs.any_changed == 'true' }}
     permissions:
       pull-requests: write
     strategy:
       matrix:
         resources: ["helmrelease", "kustomization"]
       fail-fast: false
-    if: ${{ needs.pre-job.outputs.any_changed == 'true' }}
     steps:
       - name: Checkout Pull Request Branch
         uses: actions/checkout@v4
@@ -112,8 +112,8 @@ jobs:
             ```
 
   flux-local-status:
-    name: Flux Local Success
     needs: ["test", "diff"]
+    name: Flux Local Success
     runs-on: ubuntu-latest
     if: ${{ always() }}
     steps:

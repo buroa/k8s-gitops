@@ -62,12 +62,12 @@ jobs:
           echo "${{ matrix.branches }}=${images}" >> $GITHUB_OUTPUT
 
   compare-images:
+    needs: ["pre-job", "extract-images"]
     name: Compare Images
     runs-on: ubuntu-latest
-    needs: ["pre-job", "extract-images"]
+    if: ${{ needs.pre-job.outputs.any_changed == 'true' }}
     outputs:
       images: ${{ steps.compare-images.outputs.images }}
-    if: ${{ needs.pre-job.outputs.any_changed == 'true' }}
     steps:
       - name: Compare Images
         id: compare-images
@@ -80,15 +80,15 @@ jobs:
           echo "images=${images}" >> $GITHUB_OUTPUT
 
   pre-pull-images:
+    needs: ["pre-job", "compare-images"]
     name: Pre-pull Images
     runs-on: k8s-gitops-runner
-    needs: ["pre-job", "compare-images"]
+    if: ${{ needs.pre-job.outputs.any_changed == 'true' && needs.compare-images.outputs.images != '[]' }}
     strategy:
       matrix:
         images: ${{ fromJSON(needs.compare-images.outputs.images) }}
       max-parallel: 4
       fail-fast: false
-    if: ${{ needs.pre-job.outputs.any_changed == 'true' && needs.compare-images.outputs.images != '[]' }}
     steps:
       - name: Install talosctl
         run: curl -fsSL https://talos.dev/install | sh
