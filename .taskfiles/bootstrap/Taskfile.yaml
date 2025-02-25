@@ -31,15 +31,15 @@ tasks:
     requires:
       vars: [ROOK_DISK]
     vars:
-      BLOCK_DEVICES_JQ: |-
+      BLOCK_DEVICES_FILTER: |-
         map(select(.spec.model == "{{.ROOK_DISK}}"))
           | group_by(.node)
           | map({ (.[0].node): (map(.metadata.id) | join(" ")) })
           | add
-      BLOCK_DEVICES_RAW:
-        sh: talosctl get disks --output json | jq --compact-output --slurp '{{.BLOCK_DEVICES_JQ}}'
+      BLOCK_DEVICES_RESPONSE:
+        sh: talosctl get disks --output json | jq --compact-output --slurp '{{.BLOCK_DEVICES_FILTER}}'
       BLOCK_DEVICES:
-        ref: fromJson .BLOCK_DEVICES_RAW
+        ref: fromJson .BLOCK_DEVICES_RESPONSE
       CONTEXT:
         sh: talosctl config info --output json | jq --raw-output '.context'
       RANDOM_CONTROLLER:
