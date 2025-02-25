@@ -1,18 +1,46 @@
 ---
-name: Flux Diff
+name: Flux Local
 
 on:
   pull_request:
     branches: ["master"]
-    paths: ["kubernetes/**"]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
-  flux-diff:
-    name: Flux Diff
+  pre-job:
+    name: Flux Local Pre-Job
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
+    outputs:
+      any_changed: ${{ steps.changed-files.outputs.any_changed }}
+    steps:
+      - name: Get Changed Files
+        id: changed-files
+        uses: tj-actions/changed-files@v45
+        with:
+          files: kubernetes/**
+
+  test:
+    name: Flux Local Test
+    needs: pre-job
+    runs-on: ubuntu-latest
+    if: ${{ needs.pre-job.outputs.any_changed == 'true' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run flux-local test
+        uses: docker://ghcr.io/allenporter/flux-local:v7.0.0
+        with:
+          args: test --enable-helm --all-namespaces --path /github/workspace/kubernetes/flux/cluster -v
+
+  diff:
+    name: Flux Local Diff
+    needs: pre-job
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
@@ -20,28 +48,20 @@ jobs:
       matrix:
         resources: ["helmrelease", "kustomization"]
       fail-fast: false
+    if: ${{ needs.pre-job.outputs.any_changed == 'true' }}
     steps:
-      - name: Generate Token
-        uses: actions/create-github-app-token@v1
-        id: app-token
-        with:
-          app-id: "${{ secrets.BOT_APP_ID }}"
-          private-key: "${{ secrets.BOT_APP_PRIVATE_KEY }}"
-
       - name: Checkout Pull Request Branch
         uses: actions/checkout@v4
         with:
-          token: "${{ steps.app-token.outputs.token }}"
           path: pull
 
       - name: Checkout Default Branch
         uses: actions/checkout@v4
         with:
-          token: "${{ steps.app-token.outputs.token }}"
           ref: "${{ github.event.repository.default_branch }}"
           path: default
 
-      - name: Diff Resources
+      - name: Run flux-local diff
         uses: docker://ghcr.io/allenporter/flux-local:v7.0.0
         with:
           args: >-
@@ -58,36 +78,48 @@ jobs:
       - name: Generate Diff
         id: diff
         run: |
+          cat diff.patch;
           {
               echo 'diff<<EOF'
               cat diff.patch
               echo EOF
-          } >> $GITHUB_OUTPUT
+          } >> "$GITHUB_OUTPUT";
           {
               echo "### Diff"
               echo '```diff'
               cat diff.patch
               echo '```'
-          } >> $GITHUB_STEP_SUMMARY
+          } >> "$GITHUB_STEP_SUMMARY"
 
-      - if: ${{ steps.diff.outputs.diff != '' }}
-        name: Add Comment
+      - name: Generate Token
+        if: ${{ steps.diff.outputs.diff != '' }}
+        uses: actions/create-github-app-token@v1
+        id: app-token
+        with:
+          app-id: "${{ secrets.BOT_APP_ID }}"
+          private-key: "${{ secrets.BOT_APP_PRIVATE_KEY }}"
+
+      - name: Add Comment
+        if: ${{ steps.diff.outputs.diff != '' }}
         uses: mshick/add-pr-comment@v2
         with:
           repo-token: "${{ steps.app-token.outputs.token }}"
           message-id: "${{ github.event.pull_request.number }}/kubernetes/${{ matrix.resources }}"
           message-failure: Diff was not successful
-          message: |-
+          message: |
             ```diff
             ${{ steps.diff.outputs.diff }}
             ```
 
-  flux-diff-success:
-    if: ${{ always() }}
-    needs: ["flux-diff"]
-    name: Flux Diff Successful
+  flux-local-status:
+    name: Flux Local Success
+    needs: ["test", "diff"]
     runs-on: ubuntu-latest
+    if: ${{ always() }}
     steps:
-      - if: ${{ contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled') }}
-        name: Check matrix status
+      - name: Any jobs failed?
+        if: ${{ contains(needs.*.result, 'failure') }}
         run: exit 1
+      - name: All jobs passed or skipped
+        if: ${{ !(contains(needs.*.result, 'failure')) }}
+        run: echo "All jobs passed or skipped" && echo "${{ toJSON(needs.*.result) }}"
