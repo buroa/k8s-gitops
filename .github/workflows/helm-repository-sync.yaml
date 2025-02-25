@@ -34,18 +34,12 @@ jobs:
         run: curl -fsSL https://fluxcd.io/install.sh | bash
 
       - name: Sync Helm Repository
+        env:
+          FILES: ${{ needs.pre-job.outputs.all_changed_and_modified_files }}
         run: |
-          declare -A repos=()
-          for f in ${{ needs.pre-job.outputs.all_changed_and_modified_files }}; do
-              repo_namespace="$(yq -r '.spec.chart.spec.sourceRef.namespace' "${f}")"
-              repo_name="$(yq -r '.spec.chart.spec.sourceRef.name' "${f}")"
-              repos["${repo_namespace}:${repo_name}"]=1
-          done
-          for r in "${!repos[@]}"; do
-              IFS=':' read -r repo_namespace repo_name <<< "${r}"
-              flux --namespace ${repo_namespace} \
-                  reconcile source helm ${repo_name} || true
-          done
+          yq '.spec.chart.spec.sourceRef | pick(["name","namespace"])' ${FILES} \
+              | yq --no-doc '.namespace + " " + .name' | uniq \
+              | xargs -l bash -c 'flux --namespace $0 reconcile source helm $1'
 
   helm-repository-sync-status:
     needs: helm-repository-sync
