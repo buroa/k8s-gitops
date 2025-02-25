@@ -17,6 +17,7 @@ jobs:
       pull-requests: read
     outputs:
       any_changed: ${{ steps.changed-files.outputs.any_changed }}
+      all_changed_and_modified_files: ${{ steps.changed-files.outputs.all_changed_and_modified_files }}
     steps:
       - name: Get Changed Files
         id: changed-files
@@ -35,10 +36,10 @@ jobs:
 
       - name: Sync Helm Repository
         env:
-          FILES: ${{ needs.pre-job.outputs.all_changed_and_modified_files }}
+          FILTER: '.spec.chart.spec.sourceRef | [{"name": .name, "namespace": .namespace}] | unique_by(.name)'
         run: |
-          yq '.spec.chart.spec.sourceRef | pick(["name","namespace"])' ${FILES} \
-              | yq --no-doc '.namespace + " " + .name' | uniq \
+          yq eval-all --no-doc "${FILTER}" ${{ needs.pre-job.outputs.all_changed_and_modified_files }} \
+              | yq '.[] | .namespace + " " + .name' \
               | xargs -l bash -c 'flux --namespace $0 reconcile source helm $1'
 
   helm-repository-sync-status:
