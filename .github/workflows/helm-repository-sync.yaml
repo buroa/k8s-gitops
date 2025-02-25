@@ -31,6 +31,9 @@ jobs:
     runs-on: k8s-gitops-runner
     if: ${{ needs.pre-job.outputs.any_changed == 'true' }}
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Install flux
         run: curl -fsSL https://fluxcd.io/install.sh | bash
 
@@ -51,6 +54,7 @@ jobs:
       - name: Any jobs failed?
         if: ${{ contains(needs.*.result, 'failure') }}
         run: exit 1
-      - name: All jobs passed or skipped
+
+      - name: All jobs passed or skipped?
         if: ${{ !(contains(needs.*.result, 'failure')) }}
         run: echo "All jobs passed or skipped" && echo "${{ toJSON(needs.*.result) }}"
