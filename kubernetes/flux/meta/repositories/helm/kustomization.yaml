@@ -9,6 +9,7 @@ resources:
   - ./cloudnative-pg.yaml
   - ./controlplaneio.yaml
   - ./coredns.yaml
+  - ./descheduler.yaml
   - ./emqx.yaml
   - ./external-dns.yaml
   - ./external-secrets.yaml
@@ -16,7 +17,6 @@ resources:
   - ./ingress-nginx.yaml
   - ./intel.yaml
   - ./jetstack.yaml
-  - ./kubernetes-sigs-descheduler.yaml
   - ./metrics-server.yaml
   - ./node-feature-discovery.yaml
   - ./openebs.yaml

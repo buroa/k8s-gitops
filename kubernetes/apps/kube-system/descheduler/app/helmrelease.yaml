@@ -11,7 +11,7 @@ spec:
       version: 0.32.2
       sourceRef:
         kind: HelmRepository
-        name: kubernetes-sigs-descheduler
+        name: descheduler
         namespace: flux-system
   install:
     remediation:
@@ -27,44 +27,39 @@ spec:
     deschedulerPolicyAPIVersion: descheduler/v1alpha2
     deschedulerPolicy:
       profiles:
-        - name: ProfileName
+        - name: Default
           pluginConfig:
-          - name: DefaultEvictor
-            args:
-              evictFailedBarePods: true
-              evictLocalStoragePods: true
-              evictSystemCriticalPods: true
-              nodeFit: true
-          - name: LowNodeUtilization
-            args:
-              targetThresholds:
-                pods: 60
-              thresholds:
-                pods: 50
-          - name: RemoveDuplicates
-          - name: RemovePodsHavingTooManyRestarts
-            args:
-              podRestartThreshold: 5
-              includingInitContainers: true
-          - name: RemovePodsViolatingInterPodAntiAffinity
-          - name: RemovePodsViolatingNodeAffinity
-            args:
-              nodeAffinityType:
-                - requiredDuringSchedulingIgnoredDuringExecution
-          - name: RemovePodsViolatingNodeTaints
-          - name: RemovePodsViolatingTopologySpreadConstraint
-            args:
-              constraints:
-                - DoNotSchedule
+            - name: DefaultEvictor
+              args:
+                evictFailedBarePods: true
+                evictLocalStoragePods: true
+                evictSystemCriticalPods: true
+            - name: RemoveFailedPods
+              args:
+                reasons:
+                  - ContainerStatusUnknown
+                  - NodeAffinity
+                  - NodeShutdown
+                  - Terminated
+                  - UnexpectedAdmissionError
+                includingInitContainers: true
+                excludeOwnerKinds:
+                  - Job
+                minPodLifetimeSeconds: 1800
+            - name: RemovePodsViolatingInterPodAntiAffinity
+            - name: RemovePodsViolatingNodeAffinity
+              args:
+                nodeAffinityType:
+                  - requiredDuringSchedulingIgnoredDuringExecution
+            - name: RemovePodsViolatingNodeTaints
+            - name: RemovePodsViolatingTopologySpreadConstraint
           plugins:
             balance:
               enabled:
-                - LowNodeUtilization
-                - RemoveDuplicates
                 - RemovePodsViolatingTopologySpreadConstraint
             deschedule:
               enabled:
-                - RemovePodsHavingTooManyRestarts
+                - RemoveFailedPods
                 - RemovePodsViolatingInterPodAntiAffinity
                 - RemovePodsViolatingNodeAffinity
                 - RemovePodsViolatingNodeTaints
