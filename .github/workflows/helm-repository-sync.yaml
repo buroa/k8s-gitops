@@ -12,7 +12,7 @@ concurrency:
 jobs:
   pre-job:
     name: Helm Repository Sync Pre-Job
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     permissions:
       pull-requests: read
     outputs:
@@ -50,7 +50,7 @@ jobs:
   helm-repository-sync-status:
     needs: helm-repository-sync
     name: Helm Repository Sync Success
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     if: ${{ always() }}
     steps:
       - name: Any jobs failed?

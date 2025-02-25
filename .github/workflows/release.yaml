@@ -9,7 +9,7 @@ on:
 jobs:
   release:
     name: Release
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     steps:
       - name: Generate Token
         uses: actions/create-github-app-token@v1

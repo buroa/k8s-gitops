@@ -12,7 +12,7 @@ on:
 jobs:
   label-sync:
     name: Label Sync
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     permissions:
       issues: write
     steps:

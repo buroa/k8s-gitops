@@ -12,7 +12,7 @@ concurrency:
 jobs:
   pre-job:
     name: Flux Local Pre-Job
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     permissions:
       pull-requests: read
     outputs:
@@ -27,7 +27,7 @@ jobs:
   test:
     needs: pre-job
     name: Flux Local Test
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     if: ${{ needs.pre-job.outputs.any_changed == 'true' }}
     steps:
       - name: Checkout
@@ -41,7 +41,7 @@ jobs:
   diff:
     needs: pre-job
     name: Flux Local Diff
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     if: ${{ needs.pre-job.outputs.any_changed == 'true' }}
     permissions:
       pull-requests: write
@@ -114,7 +114,7 @@ jobs:
   flux-local-status:
     needs: ["test", "diff"]
     name: Flux Local Success
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     if: ${{ always() }}
     steps:
       - name: Any jobs failed?

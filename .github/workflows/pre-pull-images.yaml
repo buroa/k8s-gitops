@@ -12,7 +12,7 @@ concurrency:
 jobs:
   pre-job:
     name: Pre-pull Images Pre-Job
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     permissions:
       pull-requests: read
     outputs:
@@ -27,7 +27,7 @@ jobs:
   extract-images:
     name: Extract Images
     needs: pre-job
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     if: ${{ needs.pre-job.outputs.any_changed == 'true' }}
     strategy:
       matrix:
@@ -64,7 +64,7 @@ jobs:
   compare-images:
     needs: ["pre-job", "extract-images"]
     name: Compare Images
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     if: ${{ needs.pre-job.outputs.any_changed == 'true' }}
     outputs:
       images: ${{ steps.compare-images.outputs.images }}
@@ -99,7 +99,7 @@ jobs:
   pre-pull-images-status:
     needs: ["pre-pull-images"]
     name: Pre-pull Images Success
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     if: ${{ always() }}
     steps:
       - name: Any jobs failed?
