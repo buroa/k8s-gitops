@@ -43,7 +43,7 @@ jobs:
           FILTER: '.spec.chart.spec.sourceRef | "\(.namespace) \(.name)"'
         run: |
           yq eval-all --no-doc "${FILTER}" ${FILES} | uniq \
-              | xargs -l bash -c 'flux --namespace $0 reconcile source helm $1'
+            | xargs -l bash -c 'flux --namespace $0 reconcile source helm $1'
 
   helm-repository-sync-status:
     needs: helm-repository-sync
