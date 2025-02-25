@@ -29,7 +29,7 @@ spec:
           app:
             image:
               repository: ghcr.io/buroa/irqbalance
-              tag: 1.9.4@sha256:f6d487e66a2ce0b651d0d7da291ce54c325ed79b34ffad5baef1123160323be6
+              tag: 1.9.4@sha256:f28dd0460852fce46c59d705a1ba00773ebb293c075822877a9faf3487c0be0e
             env:
               IRQBALANCE_BANNED_CPULIST: 12-19 # 12-19 are E-cores
             resources:
