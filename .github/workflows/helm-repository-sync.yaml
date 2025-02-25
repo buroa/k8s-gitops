@@ -4,41 +4,39 @@ name: Helm Repository Sync
 on:
   pull_request:
     branches: ["master"]
-    paths: ["kubernetes/**/helmrelease.yaml"]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  helm-repository-sync:
-    name: Helm Repository Sync
-    runs-on: k8s-gitops-runner
+  pre-job:
+    name: Helm Repository Sync Pre-Job
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
+    outputs:
+      any_changed: ${{ steps.changed-files.outputs.any_changed }}
     steps:
-      - name: Generate Token
-        uses: actions/create-github-app-token@v1
-        id: app-token
-        with:
-          app-id: "${{ secrets.BOT_APP_ID }}"
-          private-key: "${{ secrets.BOT_APP_PRIVATE_KEY }}"
-
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          token: "${{ steps.app-token.outputs.token }}"
-
       - name: Get Changed Files
         id: changed-files
         uses: tj-actions/changed-files@v45
         with:
           files: kubernetes/**/helmrelease.yaml
-          safe_output: false
 
+  helm-repository-sync:
+    name: Helm Repository Sync
+    needs: pre-job
+    runs-on: k8s-gitops-runner
+    if: ${{ needs.pre-job.outputs.any_changed == 'true' }}
+    steps:
       - name: Install flux
-        if: ${{ steps.changed-files.outputs.any_changed == 'true' }}
         run: curl -fsSL https://fluxcd.io/install.sh | bash
 
       - name: Sync Helm Repository
-        if: ${{ steps.changed-files.outputs.any_changed == 'true' }}
         run: |
           declare -A repos=()
-          for f in ${{ steps.changed-files.outputs.all_changed_and_modified_files }}; do
+          for f in ${{ needs.pre-job.outputs.all_changed_and_modified_files }}; do
               repo_namespace="$(yq -r '.spec.chart.spec.sourceRef.namespace' "${f}")"
               repo_name="$(yq -r '.spec.chart.spec.sourceRef.name' "${f}")"
               repos["${repo_namespace}:${repo_name}"]=1
@@ -48,3 +46,16 @@ jobs:
               flux --namespace ${repo_namespace} \
                   reconcile source helm ${repo_name} || true
           done
+
+  helm-repository-sync-status:
+    needs: helm-repository-sync
+    name: Helm Repository Sync Success
+    runs-on: ubuntu-latest
+    if: ${{ always() }}
+    steps:
+      - name: Any jobs failed?
+        if: ${{ contains(needs.*.result, 'failure') }}
+        run: exit 1
+      - name: All jobs passed or skipped
+        if: ${{ !(contains(needs.*.result, 'failure')) }}
+        run: echo "All jobs passed or skipped" && echo "${{ toJSON(needs.*.result) }}"

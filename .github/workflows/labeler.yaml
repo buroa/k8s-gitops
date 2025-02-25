@@ -10,9 +10,7 @@ jobs:
   labeler:
     name: Labeler
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
+    if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
     steps:
       - name: Generate Token
         uses: actions/create-github-app-token@v1
@@ -24,5 +22,5 @@ jobs:
       - name: Labeler
         uses: actions/labeler@v5
         with:
-          configuration-path: .github/labeler.yaml
           repo-token: "${{ steps.app-token.outputs.token }}"
+          configuration-path: .github/labeler.yaml
