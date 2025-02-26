@@ -53,7 +53,7 @@ releases:
   - name: external-secrets
     namespace: external-secrets
     chart: oci://ghcr.io/external-secrets/charts/external-secrets
-    version: 0.14.2
+    version: 0.14.3
     values: ["../kubernetes/apps/external-secrets/external-secrets/app/resources/values.yaml"]
     needs: ["cert-manager/cert-manager"]
 
