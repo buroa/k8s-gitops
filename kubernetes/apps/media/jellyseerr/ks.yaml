@@ -12,6 +12,8 @@ spec:
     - ../../../../components/gatus
     - ../../../../components/volsync
   dependsOn:
+    - name: onepassword
+      namespace: external-secrets
     - name: rook-ceph-cluster
       namespace: rook-ceph
     - name: volsync
