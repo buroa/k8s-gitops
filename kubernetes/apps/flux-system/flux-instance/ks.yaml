@@ -11,7 +11,7 @@ spec:
   dependsOn:
     - name: flux-operator
       namespace: *namespace
-    - name: onepassword-store
+    - name: onepassword
       namespace: external-secrets
   interval: 30m
   path: ./kubernetes/apps/flux-system/flux-instance/app
