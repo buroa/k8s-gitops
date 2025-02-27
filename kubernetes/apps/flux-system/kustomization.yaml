@@ -5,4 +5,5 @@ namespace: flux-system
 components:
   - ../../components/common
 resources:
+  - ./flux-instance/ks.yaml
   - ./flux-operator/ks.yaml
