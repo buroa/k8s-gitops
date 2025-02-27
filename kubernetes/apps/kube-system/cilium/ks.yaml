@@ -30,6 +30,7 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: cilium
+      namespace: *namespace
   interval: 30m
   path: ./kubernetes/apps/kube-system/cilium/config
   prune: true
