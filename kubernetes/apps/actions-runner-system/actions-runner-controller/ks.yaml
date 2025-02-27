@@ -8,9 +8,6 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  dependsOn:
-    - name: onepassword-store
-      namespace: external-secrets
   interval: 30m
   path: ./kubernetes/apps/actions-runner-system/actions-runner-controller/app
   prune: true
@@ -34,6 +31,8 @@ spec:
   dependsOn:
     - name: actions-runner-controller
       namespace: *namespace
+    - name: onepassword-store
+      namespace: external-secrets
     - name: openebs
       namespace: openebs-system
   interval: 30m
