@@ -31,8 +31,6 @@ spec:
   dependsOn:
     - name: intel-device-plugin-operator
       namespace: *namespace
-    - name: node-feature-discovery-features
-      namespace: *namespace
   interval: 30m
   path: ./kubernetes/apps/kube-system/intel-device-plugin/gpu
   prune: true

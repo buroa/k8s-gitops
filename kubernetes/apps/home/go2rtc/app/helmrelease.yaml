@@ -65,8 +65,6 @@ spec:
             "namespace": "networking",
             "ips": ["192.168.30.201/24"]
           }]
-      nodeSelector:
-        intel.feature.node.kubernetes.io/gpu: "true"
       securityContext:
         runAsNonRoot: true
         runAsUser: 568

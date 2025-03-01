@@ -62,8 +62,6 @@ spec:
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
     defaultPodOptions:
-      nodeSelector:
-        intel.feature.node.kubernetes.io/gpu: "true"
       securityContext:
         runAsNonRoot: true
         runAsUser: 568

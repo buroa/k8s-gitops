@@ -12,6 +12,5 @@ resources:
   - ./intel-device-plugin/ks.yaml
   - ./irqbalance/ks.yaml
   - ./metrics-server/ks.yaml
-  - ./node-feature-discovery/ks.yaml
   - ./reloader/ks.yaml
   - ./spegel/ks.yaml
