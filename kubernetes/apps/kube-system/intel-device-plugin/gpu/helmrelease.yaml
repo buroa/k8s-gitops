@@ -23,5 +23,5 @@ spec:
       retries: 3
   values:
     name: intel-gpu-plugin
-    sharedDevNum: 3
     nodeFeatureRule: false
+    nodeSelector: null

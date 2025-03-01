@@ -24,5 +24,6 @@ spec:
       strategy: rollback
       retries: 3
   values:
-    controllerExtraArgs: |
-      - --devices=gpu
+    manager:
+      devices:
+        gpu: true
