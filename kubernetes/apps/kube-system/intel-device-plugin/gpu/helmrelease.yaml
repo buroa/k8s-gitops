@@ -24,4 +24,3 @@ spec:
   values:
     name: intel-gpu-plugin
     nodeFeatureRule: false
-    nodeSelector: null

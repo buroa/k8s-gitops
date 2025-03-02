@@ -114,6 +114,7 @@ machine:
       - name: thunderbolt
       - name: thunderbolt_net
   nodeLabels:
+    intel.feature.node.kubernetes.io/gpu: true
     topology.kubernetes.io/region: k8s
     topology.kubernetes.io/zone: m
 cluster:
