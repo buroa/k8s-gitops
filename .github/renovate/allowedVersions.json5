@@ -3,7 +3,7 @@
   packageRules: [
     {
       matchDatasources: ["docker"],
-      matchPackagePatterns: ["postgresql"],
+      matchPackageNames: ["/postgresql/"],
       allowedVersions: "<=17",
     },
   ],
