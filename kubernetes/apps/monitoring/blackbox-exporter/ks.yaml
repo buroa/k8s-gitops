@@ -8,7 +8,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  interval: 30m
+  interval: 1h
   path: ./kubernetes/apps/monitoring/blackbox-exporter/app
   prune: true
   sourceRef:
@@ -31,7 +31,7 @@ spec:
   dependsOn:
     - name: blackbox-exporter
       namespace: *namespace
-  interval: 30m
+  interval: 1h
   path: ./kubernetes/apps/monitoring/blackbox-exporter/probes
   prune: true
   sourceRef:

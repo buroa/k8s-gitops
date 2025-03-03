@@ -10,7 +10,7 @@ spec:
       app.kubernetes.io/name: *app
   components:
     - ../../../../components/gatus
-  interval: 30m
+  interval: 1h
   path: ./kubernetes/apps/monitoring/kromgo/app
   postBuild:
     substitute:

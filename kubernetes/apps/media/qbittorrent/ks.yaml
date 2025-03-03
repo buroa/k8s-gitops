@@ -15,7 +15,7 @@ spec:
       namespace: rook-ceph
     - name: volsync
       namespace: volsync-system
-  interval: 30m
+  interval: 1h
   path: ./kubernetes/apps/media/qbittorrent/app
   postBuild:
     substitute:
@@ -42,7 +42,7 @@ spec:
   dependsOn:
     - name: qbittorrent
       namespace: *namespace
-  interval: 30m
+  interval: 1h
   path: ./kubernetes/apps/media/qbittorrent/tools
   prune: true
   sourceRef:

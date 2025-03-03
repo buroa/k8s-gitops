@@ -4,15 +4,11 @@ kind: HelmRelease
 metadata:
   name: external-secrets
 spec:
-  interval: 30m
-  chart:
-    spec:
-      chart: external-secrets
-      version: 0.14.3
-      sourceRef:
-        kind: HelmRepository
-        name: external-secrets
-        namespace: flux-system
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: external-secrets
+    namespace: external-secrets
   install:
     remediation:
       retries: 3

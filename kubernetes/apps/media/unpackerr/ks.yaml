@@ -11,7 +11,7 @@ spec:
   dependsOn:
     - name: onepassword
       namespace: external-secrets
-  interval: 30m
+  interval: 1h
   path: ./kubernetes/apps/media/unpackerr/app
   prune: true
   sourceRef:

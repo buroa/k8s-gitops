@@ -8,7 +8,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  interval: 30m
+  interval: 1h
   path: ./kubernetes/apps/kube-system/intel-device-plugin/app
   prune: true
   sourceRef:
@@ -31,7 +31,7 @@ spec:
   dependsOn:
     - name: intel-device-plugin-operator
       namespace: *namespace
-  interval: 30m
+  interval: 1h
   path: ./kubernetes/apps/kube-system/intel-device-plugin/gpu
   prune: true
   sourceRef:

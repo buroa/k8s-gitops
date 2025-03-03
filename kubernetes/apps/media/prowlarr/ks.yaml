@@ -13,7 +13,7 @@ spec:
       namespace: databases
     - name: onepassword
       namespace: external-secrets
-  interval: 30m
+  interval: 1h
   path: ./kubernetes/apps/media/prowlarr/app
   prune: true
   sourceRef:

@@ -4,15 +4,11 @@ kind: HelmRelease
 metadata:
   name: &app snmp-exporter
 spec:
-  interval: 30m
-  chart:
-    spec:
-      chart: prometheus-snmp-exporter
-      version: 8.0.0
-      sourceRef:
-        kind: HelmRepository
-        name: prometheus-community
-        namespace: flux-system
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: snmp-exporter
+    namespace: monitoring
   install:
     remediation:
       retries: 3

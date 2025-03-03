@@ -8,7 +8,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  interval: 30m
+  interval: 1h
   path: ./kubernetes/apps/kube-system/cilium/app
   prune: true
   sourceRef:
@@ -31,7 +31,7 @@ spec:
   dependsOn:
     - name: cilium
       namespace: *namespace
-  interval: 30m
+  interval: 1h
   path: ./kubernetes/apps/kube-system/cilium/config
   prune: true
   sourceRef:
