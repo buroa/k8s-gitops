@@ -15,7 +15,7 @@ spec:
       namespace: networking
     - name: onepassword
       namespace: external-secrets
-  interval: 30m
+  interval: 1h
   path: ./kubernetes/apps/home/go2rtc/app
   prune: true
   sourceRef:

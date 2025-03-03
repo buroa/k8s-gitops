@@ -11,7 +11,7 @@ spec:
   dependsOn:
     - name: cert-manager-tls
       namespace: cert-manager
-  interval: 30m
+  interval: 1h
   path: ./kubernetes/apps/networking/nginx/external
   prune: true
   sourceRef:
@@ -34,7 +34,7 @@ spec:
   dependsOn:
     - name: cert-manager-tls
       namespace: cert-manager
-  interval: 30m
+  interval: 1h
   path: ./kubernetes/apps/networking/nginx/internal
   prune: true
   sourceRef:

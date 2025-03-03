@@ -4,15 +4,11 @@ kind: HelmRelease
 metadata:
   name: coredns
 spec:
-  interval: 30m
-  chart:
-    spec:
-      chart: coredns
-      version: 1.39.1
-      sourceRef:
-        kind: HelmRepository
-        name: coredns
-        namespace: flux-system
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: coredns
+    namespace: kube-system
   install:
     remediation:
       retries: 3

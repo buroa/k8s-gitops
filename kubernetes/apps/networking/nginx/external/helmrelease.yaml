@@ -4,7 +4,7 @@ kind: HelmRelease
 metadata:
   name: &app nginx-external
 spec:
-  interval: 30m
+  interval: 1h
   chart:
     spec:
       chart: ingress-nginx

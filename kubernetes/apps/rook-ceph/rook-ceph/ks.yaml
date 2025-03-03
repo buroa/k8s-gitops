@@ -11,7 +11,7 @@ spec:
   dependsOn:
     - name: snapshot-controller
       namespace: volsync-system
-  interval: 30m
+  interval: 1h
   path: ./kubernetes/apps/rook-ceph/rook-ceph/app
   prune: true
   sourceRef:
@@ -48,7 +48,7 @@ spec:
       kind: CephCluster
       failed: status.ceph.health == 'HEALTH_ERR'
       current: status.ceph.health in ['HEALTH_OK', 'HEALTH_WARN']
-  interval: 30m
+  interval: 1h
   path: ./kubernetes/apps/rook-ceph/rook-ceph/cluster
   prune: true
   sourceRef:
