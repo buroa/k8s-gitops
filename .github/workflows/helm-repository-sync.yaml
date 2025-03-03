@@ -42,7 +42,7 @@ jobs:
           FILTER: '[.spec.chart.spec.sourceRef] | unique | .[] | "\(.namespace) \(.name)"'
         run: |
           yq eval-all "${FILTER}" ${{ needs.pre-job.outputs.all_changed_and_modified_files }} \
-            | xargs -l bash -c 'flux --namespace $0 reconcile source helm $1'
+            | xargs -l -r bash -c 'flux --namespace $0 reconcile source helm $1'
 
   helm-repository-sync-status:
     needs: helm-repository-sync
