@@ -34,12 +34,10 @@ spec:
           path: /
     toolbox:
       enabled: true
-    configOverride: |
-      [global]
-      bdev_enable_discard = true
-      bdev_async_discard = true
-      osd_class_update_on_start = false
     cephClusterSpec:
+      cephConfig:
+        global:
+          osd_class_update_on_start: "false"
       crashCollector:
         disable: false
       csi:
