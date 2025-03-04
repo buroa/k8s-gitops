@@ -8,8 +8,8 @@ spec:
   layerSelector:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
-  url: oci://ghcr.io/coredns/charts/coredns
   ref:
     tag: 1.39.1
+  url: oci://ghcr.io/coredns/charts/coredns
   verify:
     provider: cosign
