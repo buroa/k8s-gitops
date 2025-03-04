@@ -4,31 +4,16 @@ name: Flux Local
 on:
   pull_request:
     branches: ["master"]
+    paths: ["kubernetes/**"]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
-  pre-job:
-    name: Flux Local Pre-Job
-    runs-on: ubuntu-latest
-    permissions:
-      pull-requests: read
-    outputs:
-      any_changed: ${{ steps.changed-files.outputs.any_changed }}
-    steps:
-      - name: Get Changed Files
-        id: changed-files
-        uses: tj-actions/changed-files@v45
-        with:
-          files: kubernetes/**
-
   test:
-    needs: pre-job
     name: Flux Local Test
     runs-on: ubuntu-latest
-    if: ${{ needs.pre-job.outputs.any_changed == 'true' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -44,10 +29,8 @@ jobs:
             --verbose
 
   diff:
-    needs: pre-job
     name: Flux Local Diff
     runs-on: ubuntu-latest
-    if: ${{ needs.pre-job.outputs.any_changed == 'true' }}
     permissions:
       pull-requests: write
     strategy:
@@ -115,17 +98,3 @@ jobs:
             ```diff
             ${{ steps.diff.outputs.diff }}
             ```
-
-  flux-local-status:
-    needs: ["test", "diff"]
-    name: Flux Local Success
-    runs-on: ubuntu-latest
-    if: ${{ always() }}
-    steps:
-      - name: Any jobs failed?
-        if: ${{ contains(needs.*.result, 'failure') }}
-        run: exit 1
-
-      - name: All jobs passed or skipped?
-        if: ${{ !(contains(needs.*.result, 'failure')) }}
-        run: echo "All jobs passed or skipped" && echo "${{ toJSON(needs.*.result) }}"
