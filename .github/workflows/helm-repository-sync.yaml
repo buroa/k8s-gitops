@@ -15,7 +15,7 @@ jobs:
     name: Extract Helm Repositories
     runs-on: ubuntu-latest
     outputs:
-      repos: ${{ steps.helm-repositories.outputs.repos }}
+      repositories: ${{ steps.helm-repositories.outputs.repositories }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -31,10 +31,10 @@ jobs:
         env:
           FILTER: '[.spec.chart.spec.sourceRef] | unique | .[] | ["\(.namespace) \(.name)"]'
         run: |
-          repos=$(yq -I 0 -o json eval-all "${FILTER}" \
+          repositories=$(yq -I 0 -o json eval-all "${FILTER}" \
               ${{ steps.changed-files.outputs.all_changed_and_modified_files }}
           )
-          echo "repos=${repos}" >> $GITHUB_OUTPUT
+          echo "repositories=${repositories}" >> $GITHUB_OUTPUT
 
   helm-repository-sync:
     needs: extract-helm-repositories
