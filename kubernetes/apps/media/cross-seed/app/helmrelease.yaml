@@ -76,6 +76,10 @@ spec:
           - path: /config/config.js
             subPath: config.js
             readOnly: true
+      config-logs:
+        type: emptyDir
+        globalMounts:
+          - path: /config/logs
       media:
         type: nfs
         server: nas.internal
