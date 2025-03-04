@@ -41,7 +41,9 @@ jobs:
 
       - name: Output Images
         id: output-images
-        run: echo "${{ matrix.branches }}=$(jq --compact-output '.' images.json)" >> $GITHUB_OUTPUT
+        run: |
+          images=$(jq --compact-output '.' images.json)
+          echo "${{ matrix.branches }}=${images}" >> $GITHUB_OUTPUT
 
   compare-images:
     needs: extract-images
