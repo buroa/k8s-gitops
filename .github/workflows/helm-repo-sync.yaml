@@ -38,7 +38,7 @@ jobs:
 
   sync:
     needs: extract
-    name: Helm Repo Sync
+    name: Sync Helm Repos
     runs-on: k8s-gitops-runner
     if: ${{ needs.extract.outputs.repos != '' }}
     steps:

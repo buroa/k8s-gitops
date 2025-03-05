@@ -1,5 +1,5 @@
 ---
-name: Pre-pull Images
+name: Image Pull
 
 on:
   pull_request:
@@ -61,9 +61,9 @@ jobs:
           )
           echo "images=${images}" >> $GITHUB_OUTPUT
 
-  pre-pull:
+  pull:
     needs: compare
-    name: Pre-pull Images
+    name: Pull Images
     runs-on: k8s-gitops-runner
     if: ${{ needs.compare.outputs.images != '[]' }}
     strategy:
@@ -75,5 +75,5 @@ jobs:
       - name: Install talosctl
         run: curl -fsSL https://talos.dev/install | sh
 
-      - name: Pre-pull Image
+      - name: Pull Image
         run: talosctl --nodes $NODE image pull ${{ matrix.images }}
