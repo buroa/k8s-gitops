@@ -23,5 +23,5 @@ spec:
       retries: 3
   values:
     fullnameOverride: emqx-operator
-    image: # test no change
+    image:
       repository: ghcr.io/emqx/emqx-operator
