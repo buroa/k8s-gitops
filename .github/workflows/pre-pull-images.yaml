@@ -11,7 +11,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  extract-images:
+  extract:
     name: Extract Images
     runs-on: ubuntu-latest
     strategy:
@@ -19,8 +19,8 @@ jobs:
         branches: ["default", "pull"]
       fail-fast: false
     outputs:
-      default: ${{ steps.output-images.outputs.default }}
-      pull: ${{ steps.output-images.outputs.pull }}
+      default: ${{ steps.extract.outputs.default }}
+      pull: ${{ steps.extract.outputs.pull }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -39,36 +39,36 @@ jobs:
             --output json
             --output-file images.json
 
-      - name: Output Images
-        id: output-images
+      - name: Extract Images
+        id: extract
         run: echo "${{ matrix.branches }}=$(jq --compact-output '.' images.json)" >> $GITHUB_OUTPUT
 
-  compare-images:
-    needs: extract-images
+  compare:
+    needs: extract
     name: Compare Images
     runs-on: ubuntu-latest
-    if: ${{ needs.extract-images.outputs.default != needs.extract-images.outputs.pull }}
+    if: ${{ needs.extract.outputs.default != needs.extract.outputs.pull }}
     outputs:
-      images: ${{ steps.compare-images.outputs.images }}
+      images: ${{ steps.compare.outputs.images }}
     steps:
       - name: Compare Images
-        id: compare-images
+        id: compare
         run: |
           images=$(jq --compact-output --null-input \
-              --argjson f1 '${{ needs.extract-images.outputs.default }}' \
-              --argjson f2 '${{ needs.extract-images.outputs.pull }}' \
+              --argjson f1 '${{ needs.extract.outputs.default }}' \
+              --argjson f2 '${{ needs.extract.outputs.pull }}' \
               '$f2 - $f1' \
           )
           echo "images=${images}" >> $GITHUB_OUTPUT
 
-  pre-pull-images:
-    needs: compare-images
+  pre-pull:
+    needs: compare
     name: Pre-pull Images
     runs-on: k8s-gitops-runner
-    if: ${{ needs.compare-images.outputs.images != '[]' }}
+    if: ${{ needs.compare.outputs.images != '[]' }}
     strategy:
       matrix:
-        images: ${{ fromJSON(needs.compare-images.outputs.images) }}
+        images: ${{ fromJSON(needs.compare.outputs.images) }}
       max-parallel: 4
       fail-fast: false
     steps:

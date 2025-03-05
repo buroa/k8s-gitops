@@ -11,11 +11,11 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  extract-helm-repos:
+  extract:
     name: Extract Helm Repos
     runs-on: ubuntu-latest
     outputs:
-      repos: ${{ steps.extract-helm-repos.outputs.repos }}
+      repos: ${{ steps.extract.outputs.repos }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -27,25 +27,25 @@ jobs:
           files: kubernetes/**/helmrelease.yaml
 
       - name: Extract Helm Repos
-        id: extract-helm-repos
+        id: extract
         env:
-          FILTER: '[.spec.chart.spec.sourceRef] | unique | .[] | "\(.namespace) \(.name)"'
+          FILTER: '[.spec.chart.spec.sourceRef] | map_values("\(.namespace) \(.name)") | unique | .[]'
         run: |
-          repos=$(yq eval-all "${FILTER}" \
-              ${{ steps.changed-files.outputs.all_changed_and_modified_files }}
+          repos=$(yq eval-all '${FILTER}' \
+              ${{ steps.changed-files.outputs.all_changed_and_modified_files }} \
           )
           echo "repos=${repos}" >> $GITHUB_OUTPUT
 
-  helm-repo-sync:
-    needs: extract-helm-repos
+  sync:
+    needs: extract
     name: Helm Repo Sync
     runs-on: k8s-gitops-runner
-    if: ${{ needs.extract-helm-repos.outputs.repos != '' }}
+    if: ${{ needs.extract.outputs.repos != '' }}
     steps:
       - name: Install flux
         run: curl -fsSL https://fluxcd.io/install.sh | bash
 
       - name: Sync Helm Repo
         run: |
-          echo '${{ needs.extract-helm-repos.outputs.repos }}' \
-            | xargs -l -r bash -c 'flux --namespace $0 reconcile source helm $1'
+          echo '${{ needs.extract.outputs.repos }}' \
+            | xargs -r bash -c 'flux --namespace $0 reconcile source helm $1'

@@ -10,7 +10,7 @@ on:
     - cron: "0 0 * * *" # Every day at midnight
 
 jobs:
-  label-sync:
+  sync:
     name: Label Sync
     runs-on: ubuntu-latest
     permissions:
