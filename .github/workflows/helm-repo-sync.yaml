@@ -31,7 +31,7 @@ jobs:
         env:
           FILTER: '[.spec.chart.spec.sourceRef] | map_values("\(.namespace) \(.name)") | unique | .[]'
         run: |
-          repos=$(yq eval-all '${FILTER}' \
+          repos=$(yq eval-all "${FILTER}" \
               ${{ steps.changed-files.outputs.all_changed_and_modified_files }} \
           )
           echo "repos=${repos}" >> $GITHUB_OUTPUT
