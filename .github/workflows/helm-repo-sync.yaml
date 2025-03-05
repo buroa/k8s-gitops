@@ -47,5 +47,5 @@ jobs:
 
       - name: Sync Helm Repo
         run: |
-          echo '${{ needs.extract.outputs.repos }}' \
-            | xargs -r bash -c 'flux --namespace $0 reconcile source helm $1'
+          xargs -a <(echo '${{ needs.extract.outputs.repos }}') \
+            -l bash -c 'flux --namespace $0 reconcile source helm $1'
