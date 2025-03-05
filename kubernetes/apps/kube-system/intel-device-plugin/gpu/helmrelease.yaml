@@ -22,5 +22,5 @@ spec:
       strategy: rollback
       retries: 3
   values:
-    name: intel-gpu-plugin
+    name: i915
     nodeFeatureRule: false
