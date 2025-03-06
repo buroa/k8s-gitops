@@ -43,16 +43,16 @@ jobs:
         id: extract
         run: echo "${{ matrix.branches }}=$(jq --compact-output '.' images.json)" >> $GITHUB_OUTPUT
 
-  compare:
+  diff:
     needs: extract
-    name: Compare Images
+    name: Diff Images
     runs-on: ubuntu-latest
     if: ${{ needs.extract.outputs.default != needs.extract.outputs.pull }}
     outputs:
-      images: ${{ steps.compare.outputs.images }}
+      images: ${{ steps.diff.outputs.images }}
     steps:
-      - name: Compare Images
-        id: compare
+      - name: Diff Images
+        id: diff
         run: |
           images=$(jq --compact-output --null-input \
               --argjson f1 '${{ needs.extract.outputs.default }}' \
@@ -62,13 +62,13 @@ jobs:
           echo "images=${images}" >> $GITHUB_OUTPUT
 
   pull:
-    needs: compare
+    needs: diff
     name: Pull Images
     runs-on: k8s-gitops-runner
-    if: ${{ needs.compare.outputs.images != '[]' }}
+    if: ${{ needs.diff.outputs.images != '[]' }}
     strategy:
       matrix:
-        images: ${{ fromJSON(needs.compare.outputs.images) }}
+        images: ${{ fromJSON(needs.diff.outputs.images) }}
       max-parallel: 4
       fail-fast: false
     steps:
