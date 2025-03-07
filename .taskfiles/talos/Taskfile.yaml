@@ -16,14 +16,14 @@ tasks:
     desc: Apply Talos config to a node [NODE=required] [MODE=auto]
     cmd: |-
       minijinja-cli {{.TALOS_DIR}}/{{.MACHINE_TYPE}}.yaml.j2 | op inject \
-        | talosctl --nodes {{.NODE}} apply-config {{if eq .INSECURE "true"}}--insecure{{end}} \
+        | talosctl --nodes {{.NODE}} apply-config \
           --mode {{.MODE}} \
           --config-patch @{{.TALOS_DIR}}/{{.MACHINE_TYPE}}/{{.NODE}}.yaml \
-          --file /dev/stdin
+          --file /dev/stdin {{if .INSECURE}}--insecure{{end}}
     vars:
       MODE: '{{.MODE | default "auto"}}'
       INSECURE:
-        sh: talosctl --nodes {{.NODE}} get machineconfig &> /dev/null && echo false || echo true
+        sh: talosctl --nodes {{.NODE}} get machineconfig &> /dev/null || echo true
       MACHINE_TYPE:
         sh: |-
           talosctl --nodes {{.NODE}} get machinetypes --output=jsonpath='{.spec}' 2> /dev/null \
@@ -37,7 +37,7 @@ tasks:
       - test -f {{.TALOS_DIR}}/{{.MACHINE_TYPE}}/{{.NODE}}.yaml
       - which minijinja-cli op talosctl
 
-  upgrade-node:
+  upgrade-node: # TODO: env vars are not being passed to the minijinja-cli
     desc: Upgrade Talos on a single node [NODE=required]
     cmd: talosctl --nodes {{.NODE}} upgrade --image={{.TALOS_IMAGE}} --timeout=10m
     vars:
