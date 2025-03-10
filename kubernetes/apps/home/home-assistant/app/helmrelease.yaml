@@ -78,11 +78,11 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
-              - port: *port
+              - port: &port 8123
                 name: *app
     service:
       app:
         controller: *app
         ports:
           http:
-            port: 8123
+            port: *port
