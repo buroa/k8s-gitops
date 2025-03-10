@@ -1,0 +1,39 @@
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: internal
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: internal.ktwo.io
+spec:
+  gatewayClassName: cilium
+  addresses:
+    - type: IPAddress
+      value: 192.168.20.81
+    - type: IPAddress
+      value: ::ffff:c0a8:1451
+    - type: Hostname
+      value: internal.ktwo.io
+  infrastructure:
+    annotations:
+      lbipam.cilium.io/ips: 192.168.20.81, ::ffff:c0a8:1451
+  listeners:
+    - name: http
+      protocol: HTTP
+      port: 80
+      hostname: "*.ktwo.io"
+      allowedRoutes:
+        namespaces:
+          from: All
+    - name: https
+      protocol: HTTPS
+      port: 443
+      hostname: "*.ktwo.io"
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        certificateRefs:
+          - kind: Secret
+            name: ktwo-io-tls
+            namespace: cert-manager

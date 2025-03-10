@@ -25,7 +25,10 @@ enableIPv4BIGTCP: true
 endpointRoutes:
   enabled: true
 envoy:
-  enabled: false
+  enabled: true
+gatewayAPI:
+  enabled: true
+  enableAlpn: true
 hubble:
   enabled: false
 ipam:
@@ -77,6 +80,3 @@ securityContext:
       - NET_ADMIN
       - SYS_ADMIN
       - SYS_RESOURCE
-tls:
-  secretsNamespace:
-    create: false

@@ -76,18 +76,6 @@ spec:
         fsGroup: 568
         fsGroupChangePolicy: OnRootMismatch
         supplementalGroups: [65536]
-    ingress:
-      app:
-        className: internal
-        hosts:
-          - host: "{{ .Release.Name }}.ktwo.io"
-            paths: &paths
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-          - host: sab.ktwo.io
-            paths: *paths
     persistence:
       config:
         existingClaim: *app
@@ -100,6 +88,19 @@ spec:
             subPath: downloads/nzbs
       tmp:
         type: emptyDir
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.ktwo.io"
+          - sab.ktwo.io
+        parentRefs:
+          - name: internal
+            namespace: kube-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - port: *port
+                name: *app
     service:
       app:
         controller: *app

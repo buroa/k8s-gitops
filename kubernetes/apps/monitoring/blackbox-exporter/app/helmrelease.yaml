@@ -19,14 +19,6 @@ spec:
       retries: 3
   values:
     fullnameOverride: *app
-    ingress:
-      enabled: true
-      className: internal
-      hosts:
-        - host: blackbox-exporter.ktwo.io
-          paths:
-            - path: /
-              pathType: Prefix
     securityContext:
       capabilities: { add: ["NET_RAW"] }
     config:

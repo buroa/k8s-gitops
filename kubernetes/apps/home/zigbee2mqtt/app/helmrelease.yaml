@@ -80,18 +80,6 @@ spec:
         runAsGroup: 568
         fsGroup: 568
         fsGroupChangePolicy: OnRootMismatch
-    ingress:
-      app:
-        className: internal
-        hosts:
-          - host: "{{ .Release.Name }}.ktwo.io"
-            paths: &paths
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-          - host: zigbee.ktwo.io
-            paths: *paths
     persistence:
       config:
         existingClaim: *app
@@ -99,6 +87,19 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /config/log
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.ktwo.io"
+          - zigbee.ktwo.io
+        parentRefs:
+          - name: internal
+            namespace: kube-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - port: *port
+                name: *app
     service:
       app:
         controller: *app

@@ -26,12 +26,6 @@ spec:
     monitoring:
       enabled: true
       createPrometheusRules: true
-    ingress:
-      dashboard:
-        ingressClassName: internal
-        host:
-          name: rook.ktwo.io
-          path: /
     toolbox:
       enabled: true
     cephClusterSpec:
