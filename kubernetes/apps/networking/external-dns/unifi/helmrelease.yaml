@@ -55,10 +55,10 @@ spec:
           initialDelaySeconds: 10
           timeoutSeconds: 5
     extraArgs:
-      - --ignore-ingress-tls-spec
+      - --gateway-namespace=kube-system
     triggerLoopOnEvent: true
     policy: sync
-    sources: ["gateway-httproute", "service"]
+    sources: ["gateway-httproute"]
     txtOwnerId: k8s
     txtPrefix: k8s.
     domainFilters: ["ktwo.io"]
