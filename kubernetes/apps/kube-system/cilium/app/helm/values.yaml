@@ -7,7 +7,7 @@ bpf:
   datapathMode: netkit
   masquerade: true
   preallocateMaps: true
-  tproxy: true
+  # tproxy: true
 bgpControlPlane:
   enabled: true
 cgroup:
@@ -23,8 +23,6 @@ dashboards:
   enabled: true
 enableIPv4BIGTCP: true
 endpointRoutes:
-  enabled: true
-envoy:
   enabled: true
 gatewayAPI:
   enabled: true

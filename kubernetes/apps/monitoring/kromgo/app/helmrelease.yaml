@@ -60,16 +60,6 @@ spec:
         runAsNonRoot: true
         runAsUser: 568
         runAsGroup: 568
-    ingress:
-      app:
-        className: external
-        hosts:
-          - host: "{{ .Release.Name }}.ktwo.io"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
     persistence:
       config:
         type: configMap
@@ -86,6 +76,18 @@ spec:
             port: *port
           health:
             port: *healthPort
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.ktwo.io"
+        parentRefs:
+          - name: external
+            namespace: kube-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - port: *port
+                name: *app
     serviceMonitor:
       app:
         serviceName: *app

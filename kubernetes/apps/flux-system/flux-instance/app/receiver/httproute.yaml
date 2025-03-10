@@ -1,0 +1,21 @@
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: github-webhook
+spec:
+  hostnames:
+    - flux-webhook.ktwo.io
+  parentRefs:
+    - name: external
+      namespace: kube-system
+      sectionName: https
+  rules:
+    - backendRefs:
+        - name: webhook-receiver
+          namespace: flux-system
+          port: 80
+      matches:
+        - path:
+            type: PathPrefix
+            value: /hook/

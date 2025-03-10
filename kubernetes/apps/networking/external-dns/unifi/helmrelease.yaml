@@ -54,8 +54,6 @@ spec:
             port: http-webhook
           initialDelaySeconds: 10
           timeoutSeconds: 5
-    extraArgs:
-      - --ignore-ingress-tls-spec
     triggerLoopOnEvent: true
     policy: sync
     sources: ["gateway-httproute", "service"]

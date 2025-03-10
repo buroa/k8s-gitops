@@ -2,18 +2,18 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
-  name: internal
+  name: external
   annotations:
-    external-dns.alpha.kubernetes.io/target: &hostname internal.ktwo.io
+    external-dns.alpha.kubernetes.io/target: &hostname external.ktwo.io
   labels:
-    gateway: internal
+    gateway: external
 spec:
   gatewayClassName: cilium
   addresses:
     - type: IPAddress
-      value: 192.168.20.81
+      value: 192.168.20.80
     - type: IPAddress
-      value: ::ffff:192.168.20.81
+      value: ::ffff:192.168.20.80
   infrastructure:
     annotations:
       external-dns.alpha.kubernetes.io/hostname: *hostname

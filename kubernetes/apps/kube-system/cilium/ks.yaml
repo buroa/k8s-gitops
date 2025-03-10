@@ -52,7 +52,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: cert-manager-tls
+    - name: cert-manager-issuers
       namespace: cert-manager
     - name: cilium
       namespace: *namespace

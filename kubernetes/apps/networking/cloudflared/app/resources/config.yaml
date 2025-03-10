@@ -1,10 +1,10 @@
 ---
 originRequest:
-  originServerName: external.ktwo.io
+  matchSNItoHost: true
 
 ingress:
   - hostname: ktwo.io
-    service: https://nginx-external-controller.networking.svc.cluster.local
+    service: https://cilium-gateway-external.kube-system.svc.cluster.local
   - hostname: "*.ktwo.io"
-    service: https://nginx-external-controller.networking.svc.cluster.local
+    service: https://cilium-gateway-external.kube-system.svc.cluster.local
   - service: http_status:404

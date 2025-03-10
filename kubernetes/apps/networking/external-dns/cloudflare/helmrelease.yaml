@@ -43,12 +43,11 @@ spec:
     extraArgs:
       - --cloudflare-dns-records-per-page=1000
       - --cloudflare-proxied
-      - --ignore-ingress-tls-spec
-      - --ingress-class=external
+      - --gateway-label-filter=gateway==external
       - --zone-id-filter=$(CF_ZONE_ID)
     triggerLoopOnEvent: true
     policy: sync
-    sources: ["ingress"]
+    sources: ["gateway-httproute"]
     txtOwnerId: k8s
     txtPrefix: k8s.
     domainFilters: ["ktwo.io"]
