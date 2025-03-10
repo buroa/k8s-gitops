@@ -1,0 +1,12 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: ktwo-io
+spec:
+  secretName: ktwo-io-tls
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: ktwo.io
+  dnsNames: ["ktwo.io", "*.ktwo.io"]
