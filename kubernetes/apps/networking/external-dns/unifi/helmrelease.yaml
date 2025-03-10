@@ -54,11 +54,9 @@ spec:
             port: http-webhook
           initialDelaySeconds: 10
           timeoutSeconds: 5
-    extraArgs:
-      - --gateway-namespace=kube-system
     triggerLoopOnEvent: true
     policy: sync
-    sources: ["gateway-httproute"]
+    sources: ["gateway-httproute", "service"]
     txtOwnerId: k8s
     txtPrefix: k8s.
     domainFilters: ["ktwo.io"]
