@@ -289,10 +289,15 @@ spec:
       - vonage-status-panel
     serviceMonitor:
       enabled: true
-    ingress:
-      enabled: true
-      ingressClassName: internal
-      hosts: ["{{ .Release.Name }}.ktwo.io"]
+    route:
+      main:
+        enabled: true
+        hostnames:
+          - "{{ .Release.Name }}.ktwo.io"
+        parentRefs:
+          - name: internal
+            namespace: kube-system
+            sectionName: https
     persistence:
       enabled: false
     testFramework:

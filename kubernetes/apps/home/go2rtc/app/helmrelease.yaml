@@ -66,16 +66,6 @@ spec:
         runAsUser: 568
         runAsGroup: 568
         supplementalGroups: [44]
-    ingress:
-      app:
-        className: internal
-        hosts:
-          - host: "{{ .Release.Name }}.ktwo.io"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
     persistence:
       config:
         type: configMap
@@ -84,6 +74,18 @@ spec:
           - path: /config/go2rtc.yaml
             subPath: go2rtc.yaml
             readOnly: true
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.ktwo.io"
+        parentRefs:
+          - name: internal
+            namespace: kube-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - port: *port
+                name: *app
     service:
       app:
         controller: *app

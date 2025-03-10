@@ -54,18 +54,6 @@ spec:
         runAsGroup: 568
         fsGroup: 568
         fsGroupChangePolicy: OnRootMismatch
-    ingress:
-      app:
-        className: internal
-        hosts:
-          - host: "{{ .Release.Name }}.ktwo.io"
-            paths: &paths
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-          - host: hass.ktwo.io
-            paths: *paths
     persistence:
       config:
         existingClaim: *app
@@ -79,6 +67,19 @@ spec:
           - path: /config/tts
       tmp:
         type: emptyDir
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.ktwo.io"
+          - hass.ktwo.io
+        parentRefs:
+          - name: internal
+            namespace: kube-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - port: *port
+                name: *app
     service:
       app:
         controller: *app

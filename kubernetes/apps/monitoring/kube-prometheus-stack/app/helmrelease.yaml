@@ -25,10 +25,15 @@ spec:
         forceConflicts: true
     cleanPrometheusOperatorObjectNames: true
     alertmanager:
-      ingress:
-        enabled: true
-        ingressClassName: internal
-        hosts: ["am.ktwo.io"]
+      route:
+        main:
+          enabled: true
+          hostnames:
+            - am.ktwo.io
+          parentRefs:
+            - name: internal
+              namespace: kube-system
+              sectionName: https
       alertmanagerSpec:
         alertmanagerConfiguration:
           name: alertmanager
@@ -49,10 +54,15 @@ spec:
     kubeProxy:
       enabled: false
     prometheus:
-      ingress:
-        enabled: true
-        ingressClassName: internal
-        hosts: ["prometheus.ktwo.io"]
+      route:
+        main:
+          enabled: true
+          hostnames:
+            - prometheus.ktwo.io
+          parentRefs:
+            - name: internal
+              namespace: kube-system
+              sectionName: https
       prometheusSpec:
         ruleSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
