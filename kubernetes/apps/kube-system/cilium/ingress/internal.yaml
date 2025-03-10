@@ -4,6 +4,7 @@ kind: Gateway
 metadata:
   name: internal
   annotations:
+    cert-manager.io/issuer: letsencrypt-production
     external-dns.alpha.kubernetes.io/hostname: internal.ktwo.io
 spec:
   gatewayClassName: cilium
@@ -25,8 +26,3 @@ spec:
       allowedRoutes:
         namespaces:
           from: All
-      tls:
-        certificateRefs:
-          - kind: Secret
-            name: ktwo-io-tls
-            namespace: cert-manager
