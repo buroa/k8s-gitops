@@ -77,7 +77,7 @@ spec:
         type: emptyDir
     route:
       app:
-        hostNames:
+        hostnames:
           - "{{ .Release.Name }}.ktwo.io"
         parentRefs:
           - name: external
