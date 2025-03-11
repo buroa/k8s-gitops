@@ -1,0 +1,17 @@
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: rook-ceph-dashboard
+spec:
+  hostnames:
+    - rook.ktwo.io
+  parentRefs:
+    - name: internal
+      namespace: kube-system
+      sectionName: https
+  rules:
+    - backendRefs:
+        - name: rook-ceph-mgr-dashboard
+          namespace: rook-ceph
+          port: 7000
