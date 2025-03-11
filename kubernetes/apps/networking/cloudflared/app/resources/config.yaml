@@ -1,6 +1,6 @@
 ---
 originRequest:
-  matchSNItoHost: true
+  originServerName: external.ktwo.io
 
 ingress:
   - hostname: ktwo.io
