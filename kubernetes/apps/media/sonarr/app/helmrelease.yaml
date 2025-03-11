@@ -98,8 +98,8 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
-              - port: *port
-                name: *app
+              - name: *app
+                port: *port
     service:
       app:
         controller: *app

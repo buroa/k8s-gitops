@@ -72,8 +72,8 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
-              - port: *port
-                name: *app
+              - name: *app
+                port: *port
     serviceMonitor:
       app:
         serviceName: *app

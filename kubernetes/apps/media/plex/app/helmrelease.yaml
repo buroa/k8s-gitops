@@ -95,20 +95,20 @@ spec:
             namespace: kube-system
             sectionName: https
         rules:
-          - matches:
-              - path:
-                  type: PathPrefix
-                  value: /library/streams
+          - backendRefs:
+              - name: *app
+                port: *port
             filters:
               - type: RequestHeaderModifier
                 requestHeaderModifier:
                   remove: ["Range"]
-            backendRefs:
-              - port: *port
-                name: *app
+            matches:
+              - path:
+                  type: PathPrefix
+                  value: /library/streams
           - backendRefs:
-              - port: *port
-                name: *app
+              - name: *app
+                port: *port
     service:
       app:
         controller: *app
