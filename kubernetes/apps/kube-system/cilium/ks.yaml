@@ -45,7 +45,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app cilium-ingress
+  name: &app cilium-gateway
   namespace: &namespace kube-system
 spec:
   commonMetadata:
@@ -59,7 +59,7 @@ spec:
     - name: cilium-config
       namespace: *namespace
   interval: 1h
-  path: ./kubernetes/apps/kube-system/cilium/ingress
+  path: ./kubernetes/apps/kube-system/cilium/gateway
   prune: true
   sourceRef:
     kind: GitRepository
