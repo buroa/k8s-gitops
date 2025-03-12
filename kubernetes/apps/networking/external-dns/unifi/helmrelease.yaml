@@ -41,6 +41,11 @@ spec:
         env:
           - name: UNIFI_HOST
             value: https://unifi.internal
+          - name: &name UNIFI_API_KEY
+            valueFrom:
+              secretKeyRef:
+                name: external-dns-unifi-secret
+                key: *name
         livenessProbe:
           httpGet:
             path: /healthz
@@ -59,15 +64,3 @@ spec:
     triggerLoopOnEvent: true
     txtOwnerId: k8s
     txtPrefix: k8s.
-  postRenderers:
-    - kustomize:
-        patches:
-          - target:
-              kind: Deployment
-              name:
-            patch: |
-              - op: add
-                path: /spec/template/spec/containers/1/envFrom/-
-                value:
-                  secretRef:
-                    name: external-dns-unifi-secret
