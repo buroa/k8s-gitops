@@ -25,9 +25,13 @@ spec:
       retries: 3
   values:
     fullnameOverride: *app
-    image: # TODO: Switch to upstream image
+    domainFilters: ["ktwo.io"]
+    image:
       repository: ghcr.io/buroa/external-dns
-      tag: 47731b39
+      tag: a6243325
+    podAnnotations:
+      secret.reloader.stakater.com/reload: &secret external-dns-unifi-secret
+    policy: sync
     provider:
       name: webhook
       webhook:
@@ -40,7 +44,7 @@ spec:
           - name: &name UNIFI_API_KEY
             valueFrom:
               secretKeyRef:
-                name: &secret external-dns-unifi-secret
+                name: *secret
                 key: *name
         livenessProbe:
           httpGet:
@@ -54,13 +58,9 @@ spec:
             port: http-webhook
           initialDelaySeconds: 10
           timeoutSeconds: 5
-    triggerLoopOnEvent: true
-    policy: sync
-    sources: ["gateway-httproute", "service"]
-    txtOwnerId: k8s
-    txtPrefix: k8s.
-    domainFilters: ["ktwo.io"]
     serviceMonitor:
       enabled: true
-    podAnnotations:
-      secret.reloader.stakater.com/reload: *secret
+    sources: ["gateway-httproute", "service"]
+    triggerLoopOnEvent: true
+    txtOwnerId: k8s
+    txtPrefix: k8s.
