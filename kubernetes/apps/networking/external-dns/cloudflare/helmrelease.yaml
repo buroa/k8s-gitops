@@ -26,17 +26,6 @@ spec:
   values:
     fullnameOverride: *app
     domainFilters: ["ktwo.io"]
-    env:
-      - name: &name CF_API_TOKEN
-        valueFrom:
-          secretKeyRef:
-            name: &secret external-dns-cloudflare-secret
-            key: *name
-      - name: &name CF_ZONE_ID
-        valueFrom:
-          secretKeyRef:
-            name: *secret
-            key: *name
     extraArgs:
       - --cloudflare-dns-records-per-page=1000
       - --cloudflare-proxied
@@ -46,7 +35,7 @@ spec:
       repository: ghcr.io/buroa/external-dns
       tag: a6243325
     podAnnotations:
-      secret.reloader.stakater.com/reload: *secret
+      reloader.stakater.com/auto: "true"
     policy: sync
     provider: cloudflare
     serviceMonitor:
@@ -55,3 +44,14 @@ spec:
     triggerLoopOnEvent: true
     txtOwnerId: k8s
     txtPrefix: k8s.
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              kind: Deployment
+            patch: |
+              - op: add
+                path: /spec/template/spec/containers/0/envFrom
+                value:
+                  - secretRef:
+                      name: external-dns-cloudflare-secret
