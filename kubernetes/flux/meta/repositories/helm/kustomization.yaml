@@ -7,7 +7,6 @@ resources:
   - ./cilium.yaml
   - ./descheduler.yaml
   - ./emqx.yaml
-  - ./external-dns.yaml
   - ./grafana.yaml
   - ./intel.yaml
   - ./jetstack.yaml
