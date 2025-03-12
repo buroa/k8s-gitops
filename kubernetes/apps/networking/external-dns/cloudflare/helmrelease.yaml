@@ -5,53 +5,85 @@ metadata:
   name: &app external-dns-cloudflare
 spec:
   interval: 1h
-  chart:
-    spec:
-      chart: external-dns
-      version: 1.15.2
-      sourceRef:
-        kind: HelmRepository
-        name: external-dns
-        namespace: flux-system
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
   install:
-    crds: CreateReplace
     remediation:
       retries: 3
   upgrade:
     cleanupOnFail: true
-    crds: CreateReplace
     remediation:
       strategy: rollback
       retries: 3
   values:
-    fullnameOverride: *app
-    domainFilters: ["ktwo.io"]
-    extraArgs:
-      - --cloudflare-dns-records-per-page=1000
-      - --cloudflare-proxied
-      - --gateway-name=external
-      - --zone-id-filter=$(CF_ZONE_ID)
-    image:
-      repository: ghcr.io/buroa/external-dns
-      tag: a6243325
-    podAnnotations:
-      reloader.stakater.com/auto: "true"
-    policy: sync
-    provider: cloudflare
+    controllers:
+      external-dns-cloudflare:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/buroa/external-dns
+              tag: a6243325@sha256:a14e69d5c49fdca31693c7c1257f8d2da885a7429bf983f9a36b6e72068cf6db
+            args:
+              - --cloudflare-dns-records-per-page=1000
+              - --cloudflare-proxied
+              - --domain-filter=ktwo.io
+              - --events
+              - --gateway-name=external
+              - --interval=1m
+              - --log-format=text
+              - --log-level=info
+              - --policy=sync
+              - --provider=cloudflare
+              - --registry=txt
+              - --source=gateway-httproute
+              - --txt-owner-id=k8s
+              - --txt-prefix=k8s.
+              - --zone-id-filter=$(CF_ZONE_ID)
+            envFrom:
+              - secretRef:
+                  name: external-dns-cloudflare-secret
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /healthz
+                    port: &port 7979
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 64Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 568
+        runAsGroup: 568
+    service:
+      app:
+        controller: *app
+        ports:
+          http:
+            port: *port
+    serviceAccount:
+      create: true
+      name: *app
     serviceMonitor:
-      enabled: true
-    sources: ["gateway-httproute"]
-    triggerLoopOnEvent: true
-    txtOwnerId: k8s
-    txtPrefix: k8s.
-  postRenderers:
-    - kustomize:
-        patches:
-          - target:
-              kind: Deployment
-            patch: |
-              - op: add
-                path: /spec/template/spec/containers/0/envFrom
-                value:
-                  - secretRef:
-                      name: external-dns-cloudflare-secret
+      app:
+        serviceName: *app
+        endpoints:
+          - port: http
