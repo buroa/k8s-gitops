@@ -21,6 +21,7 @@ cni:
   exclusive: false
 dashboards:
   enabled: true
+devices: bond+
 enableIPv4BIGTCP: true
 endpointRoutes:
   enabled: true
