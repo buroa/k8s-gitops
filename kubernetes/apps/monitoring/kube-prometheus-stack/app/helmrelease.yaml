@@ -1,4 +1,17 @@
 ---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: kube-prometheus-stack
+spec:
+  interval: 1h
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 69.8.2
+  url: oci://ghcr.io/prometheus-community/charts/kube-prometheus-stack
+---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -8,7 +21,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: kube-prometheus-stack
-    namespace: monitoring
   install:
     remediation:
       retries: 3
