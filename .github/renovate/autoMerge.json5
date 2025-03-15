@@ -2,7 +2,7 @@
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
   packageRules: [
     {
-      description: ["Auto-merge container digests updates"],
+      description: ["Auto-merge trusted container digests"],
       matchDatasources: ["docker"],
       automerge: true,
       automergeType: "branch",
