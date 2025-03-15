@@ -64,8 +64,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/buroa/external-dns
-              tag: a6243325@sha256:a14e69d5c49fdca31693c7c1257f8d2da885a7429bf983f9a36b6e72068cf6db
+              repository: registry.k8s.io/external-dns/external-dns
+              tag: v0.16.1@sha256:37d3a7a05c4638b8177382b80a627c223bd84a53c1a91be137245bd3cfdf9986
             args:
               - --domain-filter=ktwo.io
               - --events
