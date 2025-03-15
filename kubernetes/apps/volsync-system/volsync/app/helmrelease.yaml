@@ -23,7 +23,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: volsync
-    namespace: volsync-system
   install:
     remediation:
       retries: 3
