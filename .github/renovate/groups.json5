@@ -2,7 +2,7 @@
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
   packageRules: [
     {
-      description: ["1Password Connect Group"],
+      description: "1Password Connect Group",
       groupName: "1Password Connnect",
       matchPackageNames: ["/1password/"],
       matchDatasources: ["docker"],
@@ -11,7 +11,7 @@
       },
     },
     {
-      description: ["Actions Runner Controller Group"],
+      description: "Actions Runner Controller Group",
       groupName: "Actions Runner Controller",
       matchPackageNames: ["/gha-runner-scale-set/"],
       matchDatasources: ["docker", "helm"],
@@ -20,7 +20,7 @@
       },
     },
     {
-      description: ["Flux Operator Group"],
+      description: "Flux Operator Group",
       groupName: "Flux Operator",
       matchPackageNames: ["/flux-instance/", "/flux-operator/"],
       matchDatasources: ["docker"],
@@ -29,7 +29,7 @@
       },
     },
     {
-      description: ["Intel Device Plugins Group"],
+      description: "Intel Device Plugins Group",
       groupName: "Intel-Device-Plugins",
       matchPackageNames: ["/intel-device-plugins/"],
       matchDatasources: ["helm"],
@@ -38,7 +38,7 @@
       },
     },
     {
-      description: ["Rook-Ceph Group"],
+      description: "Rook-Ceph Group",
       groupName: "Rook-Ceph",
       matchPackageNames: ["/rook.ceph/"],
       matchDatasources: ["helm"],
