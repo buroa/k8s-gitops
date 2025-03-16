@@ -33,7 +33,7 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/buroa/radarr-develop
+              repository: ghcr.io/buroa/radarr
               tag: 5.20.0.9752@sha256:44a8dd18e265f080cb11541f2416ece2b8edc549e577b5bd408796aa6bfeca0e
             env:
               RADARR__APP__INSTANCENAME: Radarr
