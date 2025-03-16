@@ -1,13 +1,7 @@
 {
   "recommendations": [
-    "albert.TabOut",
-    "britesnow.vscode-toggle-quotes",
-    "fcrespo82.markdown-table-formatter",
-    "mikestead.dotenv",
-    "mitchdenny.ecdc",
-    "redhat.vscode-yaml",
-    "tudoudou.json5-for-vscode",
-    "will-stone.in-any-case",
-    "PKief.material-icon-theme"
+    "blueglassblock.better-json5",
+    "irongeek.vscode-env",
+    "redhat.vscode-yaml"
   ]
 }
