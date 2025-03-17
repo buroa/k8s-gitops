@@ -10,7 +10,7 @@ spec:
       app.kubernetes.io/name: *app
   interval: 1h
   path: ./kubernetes/apps/kube-system/intel-device-plugin/app
-  prune: true
+  prune: false
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -33,7 +33,7 @@ spec:
       namespace: *namespace
   interval: 1h
   path: ./kubernetes/apps/kube-system/intel-device-plugin/gpu
-  prune: true
+  prune: false
   sourceRef:
     kind: GitRepository
     name: flux-system

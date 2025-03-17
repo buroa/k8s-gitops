@@ -13,7 +13,7 @@ spec:
       namespace: external-secrets
   interval: 1h
   path: ./kubernetes/apps/media/unpackerr/app
-  prune: true
+  prune: false
   sourceRef:
     kind: GitRepository
     name: flux-system

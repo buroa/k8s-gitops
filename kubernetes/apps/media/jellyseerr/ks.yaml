@@ -25,7 +25,7 @@ spec:
       APP: *app
       GATUS_PATH: /api/v1/status
       VOLSYNC_CAPACITY: 5Gi
-  prune: true
+  prune: false
   sourceRef:
     kind: GitRepository
     name: flux-system

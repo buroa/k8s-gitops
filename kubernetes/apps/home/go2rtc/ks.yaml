@@ -17,7 +17,7 @@ spec:
       namespace: external-secrets
   interval: 1h
   path: ./kubernetes/apps/home/go2rtc/app
-  prune: true
+  prune: false
   sourceRef:
     kind: GitRepository
     name: flux-system

@@ -13,7 +13,7 @@ spec:
       namespace: rook-ceph
   interval: 1h
   path: ./kubernetes/apps/monitoring/loki/app
-  prune: true
+  prune: false
   sourceRef:
     kind: GitRepository
     name: flux-system

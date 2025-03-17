@@ -21,7 +21,7 @@ spec:
     substitute:
       APP: *app
       VOLSYNC_CAPACITY: 2Gi
-  prune: true
+  prune: false
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -44,7 +44,7 @@ spec:
       namespace: *namespace
   interval: 1h
   path: ./kubernetes/apps/media/qbittorrent/tools
-  prune: true
+  prune: false
   sourceRef:
     kind: GitRepository
     name: flux-system
