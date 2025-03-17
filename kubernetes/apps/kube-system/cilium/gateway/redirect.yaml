@@ -7,10 +7,10 @@ metadata:
     external-dns.alpha.kubernetes.io/controller: none
 spec:
   parentRefs:
-    - name: internal
+    - name: external
       namespace: kube-system
       sectionName: http
-    - name: external
+    - name: internal
       namespace: kube-system
       sectionName: http
   rules:
