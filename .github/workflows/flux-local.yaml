@@ -3,7 +3,7 @@ name: Flux Local
 
 on:
   pull_request:
-    branches: ["master"]
+    branches: ["main"]
     paths: ["kubernetes/**"]
 
 concurrency:

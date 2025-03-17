@@ -13,7 +13,7 @@ instance:
   sync:
     kind: GitRepository
     url: https://github.com/buroa/k8s-gitops
-    ref: refs/heads/master
+    ref: refs/heads/main
     path: ./kubernetes/flux/cluster
     interval: 1h
   kustomize:
