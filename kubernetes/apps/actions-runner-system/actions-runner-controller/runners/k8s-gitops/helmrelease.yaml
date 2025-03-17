@@ -49,7 +49,7 @@ spec:
       spec:
         containers:
           - name: runner
-            image: ghcr.io/buroa/actions-runner:2.322.0@sha256:39f8aedf8c9ca77b5b0bb0dcad7b02f799ba547387bb4bfc41a2b86768d7520d
+            image: ghcr.io/home-operations/actions-runner:2.322.0@sha256:079ad66d4aafca56c325325e184921f591ee023af6fd7b26a35a78836e660ce9
             command:
               - /home/runner/run.sh
             env:

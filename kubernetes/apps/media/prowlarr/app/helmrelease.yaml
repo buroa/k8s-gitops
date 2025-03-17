@@ -25,7 +25,7 @@ spec:
         initContainers:
           init-db:
             image:
-              repository: ghcr.io/buroa/postgres-init
+              repository: ghcr.io/home-operations/postgres-init
               tag: 17.4
             envFrom: &envFrom
               - secretRef:
@@ -33,8 +33,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/buroa/prowlarr
-              tag: 1.32.2.4987@sha256:30c812c77d242b0ac4093d520c7e2e39af66b64db59250e3342c3209aa0531ac
+              repository: ghcr.io/home-operations/prowlarr
+              tag: 1.32.2.4987@sha256:77f6b6850d6191f68d2d2d4d21655b103acc5c6f6243d8cb62bb75888499b78a
             env:
               PROWLARR__APP__INSTANCENAME: Prowlarr
               PROWLARR__APP__THEME: dark

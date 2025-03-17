@@ -25,8 +25,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/buroa/bazarr
-              tag: 1.5.1@sha256:a5729ada814ba237a3d9c5d4a5ea98c4a374fbe45d969704d3bc60e119143928
+              repository: ghcr.io/home-operations/bazarr
+              tag: 1.5.1@sha256:a1b0d3a4e6462adb448dbfe4bf466e1d1bc920c17ac97c705b6db6eeb02b37b9
             env:
               BAZARR__PORT: &port 6767
               TZ: America/Chicago

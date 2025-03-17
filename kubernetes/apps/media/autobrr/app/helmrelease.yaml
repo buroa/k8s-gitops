@@ -25,7 +25,7 @@ spec:
         initContainers:
           init-db:
             image:
-              repository: ghcr.io/buroa/postgres-init
+              repository: ghcr.io/home-operations/postgres-init
               tag: 17.4
             envFrom: &envFrom
               - secretRef:

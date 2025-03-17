@@ -10,7 +10,7 @@ spec:
     operation: copy
   ref:
     tag: v1.17.1
-  url: oci://ghcr.io/buroa/charts-mirror/cert-manager
+  url: oci://ghcr.io/home-operations/charts-mirror/cert-manager
   verify:
     provider: cosign
 ---
