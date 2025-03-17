@@ -15,7 +15,7 @@ spec:
       namespace: rook-ceph
   interval: 1h
   path: ./kubernetes/apps/monitoring/kube-prometheus-stack/app
-  prune: false
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system

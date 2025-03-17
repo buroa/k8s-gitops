@@ -15,7 +15,7 @@ spec:
       namespace: external-secrets
   interval: 1h
   path: ./kubernetes/apps/flux-system/flux-instance/app
-  prune: false
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system

@@ -13,7 +13,7 @@ spec:
       namespace: external-secrets
   interval: 1h
   path: ./kubernetes/apps/databases/cloudnative-pg/app
-  prune: false
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -47,7 +47,7 @@ spec:
     substitute:
       # renovate: datasource=docker depName=ghcr.io/cloudnative-pg/postgresql
       POSTGRESQL_VERSION: 17.4-bookworm
-  prune: false
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system

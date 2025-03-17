@@ -10,7 +10,7 @@ spec:
       app.kubernetes.io/name: *app
   interval: 1h
   path: ./kubernetes/apps/system-upgrade/system-upgrade-controller/app
-  prune: false
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -39,7 +39,7 @@ spec:
       KUBERNETES_VERSION: v1.32.3
       # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
       TALOS_VERSION: v1.9.5
-  prune: false
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system

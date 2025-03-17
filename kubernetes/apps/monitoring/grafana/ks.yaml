@@ -13,7 +13,7 @@ spec:
       namespace: external-secrets
   interval: 1h
   path: ./kubernetes/apps/monitoring/grafana/app
-  prune: false
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system

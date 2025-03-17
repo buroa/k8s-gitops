@@ -13,7 +13,7 @@ spec:
       namespace: external-secrets
   interval: 1h
   path: ./kubernetes/apps/networking/external-dns/cloudflare
-  prune: false
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -36,7 +36,7 @@ spec:
       namespace: external-secrets
   interval: 1h
   path: ./kubernetes/apps/networking/external-dns/unifi
-  prune: false
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system

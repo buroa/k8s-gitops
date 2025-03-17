@@ -15,7 +15,7 @@ spec:
       namespace: external-secrets
   interval: 1h
   path: ./kubernetes/apps/home/atuin/app
-  prune: false
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
