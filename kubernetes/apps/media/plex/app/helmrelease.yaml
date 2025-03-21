@@ -24,7 +24,7 @@ spec:
           app:
             image:
               repository: ghcr.io/home-operations/plex
-              tag: 1.41.5.9522@sha256:1c35e44828531320f4fccd980da5a3d0da08a438f1c89841d8be97cfefe66e63
+              tag: 1.41.5.9522@sha256:9d612368ec271266f4be4c0aa0daf54dc85ae94959351f020dd3345ca220a303
             env:
               PLEX_ADVERTISE_URL: https://{{ .Release.Name }}.ktwo.io:443
               PLEX_NO_AUTH_NETWORKS: 192.168.1.0/24
