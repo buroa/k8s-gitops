@@ -4,15 +4,29 @@ name: Flux Local
 on:
   pull_request:
     branches: ["main"]
-    paths: ["kubernetes/**"]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
+  filter:
+    name: Flux Local - Filter
+    runs-on: ubuntu-latest
+    outputs:
+      changed-files: ${{ steps.changed-files.outputs.changed_files }}
+    steps:
+      - name: Get Changed Files
+        id: changed-files
+        uses: bjw-s-labs/action-changed-files@2cc35474e9d534ed0d743aa122fd142afbdaa0ad # v0.3.1
+        with:
+          patterns: |-
+            kubernetes/**/*
+
   test:
-    name: Flux Local Test
+    if: ${{ needs.filter.outputs.changed-files != '[]' }}
+    needs: filter
+    name: Flux Local - Test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -29,13 +43,16 @@ jobs:
             --verbose
 
   diff:
-    name: Flux Local Diff
+    if: ${{ needs.filter.outputs.changed-files != '[]' }}
+    needs: filter
+    name: Flux Local - Diff
     runs-on: ubuntu-latest
     permissions:
+      contents: read
       pull-requests: write
     strategy:
       matrix:
-        resources: ["helmrelease", "kustomization"]
+        resource: ["helmrelease", "kustomization"]
       fail-fast: false
     steps:
       - name: Checkout Pull Request Branch
@@ -53,7 +70,7 @@ jobs:
         uses: docker://ghcr.io/allenporter/flux-local:v7.3.0
         with:
           args: >-
-            diff ${{ matrix.resources }}
+            diff ${{ matrix.resource }}
             --unified 6
             --path /github/workspace/pull/kubernetes/flux/cluster
             --path-orig /github/workspace/default/kubernetes/flux/cluster
@@ -80,20 +97,20 @@ jobs:
 
       - if: ${{ steps.diff.outputs.diff != '' }}
         name: Add Comment
-        uses: mshick/add-pr-comment@b8f338c590a895d50bcbfa6c5859251edc8952fc # v2.8.2
+        uses: marocchino/sticky-pull-request-comment@52423e01640425a022ef5fd42c6fb5f633a02728 # v2.9.1
+        env:
+          GITHUB_TOKEN: "${{ steps.app-token.outputs.token }}"
         with:
-          repo-token: ${{ steps.app-token.outputs.token }}
-          message-id: ${{ github.event.pull_request.number }}/kubernetes/${{ matrix.resources }}
-          message-failure: Diff was not successful
+          header: "${{ github.event.pull_request.number }}/kubernetes/${{ matrix.resource }}"
           message: |
             ```diff
             ${{ steps.diff.outputs.diff }}
             ```
 
-  status:
+  success:
     if: ${{ !cancelled() }}
     needs: [test, diff]
-    name: Flux Local Status
+    name: Flux Local - Success
     runs-on: ubuntu-latest
     steps:
       - name: Any jobs failed?
