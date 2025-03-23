@@ -89,3 +89,17 @@ jobs:
             ```diff
             ${{ steps.diff.outputs.diff }}
             ```
+
+  status:
+    if: ${{ !cancelled() }}
+    needs: [test, diff]
+    name: Flux Local Status
+    runs-on: ubuntu-latest
+    steps:
+      - name: Any jobs failed?
+        if: ${{ contains(needs.*.result, 'failure') }}
+        run: exit 1
+
+      - name: All jobs passed or skipped?
+        if: ${{ !(contains(needs.*.result, 'failure')) }}
+        run: echo "All jobs passed or skipped" && echo "${{ toJSON(needs.*.result) }}"
