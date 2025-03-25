@@ -32,15 +32,7 @@ servers:
           pods insecure
           fallthrough in-addr.arpa ip6.arpa
       - name: forward
-        parameters: internal /etc/resolv.conf
-      - name: forward
-        parameters: ktwo.io /etc/resolv.conf
-      - name: forward
-        parameters: . tls://1.1.1.1 tls://1.0.0.1
-        configBlock: |-
-          tls_servername cloudflare-dns.com
-          health_check 5s
-          policy random
+        parameters: . /etc/resolv.conf
       - name: cache
       - name: loop
       - name: reload
