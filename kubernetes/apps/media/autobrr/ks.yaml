@@ -11,11 +11,12 @@ spec:
   dependsOn:
     - name: cloudnative-pg-cluster
       namespace: databases
-    - name: onepassword
+    - name: onepassword-store
       namespace: external-secrets
   interval: 1h
   path: ./kubernetes/apps/media/autobrr/app
   prune: true
+  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system

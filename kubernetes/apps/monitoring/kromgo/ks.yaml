@@ -17,6 +17,7 @@ spec:
       APP: *app
       GATUS_STATUS: "404"
   prune: true
+  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system

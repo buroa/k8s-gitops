@@ -11,6 +11,7 @@ spec:
   interval: 1h
   path: ./kubernetes/apps/networking/multus/app
   prune: true
+  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -34,6 +35,7 @@ spec:
   interval: 1h
   path: ./kubernetes/apps/networking/multus/networks
   prune: true
+  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system

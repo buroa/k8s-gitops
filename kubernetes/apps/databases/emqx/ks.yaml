@@ -11,11 +11,12 @@ spec:
   dependsOn:
     - name: cert-manager
       namespace: cert-manager
-    - name: onepassword
+    - name: onepassword-store
       namespace: external-secrets
   interval: 1h
   path: ./kubernetes/apps/databases/emqx/app
   prune: true
+  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -44,6 +45,7 @@ spec:
   interval: 1h
   path: ./kubernetes/apps/databases/emqx/cluster
   prune: true
+  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system

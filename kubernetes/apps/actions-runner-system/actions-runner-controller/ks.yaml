@@ -11,6 +11,7 @@ spec:
   interval: 1h
   path: ./kubernetes/apps/actions-runner-system/actions-runner-controller/app
   prune: true
+  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -31,13 +32,14 @@ spec:
   dependsOn:
     - name: actions-runner-controller
       namespace: *namespace
-    - name: onepassword
+    - name: onepassword-store
       namespace: external-secrets
     - name: openebs
       namespace: openebs-system
   interval: 1h
   path: ./kubernetes/apps/actions-runner-system/actions-runner-controller/runners
   prune: true
+  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system

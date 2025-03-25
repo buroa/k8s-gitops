@@ -11,7 +11,7 @@ spec:
   components:
     - ../../../../components/volsync
   dependsOn:
-    - name: onepassword
+    - name: onepassword-store
       namespace: external-secrets
     - name: qbittorrent
       namespace: *namespace
@@ -26,6 +26,7 @@ spec:
       APP: *app
       VOLSYNC_CAPACITY: 2Gi
   prune: true
+  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system

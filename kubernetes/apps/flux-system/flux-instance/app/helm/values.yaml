@@ -61,21 +61,6 @@ instance:
         target:
           kind: Deployment
           name: kustomize-controller
-      # Enable Helm repositories caching
-      # Ref: https://fluxcd.io/flux/installation/configuration/vertical-scaling/#enable-helm-repositories-caching
-      - patch: |
-          - op: add
-            path: /spec/template/spec/containers/0/args/-
-            value: --helm-cache-max-size=10
-          - op: add
-            path: /spec/template/spec/containers/0/args/-
-            value: --helm-cache-ttl=60m
-          - op: add
-            path: /spec/template/spec/containers/0/args/-
-            value: --helm-cache-purge-interval=5m
-        target:
-          kind: Deployment
-          name: source-controller
       # Flux near OOM detection for Helm
       # Ref: https://fluxcd.io/flux/installation/configuration/helm-oom-detection/
       - patch: |

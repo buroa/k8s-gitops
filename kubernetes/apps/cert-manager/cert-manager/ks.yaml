@@ -11,6 +11,7 @@ spec:
   interval: 1h
   path: ./kubernetes/apps/cert-manager/cert-manager/app
   prune: true
+  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -31,7 +32,7 @@ spec:
   dependsOn:
     - name: cert-manager
       namespace: *namespace
-    - name: onepassword
+    - name: onepassword-store
       namespace: external-secrets
   healthCheckExprs:
     - apiVersion: cert-manager.io/v1
@@ -41,6 +42,7 @@ spec:
   interval: 1h
   path: ./kubernetes/apps/cert-manager/cert-manager/issuers
   prune: true
+  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system

@@ -11,6 +11,7 @@ spec:
   interval: 1h
   path: ./kubernetes/apps/monitoring/snmp-exporter/app
   prune: true
+  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system

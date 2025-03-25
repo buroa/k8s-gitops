@@ -13,11 +13,12 @@ spec:
       namespace: kube-system
     - name: multus-networks
       namespace: networking
-    - name: onepassword
+    - name: onepassword-store
       namespace: external-secrets
   interval: 1h
   path: ./kubernetes/apps/home/go2rtc/app
   prune: true
+  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system

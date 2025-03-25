@@ -11,6 +11,7 @@ spec:
   interval: 1h
   path: ./kubernetes/apps/kube-system/cilium/app
   prune: true
+  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -34,6 +35,7 @@ spec:
   interval: 1h
   path: ./kubernetes/apps/kube-system/cilium/config
   prune: true
+  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -61,6 +63,7 @@ spec:
   interval: 1h
   path: ./kubernetes/apps/kube-system/cilium/gateway
   prune: true
+  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system

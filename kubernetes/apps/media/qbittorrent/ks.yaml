@@ -22,6 +22,7 @@ spec:
       APP: *app
       VOLSYNC_CAPACITY: 2Gi
   prune: true
+  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -45,6 +46,7 @@ spec:
   interval: 1h
   path: ./kubernetes/apps/media/qbittorrent/tools
   prune: true
+  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system
