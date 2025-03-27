@@ -37,20 +37,21 @@ tasks:
       - test -f {{.TALOS_DIR}}/{{.MACHINE_TYPE}}/{{.NODE}}.yaml
       - which minijinja-cli op talosctl
 
-  upgrade-node: # TODO: env vars are not being passed to the minijinja-cli
+  upgrade-node:
     desc: Upgrade Talos on a single node [NODE=required]
     cmd: talosctl --nodes {{.NODE}} upgrade --image={{.TALOS_IMAGE}} --timeout=10m
     vars:
       MACHINE_TYPE:
         sh: talosctl --nodes {{.NODE}} get machinetypes --output=jsonpath='{.spec}'
       TALOS_IMAGE:
-        sh: minijinja-cli {{.TALOS_DIR}}/{{.MACHINE_TYPE}}.yaml.j2 | yq '.machine.install.image'
+        sh: |-
+          talosctl --nodes {{.NODE}} get machineconfig --output=jsonpath='{.spec}' \
+            | yq '.machine.install.image'
     requires:
       vars: [NODE]
     preconditions:
       - talosctl config info
       - talosctl --nodes {{.NODE}} get machineconfig
-      - test -f {{.TALOS_DIR}}/{{.MACHINE_TYPE}}.yaml.j2
       - which minijinja-cli talosctl yq
 
   upgrade-k8s:
