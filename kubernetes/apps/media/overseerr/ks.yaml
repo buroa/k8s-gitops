@@ -2,7 +2,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app jellyseerr
+  name: &app overseerr
   namespace: &namespace media
 spec:
   commonMetadata:
@@ -12,14 +12,12 @@ spec:
     - ../../../../components/gatus
     - ../../../../components/volsync
   dependsOn:
-    - name: onepassword-store
-      namespace: external-secrets
     - name: rook-ceph-cluster
       namespace: rook-ceph
     - name: volsync
       namespace: volsync-system
   interval: 1h
-  path: ./kubernetes/apps/media/jellyseerr/app
+  path: ./kubernetes/apps/media/overseerr/app
   postBuild:
     substitute:
       APP: *app
