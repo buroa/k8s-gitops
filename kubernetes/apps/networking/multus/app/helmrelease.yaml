@@ -30,11 +30,9 @@ spec:
           multus:
             image:
               repository: ghcr.io/k8snetworkplumbingwg/multus-cni
-              tag: v4.2.0@sha256:4aa43119b2fac1304a5ab003026845e493af289fba3f8af52a27737667ca666a
-            command:
-              - /thin_entrypoint
+              tag: latest@sha256:62554125679c9bb389a507b83c801e9a356309f8161e30dbf706682f85088df5
             args:
-              - --cleanup-config-on-exit=true
+              - --cleanup-config-on-exit
             resources:
               requests:
                 cpu: 10m
