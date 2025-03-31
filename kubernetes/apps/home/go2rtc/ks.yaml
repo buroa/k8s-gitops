@@ -13,7 +13,7 @@ spec:
       namespace: kube-system
     - name: multus-networks
       namespace: networking
-    - name: onepassword-store
+    - name: onepassword-stores
       namespace: external-secrets
   interval: 1h
   path: ./kubernetes/apps/home/go2rtc/app

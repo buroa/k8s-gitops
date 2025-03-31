@@ -11,7 +11,7 @@ spec:
   components:
     - ../../../../components/volsync
   dependsOn:
-    - name: onepassword-store
+    - name: onepassword-stores
       namespace: external-secrets
     - name: qbittorrent
       namespace: *namespace

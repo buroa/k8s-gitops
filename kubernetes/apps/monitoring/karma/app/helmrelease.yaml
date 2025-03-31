@@ -56,12 +56,6 @@ spec:
         runAsNonRoot: true
         runAsUser: 568
         runAsGroup: 568
-    service:
-      app:
-        controller: *app
-        ports:
-          http:
-            port: *port
     route:
       app:
         hostnames:
@@ -74,6 +68,12 @@ spec:
           - backendRefs:
               - name: *app
                 port: *port
+    service:
+      app:
+        controller: *app
+        ports:
+          http:
+            port: *port
     serviceMonitor:
       app:
         serviceName: *app

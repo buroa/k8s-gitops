@@ -11,7 +11,7 @@ spec:
   dependsOn:
     - name: cloudnative-pg-cluster
       namespace: databases
-    - name: onepassword-store
+    - name: onepassword-stores
       namespace: external-secrets
   interval: 1h
   path: ./kubernetes/apps/home/atuin/app
