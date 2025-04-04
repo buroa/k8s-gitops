@@ -2,6 +2,9 @@
 originRequest:
   originServerName: external.ktwo.io
 
+warp-routing:
+  enabled: true
+
 ingress:
   - { hostname: ktwo.io, service: https://cilium-gateway-external.kube-system.svc.cluster.local }
   - { hostname: "*.ktwo.io", service: https://cilium-gateway-external.kube-system.svc.cluster.local }
