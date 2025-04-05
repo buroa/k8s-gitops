@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: tailscale
+  name: &app tailscale
 spec:
   interval: 1h
   chartRef:
@@ -31,14 +31,29 @@ spec:
               tag: v1.82.0@sha256:d26fc9bb035b0559900cc6f23506f6b1ddab61a690ffab4f5d84feceb3de811e
             env:
               NO_AUTOUPDATE: true
+              TS_ENABLE_HEALTH_CHECK: true
+              TS_ENABLE_METRICS: true
               TS_EXTRA_ARGS: --advertise-connector --advertise-exit-node --advertise-tags=tag:k8s
               TS_ROUTES: 192.168.0.0/24,192.168.10.0/24,192.168.20.0/24
-              TS_STATE_DIR: &path /tmp
+              TS_STATE_DIR: /tmp
               TS_USERSPACE: true
               TZ: America/Chicago
             envFrom:
               - secretRef:
                   name: tailscale-secret
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /healthz
+                    port: &port 9002
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
             resources:
               requests:
                 cpu: 10m
@@ -54,11 +69,16 @@ spec:
         runAsUser: 568
         runAsGroup: 568
     persistence:
-      cache:
-        type: emptyDir
-        globalMounts:
-          - path: /.cache
       tmp:
         type: emptyDir
-        globalMounts:
-          - path: *path
+    service:
+      app:
+        controller: *app
+        ports:
+          http:
+            port: *port
+    serviceMonitor:
+      app:
+        serviceName: *app
+        endpoints:
+          - port: http
