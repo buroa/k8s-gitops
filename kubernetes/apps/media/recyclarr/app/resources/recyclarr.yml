@@ -35,7 +35,6 @@ radarr:
 
     quality_profiles:
       - name: SQP-1 (2160p)
-        min_format_score: 10
 
     include:
       - template: radarr-quality-definition-sqp-streaming
