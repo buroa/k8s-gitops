@@ -33,8 +33,10 @@ spec:
               NO_AUTOUPDATE: true
               TS_ENABLE_HEALTH_CHECK: true
               TS_ENABLE_METRICS: true
-              TS_EXTRA_ARGS: --advertise-connector --advertise-exit-node --advertise-tags=tag:k8s
-              TS_ROUTES: 192.168.0.0/24,192.168.10.0/24,192.168.20.0/24
+              TS_EXTRA_ARGS: >-
+                --advertise-connector
+                --advertise-exit-node
+                --advertise-tags=tag:k8s
               TS_STATE_DIR: /tmp
               TS_USERSPACE: true
               TZ: America/Chicago
