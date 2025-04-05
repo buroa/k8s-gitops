@@ -87,8 +87,6 @@ spec:
         globalMounts:
           - path: /media/downloads
             subPath: downloads
-      tmp:
-        type: emptyDir
     service:
       app:
         controller: *app

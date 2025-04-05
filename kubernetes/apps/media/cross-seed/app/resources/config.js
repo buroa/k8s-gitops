@@ -13,7 +13,7 @@ module.exports = {
   linkDirs: ["/media/downloads/torrents/complete/cross-seed"],
   linkType: "hardlink",
   matchMode: "partial",
-  outputDir: "/tmp",
+  outputDir: null,
   port: Number(process.env.CROSS_SEED_PORT),
   qbittorrentUrl: "http://qbittorrent.media.svc.cluster.local:8080",
   skipRecheck: true,
