@@ -107,7 +107,7 @@ graph TD;
 <details>
   <summary>Click to see a high-level network diagram</summary>
 
-  <img src="https://github.com/user-attachments/assets/c24d1d42-0cab-4aff-8b75-d2ebc1d15ab8" align="center" width="600px" alt="network"/>
+  <img src="https://github.com/user-attachments/assets/1503f079-84f4-4818-b881-92e64e3df2b6" align="center" width="600px" alt="network"/>
 </details>
 
 ---
