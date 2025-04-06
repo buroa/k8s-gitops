@@ -30,6 +30,7 @@ spec:
               repository: ghcr.io/tailscale/tailscale
               tag: v1.82.0@sha256:d26fc9bb035b0559900cc6f23506f6b1ddab61a690ffab4f5d84feceb3de811e
             env:
+              HOME: /tmp
               NO_AUTOUPDATE: true
               TS_ENABLE_HEALTH_CHECK: true
               TS_ENABLE_METRICS: true
@@ -39,7 +40,6 @@ spec:
                 --advertise-tags=tag:k8s
               TS_STATE_DIR: /tmp
               TS_USERSPACE: true
-              TZ: America/Chicago
             envFrom:
               - secretRef:
                   name: tailscale-secret
