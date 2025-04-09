@@ -21,3 +21,5 @@ machine:
         mtu: 65520
         addresses: [169.254.255.10/32]
         routes: [{ network: 169.254.255.11/32, metric: 2048 }]
+  nodeLabels:
+    topology.kubernetes.io/zone: m

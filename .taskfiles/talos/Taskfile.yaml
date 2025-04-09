@@ -15,7 +15,7 @@ tasks:
   apply-node:
     desc: Apply Talos config to a node [NODE=required] [MODE=auto]
     cmd: |-
-      minijinja-cli {{.TALOS_DIR}}/{{.MACHINE_TYPE}}.yaml.j2 | op inject \
+      minijinja-cli {{.TALOS_DIR}}/machineconfig.yaml.j2 | op inject \
         | talosctl --nodes {{.NODE}} apply-config \
           --mode {{.MODE}} \
           --config-patch @{{.TALOS_DIR}}/{{.MACHINE_TYPE}}/{{.NODE}}.yaml \
@@ -28,12 +28,14 @@ tasks:
         sh: |-
           talosctl --nodes {{.NODE}} get machinetypes --output=jsonpath='{.spec}' 2> /dev/null \
             || basename $(find '{{.TALOS_DIR}}' -name '{{.NODE}}.yaml' -printf '%h')
+    env:
+      MACHINE_TYPE: '{{.MACHINE_TYPE}}'
     requires:
       vars: [NODE]
     preconditions:
       - op user get --me
       - talosctl config info
-      - test -f {{.TALOS_DIR}}/{{.MACHINE_TYPE}}.yaml.j2
+      - test -f {{.TALOS_DIR}}/machineconfig.yaml.j2
       - test -f {{.TALOS_DIR}}/{{.MACHINE_TYPE}}/{{.NODE}}.yaml
       - which minijinja-cli op talosctl
 
