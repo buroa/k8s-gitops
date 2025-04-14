@@ -79,18 +79,6 @@ spec:
     persistence:
       config:
         existingClaim: *app
-      incomplete:
-        type: custom
-        volumeSpec:
-          ephemeral:
-            volumeClaimTemplate:
-              spec:
-                accessModes: [ReadWriteOnce]
-                resources:
-                  requests:
-                    storage: 500Gi
-                storageClassName: openebs-hostpath
-                volumeMode: Filesystem
       media:
         type: nfs
         server: nas.internal
