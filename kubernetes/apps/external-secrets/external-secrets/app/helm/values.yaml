@@ -4,15 +4,18 @@ replicaCount: 1
 leaderElect: true
 image:
   repository: ghcr.io/external-secrets/external-secrets
+  tag: 0.16.0
 webhook:
   image:
     repository: ghcr.io/external-secrets/external-secrets
+    tag: 0.16.0
   serviceMonitor:
     enabled: true
     interval: 1m
 certController:
   image:
     repository: ghcr.io/external-secrets/external-secrets
+    tag: 0.16.0
   serviceMonitor:
     enabled: true
     interval: 1m
