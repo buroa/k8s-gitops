@@ -11,6 +11,8 @@ spec:
   components:
     - ../../../../components/volsync
   dependsOn:
+    - name: openebs
+      namespace: openebs-system
     - name: rook-ceph-cluster
       namespace: rook-ceph
     - name: volsync

@@ -13,6 +13,8 @@ spec:
   dependsOn:
     - name: onepassword-stores
       namespace: external-secrets
+    - name: openebs
+      namespace: openebs-system
     - name: rook-ceph-cluster
       namespace: rook-ceph
     - name: volsync
