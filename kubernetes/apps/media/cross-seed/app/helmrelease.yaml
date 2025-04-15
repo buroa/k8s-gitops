@@ -80,13 +80,14 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /config/logs
+      config-torrent-cache:
+        type: emptyDir
+        globalMounts:
+          - path: /config/torrent_cache
       media:
         type: nfs
         server: nas.internal
         path: /volume1/media
-        globalMounts:
-          - path: /media/downloads
-            subPath: downloads
     service:
       app:
         controller: *app
