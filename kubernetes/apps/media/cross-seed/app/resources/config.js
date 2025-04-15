@@ -6,9 +6,6 @@
 module.exports = {
   action: "inject",
   apiKey: process.env.CROSS_SEED_API_KEY,
-  delay: 30,
-  includeNonVideos: true,
-  includeSingleEpisodes: true,
   linkCategory: "cross-seed",
   linkDirs: ["/media/downloads/torrents/complete/cross-seed"],
   linkType: "hardlink",
