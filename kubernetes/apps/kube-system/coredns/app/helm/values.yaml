@@ -32,6 +32,12 @@ servers:
           pods insecure
           fallthrough in-addr.arpa ip6.arpa
       - name: forward
+        parameters: . tls://8.8.8.8 tls://8.8.4.4
+        configBlock: |-
+          except ktwo.io internal
+          tls_servername dns.google
+          health_check 5s
+      - name: forward
         parameters: . /etc/resolv.conf
       - name: cache
       - name: loop
