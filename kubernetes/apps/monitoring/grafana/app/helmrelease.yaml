@@ -219,10 +219,10 @@ spec:
           datasource:
             - name: DS_PROMETHEUS
               value: Prometheus
-        synology-nas-details:
-          # renovate: depName="Synology NAS Details"
-          gnetId: 14284
-          revision: 10
+        synology-snmp:
+          # renovate: depName="Synology SNMP"
+          gnetId: 18643
+          revision: 1
           datasource:
             - name: DS_PROMETHEUS
               value: Prometheus
