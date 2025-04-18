@@ -43,7 +43,7 @@ servers:
         parameters: 0.0.0.0:9153
       - name: log
         configBlock: |-
-          class error
+          class all
 affinity:
   nodeAffinity:
     requiredDuringSchedulingIgnoredDuringExecution:
