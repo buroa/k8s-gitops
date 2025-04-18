@@ -29,7 +29,7 @@ servers:
       - name: autopath
         parameters: cluster.local @kubernetes
       - name: autopath
-        parameters: ktwo.io internal @forward
+        parameters: ktwo.io internal /etc/resolv.conf
       - name: kubernetes
         parameters: cluster.local in-addr.arpa ip6.arpa
         configBlock: |-
