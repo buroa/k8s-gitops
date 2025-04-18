@@ -21,11 +21,6 @@ servers:
         configBlock: |-
           lameduck 5s
       - name: ready
-      - name: log
-        configBlock: |-
-          class all
-      - name: prometheus
-        parameters: 0.0.0.0:9153
       - name: kubernetes
         parameters: cluster.local in-addr.arpa ip6.arpa
         configBlock: |-
@@ -37,10 +32,23 @@ servers:
         parameters: "@kubernetes"
       - name: forward
         parameters: . /etc/resolv.conf
+        configBlock: |-
+          max_concurrent 1000
+          policy random
+          health_check 5s
       - name: cache
+        configBlock: |-
+          success 9984
+          denial 9984
+          prefetch 20 90s
       - name: loop
       - name: reload
       - name: loadbalance
+      - name: prometheus
+        parameters: 0.0.0.0:9153
+      - name: log
+        configBlock: |-
+          class all
 affinity:
   nodeAffinity:
     requiredDuringSchedulingIgnoredDuringExecution:
