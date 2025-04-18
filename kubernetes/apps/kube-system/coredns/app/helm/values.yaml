@@ -27,7 +27,9 @@ servers:
       - name: prometheus
         parameters: 0.0.0.0:9153
       - name: autopath
-        parameters: "@kubernetes"
+        parameters: cluster.local @kubernetes
+      - name: autopath
+        parameters: ktwo.io internal @forward
       - name: kubernetes
         parameters: cluster.local in-addr.arpa ip6.arpa
         configBlock: |-
