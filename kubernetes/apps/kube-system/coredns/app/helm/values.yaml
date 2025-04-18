@@ -24,7 +24,7 @@ servers:
       - name: kubernetes
         parameters: cluster.local in-addr.arpa ip6.arpa
         configBlock: |-
-          pods insecure
+          pods verified
           fallthrough in-addr.arpa ip6.arpa
       - name: autopath
         parameters: ktwo.io internal /etc/resolv.conf
