@@ -32,6 +32,8 @@ servers:
           pods insecure
           fallthrough in-addr.arpa ip6.arpa
       - name: autopath
+        parameters: ktwo.io internal /etc/resolv.conf
+      - name: autopath
         parameters: "@kubernetes"
       - name: forward
         parameters: . /etc/resolv.conf
