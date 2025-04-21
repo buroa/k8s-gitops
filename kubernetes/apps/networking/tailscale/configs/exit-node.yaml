@@ -1,0 +1,8 @@
+---
+apiVersion: tailscale.com/v1alpha1
+kind: Connector
+metadata:
+  name: exit-node
+spec:
+  exitNode: true
+  hostname: homelab-egress

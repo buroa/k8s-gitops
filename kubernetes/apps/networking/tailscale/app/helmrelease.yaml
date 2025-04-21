@@ -1,86 +1,42 @@
 ---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: tailscale-operator
+spec:
+  interval: 5m
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 1.82.0
+  url: oci://ghcr.io/home-operations/charts-mirror/tailscale-operator
+  verify:
+    provider: cosign
+---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app tailscale
+  name: tailscale-operator
 spec:
   interval: 1h
   chartRef:
     kind: OCIRepository
-    name: app-template
-    namespace: flux-system
+    name: tailscale-operator
   install:
+    crds: CreateReplace
     remediation:
       retries: 3
   upgrade:
     cleanupOnFail: true
+    crds: CreateReplace
     remediation:
       strategy: rollback
       retries: 3
   values:
-    controllers:
-      tailscale:
-        replicas: 2
-        strategy: RollingUpdate
-        annotations:
-          reloader.stakater.com/auto: "true"
-        containers:
-          app:
-            image:
-              repository: ghcr.io/tailscale/tailscale
-              tag: v1.82.0@sha256:d26fc9bb035b0559900cc6f23506f6b1ddab61a690ffab4f5d84feceb3de811e
-            env:
-              HOME: /tmp
-              NO_AUTOUPDATE: true
-              TS_ENABLE_HEALTH_CHECK: true
-              TS_ENABLE_METRICS: true
-              TS_EXTRA_ARGS: >-
-                --advertise-connector
-                --advertise-exit-node
-                --advertise-tags=tag:k8s
-              TS_STATE_DIR: /tmp
-              TS_USERSPACE: true
-            envFrom:
-              - secretRef:
-                  name: tailscale-secret
-            probes:
-              liveness: &probes
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /healthz
-                    port: &port 9002
-                  initialDelaySeconds: 0
-                  periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              readiness: *probes
-            resources:
-              requests:
-                cpu: 10m
-              limits:
-                memory: 256Mi
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
-    defaultPodOptions:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 568
-        runAsGroup: 568
-    persistence:
-      tmp:
-        type: emptyDir
-    service:
-      app:
-        controller: *app
-        ports:
-          http:
-            port: *port
-    serviceMonitor:
-      app:
-        serviceName: *app
-        endpoints:
-          - port: http
+    oauthSecretVolume:
+      secret:
+        secretName: &secret tailscale-operator-secret
+    operatorConfig:
+      podAnnotations:
+        secret.reloader.stakater.com/reload: *secret
