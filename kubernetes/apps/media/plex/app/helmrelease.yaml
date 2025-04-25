@@ -80,8 +80,8 @@ spec:
         type: nfs
         server: nas.internal
         path: /volume1/media
-        globalMounts:
-          - readOnly: true
+        # globalMounts:
+        #   - readOnly: true
       tmp:
         type: emptyDir
       transcode:
