@@ -64,7 +64,7 @@ spec:
         runAsGroup: 568
         fsGroup: 568
         fsGroupChangePolicy: OnRootMismatch
-        supplementalGroups: [44, 65536]
+        supplementalGroups: [44, 65537]
     persistence:
       config:
         existingClaim: *app
@@ -80,8 +80,8 @@ spec:
         type: nfs
         server: nas.internal
         path: /volume1/media
-        # globalMounts:
-        #   - readOnly: true
+        globalMounts:
+          - readOnly: true
       tmp:
         type: emptyDir
       transcode:
