@@ -95,6 +95,9 @@ spec:
         type: nfs
         server: nas.internal
         path: /volume1/media
+        globalMounts:
+          - path: /media/downloads/nzbs
+            subPath: downloads/nzbs
       tmp:
         type: emptyDir
     route:

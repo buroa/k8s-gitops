@@ -40,9 +40,12 @@ machine:
       content: |
         [ NFSMount_Global_Options ]
         nfsvers=4.1
+        async=True
         hard=True
         nconnect=16
         noatime=True
+        rsize=1048576
+        wsize=1048576
   install:
     extraKernelArgs:
       - apparmor=0              # Less security, faster puter
