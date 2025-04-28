@@ -11,7 +11,7 @@ spec:
   dependsOn:
     - name: cert-manager
       namespace: cert-manager
-    - name: onepassword-stores
+    - name: external-secret-stores
       namespace: external-secrets
   interval: 1h
   path: ./kubernetes/apps/databases/emqx/app

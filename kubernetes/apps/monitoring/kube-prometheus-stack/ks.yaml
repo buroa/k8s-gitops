@@ -9,7 +9,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: onepassword-stores
+    - name: external-secret-stores
       namespace: external-secrets
     - name: rook-ceph-cluster
       namespace: rook-ceph

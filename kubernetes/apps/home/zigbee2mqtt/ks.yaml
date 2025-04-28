@@ -13,7 +13,7 @@ spec:
   dependsOn:
     - name: emqx-cluster
       namespace: databases
-    - name: onepassword-stores
+    - name: external-secret-stores
       namespace: external-secrets
     - name: rook-ceph-cluster
       namespace: rook-ceph
