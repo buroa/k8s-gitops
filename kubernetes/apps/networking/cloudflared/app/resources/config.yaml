@@ -3,6 +3,8 @@ originRequest:
   originServerName: external.ktwo.io
 
 ingress:
-  - { hostname: ktwo.io, service: https://cilium-gateway-external.kube-system.svc.cluster.local }
-  - { hostname: "*.ktwo.io", service: https://cilium-gateway-external.kube-system.svc.cluster.local }
-  - { service: http_status:404 }
+  - hostname: ktwo.io
+    service: &service https://cilium-gateway-external.kube-system.svc.cluster.local
+  - hostname: "*.ktwo.io"
+    service: *service
+  - service: http_status:404
