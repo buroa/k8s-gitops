@@ -106,7 +106,7 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.ktwo.io"
+          - "{{ .Release.Name }}.kreitzer.io"
         parentRefs:
           - name: internal
             namespace: kube-system

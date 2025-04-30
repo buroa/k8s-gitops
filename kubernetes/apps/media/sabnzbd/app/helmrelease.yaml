@@ -35,8 +35,8 @@ spec:
                 sabnzbd.media.svc,
                 sabnzbd.media.svc.cluster,
                 sabnzbd.media.svc.cluster.local,
-                {{ .Release.Name }}.ktwo.io,
-                sab.ktwo.io
+                {{ .Release.Name }}.kreitzer.io,
+                sab.kreitzer.io
               TZ: America/Chicago
             envFrom:
               - secretRef:
@@ -103,8 +103,8 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.ktwo.io"
-          - sab.ktwo.io
+          - "{{ .Release.Name }}.kreitzer.io"
+          - sab.kreitzer.io
         parentRefs:
           - name: internal
             namespace: kube-system

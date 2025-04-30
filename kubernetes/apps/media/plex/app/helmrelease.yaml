@@ -26,7 +26,7 @@ spec:
               repository: ghcr.io/home-operations/plex
               tag: 1.41.6.9685@sha256:37d36646471fb905a0080daaaa1f09ad3370b06149ed5f94dad73ead591cad0e
             env:
-              PLEX_ADVERTISE_URL: https://{{ .Release.Name }}.ktwo.io:443
+              PLEX_ADVERTISE_URL: https://{{ .Release.Name }}.kreitzer.io:443
               PLEX_NO_AUTH_NETWORKS: 192.168.1.0/24
               TZ: America/Chicago
             probes:
@@ -89,7 +89,7 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.ktwo.io"
+          - "{{ .Release.Name }}.kreitzer.io"
         parentRefs:
           - name: external
             namespace: kube-system

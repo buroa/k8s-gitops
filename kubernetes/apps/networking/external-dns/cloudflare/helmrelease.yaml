@@ -30,12 +30,12 @@ spec:
             args:
               - --cloudflare-dns-records-per-page=1000
               - --cloudflare-proxied
-              - --domain-filter=ktwo.io
+              - --domain-filter=kreitzer.io
               - --events
               - --gateway-name=external
               - --interval=1m
               - --log-format=text
-              - --log-level=info
+              - --log-level=debug
               - --policy=sync
               - --provider=cloudflare
               - --registry=txt

@@ -6,7 +6,7 @@ connectivity:
 
 endpoints:
   - name: flux-webhook
-    url: https://flux-webhook.ktwo.io
+    url: https://flux-webhook.kreitzer.io
     interval: 1m
     client:
       dns-resolver: tcp://1.1.1.1:53

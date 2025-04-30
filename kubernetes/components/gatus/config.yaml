@@ -1,7 +1,7 @@
 ---
 endpoints:
   - name: "${APP}"
-    url: "https://${GATUS_SUBDOMAIN:=${APP}}.ktwo.io${GATUS_PATH:=/}"
+    url: "https://${GATUS_SUBDOMAIN:=${APP}}.kreitzer.io${GATUS_PATH:=/}"
     interval: 1m
     client:
       dns-resolver: tcp://1.1.1.1:53

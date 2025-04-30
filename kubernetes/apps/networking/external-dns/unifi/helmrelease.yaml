@@ -67,11 +67,11 @@ spec:
               repository: registry.k8s.io/external-dns/external-dns
               tag: v0.16.1@sha256:37d3a7a05c4638b8177382b80a627c223bd84a53c1a91be137245bd3cfdf9986
             args:
-              - --domain-filter=ktwo.io
+              - --domain-filter=kreitzer.io
               - --events
               - --interval=1m
               - --log-format=text
-              - --log-level=info
+              - --log-level=debug
               - --policy=sync
               - --provider=webhook
               - --registry=txt
