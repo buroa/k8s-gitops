@@ -40,7 +40,6 @@ machine:
       content: |
         [ NFSMount_Global_Options ]
         nfsvers=4.1
-        async=True
         hard=True
         nconnect=16
         noatime=True
@@ -48,15 +47,18 @@ machine:
         wsize=1048576
   install:
     extraKernelArgs:
+      - -init_on_alloc          # Less security, faster puter
+      - -selinux                # Less security, faster puter
       - apparmor=0              # Less security, faster puter
       - init_on_alloc=0         # Less security, faster puter
       - init_on_free=0          # Less security, faster puter
+      - intel_idle.max_cstate=0 # Better performance
       - intel_iommu=on          # PCI Passthrough
       - iommu=pt                # PCI Passthrough
       - mitigations=off         # Less security, faster puter
       - security=none           # Less security, faster puter
       - talos.auditd.disabled=1 # Less security, faster puter
-    image: factory.talos.dev/installer-secureboot/c4656257d36b75c5459a556bd4613c94badd08aaecd39734b2901637b5c93b0b:{{ ENV.TALOS_VERSION }}
+    image: factory.talos.dev/metal-installer/22ee1aa9f9a9bbaaaee19b75c8a40af262baf0bd240fdc3c17948cab821c05f5:{{ ENV.TALOS_VERSION }}
     wipe: false
   kernel:
     modules:
