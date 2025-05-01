@@ -207,3 +207,17 @@ cluster:
   serviceAccount:
     key: op://K8s/talos/CLUSTER_SERVICEACCOUNT_KEY
   {% endif %}
+---
+apiVersion: v1alpha1
+kind: EthernetConfig
+name: enp2s0f0np0
+rings:
+  rx: 8160
+  tx: 8160
+---
+apiVersion: v1alpha1
+kind: EthernetConfig
+name: enp2s0f1np1
+rings:
+  rx: 8160
+  tx: 8160
