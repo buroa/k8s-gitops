@@ -26,7 +26,7 @@ spec:
           app:
             image:
               repository: registry.k8s.io/external-dns/external-dns
-              tag: v0.15.1
+              tag: v0.16.1
             args:
               - --cloudflare-dns-records-per-page=1000
               - --cloudflare-proxied
