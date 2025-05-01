@@ -112,9 +112,6 @@ machine:
     vm.nr_hugepages: 1024                  # PostgreSQL
   sysfs:
     devices.system.cpu.intel_pstate.hwp_dynamic_boost: 1
-    devices.system.cpu.cpu0.cpuidle.state1.disable: 1
-    devices.system.cpu.cpu0.cpuidle.state2.disable: 1
-    devices.system.cpu.cpu0.cpuidle.state3.disable: 1
   time:
     disabled: false
     servers: ["time.google.com"]
