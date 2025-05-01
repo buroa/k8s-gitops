@@ -1,15 +1,15 @@
 ---
 connectivity:
   checker:
-    target: 1.1.1.1:53
+    target: 8.8.8.8:53
     interval: 1m
 
 endpoints:
   - name: flux-webhook
-    url: https://flux-webhook.kreitzer.io
+    url: https://flux-webhook.k13.dev
     interval: 1m
     client:
-      dns-resolver: tcp://1.1.1.1:53
+      dns-resolver: tcp://8.8.8.8:53
     conditions:
       - "[STATUS] == 404"
 

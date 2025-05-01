@@ -39,7 +39,7 @@ spec:
       GF_EXPLORE_ENABLED: true
       GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS: natel-discrete-panel,pr0ps-trackmap-panel,panodata-map-panel
       GF_SECURITY_ANGULAR_SUPPORT_ENABLED: true
-      GF_SERVER_ROOT_URL: https://{{ .Release.Name }}.kreitzer.io
+      GF_SERVER_ROOT_URL: https://{{ .Release.Name }}.k13.dev
     grafana.ini:
       analytics:
         check_for_updates: false
@@ -262,7 +262,7 @@ spec:
       main:
         enabled: true
         hostnames:
-          - "{{ .Release.Name }}.kreitzer.io"
+          - "{{ .Release.Name }}.k13.dev"
         parentRefs:
           - name: internal
             namespace: kube-system

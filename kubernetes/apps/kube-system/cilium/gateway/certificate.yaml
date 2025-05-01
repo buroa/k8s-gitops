@@ -2,11 +2,11 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: kreitzer-io
+  name: k13
 spec:
-  secretName: kreitzer-io-tls
+  secretName: k13-tls
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
-  commonName: kreitzer.io
-  dnsNames: ["kreitzer.io", "*.kreitzer.io"]
+  commonName: k13.dev
+  dnsNames: ["k13.dev", "*.k13.dev"]

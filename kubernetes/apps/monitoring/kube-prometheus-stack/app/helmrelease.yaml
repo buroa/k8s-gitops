@@ -41,7 +41,7 @@ spec:
         main:
           enabled: true
           hostnames:
-            - am.kreitzer.io
+            - am.k13.dev
           parentRefs:
             - name: internal
               namespace: kube-system
@@ -51,7 +51,7 @@ spec:
           name: alertmanager
           global:
             resolveTimeout: 5m
-        externalUrl: https://am.kreitzer.io
+        externalUrl: https://am.k13.dev
         storage:
           volumeClaimTemplate:
             spec:
@@ -70,7 +70,7 @@ spec:
         main:
           enabled: true
           hostnames:
-            - prometheus.kreitzer.io
+            - prometheus.k13.dev
           parentRefs:
             - name: internal
               namespace: kube-system
@@ -85,7 +85,7 @@ spec:
         walCompression: true
         enableFeatures:
           - memory-snapshot-on-shutdown
-        externalUrl: https://prometheus.kreitzer.io
+        externalUrl: https://prometheus.k13.dev
         retention: 14d
         retentionSize: 50GB
         resources:

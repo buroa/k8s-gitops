@@ -4,7 +4,7 @@ kind: Gateway
 metadata:
   name: external
   annotations:
-    external-dns.alpha.kubernetes.io/target: &hostname external.kreitzer.io
+    external-dns.alpha.kubernetes.io/target: &hostname external.k13.dev
 spec:
   gatewayClassName: cilium
   addresses:
@@ -19,18 +19,18 @@ spec:
     - name: http
       protocol: HTTP
       port: 80
-      hostname: "*.kreitzer.io"
+      hostname: "*.k13.dev"
       allowedRoutes:
         namespaces:
           from: Same
     - name: https
       protocol: HTTPS
       port: 443
-      hostname: "*.kreitzer.io"
+      hostname: "*.k13.dev"
       allowedRoutes:
         namespaces:
           from: All
       tls:
         certificateRefs:
           - kind: Secret
-            name: kreitzer-io-tls
+            name: k13-tls

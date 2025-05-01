@@ -76,8 +76,8 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.kreitzer.io"
-          - requests.kreitzer.io
+          - "{{ .Release.Name }}.k13.dev"
+          - requests.k13.dev
         parentRefs:
           - name: external
             namespace: kube-system

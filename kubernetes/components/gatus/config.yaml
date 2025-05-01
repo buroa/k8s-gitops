@@ -1,9 +1,9 @@
 ---
 endpoints:
   - name: "${APP}"
-    url: "https://${GATUS_SUBDOMAIN:=${APP}}.kreitzer.io${GATUS_PATH:=/}"
+    url: "https://${GATUS_SUBDOMAIN:=${APP}}.k13.dev${GATUS_PATH:=/}"
     interval: 1m
     client:
-      dns-resolver: tcp://1.1.1.1:53
+      dns-resolver: tcp://8.8.8.8:53
     conditions:
       - "[STATUS] == ${GATUS_STATUS:=200}"

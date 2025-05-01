@@ -26,7 +26,7 @@ spec:
               repository: ghcr.io/home-operations/home-assistant
               tag: 2025.4.4@sha256:dc7bb47eb6b3f62405c185cbc633771527b9710530023f7177d99a09eb858fc4
             env:
-              HOME_ASSISTANT_EXTERNAL_URL: https://hass.kreitzer.io
+              HOME_ASSISTANT_EXTERNAL_URL: https://hass.k13.dev
               HOME_ASSISTANT_PURGE_KEEP_DAYS: 30
               HOME_ASSISTANT_TRUSTED_PROXIES: 10.244.0.0/16
               HOME_ASSISTANT_UNIT_SYSTEM: us_customary
@@ -70,8 +70,8 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.kreitzer.io"
-          - hass.kreitzer.io
+          - "{{ .Release.Name }}.k13.dev"
+          - hass.k13.dev
         parentRefs:
           - name: internal
             namespace: kube-system

@@ -1,10 +1,10 @@
 ---
 originRequest:
-  originServerName: external.kreitzer.io
+  originServerName: external.k13.dev
 
 ingress:
-  - hostname: kreitzer.io
+  - hostname: k13.dev
     service: &service https://cilium-gateway-external.kube-system.svc.cluster.local
-  - hostname: "*.kreitzer.io"
+  - hostname: "*.k13.dev"
     service: *service
   - service: http_status:404
