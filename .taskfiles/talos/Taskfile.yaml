@@ -30,6 +30,10 @@ tasks:
             || basename $(find '{{.TALOS_DIR}}' -name '{{.NODE}}.yaml' -printf '%h')
     env:
       MACHINE_TYPE: '{{.MACHINE_TYPE}}'
+      TALOS_SCHEMATIC:
+        sh: |-
+          curl --silent -X POST --data-binary @{{.TALOS_DIR}}/schematic.yaml https://factory.talos.dev/schematics \
+            | jq --raw-output '.id'
     requires:
       vars: [NODE]
     preconditions:
@@ -37,7 +41,8 @@ tasks:
       - talosctl config info
       - test -f {{.TALOS_DIR}}/machineconfig.yaml.j2
       - test -f {{.TALOS_DIR}}/{{.MACHINE_TYPE}}/{{.NODE}}.yaml
-      - which minijinja-cli op talosctl
+      - test -f {{.TALOS_DIR}}/schematic.yaml
+      - which curl jq minijinja-cli op talosctl
 
   upgrade-node:
     desc: Upgrade Talos on a single node [NODE=required]
@@ -47,7 +52,7 @@ tasks:
         sh: talosctl --nodes {{.NODE}} get machinetypes --output=jsonpath='{.spec}'
       TALOS_IMAGE:
         sh: |-
-          talosctl --nodes {{.NODE}} get machineconfig --output=jsonpath='{.spec}' \
+          talosctl --nodes {{.NODE}} get machineconfig persistent --output=jsonpath='{.spec}' \
             | yq '.machine.install.image'
     requires:
       vars: [NODE]
