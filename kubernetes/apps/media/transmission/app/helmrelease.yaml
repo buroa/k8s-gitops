@@ -28,6 +28,7 @@ spec:
             env:
               TRANSMISSION__DOWNLOAD_DIR: /media/downloads/torrents
               TRANSMISSION__INCOMPLETE_DIR: /incomplete
+              TRANSMISSION__PEER_PORT: 1337
               TZ: America/Chicago
             resources:
               requests:
