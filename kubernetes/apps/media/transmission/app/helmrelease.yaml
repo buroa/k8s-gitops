@@ -28,7 +28,6 @@ spec:
             env:
               TRANSMISSION__DOWNLOAD_DIR: /media/downloads/torrents
               TRANSMISSION__INCOMPLETE_DIR: /incomplete
-              TRANSMISSION__PEER_PORT: &port 1337
               TZ: America/Chicago
             resources:
               requests:
@@ -82,14 +81,14 @@ spec:
         rules:
           - backendRefs:
               - name: *app
-                port: *port
+                port: 9091
     service:
       app:
         controller: *app
         nameOverride: *app
         ports:
           http:
-            port: *port
+            port: 9091
       bittorrent:
         controller: *app
         type: LoadBalancer
@@ -97,5 +96,5 @@ spec:
           lbipam.cilium.io/ips: 192.168.20.83, ::ffff:192.168.20.82
         ports:
           bittorrent-tcp:
-            port: *port
+            port: 1337
             protocol: TCP
