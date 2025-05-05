@@ -108,5 +108,5 @@ spec:
           lbipam.cilium.io/ips: 192.168.20.83, ::ffff:192.168.20.83
         ports:
           bittorrent-tcp:
-            port: 12345
+            port: 6881
             protocol: TCP
