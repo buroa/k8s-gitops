@@ -52,8 +52,8 @@ tasks:
         sh: talosctl --nodes {{.NODE}} get machinetypes --output=jsonpath='{.spec}'
       TALOS_IMAGE:
         sh: |-
-          talosctl --nodes {{.NODE}} get machineconfig persistent --output=jsonpath='{.spec}' \
-            | yq '.machine.install.image'
+          talosctl --nodes {{.NODE}} get machineconfig --output=jsonpath='{.spec}' \
+            | yq '.machine.install.image | select(. != null)'
     requires:
       vars: [NODE]
     preconditions:
