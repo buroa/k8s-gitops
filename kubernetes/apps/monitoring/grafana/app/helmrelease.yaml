@@ -144,11 +144,6 @@ spec:
           gnetId: 15038
           revision: 3
           datasource: Prometheus
-        external-secrets:
-          # renovate: depName="External Secrets"
-          gnetId: 21640
-          revision: 4
-          datasource: [{ name: DS_METRICS, value: Prometheus }]
         kubernetes-api-server:
           # renovate: depName="Kubernetes / System / API Server"
           gnetId: 15761
