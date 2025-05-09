@@ -24,7 +24,7 @@ spec:
           app:
             image:
               repository: ghcr.io/home-operations/home-assistant
-              tag: 2025.5.0@sha256:2ff8c411175e243674c33a14d37e6b4145eea77c1bc3873086cdd396e2afabb9
+              tag: 2025.5.1@sha256:06166da72e3f7ba344a7323d3541dc8e316b56df2bbd6994e49d1b4d5bfc3b3b
             env:
               HOME_ASSISTANT_EXTERNAL_URL: https://hass.k13.dev
               HOME_ASSISTANT_PURGE_KEEP_DAYS: 30
