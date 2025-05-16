@@ -5,7 +5,7 @@ namespace: home
 components:
   - ../../components/common
 resources:
-  # - ./atuin/ks.yaml
+  - ./atuin/ks.yaml
   - ./go2rtc/ks.yaml
   - ./home-assistant/ks.yaml
   - ./zigbee2mqtt/ks.yaml
