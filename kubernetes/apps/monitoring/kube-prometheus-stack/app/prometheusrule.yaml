@@ -9,20 +9,10 @@ spec:
       rules:
         - alert: DockerhubRateLimitRisk
           expr: |
-            count(time() - container_last_seen{image=~"(docker.io).*",container!=""} < 30) > 25
+            count(time() - container_last_seen{image=~"(docker.io).*",container!=""} < 30) > 100
           annotations:
             summary: >-
               Kubernetes cluster Dockerhub rate limit risk
-          labels:
-            severity: critical
-
-        - alert: ExternalDNSStale
-          expr: |
-            time() - external_dns_controller_last_sync_timestamp_seconds > 60
-          for: 5m
-          annotations:
-            summary: >-
-              ExternalDNS ({{ $labels.job }}) has not synced successfully in the last five minutes
           labels:
             severity: critical
 
