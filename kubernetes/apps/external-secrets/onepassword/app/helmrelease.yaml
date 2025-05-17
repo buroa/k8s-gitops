@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app onepassword
+  name: onepassword
 spec:
   interval: 1h
   chartRef:
@@ -113,7 +113,6 @@ spec:
           - path: *configDir
     service:
       app:
-        controller: *app
         ports:
           http:
             port: *apiPort
