@@ -2,29 +2,17 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app zigbee2mqtt
+  name: &app mosquitto
   namespace: &namespace home
 spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  components:
-    - ../../../../components/volsync
   dependsOn:
-    - name: mosquitto
-      namespace: *namespace
-    - name: onepassword-stores
-      namespace: external-secrets
     - name: rook-ceph-cluster
       namespace: rook-ceph
-    - name: volsync
-      namespace: volsync-system
   interval: 1h
-  path: ./kubernetes/apps/home/zigbee2mqtt/app
-  postBuild:
-    substitute:
-      APP: *app
-      VOLSYNC_CAPACITY: 1Gi
+  path: ./kubernetes/apps/home/mosquitto/app
   prune: true
   retryInterval: 2m
   sourceRef:

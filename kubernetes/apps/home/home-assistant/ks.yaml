@@ -11,8 +11,8 @@ spec:
   components:
     - ../../../../components/volsync
   dependsOn:
-    - name: emqx-cluster
-      namespace: databases
+    - name: mosquitto
+      namespace: *namespace
     - name: multus-networks
       namespace: networking
     - name: rook-ceph-cluster
