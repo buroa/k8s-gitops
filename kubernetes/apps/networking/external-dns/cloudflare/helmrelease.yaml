@@ -80,8 +80,6 @@ spec:
         ports:
           http:
             port: *port
-    serviceAccount:
-      external-dns-cloudflare: {}
     serviceMonitor:
       app:
         serviceName: *app

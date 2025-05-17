@@ -112,8 +112,6 @@ spec:
         ports:
           http:
             port: *port
-    serviceAccount:
-      gatus: {}
     serviceMonitor:
       app:
         serviceName: *app

@@ -110,8 +110,6 @@ spec:
         ports:
           http:
             port: *port
-    serviceAccount:
-      external-dns-unifi: {}
     serviceMonitor:
       app:
         serviceName: *app
