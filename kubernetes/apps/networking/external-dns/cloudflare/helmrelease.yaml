@@ -68,6 +68,8 @@ spec:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
+        serviceAccount:
+          identifier: *app
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
@@ -80,8 +82,7 @@ spec:
           http:
             port: *port
     serviceAccount:
-      create: true
-      name: *app
+      external-dns-cloudflare: {}
     serviceMonitor:
       app:
         serviceName: *app
