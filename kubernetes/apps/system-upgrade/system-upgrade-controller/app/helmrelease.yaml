@@ -43,11 +43,10 @@ spec:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
+        serviceAccount:
+          name: *app
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
         runAsUser: 568
         runAsGroup: 568
-    serviceAccount:
-      name: *app
-      create: true

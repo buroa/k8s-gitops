@@ -68,6 +68,8 @@ spec:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
+        serviceAccount:
+          name: *app
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
@@ -75,13 +77,9 @@ spec:
         runAsGroup: 568
     service:
       app:
-        controller: *app
         ports:
           http:
             port: *port
-    serviceAccount:
-      create: true
-      name: *app
     serviceMonitor:
       app:
         serviceName: *app

@@ -93,7 +93,6 @@ spec:
             subPath: downloads
     service:
       app:
-        controller: *app
         ports:
           http:
             port: *port

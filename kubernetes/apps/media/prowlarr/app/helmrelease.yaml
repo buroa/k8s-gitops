@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app prowlarr
+  name: prowlarr
 spec:
   interval: 1h
   chartRef:
@@ -87,11 +87,10 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
-              - name: *app
+              - identifier: app
                 port: *port
     service:
       app:
-        controller: *app
         ports:
           http:
             port: *port

@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app mosquitto
+  name: mosquitto
 spec:
   interval: 1h
   chartRef:
@@ -47,7 +47,6 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        controller: *app
         ports:
           http:
             port: 1883

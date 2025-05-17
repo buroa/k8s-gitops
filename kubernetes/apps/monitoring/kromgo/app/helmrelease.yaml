@@ -68,14 +68,6 @@ spec:
           - path: /kromgo/config.yaml
             subPath: config.yaml
             readOnly: true
-    service:
-      app:
-        controller: *app
-        ports:
-          http:
-            port: *port
-          health:
-            port: *healthPort
     route:
       app:
         hostnames:
@@ -86,8 +78,15 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
-              - name: *app
+              - identifier: app
                 port: *port
+    service:
+      app:
+        ports:
+          http:
+            port: *port
+          health:
+            port: *healthPort
     serviceMonitor:
       app:
         serviceName: *app
