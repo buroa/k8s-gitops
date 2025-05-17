@@ -103,7 +103,7 @@ spec:
                 port: *port
     service:
       app:
-        nameOverride: *app
+        forceRename: *app
         ports:
           http:
             port: *port
