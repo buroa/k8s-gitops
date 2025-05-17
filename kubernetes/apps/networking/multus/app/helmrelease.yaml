@@ -41,7 +41,7 @@ spec:
             securityContext:
               privileged: true
         serviceAccount:
-          identifier: *app
+          name: *app
     defaultPodOptions:
       hostNetwork: true
     persistence:

@@ -99,7 +99,7 @@ spec:
             resources: *resources
             securityContext: *securityContext
         serviceAccount:
-          identifier: *app
+          name: *app
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true

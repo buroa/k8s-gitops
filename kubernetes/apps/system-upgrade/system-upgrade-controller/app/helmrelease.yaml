@@ -44,7 +44,7 @@ spec:
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
         serviceAccount:
-          identifier: *app
+          name: *app
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
