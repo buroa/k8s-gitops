@@ -13,6 +13,6 @@ spec:
           for: 5m
           annotations:
             summary: >-
-              {{ $labels.network }} has unmonitored IRC channels
+              One or more IRC channels on the {{ $labels.network }} network are enabled but not being monitored
           labels:
             severity: critical
