@@ -39,6 +39,7 @@ spec:
               - --last-activity
               - --sites
               - --unregistered
+              - --not-linked
             env:
               QBITTORRENT_HOST: qbittorrent.media.svc.cluster.local
               QBITTORRENT_PORT: 8080
