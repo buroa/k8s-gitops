@@ -39,6 +39,7 @@ spec:
               - --last-activity
               - --sites
               - --unregistered
+              - --not-linked
             env:
               QBITTORRENT_HOST: qbittorrent.media.svc.cluster.local
               QBITTORRENT_PORT: 8080
@@ -90,3 +91,9 @@ spec:
           - path: /config/config.yaml
             subPath: config.yaml
             readOnly: true
+      media:
+        type: nfs
+        server: nas.internal
+        path: /volume1/media
+        globalMounts:
+          - readOnly: true
