@@ -73,8 +73,15 @@ spec:
         runAsUser: 568
         runAsGroup: 568
     persistence:
-      tmp:
+      tmpfs:
         type: emptyDir
+        advancedMounts:
+          autobrr:
+            app:
+              - path: /config/log
+                subPath: log
+              - path: /tmp
+                subPath: tmp
     route:
       app:
         hostnames:

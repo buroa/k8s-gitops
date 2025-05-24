@@ -72,20 +72,23 @@ spec:
         existingClaim: plex-cache
         globalMounts:
           - path: /config/Library/Application Support/Plex Media Server/Cache
-      config-logs:
-        type: emptyDir
-        globalMounts:
-          - path: /config/Library/Application Support/Plex Media Server/Logs
       media:
         type: nfs
         server: nas.internal
         path: /volume1/media
         globalMounts:
           - readOnly: true
-      tmp:
+      tmpfs:
         type: emptyDir
-      transcode:
-        type: emptyDir
+        advancedMounts:
+          plex:
+            app:
+              - path: /config/Library/Application Support/Plex Media Server/Logs
+                subPath: logs
+              - path: /transcode
+                subPath: transcode
+              - path: /tmp
+                subPath: tmp
     route:
       app:
         hostnames:
