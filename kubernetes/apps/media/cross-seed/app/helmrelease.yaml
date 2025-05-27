@@ -76,14 +76,6 @@ spec:
           - path: /config/config.js
             subPath: config.js
             readOnly: true
-      config-logs:
-        type: emptyDir
-        globalMounts:
-          - path: /config/logs
-      config-torrent-cache:
-        type: emptyDir
-        globalMounts:
-          - path: /config/torrent_cache
       media:
         type: nfs
         server: nas.internal
@@ -91,6 +83,17 @@ spec:
         globalMounts:
           - path: /media/downloads
             subPath: downloads
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          cross-seed:
+            app:
+              - path: /config/logs
+                subPath: logs
+              - path: /config/torrent_cache
+                subPath: torrent_cache
+              - path: /tmp
+                subPath: tmp
     service:
       app:
         ports:

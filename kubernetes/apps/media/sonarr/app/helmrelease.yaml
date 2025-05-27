@@ -78,16 +78,19 @@ spec:
     persistence:
       config:
         existingClaim: *app
-      config-logs:
-        type: emptyDir
-        globalMounts:
-          - path: /config/logs
       media:
         type: nfs
         server: nas.internal
         path: /volume1/media
-      tmp:
+      tmpfs:
         type: emptyDir
+        advancedMounts:
+          sonarr:
+            app:
+              - path: /config/logs
+                subPath: logs
+              - path: /tmp
+                subPath: tmp
     route:
       app:
         hostnames:
