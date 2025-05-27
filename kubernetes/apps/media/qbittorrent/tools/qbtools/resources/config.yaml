@@ -16,7 +16,7 @@ trackers:
   - { name: nbl,  required_seed_ratio: 0,    required_seed_days: 7.1,  urls: ["nebulance.io"] }
   - { name: oe,   required_seed_ratio: 1.01, required_seed_days: 14.1, urls: ["onlyencodes.cc"] }
   - { name: phd,  required_seed_ratio: 1.01, required_seed_days: 14.1, urls: ["privatehd.to"] }
-  - { name: ptp,  required_seed_ratio: 1.01, required_seed_days: 14.1, urls: ["passthepopcorn.me"] }
+  - { name: ptp,  required_seed_ratio: 0,    required_seed_days: 0,    urls: ["passthepopcorn.me"] }
   - { name: rfx,  required_seed_ratio: 1.01, required_seed_days: 7.1,  urls: ["reelflix.xyz"] }
   - { name: st,   required_seed_ratio: 1.01, required_seed_days: 7.1,  urls: ["scenetime.com"] }
   - { name: td,   required_seed_ratio: 1.01, required_seed_days: 7.1,  urls: ["jumbohostpro.eu", "td-peers.com"] }
