@@ -18,6 +18,7 @@ trackers:
   - { name: phd,  required_seed_ratio: 1.01, required_seed_days: 14.1, urls: ["privatehd.to"] }
   - { name: ptp,  required_seed_ratio: 0,    required_seed_days: 0,    urls: ["passthepopcorn.me"] }
   - { name: rfx,  required_seed_ratio: 1.01, required_seed_days: 7.1,  urls: ["reelflix.xyz"] }
+  - { name: sp,   required_seed_ratio: 1.01, required_seed_days: 14.1, urls: ["seedpool.org"] }
   - { name: st,   required_seed_ratio: 1.01, required_seed_days: 7.1,  urls: ["scenetime.com"] }
   - { name: td,   required_seed_ratio: 1.01, required_seed_days: 7.1,  urls: ["jumbohostpro.eu", "td-peers.com"] }
   - { name: tl,   required_seed_ratio: 1.01, required_seed_days: 7.1,  urls: ["tleechreload.org", "torrentleech.org"] }
