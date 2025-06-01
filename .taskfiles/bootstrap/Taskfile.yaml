@@ -25,7 +25,7 @@ tasks:
       - defer: talosctl kubeconfig --nodes {{.RANDOM_CONTROLLER}} --force {{.KUBERNETES_DIR}}
       - until kubectl wait nodes --for=condition=Ready=False --all --timeout=10m; do sleep 5; done
       - op inject --in-file {{.BOOTSTRAP_DIR}}/secrets.yaml.tpl | kubectl apply --server-side --filename -
-      - helmfile --file {{.BOOTSTRAP_DIR}}/helmfile.yaml apply --skip-diff-on-install --suppress-diff
+      - helmfile --file {{.BOOTSTRAP_DIR}}/helmfile.yaml sync --hide-notes
     vars:
       CONTEXT:
         sh: talosctl config info --output json | jq --raw-output '.context'
