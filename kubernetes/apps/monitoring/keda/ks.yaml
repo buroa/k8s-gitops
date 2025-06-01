@@ -2,24 +2,14 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app radarr
-  namespace: &namespace media
+  name: &app keda
+  namespace: &namespace monitoring
 spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  dependsOn:
-    - name: cloudnative-pg-cluster
-      namespace: databases
-    - name: onepassword-stores
-      namespace: external-secrets
-    - name: rook-ceph-cluster
-      namespace: rook-ceph
   interval: 1h
-  path: ./kubernetes/apps/media/radarr/app
-  postBuild:
-    substitute:
-      APP: *app
+  path: ./kubernetes/apps/monitoring/keda/app
   prune: true
   retryInterval: 2m
   sourceRef:

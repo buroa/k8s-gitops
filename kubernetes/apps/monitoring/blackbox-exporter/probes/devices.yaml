@@ -2,7 +2,7 @@
 kind: Probe
 apiVersion: monitoring.coreos.com/v1
 metadata:
-  name: homelab
+  name: devices
 spec:
   module: icmp
   prober:
