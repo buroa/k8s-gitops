@@ -3,7 +3,6 @@ apiVersion: monitoring.giantswarm.io/v1alpha1
 kind: Silence
 metadata:
   name: ceph-node-nfsmount-diskspace-warning
-  namespace: observability
 spec:
   matchers:
     - name: alertname
@@ -17,7 +16,6 @@ apiVersion: monitoring.giantswarm.io/v1alpha1
 kind: Silence
 metadata:
   name: ceph-node-local-diskspace-warning
-  namespace: observability
 spec:
   matchers:
     - name: alertname
@@ -25,4 +23,17 @@ spec:
       isRegex: false
     - name: device
       value: /dev/nvme.*
+      isRegex: true
+---
+apiVersion: monitoring.giantswarm.io/v1alpha1
+kind: Silence
+metadata:
+  name: keda-hpa-maxed-out
+spec:
+  matchers:
+    - name: alertname
+      value: KubeHpaMaxedOut
+      isRegex: false
+    - name: horizontalpodautoscaler
+      value: keda-hpa-.*
       isRegex: true

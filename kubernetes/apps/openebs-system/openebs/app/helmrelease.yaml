@@ -26,12 +26,11 @@ spec:
   install:
     disableHooks: true
     remediation:
-      retries: 3
+      retries: -1
   upgrade:
     cleanupOnFail: true
     disableHooks: true
     remediation:
-      strategy: rollback
       retries: 3
   values:
     localpv-provisioner:

@@ -24,12 +24,11 @@ spec:
   install:
     crds: Skip
     remediation:
-      retries: 3
+      retries: -1
   upgrade:
     cleanupOnFail: true
     crds: Skip
     remediation:
-      strategy: rollback
       retries: 3
   values:
     deploymentMode: SingleBinary
