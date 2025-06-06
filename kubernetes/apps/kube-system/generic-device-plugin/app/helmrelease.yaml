@@ -41,6 +41,9 @@ spec:
               capabilities: { drop: ["ALL"] }
     defaultPodOptions:
       priorityClassName: system-node-critical
+      tolerations:
+        - key: CriticalAddonsOnly
+          operator: Exists
     persistence:
       config:
         type: configMap

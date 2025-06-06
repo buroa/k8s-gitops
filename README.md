@@ -49,7 +49,7 @@ This is a repository for my home infrastructure and Kubernetes cluster. I try to
 
 ## <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f331/512.gif" alt="🌱" width="20" height="20"> Kubernetes
 
-This semi hyper-converged cluster operates on [Talos Linux](https://github.com/siderolabs/talos), an immutable and ephemeral Linux distribution tailored for [Kubernetes](https://github.com/kubernetes/kubernetes), and is deployed on bare-metal [MS-01](https://store.minisforum.com/products/minisforum-ms-01) workstations. [Rook](https://github.com/rook/rook) supplies my workloads with persistent block, object, and file storage, while a separate server handles media file storage. The cluster is designed to enable a full teardown without any data loss.
+This semi hyper-converged cluster operates on [Talos Linux](https://github.com/siderolabs/talos), an immutable and ephemeral Linux distribution tailored for [Kubernetes](https://github.com/kubernetes/kubernetes), and is deployed on bare-metal [MS-A2](https://store.minisforum.com/products/minisforum-ms-a2) workstations. [Rook](https://github.com/rook/rook) supplies my workloads with persistent block, object, and file storage, while a separate server handles media file storage. The cluster is designed to enable a full teardown without any data loss.
 
 There is a template at [onedr0p/cluster-template](https://github.com/onedr0p/cluster-template) if you want to follow along with some of the practices I use here.
 
@@ -123,23 +123,23 @@ In my cluster there are two instances of [ExternalDNS](https://github.com/kubern
 <details>
   <summary>Click to see my rack</summary>
 
-  <img src="https://github.com/user-attachments/assets/43bd0ca8-a1a8-49d5-9b9a-04fbdcecdd3f" align="center" alt="rack"/>
-</details>
+    <img src="https://github.com/user-attachments/assets/43bd0ca8-a1a8-49d5-9b9a-04fbdcecdd3f" align="center" alt="rack"/>
+  </details>
 
-| Device                    | Count | OS Disk Size | Data Disk Size          | Ram  | Operating System | Purpose                 |
-|---------------------------|-------|--------------|-------------------------|------|------------------|-------------------------|
-| MS-01 (i9-13900H)         | 3     | 1.92TB M.2   | 3.84TB U.2 + 1.92TB M.2 | 96GB | Talos            | Kubernetes              |
-| Synology NAS RS1221+      | 1     | -            | 8x22TB HDD              | 32GB | DSM 7            | NFS                     |
-| PiKVM (RasPi 4)           | 1     | 64GB (SD)    | -                       | 4GB  | PiKVM            | KVM                     |
-| TESmart 8 Port KVM Switch | 1     | -            | -                       | -    | -                | Network KVM (for PiKVM) |
-| UniFi UDM Pro Max         | 1     | -            | 2x16TB HDD              | -    | UniFi OS         | Router & NVR            |
-| UniFi USW Pro Aggregation | 1     | -            | -                       | -    | UniFi OS         | 10G/25Gb Core Switch    |
-| UniFi USW Pro Max 24 PoE  | 1     | -            | -                       | -    | UniFi OS         | 2.5Gb PoE Switch        |
-| UniFi USP PDU Pro         | 1     | -            | -                       | -    | UniFi OS         | PDU                     |
-| APC SMT15000RM2UNC        | 1     | -            | -                       | -    | -                | UPS                     |
+| Device                        | Count | OS Disk Size   | Data Disk Size             | Ram   | Operating System | Purpose                 |
+|-------------------------------|-------|---------------|-----------------------------|-------|------------------|-------------------------|
+| MS-A2 (AMD Ryzen™ 9 9955HX)   | 3     | 1.92TB M.2    | 3.84TB U.2 + 1.92TB M.2     | 96GB  | Talos            | Kubernetes              |
+| Synology NAS RS1221+          | 1     | -             | 8x22TB HDD                  | 32GB  | DSM 7            | NFS                     |
+| PiKVM (RasPi 4)               | 1     | 64GB (SD)     | -                           | 4GB   | PiKVM            | KVM                     |
+| TESmart 8 Port KVM Switch     | 1     | -             | -                           | -     | -                | Network KVM (for PiKVM) |
+| UniFi UDM Pro Max             | 1     | -             | 2x16TB HDD                  | -     | UniFi OS         | Router & NVR            |
+| UniFi USW Pro Aggregation     | 1     | -             | -                           | -     | UniFi OS         | 10G/25Gb Core Switch    |
+| UniFi USW Pro Max 24 PoE      | 1     | -             | -                           | -     | UniFi OS         | 2.5Gb PoE Switch        |
+| UniFi USP PDU Pro             | 1     | -             | -                           | -     | UniFi OS         | PDU                     |
+| APC SMT15000RM2UNC            | 1     | -             | -                           | -     | -                | UPS                     |
 ---
 
-My MS-01 workstations are configured with the following hardware:
+My MS-A2 workstations are configured with the following hardware:
 
 - [Crucial 96GB Kit (48GBx2) DDR5-5600 SODIMM](https://www.crucial.com/memory/ddr5/ct2k48g56c46s5)
 - [Samsung 1.92TB M.2 22x110mm PM9A3 NVMe PCIe 4.0](https://store.supermicro.com/us_en/1-92tb-nvme-pcie4-hds-smn0-mz1l21t9hclsa7.html)

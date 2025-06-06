@@ -1,0 +1,100 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: loki
+spec:
+  interval: 5m
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 6.30.1
+  url: oci://ghcr.io/grafana/helm-charts/loki
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: loki
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: loki
+  install:
+    crds: Skip
+    remediation:
+      retries: -1
+  upgrade:
+    cleanupOnFail: true
+    crds: Skip
+    remediation:
+      retries: 3
+  values:
+    deploymentMode: SingleBinary
+    loki:
+      auth_enabled: false
+      analytics:
+        reporting_enabled: false
+      server:
+        log_level: info
+      commonConfig:
+        replication_factor: 1
+      compactor:
+        working_directory: /var/loki/compactor/retention
+        delete_request_store: filesystem
+        retention_enabled: true
+      ingester:
+        chunk_encoding: snappy
+      limits_config:
+        retention_period: 14d
+      storage:
+        type: filesystem
+      schemaConfig:
+        configs:
+          - from: "2024-04-01" # quote
+            store: tsdb
+            object_store: filesystem
+            schema: v13
+            index:
+              prefix: loki_index_
+              period: 24h
+      structuredConfig:
+        ruler:
+          enable_api: true
+          enable_alertmanager_v2: true
+          alertmanager_url: http://alertmanager-operated.observability.svc.cluster.local:9093
+          storage:
+            type: local
+            local:
+              directory: /rules
+          rule_path: /rules/fake
+    singleBinary:
+      replicas: 1
+      persistence:
+        enabled: true
+        storageClass: ceph-block
+        size: 50Gi
+    gateway:
+      replicas: 0
+    backend:
+      replicas: 0
+    read:
+      replicas: 0
+    write:
+      replicas: 0
+    chunksCache:
+      enabled: false
+    resultsCache:
+      enabled: false
+    lokiCanary:
+      enabled: false
+    test:
+      enabled: false
+    sidecar:
+      image:
+        repository: ghcr.io/kiwigrid/k8s-sidecar
+      enableUniqueFilenames: true
+      rules:
+        searchNamespace: ALL
+        folder: /rules/fake

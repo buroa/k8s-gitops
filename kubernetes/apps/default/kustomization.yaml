@@ -1,0 +1,11 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: default
+components:
+  - ../../components/common
+resources:
+  - ./atuin/ks.yaml
+  - ./home-assistant/ks.yaml
+  - ./mosquitto/ks.yaml
+  - ./zigbee2mqtt/ks.yaml

@@ -6,15 +6,14 @@ customization:
     - apparmor=0                          # Less security, faster puter
     - init_on_alloc=0                     # Less security, faster puter
     - init_on_free=0                      # Less security, faster puter
-    - intel_iommu=on                      # PCI Passthrough
+    - amd_iommu=on                        # PCI Passthrough
     - iommu=pt                            # PCI Passthrough
+    - pcie_aspm=off                       # Disable PCIe ASPM
     - mitigations=off                     # Less security, faster puter
     - security=none                       # Less security, faster puter
     - talos.auditd.disabled=1             # Less security, faster puter
   systemExtensions:
     officialExtensions:
+      - siderolabs/amdgpu
+      - siderolabs/amd-ucode
       - siderolabs/gasket-driver
-      - siderolabs/i915
-      - siderolabs/intel-ucode
-      - siderolabs/mei
-      - siderolabs/thunderbolt
