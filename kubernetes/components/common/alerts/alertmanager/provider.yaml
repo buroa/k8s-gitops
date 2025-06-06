@@ -5,4 +5,4 @@ metadata:
   name: alertmanager
 spec:
   type: alertmanager
-  address: http://alertmanager-operated.monitoring.svc.cluster.local:9093/api/v2/alerts/
+  address: http://alertmanager-operated.observability.svc.cluster.local:9093/api/v2/alerts/

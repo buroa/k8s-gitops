@@ -1,0 +1,18 @@
+---
+kind: Probe
+apiVersion: monitoring.coreos.com/v1
+metadata:
+  name: devices
+spec:
+  module: icmp
+  prober:
+    url: blackbox-exporter.observability.svc.cluster.local:9115
+  targets:
+    staticConfig:
+      static:
+        - unifi.internal
+        - nas.internal
+        - ups.internal
+        - kvm.internal
+        - pikvm.internal
+        - zigbee-controller.internal

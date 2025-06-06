@@ -43,24 +43,15 @@ machine:
         hard=True
         nconnect=16
         noatime=True
-        rsize=1048576
-        wsize=1048576
   install:
     image: factory.talos.dev/metal-installer/{{ ENV.TALOS_SCHEMATIC }}:{{ ENV.TALOS_VERSION }}
   kernel:
     modules:
       - name: nbd
-      - name: thunderbolt
-      - name: thunderbolt_net
   kubelet:
     image: ghcr.io/siderolabs/kubelet:{{ ENV.KUBERNETES_VERSION }}
     extraConfig:
       serializeImagePulls: false
-    extraMounts:
-      - destination: /var/mnt/extra
-        type: bind
-        source: /var/mnt/extra
-        options: ["bind", "rshared", "rw"]
     defaultRuntimeSeccompProfileEnabled: true
     nodeIP:
       validSubnets: ["192.168.10.0/24"]
@@ -82,7 +73,6 @@ machine:
     nameservers: ["192.168.10.1"]
     disableSearchDomain: true
   nodeLabels:
-    intel.feature.node.kubernetes.io/gpu: true
     topology.kubernetes.io/region: k8s
   sysctls:
     fs.inotify.max_user_watches: 1048576   # Watchdog
@@ -98,16 +88,12 @@ machine:
     net.ipv4.tcp_window_scaling: 1         # 10Gb/s
     user.max_user_namespaces: 11255        # User Namespaces
     vm.nr_hugepages: 1024                  # PostgreSQL
-  sysfs:
-    devices.system.cpu.intel_pstate.hwp_dynamic_boost: 1
   time:
     disabled: false
     servers: ["time.cloudflare.com"]
   udev:
     rules:
-      - # Thunderbolt
-        ACTION=="add", SUBSYSTEM=="thunderbolt", ATTR{authorized}=="0", ATTR{authorized}="1"
-      - # Intel GPU
+      - # GPU
         SUBSYSTEM=="drm", KERNEL=="renderD*", GROUP="44", MODE="0660"
       - # Coral M.2 TPU
         SUBSYSTEM=="apex", KERNEL=="apex*", GROUP="44", MODE="0660"
@@ -195,6 +181,13 @@ cluster:
   serviceAccount:
     key: op://K8s/talos/CLUSTER_SERVICEACCOUNT_KEY
   {% endif %}
+---
+apiVersion: v1alpha1
+kind: UserVolumeConfig
+name: local-hostpath
+provisioning:
+  diskSelector:
+    match: disk.model == "SAMSUNG MZ1L21T9HCLS-00A07" && !system_disk
 ---
 apiVersion: v1alpha1
 kind: EthernetConfig

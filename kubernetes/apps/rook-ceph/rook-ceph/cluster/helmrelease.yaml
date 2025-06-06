@@ -45,16 +45,13 @@ spec:
         enabled: true
         urlPrefix: /
         ssl: false
-        prometheusEndpoint: http://prometheus-operated.monitoring.svc.cluster.local:9090
+        prometheusEndpoint: http://prometheus-operated.observability.svc.cluster.local:9090
       mgr:
         modules:
           - name: pg_autoscaler
             enabled: true
       network:
         provider: host
-        addressRanges:
-          public: ["192.168.10.0/24"]
-          cluster: ["169.254.255.0/24"]
         connections:
           requireMsgr2: true
       storage:
