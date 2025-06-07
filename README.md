@@ -123,8 +123,8 @@ In my cluster there are two instances of [ExternalDNS](https://github.com/kubern
 <details>
   <summary>Click to see my rack</summary>
 
-    <img src="https://github.com/user-attachments/assets/43bd0ca8-a1a8-49d5-9b9a-04fbdcecdd3f" align="center" alt="rack"/>
-  </details>
+  <img src="https://github.com/user-attachments/assets/43bd0ca8-a1a8-49d5-9b9a-04fbdcecdd3f" align="center" alt="rack"/>
+</details>
 
 | Device                        | Count | OS Disk Size   | Data Disk Size             | Ram   | Operating System | Purpose                 |
 |-------------------------------|-------|---------------|-----------------------------|-------|------------------|-------------------------|
