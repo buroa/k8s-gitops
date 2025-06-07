@@ -1,6 +1,6 @@
 ---
 grafanaDashboard:
-  enabled: false
+  enabled: true
 serviceMonitor:
   enabled: true
 spegel:
