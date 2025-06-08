@@ -34,7 +34,7 @@ spec:
               - --gateway-name=external
               - --interval=1m
               - --log-format=text
-              - --log-level=debug
+              - --log-level=info
               - --policy=sync
               - --provider=cloudflare
               - --registry=txt
