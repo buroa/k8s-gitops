@@ -78,12 +78,8 @@ spec:
           - name: internal
             namespace: kube-system
             sectionName: https
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: &port 8123
     service:
       app:
         ports:
           http:
-            port: *port
+            port: 8123
