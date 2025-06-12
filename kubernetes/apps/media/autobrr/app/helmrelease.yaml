@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app autobrr
+  name: autobrr
 spec:
   interval: 1h
   chartRef:
@@ -102,6 +102,5 @@ spec:
             port: *metricsPort
     serviceMonitor:
       app:
-        serviceName: *app
         endpoints:
           - port: metrics
