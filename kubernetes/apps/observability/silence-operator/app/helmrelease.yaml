@@ -11,8 +11,6 @@ spec:
   ref:
     tag: 0.16.1
   url: oci://ghcr.io/home-operations/charts-mirror/silence-operator
-  verify:
-    provider: cosign
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease

@@ -11,8 +11,6 @@ spec:
   ref:
     tag: 1.17.4
   url: oci://ghcr.io/home-operations/charts-mirror/cilium
-  verify:
-    provider: cosign
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease

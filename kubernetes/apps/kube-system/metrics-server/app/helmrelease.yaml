@@ -11,8 +11,6 @@ spec:
   ref:
     tag: 3.12.2
   url: oci://ghcr.io/home-operations/charts-mirror/metrics-server
-  verify:
-    provider: cosign
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
