@@ -33,12 +33,3 @@ spec:
   values:
     fullnameOverride: *name
     replicaCount: 1
-  postRenderers:
-    - kustomize:
-        patches:
-          - target:
-              kind: Deployment
-            patch: |
-              - op: replace
-                path: /spec/template/metadata/labels/app.kubernetes.io~1version
-                value: 0.10.1
