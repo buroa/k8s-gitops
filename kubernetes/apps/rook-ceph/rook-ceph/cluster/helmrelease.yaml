@@ -36,6 +36,8 @@ spec:
     toolbox:
       enabled: true
     cephClusterSpec:
+      cleanupPolicy:
+        wipeDevicesFromOtherClusters: true
       crashCollector:
         disable: false
       csi:
