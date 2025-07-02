@@ -30,6 +30,16 @@ spec:
               HOME_ASSISTANT_TRUSTED_PROXIES: 10.244.0.0/16
               HOME_ASSISTANT_UNIT_SYSTEM: us_customary
               TZ: America/Chicago
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 10
             resources:
               requests:
                 cpu: 10m
