@@ -17,3 +17,4 @@ customization:
       - siderolabs/amdgpu
       - siderolabs/amd-ucode
       - siderolabs/gasket-driver
+      - siderolabs/nfsrahead
