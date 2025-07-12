@@ -25,7 +25,7 @@ spec:
           app:
             image:
               repository: public.ecr.aws/docker/library/eclipse-mosquitto
-              tag: 2.0.21@sha256:94f5a3d7deafa59fa3440d227ddad558f59d293c612138de841eec61bfa4d353
+              tag: 2.0.22@sha256:4224e5dbdd76a05acc94b07a4dcb74be1d7a1f11b5a1d35ce2d15432f91251c4
             env:
               TZ: America/Chicago
             probes:
