@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: qbtools
+  name: tqm
 spec:
   interval: 1h
   chartRef:
@@ -18,66 +18,37 @@ spec:
       retries: 3
   values:
     controllers:
-      tagging:
+      tqm:
         type: cronjob
         cronjob:
           schedule: "@hourly"
-          timeZone: &timeZone America/Chicago
+          timeZone: America/Chicago
           concurrencyPolicy: Forbid
           successfulJobsHistory: 1
           failedJobsHistory: 1
         initContainers:
-          tagging: &container
+          retag: &container
             image:
-              repository: ghcr.io/buroa/qbtools
-              tag: v0.21.1@sha256:fd13085f7534719b7b30828684661b7f5611bbc4156831123775cfcd9b8f2eb5
+              repository: ghcr.io/home-operations/tqm
+              tag: 1.15.0@sha256:70545e1a52e5afc4a6474c5b492e127be7b776eb9cea7adea3c6399e67ae2287
             args:
-              - tagging
-              - --added-on
-              - --expired
-              - --last-activity
-              - --sites
-              - --unregistered
-              - --not-linked
-            env:
-              QBITTORRENT_HOST: qbittorrent.media.svc.cluster.local
-              QBITTORRENT_PORT: 8080
-              TZ: *timeZone
+              - retag
+              - qb
             resources:
               requests:
                 cpu: 10m
               limits:
-                memory: 128Mi
+                memory: 64Mi
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
         containers:
-          prune-unregistered:
+          clean:
             <<: *container
             args:
-              - prune
-              - --exclude-tag=expired
-              - --exclude-tag=added:1d
-              - --include-tag=unregistered
-              - --with-data
-          prune-expired:
-            <<: *container
-            args:
-              - prune
-              - --exclude-category=manual
-              - --exclude-tag=activity:1d
-              - --include-tag=expired
-              - --with-data
-        pod:
-          restartPolicy: OnFailure
-      reannounce:
-        containers:
-          app:
-            <<: *container
-            args:
-              - reannounce
-              - --process-seeding
+              - clean
+              - qb
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
@@ -88,10 +59,14 @@ spec:
         supplementalGroups: [65537]
     persistence:
       config:
-        type: configMap
-        name: qbtools-configmap
+        type: emptyDir
         globalMounts:
-          - path: /config/config.yaml
+          - path: /.config/tqm
+      config-file:
+        type: configMap
+        name: tqm-configmap
+        globalMounts:
+          - path: /.config/tqm/config.yaml
             subPath: config.yaml
             readOnly: true
       media:

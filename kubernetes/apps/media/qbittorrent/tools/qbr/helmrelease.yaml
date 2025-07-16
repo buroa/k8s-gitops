@@ -1,0 +1,43 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: qbr
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    controllers:
+      qbr:
+        containers:
+          app:
+            image:
+              repository: ghcr.io/buroa/qbr
+              tag: 0.0.2@sha256:b0e17ac835b8ee59f2e8980fbf40802747bf41892445e65874576cf45399b368
+            env:
+              QBITTORRENT_HOST: http://qbittorrent.media.svc.cluster.local:8080
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 32Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568

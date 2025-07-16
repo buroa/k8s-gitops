@@ -1,0 +1,74 @@
+---
+clients:
+  qb:
+    download_path: /media/downloads/torrents/complete
+    enabled: true
+    filter: default
+    type: qbittorrent
+    url: http://qbittorrent.media.svc.cluster.local:8080
+
+filters:
+  default:
+    MapHardlinksFor:
+      - retag
+
+    ignore:
+      - IsTrackerDown()
+      - Downloaded == false && !IsUnregistered()
+      - SeedingHours < 26 && !IsUnregistered()
+
+    remove:
+      - IsUnregistered()
+      - HasAllTags("not-linked") && SeedingDays >= 14.2
+      - HasAllTags("site:ant") && (Ratio > 1.01 || SeedingDays >= 14.2)
+      - HasAllTags("site:ar") && (Ratio > 1.01 || SeedingDays >= 14.2)
+      - HasAllTags("site:blu") && SeedingDays >= 14.2
+      - HasAllTags("site:fl") && (Ratio > 1.01 || SeedingDays >= 7.2)
+      - HasAllTags("site:fnp") && (Ratio > 1.01 || SeedingDays >= 14.2)
+      - HasAllTags("site:hds") && SeedingDays >= 7.2
+      - HasAllTags("site:hdt") && (Ratio > 1.01 || SeedingDays >= 7.2)
+      - HasAllTags("site:ipt") && (Ratio > 1.01 || SeedingDays >= 14.2)
+      - HasAllTags("site:mlk") && (Ratio > 1.01 || SeedingDays >= 14.2)
+      - HasAllTags("site:mtv") && (Ratio > 1.01 || SeedingDays >= 14.2)
+      - HasAllTags("site:nbl") && SeedingDays >= 7.2
+      - HasAllTags("site:oe") && (Ratio > 1.01 || SeedingDays >= 14.2)
+      - HasAllTags("site:phd") && (Ratio > 1.01 || SeedingDays >= 14.2)
+      - HasAllTags("site:rfx") && (Ratio > 1.01 || SeedingDays >= 7.2)
+      - HasAllTags("site:sp") && (Ratio > 1.01 || SeedingDays >= 14.2)
+      - HasAllTags("site:st") && (Ratio > 1.01 || SeedingDays >= 7.2)
+      - HasAllTags("site:td") && (Ratio > 1.01 || SeedingDays >= 7.2)
+      - HasAllTags("site:tl") && (Ratio > 1.01 || SeedingDays >= 7.2)
+      - HasAllTags("site:uhd") && (Ratio > 1.01 || SeedingDays >= 7.2)
+
+    tag:
+      - { name: added:1d,     mode: full, update: ['AddedDays < 7'] }
+      - { name: added:7d,     mode: full, update: ['AddedDays >= 7 && AddedDays < 14'] }
+      - { name: added:14d,    mode: full, update: ['AddedDays >= 14 && AddedDays < 30'] }
+      - { name: added:30d,    mode: full, update: ['AddedDays >= 30 && AddedDays < 180'] }
+      - { name: added:180d,   mode: full, update: ['AddedDays >= 180'] }
+      - { name: not-linked,   mode: full, update: ['HardlinkedOutsideClient == false && Label in ["sonarr", "radarr"]'] }
+      - { name: site:ant,     mode: full, update: ['TrackerName == "anthelion.me"'] }
+      - { name: site:ar,      mode: full, update: ['TrackerName == "alpharatio.cc"'] }
+      - { name: site:ath,     mode: full, update: ['TrackerName == "aither.cc"'] }
+      - { name: site:bhd,     mode: full, update: ['TrackerName == "beyond-hd.me"'] }
+      - { name: site:blu,     mode: full, update: ['TrackerName in ["blutopia.cc", "blutopia.xyz"]'] }
+      - { name: site:fl,      mode: full, update: ['TrackerName in ["filelist.io", "thefl.org"]'] }
+      - { name: site:fnp,     mode: full, update: ['TrackerName == "fearnopeer.com"'] }
+      - { name: site:hds,     mode: full, update: ['TrackerName == "hd-space.pw"'] }
+      - { name: site:hdt,     mode: full, update: ['TrackerName == "hdts-announce.ru"'] }
+      - { name: site:huno,    mode: full, update: ['TrackerName == "hawke.uno"'] }
+      - { name: site:ipt,     mode: full, update: ['TrackerName in ["bgp.technology", "empirehost.me", "stackoverflow.tech"]'] }
+      - { name: site:mlk,     mode: full, update: ['TrackerName == "milkie.cc"'] }
+      - { name: site:mtv,     mode: full, update: ['TrackerName == "morethantv.me"'] }
+      - { name: site:nbl,     mode: full, update: ['TrackerName == "nebulance.io"'] }
+      - { name: site:oe,      mode: full, update: ['TrackerName == "onlyencodes.cc"'] }
+      - { name: site:phd,     mode: full, update: ['TrackerName == "privatehd.to"'] }
+      - { name: site:ptp,     mode: full, update: ['TrackerName == "passthepopcorn.me"'] }
+      - { name: site:rfx,     mode: full, update: ['TrackerName == "reelflix.xyz"'] }
+      - { name: site:sp,      mode: full, update: ['TrackerName == "seedpool.org"'] }
+      - { name: site:st,      mode: full, update: ['TrackerName == "scenetime.com"'] }
+      - { name: site:td,      mode: full, update: ['TrackerName in ["jumbohostpro.eu", "td-peers.com"]'] }
+      - { name: site:tl,      mode: full, update: ['TrackerName in ["tleechreload.org", "torrentleech.org"]'] }
+      - { name: site:uhd,     mode: full, update: ['TrackerName == "uhdbits.org"'] }
+      - { name: tracker-down, mode: full, update: ['IsTrackerDown()'] }
+      - { name: unregistered, mode: full, update: ['IsUnregistered()'] }
