@@ -91,13 +91,17 @@ spec:
       config:
         type: configMap
         name: qbtools-configmap
-        globalMounts:
-          - path: /config/config.yaml
-            subPath: config.yaml
-            readOnly: true
+        advancedMounts:
+          tagging:
+            tagging:
+              - path: /config/config.yaml
+                subPath: config.yaml
+                readOnly: true
       media:
         type: nfs
         server: nas.internal
         path: /volume1/media
-        globalMounts:
-          - readOnly: true
+        advancedMounts:
+          tagging:
+            tagging:
+              - readOnly: true
