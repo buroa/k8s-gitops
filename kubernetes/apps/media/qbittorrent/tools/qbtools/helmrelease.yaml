@@ -30,7 +30,7 @@ spec:
           tagging: &container
             image:
               repository: ghcr.io/buroa/qbtools
-              tag: v0.21.1@sha256:fd13085f7534719b7b30828684661b7f5611bbc4156831123775cfcd9b8f2eb5
+              tag: pr-112@sha256:341e22a4b215e151f428a5edabd46f925570a83f3a6f37cd0737b87e65673079
             args:
               - tagging
               - --added-on
@@ -40,8 +40,7 @@ spec:
               - --unregistered
               - --not-linked
             env:
-              QBITTORRENT_HOST: qbittorrent.media.svc.cluster.local
-              QBITTORRENT_PORT: 8080
+              QBITTORRENT_HOST: http://qbittorrent.media.svc.cluster.local:8080
               TZ: *timeZone
             resources:
               requests:
@@ -61,6 +60,7 @@ spec:
               - --exclude-tag=added:1d
               - --include-tag=unregistered
               - --with-data
+              - --dry-run
           prune-expired:
             <<: *container
             args:
@@ -69,6 +69,7 @@ spec:
               - --exclude-tag=activity:1d
               - --include-tag=expired
               - --with-data
+              - --dry-run
         pod:
           restartPolicy: OnFailure
       reannounce:
