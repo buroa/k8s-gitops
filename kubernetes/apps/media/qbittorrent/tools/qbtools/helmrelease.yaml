@@ -46,7 +46,7 @@ spec:
               requests:
                 cpu: 10m
               limits:
-                memory: 128Mi
+                memory: 64Mi
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -60,7 +60,6 @@ spec:
               - --exclude-tag=added:1d
               - --include-tag=unregistered
               - --with-data
-              - --dry-run
           prune-expired:
             <<: *container
             args:
@@ -69,16 +68,8 @@ spec:
               - --exclude-tag=activity:1d
               - --include-tag=expired
               - --with-data
-              - --dry-run
         pod:
           restartPolicy: OnFailure
-      reannounce:
-        containers:
-          app:
-            <<: *container
-            args:
-              - reannounce
-              - --process-seeding
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
@@ -91,17 +82,13 @@ spec:
       config:
         type: configMap
         name: qbtools-configmap
-        advancedMounts:
-          tagging:
-            tagging:
-              - path: /config/config.yaml
-                subPath: config.yaml
-                readOnly: true
+        globalMounts:
+          - path: /config/config.yaml
+            subPath: config.yaml
+            readOnly: true
       media:
         type: nfs
         server: nas.internal
         path: /volume1/media
-        advancedMounts:
-          tagging:
-            tagging:
-              - readOnly: true
+        globalMounts:
+          - readOnly: true
