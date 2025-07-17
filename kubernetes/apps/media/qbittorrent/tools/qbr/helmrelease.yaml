@@ -23,7 +23,7 @@ spec:
           app:
             image:
               repository: ghcr.io/buroa/qbr
-              tag: 0.0.2@sha256:b0e17ac835b8ee59f2e8980fbf40802747bf41892445e65874576cf45399b368
+              tag: 0.0.3@sha256:99820dc6f584f0e9abc12db7ea056936e5bd9f01b59f1b67a13ea867f8d0d31e
             env:
               QBITTORRENT_HOST: http://qbittorrent.media.svc.cluster.local:8080
             resources:
