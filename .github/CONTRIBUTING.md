@@ -1,6 +1,6 @@
 ## Contribution guidelines
 
-Welcome to [k8s-gitops](https://github.com/buroa/k8s-gitops)! We're thrilled that you'd like to contribute. Your help is essential for making it better.
+Welcome to [home-ops](https://github.com/cpritchett/home-ops)! We're thrilled that you'd like to contribute. Your help is essential for making it better.
 
 ### Getting Started
 
@@ -8,18 +8,18 @@ Before you start contributing, please make sure you have read and understood our
 
 1. Fork the Repository
 
-First, fork the [repository](https://github.com/buroa/k8s-gitops) to your own GitHub account. This will create a copy of the project under your account.
+First, fork the [repository](https://github.com/cpritchett/home-ops) to your own GitHub account. This will create a copy of the project under your account.
 
 2. Clone the Repository
 
     ```sh
-    git clone https://github.com/buroa/k8s-gitops
+    git clone https://github.com/cpritchett/home-ops
     ```
 
 3. Navigate to the project directory 📁
 
     ```sh
-    cd k8s-gitops
+    cd home-ops
     ```
 
 4. Create a new branch for your feature or bug fix:

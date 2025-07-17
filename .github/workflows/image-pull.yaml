@@ -79,7 +79,7 @@ jobs:
     if: ${{ needs.diff.outputs.images != '[]' }}
     needs: diff
     name: Image Pull - Pull Images
-    runs-on: k8s-gitops-runner
+    runs-on: home-ops-runner
     strategy:
       matrix:
         image: ${{ fromJSON(needs.diff.outputs.images) }}

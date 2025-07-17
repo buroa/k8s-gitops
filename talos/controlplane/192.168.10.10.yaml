@@ -4,6 +4,6 @@ machine:
     diskSelector:
       serial: S666NN0W402512
   network:
-    hostname: m0.k8s.internal
+    hostname: home01.hypyr.space
   nodeLabels:
     topology.kubernetes.io/zone: m

@@ -1,6 +1,6 @@
 # Security Policy
 
-🛡️ Found a security issue in a [k8s-gitops](https://github.com/buroa/k8s-gitops) project? Read on.
+🛡️ Found a security issue in a [home-ops](https://github.com/cpritchett/home-ops) project? Read on.
 
 ## Reporting a Vulnerability
 

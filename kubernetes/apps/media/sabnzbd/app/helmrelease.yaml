@@ -34,8 +34,8 @@ spec:
                 sabnzbd.media.svc,
                 sabnzbd.media.svc.cluster,
                 sabnzbd.media.svc.cluster.local,
-                {{ .Release.Name }}.k13.dev,
-                sab.k13.dev
+                {{ .Release.Name }}.hypyr.space,
+                sab.hypyr.space
               TZ: America/Chicago
             envFrom:
               - secretRef:
@@ -109,8 +109,8 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.k13.dev"
-          - sab.k13.dev
+          - "{{ .Release.Name }}.hypyr.space"
+          - sab.hypyr.space
         parentRefs:
           - name: internal
             namespace: kube-system

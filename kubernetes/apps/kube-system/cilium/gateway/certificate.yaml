@@ -8,5 +8,5 @@ spec:
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
-  commonName: k13.dev
-  dnsNames: ["k13.dev", "*.k13.dev"]
+  commonName: hypyr.space
+  dnsNames: ["hypyr.space", "*.hypyr.space"]

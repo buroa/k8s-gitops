@@ -29,7 +29,7 @@ spec:
         initContainers:
           tagging: &container
             image:
-              repository: ghcr.io/buroa/qbtools
+              repository: ghcr.io/cpritchett/qbtools
               tag: v0.21.1@sha256:fd13085f7534719b7b30828684661b7f5611bbc4156831123775cfcd9b8f2eb5
             args:
               - tagging

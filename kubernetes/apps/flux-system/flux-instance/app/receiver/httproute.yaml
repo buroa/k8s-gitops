@@ -5,7 +5,7 @@ metadata:
   name: github-webhook
 spec:
   hostnames:
-    - flux-webhook.k13.dev
+    - flux-webhook.hypyr.space
   parentRefs:
     - name: external
       namespace: kube-system

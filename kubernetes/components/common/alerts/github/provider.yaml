@@ -5,6 +5,6 @@ metadata:
   name: github
 spec:
   type: github
-  address: https://github.com/buroa/k8s-gitops
+  address: https://github.com/cpritchett/home-ops
   secretRef:
     name: github-token-secret

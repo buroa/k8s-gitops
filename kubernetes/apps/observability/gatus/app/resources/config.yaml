@@ -6,7 +6,7 @@ connectivity:
 
 endpoints:
   - name: flux-webhook
-    url: https://flux-webhook.k13.dev
+    url: https://flux-webhook.hypyr.space
     interval: 1m
     client:
       dns-resolver: tcp://1.1.1.1:53
@@ -24,12 +24,12 @@ ui:
   title: Status | Gatus
   header: Status
   logo: https://avatars.githubusercontent.com/u/36205263
-  link: https://github.com/buroa
+  link: https://github.com/cpritchett
   buttons:
     - name: Github
-      link: https://github.com/buroa
+      link: https://github.com/cpritchett
     - name: Homelab
-      link: https://github.com/buroa/k8s-gitops
+      link: https://github.com/cpritchett/home-ops
 
 web:
   port: ${GATUS_WEB_PORT}

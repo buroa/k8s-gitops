@@ -1,10 +1,10 @@
 ---
 originRequest:
-  originServerName: external.k13.dev
+  originServerName: external.hypyr.space
 
 ingress:
-  - hostname: k13.dev
+  - hostname: hypyr.space
     service: &service https://cilium-gateway-external.kube-system.svc.cluster.local
-  - hostname: "*.k13.dev"
+  - hostname: "*.hypyr.space"
     service: *service
   - service: http_status:404

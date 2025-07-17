@@ -89,8 +89,8 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.k13.dev"
-          - zigbee.k13.dev
+          - "{{ .Release.Name }}.hypyr.space"
+          - zigbee.hypyr.space
         parentRefs:
           - name: internal
             namespace: kube-system

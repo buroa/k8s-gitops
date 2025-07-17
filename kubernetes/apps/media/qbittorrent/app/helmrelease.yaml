@@ -90,8 +90,8 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.k13.dev"
-          - qb.k13.dev
+          - "{{ .Release.Name }}.hypyr.space"
+          - qb.hypyr.space
         parentRefs:
           - name: internal
             namespace: kube-system

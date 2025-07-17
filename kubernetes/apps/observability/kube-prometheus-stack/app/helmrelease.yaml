@@ -40,7 +40,7 @@ spec:
         main:
           enabled: true
           hostnames:
-            - am.k13.dev
+            - am.hypyr.space
           parentRefs:
             - name: internal
               namespace: kube-system
@@ -50,7 +50,7 @@ spec:
           name: alertmanager
           global:
             resolveTimeout: 5m
-        externalUrl: https://am.k13.dev
+        externalUrl: https://am.hypyr.space
         storage:
           volumeClaimTemplate:
             spec:
@@ -69,7 +69,7 @@ spec:
         main:
           enabled: true
           hostnames:
-            - prometheus.k13.dev
+            - prometheus.hypyr.space
           parentRefs:
             - name: internal
               namespace: kube-system
@@ -89,7 +89,7 @@ spec:
         podMonitorSelectorNilUsesHelmValues: false
         probeSelectorNilUsesHelmValues: false
         scrapeConfigSelectorNilUsesHelmValues: false
-        externalUrl: https://prometheus.k13.dev
+        externalUrl: https://prometheus.hypyr.space
         retention: 14d
         retentionSize: 50GB
         resources:

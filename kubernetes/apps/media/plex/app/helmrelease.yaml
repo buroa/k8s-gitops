@@ -25,7 +25,7 @@ spec:
               repository: ghcr.io/home-operations/plex
               tag: 1.41.9.9961@sha256:6c86319bb3275135f5da5aec71b45e48305669ecbceee0f88d335bebf0d0f218
             env:
-              PLEX_ADVERTISE_URL: https://{{ .Release.Name }}.k13.dev:443
+              PLEX_ADVERTISE_URL: https://{{ .Release.Name }}.hypyr.space:443
               PLEX_NO_AUTH_NETWORKS: 192.168.1.0/24
               TZ: America/Chicago
             probes:
@@ -91,7 +91,7 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.k13.dev"
+          - "{{ .Release.Name }}.hypyr.space"
         parentRefs:
           - name: external
             namespace: kube-system

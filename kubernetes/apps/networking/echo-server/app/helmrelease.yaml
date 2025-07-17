@@ -61,7 +61,7 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.k13.dev"
+          - "{{ .Release.Name }}.hypyr.space"
         parentRefs:
           - name: external
             namespace: kube-system

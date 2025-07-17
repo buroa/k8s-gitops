@@ -15,4 +15,4 @@ spec:
               name: cloudflare-issuer-secret
               key: CLOUDFLARE_API_TOKEN
         selector:
-          dnsZones: ["k13.dev"]
+          dnsZones: ["hypyr.space"]
