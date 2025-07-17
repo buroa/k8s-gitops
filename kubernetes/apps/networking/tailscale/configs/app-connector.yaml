@@ -6,6 +6,6 @@ metadata:
 spec:
   appConnector:
     routes:
-      - 192.168.10.0/24
-      - 192.168.20.0/24
+      - 10.0.5.0/24
+      - 10.0.48.0/20
   hostname: homelab-ingress

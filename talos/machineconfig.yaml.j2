@@ -56,38 +56,29 @@ machine:
       serializeImagePulls: false
     defaultRuntimeSeccompProfileEnabled: true
     nodeIP:
-      validSubnets: ["192.168.10.0/24"]
+      validSubnets: ["10.0.5.0/24"]
     disableManifestsDirectory: true
   network:
     interfaces:
-      - interface: bond0
-        bond:
-          deviceSelectors: [{ hardwareAddr: "58:47:ca:7f:*", driver: i40e }]
-          mode: 802.3ad
-          xmitHashPolicy: layer3+4
-          lacpRate: fast
-          miimon: 1000
+      - interface: enp1s0
         dhcp: true
-        mtu: 9000
+        mtu: 1500  # Standard MTU unless your network supports jumbo frames
         vlans:
-          - { vlanId: 20, dhcp: false, mtu: 9000 }
-          - { vlanId: 30, dhcp: false, mtu: 9000 }
-    nameservers: ["192.168.10.1"]
+          - { vlanId: 30, dhcp: false, mtu: 1500 }
+          - { vlanId: 48, dhcp: false, mtu: 1500 }
+  nameservers: ["192.168.1.1"]
+  disableSearchDomain: true
+    nameservers: ["192.168.1.1"]
     disableSearchDomain: true
   nodeLabels:
     topology.kubernetes.io/region: k8s
   sysctls:
     fs.inotify.max_user_watches: 1048576   # Watchdog
     fs.inotify.max_user_instances: 8192    # Watchdog
-    net.core.default_qdisc: fq             # 10Gb/s
     net.core.rmem_max: 67108864            # 10Gb/s | Cloudflared / QUIC
     net.core.wmem_max: 67108864            # 10Gb/s | Cloudflared / QUIC
     net.ipv4.tcp_congestion_control: bbr   # 10Gb/s
     net.ipv4.tcp_fastopen: 3               # Send and accept data in the opening SYN packet
-    net.ipv4.tcp_mtu_probing: 1            # 10Gb/s | Jumbo frames
-    net.ipv4.tcp_rmem: 4096 87380 33554432 # 10Gb/s
-    net.ipv4.tcp_wmem: 4096 65536 33554432 # 10Gb/s
-    net.ipv4.tcp_window_scaling: 1         # 10Gb/s
     sunrpc.tcp_slot_table_entries: 128     # 10Gb/s | NFS
     sunrpc.tcp_max_slot_table_entries: 128 # 10Gb/s | NFS
     user.max_user_namespaces: 11255        # User Namespaces
@@ -138,7 +129,7 @@ cluster:
   coreDNS:
     disabled: true
   etcd:
-    advertisedSubnets: ["192.168.10.0/24"]
+    advertisedSubnets: ["10.0.5.0/24"]
     ca:
       crt: op://homelab/talos/CLUSTER_ETCD_CA_CRT
       key: op://homelab/talos/CLUSTER_ETCD_CA_KEY
@@ -185,19 +176,17 @@ kind: UserVolumeConfig
 name: local-hostpath
 provisioning:
   diskSelector:
-    match: disk.model == "SAMSUNG MZ1L21T9HCLS-00A07" && !system_disk
-  minSize: 1.92TB
+    match: disk.device == "/dev/sda" && system_disk
+  partitioning:
+    - name: system
+      size: 30GB
+    - name: user-storage
+      size: 0
+      mount: /var/mnt/local-hostpath
 ---
 apiVersion: v1alpha1
 kind: EthernetConfig
-name: enp5s0f0np0
-rings:
-  rx: 8160
-  tx: 8160
----
-apiVersion: v1alpha1
-kind: EthernetConfig
-name: enp5s0f1np1
+name: enp1s0
 rings:
   rx: 8160
   tx: 8160

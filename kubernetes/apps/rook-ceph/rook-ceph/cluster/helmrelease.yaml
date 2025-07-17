@@ -59,7 +59,7 @@ spec:
       storage:
         useAllNodes: true
         useAllDevices: false
-        devicePathFilter: /dev/disk/by-id/nvme-SAMSUNG_MZQL23T8HCLS-00A07_.*
+        devicePathFilter: /dev/disk/by-id/nvme-Micron_7300*
     cephBlockPools:
       - name: ceph-blockpool
         spec:

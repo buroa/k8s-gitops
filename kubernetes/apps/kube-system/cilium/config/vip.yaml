@@ -4,7 +4,7 @@ kind: Service
 metadata:
   name: kube-vip
   annotations:
-    lbipam.cilium.io/ips: 192.168.20.2
+    lbipam.cilium.io/ips: 10.0.48.55
 spec:
   type: LoadBalancer
   selector:

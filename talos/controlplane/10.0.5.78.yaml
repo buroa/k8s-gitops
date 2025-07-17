@@ -1,8 +1,7 @@
 ---
 machine:
   install:
-    diskSelector:
-      serial: S666NG0X101148
+  disk: /dev/sda
   network:
     hostname: home02.hypyr.space
   nodeLabels:
