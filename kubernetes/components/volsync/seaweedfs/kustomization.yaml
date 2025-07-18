@@ -1,0 +1,9 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+metadata:
+  name: volsync-seaweedfs
+  namespace: flux-system
+resources:
+  - externalsecret.yaml
+  - replicationsource.yaml

@@ -1,0 +1,22 @@
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: "${APP}"
+spec:
+  sourcePVC: "${APP}"
+  trigger:
+    schedule: "${VOLSYNC_SCHEDULE:-0 0 * * *}"
+  restic:
+    pruneIntervalDays: 7
+    repository: "${APP}-restic-secret"
+    volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:-csi-ceph-blockpool}"
+    storageClassName: "${VOLSYNC_STORAGECLASS:-ceph-block}"
+    moverSecurityContext:
+      runAsUser: "${VOLSYNC_UID:-568}"
+      runAsGroup: "${VOLSYNC_GID:-568}"
+      fsGroup: "${VOLSYNC_GID:-568}"
+    retain:
+      daily: 7
+      weekly: 4
+      monthly: 6

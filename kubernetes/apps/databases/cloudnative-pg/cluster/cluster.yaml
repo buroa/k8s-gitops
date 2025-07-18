@@ -33,11 +33,11 @@ spec:
       wal:
         compression: bzip2
         maxParallel: 8
-      destinationPath: s3://barman-u7z9m76w/
-      endpointURL: https://ba20be062ff7623f9d887afa37183c8f.r2.cloudflarestorage.com
+      destinationPath: s3://postgres-backup/
+      endpointURL: https://s3.hypyr.space
       # Note: serverName version needs to be inclemented
       # when recovering from an existing cnpg cluster
-      serverName: postgres-v22
+      serverName: postgres-v23
       s3Credentials:
         accessKeyId:
           name: cloudnative-pg-secret
