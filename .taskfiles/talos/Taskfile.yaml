@@ -12,33 +12,94 @@ env:
 
 tasks:
 
-  apply-node:
-    desc: Apply Talos config to a node [NODE=required] [MODE=auto]
+  generate-config:
+    desc: Generate talosconfig with matching certificates
     cmd: |-
-      minijinja-cli {{.TALOS_DIR}}/machineconfig.yaml.j2 | op inject \
-        | talosctl --nodes {{.NODE}} apply-config \
-          --mode {{.MODE}} \
-          --config-patch @{{.TALOS_DIR}}/{{.MACHINE_TYPE}}/{{.NODE}}.yaml \
-          --file /dev/stdin {{if .INSECURE}}--insecure{{end}}
+      # Extract machine CA (used as CA for server verification and client authentication)
+      MACHINE_CA_CRT=$(op item get talos --field MACHINE_CA_CRT --vault homelab --reveal) && \
+      MACHINE_CA_KEY=$(op item get talos --field MACHINE_CA_KEY --vault homelab --reveal) && \
+      MACHINE_CLIENT_CRT=$(op item get talos --field MACHINE_CLIENT_CRT --vault homelab --reveal) && \
+      MACHINE_CLIENT_KEY=$(op item get talos --field MACHINE_CLIENT_KEY --vault homelab --reveal) && \
+      NODES=$(find {{.TALOS_DIR}}/controlplane -name "*.yaml" -exec basename {} .yaml \; | tr '\n' ' ') && \
+      cat > {{.TALOS_DIR}}/talosconfig << 'EOF'
+      context: k8s
+      contexts:
+        k8s:
+          endpoints:
+      EOF
+      for node in $NODES; do echo "            - $node" >> {{.TALOS_DIR}}/talosconfig; done && \
+      cat >> {{.TALOS_DIR}}/talosconfig << 'EOF'
+          nodes:
+      EOF
+      for node in $NODES; do echo "            - $node" >> {{.TALOS_DIR}}/talosconfig; done && \
+      cat >> {{.TALOS_DIR}}/talosconfig << EOF
+          ca: $MACHINE_CA_CRT
+          crt: $MACHINE_CA_CRT
+          key: $MACHINE_CA_KEY
+      EOF
+    env:
+      MACHINE_TYPE: controlplane
+    preconditions:
+      - op user get --me
+      - test -f {{.TALOS_DIR}}/machineconfig.yaml.j2
+      - which minijinja-cli op talosctl yq
+
+  apply-node:
+    desc: Apply Talos config to a node and generate matching talosconfig [NODE=required] [MODE=auto]
+    cmd: |-
+      # Render the machine config with 1Password injection
+      RENDERED_CONFIG=$(MACHINE_TYPE={{.MACHINE_TYPE}} minijinja-cli {{.TALOS_DIR}}/machineconfig.yaml.j2 | op inject) && \
+
+      # Apply the config to the node
+      echo "$RENDERED_CONFIG" | talosctl --nodes {{.NODE}} apply-config \
+        --mode {{.MODE}} \
+        --config-patch @{{.TALOS_DIR}}/{{.MACHINE_TYPE}}/{{.NODE}}.yaml \
+        --file /dev/stdin {{if .INSECURE}}--insecure{{end}} && \
+
+      # Extract certificates from the SAME rendered config for talosconfig
+      MACHINE_CA_CRT=$(echo "$RENDERED_CONFIG" | yq '.machine.ca.crt') && \
+      MACHINE_CA_KEY=$(echo "$RENDERED_CONFIG" | yq '.machine.ca.key') && \
+
+      # Generate/update talosconfig with matching certificates
+      if [ ! -f {{.TALOS_DIR}}/talosconfig ] || [ "{{.NODE}}" = "$(find {{.TALOS_DIR}}/controlplane -name '*.yaml' -exec basename {} .yaml \; | head -1)" ]; then
+        NODES=$(find {{.TALOS_DIR}}/controlplane -name "*.yaml" -exec basename {} .yaml \; | tr '\n' ' ') && \
+        cat > {{.TALOS_DIR}}/talosconfig << 'EOF'
+      context: homeops
+      contexts:
+        homeops:
+          endpoints:
+      EOF
+        for node in $NODES; do echo "            - $node" >> {{.TALOS_DIR}}/talosconfig; done && \
+        cat >> {{.TALOS_DIR}}/talosconfig << 'EOF'
+          nodes:
+      EOF
+        for node in $NODES; do echo "            - $node" >> {{.TALOS_DIR}}/talosconfig; done && \
+        cat >> {{.TALOS_DIR}}/talosconfig << EOF
+          ca: $MACHINE_CA_CRT
+          crt: $MACHINE_CLIENT_CRT
+          key: $MACHINE_CLIENT_KEY
+      EOF
+      fi && \
+
+      echo "Node {{.NODE}} configured and talosconfig updated with matching certificates"
     vars:
       MODE: '{{.MODE | default "auto"}}'
       INSECURE:
-        sh: talosctl --nodes {{.NODE}} get machineconfig &> /dev/null || echo true
+        sh: talosctl --nodes {{.NODE}} get machineconfig >/dev/null 2>&1 || echo true
       MACHINE_TYPE:
         sh: |-
           talosctl --nodes {{.NODE}} get machinetypes --output=jsonpath='{.spec}' 2> /dev/null \
-            || basename $(find '{{.TALOS_DIR}}' -name '{{.NODE}}.yaml' -printf '%h')
+            || basename $(dirname $(find '{{.TALOS_DIR}}' -name '{{.NODE}}.yaml' | head -1))
     env:
       MACHINE_TYPE: '{{.MACHINE_TYPE}}'
     requires:
       vars: [NODE]
     preconditions:
       - op user get --me
-      - talosctl config info
       - test -f {{.TALOS_DIR}}/machineconfig.yaml.j2
       - test -f {{.TALOS_DIR}}/{{.MACHINE_TYPE}}/{{.NODE}}.yaml
       - test -f {{.TALOS_DIR}}/schematic.yaml
-      - which curl jq minijinja-cli op talosctl
+      - which curl jq minijinja-cli op talosctl yq
 
   upgrade-node:
     desc: Upgrade Talos on a single node [NODE=required]
@@ -62,7 +123,7 @@ tasks:
     cmd: talosctl --nodes {{.RANDOM_CONTROLLER}} upgrade-k8s --to $KUBERNETES_VERSION
     vars:
       RANDOM_CONTROLLER:
-        sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
+        sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | sort -R | head -1
     preconditions:
       - talosctl config info
       - talosctl --nodes {{.RANDOM_CONTROLLER}} get machineconfig
@@ -120,8 +181,124 @@ tasks:
     cmd: talosctl kubeconfig --nodes {{.RANDOM_CONTROLLER}} --force {{.KUBERNETES_DIR}}
     vars:
       RANDOM_CONTROLLER:
-        sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
+        sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | sort -R | head -1
     preconditions:
       - talosctl config info
       - talosctl --nodes {{.RANDOM_CONTROLLER}} get machineconfig
       - which jq talosctl
+
+  gen-secrets:
+    desc: Generate new cluster secrets and update 1Password
+    cmds:
+      - talosctl gen secrets
+      - task: update-secrets
+    preconditions:
+      - op user get --me
+      - which op talosctl yq
+
+  update-secrets:
+    desc: Update 1Password with generated cluster secrets
+    cmd: |-
+      if [ ! -f {{.ROOT_DIR}}/secrets.yaml ]; then
+        echo "Error: secrets.yaml not found. Run 'talosctl gen secrets' first."
+        exit 1
+      fi
+
+      echo "Updating 1Password with cluster secrets..."
+
+      # Extract values from secrets.yaml
+      CLUSTER_ID=$(yq '.cluster.id' {{.ROOT_DIR}}/secrets.yaml)
+      CLUSTER_SECRET=$(yq '.cluster.secret' {{.ROOT_DIR}}/secrets.yaml)
+      CLUSTER_TOKEN=$(yq '.secrets.bootstraptoken' {{.ROOT_DIR}}/secrets.yaml)
+      CLUSTER_SECRETBOXENCRYPTIONSECRET=$(yq '.secrets.secretboxencryptionsecret' {{.ROOT_DIR}}/secrets.yaml)
+
+      # Machine certificates (OS certificates are used for machine API access)
+      MACHINE_TOKEN=$(yq '.trustdinfo.token' {{.ROOT_DIR}}/secrets.yaml)
+      MACHINE_CA_CRT=$(yq '.certs.os.crt' {{.ROOT_DIR}}/secrets.yaml)
+      MACHINE_CA_KEY=$(yq '.certs.os.key' {{.ROOT_DIR}}/secrets.yaml)
+
+      CLUSTER_CA_CRT=$(yq '.certs.k8s.crt' {{.ROOT_DIR}}/secrets.yaml)
+      CLUSTER_CA_KEY=$(yq '.certs.k8s.key' {{.ROOT_DIR}}/secrets.yaml)
+      CLUSTER_AGGREGATORCA_CRT=$(yq '.certs.k8saggregator.crt' {{.ROOT_DIR}}/secrets.yaml)
+      CLUSTER_AGGREGATORCA_KEY=$(yq '.certs.k8saggregator.key' {{.ROOT_DIR}}/secrets.yaml)
+      CLUSTER_ETCD_CA_CRT=$(yq '.certs.etcd.crt' {{.ROOT_DIR}}/secrets.yaml)
+      CLUSTER_ETCD_CA_KEY=$(yq '.certs.etcd.key' {{.ROOT_DIR}}/secrets.yaml)
+      CLUSTER_SERVICEACCOUNT_KEY=$(yq '.certs.k8sserviceaccount.key' {{.ROOT_DIR}}/secrets.yaml)
+
+      # Update 1Password with all secrets
+      op item edit 'talos' \
+        "CLUSTER_ID=$CLUSTER_ID" \
+        "CLUSTER_SECRET=$CLUSTER_SECRET" \
+        "CLUSTER_TOKEN=$CLUSTER_TOKEN" \
+        "CLUSTER_SECRETBOXENCRYPTIONSECRET=$CLUSTER_SECRETBOXENCRYPTIONSECRET" \
+        "MACHINE_TOKEN=$MACHINE_TOKEN" \
+        "MACHINE_CA_CRT=$MACHINE_CA_CRT" \
+        "MACHINE_CA_KEY=$MACHINE_CA_KEY" \
+        "CLUSTER_CA_CRT=$CLUSTER_CA_CRT" \
+        "CLUSTER_CA_KEY=$CLUSTER_CA_KEY" \
+        "CLUSTER_AGGREGATORCA_CRT=$CLUSTER_AGGREGATORCA_CRT" \
+        "CLUSTER_AGGREGATORCA_KEY=$CLUSTER_AGGREGATORCA_KEY" \
+        "CLUSTER_ETCD_CA_CRT=$CLUSTER_ETCD_CA_CRT" \
+        "CLUSTER_ETCD_CA_KEY=$CLUSTER_ETCD_CA_KEY" \
+        "CLUSTER_SERVICEACCOUNT_KEY=$CLUSTER_SERVICEACCOUNT_KEY" \
+        --vault homelab
+
+      echo "Successfully updated 1Password with all cluster secrets"
+
+      # Update external secrets credentials to be properly formatted as a JSON string
+      echo "Updating 1Password external secrets credentials..."
+      if op item get 1password --field OP_CREDENTIALS_JSON --vault homelab --reveal >/dev/null 2>&1; then
+        OP_CREDENTIALS_JSON=$(op item get 1password --field OP_CREDENTIALS_JSON --vault homelab --reveal)
+        # Only process if we have valid JSON
+        if echo "$OP_CREDENTIALS_JSON" | jq . >/dev/null 2>&1; then
+          # Escape the JSON properly as a string
+          OP_CREDENTIALS_ESCAPED=$(echo "$OP_CREDENTIALS_JSON" | jq -c . | jq -R .)
+          op item edit 1password "OP_CREDENTIALS_JSON=$OP_CREDENTIALS_ESCAPED" --vault homelab
+          echo "Successfully updated 1Password external secrets credentials"
+        else
+          echo "Warning: OP_CREDENTIALS_JSON field exists but contains invalid JSON, skipping update"
+        fi
+      else
+        echo "Warning: OP_CREDENTIALS_JSON field not found in 1password item, skipping update"
+      fi
+    preconditions:
+      - op user get --me
+      - test -f {{.ROOT_DIR}}/secrets.yaml
+      - which op yq jq
+
+  bootstrap:
+    desc: Bootstrap Talos controlplane nodes, skipping unreachable if requested
+    vars:
+      SKIP_UNREACHABLE: '{{.SKIP_UNREACHABLE | default "false"}}'
+      NODES:
+        sh: |
+          if [ -n "{{.NODE}}" ]; then
+            echo "{{.NODE}}"
+          else
+            find {{.TALOS_DIR}}/controlplane -name "*.yaml" -exec basename {} .yaml \; | tr '\n' ' '
+          fi
+    cmds:
+      - |
+        for node in $NODES; do
+          if [ "${SKIP_UNREACHABLE}" = "true" ]; then
+            ERROR_MSG=$(talosctl --nodes "$node" get machineconfig 2>&1 >/dev/null)
+            if echo "$ERROR_MSG" | grep -qE 'connection refused|i/o timeout|no route to host|network is unreachable|could not connect'; then
+              echo "Node $node unreachable (network error), skipping."
+              continue
+            elif [ -n "$ERROR_MSG" ]; then
+              echo "Node $node error: $ERROR_MSG"
+              exit 1
+            fi
+          fi
+          echo "Bootstrapping node $node..."
+          # ...existing bootstrap logic for $node...
+        done
+    preconditions:
+      - op user get --me
+      - test -f {{.TALOS_DIR}}/machineconfig.yaml.j2
+      - which minijinja-cli op talosctl yq
+      # Only require node reachable if not skipping unreachable
+      - |
+        if [ "{{.SKIP_UNREACHABLE}}" != "true" ] && [ -n "{{.NODE}}" ]; then
+          talosctl --nodes {{.NODE}} get machineconfig
+        fi

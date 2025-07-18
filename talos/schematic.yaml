@@ -1,15 +1,13 @@
 ---
 customization:
   extraKernelArgs:
-    - -init_on_alloc                      # Less security, faster puter
-    - -selinux                            # Less security, faster puter
-    - apparmor=0                          # Less security, faster puter
-    - init_on_alloc=0                     # Less security, faster puter
-    - init_on_free=0                      # Less security, faster puter
-    - pcie_aspm=off                       # Disable PCIe ASPM
-    - mitigations=off                     # Less security, faster puter
-    - security=none                       # Less security, faster puter
-    - talos.auditd.disabled=1             # Less security, faster puter
+  - init_on_alloc=0
+  - init_on_free=0
+  - apparmor=0
+  - security=none
+  - pcie_aspm=off
+  - mitigations=off
+  - talos.auditd.disabled=1
   systemExtensions:
     officialExtensions:
       - siderolabs/realtek-firmware

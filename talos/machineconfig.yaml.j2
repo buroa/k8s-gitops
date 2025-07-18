@@ -90,9 +90,9 @@ cluster:
     {% if ENV.MACHINE_TYPE == 'controlplane' %}
     key: op://homelab/talos/CLUSTER_CA_KEY
     {% endif %}
-  clusterName: k8s
+  clusterName: homeops
   controlPlane:
-    endpoint: https://homeops.hypyr.space:6443
+    endpoint: {{ ENV.CONTROL_PLANE_ENDPOINT }}
   discovery:
     enabled: true
     registries:
@@ -106,7 +106,7 @@ cluster:
       name: none
     dnsDomain: cluster.local
     podSubnets: ["10.244.0.0/16"]
-    serviceSubnets: ["10.245.0.0/16"]
+    serviceSubnets: ["10.96.0.0/12"]
   secret: op://homelab/talos/CLUSTER_SECRET
   token: op://homelab/talos/CLUSTER_TOKEN
   {% if ENV.MACHINE_TYPE == 'controlplane' %}
@@ -133,13 +133,13 @@ cluster:
       key: op://homelab/talos/CLUSTER_ETCD_CA_KEY
     extraArgs:
       listen-metrics-urls: http://0.0.0.0:2381
-  extraManifests:
-    - # renovate: datasource=github-releases depName=kubernetes-sigs/gateway-api
-      https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.3.0/experimental-install.yaml
-    - # renovate: datasource=github-releases depName=prometheus-operator/prometheus-operator
-      https://github.com/prometheus-operator/prometheus-operator/releases/download/v0.84.0/stripped-down-crds.yaml
-    - # renovate: datasource=github-releases depName=k8snetworkplumbingwg/network-attachment-definition-client
-      https://github.com/k8snetworkplumbingwg/network-attachment-definition-client/raw/refs/tags/v1.7.7/artifacts/networks-crd.yaml
+  # extraManifests:
+  #   - # renovate: datasource=github-releases depName=kubernetes-sigs/gateway-api
+  #     https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.3.0/experimental-install.yaml
+  #   - # renovate: datasource=github-releases depName=prometheus-operator/prometheus-operator
+  #     https://github.com/prometheus-operator/prometheus-operator/releases/download/v0.84.0/stripped-down-crds.yaml
+  #   - # renovate: datasource=github-releases depName=k8snetworkplumbingwg/network-attachment-definition-client
+  #     https://github.com/k8snetworkplumbingwg/network-attachment-definition-client/raw/refs/tags/v1.7.7/artifacts/networks-crd.yaml
   proxy:
     disabled: true
     image: registry.k8s.io/kube-proxy:{{ ENV.KUBERNETES_VERSION }}

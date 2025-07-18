@@ -11,7 +11,7 @@ tasks:
       - talosctl kubeconfig --nodes {{.RANDOM_CONTROLLER}} --force {{.KUBERNETES_DIR}}
     vars:
       RANDOM_CONTROLLER:
-        sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
+        sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | sort -R | head -1
     preconditions:
       - talosctl config info
       - talosctl --nodes {{.RANDOM_CONTROLLER}} get machineconfig
@@ -23,14 +23,14 @@ tasks:
     cmds:
       - kubectl config set-cluster {{.CONTEXT}} --server https://{{.RANDOM_CONTROLLER}}:6443
       - defer: talosctl kubeconfig --nodes {{.RANDOM_CONTROLLER}} --force {{.KUBERNETES_DIR}}
-      - until kubectl wait nodes --for=condition=Ready=False --all --timeout=10m; do sleep 5; done
+      - echo "Applying external secrets and bootstrapping apps..."
       - op inject --in-file {{.BOOTSTRAP_DIR}}/secrets.yaml.tpl | kubectl apply --server-side --filename -
       - helmfile --file {{.BOOTSTRAP_DIR}}/helmfile.yaml sync --hide-notes
     vars:
       CONTEXT:
         sh: talosctl config info --output json | jq --raw-output '.context'
       RANDOM_CONTROLLER:
-        sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
+        sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | sort -R | head -1
     preconditions:
       - op user get --me
       - talosctl config info

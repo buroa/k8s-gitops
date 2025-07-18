@@ -9,3 +9,5 @@ Thumbs.db
 kubeconfig
 talosconfig
 talos/talosconfig
+talos/controlplane.yaml
+secrets.yaml
