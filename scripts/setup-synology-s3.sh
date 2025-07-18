@@ -20,7 +20,7 @@ echo
 
 echo "🔧 Setup Steps for Garage (Lightweight S3):"
 echo "============================================="
-echo "1. SSH to your NAS (nas.internal)"
+echo "1. SSH to your NAS (barbary.hypyr.space)"
 echo "2. Install Garage via Docker:"
 echo "   docker run -d --name garage \\"
 echo "     -p 3900:3900 -p 3901:3901 \\"

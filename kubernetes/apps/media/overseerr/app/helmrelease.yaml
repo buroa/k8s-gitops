@@ -57,6 +57,7 @@ spec:
         runAsGroup: 568
         fsGroup: 568
         fsGroupChangePolicy: OnRootMismatch
+        supplementalGroups: [1702]
     persistence:
       config:
         existingClaim: *app

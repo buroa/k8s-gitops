@@ -30,13 +30,26 @@ spec:
       retries: 3
   values:
     fullnameOverride: *app
+    configmapReload:
+      enabled: false
+    extraConfigmapMounts:
+      - name: snmp-config
+        mountPath: /etc/snmp_exporter
+        configMap: snmp-config
+        readOnly: true
+    extraSecretMounts:
+      - name: snmp-truenas-secret
+        mountPath: /etc/snmp_exporter/snmp.yml
+        secretName: snmp-truenas-secret
+        subPath: snmp.yml
+        readOnly: true
     serviceMonitor:
       enabled: true
       params:
         - name: nas
-          auth: [public_v2]
-          module: [synology]
-          target: nas.internal
+          auth: [truenas_v3]
+          module: [if_mib]
+          target: barbary.hypyr.space
         - name: ups
           auth: [public_v2]
           module: [apcups]

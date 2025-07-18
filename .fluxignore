@@ -1,0 +1,6 @@
+# Media apps - temporarily disabled
+kubernetes/apps/media/
+
+# Smart home apps - temporarily disabled
+kubernetes/apps/default/zigbee2mqtt/
+kubernetes/apps/default/home-assistant/

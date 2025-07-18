@@ -11,7 +11,7 @@ spec:
     staticConfig:
       static:
         - unifi.internal
-        - nas.internal
+        - barbary.hypyr.space
         - ups.internal
         - kvm.internal
         - pikvm.internal

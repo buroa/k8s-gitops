@@ -74,7 +74,7 @@ spec:
         runAsGroup: 568
         fsGroup: 568
         fsGroupChangePolicy: OnRootMismatch
-        supplementalGroups: [65536]
+        supplementalGroups: [1702, 65536]
     persistence:
       config:
         existingClaim: *app
@@ -92,8 +92,8 @@ spec:
                 volumeMode: Filesystem
       media:
         type: nfs
-        server: nas.internal
-        path: /volume1/media
+        server: barbary.hypyr.space
+        path: /mnt/data01/data
         globalMounts:
           - path: /media/downloads/nzbs
             subPath: downloads/nzbs

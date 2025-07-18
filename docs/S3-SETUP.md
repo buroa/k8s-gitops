@@ -322,7 +322,7 @@ Since Synology doesn't support Cloudflare DNS auth natively, use `acme.sh` for p
 **Setup acme.sh (one-time)**
 ```bash
 ssh cpritchett@razzia.hypyr.space
-curl https://get.acme.sh | sh -s email=your-email@domain.com
+curl https://get.acme.sh | sh -s email=chad@chadpritchett.com
 source ~/.bashrc
 ```
 

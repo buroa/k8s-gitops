@@ -63,7 +63,7 @@ spec:
         runAsGroup: 568
         fsGroup: 568
         fsGroupChangePolicy: OnRootMismatch
-        supplementalGroups: [44, 65537]
+        supplementalGroups: [1702, 44, 65537]
     persistence:
       config:
         existingClaim: *app
@@ -73,8 +73,8 @@ spec:
           - path: /config/Library/Application Support/Plex Media Server/Cache
       media:
         type: nfs
-        server: nas.internal
-        path: /volume1/media
+        server: barbary.hypyr.space
+        path: /mnt/data01/data
         globalMounts:
           - readOnly: true
       tmpfs:

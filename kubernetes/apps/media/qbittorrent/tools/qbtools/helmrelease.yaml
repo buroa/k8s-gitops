@@ -96,7 +96,7 @@ spec:
             readOnly: true
       media:
         type: nfs
-        server: nas.internal
-        path: /volume1/media
+        server: barbary.hypyr.space
+        path: /mnt/data01/data
         globalMounts:
           - readOnly: true
