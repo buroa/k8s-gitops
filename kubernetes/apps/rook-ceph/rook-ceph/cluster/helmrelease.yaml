@@ -65,7 +65,8 @@ spec:
         spec:
           failureDomain: host
           replicated:
-            size: 3
+            size: 2
+            requireSafeReplicaSize: false
         storageClass:
           enabled: true
           name: ceph-block
