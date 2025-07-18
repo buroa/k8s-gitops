@@ -12,6 +12,7 @@ customization:
     - talos.auditd.disabled=1             # Less security, faster puter
   systemExtensions:
     officialExtensions:
+      - siderolabs/realtek-firmware
+      - siderolabs/i915
       - siderolabs/intel-ucode
-      - siderolabs/gasket-driver
-      - siderolabs/nfsrahead
+      - siderolabs/nfsd

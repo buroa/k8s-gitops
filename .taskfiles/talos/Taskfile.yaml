@@ -30,10 +30,6 @@ tasks:
             || basename $(find '{{.TALOS_DIR}}' -name '{{.NODE}}.yaml' -printf '%h')
     env:
       MACHINE_TYPE: '{{.MACHINE_TYPE}}'
-      TALOS_SCHEMATIC:
-        sh: |-
-          curl --silent -X POST --data-binary @{{.TALOS_DIR}}/schematic.yaml https://factory.talos.dev/schematics \
-            | jq --raw-output '.id'
     requires:
       vars: [NODE]
     preconditions:

@@ -8,3 +8,4 @@ Brewfile.lock.json
 Thumbs.db
 kubeconfig
 talosconfig
+talos/talosconfig

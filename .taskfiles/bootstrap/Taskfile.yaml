@@ -38,3 +38,12 @@ tasks:
       - test -f {{.BOOTSTRAP_DIR}}/helmfile.yaml
       - test -f {{.BOOTSTRAP_DIR}}/secrets.yaml.tpl
       - which helmfile jq kubectl op talosctl
+
+  regenerate-schematic:
+    desc: Regenerate schematic ID, update .mise.toml, and reload mise
+    cmds:
+      - |
+        SCHEMATIC_ID=$(curl --silent -X POST --data-binary @{{.ROOT_DIR}}/talos/schematic.yaml https://factory.talos.dev/schematics | jq -r .id)
+        sed -i "s|^TALOS_SCHEMATIC = \".*\"|TALOS_SCHEMATIC = \"$SCHEMATIC_ID\"|" {{.ROOT_DIR}}/.mise.toml
+        echo "Updated TALOS_SCHEMATIC to $SCHEMATIC_ID in .mise.toml"
+      - mise install

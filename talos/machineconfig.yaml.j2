@@ -66,9 +66,7 @@ machine:
         vlans:
           - { vlanId: 30, dhcp: false, mtu: 1500 }
           - { vlanId: 48, dhcp: false, mtu: 1500 }
-  nameservers: ["192.168.1.1"]
-  disableSearchDomain: true
-    nameservers: ["192.168.1.1"]
+    nameservers: ["10.0.5.1"]
     disableSearchDomain: true
   nodeLabels:
     topology.kubernetes.io/region: k8s
@@ -170,23 +168,3 @@ cluster:
   serviceAccount:
     key: op://homelab/talos/CLUSTER_SERVICEACCOUNT_KEY
   {% endif %}
----
-apiVersion: v1alpha1
-kind: UserVolumeConfig
-name: local-hostpath
-provisioning:
-  diskSelector:
-    match: disk.device == "/dev/sda" && system_disk
-  partitioning:
-    - name: system
-      size: 30GB
-    - name: user-storage
-      size: 0
-      mount: /var/mnt/local-hostpath
----
-apiVersion: v1alpha1
-kind: EthernetConfig
-name: enp1s0
-rings:
-  rx: 8160
-  tx: 8160

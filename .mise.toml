@@ -2,3 +2,15 @@
 KUBECONFIG = '{{config_root}}/kubernetes/kubeconfig'
 MINIJINJA_CONFIG_FILE = '{{config_root}}/.minijinja.toml'
 TALOSCONFIG = '{{config_root}}/talos/talosconfig'
+TALOS_VERSION = "v1.10.5"
+KUBERNETES_VERSION = "v1.33.2"
+MACHINE_TYPE = "controlplane"
+TALOS_SCHEMATIC = "b4e204a2932be8827ddf98a9329269723407f77b36a758400506bca4abebc602"
+
+[tools]
+helmfile = "1.1.3"
+kubectl = "1.33.2"
+talosctl = "1.10.5"
+task = "3.44.0"
+"cargo:minijinja-cli" = "latest"
+yq = "4.46.1"
