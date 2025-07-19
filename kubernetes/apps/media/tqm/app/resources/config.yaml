@@ -19,26 +19,26 @@ filters:
 
     remove:
       - IsUnregistered()
-      - HasAllTags("not-linked") && SeedingDays >= 14.2
-      - HasAllTags("site:ant") && (Ratio > 1.01 || SeedingDays >= 14.2)
-      - HasAllTags("site:ar") && (Ratio > 1.01 || SeedingDays >= 14.2)
-      - HasAllTags("site:blu") && SeedingDays >= 14.2
-      - HasAllTags("site:fl") && (Ratio > 1.01 || SeedingDays >= 7.2)
-      - HasAllTags("site:fnp") && (Ratio > 1.01 || SeedingDays >= 14.2)
-      - HasAllTags("site:hds") && SeedingDays >= 7.2
-      - HasAllTags("site:hdt") && (Ratio > 1.01 || SeedingDays >= 7.2)
-      - HasAllTags("site:ipt") && (Ratio > 1.01 || SeedingDays >= 14.2)
-      - HasAllTags("site:mlk") && (Ratio > 1.01 || SeedingDays >= 14.2)
-      - HasAllTags("site:mtv") && (Ratio > 1.01 || SeedingDays >= 14.2)
-      - HasAllTags("site:nbl") && SeedingDays >= 7.2
-      - HasAllTags("site:oe") && (Ratio > 1.01 || SeedingDays >= 14.2)
-      - HasAllTags("site:phd") && (Ratio > 1.01 || SeedingDays >= 14.2)
-      - HasAllTags("site:rfx") && (Ratio > 1.01 || SeedingDays >= 7.2)
-      - HasAllTags("site:sp") && (Ratio > 1.01 || SeedingDays >= 14.2)
-      - HasAllTags("site:st") && (Ratio > 1.01 || SeedingDays >= 7.2)
-      - HasAllTags("site:td") && (Ratio > 1.01 || SeedingDays >= 7.2)
-      - HasAllTags("site:tl") && (Ratio > 1.01 || SeedingDays >= 7.2)
-      - HasAllTags("site:uhd") && (Ratio > 1.01 || SeedingDays >= 7.2)
+      - HasAnyTag("not-linked") && SeedingDays >= 15
+      - HasAnyTag("site:blu", "site:nbl") && SeedingDays >= 7.2
+      - Ratio > 1.01 &&
+        (
+          (
+            SeedingDays >= 8.0 &&
+            HasAnyTag(
+              "site:fl", "site:hdt", "site:rfx", "site:st",
+              "site:td", "site:tl", "site:uhd"
+            )
+          ) ||
+          (
+            SeedingDays >= 15.0 &&
+            HasAnyTag(
+              "site:ant", "site:ar", "site:fnp", "site:ipt",
+              "site:mlk", "site:mtv", "site:oe", "site:phd",
+              "site:sp"
+            )
+          )
+        )
 
     tag:
       - { name: added:1d,     mode: full, update: ['AddedDays < 7'] }
@@ -54,7 +54,6 @@ filters:
       - { name: site:blu,     mode: full, update: ['TrackerName in ["blutopia.cc", "blutopia.xyz"]'] }
       - { name: site:fl,      mode: full, update: ['TrackerName in ["filelist.io", "thefl.org"]'] }
       - { name: site:fnp,     mode: full, update: ['TrackerName == "fearnopeer.com"'] }
-      - { name: site:hds,     mode: full, update: ['TrackerName == "hd-space.pw"'] }
       - { name: site:hdt,     mode: full, update: ['TrackerName == "hdts-announce.ru"'] }
       - { name: site:huno,    mode: full, update: ['TrackerName == "hawke.uno"'] }
       - { name: site:ipt,     mode: full, update: ['TrackerName in ["bgp.technology", "empirehost.me", "stackoverflow.tech"]'] }

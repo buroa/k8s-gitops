@@ -49,6 +49,7 @@ spec:
             args:
               - clean
               - qb
+              - --dry-run
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
