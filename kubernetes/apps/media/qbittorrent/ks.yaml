@@ -33,27 +33,3 @@ spec:
   targetNamespace: *namespace
   timeout: 5m
   wait: true
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: &app qbittorrent-tools
-  namespace: &namespace media
-spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
-  dependsOn:
-    - name: qbittorrent
-      namespace: *namespace
-  interval: 1h
-  path: ./kubernetes/apps/media/qbittorrent/tools
-  prune: true
-  retryInterval: 2m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-    namespace: flux-system
-  targetNamespace: *namespace
-  timeout: 5m
-  wait: true

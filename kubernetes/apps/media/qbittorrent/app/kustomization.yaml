@@ -4,6 +4,9 @@ kind: Kustomization
 resources:
   - ./helmrelease.yaml
 configMapGenerator:
+  - name: qbittorrent-configmap
+    files:
+      - ./resources/.qbt.toml
   - name: qbittorrent-loki-rules
     files:
       - ./resources/lokirule.yaml
