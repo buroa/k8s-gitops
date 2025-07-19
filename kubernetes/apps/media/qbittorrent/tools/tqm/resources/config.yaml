@@ -58,6 +58,7 @@ filters:
       - { name: site:hdt,     mode: full, update: ['TrackerName == "hdts-announce.ru"'] }
       - { name: site:huno,    mode: full, update: ['TrackerName == "hawke.uno"'] }
       - { name: site:ipt,     mode: full, update: ['TrackerName in ["bgp.technology", "empirehost.me", "stackoverflow.tech"]'] }
+      - { name: site:lst,     mode: full, update: ['TrackerName == "lst.gg"'] }
       - { name: site:mlk,     mode: full, update: ['TrackerName == "milkie.cc"'] }
       - { name: site:mtv,     mode: full, update: ['TrackerName == "morethantv.me"'] }
       - { name: site:nbl,     mode: full, update: ['TrackerName == "nebulance.io"'] }
@@ -70,5 +71,6 @@ filters:
       - { name: site:td,      mode: full, update: ['TrackerName in ["jumbohostpro.eu", "td-peers.com"]'] }
       - { name: site:tl,      mode: full, update: ['TrackerName in ["tleechreload.org", "torrentleech.org"]'] }
       - { name: site:uhd,     mode: full, update: ['TrackerName == "uhdbits.org"'] }
+      - { name: site:ulcx,    mode: full, update: ['TrackerName == "upload.cx"'] }
       - { name: tracker-down, mode: full, update: ['IsTrackerDown()'] }
       - { name: unregistered, mode: full, update: ['IsUnregistered()'] }
