@@ -19,25 +19,15 @@ filters:
 
     remove:
       - IsUnregistered()
-      - HasAnyTag("not-linked") && SeedingDays >= 15
-      - HasAnyTag("site:blu", "site:nbl") && SeedingDays >= 7.2
-      - Ratio > 1.01 &&
-        (
-          (
-            SeedingDays >= 8.0 &&
-            HasAnyTag(
-              "site:fl", "site:hdt", "site:rfx", "site:st",
-              "site:td", "site:tl", "site:uhd"
-            )
-          ) ||
-          (
-            SeedingDays >= 15.0 &&
-            HasAnyTag(
-              "site:ant", "site:ar", "site:fnp", "site:ipt",
-              "site:mlk", "site:mtv", "site:oe", "site:phd",
-              "site:sp"
-            )
-          )
+      - HasAnyTag("not-linked") && SeedingDays >= 15.0
+      - (
+          HasAnyTag(
+            "site:ant", "site:ar", "site:blu", "site:fl", "site:fnp", "site:hdt",
+            "site:ipt", "site:lst", "site:mlk", "site:nbl", "site:oe", "site:phd",
+            "site:rfx", "site:sp", "site:st", "site:td", "site:tl", "site:uhd",
+            "site:ulcx"
+          ) &&
+          SeedingDays >= 30.0
         )
 
     tag:
