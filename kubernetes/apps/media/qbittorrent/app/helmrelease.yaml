@@ -19,8 +19,6 @@ spec:
   values:
     controllers:
       qbittorrent:
-        annotations:
-          reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
@@ -68,13 +66,6 @@ spec:
     persistence:
       config:
         existingClaim: *app
-      config-file:
-        type: configMap
-        name: qbittorrent-configmap
-        globalMounts:
-          - path: /config/.qbt.toml
-            subPath: .qbt.toml
-            readOnly: true
       incomplete:
         type: custom
         volumeSpec:
