@@ -6,3 +6,4 @@ machine:
     hostname: home02.hypyr.space
   nodeLabels:
     topology.kubernetes.io/zone: m
+    quicksync.generation: "12"

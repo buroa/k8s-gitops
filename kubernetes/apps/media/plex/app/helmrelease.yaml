@@ -57,6 +57,14 @@ spec:
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
     defaultPodOptions:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: quicksync.generation
+                operator: In
+                values: ["9", "10", "11", "12"]
       securityContext:
         runAsNonRoot: true
         runAsUser: 568
