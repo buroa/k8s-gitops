@@ -10,6 +10,8 @@ machine:
     {% if ENV.MACHINE_TYPE == 'controlplane' %}
     key: op://homelab/talos/MACHINE_CA_KEY
     {% endif %}
+  certSANs:
+    - "{{ ENV.CONTROL_PLANE_ENDPOINT | replace('https://', '') | replace(':6443', '') }}"
   features:
     rbac: true
     stableHostname: true
@@ -118,6 +120,7 @@ cluster:
     image: registry.k8s.io/kube-apiserver:{{ ENV.KUBERNETES_VERSION }}
     extraArgs:
       enable-aggregator-routing: true
+      bind-address: 0.0.0.0
     certSANs: ["homeops.hypyr.space"]
     disablePodSecurityPolicy: true
   controllerManager:

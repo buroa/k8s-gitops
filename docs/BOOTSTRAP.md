@@ -1,4 +1,4 @@
-# Talos Cluster Bootstrap Guide
+tas# Talos Cluster Bootstrap Guide
 
 ## Prerequisites
 
@@ -45,13 +45,13 @@ Apply configuration to both control plane nodes using tasks:
 # Apply to first node
 task talos:apply-node NODE=10.0.5.196
 
-# Apply to second node  
+# Apply to second node
 task talos:apply-node NODE=10.0.5.78
 ```
 
 The tasks automatically:
 - Render the machine config template with environment variables
-- Inject 1Password secrets 
+- Inject 1Password secrets
 - Apply the configuration with proper node-specific patches
 
 ### 4. Bootstrap Cluster
@@ -81,13 +81,24 @@ kubectl get nodes
 kubectl get pods -A
 ```
 
-### 6. Bootstrap Applications
+### 6. Bootstrap Cluster & CNI
 
-Once the cluster is operational, bootstrap core applications:
+Once the cluster is operational, bootstrap core applications and CNI (Cilium) in a single step:
 
 ```bash
-task bootstrap:apps -y
+# Bootstrap the cluster and install CNI (Cilium)
+task bootstrap:talos -y
 ```
+
+This will:
+- Bootstrap etcd on one node (others join automatically)
+- Install Cilium CNI with proper device configuration
+- Deploy core applications
+- Nodes will transition directly to "Ready" state
+
+**Note:**
+- The Cilium `direct-routing-device` is set via a config variable (e.g., from Talos machine config), allowing easy future changes (e.g., to a bond device).
+- No separate `bootstrap:apps` step is required.
 
 ## Troubleshooting
 

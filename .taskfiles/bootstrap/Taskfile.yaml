@@ -4,18 +4,19 @@ version: '3'
 tasks:
 
   talos:
-    desc: Bootstrap Talos
-    prompt: Bootstrap Talos ...?
+    desc: Bootstrap Talos on the current VIP node
+    prompt: Bootstrap Talos on node {{.TARGET_NODE}}...?
     cmds:
-      - until talosctl --nodes {{.RANDOM_CONTROLLER}} bootstrap; do sleep 5; done
-      - talosctl kubeconfig --nodes {{.RANDOM_CONTROLLER}} --force {{.KUBERNETES_DIR}}
+      - until talosctl --nodes {{.TARGET_NODE}} bootstrap; do sleep 5; done
+      - talosctl kubeconfig --nodes {{.TARGET_NODE}} --force {{.KUBERNETES_DIR}}
     vars:
-      RANDOM_CONTROLLER:
-        sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | sort -R | head -1
+      VIP_HOSTNAME:
+        sh: echo {{.CONTROL_PLANE_ENDPOINT}} | sed -e 's,^https://,,' -e 's,:.*$,,'
+      TARGET_NODE:
+        sh: dig +short {{.VIP_HOSTNAME}} | tail -1
     preconditions:
       - talosctl config info
-      - talosctl --nodes {{.RANDOM_CONTROLLER}} get machineconfig
-      - which jq talosctl
+      - which dig jq talosctl
 
   apps:
     desc: Bootstrap Kubernetes Apps

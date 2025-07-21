@@ -8,6 +8,10 @@ vars:
   BOOTSTRAP_DIR: '{{.ROOT_DIR}}/bootstrap'
   KUBERNETES_DIR: '{{.ROOT_DIR}}/kubernetes'
   TALOS_DIR: '{{.ROOT_DIR}}/talos'
+  CONTROL_PLANE_ENDPOINT: "https://homeops.hypyr.space:6443"
+  OP_VAULT: "homelab"
+  TALOS_ENDPOINTS: "homeops.hypyr.space"
+  TALOS_NODES: "10.0.5.78,10.0.5.196,10.0.5.123"
 
 env:
   KUBECONFIG: '{{.KUBERNETES_DIR}}/kubeconfig'
