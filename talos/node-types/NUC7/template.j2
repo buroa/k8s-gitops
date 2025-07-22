@@ -71,9 +71,9 @@ machine:
     interfaces:
       - interface: bond0
         bond:
-          deviceSelectors: 
-            - { hardwareAddr: "94:c6:91:1d:94:b6", driver: e1000e }
-            - { hardwareAddr: "5c:85:7e:34:3a:d0", driver: r8152 }
+          deviceSelectors:
+            - { hardwareAddr: "94:c6:91:1d:94:*", driver: e1000e }
+            - { hardwareAddr: "5c:85:7e:34:3a:*", driver: r8152 }
           mode: 802.3ad
           xmitHashPolicy: layer3+4
           lacpRate: fast
@@ -194,8 +194,7 @@ kind: UserVolumeConfig
 name: local-hostpath
 provisioning:
   diskSelector:
-    match: !disk.model == "Micron_*" && system_disk
-  minSize: 1.92TB
+    match: disk.model != "Micron_*" && system_disk
 ---
 apiVersion: v1alpha1
 kind: EthernetConfig

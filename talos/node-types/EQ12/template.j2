@@ -71,7 +71,7 @@ machine:
     interfaces:
       - interface: bond0
         bond:
-          deviceSelectors: 
+          deviceSelectors:
             - { hardwareAddr: "7c:83:34:*", driver: igc }
           mode: 802.3ad
           xmitHashPolicy: layer3+4
@@ -193,7 +193,7 @@ kind: UserVolumeConfig
 name: local-hostpath
 provisioning:
   diskSelector:
-    match: !disk.model == "Micron_*" && system_disk
+    match: disk.model != "Micron_*" && system_disk
 ---
 apiVersion: v1alpha1
 kind: EthernetConfig
