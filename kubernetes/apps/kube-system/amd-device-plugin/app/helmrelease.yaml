@@ -40,9 +40,9 @@ spec:
         - key: CriticalAddonsOnly
           operator: Exists
     persistence:
-      dev:
+      dev-dri:
         type: hostPath
-        hostPath: /dev
+        hostPath: /dev/dri
         globalMounts:
           - readOnly: true
       sys:

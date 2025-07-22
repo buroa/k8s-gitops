@@ -3,4 +3,5 @@ devices:
   - name: coral
     groups:
       - paths:
-          - path: /dev/apex_0
+          - path: /host/dev/apex_0
+            mountPath: /dev/apex_0
