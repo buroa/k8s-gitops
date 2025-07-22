@@ -1,9 +1,0 @@
----
-machine:
-  install:
-    disk: /dev/sda
-  network:
-    hostname: home01.hypyr.space
-  nodeLabels:
-    topology.kubernetes.io/zone: m
-    quicksync.generation: "12"

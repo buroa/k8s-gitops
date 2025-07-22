@@ -12,6 +12,64 @@ env:
 
 tasks:
 
+  list-node-types:
+    desc: List all available node types
+    dir: talos
+    cmds:
+      - |
+        echo "Available node types:"
+        find node-types -maxdepth 1 -type d -not -path node-types | sed 's|node-types/||' | sort
+    silent: true
+
+  list-nodes:
+    desc: List all nodes and their types
+    dir: talos
+    cmds:
+      - |
+        echo "Node mappings:"
+        yq '.nodes | to_entries | .[] | .key + " -> " + .value' node-mapping.yaml
+    preconditions:
+      - test -f {{.TALOS_DIR}}/node-mapping.yaml
+      - which yq
+    silent: true
+
+  regenerate-schematic:
+    desc: Regenerate schematic ID for a node type [NODE_TYPE=required]
+    dir: talos
+    requires:
+      vars: [NODE_TYPE]
+    cmds:
+      - |
+        echo "Regenerating schematic for {{.NODE_TYPE}}..."
+        SCHEMATIC_ID=$(talosctl image factory schematic --output-path node-types/{{.NODE_TYPE}}/schematic.yaml)
+        echo "New schematic ID: $SCHEMATIC_ID"
+        echo "You may need to update TALOS_SCHEMATIC in your environment"
+    preconditions:
+      - test -f {{.TALOS_DIR}}/node-types/{{.NODE_TYPE}}/schematic.yaml
+      - which talosctl
+
+  add-node-type:
+    desc: Add a new node type [NODE_TYPE=required] [TEMPLATE_SOURCE=optional]
+    dir: talos
+    requires:
+      vars: [NODE_TYPE]
+    vars:
+      TEMPLATE_SOURCE: '{{.TEMPLATE_SOURCE | default "upstream.j2"}}'
+    cmds:
+      - |
+        echo "Creating new node type: {{.NODE_TYPE}}"
+        mkdir -p node-types/{{.NODE_TYPE}}/controlplane
+        cp {{.TEMPLATE_SOURCE}} node-types/{{.NODE_TYPE}}/template.j2
+        cp schematic.yaml node-types/{{.NODE_TYPE}}/schematic.yaml
+        echo "Node type {{.NODE_TYPE}} created!"
+        echo "Next steps:"
+        echo "1. Edit node-types/{{.NODE_TYPE}}/template.j2 for hardware-specific config"
+        echo "2. Edit node-types/{{.NODE_TYPE}}/schematic.yaml for required extensions"
+        echo "3. Add node IP mappings to node-mapping.yaml"
+        echo "4. Put controlplane configs in node-types/{{.NODE_TYPE}}/controlplane/"
+    preconditions:
+      - test ! -d {{.TALOS_DIR}}/node-types/{{.NODE_TYPE}}
+      - test -f {{.TALOS_DIR}}/{{.TEMPLATE_SOURCE}}
 
   generate-config:
     desc: Generate talosconfig from secrets bundle
@@ -35,8 +93,14 @@ tasks:
       vars: [NODE]
     env:
       CONTROL_PLANE_ENDPOINT: "{{.CONTROL_PLANE_ENDPOINT}}"
+    vars:
+      NODE_TYPE:
+        sh: yq '.nodes["{{.NODE}}"]' node-mapping.yaml
+      TALOS_SCHEMATIC:
+        sh: talosctl image factory schematic --output-path node-types/{{.NODE_TYPE}}/schematic.yaml
     cmds:
       - |
+        echo "Applying configuration to node {{.NODE}} ({{.NODE_TYPE}})"
         mise exec -- talosctl apply-config \
           --insecure \
           --nodes "{{.NODE}}" \
@@ -45,16 +109,18 @@ tasks:
               --format yaml \
               --env \
               -D "NODE={{.NODE}}" \
-              machineconfig.yaml.j2 > /tmp/base-config.yaml && \
+              -D "TALOS_SCHEMATIC={{.TALOS_SCHEMATIC}}" \
+              node-types/{{.NODE_TYPE}}/template.j2 > /tmp/base-config.yaml && \
             yq eval-all 'select(fileIndex == 0) * select(fileIndex == 1)' \
-              /tmp/base-config.yaml controlplane/{{.NODE}}.yaml | \
+              /tmp/base-config.yaml node-types/{{.NODE_TYPE}}/controlplane/{{.NODE}}.yaml | \
             op inject
           )
     preconditions:
       - op user get --me
-      - test -f {{.TALOS_DIR}}/machineconfig.yaml.j2
-      - test -f {{.TALOS_DIR}}/controlplane/{{.NODE}}.yaml
-      - test -f {{.TALOS_DIR}}/schematic.yaml
+      - test -f {{.TALOS_DIR}}/node-mapping.yaml
+      - test -f {{.TALOS_DIR}}/node-types/{{.NODE_TYPE}}/template.j2
+      - test -f {{.TALOS_DIR}}/node-types/{{.NODE_TYPE}}/controlplane/{{.NODE}}.yaml
+      - test -f {{.TALOS_DIR}}/node-types/{{.NODE_TYPE}}/schematic.yaml
       - test -f {{.TALOS_DIR}}/talosconfig
       - which minijinja-cli op talosctl yq
 

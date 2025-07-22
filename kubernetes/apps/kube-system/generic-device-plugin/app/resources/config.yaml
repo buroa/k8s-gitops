@@ -1,6 +1,0 @@
----
-devices:
-  - name: coral
-    groups:
-      - paths:
-          - path: /dev/apex_0

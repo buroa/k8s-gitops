@@ -10,7 +10,8 @@
   "editor.stickyScroll.enabled": false,
   "explorer.autoReveal": false,
   "files.associations": {
-    "**/*.json5": "json5"
+    "**/*.json5": "json5",
+    "*.j2": "jinja"
   },
   "files.trimTrailingWhitespace": true,
   "material-icon-theme.files.associations": {

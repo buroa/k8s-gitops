@@ -11,7 +11,6 @@ releases:
     version: 1.17.5
     values:
       - "../kubernetes/apps/kube-system/cilium/app/helm/values.yaml"
-      - "./cilium-values.yaml"
     hooks:
       - events: ["postsync"]
         command: kubectl
