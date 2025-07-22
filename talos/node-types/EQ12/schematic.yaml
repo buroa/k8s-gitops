@@ -1,0 +1,15 @@
+---
+customization:
+  extraKernelArgs:
+  - init_on_alloc=0
+  - init_on_free=0
+  - apparmor=0
+  - security=none
+  - pcie_aspm=off
+  - mitigations=off
+  - talos.auditd.disabled=1
+  systemExtensions:
+    officialExtensions:
+      - siderolabs/i915              # Intel graphics (if present)
+      - siderolabs/intel-ucode       # Intel microcode
+      - siderolabs/nfsd              # NFS server
