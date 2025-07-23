@@ -3,6 +3,8 @@ apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
   name: postgres
+  annotations:
+    cnpg.io/skipEmptyWalArchiveCheck: "enabled"
 spec:
   instances: 3
   imageName: ghcr.io/cloudnative-pg/postgresql:${POSTGRESQL_VERSION}
@@ -25,34 +27,17 @@ spec:
       memory: 4Gi
   monitoring:
     enablePodMonitor: true
-  backup:
-    retentionPolicy: 30d
-    barmanObjectStore: &barmanObjectStore
-      data:
-        compression: bzip2
-      wal:
-        compression: bzip2
-        maxParallel: 8
-      destinationPath: s3://barman-u7z9m76w/
-      endpointURL: https://ba20be062ff7623f9d887afa37183c8f.r2.cloudflarestorage.com
-      # Note: serverName version needs to be inclemented
-      # when recovering from an existing cnpg cluster
-      serverName: postgres-v22
-      s3Credentials:
-        accessKeyId:
-          name: cloudnative-pg-secret
-          key: AWS_ACCESS_KEY_ID
-        secretAccessKey:
-          name: cloudnative-pg-secret
-          key: AWS_SECRET_ACCESS_KEY
-  # # Note: previousCluster needs to be set to the name of the previous
-  # # cluster when recovering from an existing cnpg cluster
-  # bootstrap:
-  #   recovery:
-  #     source: &previousCluster postgres-v21
-  # # Note: externalClusters is needed when recovering from an existing cnpg cluster
-  # externalClusters:
-  #   - name: *previousCluster
-  #     barmanObjectStore:
-  #       <<: *barmanObjectStore
-  #       serverName: *previousCluster
+  plugins:
+    - name: barman-cloud.cloudnative-pg.io
+      isWALArchiver: true
+      parameters: &parameters
+        barmanObjectName: r2
+        serverName: postgres-v22
+  bootstrap:
+    recovery:
+      source: source
+  externalClusters:
+    - name: source
+      plugin:
+        name: barman-cloud.cloudnative-pg.io
+        parameters: *parameters
