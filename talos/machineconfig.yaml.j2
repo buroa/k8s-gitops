@@ -45,6 +45,12 @@ machine:
         noatime=True
         rsize=1048576
         wsize=1048576
+    - op: create
+      path: /usr/local/etc/nfsrahead/nfs.conf
+      content: |
+        [nfsrahead]
+        nfs4=15360
+        default=128
   install:
     image: factory.talos.dev/metal-installer/{{ ENV.TALOS_SCHEMATIC }}:{{ ENV.TALOS_VERSION }}
   kernel:
