@@ -19,16 +19,23 @@ filters:
 
     remove:
       - IsUnregistered()
-      - HasAnyTag("not-linked") && SeedingDays >= 15.0
       - (
           HasAnyTag(
-            "site:ant", "site:ar", "site:blu", "site:fl", "site:fnp", "site:hdt",
-            "site:ipt", "site:lst", "site:mlk", "site:nbl", "site:oe", "site:phd",
-            "site:rfx", "site:sp", "site:st", "site:td", "site:tl", "site:uhd",
-            "site:ulcx"
+            "site:ant", "site:ar", "site:fl", "site:fnp", "site:ipt",
+            "site:mlk", "site:mtv", "site:nbl", "site:td", "site:uhd"
           ) &&
-          SeedingDays >= 30.0
+          Ratio > 3.0
         )
+      - (
+          HasAnyTag(
+            "site:ant", "site:ar", "site:blu", "site:fl", "site:fnp",
+            "site:hdt", "site:ipt", "site:lst", "site:mlk", "site:mtv",
+            "site:nbl", "site:oe", "site:phd", "site:rfx", "site:sp",
+            "site:st", "site:td", "site:tl", "site:uhd", "site:ulcx"
+          ) &&
+          SeedingDays > 24
+        )
+      - HasAnyTag("not-linked") && SeedingDays > 24
 
     tag:
       - { name: added:1d,     mode: full, update: ['AddedDays < 7'] }
