@@ -1,0 +1,22 @@
+---
+apiVersion: barmancloud.cnpg.io/v1
+kind: ObjectStore
+metadata:
+  name: s3
+spec:
+  configuration:
+    data:
+      compression: bzip2
+    destinationPath: s3://postgres-backup/
+    endpointURL: https://s3.hypyr.space
+    s3Credentials:
+      accessKeyId:
+        name: cloudnative-pg-secret
+        key: AWS_ACCESS_KEY_ID
+      secretAccessKey:
+        name: cloudnative-pg-secret
+        key: AWS_SECRET_ACCESS_KEY
+    wal:
+      compression: bzip2
+      maxParallel: 8
+  retentionPolicy: 30d

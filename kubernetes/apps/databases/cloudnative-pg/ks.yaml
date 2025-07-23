@@ -8,11 +8,38 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  dependsOn:
-    - name: onepassword-stores
-      namespace: external-secrets
   interval: 1h
   path: ./kubernetes/apps/databases/cloudnative-pg/app
+  prune: true
+  retryInterval: 2m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: *namespace
+  timeout: 5m
+  wait: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app cloudnative-pg-barman-cloud
+  namespace: &namespace databases
+spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  dependsOn:
+    - name: cert-manager
+      namespace: cert-manager
+    - name: cloudnative-pg
+      namespace: *namespace
+  interval: 1h
+  path: ./kubernetes/apps/databases/cloudnative-pg/barman-cloud
+  postBuild:
+    substitute:
+      # renovate: datasource=docker depName=ghcr.io/cloudnative-pg/plugin-barman-cloud-sidecar
+      SIDECAR_IMAGE_VERSION: v0.5.0
   prune: true
   retryInterval: 2m
   sourceRef:
@@ -35,6 +62,10 @@ spec:
   dependsOn:
     - name: cloudnative-pg
       namespace: *namespace
+    - name: cloudnative-pg-barman-cloud
+      namespace: *namespace
+    - name: onepassword-stores
+      namespace: external-secrets
     - name: openebs
       namespace: openebs-system
   healthCheckExprs:

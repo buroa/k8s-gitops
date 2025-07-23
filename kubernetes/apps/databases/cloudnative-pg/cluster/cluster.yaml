@@ -3,6 +3,8 @@ apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
   name: postgres
+  annotations:
+    cnpg.io/skipEmptyWalArchiveCheck: "enabled"
 spec:
   instances: 3
   imageName: ghcr.io/cloudnative-pg/postgresql:${POSTGRESQL_VERSION}
@@ -25,34 +27,18 @@ spec:
       memory: 4Gi
   monitoring:
     enablePodMonitor: true
-  backup:
-    retentionPolicy: 30d
-    barmanObjectStore: &barmanObjectStore
-      data:
-        compression: bzip2
-      wal:
-        compression: bzip2
-        maxParallel: 8
-      destinationPath: s3://postgres-backup/
-      endpointURL: https://s3.hypyr.space
-      # Note: serverName version needs to be inclemented
-      # when recovering from an existing cnpg cluster
-      serverName: postgres-v23
-      s3Credentials:
-        accessKeyId:
-          name: cloudnative-pg-secret
-          key: AWS_ACCESS_KEY_ID
-        secretAccessKey:
-          name: cloudnative-pg-secret
-          key: AWS_SECRET_ACCESS_KEY
-  # # Note: previousCluster needs to be set to the name of the previous
-  # # cluster when recovering from an existing cnpg cluster
+  plugins:
+    - name: barman-cloud.cloudnative-pg.io
+      isWALArchiver: true
+      parameters: &parameters
+        barmanObjectName: s3
+        serverName: postgres-v23
+  # Note: uncomment bootstrap section when recovering from an existing cluster
   # bootstrap:
   #   recovery:
-  #     source: &previousCluster postgres-v21
-  # # Note: externalClusters is needed when recovering from an existing cnpg cluster
+  #     source: source
   # externalClusters:
-  #   - name: *previousCluster
-  #     barmanObjectStore:
-  #       <<: *barmanObjectStore
-  #       serverName: *previousCluster
+  #   - name: source
+  #     plugin:
+  #       name: barman-cloud.cloudnative-pg.io
+  #       parameters: *parameters
