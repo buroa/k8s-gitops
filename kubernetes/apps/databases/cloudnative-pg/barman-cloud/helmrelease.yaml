@@ -73,16 +73,12 @@ spec:
         runAsUser: 568
         runAsGroup: 568
     persistence:
-      server:
-        type: secret
-        name: &serverCert barman-cloud-server-tls
-        globalMounts:
-          - path: /server
       client:
         type: secret
         name: &clientCert barman-cloud-client-tls
-        globalMounts:
-          - path: /client
+      server:
+        type: secret
+        name: &serverCert barman-cloud-server-tls
     service:
       app:
         annotations:
