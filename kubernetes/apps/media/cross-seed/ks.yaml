@@ -12,7 +12,7 @@ spec:
     - ../../../../components/nfs-scaler
     - ../../../../components/volsync
   dependsOn:
-    - name: onepassword-stores
+    - name: onepassword-store
       namespace: external-secrets
     - name: qbittorrent
       namespace: *namespace
