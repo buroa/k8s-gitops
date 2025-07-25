@@ -41,7 +41,7 @@ tasks:
     cmds:
       - |
         echo "Regenerating schematic for {{.NODE_TYPE}}..."
-        SCHEMATIC_ID=$(talosctl image factory schematic --output-path node-types/{{.NODE_TYPE}}/schematic.yaml)
+        SCHEMATIC_ID=$(curl --silent -X POST --data-binary @node-types/{{.NODE_TYPE}}/schematic.yaml https://factory.talos.dev/schematics | jq -r .id)
         echo "New schematic ID: $SCHEMATIC_ID"
         echo "You may need to update TALOS_SCHEMATIC in your environment"
     preconditions:
@@ -83,7 +83,8 @@ tasks:
     generates:
       - talosconfig
     preconditions:
-      - test -f {{.ROOT_DIR}}/secrets.yaml
+      - sh: test -f {{.ROOT_DIR}}/secrets.yaml
+        msg: "secrets.yaml not found. Run 'task talos:build-secrets' to build it from 1Password"
       - which talosctl
 
   apply-node:
@@ -97,7 +98,7 @@ tasks:
       NODE_TYPE:
         sh: yq '.nodes["{{.NODE}}"]' node-mapping.yaml
       TALOS_SCHEMATIC:
-        sh: talosctl image factory schematic --output-path node-types/{{.NODE_TYPE}}/schematic.yaml
+        sh: curl --silent -X POST --data-binary @node-types/{{.NODE_TYPE}}/schematic.yaml https://factory.talos.dev/schematics | jq -r .id
     cmds:
       - |
         echo "Applying configuration to node {{.NODE}} ({{.NODE_TYPE}})"
@@ -109,9 +110,11 @@ tasks:
               --format yaml \
               --env \
               -D "NODE={{.NODE}}" \
+              -D "MACHINE_TYPE=controlplane" \
+              -D "CONTROL_PLANE_ENDPOINT={{.CONTROL_PLANE_ENDPOINT}}" \
               -D "TALOS_SCHEMATIC={{.TALOS_SCHEMATIC}}" \
               node-types/{{.NODE_TYPE}}/template.j2 > /tmp/base-config.yaml && \
-            yq eval-all 'select(fileIndex == 0) * select(fileIndex == 1)' \
+            yq eval-all 'select(fileIndex == 0 and documentIndex == 0) *+ select(fileIndex == 1)' \
               /tmp/base-config.yaml node-types/{{.NODE_TYPE}}/controlplane/{{.NODE}}.yaml | \
             op inject
           )
@@ -238,7 +241,7 @@ tasks:
     desc: Update 1Password with generated cluster secrets
     cmd: |-
       if [ ! -f {{.ROOT_DIR}}/secrets.yaml ]; then
-        echo "Error: secrets.yaml not found. Run 'talosctl gen secrets' first."
+        echo "Error: secrets.yaml not found. Run 'task talos:gen-secrets' or 'task talos:build-secrets' first."
         exit 1
       fi
 
@@ -300,8 +303,64 @@ tasks:
       fi
     preconditions:
       - op user get --me
-      - test -f {{.ROOT_DIR}}/secrets.yaml
+      - sh: test -f {{.ROOT_DIR}}/secrets.yaml
+        msg: "secrets.yaml not found. Run 'task talos:build-secrets' to build it from 1Password, or 'task talos:gen-secrets' to generate new ones"
       - which op yq jq
+
+  build-secrets:
+    desc: Build secrets.yaml from 1Password credentials
+    cmd: |-
+      echo "Building secrets.yaml from 1Password..."
+
+      # Get all secrets from 1Password
+      CLUSTER_ID=$(op item get "talos" --vault "{{.OP_VAULT}}" --field "CLUSTER_ID")
+      CLUSTER_SECRET=$(op item get "talos" --vault "{{.OP_VAULT}}" --field "CLUSTER_SECRET")
+      CLUSTER_TOKEN=$(op item get "talos" --vault "{{.OP_VAULT}}" --field "CLUSTER_TOKEN")
+      CLUSTER_SECRETBOXENCRYPTIONSECRET=$(op item get "talos" --vault "{{.OP_VAULT}}" --field "CLUSTER_SECRETBOXENCRYPTIONSECRET")
+      MACHINE_TOKEN=$(op item get "talos" --vault "{{.OP_VAULT}}" --field "MACHINE_TOKEN")
+      MACHINE_CA_CRT=$(op item get "talos" --vault "{{.OP_VAULT}}" --field "MACHINE_CA_CRT")
+      MACHINE_CA_KEY=$(op item get "talos" --vault "{{.OP_VAULT}}" --field "MACHINE_CA_KEY")
+      CLUSTER_CA_CRT=$(op item get "talos" --vault "{{.OP_VAULT}}" --field "CLUSTER_CA_CRT")
+      CLUSTER_CA_KEY=$(op item get "talos" --vault "{{.OP_VAULT}}" --field "CLUSTER_CA_KEY")
+      CLUSTER_AGGREGATORCA_CRT=$(op item get "talos" --vault "{{.OP_VAULT}}" --field "CLUSTER_AGGREGATORCA_CRT")
+      CLUSTER_AGGREGATORCA_KEY=$(op item get "talos" --vault "{{.OP_VAULT}}" --field "CLUSTER_AGGREGATORCA_KEY")
+      CLUSTER_ETCD_CA_CRT=$(op item get "talos" --vault "{{.OP_VAULT}}" --field "CLUSTER_ETCD_CA_CRT")
+      CLUSTER_ETCD_CA_KEY=$(op item get "talos" --vault "{{.OP_VAULT}}" --field "CLUSTER_ETCD_CA_KEY")
+      CLUSTER_SERVICEACCOUNT_KEY=$(op item get "talos" --vault "{{.OP_VAULT}}" --field "CLUSTER_SERVICEACCOUNT_KEY")
+
+      # Build the secrets.yaml file
+      cat > {{.ROOT_DIR}}/secrets.yaml << EOF
+      cluster:
+        id: $CLUSTER_ID
+        secret: $CLUSTER_SECRET
+      secrets:
+        bootstraptoken: $CLUSTER_TOKEN
+        secretboxencryptionsecret: $CLUSTER_SECRETBOXENCRYPTIONSECRET
+      trustdinfo:
+        token: $MACHINE_TOKEN
+      certs:
+        etcd:
+          crt: $CLUSTER_ETCD_CA_CRT
+          key: $CLUSTER_ETCD_CA_KEY
+        k8s:
+          crt: $CLUSTER_CA_CRT
+          key: $CLUSTER_CA_KEY
+        k8saggregator:
+          crt: $CLUSTER_AGGREGATORCA_CRT
+          key: $CLUSTER_AGGREGATORCA_KEY
+        k8sserviceaccount:
+          key: $CLUSTER_SERVICEACCOUNT_KEY
+        os:
+          crt: $MACHINE_CA_CRT
+          key: $MACHINE_CA_KEY
+      EOF
+
+      echo "Successfully built secrets.yaml from 1Password credentials"
+    generates:
+      - "{{.ROOT_DIR}}/secrets.yaml"
+    preconditions:
+      - op user get --me
+      - which op
 
   bootstrap:
     desc: Bootstrap Talos controlplane nodes. [NODE=required]
