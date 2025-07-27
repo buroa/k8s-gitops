@@ -4,8 +4,8 @@
 
 Your cluster consists of 3 control plane nodes:
 
-- **home01** (10.0.5.219, EQ12) - Dual Ethernet bond (802.3ad LACP)
-- **home02** (10.0.5.215, EQ12) - Dual Ethernet bond (802.3ad LACP)
+- **home01** (10.0.5.215, EQ12) - Dual Ethernet bond (802.3ad LACP)
+- **home02** (10.0.5.220, EQ12) - Dual Ethernet bond (802.3ad LACP)
 - **home03** (10.0.5.100, NUC7) - Single Ethernet interface (eno1)
 
 Static configurations are stored in `talos/static-configs/` by hostname.Talos nodes installed and accessible via network
@@ -32,8 +32,8 @@ Apply configurations to your nodes (auto-detects hostname and config):
 ```bash
 # Apply to each node by IP (task auto-detects hostname and config file)
 task talos:apply-config NODE=10.0.5.100   # home03 (NUC7)
-task talos:apply-config NODE=10.0.5.215   # home02 (EQ12)
-task talos:apply-config NODE=10.0.5.219   # home01 (EQ12)
+task talos:apply-config NODE=10.0.5.220   # home02 (EQ12)
+task talos:apply-config NODE=10.0.5.215   # home01 (EQ12)
 ```
 
 ### Step 3: Bootstrap Cluster

@@ -11,7 +11,7 @@ vars:
   CONTROL_PLANE_ENDPOINT: "https://homeops.hypyr.space:6443"
   OP_VAULT: "homelab"
   TALOS_ENDPOINTS: "homeops.hypyr.space"
-  TALOS_NODES: "10.0.5.219,10.0.5.215,10.0.5.100"
+  TALOS_NODES: "10.0.5.215,10.0.5.220,10.0.5.100"
 
 env:
   KUBECONFIG: '{{.KUBERNETES_DIR}}/kubeconfig'

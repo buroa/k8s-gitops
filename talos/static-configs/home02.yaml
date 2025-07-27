@@ -80,7 +80,11 @@ machine:
           xmitHashPolicy: layer3+4
           lacpRate: fast
           miimon: 5000
-        dhcp: true
+        addresses:
+          - "10.0.5.219/24"
+        routes:
+          - network: "0.0.0.0/0"
+            gateway: "10.0.5.1"
         mtu: 1500
         vlans:
           - {vlanId: 30, dhcp: false, mtu: 1500}

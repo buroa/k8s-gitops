@@ -88,20 +88,53 @@ tasks:
       - which talosctl
 
   apply-config:
-    desc: Apply Talos configuration to a node [NODE=required]
+    desc: Apply Talos configuration to a node [NODE=required] [INSECURE=false]
     dir: talos
     requires:
       vars: [NODE]
     vars:
+      INSECURE: '{{.INSECURE | default "false"}}'
       HOSTNAME:
-        sh: talosctl --nodes "{{.NODE}}" get hostname --output=jsonpath='{.spec.hostname}' 2>/dev/null || echo "unknown"
+        sh: |
+          # First check if NODE matches a config file directly (e.g., home01, home02, home03)
+          if test -f "static-configs/{{.NODE}}.yaml"; then
+            echo "{{.NODE}}"
+          else
+            # Fall back to detecting hostname from the node
+            talosctl --nodes "{{.NODE}}" get hostname --output=jsonpath='{.spec.hostname}' 2>/dev/null || echo "unknown"
+          fi
+      NODE_IP:
+        sh: |
+          # If NODE is already an IP address, use it directly
+          if echo "{{.NODE}}" | grep -E '^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$' >/dev/null; then
+            echo "{{.NODE}}"
+          else
+            # Map hostname to IP address based on known mappings
+            case "{{.NODE}}" in
+              home01) echo "10.0.5.215" ;;
+              home02) echo "10.0.5.220" ;;
+              home03) echo "10.0.5.100" ;;
+              *) echo "{{.NODE}}" ;;
+            esac
+          fi
       CONFIG_FILE: static-configs/{{.HOSTNAME}}.yaml
+      INSECURE_FLAG:
+        sh: |
+          if [ "{{.INSECURE}}" = "true" ]; then
+            echo "--insecure"
+          else
+            echo ""
+          fi
     cmds:
       - |
-        echo "Detected hostname: {{.HOSTNAME}}"
-        echo "Applying {{.CONFIG_FILE}} to node {{.NODE}}"
+        echo "Using hostname: {{.HOSTNAME}}"
+        echo "Using node IP: {{.NODE_IP}}"
+        if [ "{{.INSECURE}}" = "true" ]; then
+          echo "Using insecure mode (--insecure flag)"
+        fi
+        echo "Applying {{.CONFIG_FILE}} to node {{.NODE_IP}}"
         cat {{.CONFIG_FILE}} | op inject > /tmp/talos-config-{{.HOSTNAME}}.yaml
-        talosctl apply-config --nodes "{{.NODE}}" --file /tmp/talos-config-{{.HOSTNAME}}.yaml
+        talosctl apply-config --nodes "{{.NODE_IP}}" {{.INSECURE_FLAG}} --file /tmp/talos-config-{{.HOSTNAME}}.yaml
         rm /tmp/talos-config-{{.HOSTNAME}}.yaml
     preconditions:
       - op user get --me
