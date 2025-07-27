@@ -23,6 +23,8 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      NFS_SERVER: barbary.hypyr.space
+      NFS_PATH: /mnt/data01/data
       VOLSYNC_CAPACITY: 2Gi
   prune: true
   retryInterval: 2m

@@ -22,6 +22,8 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      NFS_SERVER: barbary.hypyr.space
+      NFS_PATH: /mnt/data01/data
   prune: true
   retryInterval: 2m
   sourceRef:

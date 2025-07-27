@@ -3,24 +3,26 @@ version: v1alpha1
 debug: false
 persist: true
 machine:
-  type: {{ ENV.MACHINE_TYPE }}
+  type: controlplane
   token: op://homelab/talos/MACHINE_TOKEN
   ca:
     crt: op://homelab/talos/MACHINE_CA_CRT
-{% if ENV.MACHINE_TYPE == 'controlplane' %}
     key: op://homelab/talos/MACHINE_CA_KEY
-{% endif %}
   certSANs:
     - "homeops.hypyr.space"
+    - "home01.hypyr.space"
+    - "home02.hypyr.space"
+    - "home03.hypyr.space"
+    - "home01"
+    - "home02"
+    - "home03"
   features:
     rbac: true
     stableHostname: true
-    {% if ENV.MACHINE_TYPE == 'controlplane' %}
     kubernetesTalosAPIAccess:
       enabled: true
       allowedRoles: ["os:admin"]
       allowedKubernetesNamespaces: ["actions-runner-system", "system-upgrade"]
-    {% endif %}
     apidCheckExtKeyUsage: true
     diskQuotaSupport: true
     kubePrism:
@@ -48,12 +50,14 @@ machine:
         rsize=1048576
         wsize=1048576
   install:
-    image: factory.talos.dev/metal-installer/{{ ENV.TALOS_SCHEMATIC }}:{{ ENV.TALOS_VERSION }}
+    image: factory.talos.dev/metal-installer/b4e204a2932be8827ddf98a9329269723407f77b36a758400506bca4abebc602:v1.10.5
+    disk: /dev/sda
+    extraKernelArgs: []
   kernel:
     modules:
       - name: nbd
   kubelet:
-    image: ghcr.io/siderolabs/kubelet:{{ ENV.KUBERNETES_VERSION }}
+    image: ghcr.io/siderolabs/kubelet:v1.33.2
     extraConfig:
       featureGates:
         KubeletSeparateDiskGC: true
@@ -68,47 +72,45 @@ machine:
       validSubnets: ["10.0.5.0/24"]
     disableManifestsDirectory: true
   network:
+    hostname: home03.hypyr.space
     interfaces:
-      - interface: bond0
-        bond:
-          deviceSelectors:
-            - { hardwareAddr: "7c:83:34:*", driver: igc }
-          mode: 802.3ad
-          xmitHashPolicy: layer3+4
-          lacpRate: fast
-          miimon: 5000
-        dhcp: true
+      - interface: eno1
+        dhcp: false
+        addresses: ["10.0.5.100/24"]
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 10.0.5.1
         mtu: 1500
         vlans:
-          - { vlanId: 30, dhcp: false, mtu: 1500 }
-          - { vlanId: 48, dhcp: false, mtu: 1500 }
+          - {vlanId: 30, dhcp: false, mtu: 1500}
+          - {vlanId: 48, dhcp: false, mtu: 1500}
     nameservers: ["10.0.5.1"]
     disableSearchDomain: true
   nodeLabels:
     topology.kubernetes.io/region: k8s
+    topology.kubernetes.io/zone: garage-smc
+    quicksync.generation: "7"
   sysctls:
-    fs.inotify.max_user_watches: 1048576   # Watchdog
-    fs.inotify.max_user_instances: 8192    # Watchdog
-    net.core.rmem_max: 67108864            # 10Gb/s | Cloudflared / QUIC
-    net.core.wmem_max: 67108864            # 10Gb/s | Cloudflared / QUIC
-    net.ipv4.tcp_congestion_control: bbr   # 10Gb/s
-    net.ipv4.tcp_fastopen: 3               # Send and accept data in the opening SYN packet
-    sunrpc.tcp_slot_table_entries: 128     # 10Gb/s | NFS
+    fs.inotify.max_user_watches: 1048576 # Watchdog
+    fs.inotify.max_user_instances: 8192 # Watchdog
+    net.core.rmem_max: 67108864 # 10Gb/s | Cloudflared / QUIC
+    net.core.wmem_max: 67108864 # 10Gb/s | Cloudflared / QUIC
+    net.ipv4.tcp_congestion_control: bbr # 10Gb/s
+    net.ipv4.tcp_fastopen: 3 # Send and accept data in the opening SYN packet
+    sunrpc.tcp_slot_table_entries: 128 # 10Gb/s | NFS
     sunrpc.tcp_max_slot_table_entries: 128 # 10Gb/s | NFS
-    user.max_user_namespaces: 11255        # User Namespaces
-    vm.nr_hugepages: 1024                  # PostgreSQL
+    user.max_user_namespaces: 11255 # User Namespaces
+    vm.nr_hugepages: 1024 # PostgreSQL
   time:
     disabled: false
     servers: ["time.cloudflare.com"]
 cluster:
   ca:
     crt: op://homelab/talos/CLUSTER_CA_CRT
-{% if ENV.MACHINE_TYPE == 'controlplane' %}
     key: op://homelab/talos/CLUSTER_CA_KEY
-{% endif %}
   clusterName: homeops
   controlPlane:
-    endpoint: {{ ENV.CONTROL_PLANE_ENDPOINT }}
+    endpoint: https://homeops.hypyr.space:6443
   discovery:
     enabled: true
     registries:
@@ -125,20 +127,19 @@ cluster:
     serviceSubnets: ["10.96.0.0/12"]
   secret: op://homelab/talos/CLUSTER_SECRET
   token: op://homelab/talos/CLUSTER_TOKEN
-  {% if ENV.MACHINE_TYPE == 'controlplane' %}
   aggregatorCA:
     crt: op://homelab/talos/CLUSTER_AGGREGATORCA_CRT
     key: op://homelab/talos/CLUSTER_AGGREGATORCA_KEY
   allowSchedulingOnControlPlanes: true
   apiServer:
-    image: registry.k8s.io/kube-apiserver:{{ ENV.KUBERNETES_VERSION }}
+    image: registry.k8s.io/kube-apiserver:v1.33.2
     extraArgs:
       enable-aggregator-routing: true
       bind-address: 0.0.0.0
     certSANs: ["homeops.hypyr.space"]
     disablePodSecurityPolicy: true
   controllerManager:
-    image: registry.k8s.io/kube-controller-manager:{{ ENV.KUBERNETES_VERSION }}
+    image: registry.k8s.io/kube-controller-manager:v1.33.2
     extraArgs:
       bind-address: 0.0.0.0
   coreDNS:
@@ -151,18 +152,15 @@ cluster:
     extraArgs:
       listen-metrics-urls: http://0.0.0.0:2381
   extraManifests:
-    - # renovate: datasource=github-releases depName=kubernetes-sigs/gateway-api
-      https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.3.0/experimental-install.yaml
-    - # renovate: datasource=github-releases depName=prometheus-operator/prometheus-operator
-      https://github.com/prometheus-operator/prometheus-operator/releases/download/v0.84.0/stripped-down-crds.yaml
-    - # renovate: datasource=github-releases depName=k8snetworkplumbingwg/network-attachment-definition-client
-      https://github.com/k8snetworkplumbingwg/network-attachment-definition-client/raw/refs/tags/v1.7.7/artifacts/networks-crd.yaml
+    - https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.3.0/experimental-install.yaml
+    - https://github.com/prometheus-operator/prometheus-operator/releases/download/v0.84.0/stripped-down-crds.yaml
+    - https://github.com/k8snetworkplumbingwg/network-attachment-definition-client/raw/refs/tags/v1.7.7/artifacts/networks-crd.yaml
   proxy:
     disabled: true
-    image: registry.k8s.io/kube-proxy:{{ ENV.KUBERNETES_VERSION }}
+    image: registry.k8s.io/kube-proxy:v1.33.2
   secretboxEncryptionSecret: op://homelab/talos/CLUSTER_SECRETBOXENCRYPTIONSECRET
   scheduler:
-    image: registry.k8s.io/kube-scheduler:{{ ENV.KUBERNETES_VERSION }}
+    image: registry.k8s.io/kube-scheduler:v1.33.2
     extraArgs:
       bind-address: 0.0.0.0
     config:
@@ -184,25 +182,10 @@ cluster:
                     whenUnsatisfiable: ScheduleAnyway
   serviceAccount:
     key: op://homelab/talos/CLUSTER_SERVICEACCOUNT_KEY
-  {% endif %}
----
-apiVersion: v1alpha1
-kind: UserVolumeConfig
-name: local-hostpath
-provisioning:
-  diskSelector:
-    match: disk.model != "Micron_*" && system_disk
 ---
 apiVersion: v1alpha1
 kind: EthernetConfig
-name: enp1s0
+name: eno1
 rings:
-  rx: 8160
-  tx: 8160
----
-apiVersion: v1alpha1
-kind: EthernetConfig
-name: enp2s0
-rings:
-  rx: 8160
-  tx: 8160
+  rx: 4096
+  tx: 4096

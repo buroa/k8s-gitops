@@ -62,8 +62,10 @@ spec:
         existingClaim: *app
       media:
         type: nfs
-        server: barbary.hypyr.space
-        path: /mnt/data01/data
+        server: ${NFS_SERVER}
+        path: ${NFS_PATH}
+        globalMounts:
+          - path: /data
       tmpfs:
         type: emptyDir
         advancedMounts:

@@ -2,6 +2,6 @@
 # Node to node-type mapping
 # This file maps IP addresses to their hardware node types
 nodes:
-  "10.0.5.100": "NUC7"     # NUC with e1000e + r8152
-  "10.0.5.219": "EQ12"     # EQ12 with dual igc
-  "10.0.5.215": "EQ12"     # EQ12 with dual igc
+  "10.0.5.219": "EQ12"     # home01 - EQ12 with dual igc
+  "10.0.5.215": "EQ12"     # home02 - EQ12 with dual igc
+  "10.0.5.100": "NUC7"     # home03 - NUC with e1000e + r8152

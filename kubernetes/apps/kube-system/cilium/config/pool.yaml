@@ -6,6 +6,6 @@ metadata:
 spec:
   allowFirstLastIPs: "Yes"
   blocks:
-    - cidr: 10.0.48.0/20
+    # Using VLAN 48 network for LoadBalancer services
     - start: 10.0.48.50
-      stop: 10.0.63.250
+      stop: 10.0.48.200

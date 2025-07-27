@@ -87,45 +87,26 @@ tasks:
         msg: "secrets.yaml not found. Run 'task talos:build-secrets' to build it from 1Password"
       - which talosctl
 
-  apply-node:
-    desc: Apply a new configuration to a node [NODE=required]
+  apply-config:
+    desc: Apply Talos configuration to a node [NODE=required]
     dir: talos
     requires:
       vars: [NODE]
-    env:
-      CONTROL_PLANE_ENDPOINT: "{{.CONTROL_PLANE_ENDPOINT}}"
     vars:
-      NODE_TYPE:
-        sh: yq '.nodes["{{.NODE}}"]' node-mapping.yaml
-      TALOS_SCHEMATIC:
-        sh: curl --silent -X POST --data-binary @node-types/{{.NODE_TYPE}}/schematic.yaml https://factory.talos.dev/schematics | jq -r .id
+      HOSTNAME:
+        sh: talosctl --nodes "{{.NODE}}" get hostname --output=jsonpath='{.spec.hostname}' 2>/dev/null || echo "unknown"
+      CONFIG_FILE: static-configs/{{.HOSTNAME}}.yaml
     cmds:
       - |
-        echo "Applying configuration to node {{.NODE}} ({{.NODE_TYPE}})"
-        mise exec -- talosctl apply-config \
-          --insecure \
-          --nodes "{{.NODE}}" \
-          --file <( \
-            minijinja-cli \
-              --format yaml \
-              --env \
-              -D "NODE={{.NODE}}" \
-              -D "MACHINE_TYPE=controlplane" \
-              -D "CONTROL_PLANE_ENDPOINT={{.CONTROL_PLANE_ENDPOINT}}" \
-              -D "TALOS_SCHEMATIC={{.TALOS_SCHEMATIC}}" \
-              node-types/{{.NODE_TYPE}}/template.j2 > /tmp/base-config.yaml && \
-            yq eval-all 'select(fileIndex == 0 and documentIndex == 0) *+ select(fileIndex == 1)' \
-              /tmp/base-config.yaml node-types/{{.NODE_TYPE}}/controlplane/{{.NODE}}.yaml | \
-            op inject
-          )
+        echo "Detected hostname: {{.HOSTNAME}}"
+        echo "Applying {{.CONFIG_FILE}} to node {{.NODE}}"
+        cat {{.CONFIG_FILE}} | op inject > /tmp/talos-config-{{.HOSTNAME}}.yaml
+        talosctl apply-config --nodes "{{.NODE}}" --file /tmp/talos-config-{{.HOSTNAME}}.yaml
+        rm /tmp/talos-config-{{.HOSTNAME}}.yaml
     preconditions:
       - op user get --me
-      - test -f {{.TALOS_DIR}}/node-mapping.yaml
-      - test -f {{.TALOS_DIR}}/node-types/{{.NODE_TYPE}}/template.j2
-      - test -f {{.TALOS_DIR}}/node-types/{{.NODE_TYPE}}/controlplane/{{.NODE}}.yaml
-      - test -f {{.TALOS_DIR}}/node-types/{{.NODE_TYPE}}/schematic.yaml
-      - test -f {{.TALOS_DIR}}/talosconfig
-      - which minijinja-cli op talosctl yq
+      - test -f {{.TALOS_DIR}}/{{.CONFIG_FILE}}
+      - which op talosctl
 
   upgrade-node:
     desc: Upgrade Talos on a single node [NODE=required]

@@ -81,10 +81,11 @@ spec:
           - path: /config/Library/Application Support/Plex Media Server/Cache
       media:
         type: nfs
-        server: barbary.hypyr.space
-        path: /mnt/data01/data
+        server: ${NFS_SERVER}
+        path: ${NFS_PATH}
         globalMounts:
-          - readOnly: true
+          - path: /data
+            readOnly: true
       tmpfs:
         type: emptyDir
         advancedMounts:

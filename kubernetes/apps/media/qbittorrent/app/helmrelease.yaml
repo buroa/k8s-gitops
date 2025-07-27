@@ -80,11 +80,10 @@ spec:
                 volumeMode: Filesystem
       media:
         type: nfs
-        server: barbary.hypyr.space
-        path: /mnt/data01/data
+        server: ${NFS_SERVER}
+        path: ${NFS_PATH}
         globalMounts:
-          - path: /media/downloads/torrents
-            subPath: downloads/torrents
+          - path: /data
       tmp:
         type: emptyDir
     route:

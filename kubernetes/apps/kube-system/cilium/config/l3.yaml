@@ -1,3 +1,4 @@
+# BGP configuration for VLAN 48 network
 ---
 apiVersion: cilium.io/v2alpha1
 kind: CiliumBGPAdvertisement
@@ -39,6 +40,6 @@ spec:
       peers:
         - name: unifi
           peerASN: 64513
-          peerAddress: 192.168.48.1
+          peerAddress: 10.0.48.1
           peerConfigRef:
             name: l3-bgp-peer-config

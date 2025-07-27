@@ -3,6 +3,20 @@ version: '3'
 
 tasks:
 
+  apply-config:
+    desc: Apply Talos configuration to a specific node
+    prompt: Apply {{.CONFIG_FILE}} to node {{.NODE}}...?
+    cmds:
+      - talosctl -n {{.NODE}} apply-config --file {{.CONFIG_FILE}}
+    vars:
+      NODE: '{{.NODE | default ""}}'
+      CONFIG_FILE: '{{.CONFIG_FILE | default ""}}'
+    preconditions:
+      - test -n "{{.NODE}}" || (echo "Usage: task bootstrap:apply-config NODE=<ip> CONFIG_FILE=<path>" && exit 1)
+      - test -n "{{.CONFIG_FILE}}" || (echo "Usage: task bootstrap:apply-config NODE=<ip> CONFIG_FILE=<path>" && exit 1)
+      - test -f {{.CONFIG_FILE}}
+      - talosctl config info
+
   talos:
     desc: Bootstrap Talos on the current VIP node
     prompt: Bootstrap Talos on node {{.TARGET_NODE}}...?

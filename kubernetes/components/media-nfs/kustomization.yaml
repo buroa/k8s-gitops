@@ -1,0 +1,21 @@
+---
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+# NFS configuration for media applications
+# This component provides consistent NFS mount configuration
+# for all media apps following Trash Guides recommendations
+
+patches:
+  - target:
+      kind: HelmRelease
+      labelSelector: "app.kubernetes.io/part-of=media-stack"
+    patch: |
+      - op: replace
+        path: "/spec/values/persistence/media"
+        value:
+          type: nfs
+          server: barbary.hypyr.space
+          path: /mnt/data01/data
+          globalMounts:
+            - path: /data

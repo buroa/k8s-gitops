@@ -26,6 +26,8 @@ spec:
     substitute:
       APP: *app
       VOLSYNC_CAPACITY: 2Gi
+      NFS_SERVER: barbary.hypyr.space
+      NFS_PATH: /mnt/data01/data
   prune: true
   retryInterval: 2m
   sourceRef:

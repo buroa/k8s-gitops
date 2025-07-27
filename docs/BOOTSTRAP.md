@@ -1,14 +1,22 @@
-tas# Talos Cluster Bootstrap Guide
+# Talos Cluster Bootstrap Guide
 
-## Prerequisites
+## Prerequi## Node Configuration
 
-- Talos nodes installed and accessible via network
+Your cluster consists of 3 control plane nodes:
+
+- **home01** (10.0.5.219, EQ12) - Dual Ethernet bond (802.3ad LACP)
+- **home02** (10.0.5.215, EQ12) - Dual Ethernet bond (802.3ad LACP)
+- **home03** (10.0.5.100, NUC7) - Single Ethernet interface (eno1)
+
+Static configurations are stored in `talos/static-configs/` by hostname.Talos nodes installed and accessible via network
 - 1Password CLI (`op`) configured with homelab vault access
-- Required tools installed via `mise`: `talosctl`, `kubectl`, `task`, `minijinja-cli`, `yq`
+- Required tools installed via `mise`: `talosctl`, `kubectl`, `task`, `yq`
 
 ## Bootstrap Process
 
-### 1. Generate Talos Secrets
+Simple 3-step process to bootstrap your Talos cluster:
+
+### Step 1: Generate Talos Secrets
 
 Generate fresh secrets and store them in 1Password:
 
@@ -17,88 +25,50 @@ Generate fresh secrets and store them in 1Password:
 task talos:gen-secrets
 ```
 
-This task will:
-- Generate new cluster secrets with `talosctl gen secrets`
-- Extract all required values from secrets.yaml
-- Store them in 1Password homelab vault under the talos item
+### Step 2: Apply Node Configurations
 
-### 2. Generate Talosconfig
-
-Generate the client configuration with proper certificates:
+Apply configurations to your nodes (auto-detects hostname and config):
 
 ```bash
-# Generate talosconfig with matching certificates from 1Password
-task talos:generate-config
+# Apply to each node by IP (task auto-detects hostname and config file)
+task talos:apply-config NODE=10.0.5.100   # home03 (NUC7)
+task talos:apply-config NODE=10.0.5.215   # home02 (EQ12)
+task talos:apply-config NODE=10.0.5.219   # home01 (EQ12)
 ```
 
-This task will:
-- Render the machine config template with 1Password secrets
-- Extract the CA certificate and key
-- Generate a properly formatted talosconfig file
-- Configure endpoints and nodes automatically
+### Step 3: Bootstrap Cluster
 
-### 3. Apply Configuration to Nodes
-
-Apply configuration to both control plane nodes using tasks:
+Bootstrap etcd on one node and generate kubeconfig:
 
 ```bash
-# Apply to first node
-task talos:apply-node NODE=10.0.5.196
-
-# Apply to second node
-task talos:apply-node NODE=10.0.5.78
+# Bootstrap cluster on any control plane node
+task talos:bootstrap NODE=10.0.5.100
+task talos:kubeconfig
 ```
 
-The tasks automatically:
-- Render the machine config template with environment variables
-- Inject 1Password secrets
-- Apply the configuration with proper node-specific patches
+**Done!** Your cluster is running.
 
-### 4. Bootstrap Cluster
-
-Bootstrap etcd on one node only:
+## Key Commands
 
 ```bash
-# Bootstrap the cluster using task
-task bootstrap:talos -y
+task talos:gen-secrets                    # Generate and store cluster secrets
+task talos:apply-config NODE=<IP>         # Apply config to node (auto-detects hostname)
+task talos:bootstrap NODE=<IP>            # Bootstrap cluster
+task talos:kubeconfig                     # Generate kubeconfig
 ```
 
-**Note**: Only bootstrap one node. The other node will join automatically.
-
-### 5. Verify Cluster
+## Verification
 
 Check cluster status:
 
 ```bash
 # Check cluster members
-talosctl --nodes 10.0.5.78 get members
-
-# Generate kubeconfig using task
-task talos:kubeconfig
+talosctl get members
 
 # Verify Kubernetes cluster
 kubectl get nodes
 kubectl get pods -A
 ```
-
-### 6. Bootstrap Cluster & CNI
-
-Once the cluster is operational, bootstrap core applications and CNI (Cilium) in a single step:
-
-```bash
-# Bootstrap the cluster and install CNI (Cilium)
-task bootstrap:talos -y
-```
-
-This will:
-- Bootstrap etcd on one node (others join automatically)
-- Install Cilium CNI with proper device configuration
-- Deploy core applications
-- Nodes will transition directly to "Ready" state
-
-**Note:**
-- The Cilium `direct-routing-device` is set via a config variable (e.g., from Talos machine config), allowing easy future changes (e.g., to a bond device).
-- No separate `bootstrap:apps` step is required.
 
 ## Troubleshooting
 
@@ -106,43 +76,26 @@ This will:
 
 If you encounter "not authorized" errors:
 
-1. Regenerate secrets and talosconfig with matching certificates
-2. Ensure the talosconfig uses proper client certificates (not CA as client cert)
-3. Use `--insecure` flag for initial configuration application
+1. Regenerate secrets and talosconfig: `task talos:gen-secrets`
+2. Ensure 1Password CLI is authenticated: `op signin`
+3. Verify node accessibility with `talosctl --nodes <IP> get hostname`
 
 ### Node Communication
 
-- Nodes should be able to communicate with each other
-- VIP (homeops.hypyr.space) may not be available until CNI is installed
-- Check node networking and firewall rules
+- Nodes should be able to communicate with each other on the management network
+- Check that nodes are reachable at their assigned IPs
+- Verify network configuration and firewall rules
+- Use `task talos:apply-config NODE=<IP>` to apply configurations
 
-### Console Access
+### Common Issues
 
-- KVM console output is valuable for troubleshooting
-- Consider setting up PXE boot for easier recovery/reinstallation
+- **Hostname detection fails**: Ensure the node is accessible and running Talos
+- **Config file not found**: Check that `talos/static-configs/{hostname}.yaml` exists
+- **1Password injection fails**: Verify `op` is signed in and has vault access
 
-## Files Generated
+### Files Generated
 
 - `secrets.yaml` - Talos cluster secrets
 - `talos/talosconfig` - Client configuration
-- `talos/controlplane.yaml` - Base machine configuration
+- `talos/static-configs/*.yaml` - Static node configurations
 - `kubernetes/kubeconfig` - Kubernetes client configuration
-
-## Common Issues
-
-1. **Mismatched certificates** - Regenerate talosconfig with matching secrets
-2. **VIP not accessible** - Use direct node IP for initial bootstrap
-3. **Multiple bootstrap attempts** - Only bootstrap one node, others join automatically
-4. **CNI conflicts** - Ensure machine config `cni.name` is set to `none` to prevent Talos from installing default CNI
-5. **Cilium device detection** - Ensure Cilium `devices` configuration matches actual network interfaces (`enp1s0` not `bond+`)
-6. **Service subnet mismatch** - Verify cluster service subnet matches CoreDNS configuration (check `kubectl get svc kubernetes -o yaml`)
-7. **Prometheus Operator CRDs** - Install CRDs before Cilium to avoid ServiceMonitor creation errors:
-   ```bash
-   kubectl apply --server-side -f https://github.com/prometheus-operator/prometheus-operator/releases/download/v0.84.0/stripped-down-crds.yaml
-   ```
-
-## Configuration Issues Fixed
-
-- **CNI Configuration**: Changed `cni.name` from `custom` to `none` in machine config template
-- **Network Device**: Updated Cilium config to use `enp1s0` instead of `bond+`
-- **Service Subnet**: Aligned CoreDNS service IP with actual cluster subnet (10.96.0.0/12)

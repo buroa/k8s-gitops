@@ -92,11 +92,10 @@ spec:
                 volumeMode: Filesystem
       media:
         type: nfs
-        server: barbary.hypyr.space
-        path: /mnt/data01/data
+        server: ${NFS_SERVER}
+        path: ${NFS_PATH}
         globalMounts:
-          - path: /media/downloads/nzbs
-            subPath: downloads/nzbs
+          - path: /data
       tmpfs:
         type: emptyDir
         advancedMounts:
