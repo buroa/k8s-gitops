@@ -19,3 +19,30 @@ rust = "1.88.0"
 helm = "latest"
 cargo = "0.89.0"
 flux2 = "2.6.4"
+"ubi:kubernetes-sigs/krew" = "latest"
+
+# Additional CLI tools (migrated from Brewfile)
+jq = "latest"
+kustomize = "latest"
+"ubi:FiloSottile/age" = "latest"
+"ubi:cloudflare/cloudflared" = "latest"
+"ubi:cli/cli[exe=gh]" = "latest"
+"ubi:derailed/k9s" = "latest" 
+"ubi:kubecolor/kubecolor" = "latest"
+"ubi:yannh/kubeconform" = "latest"
+"ubi:stern/stern" = "latest"
+"ubi:sachaos/viddy" = "latest"
+
+[hooks]
+# Check for moreutils after install
+"postinstall" = '''
+if ! command -v chronic >/dev/null 2>&1; then
+  echo ""
+  echo "⚠️  NOTICE: moreutils not detected in PATH"
+  echo "   Install with: sudo apt install moreutils  # Ubuntu/Debian"
+  echo "            or: brew install moreutils      # macOS" 
+  echo "            or: sudo pacman -S moreutils    # Arch Linux"
+  echo ""
+fi
+'''
+

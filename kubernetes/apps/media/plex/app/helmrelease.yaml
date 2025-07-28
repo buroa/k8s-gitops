@@ -19,11 +19,6 @@ spec:
   values:
     controllers:
       plex:
-        volumes:
-        - name: dri
-          hostPath:
-            path: /dev/dri
-            type: Directory
         containers:
           app:
             image:
@@ -75,7 +70,7 @@ spec:
         runAsGroup: 568
         fsGroup: 568
         fsGroupChangePolicy: OnRootMismatch
-        supplementalGroups: [1702, 44, 65537]
+        supplementalGroups: [1702, 44, 65536]
     persistence:
       config:
         existingClaim: *app
@@ -101,6 +96,14 @@ spec:
                 subPath: transcode
               - path: /tmp
                 subPath: tmp
+      dri:
+        type: hostPath
+        hostPath: /dev/dri
+        hostPathType: Directory
+        advancedMounts:
+          plex:
+            app:
+              - path: /dev/dri
     route:
       app:
         hostnames:
