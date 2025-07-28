@@ -40,7 +40,7 @@ spec:
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
         serviceAccount:
-          name: "{{ .Release.Name }}"
+          name: *app
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
