@@ -64,7 +64,7 @@ spec:
           - path: /.config/tqm
       config-file:
         type: configMap
-        name: tqm-configmap
+        name: "{{ .Release.Name }}-configmap"
         globalMounts:
           - path: /.config/tqm/config.yaml
             subPath: config.yaml

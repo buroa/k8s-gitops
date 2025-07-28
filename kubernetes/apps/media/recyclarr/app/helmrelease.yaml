@@ -59,7 +59,7 @@ spec:
         existingClaim: "{{ .Release.Name }}"
       config-file:
         type: configMap
-        name: recyclarr-configmap
+        name: "{{ .Release.Name }}-configmap"
         globalMounts:
           - path: /config/recyclarr.yml
             subPath: recyclarr.yml

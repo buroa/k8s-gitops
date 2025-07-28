@@ -47,7 +47,7 @@ spec:
     persistence:
       config:
         type: configMap
-        name: generic-device-plugin-configmap
+        name: "{{ .Release.Name }}-configmap"
         globalMounts:
           - path: /config/config.yaml
             subPath: config.yaml

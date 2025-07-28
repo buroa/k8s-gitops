@@ -62,7 +62,7 @@ spec:
     persistence:
       config:
         type: configMap
-        name: kromgo-configmap
+        name: "{{ .Release.Name }}-configmap"
         globalMounts:
           - path: /kromgo/config.yaml
             subPath: config.yaml
@@ -75,10 +75,6 @@ spec:
           - name: external
             namespace: kube-system
             sectionName: https
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: *port
     service:
       app:
         ports:
