@@ -11,4 +11,10 @@
 
 ## Pending
 
+### Cherry-pick Analysis: qbittorrent-cli Configuration (Issue #4)
+- [ ] **NOT RECOMMENDED for cherry-pick** - requires manual migration due to structural conflicts
+- [ ] Evaluate adding qbittorrent-cli config (.qbt.toml) to current qBittorrent setup
+- [ ] Consider restructuring tqm from tools/ to standalone app if needed
+- [ ] Review removal of qbr tool and assess impact
+
 ## Completed
