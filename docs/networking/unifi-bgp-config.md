@@ -31,14 +31,13 @@ Navigate to: **Network → Routing & Firewall → BGP**
 ```
 router bgp 64513
  bgp router-id 10.0.5.1
- neighbor 10.0.5.215 remote-as 64514
- neighbor 10.0.5.220 remote-as 64514  
- neighbor 10.0.5.100 remote-as 64514
+ bgp listen range 10.0.5.0/24 peer-group kubernetes-nodes
+ !
+ neighbor kubernetes-nodes peer-group
+ neighbor kubernetes-nodes remote-as 64514
  !
  address-family ipv4 unicast
-  neighbor 10.0.5.215 activate
-  neighbor 10.0.5.220 activate
-  neighbor 10.0.5.100 activate
+  neighbor kubernetes-nodes activate
  exit-address-family
 !
 ```
@@ -46,9 +45,15 @@ router bgp 64513
 ## What This Does
 
 1. **Sets Router ASN:** Configures the UniFi router with ASN 64513
-2. **Establishes Peering:** Creates BGP neighbors for each Kubernetes node (ASN 64514)
-3. **Route Advertisement:** Allows the cluster to advertise LoadBalancer IPs to the router
-4. **Traffic Routing:** Router learns how to route LoadBalancer traffic to cluster nodes
+2. **Dynamic Neighbor Discovery:** Uses `bgp listen range` to automatically accept BGP connections from any IP in 10.0.5.0/24 with ASN 64514
+3. **Peer Group Configuration:** All Kubernetes nodes join the `kubernetes-nodes` peer group with common settings
+4. **Route Advertisement:** Allows the cluster to advertise LoadBalancer IPs to the router
+5. **Traffic Routing:** Router learns how to route LoadBalancer traffic to cluster nodes
+
+### Benefits of Dynamic Configuration
+- **Automatic Node Discovery:** New nodes are automatically accepted without manual configuration
+- **Simplified Management:** No need to manually add/remove individual neighbor entries
+- **Scalability:** Supports cluster expansion without BGP config changes
 
 ## Verification
 
