@@ -85,7 +85,7 @@ spec:
         runAsGroup: 568
         fsGroup: 568
         fsGroupChangePolicy: OnRootMismatch
-        supplementalGroups: [65537]
+        supplementalGroups: [65536]
     persistence:
       config:
         type: configMap

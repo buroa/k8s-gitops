@@ -73,7 +73,7 @@ spec:
         runAsGroup: 568
         fsGroup: 568
         fsGroupChangePolicy: OnRootMismatch
-        supplementalGroups: [1702, 65537]
+        supplementalGroups: [1702, 65536]
     persistence:
       config:
         existingClaim: *app
