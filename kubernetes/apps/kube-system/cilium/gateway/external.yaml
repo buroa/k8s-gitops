@@ -31,4 +31,4 @@ spec:
       tls:
         certificateRefs:
           - kind: Secret
-            name: k13-tls
+            name: hypyr-tls
