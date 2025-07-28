@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  nam        supplementalGroups: [1702, 65537]: &app sonarr
+  name: &app sonarr
 spec:
   interval: 1h
   chartRef:
@@ -73,7 +73,7 @@ spec:
         runAsGroup: 568
         fsGroup: 568
         fsGroupChangePolicy: OnRootMismatch
-        supplementalGroups: [65536]
+        supplementalGroups: [1702, 65537]
     persistence:
       config:
         existingClaim: *app
