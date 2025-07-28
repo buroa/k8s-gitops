@@ -19,12 +19,6 @@ spec:
   values:
     controllers:
       plex:
-        pod:
-          volumes:
-          - name: dri
-            hostPath:
-              path: /dev/dri
-              type: Directory
         containers:
           app:
             image:
@@ -61,9 +55,6 @@ spec:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
-            volumeMounts:
-              - name: dri
-                mountPath: /dev/dri
     defaultPodOptions:
       affinity:
         nodeAffinity:
@@ -105,6 +96,14 @@ spec:
                 subPath: transcode
               - path: /tmp
                 subPath: tmp
+      dri:
+        type: hostPath
+        hostPath: /dev/dri
+        hostPathType: Directory
+        advancedMounts:
+          plex:
+            app:
+              - path: /dev/dri
     route:
       app:
         hostnames:
