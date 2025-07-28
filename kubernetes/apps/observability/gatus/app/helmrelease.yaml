@@ -28,7 +28,7 @@ spec:
               tag: 17
             envFrom: &envFrom
               - secretRef:
-                  name: gatus-secret
+                  name: "{{ .Release.Name }}-secret"
           init-config:
             dependsOn: init-db
             image:
