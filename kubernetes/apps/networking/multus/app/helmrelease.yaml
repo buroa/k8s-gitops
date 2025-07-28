@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app multus
+  name: multus
 spec:
   interval: 1h
   chartRef:
@@ -40,7 +40,7 @@ spec:
             securityContext:
               privileged: true
         serviceAccount:
-          name: *app
+          name: "{{ .Release.Name }}"
     defaultPodOptions:
       hostNetwork: true
     persistence:

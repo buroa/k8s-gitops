@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app external-dns-unifi
+  name: external-dns-unifi
 spec:
   interval: 1h
   chartRef:
@@ -30,7 +30,7 @@ spec:
               UNIFI_HOST: https://unifi.internal
             envFrom:
               - secretRef:
-                  name: external-dns-unifi-secret
+                  name: "{{ .Release.Name }}-secret"
             probes:
               liveness:
                 enabled: true
@@ -98,7 +98,7 @@ spec:
             resources: *resources
             securityContext: *securityContext
         serviceAccount:
-          name: *app
+          name: "{{ .Release.Name }}"
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
