@@ -19,6 +19,11 @@ spec:
   values:
     controllers:
       plex:
+        volumes:
+        - name: dri
+          hostPath:
+            path: /dev/dri
+            type: Directory
         containers:
           app:
             image:
@@ -50,7 +55,6 @@ spec:
               requests:
                 cpu: 100m
               limits:
-                amd.com/gpu: 1
                 memory: 10Gi
             securityContext:
               allowPrivilegeEscalation: false
