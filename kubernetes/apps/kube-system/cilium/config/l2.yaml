@@ -4,7 +4,7 @@ kind: CiliumL2AnnouncementPolicy
 metadata:
   name: l2-policy
 spec:
-  loadBalancerIPs: true
+  loadBalancerIPs: false
   interfaces:
     - bond0.48  # Using VLAN 48 interface for service announcements
     - eno1.48
