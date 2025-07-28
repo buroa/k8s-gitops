@@ -19,11 +19,12 @@ spec:
   values:
     controllers:
       plex:
-        volumes:
-        - name: dri
-          hostPath:
-            path: /dev/dri
-            type: Directory
+        pod:
+          volumes:
+          - name: dri
+            hostPath:
+              path: /dev/dri
+              type: Directory
         containers:
           app:
             image:
@@ -60,6 +61,9 @@ spec:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
+            volumeMounts:
+              - name: dri
+                mountPath: /dev/dri
     defaultPodOptions:
       affinity:
         nodeAffinity:
