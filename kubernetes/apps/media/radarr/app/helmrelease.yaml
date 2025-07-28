@@ -28,7 +28,7 @@ spec:
               tag: 17
             envFrom: &envFrom
               - secretRef:
-                  name: radarr-secret
+                  name: "{{ .Release.Name }}-secret"
         containers:
           app:
             image:

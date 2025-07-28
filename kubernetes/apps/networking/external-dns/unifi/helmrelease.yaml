@@ -30,7 +30,7 @@ spec:
               UNIFI_HOST: https://unifi.internal
             envFrom:
               - secretRef:
-                  name: external-dns-unifi-secret
+                  name: "{{ .Release.Name }}-secret"
             probes:
               liveness:
                 enabled: true

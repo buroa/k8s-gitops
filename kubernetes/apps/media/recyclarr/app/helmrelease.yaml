@@ -37,7 +37,7 @@ spec:
               TZ: *timeZone
             envFrom:
               - secretRef:
-                  name: recyclarr-secret
+                  name: "{{ .Release.Name }}-secret"
             resources:
               requests:
                 cpu: 10m

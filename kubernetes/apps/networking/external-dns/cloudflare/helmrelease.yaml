@@ -44,7 +44,7 @@ spec:
               - --zone-id-filter=$(CF_ZONE_ID)
             envFrom:
               - secretRef:
-                  name: external-dns-cloudflare-secret
+                  name: "{{ .Release.Name }}-secret"
             probes:
               liveness: &probes
                 enabled: true
