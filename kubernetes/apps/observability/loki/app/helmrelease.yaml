@@ -29,7 +29,7 @@ spec:
     cleanupOnFail: true
     crds: Skip
     remediation:
-      retries: 3x
+      retries: 3
   values:
     deploymentMode: SingleBinary
     loki:
