@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app matter-server
+  name: matter-server
 spec:
   interval: 1h
   chartRef:
@@ -73,7 +73,7 @@ spec:
             value: "64"
     persistence:
       data:
-        existingClaim: *app
+        existingClaim: "{{ .Release.Name }}"
       tmp:
         type: emptyDir
     route:

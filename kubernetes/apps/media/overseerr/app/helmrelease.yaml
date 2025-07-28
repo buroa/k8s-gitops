@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app overseerr
+  name: overseerr
 spec:
   interval: 1h
   chartRef:
@@ -59,11 +59,11 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     persistence:
       config:
-        existingClaim: *app
+        existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /app/config
       config-cache:
-        existingClaim: overseerr-cache
+        existingClaim: "{{ .Release.Name }}-cache"
         globalMounts:
           - path: /app/config/cache
       tmpfs:

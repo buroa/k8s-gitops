@@ -57,7 +57,7 @@ spec:
     persistence:
       config:
         type: configMap
-        name: smtp-relay-configmap
+        name: "{{ .Release.Name }}-configmap"
         globalMounts:
           - path: /data/maddy.conf
             subPath: maddy.conf

@@ -70,7 +70,7 @@ spec:
     persistence:
       config:
         type: configMap
-        name: cloudflared-configmap
+        name: "{{ .Release.Name }}-configmap"
         globalMounts:
           - path: /etc/cloudflared/config.yaml
             subPath: config.yaml

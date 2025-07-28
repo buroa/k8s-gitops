@@ -29,15 +29,13 @@ spec:
     cleanupOnFail: true
     crds: Skip
     remediation:
-      retries: 3
+      retries: 3x
   values:
     deploymentMode: SingleBinary
     loki:
-      auth_enabled: false
       analytics:
         reporting_enabled: false
-      server:
-        log_level: info
+      auth_enabled: false
       commonConfig:
         replication_factor: 1
       compactor:
@@ -48,8 +46,6 @@ spec:
         chunk_encoding: snappy
       limits_config:
         retention_period: 14d
-      storage:
-        type: filesystem
       schemaConfig:
         configs:
           - from: "2024-04-01" # quote
@@ -59,6 +55,12 @@ spec:
             index:
               prefix: loki_index_
               period: 24h
+      server:
+        grpc_server_max_recv_msg_size: 10485760 # 10 MiB
+        grpc_server_max_send_msg_size: 10485760 # 10 MiB
+        log_level: info
+      storage:
+        type: filesystem
       structuredConfig:
         ruler:
           enable_api: true
@@ -69,27 +71,17 @@ spec:
             local:
               directory: /rules
           rule_path: /rules/fake
-    singleBinary:
-      replicas: 1
-      persistence:
-        enabled: true
-        storageClass: ceph-block
-        size: 50Gi
-    gateway:
-      replicas: 0
     backend:
-      replicas: 0
-    read:
-      replicas: 0
-    write:
       replicas: 0
     chunksCache:
       enabled: false
-    resultsCache:
-      enabled: false
+    gateway:
+      replicas: 0
     lokiCanary:
       enabled: false
-    test:
+    read:
+      replicas: 0
+    resultsCache:
       enabled: false
     sidecar:
       image:
@@ -99,3 +91,13 @@ spec:
       rules:
         searchNamespace: ALL
         folder: /rules/fake
+    singleBinary:
+      replicas: 1
+      persistence:
+        enabled: true
+        storageClass: ceph-block
+        size: 50Gi
+    test:
+      enabled: false
+    write:
+      replicas: 0
