@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app plex
+  name: plex
 spec:
   interval: 1h
   chartRef:
@@ -66,9 +66,9 @@ spec:
         supplementalGroups: [44, 65537]
     persistence:
       config:
-        existingClaim: *app
+        existingClaim: "{{ .Release.Name }}"
       config-cache:
-        existingClaim: plex-cache
+        existingClaim: "{{ .Release.Name }}-cache"
         globalMounts:
           - path: /config/Library/Application Support/Plex Media Server/Cache
       media:

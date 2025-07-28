@@ -65,7 +65,7 @@ spec:
         supplementalGroups: [65536]
     persistence:
       config:
-        existingClaim: *app
+        existingClaim: "{{ .Release.Name }}"
       incomplete:
         type: custom
         volumeSpec:

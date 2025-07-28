@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app home-assistant
+  name: home-assistant
 spec:
   interval: 1h
   chartRef:
@@ -65,7 +65,7 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     persistence:
       config:
-        existingClaim: *app
+        existingClaim: "{{ .Release.Name }}"
       tmpfs:
         type: emptyDir
         advancedMounts:

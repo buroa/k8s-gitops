@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app radarr
+  name: radarr
 spec:
   interval: 1h
   chartRef:
@@ -76,7 +76,7 @@ spec:
         supplementalGroups: [65536]
     persistence:
       config:
-        existingClaim: *app
+        existingClaim: "{{ .Release.Name }}"
       media:
         type: nfs
         server: nas.internal

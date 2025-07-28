@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app cross-seed
+  name: cross-seed
 spec:
   interval: 1h
   chartRef:
@@ -67,7 +67,7 @@ spec:
         supplementalGroups: [65536]
     persistence:
       config:
-        existingClaim: *app
+        existingClaim: "{{ .Release.Name }}"
       config-file:
         type: configMap
         name: cross-seed-configmap
