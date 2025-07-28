@@ -178,11 +178,20 @@ kubectl annotate externalsecrets --all external-secrets.io/force-sync=$(date +%s
 
 ## Development Workflow
 
-1. **Make changes** to YAML files in appropriate directory
-2. **Commit and push** - Flux will automatically apply changes
-3. **Monitor deployment** with `kubectl get pods -A`
-4. **Check logs** if issues occur: `kubectl logs -n <namespace> <pod>`
-5. **Use task commands** for common operations
+### Feature Branch Strategy
+- **Always** create focused feature branches for changes: `git checkout -b feat/description`
+- **Never** commit directly to `main` branch
+- **Create focused PRs** - one feature/fix per PR for easier review and rollback
+- **Branch naming**: `feat/`, `fix/`, `chore/`, `docs/` prefixes
+
+### Workflow Steps
+1. **Create feature branch** from main: `git checkout -b feat/your-feature`
+2. **Make changes** to YAML files in appropriate directory
+3. **Commit changes** with descriptive messages
+4. **Push branch** and create PR to main
+5. **Monitor deployment** after merge with `kubectl get pods -A`
+6. **Check logs** if issues occur: `kubectl logs -n <namespace> <pod>`
+7. **Use task commands** for common operations
 
 ## External Dependencies
 

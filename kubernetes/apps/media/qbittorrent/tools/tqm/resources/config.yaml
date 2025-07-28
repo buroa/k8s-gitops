@@ -1,0 +1,84 @@
+---
+clients:
+  - name: qbittorrent
+    type: qbittorrent
+    host: qbittorrent.media.svc.cluster.local
+    port: 8080
+    login: admin
+    password: ""
+
+rules:
+  - name: "unregistered"
+    enabled: true
+    priority: 10
+    match_releases:
+      - status: "StalledUP"
+        no_seed: true
+        not_working: true
+        exclude_tags:
+          - "expired"
+        tag_empty: false
+    external:
+      - name: "arr"
+        type: "radarr"
+        host: "radarr.media.svc.cluster.local"
+        port: 7878
+        api_key: ""
+        basic_auth:
+          user: ""
+          pass: ""
+    filter:
+      min_seed_time: "24h"
+      max_ratio: 0
+      max_seed_time: "168h"
+    actions:
+      - name: "delete"
+        delete_files: true
+
+  - name: "ratio-limit"
+    enabled: true
+    priority: 20
+    match_releases:
+      - status: "StalledUP"
+        tag_empty: false
+    external:
+      - name: "arr"
+        type: "radarr"
+        host: "radarr.media.svc.cluster.local"
+        port: 7878
+        api_key: ""
+        basic_auth:
+          user: ""
+          pass: ""
+    filter:
+      min_seed_time: "168h"
+      max_ratio: 2.0
+      max_seed_time: "0"
+    actions:
+      - name: "delete"
+        delete_files: true
+
+  - name: "seed-time"
+    enabled: true
+    priority: 30
+    match_releases:
+      - status: "StalledUP"
+        exclude_tags:
+          - "expired"
+        tag_empty: false
+    external:
+      - name: "arr"
+        type: "radarr"
+        host: "radarr.media.svc.cluster.local"
+        port: 7878
+        api_key: ""
+        basic_auth:
+          user: ""
+          pass: ""
+    filter:
+      min_seed_time: "720h"
+      max_ratio: 0
+      max_seed_time: "0"
+    actions:
+      - name: "delete"
+        delete_files: true
