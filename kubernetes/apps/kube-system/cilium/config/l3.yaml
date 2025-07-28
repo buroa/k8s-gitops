@@ -33,7 +33,7 @@ metadata:
 spec:
   nodeSelector:
     matchLabels:
-      topology.kubernetes.io/region: k8s
+      kubernetes.io/os: linux
   bgpInstances:
     - name: cilium
       localASN: 64514
