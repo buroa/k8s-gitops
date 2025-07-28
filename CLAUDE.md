@@ -168,7 +168,8 @@ kubectl annotate externalsecrets --all external-secrets.io/force-sync=$(date +%s
 **Problem**: OnePassword Connect credentials corrupted
 - **Symptoms**: Sync container error: `"illegal base64 data at input byte 0"`
 - **Solution**: Double base64 encode credentials file when creating secret
-- **Impact**: External-DNS blocked waiting for onepassword-stores dependency
+- **Impact**: ExternalSecrets fail to sync, breaking secret-dependent applications
+- **Note**: Dependency issue (`onepassword-stores` → `onepassword-store`) was resolved in commit 8cd2130cc
 
 ### Common Patterns
 - Always check ExternalSecret status when secrets aren't syncing

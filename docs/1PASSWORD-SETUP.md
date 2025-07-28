@@ -169,6 +169,20 @@ kubectl get clustersecretstore onepassword -o yaml
 kubectl get secret <secret-name> -n <namespace>
 ```
 
+**OnePassword Connect credentials corrupted?**
+**Symptoms**: Sync container error: `"illegal base64 data at input byte 0"`
+**Solution**: The 1Password credentials file needs to be double base64 encoded when creating the Kubernetes secret:
+```bash
+# If you get base64 corruption errors, re-encode the credentials:
+cat 1password-credentials.json | base64 | base64 > credentials-double-encoded.txt
+
+# Then update the secret with the double-encoded content
+kubectl create secret generic onepassword-connect-secret \
+  --from-file=1password-credentials.json=credentials-double-encoded.txt \
+  --namespace=external-secrets \
+  --dry-run=client -o yaml | kubectl apply -f -
+```
+
 **Missing 1Password entry?**
 ```bash
 # List all items in vault
