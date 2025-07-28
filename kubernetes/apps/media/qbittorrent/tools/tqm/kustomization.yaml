@@ -4,8 +4,8 @@ kind: Kustomization
 resources:
   - ./helmrelease.yaml
 configMapGenerator:
-  - name: qbtools-configmap
+  - name: tqm-configmap
     files:
-      - ./resources/config.yaml
+      - config.yaml=./resources/config.yaml
 generatorOptions:
   disableNameSuffixHash: true
