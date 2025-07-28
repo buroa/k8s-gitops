@@ -186,12 +186,21 @@ kubectl annotate externalsecrets --all external-secrets.io/force-sync=$(date +%s
 
 ### Workflow Steps
 1. **Create feature branch** from main: `git checkout -b feat/your-feature`
-2. **Make changes** to YAML files in appropriate directory
-3. **Commit changes** with descriptive messages
-4. **Push branch** and create PR to main
-5. **Monitor deployment** after merge with `kubectl get pods -A`
-6. **Check logs** if issues occur: `kubectl logs -n <namespace> <pod>`
-7. **Use task commands** for common operations
+2. **Add feature to TODO.md** under "In Progress" section with task breakdown
+3. **Make changes** to YAML files in appropriate directory
+4. **Update TODO.md** as tasks are completed (mark with [x])
+5. **Commit changes** with descriptive messages
+6. **Push branch** and create PR to main
+7. **Move completed feature to "Completed" section** in TODO.md after merge
+8. **Monitor deployment** after merge with `kubectl get pods -A`
+9. **Check logs** if issues occur: `kubectl logs -n <namespace> <pod>`
+10. **Use task commands** for common operations
+
+### Project TODO Management
+- **Always maintain** `TODO.md` at project root with current work status
+- **Track features** with task breakdowns under "In Progress"
+- **Move completed work** to "Completed" section after successful deployment
+- **Use checkboxes** `[ ]` and `[x]` to track individual task progress
 
 ## External Dependencies
 
