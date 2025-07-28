@@ -102,7 +102,7 @@ spec:
                 port: *port
     service:
       app:
-        # forceRename: "{{ .Release.Name }}"
+        forceRename: "{{ .Release.Name }}"
         primary: true
         ports:
           http:
