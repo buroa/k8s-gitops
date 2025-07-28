@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app qbittorrent
+  name: qbittorrent
 spec:
   interval: 1h
   chartRef:
@@ -65,7 +65,7 @@ spec:
         supplementalGroups: [1702, 65536]
     persistence:
       config:
-        existingClaim: *app
+        existingClaim: "{{ .Release.Name }}"
       incomplete:
         type: custom
         volumeSpec:
@@ -101,7 +101,7 @@ spec:
                 port: *port
     service:
       app:
-        forceRename: *app
+        forceRename: "{{ .Release.Name }}"
         primary: true
         ports:
           http:

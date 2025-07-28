@@ -55,7 +55,7 @@ spec:
     persistence:
       config:
         type: configMap
-        name: tqm-configmap
+        name: "{{ .Release.Name }}-configmap"
         globalMounts:
           - path: /config
             readOnly: true
