@@ -6,21 +6,29 @@ vars:
 
 tasks:
 
-  brew:
-    desc: Set up Homebrew tools
-    cmd: brew bundle --file {{.WORKSTATION_RESOURCES_DIR}}/Brewfile
-    sources:
-      - '{{.WORKSTATION_RESOURCES_DIR}}/Brewfile'
-    generates:
-      - '{{.WORKSTATION_RESOURCES_DIR}}/Brewfile.lock.json'
-    preconditions:
-      - which brew
-      - test -f {{.WORKSTATION_RESOURCES_DIR}}/Brewfile
-
   krew:
     desc: Set up Krew tools
-    deps: [brew]
-    cmd: kubectl krew install cert-manager cnpg browse-pvc node-shell rook-ceph view-secret
+    cmds:
+      - |
+        # Check if krew is available
+        if ! mise exec -- krew version >/dev/null 2>&1; then
+          echo "❌ krew not found. Please run 'mise install' first to install krew."
+          exit 1
+        fi
+        
+        # List of plugins to install
+        PLUGINS="cert-manager cnpg browse-pvc node-shell rook-ceph view-secret"
+        
+        # Check and install each plugin
+        for plugin in $PLUGINS; do
+          if mise exec -- krew list | grep -q "^$plugin\s"; then
+            echo "✅ $plugin already installed, skipping"
+          else
+            echo "📦 Installing kubectl plugin: $plugin"
+            mise exec -- krew install "$plugin" || echo "⚠️  Failed to install $plugin, continuing..."
+          fi
+        done
+        
+        echo "🎉 Krew plugin installation complete!"
     preconditions:
-      - kubectl krew version
       - which kubectl
