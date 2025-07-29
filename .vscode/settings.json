@@ -47,5 +47,8 @@
   "yaml.schemaStore.enable": true,
   "yaml.schemas": {
     "kubernetes": "./kubernetes/**/*.yaml"
+  },
+  "debug.javascript.defaultRuntimeExecutable": {
+    "pwa-node": "/home/cpritchett/.local/share/mise/shims/node"
   }
 }

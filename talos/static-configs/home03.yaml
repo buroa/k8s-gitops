@@ -83,7 +83,13 @@ machine:
         mtu: 1500
         vlans:
           - {vlanId: 30, dhcp: false, mtu: 1500}
-          - {vlanId: 48, dhcp: false, mtu: 1500}
+          - vlanId: 48
+            dhcp: false
+            mtu: 1500
+            bridge:
+              stp:
+                enabled: true
+                priority: 61440  # High priority = low precedence (avoid becoming root bridge)
     nameservers: ["10.0.5.1"]
     disableSearchDomain: true
   nodeLabels:
