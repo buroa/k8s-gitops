@@ -164,11 +164,16 @@ kubectl annotate externalsecrets --all external-secrets.io/force-sync=$(date +%s
 
 ## Known Issues & Solutions
 
-### OnePassword Connect Issue (Current)
+### OnePassword Connect Issue (FIXED with Workaround)
 **Problem**: OnePassword Connect credentials corrupted
 - **Symptoms**: Sync container error: `"illegal base64 data at input byte 0"`
-- **Solution**: Double base64 encode credentials file when creating secret
-- **Impact**: ExternalSecrets fail to sync, breaking secret-dependent applications
+- **Solution**: **AUTOMATED** - Modified HelmRelease with init container workaround
+- **Location**: `kubernetes/apps/external-secrets/onepassword/app/helmrelease.yaml`
+- **Workaround Details**: 
+  - Init container automatically double base64 encodes credentials
+  - Containers read from processed file instead of secret directly
+  - **IMPORTANT**: When 1Password fixes this bug, remove the init container and revert to secret refs
+- **Impact**: ExternalSecrets now sync properly, fixing secret-dependent applications
 - **Note**: Dependency issue (`onepassword-stores` → `onepassword-store`) was resolved in commit 8cd2130cc
 
 ### Common Patterns
