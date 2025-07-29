@@ -164,17 +164,18 @@ kubectl annotate externalsecrets --all external-secrets.io/force-sync=$(date +%s
 
 ## Known Issues & Solutions
 
-### OnePassword Connect Issue (FIXED with Workaround)
-**Problem**: OnePassword Connect credentials corrupted
+### OnePassword Connect Issue (FIXED Permanently)
+**Problem**: OnePassword Connect credentials triple base64 encoded during bootstrap
 - **Symptoms**: Sync container error: `"illegal base64 data at input byte 0"`
-- **Solution**: **AUTOMATED** - Modified HelmRelease with init container workaround
-- **Location**: `kubernetes/apps/external-secrets/onepassword/app/helmrelease.yaml`
-- **Workaround Details**: 
-  - Init container automatically double base64 encodes credentials
-  - Containers read from processed file instead of secret directly
-  - **IMPORTANT**: When 1Password fixes this bug, remove the init container and revert to secret refs
-- **Impact**: ExternalSecrets now sync properly, fixing secret-dependent applications
-- **Note**: Dependency issue (`onepassword-stores` → `onepassword-store`) was resolved in commit 8cd2130cc
+- **Root Cause**: 1Password CLI returns pre-encoded credentials, but `stringData` re-encodes them 
+- **Solution**: **PERMANENT** - Modified bootstrap template to use `data` instead of `stringData`
+- **Location**: `bootstrap/secrets.yaml.tpl` lines 18-19
+- **Fix Details**:
+  - Use `data:` for credentials (prevents double encoding)
+  - Keep `stringData:` for token (plain text)
+  - Added clear documentation for future removal when 1Password fixes CLI behavior
+- **Impact**: ExternalSecrets sync properly, bootstrap process creates correct secret format
+- **Dependencies**: Health checks added during `onepassword-stores` → `onepassword-store` rename now work correctly
 
 ### Common Patterns
 - Always check ExternalSecret status when secrets aren't syncing
