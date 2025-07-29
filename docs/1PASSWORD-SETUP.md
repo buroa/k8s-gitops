@@ -171,14 +171,23 @@ kubectl get secret <secret-name> -n <namespace>
 
 **OnePassword Connect credentials corrupted?**
 **Symptoms**: Sync container error: `"illegal base64 data at input byte 0"`
-**Solution**: The 1Password credentials file needs to be double base64 encoded when creating the Kubernetes secret:
-```bash
-# If you get base64 corruption errors, re-encode the credentials:
-cat 1password-credentials.json | base64 | base64 > credentials-double-encoded.txt
+**Solution**: This issue has been **permanently fixed** in the bootstrap template.
 
-# Then update the secret with the double-encoded content
-kubectl create secret generic onepassword-connect-secret \
-  --from-file=1password-credentials.json=credentials-double-encoded.txt \
+**Root Cause**: The 1Password CLI returns pre-base64 encoded credentials, but using `stringData` in Kubernetes secrets causes additional base64 encoding, resulting in triple-encoded credentials.
+
+**Fix Applied**: Modified `bootstrap/secrets.yaml.tpl` to use `data:` for credentials instead of `stringData:` to prevent double encoding.
+
+**If you still encounter this error**:
+1. Re-run the bootstrap process: `task bootstrap:apps`
+2. The new template will create properly encoded secrets automatically
+3. No manual intervention required
+
+**Legacy Manual Fix** (no longer needed):
+```bash
+# Only use if bootstrap template hasn't been updated
+cat 1password-credentials.json | base64 > credentials-single-encoded.txt
+kubectl create secret generic onepassword-secret \
+  --from-file=1password-credentials.json=credentials-single-encoded.txt \
   --namespace=external-secrets \
   --dry-run=client -o yaml | kubectl apply -f -
 ```
