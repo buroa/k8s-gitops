@@ -41,9 +41,9 @@ op item create \
   --category="Secure Note" \
   --title="actions-runner" \
   --vault="homelab" \
-  "ACTION_RUNNER_GITHUB_APP_ID[text]=$GITHUB_APP_ID" \
-  "ACTION_RUNNER_GITHUB_INSTALLATION_ID[text]=$GITHUB_INSTALLATION_ID" \
-  "ACTION_RUNNER_GITHUB_PRIVATE_KEY[concealed]=$PRIVATE_KEY_CONTENT"
+  --field="label=ACTION_RUNNER_GITHUB_APP_ID,type=text,value=$GITHUB_APP_ID" \
+  --field="label=ACTION_RUNNER_GITHUB_INSTALLATION_ID,type=text,value=$GITHUB_INSTALLATION_ID" \
+  --field="label=ACTION_RUNNER_GITHUB_PRIVATE_KEY,type=concealed,value=$PRIVATE_KEY_CONTENT"
 
 if [[ $? -eq 0 ]]; then
     echo "✅ Successfully created 1Password entry 'actions-runner' in vault 'homelab'"
