@@ -22,25 +22,7 @@ spec:
         strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
-        # WORKAROUND: OnePassword Connect has a bug where credentials need to be double base64 encoded
-        # When they fix this bug, remove this init container and the volume mount workaround
-        # Issue: "illegal base64 data at input byte 0" in sync container logs
-        initContainers:
-          fix-credentials:
-            image:
-              repository: docker.io/alpine
-              tag: 3.20
-            command:
-              - /bin/sh
-              - -c
-              - |
-                echo "Applying double base64 encoding workaround for OnePassword Connect credentials bug..."
-                cat /raw-config/1password-credentials.json | base64 | tr -d '\n' > /config/1password-credentials.json
-                echo "Credentials processed successfully"
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+        # WORKAROUND: Temporarily disabled init container to test manual secret fix
         containers:
           api:
             image:
@@ -51,8 +33,11 @@ spec:
               OP_HTTP_PORT: &apiPort 80
               OP_BUS_PORT: 11220
               OP_BUS_PEERS: localhost:11221
-              # WORKAROUND: Read from processed file instead of secret due to double encoding bug
-              OP_SESSION: /config/1password-credentials.json
+              OP_SESSION:
+                valueFrom:
+                  secretKeyRef:
+                    name: "{{ .Release.Name }}-secret"
+                    key: 1password-credentials.json
             probes:
               liveness:
                 enabled: true
@@ -94,8 +79,11 @@ spec:
               OP_HTTP_PORT: &syncPort 8081
               OP_BUS_PORT: 11221
               OP_BUS_PEERS: localhost:11220
-              # WORKAROUND: Read from processed file instead of secret due to double encoding bug
-              OP_SESSION: /config/1password-credentials.json
+              OP_SESSION:
+                valueFrom:
+                  secretKeyRef:
+                    name: "{{ .Release.Name }}-secret"
+                    key: 1password-credentials.json
             probes:
               liveness:
                 enabled: true
@@ -131,13 +119,6 @@ spec:
         type: emptyDir
         globalMounts:
           - path: *configDir
-      # WORKAROUND: Mount original credentials for init container processing
-      raw-config:
-        type: secret
-        name: "{{ .Release.Name }}-secret"
-        globalMounts:
-          - path: /raw-config
-            readOnly: true
     service:
       app:
         ports:
