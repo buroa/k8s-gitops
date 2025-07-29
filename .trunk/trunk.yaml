@@ -21,13 +21,13 @@ lint:
     - shellcheck@0.10.0
     - shfmt@3.6.0
     - actionlint@1.7.7
-    - checkov@3.2.451
+    - checkov@3.2.457
     - git-diff-check
     - markdownlint@0.45.0
     - prettier@3.6.2
-    - renovate@41.38.1
+    - renovate@41.43.5
     - taplo@0.9.3
-    - trufflehog@3.90.0
+    - trufflehog@3.90.2
     - yamllint@1.37.1
 actions:
   disabled:
