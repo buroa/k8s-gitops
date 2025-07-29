@@ -35,7 +35,7 @@ spec:
               - -c
               - |
                 echo "Applying double base64 encoding workaround for OnePassword Connect credentials bug..."
-                cat /raw-config/1password-credentials.json | base64 -w 0 > /config/1password-credentials.json
+                cat /raw-config/1password-credentials.json | base64 | tr -d '\n' > /config/1password-credentials.json
                 echo "Credentials processed successfully"
             securityContext:
               allowPrivilegeEscalation: false
