@@ -1,7 +1,7 @@
 ---
 sonarr:
   sonarr:
-    base_url: http://sonarr.media.svc.cluster.local:8989
+    base_url: http://sonarr2.media.svc.cluster.local:8989
     api_key: !env_var SONARR_API_KEY
 
     delete_old_custom_formats: true
