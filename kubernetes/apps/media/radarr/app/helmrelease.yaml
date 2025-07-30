@@ -76,7 +76,7 @@ spec:
         supplementalGroups: [65536]
     persistence:
       config:
-        existingClaim: "{{ .Release.Name }}"
+        existingClaim: "{{ .Release.Name }}-cache"
       media:
         type: nfs
         server: nas.internal
