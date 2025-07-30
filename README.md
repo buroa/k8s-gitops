@@ -87,19 +87,18 @@ This Git repository contains the following directories under [kubernetes](./kube
 
 ### Cluster layout
 
-This is a high-level look how Flux deploys my applications with dependencies. Below there are 3 Flux kustomizations `postgres`, `postgres-cluster`, and `atuin`. `postgres` is the first app that needs to be running and healthy before `postgres-cluster` and once `postgres-cluster` is healthy `atuin` will be deployed.
+This is a high-level look how Flux deploys my applications with dependencies. In most cases a `HelmRelease` will depend on other `HelmRelease`'s, in other cases a `Kustomization` will depend on other `Kustomization`'s, and in rare situations an app can depend on a `HelmRelease` and a `Kustomization`. The example below shows that `atuin` won't be deployed or upgrade until the `rook-ceph-cluster` Helm release is installed or in a healthy state.
 
 ```mermaid
-graph TD;
-  id1>Kustomization: flux-system] -->|Creates| id2>Kustomization: cluster-apps];
-  id2>Kustomization: cluster-apps] -->|Creates| id3>Kustomization: postgres];
-  id2>Kustomization: cluster-apps] -->|Creates| id5>Kustomization: postgres-cluster]
-  id2>Kustomization: cluster-apps] -->|Creates| id8>Kustomization: atuin]
-  id3>Kustomization: postgres] -->|Creates| id4(HelmRelease: postgres);
-  id5>Kustomization: postgres-cluster] -->|Depends on| id3>Kustomization: postgres];
-  id5>Kustomization: postgres-cluster] -->|Creates| id10(Cluster: postgres);
-  id8>Kustomization: atuin] -->|Creates| id9(HelmRelease: atuin);
-  id8>Kustomization: atuin] -->|Depends on| id5>Kustomization: postgres-cluster];
+graph TD
+    A[Kustomization: rook-ceph]:::kustomize -->|Creates| B[HelmRelease: rook-ceph]:::helm
+    A -->|Creates| C[HelmRelease: rook-ceph-cluster]:::helm
+    C -->|Depends on| B
+    D[Kustomization: atuin]:::kustomize -->|Creates| E[HelmRelease: atuin]:::helm
+    E -->|Depends on| C
+
+    classDef kustomize fill:#4CAF50,stroke:#2E7D32,stroke-width:2px,color:#fff;
+    classDef helm fill:#2196F3,stroke:#0D47A1,stroke-width:2px,color:#fff;
 ```
 
 ### Networking
