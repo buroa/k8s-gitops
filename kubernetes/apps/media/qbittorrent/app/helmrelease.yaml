@@ -85,8 +85,15 @@ spec:
         globalMounts:
           - path: /media/downloads/torrents
             subPath: downloads/torrents
-      tmp:
+      tmpfs:
         type: emptyDir
+        advancedMounts:
+          qbittorrent:
+            app:
+              - path: /config/qBittorrent/logs
+                subPath: logs
+              - path: /tmp
+                subPath: tmp
     route:
       app:
         hostnames:
