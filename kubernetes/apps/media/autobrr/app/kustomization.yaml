@@ -4,4 +4,5 @@ kind: Kustomization
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
+  - ./helmrelease2.yaml
   - ./prometheusrule.yaml
