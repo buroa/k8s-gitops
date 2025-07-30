@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: matter-server
+  name: thelounge
 spec:
   interval: 1h
   chartRef:
@@ -18,21 +18,14 @@ spec:
       retries: 3
   values:
     controllers:
-      matter-server:
+      thelounge:
         containers:
           app:
             image:
-              repository: ghcr.io/home-assistant-libs/python-matter-server
-              tag: 8.0.0@sha256:8fd1ea29ab5eca1c5e87cb983c9797b469ad315f6667c73a28b2c4c23a75923c
-            args:
-              - --storage-path=/data
-              - --paa-root-cert-dir=/data/credentials
-              - --primary-interface=net1
-              - --log-level=debug
-              - --log-level-sdk=detail
+              repository: ghcr.io/thelounge/thelounge
+              tag: 4.4.3@sha256:c2aa0916203b298ffaf3a36c4eb60ef73c1006448d430e218d37840472e84e50
             env:
-              MATTER_SERVER__PORT: &port 5580
-              MATTER_SERVER__LOG_LEVEL: info
+              THELOUNGE_HOME: /config/thelounge
             probes:
               liveness:
                 enabled: true
@@ -48,34 +41,19 @@ spec:
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
     defaultPodOptions:
-      annotations:
-        k8s.v1.cni.cncf.io/networks: |
-          [{
-            "name": "multus-iot",
-            "namespace": "networking",
-            "ips": ["192.168.30.201/24"]
-          }]
       securityContext:
         runAsNonRoot: true
         runAsUser: 568
         runAsGroup: 568
         fsGroup: 568
         fsGroupChangePolicy: OnRootMismatch
-        sysctls:
-          - name: net.ipv6.conf.net1.accept_ra
-            value: "1"
-          - name: net.ipv6.conf.net1.accept_ra_rt_info_max_plen
-            value: "64"
     persistence:
-      data:
+      config:
         existingClaim: "{{ .Release.Name }}"
-      tmp:
-        type: emptyDir
     route:
       app:
         hostnames:
           - "{{ .Release.Name }}.k13.dev"
-          - matter.k13.dev
         parentRefs:
           - name: internal
             namespace: kube-system
@@ -84,4 +62,4 @@ spec:
       app:
         ports:
           http:
-            port: *port
+            port: 9000
