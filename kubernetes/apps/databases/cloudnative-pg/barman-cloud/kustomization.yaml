@@ -1,9 +1,0 @@
----
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-resources:
-  # renovate: datasource=github-releases depName=cloudnative-pg/plugin-barman-cloud
-  - https://raw.githubusercontent.com/cloudnative-pg/plugin-barman-cloud/refs/tags/v0.5.0/config/crd/bases/barmancloud.cnpg.io_objectstores.yaml
-  - ./certificate.yaml
-  - ./helmrelease.yaml
-  - ./rbac.yaml
