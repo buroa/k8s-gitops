@@ -19,32 +19,20 @@ spec:
   values:
     controllers:
       atuin:
-        replicas: 2
-        strategy: RollingUpdate
-        annotations:
-          reloader.stakater.com/auto: "true"
-        initContainers:
-          init-db:
-            image:
-              repository: ghcr.io/home-operations/postgres-init
-              tag: 17
-            envFrom: &envFrom
-              - secretRef:
-                  name: "{{ .Release.Name }}-secret"
         containers:
           app:
             image:
               repository: ghcr.io/atuinsh/atuin
               tag: v18.7.1@sha256:f096ee29583b53f8d9442b1bc2631b3a07e0e5887bac99a672406359147fec0f
             env:
+              ATUIN_DB_URI: sqlite:///config/atuin.db
               ATUIN_HOST: 0.0.0.0
-              ATUIN_PORT: &port 8080
-              ATUIN_OPEN_REGISTRATION: true
               ATUIN_METRICS__ENABLE: true
               ATUIN_METRICS__HOST: 0.0.0.0
               ATUIN_METRICS__PORT: &metricsPort 8081
+              ATUIN_OPEN_REGISTRATION: true
+              ATUIN_PORT: &port 8080
               TZ: America/Chicago
-            envFrom: *envFrom
             args:
               - server
               - start
@@ -75,9 +63,11 @@ spec:
         runAsNonRoot: true
         runAsUser: 568
         runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
     persistence:
       config:
-        type: emptyDir
+        existingClaim: "{{ .Release.Name }}"
     route:
       app:
         hostnames:
