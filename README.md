@@ -110,7 +110,46 @@ graph TD
 <details>
   <summary>Click to see a high-level network diagram</summary>
 
-  <img src="https://github.com/user-attachments/assets/c6bb2848-d900-4796-975b-4e80dcba4850" align="center" width="600px" alt="network"/>
+```mermaid
+  graph TD
+    %% Style Definitions
+    classDef wan fill:#f87171,stroke:#fff,stroke-width:2px,color:#fff,font-weight:bold;
+    classDef core fill:#60a5fa,stroke:#fff,stroke-width:2px,color:#fff,font-weight:bold;
+    classDef agg fill:#34d399,stroke:#fff,stroke-width:2px,color:#fff,font-weight:bold;
+    classDef switch fill:#a78bfa,stroke:#fff,stroke-width:2px,color:#fff,font-weight:bold;
+    classDef device fill:#facc15,stroke:#fff,stroke-width:2px,color:#000,font-weight:bold;
+    classDef vlan fill:#1f2937,stroke:#fff,stroke-width:1px,color:#fff,font-size:12px;
+
+    %% Nodes
+    RCN[🛜 RCN<br>5Gbps WAN]:::wan
+    UDM[📦 UDM Pro]:::core
+    AGG[🔗 Aggregation<br>10/25Gb]:::agg
+    NAS[💾 NAS<br>1 Server]:::device
+    K8s[☸️ Kubernetes<br>3 Nodes]:::device
+    SW[🔌 24 Port<br>2.5G PoE]:::switch
+    DEV[💻 Devices]:::device
+    WIFI[📶 WiFi Clients]:::device
+
+    subgraph VLANs [LAN (+vlan)]
+        direction TB
+        LOCAL[LOCAL<br>192.168.0.0/24]:::vlan
+        TRUSTED[TRUSTED*<br>192.168.1.0/24]:::vlan
+        SERVERS[SERVERS*<br>192.168.10.0/24]:::vlan
+        SERVICES[SERVICES*<br>192.168.20.0/24]:::vlan
+        IOT[IOT*<br>192.168.30.0/24]:::vlan
+        GUEST[GUEST*<br>192.168.40.0/24]:::vlan
+        TB[THUNDERBOLT<br>169.254.255.0/24]:::vlan
+    end
+
+    %% Links
+    RCN -.->|WAN| UDM
+    UDM --> AGG
+    AGG --> NAS
+    AGG --> K8s
+    AGG --> SW
+    SW --> DEV
+    SW --> WIFI
+```
 </details>
 
 ---
