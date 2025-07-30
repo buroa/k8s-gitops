@@ -91,14 +91,18 @@ This is a high-level look how Flux deploys my applications with dependencies. In
 
 ```mermaid
 graph TD
-    A[Kustomization: rook-ceph]:::kustomize -->|Creates| B[HelmRelease: rook-ceph]:::helm
-    A -->|Creates| C[HelmRelease: rook-ceph-cluster]:::helm
+    A["📦 Kustomization: rook-ceph"]:::kustom -->|Creates| B["🎯 HelmRelease: rook-ceph"]:::helm
+    A -->|Creates| C["🎯 HelmRelease: rook-ceph-cluster"]:::helm
     C -->|Depends on| B
-    D[Kustomization: atuin]:::kustomize -->|Creates| E[HelmRelease: atuin]:::helm
+    D["📦 Kustomization: atuin"]:::kustom -->|Creates| E["🎯 HelmRelease: atuin"]:::helm
     E -->|Depends on| C
 
-    classDef kustomize fill:#4CAF50,stroke:#2E7D32,stroke-width:2px,color:#fff;
-    classDef helm fill:#2196F3,stroke:#0D47A1,stroke-width:2px,color:#fff;
+    classDef kustom fill:#4CAF50,stroke:#2E7D32,stroke-width:2px,color:#fff,font-weight:bold;
+    classDef helm fill:#2196F3,stroke:#0D47A1,stroke-width:2px,color:#fff,font-weight:bold;
+
+    %% Gradients (Mermaid doesn't support native gradients yet, so we mimic with softer colors)
+    classDef kustom fill:#43A047;
+    classDef helm fill:#1976D2;
 ```
 
 ### Networking
