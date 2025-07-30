@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: sonarr
+  name: sonarr-cache
 spec:
   accessModes: ["ReadWriteOnce"]
   resources:
