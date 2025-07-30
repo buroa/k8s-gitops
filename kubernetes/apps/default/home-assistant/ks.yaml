@@ -9,6 +9,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
+    - ../../../../components/gatus
     - ../../../../components/volsync
   dependsOn:
     - name: mosquitto

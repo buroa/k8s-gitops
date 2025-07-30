@@ -25,10 +25,8 @@ spec:
               repository: ghcr.io/home-operations/home-assistant
               tag: 2025.7.4@sha256:0f7f057d1817c7bed5632ce510ffcc921799ff34e75c6a53346994ba6c7b14ab
             env:
-              HOME_ASSISTANT_EXTERNAL_URL: https://hass.k13.dev
-              HOME_ASSISTANT_PURGE_KEEP_DAYS: 30
-              HOME_ASSISTANT_TRUSTED_PROXIES: 10.244.0.0/16
-              HOME_ASSISTANT_UNIT_SYSTEM: us_customary
+              HASS_HTTP_TRUSTED_PROXY_1: 192.168.10.0/24
+              HASS_HTTP_TRUSTED_PROXY_2: 10.244.0.0/16
               TZ: America/Chicago
             probes:
               liveness:
@@ -85,7 +83,7 @@ spec:
           - "{{ .Release.Name }}.k13.dev"
           - hass.k13.dev
         parentRefs:
-          - name: internal
+          - name: external
             namespace: kube-system
             sectionName: https
     service:
