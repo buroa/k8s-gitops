@@ -8,9 +8,6 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  dependsOn:
-    - name: qbittorrent
-      namespace: *namespace
   interval: 1h
   path: ./kubernetes/apps/media/tqm/app
   prune: true
@@ -21,4 +18,3 @@ spec:
     namespace: flux-system
   targetNamespace: *namespace
   timeout: 5m
-  wait: true
