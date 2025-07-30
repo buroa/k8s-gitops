@@ -5,3 +5,4 @@ nodes:
   "10.0.5.215": "EQ12"     # home01 - EQ12 with dual igc
   "10.0.5.220": "EQ12"     # home02 - EQ12 with dual igc
   "10.0.5.100": "NUC7"     # home03 - NUC with e1000e + r8152
+  "10.0.5.118": "P520"     # home04 - P520 workstation

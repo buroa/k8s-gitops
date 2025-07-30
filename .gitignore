@@ -10,3 +10,4 @@ Thumbs.db
 **/talosconfig
 **/controlplane.yaml
 **/secrets.yaml
+secrets-backups/

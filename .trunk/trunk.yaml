@@ -25,7 +25,7 @@ lint:
     - git-diff-check
     - markdownlint@0.45.0
     - prettier@3.6.2
-    - renovate@41.43.5
+    - renovate@41.45.0
     - taplo@0.9.3
     - trufflehog@3.90.2
     - yamllint@1.37.1

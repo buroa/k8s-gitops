@@ -100,8 +100,9 @@ tasks:
           if test -f "static-configs/{{.NODE}}.yaml"; then
             echo "{{.NODE}}"
           else
-            # Fall back to detecting hostname from the node
-            talosctl --nodes "{{.NODE}}" get hostname --output=jsonpath='{.spec.hostname}' 2>/dev/null || echo "unknown"
+            # Use node mapping to determine hostname from IP address
+            # Extract hostname from node mapping comments
+            grep "{{.NODE}}" node-mapping.yaml | grep -o 'home[0-9][0-9]' | head -1 || echo "unknown"
           fi
       NODE_IP:
         sh: |
@@ -109,13 +110,8 @@ tasks:
           if echo "{{.NODE}}" | grep -E '^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$' >/dev/null; then
             echo "{{.NODE}}"
           else
-            # Map hostname to IP address based on known mappings
-            case "{{.NODE}}" in
-              home01) echo "10.0.5.215" ;;
-              home02) echo "10.0.5.220" ;;
-              home03) echo "10.0.5.100" ;;
-              *) echo "{{.NODE}}" ;;
-            esac
+            # Map hostname to IP address using node mapping file
+            grep "{{.NODE}}" node-mapping.yaml | grep -o '[0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]\+' | head -1 || echo "{{.NODE}}"
           fi
       CONFIG_FILE: static-configs/{{.HOSTNAME}}.yaml
       INSECURE_FLAG:
@@ -227,29 +223,71 @@ tasks:
       - talosctl --nodes {{.RANDOM_CONTROLLER}} get machineconfig
       - which jq talosctl
 
-  gen-secrets:
-    desc: Generate new cluster secrets and update 1Password. Use 'FORCE=true' to overwrite existing secrets.
+  backup-secrets:
+    desc: Backup current secrets with timestamp
     cmds:
       - |
-        if [ -f {{.ROOT_DIR}}/secrets.yaml ] && [ "{{.FORCE}}" != "true" ]; then
-            printf "secrets.yaml already exists. Overwrite? (y/n) "
-            read -r reply
-            case "$reply" in
-                y|Y|yes|YES)
-                    ;;
-                *)
-                    echo "Aborting."
-                    exit 1
-                    ;;
-            esac
-        fi
-        talosctl gen secrets --force
+        BACKUP_DIR="{{.ROOT_DIR}}/secrets-backups"
+        TIMESTAMP=$(date +%Y%m%d-%H%M%S)
+        mkdir -p "$BACKUP_DIR"
+        
+        [ -f {{.ROOT_DIR}}/secrets.yaml ] && cp {{.ROOT_DIR}}/secrets.yaml "$BACKUP_DIR/secrets-$TIMESTAMP.yaml" && echo "Backed up secrets.yaml"
+        [ -f {{.TALOS_DIR}}/talosconfig ] && cp {{.TALOS_DIR}}/talosconfig "$BACKUP_DIR/talosconfig-$TIMESTAMP" && echo "Backed up talosconfig"
+
+  list-backups:
+    desc: List available backups
+    cmd: ls -1 {{.ROOT_DIR}}/secrets-backups/secrets-*.yaml 2>/dev/null | sed 's|.*/secrets-||; s|\.yaml||' | sort -r || echo "No backups found"
+
+  restore-secrets:
+    desc: Restore from backup [BACKUP=timestamp]
+    requires:
+      vars: [BACKUP]
+    cmds:
+      - task: backup-secrets
+      - cp {{.ROOT_DIR}}/secrets-backups/secrets-{{.BACKUP}}.yaml {{.ROOT_DIR}}/secrets.yaml
+      - cp {{.ROOT_DIR}}/secrets-backups/talosconfig-{{.BACKUP}} {{.TALOS_DIR}}/talosconfig 2>/dev/null || true
+      - echo "Restored from backup {{.BACKUP}}"
+
+  pull-secrets:
+    desc: Pull secrets from 1Password (what nodes are using)
+    cmds:
+      - task: backup-secrets
+      - task: build-secrets
+      - task: generate-config
+      - echo "Pulled secrets from 1Password"
+    preconditions:
+      - op user get --me
+      - which op
+
+  push-secrets:  
+    desc: Push local secrets to 1Password (updates what nodes will use)
+    cmds:
       - task: update-secrets
         vars:
           OP_VAULT: "{{.OP_VAULT}}"
+      - echo "Pushed secrets to 1Password"
+    preconditions: 
+      - sh: test -f {{.ROOT_DIR}}/secrets.yaml
+        msg: "No secrets.yaml found"
+      - op user get --me
+
+  gen-secrets:
+    desc: Generate new secrets and push to 1Password [FORCE=true to skip prompt]
+    cmds:
+      - task: backup-secrets
+      - |
+        if [ -f {{.ROOT_DIR}}/secrets.yaml ] && [ "{{.FORCE}}" != "true" ]; then
+            printf "Overwrite existing secrets? (y/n) "
+            read -r reply
+            [[ "$reply" =~ ^[Yy] ]] || exit 1
+        fi
+        talosctl gen secrets --force
+      - task: push-secrets
     preconditions:
       - op user get --me
-      - which op talosctl yq
+      - which op
+      - which talosctl
+      - which yq
 
   update-secrets:
     desc: Update 1Password with generated cluster secrets

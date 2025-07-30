@@ -50,5 +50,6 @@
   },
   "debug.javascript.defaultRuntimeExecutable": {
     "pwa-node": "/home/cpritchett/.local/share/mise/shims/node"
-  }
+  },
+  "kiroAgent.configureMCP": "Disabled"
 }

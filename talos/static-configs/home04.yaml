@@ -52,8 +52,8 @@ machine:
         rsize=1048576
         wsize=1048576
   install:
-    image: factory.talos.dev/metal-installer/b4e204a2932be8827ddf98a9329269723407f77b36a758400506bca4abebc602:v1.10.5
-    disk: /dev/sda
+    image: factory.talos.dev/metal-installer/891abb135dd18ebca6ab8bc95a0ab71859a24b9308a402133cd41ce689ed452e:v1.10.5
+    disk: /dev/sdb
   kernel:
     modules:
       - name: nbd
@@ -68,6 +68,12 @@ machine:
       evictionMinimumReclaim:
         "imagefs.available": "10%"
         "nodefs.available": "10%"
+      systemReserved:
+        cpu: "500m"
+        memory: "2Gi"
+      kubeReserved:
+        cpu: "500m"
+        memory: "2Gi"
     defaultRuntimeSeccompProfileEnabled: true
     nodeIP:
       validSubnets: ["10.0.5.0/24"]
@@ -77,13 +83,13 @@ machine:
       - interface: bond0
         bond:
           deviceSelectors:
-            - {hardwareAddr: "7c:83:34:*", driver: igc}
+            - driver: e1000e  # P520 workstation has e1000e NICs
           mode: 802.3ad
           xmitHashPolicy: layer3+4
           lacpRate: fast
           miimon: 5000
         addresses:
-          - "10.0.5.215/24"
+          - "10.0.5.118/24"
         routes:
           - network: "0.0.0.0/0"
             gateway: "10.0.5.1"
@@ -95,11 +101,13 @@ machine:
             mtu: 1500
     nameservers: ["10.0.5.1"]
     disableSearchDomain: true
-    hostname: home01.hypyr.space
+    hostname: home04.hypyr.space
   nodeLabels:
     topology.kubernetes.io/region: k8s
-    topology.kubernetes.io/zone: garage-smc
-    quicksync.generation: "12"
+    topology.kubernetes.io/zone: main-smc
+    ceph.rook.io/mgr: "true"
+    ollama.ai/inference: "cpu"
+    node.kubernetes.io/instance-type: "workstation"
   sysctls:
     fs.inotify.max_user_watches: 1048576 # Watchdog
     fs.inotify.max_user_instances: 8192 # Watchdog
@@ -110,7 +118,10 @@ machine:
     sunrpc.tcp_slot_table_entries: 128 # 10Gb/s | NFS
     sunrpc.tcp_max_slot_table_entries: 128 # 10Gb/s | NFS
     user.max_user_namespaces: 11255 # User Namespaces
-    vm.nr_hugepages: 1024 # PostgreSQL
+    vm.nr_hugepages: 8192 # 16GB hugepages for P520 with 128GB RAM (AI workloads)
+    vm.max_map_count: 2097152 # Higher for memory-intensive AI/ML workloads
+    kernel.pid_max: 262144 # More processes for powerful workstation
+    vm.swappiness: 1 # Prefer RAM over swap with 128GB available
   time:
     disabled: false
     servers: ["time.cloudflare.com"]

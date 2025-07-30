@@ -13,9 +13,11 @@ machine:
     - "home01.hypyr.space"
     - "home02.hypyr.space"
     - "home03.hypyr.space"
+    - "home04.hypyr.space"
     - "home01"
     - "home02"
     - "home03"
+    - "home04"
   features:
     rbac: true
     stableHostname: true
@@ -91,10 +93,6 @@ machine:
           - vlanId: 48
             dhcp: false
             mtu: 1500
-            bridge:
-              stp:
-                enabled: true
-                priority: 61440  # High priority = low precedence (avoid becoming root bridge)
     nameservers: ["10.0.5.1"]
     disableSearchDomain: true
     hostname: home02.hypyr.space

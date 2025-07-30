@@ -14,10 +14,17 @@ This is a home-ops GitOps repository managing a 3-node Talos Linux Kubernetes cl
 task --list
 
 # Bootstrap the cluster from scratch
-task talos:gen-secrets
-task talos:apply-config NODE=<ip>
-task talos:bootstrap NODE=<ip>
-task bootstrap:apps
+task talos:gen-secrets                       # Generate secrets and push to 1Password
+task talos:apply-config NODE=<ip>            # Apply to all nodes
+task talos:bootstrap NODE=<ip>               # Bootstrap first control plane
+task bootstrap:apps                          # Deploy Kubernetes apps
+
+# Secret management (simplified workflow)
+task talos:pull-secrets                      # Pull secrets from 1Password
+task talos:push-secrets                      # Push local secrets to 1Password
+task talos:backup-secrets                    # Backup current secrets
+task talos:list-backups                      # List available backups
+task talos:restore-secrets BACKUP=<timestamp> # Restore from backup
 
 # Kubernetes operations
 task kubernetes:browse-pvc CLAIM=<pvc-name>    # Debug PVC by mounting to temp pod
@@ -87,13 +94,14 @@ Applications have explicit dependencies managed by Flux:
 ### Key Variables (Taskfile.yaml)
 - **CONTROL_PLANE_ENDPOINT**: `https://homeops.hypyr.space:6443`
 - **TALOS_ENDPOINTS**: `homeops.hypyr.space`
-- **TALOS_NODES**: `10.0.5.215,10.0.5.220,10.0.5.100`
+- **TALOS_NODES**: `10.0.5.215,10.0.5.220,10.0.5.100,10.0.5.118`
 - **OP_VAULT**: `homelab` (1Password vault)
 
 ### Node Mapping
 - **home01** (10.0.5.215) - EQ12 with dual Ethernet bond
 - **home02** (10.0.5.220) - EQ12 with dual Ethernet bond  
 - **home03** (10.0.5.100) - NUC7 with single Ethernet
+- **home04** (10.0.5.118) - P520 workstation with Ethernet bond
 
 ### Networking
 - **CNI**: Cilium with eBPF
@@ -122,7 +130,37 @@ Applications have explicit dependencies managed by Flux:
 - **ClusterSecretStore**: `onepassword` store for secret fetching
 - **ExternalSecrets**: Convert 1Password items to Kubernetes secrets
 
-### Common Secret Troubleshooting
+### Talos Secret Workflow
+The cluster uses 1Password as the source of truth for Talos certificates and secrets:
+
+```bash
+# Pull secrets from 1Password (matches what nodes are using)
+task talos:pull-secrets
+
+# Push local secrets to 1Password (updates what nodes will use on next apply)
+task talos:push-secrets
+
+# Generate brand new secrets and push to 1Password
+task talos:gen-secrets
+
+# Backup current secrets before making changes
+task talos:backup-secrets
+
+# List available backups
+task talos:list-backups
+
+# Restore from backup
+task talos:restore-secrets BACKUP=20250730-114330
+```
+
+### Secret Troubleshooting
+
+**Certificate Mismatch Issues:**
+- If bootstrap fails with certificate errors, local secrets don't match 1Password
+- Solution: `task talos:pull-secrets` to sync from 1Password
+- Or revert 1Password item in GUI, then `task talos:pull-secrets`
+
+**Common Commands:**
 ```bash
 # Check ExternalSecret status
 kubectl describe externalsecret <name> -n <namespace>
@@ -164,18 +202,20 @@ kubectl annotate externalsecrets --all external-secrets.io/force-sync=$(date +%s
 
 ## Known Issues & Solutions
 
-### OnePassword Connect Issue (FIXED Permanently)
-**Problem**: OnePassword Connect credentials triple base64 encoded during bootstrap
+### OnePassword Connect Credentials Issue (RESOLVED)
+**Problem**: OnePassword Connect credentials had triple base64 encoding causing authentication failures
 - **Symptoms**: Sync container error: `"illegal base64 data at input byte 0"`
-- **Root Cause**: 1Password CLI returns pre-encoded credentials, but `stringData` re-encodes them 
-- **Solution**: **PERMANENT** - Modified bootstrap template to use `data` instead of `stringData`
-- **Location**: `bootstrap/secrets.yaml.tpl` lines 18-19
-- **Fix Details**:
-  - Use `data:` for credentials (prevents double encoding)
-  - Keep `stringData:` for token (plain text)
-  - Added clear documentation for future removal when 1Password fixes CLI behavior
-- **Impact**: ExternalSecrets sync properly, bootstrap process creates correct secret format
-- **Dependencies**: Health checks added during `onepassword-stores` → `onepassword-store` rename now work correctly
+- **Root Cause**: 1Password CLI returns credentials with escaped quotes (`""` instead of `"`) and pre-base64 encoded
+- **Solution**: Manual credential fix required when bootstrap template approach fails
+- **Working Fix Process**:
+  1. Get credentials from 1Password: `op item get 1password --field OP_CREDENTIALS_JSON --vault homelab --reveal`
+  2. Decode and fix quotes: `base64 -d | sed 's/""/"/g'`
+  3. Get clean token: `op item get 1password --field OP_CONNECT_TOKEN --vault homelab --reveal | tr -d '\n'`
+  4. Create secret with corrected data: `kubectl create secret generic onepassword-secret --from-file=...`
+  5. Restart 1Password Connect pods to pick up corrected credentials
+- **Location**: Manual fix applied to `external-secrets/onepassword-secret`
+- **Impact**: 1Password Connect can now authenticate properly, base64 encoding errors eliminated
+- **Status**: Credentials encoding fixed, but ClusterSecretStore may still need additional troubleshooting
 
 ### Common Patterns
 - Always check ExternalSecret status when secrets aren't syncing

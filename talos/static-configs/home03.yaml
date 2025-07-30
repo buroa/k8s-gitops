@@ -13,9 +13,11 @@ machine:
     - "home01.hypyr.space"
     - "home02.hypyr.space"
     - "home03.hypyr.space"
+    - "home04.hypyr.space"
     - "home01"
     - "home02"
     - "home03"
+    - "home04"
   features:
     rbac: true
     stableHostname: true
@@ -78,18 +80,16 @@ machine:
         dhcp: false
         addresses: ["10.0.5.100/24"]
         routes:
-          - network: 0.0.0.0/0
-            gateway: 10.0.5.1
+          - network: "0.0.0.0/0"
+            gateway: "10.0.5.1"
         mtu: 1500
         vlans:
-          - {vlanId: 30, dhcp: false, mtu: 1500}
+          - vlanId: 30
+            dhcp: false
+            mtu: 1500
           - vlanId: 48
             dhcp: false
             mtu: 1500
-            bridge:
-              stp:
-                enabled: true
-                priority: 61440  # High priority = low precedence (avoid becoming root bridge)
     nameservers: ["10.0.5.1"]
     disableSearchDomain: true
   nodeLabels:
@@ -158,7 +158,9 @@ cluster:
     extraArgs:
       listen-metrics-urls: http://0.0.0.0:2381
   extraManifests:
+    # renovate: datasource=github-releases depName=kubernetes-sigs/gateway-api
     - https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.3.0/experimental-install.yaml
+    # renovate: datasource=github-releases depName=prometheus-operator/prometheus-operator
     - https://github.com/prometheus-operator/prometheus-operator/releases/download/v0.84.0/stripped-down-crds.yaml
   proxy:
     disabled: true
