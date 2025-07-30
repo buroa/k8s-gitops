@@ -21,14 +21,6 @@ spec:
       autobrr:
         annotations:
           reloader.stakater.com/auto: "true"
-        initContainers:
-          init-db:
-            image:
-              repository: ghcr.io/home-operations/postgres-init
-              tag: 17
-            envFrom: &envFrom
-              - secretRef:
-                  name: "{{ .Release.Name }}-secret"
         containers:
           app:
             image:
@@ -43,7 +35,9 @@ spec:
               AUTOBRR__CHECK_FOR_UPDATES: false
               AUTOBRR__LOG_LEVEL: INFO
               TZ: America/Chicago
-            envFrom: *envFrom
+            envFrom:
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
             probes:
               liveness: &probes
                 enabled: true
@@ -71,7 +65,11 @@ spec:
         runAsNonRoot: true
         runAsUser: 568
         runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
     persistence:
+      config:
+        existingClaim: "{{ .Release.Name }}"
       tmpfs:
         type: emptyDir
         advancedMounts:
