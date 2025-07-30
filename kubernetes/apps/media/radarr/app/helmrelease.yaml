@@ -145,7 +145,6 @@ spec:
                     name: radarr-secret
                     key: RADARR__AUTH__APIKEY
               TZ: America/Chicago
-            envFrom: *envFrom
             probes:
               liveness: &probes
                 enabled: true
