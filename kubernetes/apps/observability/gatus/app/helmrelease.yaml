@@ -22,15 +22,7 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         initContainers:
-          init-db:
-            image:
-              repository: ghcr.io/home-operations/postgres-init
-              tag: 17
-            envFrom: &envFrom
-              - secretRef:
-                  name: "{{ .Release.Name }}-secret"
           init-config:
-            dependsOn: init-db
             image:
               repository: ghcr.io/home-operations/k8s-sidecar
               tag: 1.30.7@sha256:3b6444d91c6e69a9e07c5e55419452d967d18c833d88b36277dc2021b708f621
@@ -57,7 +49,6 @@ spec:
               GATUS_CONFIG_PATH: /config
               GATUS_DELAY_START_SECONDS: 5
               TZ: America/Chicago
-            envFrom: *envFrom
             probes:
               liveness: &probes
                 enabled: true
@@ -85,7 +76,7 @@ spec:
         runAsGroup: 568
     persistence:
       config:
-        type: emptyDir
+        existingClaim: "{{ .Release.Name }}"
       config-file:
         type: configMap
         name: "{{ .Release.Name }}-configmap"
