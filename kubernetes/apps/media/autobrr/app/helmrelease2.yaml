@@ -34,10 +34,11 @@ spec:
               AUTOBRR__METRICS_PORT: &metricsPort 9094
               AUTOBRR__CHECK_FOR_UPDATES: false
               AUTOBRR__LOG_LEVEL: INFO
+              AUTOBRR__SESSION_SECRET:
+                envFrom:
+                  - secretRef:
+                      name: autobrr-secret
               TZ: America/Chicago
-            envFrom:
-              - secretRef:
-                  name: autobrr-secret
             probes:
               liveness: &probes
                 enabled: true
