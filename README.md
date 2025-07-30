@@ -111,8 +111,8 @@ graph TD
   <summary>Click to see a high-level network diagram</summary>
 
 ```mermaid
-  graph TD
-    %% Style Definitions
+graph TD
+    %% Class Definitions
     classDef wan fill:#f87171,stroke:#fff,stroke-width:2px,color:#fff,font-weight:bold;
     classDef core fill:#60a5fa,stroke:#fff,stroke-width:2px,color:#fff,font-weight:bold;
     classDef agg fill:#34d399,stroke:#fff,stroke-width:2px,color:#fff,font-weight:bold;
@@ -130,7 +130,8 @@ graph TD
     DEV[💻 Devices]:::device
     WIFI[📶 WiFi Clients]:::device
 
-    subgraph VLANs [LAN (+vlan)]
+    %% Subgraph for VLANs
+    subgraph VLANs [LAN +vlan]
         direction TB
         LOCAL[LOCAL<br>192.168.0.0/24]:::vlan
         TRUSTED[TRUSTED*<br>192.168.1.0/24]:::vlan
@@ -138,17 +139,24 @@ graph TD
         SERVICES[SERVICES*<br>192.168.20.0/24]:::vlan
         IOT[IOT*<br>192.168.30.0/24]:::vlan
         GUEST[GUEST*<br>192.168.40.0/24]:::vlan
-        TB[THUNDERBOLT<br>169.254.255.0/24]:::vlan
     end
+
+    style VLANs fill:#111,stroke:#fff,stroke-width:2px,rx:0,ry:0,padding:20px;
 
     %% Links
     RCN -.->|WAN| UDM
     UDM --> AGG
-    AGG --> NAS
-    AGG --> K8s
-    AGG --> SW
+    AGG -- 10G LACP --- NAS
+    AGG -- 10G LACP --- K8s
+    AGG -- 10G LACP --- SW
     SW --> DEV
     SW --> WIFI
+
+    %% Style the bonded links thicker
+    linkStyle 2 stroke-width:4px,stroke:34d399;
+    linkStyle 3 stroke-width:4px,stroke:34d399;
+    linkStyle 4 stroke-width:4px,stroke:34d399;
+
 ```
 </details>
 
