@@ -35,9 +35,10 @@ spec:
               AUTOBRR__CHECK_FOR_UPDATES: false
               AUTOBRR__LOG_LEVEL: INFO
               AUTOBRR__SESSION_SECRET:
-                envFrom:
-                  - secretRef:
-                      name: autobrr-secret
+                valueFrom:
+                  secretKeyRef:
+                    name: autobrr-secret
+                    key: AUTOBRR__SESSION_SECRET
               TZ: America/Chicago
             probes:
               liveness: &probes
