@@ -10,6 +10,7 @@ spec:
       app.kubernetes.io/name: *app
   components:
     - ../../../../components/nfs-scaler
+    - ../../../../components/volsync
   dependsOn:
     - name: onepassword-store
       namespace: external-secrets
@@ -20,6 +21,7 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      VOLSYNC_CAPACITY: 5Gi
   prune: true
   retryInterval: 2m
   sourceRef:
