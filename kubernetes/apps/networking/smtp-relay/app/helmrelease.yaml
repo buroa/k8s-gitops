@@ -55,6 +55,9 @@ spec:
         runAsUser: 568
         runAsGroup: 568
     persistence:
+      cache:
+        type: emptyDir
+        medium: Memory
       config:
         type: configMap
         name: "{{ .Release.Name }}-configmap"
@@ -62,9 +65,6 @@ spec:
           - path: /data/maddy.conf
             subPath: maddy.conf
             readOnly: true
-      tmp:
-        type: emptyDir
-        medium: Memory
     service:
       app:
         ports:
