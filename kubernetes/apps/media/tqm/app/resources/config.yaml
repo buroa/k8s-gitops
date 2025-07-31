@@ -1,6 +1,7 @@
 ---
 clients:
   qb:
+    create_tags_upfront: false
     download_path: /media/downloads/torrents/complete
     enabled: true
     filter: default
@@ -38,35 +39,35 @@ filters:
       - HasAnyTag("not-linked") && SeedingDays > 24
 
     tag:
-      - { name: added:1d,     mode: full, update: ['AddedDays < 7'] }
-      - { name: added:7d,     mode: full, update: ['AddedDays >= 7 && AddedDays < 14'] }
-      - { name: added:14d,    mode: full, update: ['AddedDays >= 14 && AddedDays < 30'] }
-      - { name: added:30d,    mode: full, update: ['AddedDays >= 30 && AddedDays < 180'] }
-      - { name: added:180d,   mode: full, update: ['AddedDays >= 180'] }
-      - { name: not-linked,   mode: full, update: ['HardlinkedOutsideClient == false && Label in ["sonarr", "radarr"]'] }
-      - { name: site:ant,     mode: full, update: ['TrackerName == "anthelion.me"'] }
-      - { name: site:ar,      mode: full, update: ['TrackerName == "alpharatio.cc"'] }
-      - { name: site:ath,     mode: full, update: ['TrackerName == "aither.cc"'] }
-      - { name: site:bhd,     mode: full, update: ['TrackerName == "beyond-hd.me"'] }
-      - { name: site:blu,     mode: full, update: ['TrackerName in ["blutopia.cc", "blutopia.xyz"]'] }
-      - { name: site:fl,      mode: full, update: ['TrackerName in ["filelist.io", "thefl.org"]'] }
-      - { name: site:fnp,     mode: full, update: ['TrackerName == "fearnopeer.com"'] }
-      - { name: site:hdt,     mode: full, update: ['TrackerName == "hdts-announce.ru"'] }
-      - { name: site:huno,    mode: full, update: ['TrackerName == "hawke.uno"'] }
-      - { name: site:ipt,     mode: full, update: ['TrackerName in ["bgp.technology", "empirehost.me", "stackoverflow.tech"]'] }
-      - { name: site:lst,     mode: full, update: ['TrackerName == "lst.gg"'] }
-      - { name: site:mlk,     mode: full, update: ['TrackerName == "milkie.cc"'] }
-      - { name: site:mtv,     mode: full, update: ['TrackerName == "morethantv.me"'] }
-      - { name: site:nbl,     mode: full, update: ['TrackerName == "nebulance.io"'] }
-      - { name: site:oe,      mode: full, update: ['TrackerName == "onlyencodes.cc"'] }
-      - { name: site:phd,     mode: full, update: ['TrackerName == "privatehd.to"'] }
-      - { name: site:ptp,     mode: full, update: ['TrackerName == "passthepopcorn.me"'] }
-      - { name: site:rfx,     mode: full, update: ['TrackerName == "reelflix.xyz"'] }
-      - { name: site:sp,      mode: full, update: ['TrackerName == "seedpool.org"'] }
-      - { name: site:st,      mode: full, update: ['TrackerName == "scenetime.com"'] }
-      - { name: site:td,      mode: full, update: ['TrackerName in ["jumbohostpro.eu", "td-peers.com"]'] }
-      - { name: site:tl,      mode: full, update: ['TrackerName in ["tleechreload.org", "torrentleech.org"]'] }
-      - { name: site:uhd,     mode: full, update: ['TrackerName == "uhdbits.org"'] }
-      - { name: site:ulcx,    mode: full, update: ['TrackerName == "upload.cx"'] }
-      - { name: tracker-down, mode: full, update: ['IsTrackerDown()'] }
-      - { name: unregistered, mode: full, update: ['IsUnregistered()'] }
+      - { name: added:1d,     update: ['AddedDays < 7'] }
+      - { name: added:7d,     update: ['AddedDays >= 7 && AddedDays < 14'] }
+      - { name: added:14d,    update: ['AddedDays >= 14 && AddedDays < 30'] }
+      - { name: added:30d,    update: ['AddedDays >= 30 && AddedDays < 180'] }
+      - { name: added:180d,   update: ['AddedDays >= 180'] }
+      - { name: not-linked,   update: ['HardlinkedOutsideClient == false && Label in ["sonarr", "radarr"]'] }
+      - { name: site:ant,     update: ['TrackerName == "anthelion.me"'] }
+      - { name: site:ar,      update: ['TrackerName == "alpharatio.cc"'] }
+      - { name: site:ath,     update: ['TrackerName == "aither.cc"'] }
+      - { name: site:bhd,     update: ['TrackerName == "beyond-hd.me"'] }
+      - { name: site:blu,     update: ['TrackerName in ["blutopia.cc", "blutopia.xyz"]'] }
+      - { name: site:fl,      update: ['TrackerName in ["filelist.io", "thefl.org"]'] }
+      - { name: site:fnp,     update: ['TrackerName == "fearnopeer.com"'] }
+      - { name: site:hdt,     update: ['TrackerName == "hdts-announce.ru"'] }
+      - { name: site:huno,    update: ['TrackerName == "hawke.uno"'] }
+      - { name: site:ipt,     update: ['TrackerName in ["bgp.technology", "empirehost.me", "stackoverflow.tech"]'] }
+      - { name: site:lst,     update: ['TrackerName == "lst.gg"'] }
+      - { name: site:mlk,     update: ['TrackerName == "milkie.cc"'] }
+      - { name: site:mtv,     update: ['TrackerName == "morethantv.me"'] }
+      - { name: site:nbl,     update: ['TrackerName == "nebulance.io"'] }
+      - { name: site:oe,      update: ['TrackerName == "onlyencodes.cc"'] }
+      - { name: site:phd,     update: ['TrackerName == "privatehd.to"'] }
+      - { name: site:ptp,     update: ['TrackerName == "passthepopcorn.me"'] }
+      - { name: site:rfx,     update: ['TrackerName == "reelflix.xyz"'] }
+      - { name: site:sp,      update: ['TrackerName == "seedpool.org"'] }
+      - { name: site:st,      update: ['TrackerName == "scenetime.com"'] }
+      - { name: site:td,      update: ['TrackerName in ["jumbohostpro.eu", "td-peers.com"]'] }
+      - { name: site:tl,      update: ['TrackerName in ["tleechreload.org", "torrentleech.org"]'] }
+      - { name: site:uhd,     update: ['TrackerName == "uhdbits.org"'] }
+      - { name: site:ulcx,    update: ['TrackerName == "upload.cx"'] }
+      - { name: tracker-down, update: ['IsTrackerDown()'] }
+      - { name: unregistered, update: ['IsUnregistered()'] }
