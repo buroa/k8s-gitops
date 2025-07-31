@@ -27,7 +27,8 @@ spec:
               repository: ghcr.io/kashalls/external-dns-unifi-webhook
               tag: v0.6.0@sha256:dd71adb88b64174b158481fb359dfe985d8bea1cad8cefba36209c8fc9eb03d3
             env:
-              UNIFI_HOST: https://unifi.internal
+              UNIFI_HOST: https://192.168.1.1
+              UNIFI_SKIP_TLS_VERIFY: "true"
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"

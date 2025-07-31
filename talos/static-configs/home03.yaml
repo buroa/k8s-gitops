@@ -82,6 +82,8 @@ machine:
         routes:
           - network: "0.0.0.0/0"
             gateway: "10.0.5.1"
+          - network: "10.0.48.0/24"
+            gateway: "0.0.0.0"  # Blackhole route for LoadBalancer IPs
         mtu: 1500
         vlans:
           - vlanId: 30
