@@ -41,6 +41,7 @@ spec:
         name: openebs-hostpath
         isDefaultClass: false
         basePath: *basePath
+        volumeBindingMode: Immediate
       helperPod:
         image:
           registry: quay.io/
