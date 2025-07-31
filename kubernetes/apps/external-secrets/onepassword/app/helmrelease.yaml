@@ -109,6 +109,7 @@ spec:
             resources: *resources
             securityContext: *securityContext
     defaultPodOptions:
+      hostUsers: false
       securityContext:
         runAsNonRoot: true
         runAsUser: 999
