@@ -200,6 +200,16 @@ tasks:
       - talosctl --nodes {{.NODE}} get machineconfig
       - which talosctl
 
+  reset-node-maintenance:
+    desc: Reset Talos node to maintenance mode [NODE=required]
+    prompt: Reset Talos node '{{.NODE}}' to maintenance mode ... continue?
+    cmd: talosctl --nodes {{.NODE}} reset --graceful=false --reboot=false
+    requires:
+      vars: [NODE]
+    preconditions:
+      - talosctl config info
+      - which talosctl
+
   reset-cluster:
     desc: Reset Talos across the whole cluster
     prompt: Reset the Talos cluster ... continue?
@@ -211,6 +221,24 @@ tasks:
       - talosctl config info
       - talosctl --nodes {{.NODES}} get machineconfig
       - which jq talosctl
+
+  reset-cluster-maintenance:
+    desc: Reset Talos cluster and leave nodes in maintenance mode
+    prompt: Reset the Talos cluster to maintenance mode ... continue?
+    cmd: talosctl --nodes {{.NODES}} reset --graceful=false --reboot=false
+    vars:
+      NODES:
+        sh: talosctl config info --output json | jq --join-output '[.nodes[]] | join(",")'
+    preconditions:
+      - talosctl config info
+      - which jq talosctl
+
+  reset-cluster-maintenance-force:
+    desc: Reset Talos cluster to maintenance mode (bypass connectivity checks)
+    prompt: Force reset the Talos cluster to maintenance mode ... continue?
+    cmd: talosctl --nodes {{.TALOS_NODES}} reset --graceful=false --reboot=false
+    preconditions:
+      - which talosctl
 
   kubeconfig:
     desc: Generate the kubeconfig for a Talos cluster

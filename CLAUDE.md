@@ -203,19 +203,23 @@ kubectl annotate externalsecrets --all external-secrets.io/force-sync=$(date +%s
 ## Known Issues & Solutions
 
 ### OnePassword Connect Credentials Issue (RESOLVED)
-**Problem**: OnePassword Connect credentials had triple base64 encoding causing authentication failures
-- **Symptoms**: Sync container error: `"illegal base64 data at input byte 0"`
-- **Root Cause**: 1Password CLI returns credentials with escaped quotes (`""` instead of `"`) and pre-base64 encoded
-- **Solution**: Manual credential fix required when bootstrap template approach fails
+**Problem**: OnePassword Connect requires double base64 encoding and correct Connect server token
+- **Symptoms**: Sync container error: `"illegal base64 data at input byte 0"` and `"Authentication failed, invalid bearer token"`
+- **Root Cause**: 
+  1. 1Password Connect sync container expects credentials to be double base64 encoded (documented in GitHub issue #202)
+  2. Connect token must match the server that generated the credentials file
+- **Solution**: Apply correct double encoding and use matching Connect server token
 - **Working Fix Process**:
-  1. Get credentials from 1Password: `op item get 1password --field OP_CREDENTIALS_JSON --vault homelab --reveal`
-  2. Decode and fix quotes: `base64 -d | sed 's/""/"/g'`
-  3. Get clean token: `op item get 1password --field OP_CONNECT_TOKEN --vault homelab --reveal | tr -d '\n'`
-  4. Create secret with corrected data: `kubectl create secret generic onepassword-secret --from-file=...`
-  5. Restart 1Password Connect pods to pick up corrected credentials
-- **Location**: Manual fix applied to `external-secrets/onepassword-secret`
-- **Impact**: 1Password Connect can now authenticate properly, base64 encoding errors eliminated
-- **Status**: Credentials encoding fixed, but ClusterSecretStore may still need additional troubleshooting
+  1. Get decoded credentials: `op item get 1password --field OP_CREDENTIALS_JSON --vault homelab --reveal | base64 -d | sed 's/""/"/g'`
+  2. Apply single base64 encoding: `echo "$RAW_JSON" | base64 -w 0`
+  3. Create Connect token for correct server: `op connect token create "name" --server homelab --vault homelab`
+  4. Create secret with single-encoded credentials: `kubectl create secret generic onepassword-secret --from-literal=1password-credentials.json="$SINGLE_ENCODED" --from-literal=token="$TOKEN"`
+  5. Restart 1Password Connect pods: `kubectl delete pod -l app.kubernetes.io/name=onepassword -n external-secrets`
+- **Key Details**: 
+  - Kubernetes automatically base64 encodes secret data, so single encoding becomes double total
+  - Must use "homelab" Connect server, not "homelab-k8s" variants
+  - ClusterSecretStore validates successfully after proper encoding and token matching
+- **Status**: FULLY RESOLVED - ClusterSecretStore shows "store validated" and ExternalSecrets work correctly
 
 ### Common Patterns
 - Always check ExternalSecret status when secrets aren't syncing

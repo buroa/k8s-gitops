@@ -169,28 +169,27 @@ kubectl get clustersecretstore onepassword -o yaml
 kubectl get secret <secret-name> -n <namespace>
 ```
 
-**OnePassword Connect credentials corrupted?**
-**Symptoms**: Sync container error: `"illegal base64 data at input byte 0"`
+**OnePassword Connect base64 encoding issue?**
+**Symptoms**: Sync container error: `"illegal base64 data at input byte 0"` or `"Authentication failed, invalid bearer token"`
 **Solution**: This issue has been **permanently fixed** in the bootstrap template.
 
-**Root Cause**: The 1Password CLI returns pre-base64 encoded credentials, but using `stringData` in Kubernetes secrets causes additional base64 encoding, resulting in triple-encoded credentials.
+**Root Cause**: 
+1. 1Password Connect sync container requires double base64 encoding (documented in GitHub issue #202)
+2. Connect token must match the server that generated the credentials file
 
-**Fix Applied**: Modified `bootstrap/secrets.yaml.tpl` to use `data:` for credentials instead of `stringData:` to prevent double encoding.
+**Fix Applied**: Modified `bootstrap/secrets.yaml.tpl` to:
+- Apply correct double base64 encoding by pre-encoding credentials once (Kubernetes encodes again)
+- Use the "homelab" Connect server (not "homelab-k8s" variants)
+- Automatically handle quote escaping in credentials JSON
 
-**If you still encounter this error**:
-1. Re-run the bootstrap process: `task bootstrap:apps`
-2. The new template will create properly encoded secrets automatically
-3. No manual intervention required
+**Verification**: 
+- ClusterSecretStore should show "store validated" status
+- ExternalSecrets should sync successfully (30+ working in typical setup)
 
-**Legacy Manual Fix** (no longer needed):
-```bash
-# Only use if bootstrap template hasn't been updated
-cat 1password-credentials.json | base64 > credentials-single-encoded.txt
-kubectl create secret generic onepassword-secret \
-  --from-file=1password-credentials.json=credentials-single-encoded.txt \
-  --namespace=external-secrets \
-  --dry-run=client -o yaml | kubectl apply -f -
-```
+**If you still encounter issues**:
+1. Verify 1Password CLI access: `op signin`
+2. Re-run bootstrap: `task bootstrap:apps`  
+3. Check ClusterSecretStore: `kubectl get clustersecretstore onepassword`
 
 **Missing 1Password entry?**
 ```bash

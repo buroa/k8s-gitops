@@ -50,6 +50,17 @@ tasks:
     preconditions:
       - which kubectl
 
+  reconcile:
+    desc: Force Flux reconciliation to pull latest Git changes
+    cmds:
+      - echo "🔄 Reconciling Git source..."
+      - flux reconcile source git flux-system -n flux-system
+      - echo "🔄 Reconciling cluster applications..."
+      - flux reconcile kustomization cluster-apps -n flux-system
+      - echo "✅ Flux reconciliation complete"
+    preconditions:
+      - which flux
+
   # https://docs.github.com/en/enterprise-cloud@latest/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/deploying-runner-scale-sets-with-actions-runner-controller#upgrading-arc
   upgrade-arc:
     desc: Upgrade the ARC
