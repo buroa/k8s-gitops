@@ -69,6 +69,8 @@ spec:
     persistence:
       data:
         existingClaim: "{{ .Release.Name }}"
+      tmp:
+        type: emptyDir
     route:
       app:
         hostnames:
