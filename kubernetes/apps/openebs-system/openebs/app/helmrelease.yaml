@@ -57,6 +57,8 @@ spec:
       enabled: false
     engines:
       local:
+        hostpath:
+          enabled: true
         lvm:
           enabled: false
         zfs:
