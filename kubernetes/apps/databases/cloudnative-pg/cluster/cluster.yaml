@@ -21,10 +21,10 @@ spec:
       shared_buffers: 256MB
   resources:
     requests:
-      cpu: 500m
+      cpu: 300m
+      memory: 1Gi
     limits:
-      hugepages-2Mi: 2Gi # Requires sysctl set on the host
-      memory: 4Gi
+      memory: 2Gi
   monitoring:
     enablePodMonitor: true
   plugins:
