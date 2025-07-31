@@ -54,6 +54,10 @@ machine:
   install:
     image: factory.talos.dev/metal-installer/891abb135dd18ebca6ab8bc95a0ab71859a24b9308a402133cd41ce689ed452e:v1.10.5
     disk: /dev/sdb
+  userVolumeConfig:
+    provisioning:
+      diskSelector:
+        match: !system_disk
   kernel:
     modules:
       - name: nbd
