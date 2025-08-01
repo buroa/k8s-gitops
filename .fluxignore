@@ -1,5 +1,4 @@
-# Media apps - temporarily disabled
-kubernetes/apps/media/
+# Media apps - secrets now working, ready to deploy
 
 # Smart home apps - temporarily disabled
 kubernetes/apps/default/zigbee2mqtt/
