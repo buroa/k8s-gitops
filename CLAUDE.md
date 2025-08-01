@@ -105,7 +105,7 @@ Applications have explicit dependencies managed by Flux:
 
 ### Key Variables (Taskfile.yaml)
 - **CONTROL_PLANE_ENDPOINT**: `https://homeops.hypyr.space:6443` (Points to kube-vip LoadBalancer: 10.0.48.55)
-- **TALOS_ENDPOINTS**: `homeops.hypyr.space`
+- **TALOS_ENDPOINTS**: `10.0.5.215,10.0.5.220,10.0.5.118`
 - **TALOS_NODES**: Dynamically extracted from `talos/node-mapping.yaml` (currently: 3 nodes)
 - **OP_VAULT**: `homelab` (1Password vault)
 
@@ -222,6 +222,37 @@ kubectl describe externalsecret <name> -n <namespace>
 - Use `task kubernetes:sync-secrets` to force refresh all secrets
 - Monitor Flux reconciliation with `flux get kustomizations`
 - Check Talos node health with `talosctl get members`
+
+## Flux Git Reconciliation
+
+When you make changes to YAML files in the repository, Flux needs to detect and apply them. Use these commands to force Flux to reconcile from Git:
+
+```bash
+# Force reconcile the Git source (picks up file changes from repository)
+flux reconcile source git flux-system
+
+# Force reconcile specific Kustomizations (applies changes to cluster)
+flux reconcile kustomization cluster-apps
+flux reconcile kustomization cluster-meta
+
+# Force reconcile specific application (useful after changing a single app)
+flux reconcile kustomization <app-name> -n <namespace>
+
+# Check Flux system status
+flux get sources git
+flux get kustomizations
+flux get helmreleases -A
+
+# Resume suspended resources
+flux resume kustomization <name>
+flux resume helmrelease <name> -n <namespace>
+```
+
+**Common workflow after making file changes:**
+1. Commit and push changes to Git
+2. `flux reconcile source git flux-system` (force Git sync)
+3. `flux reconcile kustomization cluster-apps` (apply changes)
+4. Check status with `kubectl get pods -A` or `flux get kustomizations`
 
 ## Development Workflow
 

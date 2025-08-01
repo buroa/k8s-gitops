@@ -97,7 +97,7 @@ item_exists() {
 safety_check() {
     log_info "Safety check - existing 1Password items in homelab vault:"
     
-    local services=("radarr" "sonarr" "sabnzbd" "grafana" "atuin" "prowlarr" "autobrr" "gatus")
+    local services=("radarr" "sonarr" "prowlarr" "sabnzbd" "grafana" "atuin" "autobrr" "gatus")
     local existing_items=()
     
     for service in "${services[@]}"; do
@@ -145,21 +145,32 @@ bootstrap_media_secrets() {
         RADARR_API_KEY=$(generate_api_key)
         RADARR_POSTGRES_USER="radarr"
         RADARR_POSTGRES_PASS=$(generate_password)
-        create_service_item "radarr" "$RADARR_API_KEY" \
-            "'RADARR_POSTGRES_USER[text]=$RADARR_POSTGRES_USER' 'RADARR_POSTGRES_PASS[concealed]=$RADARR_POSTGRES_PASS' 'POSTGRES_SUPER_PASS[concealed]=$POSTGRES_SUPER_PASS'"
+        create_service_item "radarr" "" \
+            "'RADARR_API_KEY[concealed]=$RADARR_API_KEY' 'RADARR_POSTGRES_USER[text]=$RADARR_POSTGRES_USER' 'RADARR_POSTGRES_PASS[concealed]=$RADARR_POSTGRES_PASS' 'POSTGRES_SUPER_PASS[concealed]=$POSTGRES_SUPER_PASS'"
     else
         log_info "Radarr secrets already exist"
     fi
     
-    # Sonarr (TV management)
+    # Sonarr (TV management) 
     if ! item_exists "sonarr"; then
         SONARR_API_KEY=$(generate_api_key)
         SONARR_POSTGRES_USER="sonarr"
         SONARR_POSTGRES_PASS=$(generate_password)
-        create_service_item "sonarr" "$SONARR_API_KEY" \
-            "'SONARR_POSTGRES_USER[text]=$SONARR_POSTGRES_USER' 'SONARR_POSTGRES_PASS[concealed]=$SONARR_POSTGRES_PASS' 'POSTGRES_SUPER_PASS[concealed]=$POSTGRES_SUPER_PASS'"
+        create_service_item "sonarr" "" \
+            "'SONARR_API_KEY[concealed]=$SONARR_API_KEY' 'SONARR_POSTGRES_USER[text]=$SONARR_POSTGRES_USER' 'SONARR_POSTGRES_PASS[concealed]=$SONARR_POSTGRES_PASS' 'POSTGRES_SUPER_PASS[concealed]=$POSTGRES_SUPER_PASS'"
     else
         log_info "Sonarr secrets already exist"
+    fi
+    
+    # Prowlarr (Indexer management)
+    if ! item_exists "prowlarr"; then
+        PROWLARR_API_KEY=$(generate_api_key)
+        PROWLARR_DB_USER="prowlarr"
+        PROWLARR_DB_PASS=$(generate_password)
+        create_service_item "prowlarr" "" \
+            "'PROWLARR_API_KEY[concealed]=$PROWLARR_API_KEY' 'PROWLARR_POSTGRES_USER[text]=$PROWLARR_DB_USER' 'PROWLARR_POSTGRES_PASS[concealed]=$PROWLARR_DB_PASS'"
+    else
+        log_info "Prowlarr secrets already exist"
     fi
     
     # SABnzbd (Download client)
@@ -186,7 +197,7 @@ bootstrap_media_secrets() {
     if ! item_exists "atuin"; then
         ATUIN_POSTGRES_USER="atuin"
         ATUIN_POSTGRES_PASS=$(generate_password)
-        create_service_item "atuin" "$(generate_api_key)" \
+        create_service_item "atuin" "" \
             "'ATUIN_POSTGRES_USER[text]=$ATUIN_POSTGRES_USER' 'ATUIN_POSTGRES_PASS[concealed]=$ATUIN_POSTGRES_PASS' 'POSTGRES_SUPER_PASS[concealed]=$POSTGRES_SUPER_PASS'"
     else
         log_info "Atuin secrets already exist"
@@ -197,8 +208,8 @@ bootstrap_media_secrets() {
         PROWLARR_API_KEY=$(generate_api_key)
         PROWLARR_POSTGRES_USER="prowlarr"
         PROWLARR_POSTGRES_PASS=$(generate_password)
-        create_service_item "prowlarr" "$PROWLARR_API_KEY" \
-            "'PROWLARR_POSTGRES_USER[text]=$PROWLARR_POSTGRES_USER' 'PROWLARR_POSTGRES_PASS[concealed]=$PROWLARR_POSTGRES_PASS' 'POSTGRES_SUPER_PASS[concealed]=$POSTGRES_SUPER_PASS'"
+        create_service_item "prowlarr" "" \
+            "'PROWLARR_API_KEY[concealed]=$PROWLARR_API_KEY' 'PROWLARR_POSTGRES_USER[text]=$PROWLARR_POSTGRES_USER' 'PROWLARR_POSTGRES_PASS[concealed]=$PROWLARR_POSTGRES_PASS' 'POSTGRES_SUPER_PASS[concealed]=$POSTGRES_SUPER_PASS'"
     else
         log_info "Prowlarr secrets already exist"
     fi
@@ -208,8 +219,8 @@ bootstrap_media_secrets() {
         AUTOBRR_POSTGRES_USER="autobrr"
         AUTOBRR_POSTGRES_PASS=$(generate_password)
         AUTOBRR_SESSION_SECRET=$(generate_session_secret)
-        create_service_item "autobrr" "$(generate_api_key)" \
-            "'AUTOBRR_POSTGRES_USER[text]=$AUTOBRR_POSTGRES_USER' 'AUTOBRR_POSTGRES_PASS[concealed]=$AUTOBRR_POSTGRES_PASS' 'AUTOBRR_SESSION_SECRET[concealed]=$AUTOBRR_SESSION_SECRET' 'POSTGRES_SUPER_PASS[concealed]=$POSTGRES_SUPER_PASS'"
+        create_service_item "autobrr" "" \
+            "'AUTOBRR_API_KEY[concealed]=$(generate_api_key)' 'AUTOBRR_POSTGRES_USER[text]=$AUTOBRR_POSTGRES_USER' 'AUTOBRR_POSTGRES_PASS[concealed]=$AUTOBRR_POSTGRES_PASS' 'AUTOBRR_SESSION_SECRET[concealed]=$AUTOBRR_SESSION_SECRET' 'POSTGRES_SUPER_PASS[concealed]=$POSTGRES_SUPER_PASS'"
     else
         log_info "Autobrr secrets already exist"
     fi
@@ -218,8 +229,8 @@ bootstrap_media_secrets() {
     if ! item_exists "gatus"; then
         GATUS_POSTGRES_USER="gatus"
         GATUS_POSTGRES_PASS=$(generate_password)
-        create_service_item "gatus" "$(generate_api_key)" \
-            "'GATUS_POSTGRES_USER[text]=$GATUS_POSTGRES_USER' 'GATUS_POSTGRES_PASS[concealed]=$GATUS_POSTGRES_PASS' 'POSTGRES_SUPER_PASS[concealed]=$POSTGRES_SUPER_PASS'"
+        create_service_item "gatus" "" \
+            "'GATUS_API_KEY[concealed]=$(generate_api_key)' 'GATUS_POSTGRES_USER[text]=$GATUS_POSTGRES_USER' 'GATUS_POSTGRES_PASS[concealed]=$GATUS_POSTGRES_PASS' 'POSTGRES_SUPER_PASS[concealed]=$POSTGRES_SUPER_PASS'"
     else
         log_info "Gatus secrets already exist"
     fi
