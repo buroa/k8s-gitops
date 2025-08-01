@@ -11,7 +11,7 @@ spec:
     copyMethod: "${VOLSYNC_COPYMETHOD:-Snapshot}"
     pruneIntervalDays: 7
     repository: "${APP}-restic-secret"
-    volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:-csi-ceph-blockpool}"
+    volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:-csi-ceph-block}"
     storageClassName: "${VOLSYNC_STORAGECLASS:-ceph-block}"
     moverSecurityContext:
       runAsUser: "${VOLSYNC_UID:-568}"
