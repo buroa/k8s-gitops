@@ -10,4 +10,4 @@ resources:
   - ./external-dns/ks.yaml
   - ./multus/ks.yaml
   - ./smtp-relay/ks.yaml
-  - ./tailscale/ks.yaml
+  - ./tailscale-operator/ks.yaml
