@@ -1,7 +1,0 @@
----
-devices:
-  - name: coral
-    groups:
-      - paths:
-          - path: /host/dev/apex_0
-            mountPath: /dev/apex_0
