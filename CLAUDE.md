@@ -114,8 +114,10 @@ Applications have explicit dependencies managed by Flux:
 
 ### Storage Classes
 - **Rook Ceph**: Distributed block storage for persistent volumes
-- **OpenEBS**: Local storage for specific workloads
+- **OpenEBS**: Local hostpath storage using `/var/mnt/local-storage` (actual Talos user volume mount point)
 - **NFS**: External media storage from TrueNAS
+
+**Important**: OpenEBS uses `/var/mnt/local-storage` because Talos UserVolumeConfig mounts user volumes there, but doesn't automatically create the expected bind mount to `/var/local-storage`. All nodes show user volumes mounted at `/var/mnt/local-storage`.
 
 ### Backup Strategy
 - **VolSync**: Automated PVC backups using Restic

@@ -12,7 +12,7 @@ concurrency:
 jobs:
   filter:
     name: Image Pull - Filter
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     outputs:
       changed-files: ${{ steps.changed-files.outputs.changed_files }}
     steps:
@@ -27,7 +27,7 @@ jobs:
     if: ${{ needs.filter.outputs.changed-files != '[]' }}
     needs: filter
     name: Image Pull - Extract Images
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       matrix:
         branch: ["default", "pull"]
@@ -61,7 +61,7 @@ jobs:
     if: ${{ needs.extract.outputs.default != needs.extract.outputs.pull }}
     needs: extract
     name: Image Pull - Diff Images
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     outputs:
       images: ${{ steps.diff.outputs.images }}
     steps:
@@ -96,7 +96,7 @@ jobs:
     if: ${{ !cancelled() }}
     needs: pull
     name: Image Pull - Success
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Any jobs failed?
         if: ${{ contains(needs.*.result, 'failure') }}

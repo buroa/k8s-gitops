@@ -12,7 +12,7 @@ concurrency:
 jobs:
   filter:
     name: Flux Local - Filter
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     outputs:
       changed-files: ${{ steps.changed-files.outputs.changed_files }}
     steps:
@@ -27,7 +27,7 @@ jobs:
     if: ${{ needs.filter.outputs.changed-files != '[]' }}
     needs: filter
     name: Flux Local - Test
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
@@ -46,7 +46,7 @@ jobs:
     if: ${{ needs.filter.outputs.changed-files != '[]' }}
     needs: filter
     name: Flux Local - Diff
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       contents: read
       pull-requests: write
@@ -110,7 +110,7 @@ jobs:
     if: ${{ !cancelled() }}
     needs: [test, diff]
     name: Flux Local - Success
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Any jobs failed?
         if: ${{ contains(needs.*.result, 'failure') }}
