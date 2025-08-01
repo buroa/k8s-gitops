@@ -30,15 +30,30 @@ tasks:
       - which kubectl
 
   sync-secrets:
-    desc: Sync all ExternalSecrets
+    desc: Force sync all ExternalSecrets (and fix 1Password Connect if needed)
     cmds:
+      - echo "🔍 Checking 1Password Connect status..."
+      - |
+        if ! kubectl get clustersecretstore onepassword -o jsonpath='{.status.conditions[0].status}' | grep -q "True"; then
+          echo "❌ 1Password Connect not working, fixing..."
+          cat {{.BOOTSTRAP_DIR}}/secrets.yaml.tpl | op inject | kubectl apply -f -
+          kubectl delete pod -l app.kubernetes.io/name=onepassword -n external-secrets
+          echo "⏳ Waiting for 1Password Connect to restart..."
+          kubectl wait --for=condition=ready pod -l app.kubernetes.io/name=onepassword -n external-secrets --timeout=60s
+        else
+          echo "✅ 1Password Connect is healthy"
+        fi
+      - echo "🔄 Force syncing all ExternalSecrets..."
       - for: { var: SECRETS, split: "\n" }
         cmd: kubectl --namespace {{splitList "," .ITEM | first}} annotate externalsecret {{splitList "," .ITEM | last}} force-sync="{{now | unixEpoch}}" --overwrite
+      - echo "✅ Secret sync complete"
     vars:
       SECRETS:
         sh: kubectl get externalsecret --all-namespaces --no-headers --output=jsonpath='{range .items[*]}{.metadata.namespace},{.metadata.name}{"\n"}{end}'
     preconditions:
-      - which kubectl
+      - op user get --me
+      - test -f {{.BOOTSTRAP_DIR}}/secrets.yaml.tpl
+      - which kubectl op
 
   cleanse-pods:
     desc: Cleanse pods with a Failed/Pending/Succeeded phase

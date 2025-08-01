@@ -87,6 +87,57 @@ tasks:
         msg: "secrets.yaml not found. Run 'task talos:build-secrets' to build it from 1Password"
       - which talosctl
 
+  generate-config-healthy:
+    desc: Generate talosconfig with only healthy/reachable nodes [NODES=optional]
+    dir: talos
+    vars:
+      HEALTHY_NODES: '{{.NODES | default ""}}'
+    cmds:
+      - |
+        # Generate base config
+        talosctl gen config --with-secrets {{.ROOT_DIR}}/secrets.yaml --output-types talosconfig -o talosconfig --force homeops {{.CONTROL_PLANE_ENDPOINT}}
+        
+        # Set endpoints to all nodes initially for health check
+        talosctl config endpoint {{.TALOS_ENDPOINTS}}
+        
+        # If specific nodes provided, use them; otherwise test all nodes
+        if [ -n "{{.HEALTHY_NODES}}" ]; then
+          NODES_TO_USE="{{.HEALTHY_NODES}}"
+          echo "Using specified nodes: $NODES_TO_USE"
+        else
+          echo "Testing node connectivity..."
+          NODES_TO_USE=""
+          # Convert comma-separated string to space-separated for iteration
+          ALL_NODES=$(echo "{{.TALOS_NODES}}" | tr ',' ' ')
+          for node in $ALL_NODES; do
+            echo "Testing $node..."
+            if timeout 5 talosctl --nodes "$node" get machineconfig >/dev/null 2>&1; then
+              echo "✓ $node is healthy"
+              if [ -z "$NODES_TO_USE" ]; then
+                NODES_TO_USE="$node"
+              else
+                NODES_TO_USE="$NODES_TO_USE,$node"
+              fi
+            else
+              echo "✗ $node is unreachable, excluding from config"
+            fi
+          done
+        fi
+        
+        # Configure with healthy nodes only
+        if [ -n "$NODES_TO_USE" ]; then
+          echo "Configuring talosconfig with nodes: $NODES_TO_USE"
+          talosctl config nodes "$NODES_TO_USE"
+          echo "Successfully configured talosconfig with healthy nodes"
+        else
+          echo "ERROR: No healthy nodes found!"
+          exit 1
+        fi
+    preconditions:
+      - sh: test -f {{.ROOT_DIR}}/secrets.yaml
+        msg: "secrets.yaml not found. Run 'task talos:build-secrets' to build it from 1Password"
+      - which talosctl
+
   apply-config:
     desc: Apply Talos configuration to a node [NODE=required] [INSECURE=false]
     dir: talos
@@ -441,6 +492,68 @@ tasks:
     preconditions:
       - op user get --me
       - which op
+
+  remove-node:
+    desc: Remove a node from cluster and update configs [NODE=required]
+    requires:
+      vars: [NODE]
+    vars:
+      NODE_IP:
+        sh: |
+          # If NODE is already an IP address, use it directly
+          if echo "{{.NODE}}" | grep -E '^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$' >/dev/null; then
+            echo "{{.NODE}}"
+          else
+            # Map hostname to IP address using node mapping file
+            grep "{{.NODE}}" node-mapping.yaml | grep -o '[0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]\+' | head -1 || echo "{{.NODE}}"
+          fi
+    cmds:
+      - echo "Removing node {{.NODE}} ({{.NODE_IP}}) from cluster..."
+      # Drain the node in Kubernetes
+      - kubectl drain {{.NODE}} --ignore-daemonsets --delete-emptydir-data --force --grace-period=0 || true
+      # Delete the node from Kubernetes
+      - kubectl delete node {{.NODE}} || true
+      # Try to remove from etcd cluster (will fail if node is unreachable, which is fine)
+      - |
+        echo "Attempting to remove from etcd cluster..."
+        if talosctl --nodes {{.NODE_IP}} etcd leave >/dev/null 2>&1; then
+          echo "Node successfully left etcd cluster"
+        else
+          echo "Node could not leave etcd cluster (node may be unreachable)"
+          echo "Attempting to remove etcd member forcefully..."
+          # Get member ID and remove it
+          MEMBER_ID=$(talosctl etcd members | grep "{{.NODE_IP}}" | awk '{print $2}' || echo "")
+          if [ -n "$MEMBER_ID" ]; then
+            talosctl etcd remove-member "$MEMBER_ID" || echo "Failed to remove etcd member"
+          else
+            echo "No etcd member found for {{.NODE_IP}}"
+          fi
+        fi
+      # Remove node from node-mapping.yaml to update source of truth
+      - |
+        echo "Removing {{.NODE_IP}} from node-mapping.yaml..."
+        yq eval 'del(.nodes["{{.NODE_IP}}"])' -i node-mapping.yaml
+      # Remove node references from other node configs (certSANs) but keep the node's own config file
+      - |
+        echo "Removing {{.NODE}} references from other node static configs..."
+        for config in static-configs/*.yaml; do
+          filename=$(basename "$config" .yaml)
+          # Skip the node's own config file - we might want to put it back in rotation
+          if [ "$filename" = "{{.NODE}}" ]; then
+            echo "Keeping {{.NODE}}.yaml config file for potential future use"
+            continue
+          fi
+          
+          echo "Updating $config..."
+          # Remove the FQDN and hostname entries for the node
+          sed -i '/- "{{.NODE}}.hypyr.space"/d' "$config" 2>/dev/null || true
+          sed -i '/- "{{.NODE}}"/d' "$config" 2>/dev/null || true
+        done
+      # Regenerate talosconfig with remaining healthy nodes
+      - task: generate-config-healthy
+      - echo "✅ Node {{.NODE}} removed from cluster and static configs updated"
+    preconditions:
+      - which kubectl talosctl
 
   bootstrap:
     desc: Bootstrap Talos controlplane nodes. [NODE=required]
