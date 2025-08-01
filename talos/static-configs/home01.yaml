@@ -228,6 +228,14 @@ provisioning:
     minSize: 25GiB
 ---
 apiVersion: v1alpha1
+kind: UserVolumeConfig
+name: ceph-storage
+provisioning:
+    diskSelector:
+        match: disk.transport == "nvme" && !disk.system_disk
+    minSize: 100GiB
+---
+apiVersion: v1alpha1
 kind: EthernetConfig
 name: enp1s0
 rings:
