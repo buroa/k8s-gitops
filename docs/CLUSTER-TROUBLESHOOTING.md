@@ -31,6 +31,41 @@ rpc error: code = Unavailable desc = name resolver error: produced zero addresse
 - etcd cluster not formed properly
 - DNS/hostname resolution problems
 
+## Talos Endpoint Configuration Best Practices
+
+### Problem: Using VIP as Talos API Endpoint
+**Issue**: Configuring `TALOS_ENDPOINTS` to use the kube-vip virtual IP (e.g., `homeops.hypyr.space`) can prevent cluster recovery.
+
+**Why this fails**: The VIP may be down when Kubernetes or etcd is down, preventing `talosctl` commands needed for recovery.
+
+### Solution: Use Individual Control Plane Node IPs
+
+**Recommended Configuration in Taskfile.yaml:**
+```yaml
+vars:
+  TALOS_ENDPOINTS: "10.0.5.215,10.0.5.220,10.0.5.118"  # Individual node IPs
+  CONTROL_PLANE_ENDPOINT: "https://homeops.hypyr.space:6443"  # VIP for Kubernetes API
+```
+
+**Benefits:**
+- ✅ Direct communication with individual nodes
+- ✅ Automatic load balancing and failover between endpoints
+- ✅ Works even when VIP/Kubernetes cluster is down
+- ✅ Enables cluster recovery scenarios
+
+**From Talos Documentation:**
+> "The VIP should never be used as Talos API endpoint. This is because the VIP may be down when K8s or etcd is down, and then you couldn't issue talosctl commands to recover."
+
+### Verification
+Test endpoint connectivity:
+```bash
+# Should work with individual node IPs
+talosctl --endpoints 10.0.5.215,10.0.5.220,10.0.5.118 version
+
+# Verify nodes are reachable
+talosctl --endpoints 10.0.5.215,10.0.5.220,10.0.5.118 get members
+```
+
 ### Root Cause Identified ✅
 **Issue**: CNI (Container Network Interface) not initialized
 - All nodes show: `NetworkPluginNotReady message:Network plugin returns error: cni plugin not initialized`

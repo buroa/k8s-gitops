@@ -10,7 +10,7 @@ vars:
   TALOS_DIR: '{{.ROOT_DIR}}/talos'
   CONTROL_PLANE_ENDPOINT: "https://homeops.hypyr.space:6443"
   OP_VAULT: "homelab"
-  TALOS_ENDPOINTS: "homeops.hypyr.space"
+  TALOS_ENDPOINTS: "10.0.5.215,10.0.5.220,10.0.5.118"
   TALOS_NODES:
     sh: yq '.nodes | keys | join(",")' {{.TALOS_DIR}}/node-mapping.yaml
 
