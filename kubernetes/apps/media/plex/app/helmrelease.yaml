@@ -109,7 +109,7 @@ spec:
         hostnames:
           - "{{ .Release.Name }}.hypyr.space"
         parentRefs:
-          - name: external
+          - name: internal
             namespace: kube-system
             sectionName: https
         rules:
