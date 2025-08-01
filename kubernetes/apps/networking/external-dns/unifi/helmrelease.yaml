@@ -73,7 +73,7 @@ spec:
             args:
               - --domain-filter=hypyr.space
               - --events
-              - --interval=1m
+              - --interval=10m
               - --log-format=text
               - --log-level=info
               - --policy=sync
