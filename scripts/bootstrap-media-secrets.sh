@@ -40,6 +40,11 @@ generate_password() {
     openssl rand -base64 32 | tr -d "=+/" | head -c 25
 }
 
+# Generate session secret (longer)
+generate_session_secret() {
+    openssl rand -base64 64 | tr -d "=+/" | head -c 50
+}
+
 # Create 1Password item for service (with safety checks)
 create_service_item() {
     local service_name="$1"
@@ -63,8 +68,8 @@ create_service_item() {
         create_cmd="$create_cmd $additional_fields"
     fi
     
-    # Dry run check first
-    log_info "DRY RUN: Would create item with command: $create_cmd"
+    # Execute the command
+    log_info "Executing: $create_cmd"
     
     if eval "$create_cmd" &>/dev/null; then
         log_success "Created 1Password item: $service_name"
@@ -92,7 +97,7 @@ item_exists() {
 safety_check() {
     log_info "Safety check - existing 1Password items in homelab vault:"
     
-    local services=("radarr" "sonarr" "sabnzbd" "grafana")
+    local services=("radarr" "sonarr" "sabnzbd" "grafana" "atuin" "prowlarr" "autobrr" "gatus")
     local existing_items=()
     
     for service in "${services[@]}"; do
@@ -124,10 +129,24 @@ safety_check() {
 bootstrap_media_secrets() {
     log_info "Bootstrapping media service secrets..."
     
+    # Get shared postgres super password for database services
+    local POSTGRES_SUPER_PASS=""
+    if op item get "cloudnative-pg" --vault homelab &>/dev/null; then
+        POSTGRES_SUPER_PASS=$(op item get "cloudnative-pg" --vault homelab --fields POSTGRES_SUPER_PASS --reveal 2>/dev/null || echo "")
+    fi
+    
+    if [ -z "$POSTGRES_SUPER_PASS" ]; then
+        log_warning "Could not get POSTGRES_SUPER_PASS from cloudnative-pg item"
+        log_info "Database services will need manual password setup"
+    fi
+    
     # Radarr (Movie management)
     if ! item_exists "radarr"; then
         RADARR_API_KEY=$(generate_api_key)
-        create_service_item "radarr" "$RADARR_API_KEY" ""
+        RADARR_POSTGRES_USER="radarr"
+        RADARR_POSTGRES_PASS=$(generate_password)
+        create_service_item "radarr" "$RADARR_API_KEY" \
+            "'RADARR_POSTGRES_USER[text]=$RADARR_POSTGRES_USER' 'RADARR_POSTGRES_PASS[concealed]=$RADARR_POSTGRES_PASS' 'POSTGRES_SUPER_PASS[concealed]=$POSTGRES_SUPER_PASS'"
     else
         log_info "Radarr secrets already exist"
     fi
@@ -135,7 +154,10 @@ bootstrap_media_secrets() {
     # Sonarr (TV management)
     if ! item_exists "sonarr"; then
         SONARR_API_KEY=$(generate_api_key)
-        create_service_item "sonarr" "$SONARR_API_KEY" ""
+        SONARR_POSTGRES_USER="sonarr"
+        SONARR_POSTGRES_PASS=$(generate_password)
+        create_service_item "sonarr" "$SONARR_API_KEY" \
+            "'SONARR_POSTGRES_USER[text]=$SONARR_POSTGRES_USER' 'SONARR_POSTGRES_PASS[concealed]=$SONARR_POSTGRES_PASS' 'POSTGRES_SUPER_PASS[concealed]=$POSTGRES_SUPER_PASS'"
     else
         log_info "Sonarr secrets already exist"
     fi
@@ -159,14 +181,56 @@ bootstrap_media_secrets() {
     else
         log_info "Grafana secrets already exist"
     fi
+    
+    # Atuin (shell history sync)
+    if ! item_exists "atuin"; then
+        ATUIN_POSTGRES_USER="atuin"
+        ATUIN_POSTGRES_PASS=$(generate_password)
+        create_service_item "atuin" "$(generate_api_key)" \
+            "'ATUIN_POSTGRES_USER[text]=$ATUIN_POSTGRES_USER' 'ATUIN_POSTGRES_PASS[concealed]=$ATUIN_POSTGRES_PASS' 'POSTGRES_SUPER_PASS[concealed]=$POSTGRES_SUPER_PASS'"
+    else
+        log_info "Atuin secrets already exist"
+    fi
+    
+    # Prowlarr (indexer manager)
+    if ! item_exists "prowlarr"; then
+        PROWLARR_API_KEY=$(generate_api_key)
+        PROWLARR_POSTGRES_USER="prowlarr"
+        PROWLARR_POSTGRES_PASS=$(generate_password)
+        create_service_item "prowlarr" "$PROWLARR_API_KEY" \
+            "'PROWLARR_POSTGRES_USER[text]=$PROWLARR_POSTGRES_USER' 'PROWLARR_POSTGRES_PASS[concealed]=$PROWLARR_POSTGRES_PASS' 'POSTGRES_SUPER_PASS[concealed]=$POSTGRES_SUPER_PASS'"
+    else
+        log_info "Prowlarr secrets already exist"
+    fi
+    
+    # Autobrr (torrent automation)
+    if ! item_exists "autobrr"; then
+        AUTOBRR_POSTGRES_USER="autobrr"
+        AUTOBRR_POSTGRES_PASS=$(generate_password)
+        AUTOBRR_SESSION_SECRET=$(generate_session_secret)
+        create_service_item "autobrr" "$(generate_api_key)" \
+            "'AUTOBRR_POSTGRES_USER[text]=$AUTOBRR_POSTGRES_USER' 'AUTOBRR_POSTGRES_PASS[concealed]=$AUTOBRR_POSTGRES_PASS' 'AUTOBRR_SESSION_SECRET[concealed]=$AUTOBRR_SESSION_SECRET' 'POSTGRES_SUPER_PASS[concealed]=$POSTGRES_SUPER_PASS'"
+    else
+        log_info "Autobrr secrets already exist"
+    fi
+    
+    # Gatus (status page)
+    if ! item_exists "gatus"; then
+        GATUS_POSTGRES_USER="gatus"
+        GATUS_POSTGRES_PASS=$(generate_password)
+        create_service_item "gatus" "$(generate_api_key)" \
+            "'GATUS_POSTGRES_USER[text]=$GATUS_POSTGRES_USER' 'GATUS_POSTGRES_PASS[concealed]=$GATUS_POSTGRES_PASS' 'POSTGRES_SUPER_PASS[concealed]=$POSTGRES_SUPER_PASS'"
+    else
+        log_info "Gatus secrets already exist"
+    fi
 }
 
 # Force sync external secrets after creation
 sync_external_secrets() {
     log_info "Force syncing external secrets..."
     
-    local services=("recyclarr" "sabnzbd" "grafana")
-    local namespaces=("media media observability")
+    local services=("recyclarr" "sabnzbd" "grafana" "atuin" "prowlarr" "autobrr" "sonarr" "radarr" "gatus")
+    local namespaces=("media media observability default media media media media observability")
     
     # Convert to arrays
     read -r -a service_array <<< "${services[@]}"
