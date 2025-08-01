@@ -13,6 +13,11 @@ spec:
       selector:
         matchExpressions:
           - { key: somekey, operator: NotIn, values: ["never-used-value"] }
+    - advertisementType: PodCIDR
+    - advertisementType: CiliumLoadBalancerIPPool
+      selector:
+        matchLabels:
+          advertise: bgp
 ---
 apiVersion: cilium.io/v2alpha1
 kind: CiliumBGPPeerConfig
@@ -42,4 +47,6 @@ spec:
           peerASN: 64513
           peerAddress: 10.0.5.1
           peerConfigRef:
+            group: cilium.io
+            kind: CiliumBGPPeerConfig
             name: l3-bgp-peer-config
