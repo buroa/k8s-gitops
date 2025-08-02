@@ -5,7 +5,6 @@ serviceMonitor:
   enabled: true
 spegel:
   containerdRegistryConfigPath: /etc/cri/conf.d/hosts
-  prependExisting: true
 service:
   registry:
     hostPort: 29999
