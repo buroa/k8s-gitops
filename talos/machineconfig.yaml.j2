@@ -1,19 +1,18 @@
+{% set is_controlplane = (ENV.MACHINE_TYPE == 'controlplane') %}
 ---
 version: v1alpha1
-debug: false
-persist: true
 machine:
   type: {{ ENV.MACHINE_TYPE }}
   token: op://K8s/talos/MACHINE_TOKEN
   ca:
     crt: op://K8s/talos/MACHINE_CA_CRT
-    {% if ENV.MACHINE_TYPE == 'controlplane' %}
+    {% if is_controlplane %}
     key: op://K8s/talos/MACHINE_CA_KEY
     {% endif %}
   features:
     rbac: true
     stableHostname: true
-    {% if ENV.MACHINE_TYPE == 'controlplane' %}
+    {% if is_controlplane %}
     kubernetesTalosAPIAccess:
       enabled: true
       allowedRoles: ["os:admin"]
@@ -55,8 +54,7 @@ machine:
   kubelet:
     image: ghcr.io/siderolabs/kubelet:{{ ENV.KUBERNETES_VERSION }}
     extraConfig:
-      allowedUnsafeSysctls:
-        - "net.ipv6.conf.net1.*" # Allow IPv6 syscalls, required for matter/thread
+      allowedUnsafeSysctls: ["net.ipv6.conf.net1.*"] # IPv6 syscalls for Matter/Thread
       serializeImagePulls: false
     defaultRuntimeSeccompProfileEnabled: true
     nodeIP:
@@ -80,6 +78,11 @@ machine:
     disableSearchDomain: true
   nodeLabels:
     topology.kubernetes.io/region: k8s
+    topology.kubernetes.io/zone: {{ 'm' if is_controlplane else 'w' }}
+  registries:
+    mirrors:
+      docker.io:
+        endpoints: ["https://mirror.gcr.io"]
   sysctls:
     fs.inotify.max_user_watches: 1048576   # Watchdog
     fs.inotify.max_user_instances: 8192    # Watchdog
@@ -95,14 +98,13 @@ machine:
     sunrpc.tcp_slot_table_entries: 128     # 10Gb/s | NFS
     sunrpc.tcp_max_slot_table_entries: 128 # 10Gb/s | NFS
     user.max_user_namespaces: 11255        # User Namespaces
-    vm.nr_hugepages: 1024                  # PostgreSQL
   time:
     disabled: false
     servers: ["time.cloudflare.com"]
 cluster:
   ca:
     crt: op://K8s/talos/CLUSTER_CA_CRT
-    {% if ENV.MACHINE_TYPE == 'controlplane' %}
+    {% if is_controlplane %}
     key: op://K8s/talos/CLUSTER_CA_KEY
     {% endif %}
   clusterName: k8s
@@ -111,10 +113,8 @@ cluster:
   discovery:
     enabled: true
     registries:
-      kubernetes:
-        disabled: true
-      service:
-        disabled: false
+      kubernetes: { disabled: true }
+      service: { disabled: false }
   id: op://K8s/talos/CLUSTER_ID
   network:
     cni:
@@ -124,7 +124,7 @@ cluster:
     serviceSubnets: ["10.245.0.0/16"]
   secret: op://K8s/talos/CLUSTER_SECRET
   token: op://K8s/talos/CLUSTER_TOKEN
-  {% if ENV.MACHINE_TYPE == 'controlplane' %}
+  {% if is_controlplane %}
   aggregatorCA:
     crt: op://K8s/talos/CLUSTER_AGGREGATORCA_CRT
     key: op://K8s/talos/CLUSTER_AGGREGATORCA_KEY
@@ -137,30 +137,24 @@ cluster:
     disablePodSecurityPolicy: true
   controllerManager:
     image: registry.k8s.io/kube-controller-manager:{{ ENV.KUBERNETES_VERSION }}
-    extraArgs:
-      bind-address: 0.0.0.0
-  coreDNS:
-    disabled: true
+    extraArgs: { bind-address: 0.0.0.0 }
+  coreDNS: { disabled: true }
   etcd:
     advertisedSubnets: ["192.168.10.0/24"]
     ca:
       crt: op://K8s/talos/CLUSTER_ETCD_CA_CRT
       key: op://K8s/talos/CLUSTER_ETCD_CA_KEY
-    extraArgs:
-      listen-metrics-urls: http://0.0.0.0:2381
+    extraArgs: { listen-metrics-urls: http://0.0.0.0:2381 }
   extraManifests:
-    - # renovate: datasource=github-releases depName=kubernetes-sigs/gateway-api
-      https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.3.0/experimental-install.yaml
-    - # renovate: datasource=github-releases depName=prometheus-operator/prometheus-operator
-      https://github.com/prometheus-operator/prometheus-operator/releases/download/v0.84.0/stripped-down-crds.yaml
+    - https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.3.0/experimental-install.yaml
+    - https://github.com/prometheus-operator/prometheus-operator/releases/download/v0.84.0/stripped-down-crds.yaml
   proxy:
     disabled: true
     image: registry.k8s.io/kube-proxy:{{ ENV.KUBERNETES_VERSION }}
   secretboxEncryptionSecret: op://K8s/talos/CLUSTER_SECRETBOXENCRYPTIONSECRET
   scheduler:
     image: registry.k8s.io/kube-scheduler:{{ ENV.KUBERNETES_VERSION }}
-    extraArgs:
-      bind-address: 0.0.0.0
+    extraArgs: { bind-address: 0.0.0.0 }
     config:
       apiVersion: kubescheduler.config.k8s.io/v1
       kind: KubeSchedulerConfiguration
@@ -168,8 +162,7 @@ cluster:
         - schedulerName: default-scheduler
           plugins:
             score:
-              disabled:
-                - name: ImageLocality
+              disabled: [{ name: ImageLocality }]
           pluginConfig:
             - name: PodTopologySpread
               args:
@@ -193,13 +186,9 @@ provisioning:
 apiVersion: v1alpha1
 kind: EthernetConfig
 name: enp5s0f0np0
-rings:
-  rx: 8160
-  tx: 8160
+rings: { rx: 8160, tx: 8160 }
 ---
 apiVersion: v1alpha1
 kind: EthernetConfig
 name: enp5s0f1np1
-rings:
-  rx: 8160
-  tx: 8160
+rings: { rx: 8160, tx: 8160 }
