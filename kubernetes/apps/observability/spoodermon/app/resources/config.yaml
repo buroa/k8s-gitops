@@ -54,4 +54,4 @@ ui:
   header: Status
 
 web:
-  port: ${WEB_PORT}
+  port: ${GATUS_WEB_PORT}
