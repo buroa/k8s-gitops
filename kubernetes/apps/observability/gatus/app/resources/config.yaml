@@ -1,7 +1,7 @@
 ---
 connectivity:
   checker:
-    target: 1.1.1.1:53
+    target: 8.8.8.8:53
     interval: 1m
 
 endpoints:
@@ -9,14 +9,14 @@ endpoints:
     url: https://flux-webhook.k13.dev
     interval: 1m
     client:
-      dns-resolver: tcp://1.1.1.1:53
+      dns-resolver: tcp://8.8.8.8:53
     conditions:
       - "[STATUS] == 404"
   - name: gatus
     url: https://gatus.k13.dev
     interval: 1m
     client:
-      dns-resolver: tcp://1.1.1.1:53
+      dns-resolver: tcp://8.8.8.8:53
     conditions:
       - "[STATUS] == 200"
 
