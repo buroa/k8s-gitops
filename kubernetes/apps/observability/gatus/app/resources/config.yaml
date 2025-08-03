@@ -22,11 +22,6 @@ endpoints:
 
 metrics: true
 
-storage:
-  type: sqlite
-  path: /config/sqlite.db
-  caching: true
-
 ui:
   title: Status | Gatus
   header: Status
