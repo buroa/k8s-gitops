@@ -46,7 +46,7 @@ spec:
                   periodSeconds: 10
                   timeoutSeconds: 1
                   failureThreshold: 3
-              readiness: *probe
+              readiness: *probes
             resources:
               requests:
                 cpu: 10m
@@ -55,7 +55,7 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: { add: ["NET_RAW"] }
+              capabilities: { drop: ["ALL"] }
     defaultPodOptions:
       hostUsers: false
       securityContext:
