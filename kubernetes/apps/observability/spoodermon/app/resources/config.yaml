@@ -23,8 +23,8 @@ endpoints:
       - "[STATUS] == 200"
     alerts:
       - type: pushover
-  - name: Wireguard
-    url: udp://${SPOODERMON_DDNS_HOSTNAME}:51820
+  - name: icmp
+    url: icmp://${SPOODERMON_DDNS_HOSTNAME}
     interval: 1m
     ui:
       hide-url: true
