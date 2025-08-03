@@ -23,6 +23,16 @@ endpoints:
       - "[STATUS] == 200"
     alerts:
       - type: pushover
+  - name: Wireguard
+    url: udp://${SPOODERMON_DDNS_HOSTNAME}:51820
+    interval: 1m
+    ui:
+      hide-url: true
+      hide-hostname: true
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: pushover
 
 external-endpoints:
   - name: Heartbeat
