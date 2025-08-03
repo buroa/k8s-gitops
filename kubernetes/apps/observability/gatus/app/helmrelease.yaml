@@ -80,6 +80,8 @@ spec:
         runAsUser: 568
         runAsGroup: 568
     persistence:
+      config:
+        type: emptyDir
       config-file:
         type: configMap
         name: "{{ .Release.Name }}-configmap"
