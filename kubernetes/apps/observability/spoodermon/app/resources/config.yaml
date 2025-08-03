@@ -1,10 +1,4 @@
 ---
-web:
-  port: ${WEB_PORT}
-debug: false
-ui:
-  title: Status | Spoodermon
-  header: Status
 alerting:
   pushover:
     title: Spoodermon
@@ -17,10 +11,12 @@ alerting:
       send-on-resolved: true
       failure-threshold: 5
       success-threshold: 3
+
 connectivity:
   checker:
     target: 1.1.1.1:53
     interval: 1m
+
 endpoints:
   - name: Status Page
     url: https://${SPOODERMON_STATUS_HOSTNAME}
@@ -42,6 +38,7 @@ endpoints:
       - "[CONNECTED] == true"
     alerts:
       - type: pushover
+
 external-endpoints:
   - name: Heartbeat
     token: ${SPOODERMON_HEARTBEAT_TOKEN}
@@ -49,3 +46,12 @@ external-endpoints:
       interval: 10m
     alerts:
       - type: pushover
+
+metrics: false
+
+ui:
+  title: Status | Spoodermon
+  header: Status
+
+web:
+  port: ${WEB_PORT}
