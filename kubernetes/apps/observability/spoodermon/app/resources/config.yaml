@@ -23,7 +23,7 @@ endpoints:
       - "[STATUS] == 200"
     alerts:
       - type: pushover
-  - name: icmp
+  - name: Ping
     url: icmp://${SPOODERMON_DDNS_HOSTNAME}
     interval: 1m
     ui:
