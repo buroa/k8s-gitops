@@ -27,7 +27,7 @@ spec:
               repository: ghcr.io/home-operations/sabnzbd
               tag: 4.5.2@sha256:e3f27e50ee51f950d89ce888cb3c3c4e74b46b42751333ee008f906906cbf05b
             env:
-              SABNZBD__PORT: &port 8080
+              SABNZBD__PORT: &port 80
               SABNZBD__HOST_WHITELIST_ENTRIES: >-
                 {{ .Release.Name }},
                 {{ .Release.Name }}.{{ .Release.Namespace }},

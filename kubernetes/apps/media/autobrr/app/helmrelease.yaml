@@ -28,10 +28,10 @@ spec:
               tag: v1.64.0@sha256:47bbccb5ce30c4c587356ece792461126dca9446af34cf1ebaddf461a68c5d61
             env:
               AUTOBRR__HOST: 0.0.0.0
-              AUTOBRR__PORT: &port 7474
+              AUTOBRR__PORT: &port 80
               AUTOBRR__METRICS_ENABLED: true
               AUTOBRR__METRICS_HOST: 0.0.0.0
-              AUTOBRR__METRICS_PORT: &metricsPort 9094
+              AUTOBRR__METRICS_PORT: &metricsPort 8080
               AUTOBRR__CHECK_FOR_UPDATES: false
               AUTOBRR__LOG_LEVEL: INFO
               TZ: America/Chicago

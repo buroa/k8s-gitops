@@ -30,7 +30,7 @@ spec:
               - daemon
               - -v
             env:
-              CROSS_SEED_PORT: &port 2468
+              CROSS_SEED_PORT: &port 80
               TZ: America/Chicago
             envFrom:
               - secretRef:

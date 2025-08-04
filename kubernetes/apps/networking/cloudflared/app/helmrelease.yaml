@@ -33,7 +33,7 @@ spec:
               - run
             env:
               NO_AUTOUPDATE: true
-              TUNNEL_METRICS: 0.0.0.0:2000
+              TUNNEL_METRICS: 0.0.0.0:8080
               TUNNEL_ORIGIN_ENABLE_HTTP2: true
               TUNNEL_POST_QUANTUM: true
               TUNNEL_TRANSPORT_PROTOCOL: quic
@@ -47,7 +47,7 @@ spec:
                 spec:
                   httpGet:
                     path: /ready
-                    port: &port 2000
+                    port: &port 8080
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1

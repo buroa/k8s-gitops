@@ -32,7 +32,7 @@ spec:
               PROWLARR__AUTH__METHOD: External
               PROWLARR__AUTH__REQUIRED: DisabledForLocalAddresses
               PROWLARR__LOG__LEVEL: info
-              PROWLARR__SERVER__PORT: &port 9696
+              PROWLARR__SERVER__PORT: &port 80
               PROWLARR__UPDATE__BRANCH: develop
               TZ: America/Chicago
             envFrom:

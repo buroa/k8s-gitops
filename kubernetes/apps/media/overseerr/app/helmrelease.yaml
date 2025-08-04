@@ -26,7 +26,7 @@ spec:
               tag: 1.34.0@sha256:4f38f58d68555004d3f487a4c5cbe2823e6a0942d946a25a2d9391d8492240a4
             env:
               LOG_LEVEL: info
-              PORT: &port 5055
+              PORT: &port 80
               TZ: America/Chicago
             probes:
               liveness: &probes

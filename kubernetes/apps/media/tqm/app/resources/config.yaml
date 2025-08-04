@@ -6,7 +6,7 @@ clients:
     enabled: true
     filter: default
     type: qbittorrent
-    url: http://qbittorrent.media.svc.cluster.local:8080
+    url: http://qbittorrent.media.svc.cluster.local
 
 filters:
   default:
