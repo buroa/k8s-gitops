@@ -55,6 +55,8 @@ machine:
     image: ghcr.io/siderolabs/kubelet:{{ ENV.KUBERNETES_VERSION }}
     extraConfig:
       allowedUnsafeSysctls: ["net.ipv6.conf.net1.*"] # IPv6 syscalls for Matter/Thread
+      featureGates:
+        ImageVolume: true
       serializeImagePulls: false
     defaultRuntimeSeccompProfileEnabled: true
     nodeIP:
@@ -129,6 +131,7 @@ cluster:
     image: registry.k8s.io/kube-apiserver:{{ ENV.KUBERNETES_VERSION }}
     extraArgs:
       enable-aggregator-routing: true
+      feature-gates: ImageVolume=true
     certSANs: ["k8s.internal"]
     disablePodSecurityPolicy: true
   controllerManager:
