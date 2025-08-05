@@ -183,16 +183,6 @@ provisioning:
   minSize: 1.92TB
 ---
 apiVersion: v1alpha1
-kind: ExtensionServiceConfig
-name: nfsrahead
-configFiles:
-  - content: |
-      [nfsrahead]
-      nfs4=15360
-      default=128
-    mountPath: /usr/local/etc/nfsrahead/nfs.conf
----
-apiVersion: v1alpha1
 kind: EthernetConfig
 name: enp5s0f0np0
 rings: { rx: 8160, tx: 8160 }
