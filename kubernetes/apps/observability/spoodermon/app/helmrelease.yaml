@@ -59,7 +59,7 @@ spec:
     defaultPodOptions:
       hostUsers: false
     persistence:
-      config-file:
+      config:
         type: configMap
         name: "{{ .Release.Name }}-configmap"
         globalMounts:
