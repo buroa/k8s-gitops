@@ -15,7 +15,8 @@ tasks:
   apply-node:
     desc: Apply Talos config to a node [NODE=required] [MODE=auto]
     cmd: |-
-      minijinja-cli {{.TALOS_DIR}}/machineconfig.yaml.j2 | op inject \
+      minijinja-cli {{.TALOS_DIR}}/machineconfig.yaml.j2 \
+        | op inject \
         | talosctl --nodes {{.NODE}} apply-config \
           --mode {{.MODE}} \
           --config-patch @{{.TALOS_DIR}}/{{.MACHINE_TYPE}}/{{.NODE}}.yaml \
@@ -32,7 +33,8 @@ tasks:
       MACHINE_TYPE: '{{.MACHINE_TYPE}}'
       TALOS_SCHEMATIC:
         sh: |-
-          curl --silent -X POST --data-binary @{{.TALOS_DIR}}/schematic.yaml https://factory.talos.dev/schematics \
+          minijinja-cli {{.TALOS_DIR}}/schematic.yaml.j2 \
+            | curl --silent -X POST --data-binary @- https://factory.talos.dev/schematics \
             | jq --raw-output '.id'
     requires:
       vars: [NODE]
@@ -41,7 +43,7 @@ tasks:
       - talosctl config info
       - test -f {{.TALOS_DIR}}/machineconfig.yaml.j2
       - test -f {{.TALOS_DIR}}/{{.MACHINE_TYPE}}/{{.NODE}}.yaml
-      - test -f {{.TALOS_DIR}}/schematic.yaml
+      - test -f {{.TALOS_DIR}}/schematic.yaml.j2
       - which curl jq minijinja-cli op talosctl
 
   upgrade-node:
@@ -119,7 +121,7 @@ tasks:
       - talosctl --nodes {{.NODES}} get machineconfig
       - which jq talosctl
 
-  kubeconfig:
+  generate-kubeconfig:
     desc: Generate the kubeconfig for a Talos cluster
     cmd: talosctl kubeconfig --nodes {{.RANDOM_CONTROLLER}} --force {{.KUBERNETES_DIR}}
     vars:
@@ -129,3 +131,20 @@ tasks:
       - talosctl config info
       - talosctl --nodes {{.RANDOM_CONTROLLER}} get machineconfig
       - which jq talosctl
+
+  generate-iso:
+    desc: Generate a Talos ISO for a specific version [VERSION=required]
+    cmd: |
+      curl -o {{.TALOS_DIR}}/talos-{{.VERSION}}.iso \
+          https://factory.talos.dev/image/{{.TALOS_SCHEMATIC}}/{{.VERSION}}/metal-amd64.iso
+    vars:
+      TALOS_SCHEMATIC:
+        sh: |-
+          ISO=true minijinja-cli {{.TALOS_DIR}}/schematic.yaml.j2 \
+            | curl --silent -X POST --data-binary @- https://factory.talos.dev/schematics \
+            | jq --raw-output '.id'
+    requires:
+      vars: [VERSION]
+    preconditions:
+      - test -f {{.TALOS_DIR}}/schematic.yaml.j2
+      - which curl jq minijinja-cli

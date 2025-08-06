@@ -1,6 +1,7 @@
 /.private/
 /.task/
 *.crt
+*.iso
 *.key
 .decrypted~*
 .DS_Store
