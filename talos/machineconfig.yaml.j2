@@ -54,7 +54,6 @@ machine:
   kubelet:
     image: ghcr.io/siderolabs/kubelet:{{ ENV.KUBERNETES_VERSION }}
     extraConfig:
-      allowedUnsafeSysctls: ["net.ipv6.conf.net1.*"] # IPv6 syscalls for Matter/Thread
       featureGates:
         ImageVolume: true
       serializeImagePulls: false
