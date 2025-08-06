@@ -50,13 +50,8 @@ spec:
         runAsGroup: 568
         fsGroup: 568
         fsGroupChangePolicy: OnRootMismatch
-    service:
-      app:
-        ports:
-          http:
-            port: 1883
     persistence:
-      data:
+      config:
         existingClaim: "{{ .Release.Name }}"
       config-file:
         type: configMap
@@ -64,3 +59,8 @@ spec:
         globalMounts:
           - path: /mosquitto/config/mosquitto.conf
             subPath: mosquitto.conf
+    service:
+      app:
+        ports:
+          http:
+            port: 1883
