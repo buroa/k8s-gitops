@@ -24,7 +24,7 @@ spec:
           app:
             image:
               repository: docker.io/rocm/k8s-device-plugin
-              tag: 1.31.0.7@sha256:323a1ed311629815f0d446139c4aa1b3d3d979c34d19304a120a7e929ce4b1fe
+              tag: 1.31.0.8@sha256:ef86b2343256c7333e0c840f9f1f4aaed59f4fd1192afa1bc966796ae9a0934e
             resources:
               requests:
                 cpu: 10m
