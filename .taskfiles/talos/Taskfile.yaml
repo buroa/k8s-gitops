@@ -41,12 +41,41 @@ tasks:
     cmds:
       - |
         echo "Regenerating schematic for {{.NODE_TYPE}}..."
-        SCHEMATIC_ID=$(curl --silent -X POST --data-binary @node-types/{{.NODE_TYPE}}/schematic.yaml https://factory.talos.dev/schematics | jq -r .id)
+        
+        # Generate new schematic ID
+        SCHEMATIC_ID=$(curl --silent -X POST --data-binary @schematics/{{.NODE_TYPE}}.yaml https://factory.talos.dev/schematics | jq -r .id)
         echo "New schematic ID: $SCHEMATIC_ID"
-        echo "You may need to update TALOS_SCHEMATIC in your environment"
+        
+        # Test if the image URL is valid
+        echo "Testing image URL..."
+        HTTP_STATUS=$(curl -I "https://factory.talos.dev/image/${SCHEMATIC_ID}/v1.10.6/metal-amd64.iso" 2>/dev/null | head -n 1 | cut -d' ' -f2)
+        if [ "$HTTP_STATUS" != "200" ]; then
+          echo "Error: Factory image not accessible (HTTP $HTTP_STATUS)"
+          exit 1
+        fi
+        echo "Image URL verified (HTTP 200)"
+        
+        # Find all nodes using this node type and update their configs
+        echo "Updating config files for {{.NODE_TYPE}} nodes..."
+        for NODE_IP in $(yq e '.nodes | to_entries[] | select(.value == "{{.NODE_TYPE}}") | .key' node-mapping.yaml); do
+          NODE_NAME=$(grep -l "$NODE_IP" static-configs/*.yaml 2>/dev/null | xargs -I {} basename {} .yaml || true)
+          if [ -n "$NODE_NAME" ]; then
+            CONFIG_FILE="static-configs/${NODE_NAME}.yaml"
+            if [ -f "$CONFIG_FILE" ]; then
+              echo "  Updating $CONFIG_FILE (IP: $NODE_IP)..."
+              # Extract current version from the image line
+              CURRENT_VERSION=$(grep -E "^\s+image:" "$CONFIG_FILE" | sed -E 's/.*:v([0-9.]+)$/v\1/')
+              # Update the schematic ID in the image URL
+              sed -i "s|factory.talos.dev/metal-installer/[a-f0-9]\{64\}:|factory.talos.dev/metal-installer/${SCHEMATIC_ID}:|" "$CONFIG_FILE"
+              echo "    Updated to use schematic $SCHEMATIC_ID with version $CURRENT_VERSION"
+            fi
+          fi
+        done
+        
+        echo "Schematic regeneration complete!"
     preconditions:
-      - test -f {{.TALOS_DIR}}/node-types/{{.NODE_TYPE}}/schematic.yaml
-      - which talosctl
+      - test -f {{.TALOS_DIR}}/schematics/{{.NODE_TYPE}}.yaml
+      - which curl jq yq sed
 
   add-node-type:
     desc: Add a new node type [NODE_TYPE=required] [TEMPLATE_SOURCE=optional]
@@ -76,8 +105,14 @@ tasks:
     dir: talos
     cmds:
       - talosctl gen config --with-secrets {{.ROOT_DIR}}/secrets.yaml --output-types talosconfig -o talosconfig --force homeops {{.CONTROL_PLANE_ENDPOINT}}
-      - talosctl config endpoint {{.TALOS_ENDPOINTS}}
-      - talosctl config nodes {{.TALOS_NODES}}
+      - |
+        # Convert comma-separated endpoints to space-separated for talosctl
+        ENDPOINTS=$(echo "{{.TALOS_ENDPOINTS}}" | tr ',' ' ')
+        talosctl config endpoint $ENDPOINTS
+      - |
+        # Convert comma-separated nodes to space-separated for talosctl  
+        NODES=$(echo "{{.TALOS_NODES}}" | tr ',' ' ')
+        talosctl config nodes $NODES
     sources:
       - "{{.ROOT_DIR}}/secrets.yaml"
     generates:
@@ -98,7 +133,8 @@ tasks:
         talosctl gen config --with-secrets {{.ROOT_DIR}}/secrets.yaml --output-types talosconfig -o talosconfig --force homeops {{.CONTROL_PLANE_ENDPOINT}}
         
         # Set endpoints to all nodes initially for health check
-        talosctl config endpoint {{.TALOS_ENDPOINTS}}
+        ENDPOINTS=$(echo "{{.TALOS_ENDPOINTS}}" | tr ',' ' ')
+        talosctl config endpoint $ENDPOINTS
         
         # If specific nodes provided, use them; otherwise test all nodes
         if [ -n "{{.HEALTHY_NODES}}" ]; then

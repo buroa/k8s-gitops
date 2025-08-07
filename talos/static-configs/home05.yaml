@@ -14,10 +14,12 @@ machine:
     - "home02.hypyr.space"
     - "home03.hypyr.space"
     - "home04.hypyr.space"
+    - "home05.hypyr.space"
     - "home01"
     - "home02"
     - "home03"
     - "home04"
+    - "home05"
   features:
     rbac: true
     stableHostname: true
@@ -52,7 +54,7 @@ machine:
         rsize=1048576
         wsize=1048576
   install:
-    image: factory.talos.dev/metal-installer/891abb135dd18ebca6ab8bc95a0ab71859a24b9308a402133cd41ce689ed452e:v1.10.6
+    image: factory.talos.dev/metal-installer/954b840045ee3a8785db0c518c98e5d861241e47781d1dd7e2c88d423b51c46e:v1.10.6
     disk: /dev/sda
   kernel:
     modules:
@@ -68,6 +70,12 @@ machine:
       evictionMinimumReclaim:
         "imagefs.available": "10%"
         "nodefs.available": "10%"
+      systemReserved:
+        cpu: "1000m"
+        memory: "4Gi"
+      kubeReserved:
+        cpu: "1000m"
+        memory: "4Gi"
     defaultRuntimeSeccompProfileEnabled: true
     nodeIP:
       validSubnets: ["10.0.5.0/24"]
@@ -77,13 +85,12 @@ machine:
       - interface: bond0
         bond:
           deviceSelectors:
-            - {hardwareAddr: "7c:83:34:*", driver: igc}
-          mode: 802.3ad
-          xmitHashPolicy: layer3+4
-          lacpRate: fast
-          miimon: 5000
+            - hardwareAddr: 70:85:c2:d5:84:*
+          mode: active-backup
+          miimon: 100
+          primary: enp2s0
         addresses:
-          - "10.0.5.220/24"
+          - "10.0.5.129/24"
         routes:
           - network: "0.0.0.0/0"
             gateway: "10.0.5.1"
@@ -112,11 +119,12 @@ machine:
             mtu: 1500
     nameservers: ["10.0.5.1"]
     disableSearchDomain: true
-    hostname: home02.hypyr.space
+    hostname: home05.hypyr.space
   nodeLabels:
     topology.kubernetes.io/region: k8s
     topology.kubernetes.io/zone: main-smc
-    quicksync.generation: "12"
+    quicksync.generation: "7"
+    node.kubernetes.io/instance-type: "itx"
   sysctls:
     fs.inotify.max_user_watches: 1048576 # Watchdog
     fs.inotify.max_user_instances: 8192 # Watchdog
@@ -127,7 +135,9 @@ machine:
     sunrpc.tcp_slot_table_entries: 128 # 10Gb/s | NFS
     sunrpc.tcp_max_slot_table_entries: 128 # 10Gb/s | NFS
     user.max_user_namespaces: 11255 # User Namespaces
-    vm.nr_hugepages: 1024 # PostgreSQL
+    vm.nr_hugepages: 4096 # 8GB hugepages for ITX with 64GB RAM
+    vm.max_map_count: 1048576 # Higher for memory-intensive workloads
+    vm.swappiness: 10 # Moderate swap preference with 64GB RAM
   time:
     disabled: false
     servers: ["time.cloudflare.com"]
@@ -229,7 +239,7 @@ provisioning:
 ---
 apiVersion: v1alpha1
 kind: EthernetConfig
-name: enp1s0
+name: eno1
 rings:
   rx: 4096
   tx: 4096

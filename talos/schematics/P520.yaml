@@ -1,0 +1,6 @@
+customization:
+    systemExtensions:
+        officialExtensions:
+            - siderolabs/intel-ucode
+            - siderolabs/nfsd
+            - siderolabs/mei

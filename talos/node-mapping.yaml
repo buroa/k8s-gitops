@@ -1,7 +1,11 @@
 ---
 # Node to node-type mapping
 # This file maps IP addresses to their hardware node types
+# out of rotation:
+
 nodes:
   "10.0.5.215": "EQ12"     # home01 - EQ12 with dual igc
   "10.0.5.220": "EQ12"     # home02 - EQ12 with dual igc
+  "10.0.5.100": "NUC7"     # home03 - NUC7 with single igb
   "10.0.5.118": "P520"     # home04 - P520 workstation
+  "10.0.5.129": "ITX"      # home05 - ITX with e1000e + igb
