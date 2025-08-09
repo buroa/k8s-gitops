@@ -23,14 +23,14 @@ filters:
       - (
           HasAnyTag(
             "site:ant", "site:ar", "site:fl", "site:fnp", "site:ipt",
-            "site:mlk", "site:mtv", "site:nbl", "site:td", "site:uhd"
+            "site:me", "site:mtv", "site:nbl", "site:td", "site:uhd"
           ) &&
           Ratio > 3.0
         )
       - (
           HasAnyTag(
             "site:ant", "site:ar", "site:blu", "site:fl", "site:fnp",
-            "site:hdt", "site:ipt", "site:lst", "site:mlk", "site:mtv",
+            "site:hdt", "site:ipt", "site:lst", "site:me", "site:mtv",
             "site:nbl", "site:oe", "site:phd", "site:rfx", "site:sp",
             "site:st", "site:td", "site:tl", "site:uhd", "site:ulcx"
           ) &&
@@ -56,7 +56,7 @@ filters:
       - { name: site:huno,    update: ['TrackerName == "hawke.uno"'] }
       - { name: site:ipt,     update: ['TrackerName in ["bgp.technology", "empirehost.me", "stackoverflow.tech"]'] }
       - { name: site:lst,     update: ['TrackerName == "lst.gg"'] }
-      - { name: site:mlk,     update: ['TrackerName == "milkie.cc"'] }
+      - { name: site:me,      update: ['TrackerName == "milkie.cc"'] }
       - { name: site:mtv,     update: ['TrackerName == "morethantv.me"'] }
       - { name: site:nbl,     update: ['TrackerName == "nebulance.io"'] }
       - { name: site:oe,      update: ['TrackerName == "onlyencodes.cc"'] }
