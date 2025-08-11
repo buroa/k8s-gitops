@@ -11,18 +11,9 @@ alerting:
       send-on-resolved: true
       failure-threshold: 5
       success-threshold: 3
+      minimum-reminder-interval: 1h
 
 endpoints:
-  - name: Status Page
-    url: https://${SPOODERMON_STATUS_HOSTNAME}
-    interval: 1m
-    ui:
-      hide-url: true
-      hide-hostname: true
-    conditions:
-      - "[STATUS] == 200"
-    alerts:
-      - type: pushover
   - name: Ping
     url: icmp://${SPOODERMON_DDNS_HOSTNAME}
     interval: 1m
@@ -31,6 +22,17 @@ endpoints:
       hide-hostname: true
     conditions:
       - "[CONNECTED] == true"
+    alerts:
+      - type: pushover
+
+  - name: Status Page
+    url: https://${SPOODERMON_STATUS_HOSTNAME}
+    interval: 1m
+    ui:
+      hide-url: true
+      hide-hostname: true
+    conditions:
+      - "[STATUS] == 200"
     alerts:
       - type: pushover
 
