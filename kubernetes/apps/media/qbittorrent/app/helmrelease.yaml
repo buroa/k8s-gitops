@@ -87,7 +87,7 @@ spec:
             subPath: downloads/torrents
       qbrr:
         type: image
-        image: ghcr.io/buroa/qbrr:0.0.31@sha256:d0b8adc911a0e555480ef9ad679c5df994072a81b84bcdb1347b81fb3f1007f9
+        image: ghcr.io/buroa/qbrr:0.1.0@sha256:d56b0ffe3b8fcd2cc27f769a78a530e8761ebe1a36260ff1fb170057ddca35b4
       tmpfs:
         type: emptyDir
         advancedMounts:
