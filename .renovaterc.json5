@@ -11,6 +11,7 @@
     "github>buroa/k8s-gitops//.renovate/groups.json5",
     "github>buroa/k8s-gitops//.renovate/labels.json5",
     "github>buroa/k8s-gitops//.renovate/semanticCommits.json5",
+    "github>buroa/k8s-gitops//.renovate/talosFactory.json5",
     ":automergeBranch",
     ":dependencyDashboard",
     ":disableRateLimiting",
