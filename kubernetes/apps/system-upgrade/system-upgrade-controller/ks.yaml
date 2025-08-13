@@ -38,12 +38,6 @@ spec:
       namespace: *namespace
   interval: 1h
   path: ./kubernetes/apps/system-upgrade/system-upgrade-controller/plans
-  postBuild:
-    substitute:
-      # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
-      KUBERNETES_VERSION: v1.33.3
-      # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
-      TALOS_VERSION: v1.11.0-beta.2
   prune: true
   retryInterval: 2m
   sourceRef:

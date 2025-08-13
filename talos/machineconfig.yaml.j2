@@ -1,18 +1,17 @@
-{% set is_controlplane = (ENV.MACHINE_TYPE == 'controlplane') %}
 ---
 version: v1alpha1
 machine:
-  type: {{ ENV.MACHINE_TYPE }}
+  type: {{ machinetype }}
   token: op://K8s/talos/MACHINE_TOKEN
   ca:
     crt: op://K8s/talos/MACHINE_CA_CRT
-    {% if is_controlplane %}
+    {% if machinetype == 'controlplane' %}
     key: op://K8s/talos/MACHINE_CA_KEY
     {% endif %}
   features:
     rbac: true
     stableHostname: true
-    {% if is_controlplane %}
+    {% if machinetype == 'controlplane' %}
     kubernetesTalosAPIAccess:
       enabled: true
       allowedRoles: ["os:admin"]
@@ -47,12 +46,12 @@ machine:
         rsize=1048576
         wsize=1048576
   install:
-    image: factory.talos.dev/metal-installer/{{ ENV.TALOS_SCHEMATIC }}:{{ ENV.TALOS_VERSION }}
+    image: factory.talos.dev/metal-installer/{{ ENV.TALOS_SCHEMATIC }}:v1.11.0-beta.2
   kernel:
     modules:
       - name: nbd
   kubelet:
-    image: ghcr.io/siderolabs/kubelet:{{ ENV.KUBERNETES_VERSION }}
+    image: ghcr.io/siderolabs/kubelet:v1.33.3
     extraConfig:
       featureGates:
         ImageVolume: true
@@ -79,7 +78,7 @@ machine:
     disableSearchDomain: true
   nodeLabels:
     topology.kubernetes.io/region: k8s
-    topology.kubernetes.io/zone: {{ 'm' if is_controlplane else 'w' }}
+    topology.kubernetes.io/zone: {{ 'm' if machinetype == 'controlplane' else 'w' }}
   sysctls:
     fs.inotify.max_user_watches: 1048576   # Watchdog
     fs.inotify.max_user_instances: 8192    # Watchdog
@@ -101,7 +100,7 @@ machine:
 cluster:
   ca:
     crt: op://K8s/talos/CLUSTER_CA_CRT
-    {% if is_controlplane %}
+    {% if machinetype == 'controlplane' %}
     key: op://K8s/talos/CLUSTER_CA_KEY
     {% endif %}
   clusterName: k8s
@@ -121,20 +120,20 @@ cluster:
     serviceSubnets: ["10.245.0.0/16"]
   secret: op://K8s/talos/CLUSTER_SECRET
   token: op://K8s/talos/CLUSTER_TOKEN
-  {% if is_controlplane %}
+  {% if machinetype == 'controlplane' %}
   aggregatorCA:
     crt: op://K8s/talos/CLUSTER_AGGREGATORCA_CRT
     key: op://K8s/talos/CLUSTER_AGGREGATORCA_KEY
   allowSchedulingOnControlPlanes: true
   apiServer:
-    image: registry.k8s.io/kube-apiserver:{{ ENV.KUBERNETES_VERSION }}
+    image: registry.k8s.io/kube-apiserver:v1.33.3
     extraArgs:
       enable-aggregator-routing: true
       feature-gates: ImageVolume=true
     certSANs: ["k8s.internal"]
     disablePodSecurityPolicy: true
   controllerManager:
-    image: registry.k8s.io/kube-controller-manager:{{ ENV.KUBERNETES_VERSION }}
+    image: registry.k8s.io/kube-controller-manager:v1.33.3
     extraArgs: { bind-address: 0.0.0.0 }
   coreDNS: { disabled: true }
   etcd:
@@ -144,14 +143,15 @@ cluster:
       key: op://K8s/talos/CLUSTER_ETCD_CA_KEY
     extraArgs: { listen-metrics-urls: http://0.0.0.0:2381 }
   extraManifests:
-    - https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.3.0/experimental-install.yaml
-    - https://github.com/prometheus-operator/prometheus-operator/releases/download/v0.84.0/stripped-down-crds.yaml
+    - # renovate: datasource=github-releases depName=kubernetes-sigs/gateway-api
+      https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.3.0/experimental-install.yaml
+    - # renovate: datasource=github-releases depName=prometheus-operator/prometheus-operator
+      https://github.com/prometheus-operator/prometheus-operator/releases/download/v0.84.0/stripped-down-crds.yaml
   proxy:
     disabled: true
-    image: registry.k8s.io/kube-proxy:{{ ENV.KUBERNETES_VERSION }}
   secretboxEncryptionSecret: op://K8s/talos/CLUSTER_SECRETBOXENCRYPTIONSECRET
   scheduler:
-    image: registry.k8s.io/kube-scheduler:{{ ENV.KUBERNETES_VERSION }}
+    image: registry.k8s.io/kube-scheduler:v1.33.3
     extraArgs: { bind-address: 0.0.0.0 }
     config:
       apiVersion: kubescheduler.config.k8s.io/v1
