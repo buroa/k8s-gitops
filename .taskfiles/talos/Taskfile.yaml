@@ -20,12 +20,6 @@ tasks:
         sh: |-
           talosctl --nodes {{.NODE}} get machinetypes --output=jsonpath='{.spec}' 2> /dev/null \
             || basename $(find '{{.TALOS_DIR}}' -name '{{.NODE}}.yaml' -printf '%h')
-    env:
-      TALOS_SCHEMATIC:
-        sh: |-
-          minijinja-cli {{.TALOS_DIR}}/schematic.yaml.j2 \
-            | curl --silent -X POST --data-binary @- https://factory.talos.dev/schematics \
-            | jq --raw-output '.id'
     requires:
       vars: [NODE]
     preconditions:
@@ -33,8 +27,7 @@ tasks:
       - talosctl config info
       - test -f {{.TALOS_DIR}}/machineconfig.yaml.j2
       - test -f {{.TALOS_DIR}}/{{.MACHINE_TYPE}}/{{.NODE}}.yaml
-      - test -f {{.TALOS_DIR}}/schematic.yaml.j2
-      - which curl jq minijinja-cli op talosctl
+      - which minijinja-cli op talosctl
 
   upgrade-node:
     desc: Upgrade Talos on a single node [NODE=required]
@@ -118,12 +111,20 @@ tasks:
           https://factory.talos.dev/image/{{.TALOS_SCHEMATIC}}/{{.VERSION}}/metal-amd64.iso
     vars:
       TALOS_SCHEMATIC:
-        sh: |-
-          minijinja-cli --define "iso=true" {{.TALOS_DIR}}/schematic.yaml.j2 \
-            | curl --silent -X POST --data-binary @- https://factory.talos.dev/schematics \
-            | jq --raw-output '.id'
+        sh: task --silent talos:generate-schematic ISO=true
     requires:
       vars: [VERSION]
+    preconditions:
+      - which curl task
+
+  generate-schematic:
+    desc: Generate a Talos schematic [ISO=false]
+    cmd: |
+      minijinja-cli --define "iso={{.ISO}}" {{.TALOS_DIR}}/schematic.yaml.j2 \
+        | curl --silent -X POST --data-binary @- https://factory.talos.dev/schematics \
+        | jq --raw-output '.id'
+    vars:
+      ISO: '{{.ISO | default "false"}}'
     preconditions:
       - test -f {{.TALOS_DIR}}/schematic.yaml.j2
       - which curl jq minijinja-cli
