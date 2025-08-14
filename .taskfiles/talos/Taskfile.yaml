@@ -124,7 +124,7 @@ tasks:
         | curl --silent -X POST --data-binary @- https://factory.talos.dev/schematics \
         | jq --raw-output '.id'
     vars:
-      ISO: '{{.ISO | default "false"}}'
+      ISO: '{{.ISO | default false}}'
     preconditions:
       - test -f {{.TALOS_DIR}}/schematic.yaml.j2
       - which curl jq minijinja-cli
