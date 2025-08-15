@@ -22,12 +22,10 @@ spec:
     kind: OCIRepository
     name: keda
   install:
-    crds: CreateReplace
     remediation:
       retries: -1
   upgrade:
     cleanupOnFail: true
-    crds: CreateReplace
     remediation:
       retries: 3
   values:

@@ -2,25 +2,25 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
-  name: cert-manager
+  name: gateway-api-crds
 spec:
   interval: 5m
   layerSelector:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
   ref:
-    tag: v1.18.2
-  url: oci://quay.io/jetstack/charts/cert-manager
+    tag: 1.3.0
+  url: oci://ghcr.io/wiremind/wiremind-helm-charts/gateway-api-crds
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: cert-manager
+  name: gateway-api-crds
 spec:
   interval: 1h
   chartRef:
     kind: OCIRepository
-    name: cert-manager
+    name: gateway-api-crds
   install:
     remediation:
       retries: -1
@@ -28,12 +28,3 @@ spec:
     cleanupOnFail: true
     remediation:
       retries: 3
-  values:
-    crds:
-      enabled: true
-    dns01RecursiveNameservers: https://8.8.8.8:443/dns-query,https://8.8.4.4:443/dns-query
-    dns01RecursiveNameserversOnly: true
-    prometheus:
-      enabled: true
-      servicemonitor:
-        enabled: true

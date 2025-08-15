@@ -10,13 +10,11 @@ spec:
       app.kubernetes.io/name: *app
   components:
     - ../../../../components/gatus
-    - ../../../../components/nfs-scaler
+    - ../../../../components/keda/nfs-scaler
     - ../../../../components/volsync
   dependsOn:
     - name: amd-device-plugin
       namespace: kube-system
-    - name: keda
-      namespace: observability
     - name: rook-ceph-cluster
       namespace: rook-ceph
   interval: 1h
