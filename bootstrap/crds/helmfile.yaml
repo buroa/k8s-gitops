@@ -6,14 +6,14 @@ helmDefaults:
   waitForJobs: true
 
 releases:
-  - name: cert-manager-crds
+  - name: cert-manager
     namespace: cert-manager
     chart: oci://ghcr.io/wiremind/wiremind-helm-charts/cert-manager-crds
     version: 1.18.1
     postRenderer: yq
     postRendererArgs: ['ea', 'select(.kind == "CustomResourceDefinition")', '-']
 
-  - name: external-secret-crds
+  - name: external-secret
     namespace: volsync-system
     chart: oci://ghcr.io/wiremind/wiremind-helm-charts/external-secret-crds
     version: 0.18.2
