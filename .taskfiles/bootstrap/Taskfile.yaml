@@ -35,7 +35,6 @@ tasks:
       - op user get --me
       - talosctl config info
       - talosctl --nodes {{.RANDOM_CONTROLLER}} get machineconfig
-      - test -f {{.BOOTSTRAP_DIR}}/helmfile.yaml
-      - test -f {{.BOOTSTRAP_DIR}}/crds/helmfile.yaml
+      - test -d {{.BOOTSTRAP_DIR}}/helmfile.d
       - test -f {{.BOOTSTRAP_DIR}}/secrets.yaml.tpl
       - which helmfile jq kubectl op talosctl
