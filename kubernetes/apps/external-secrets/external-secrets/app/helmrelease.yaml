@@ -31,7 +31,6 @@ spec:
     remediation:
       retries: 3
   values:
-    leaderElect: true
     image:
       repository: ghcr.io/external-secrets/external-secrets
     webhook:
