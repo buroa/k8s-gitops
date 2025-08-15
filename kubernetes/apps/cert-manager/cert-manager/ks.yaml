@@ -36,8 +36,6 @@ spec:
   dependsOn:
     - name: cert-manager
       namespace: *namespace
-    - name: onepassword-store
-      namespace: external-secrets
   healthCheckExprs:
     - apiVersion: cert-manager.io/v1
       kind: ClusterIssuer
