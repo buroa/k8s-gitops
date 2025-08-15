@@ -15,7 +15,6 @@
   },
   "files.trimTrailingWhitespace": true,
   "material-icon-theme.files.associations": {
-    "helmfile.yaml": "helm",
     "kubeconfig": "kubernetes",
     "talosconfig": "kubernetes"
   },
@@ -24,6 +23,7 @@
     ".github/workflows": "ci",
     ".renovate": "robot",
     "bootstrap": "seeders",
+    "bootstrap/helmfile.d": "helm",
     "flux": "pipe",
     "talos": "linux",
     // namespaces
