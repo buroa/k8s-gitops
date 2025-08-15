@@ -7,13 +7,13 @@ helmDefaults:
 releases:
   - name: cert-manager
     namespace: cert-manager
-    chart: oci://ghcr.io/wiremind/wiremind-helm-charts/cert-manager-crds
-    version: 1.18.1
+    chart: oci://quay.io/jetstack/charts/cert-manager
+    version: v1.18.2
 
-  - name: external-secret
-    namespace: volsync-system
-    chart: oci://ghcr.io/wiremind/wiremind-helm-charts/external-secret-crds
-    version: 0.18.2
+  - name: external-secrets
+    namespace: external-secrets
+    chart: oci://ghcr.io/external-secrets/charts/external-secrets
+    version: 0.19.2
 
   - name: gateway-api-crds
     namespace: kube-system
