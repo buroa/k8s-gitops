@@ -1,42 +1,31 @@
 ---
 helmDefaults:
-  cleanupOnFail: true
-  reuseValues: true
-  wait: true
-  waitForJobs: true
+  args: ['--include-crds']
+  postRenderer: yq
+  postRendererArgs: ['ea', 'select(.kind == "CustomResourceDefinition")', '-']
 
 releases:
   - name: cert-manager
     namespace: cert-manager
     chart: oci://ghcr.io/wiremind/wiremind-helm-charts/cert-manager-crds
     version: 1.18.1
-    postRenderer: yq
-    postRendererArgs: ['ea', 'select(.kind == "CustomResourceDefinition")', '-']
 
   - name: external-secret
     namespace: volsync-system
     chart: oci://ghcr.io/wiremind/wiremind-helm-charts/external-secret-crds
     version: 0.18.2
-    postRenderer: yq
-    postRendererArgs: ['ea', 'select(.kind == "CustomResourceDefinition")', '-']
 
   - name: gateway-api-crds
     namespace: kube-system
     chart: oci://ghcr.io/wiremind/wiremind-helm-charts/gateway-api-crds
     version: 1.3.0
-    postRenderer: yq
-    postRendererArgs: ['ea', 'select(.kind == "CustomResourceDefinition")', '-']
 
   - name: keda
     namespace: observability
     chart: oci://ghcr.io/home-operations/charts-mirror/keda
     version: 2.17.2
-    postRenderer: yq
-    postRendererArgs: ['ea', 'select(.kind == "CustomResourceDefinition")', '-']
 
   - name: kube-prometheus-stack
     namespace: observability
     chart: oci://ghcr.io/prometheus-community/charts/kube-prometheus-stack
     version: 76.3.0
-    postRenderer: yq
-    postRendererArgs: ['ea', 'select(.kind == "CustomResourceDefinition")', '-']

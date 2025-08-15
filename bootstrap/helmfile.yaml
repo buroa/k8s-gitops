@@ -9,10 +9,10 @@ releases:
     namespace: kube-system
     chart: oci://ghcr.io/home-operations/charts-mirror/cilium
     version: 1.18.0
-    values: ["../kubernetes/apps/kube-system/cilium/app/helm/values.yaml"]
+    values: ['../kubernetes/apps/kube-system/cilium/app/helm/values.yaml']
     hooks:
       # Advertise Kubernetes VIP
-      - events: ["postsync"]
+      - events: ['postsync']
         command: kubectl
         args:
           - apply
@@ -27,26 +27,26 @@ releases:
     namespace: kube-system
     chart: oci://ghcr.io/coredns/charts/coredns
     version: 1.43.2
-    values: ["../kubernetes/apps/kube-system/coredns/app/helm/values.yaml"]
-    needs: ["kube-system/cilium"]
+    values: ['../kubernetes/apps/kube-system/coredns/app/helm/values.yaml']
+    needs: ['kube-system/cilium']
 
   - name: spegel
     namespace: kube-system
     chart: oci://ghcr.io/spegel-org/helm-charts/spegel
     version: 0.3.0
-    values: ["../kubernetes/apps/kube-system/spegel/app/helm/values.yaml"]
-    needs: ["kube-system/coredns"]
+    values: ['../kubernetes/apps/kube-system/spegel/app/helm/values.yaml']
+    needs: ['kube-system/coredns']
 
   - name: flux-operator
     namespace: flux-system
     chart: oci://ghcr.io/controlplaneio-fluxcd/charts/flux-operator
     version: 0.27.0
-    values: ["../kubernetes/apps/flux-system/flux-operator/app/helm/values.yaml"]
-    needs: ["kube-system/spegel"]
+    values: ['../kubernetes/apps/flux-system/flux-operator/app/helm/values.yaml']
+    needs: ['kube-system/spegel']
 
   - name: flux-instance
     namespace: flux-system
     chart: oci://ghcr.io/controlplaneio-fluxcd/charts/flux-instance
     version: 0.27.0
-    values: ["../kubernetes/apps/flux-system/flux-instance/app/helm/values.yaml"]
-    needs: ["flux-system/flux-operator"]
+    values: ['../kubernetes/apps/flux-system/flux-instance/app/helm/values.yaml']
+    needs: ['flux-system/flux-operator']
