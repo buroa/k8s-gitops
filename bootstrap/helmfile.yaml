@@ -1,6 +1,7 @@
 ---
 helmDefaults:
   cleanupOnFail: true
+  reuseValues: true
   wait: true
   waitForJobs: true
 

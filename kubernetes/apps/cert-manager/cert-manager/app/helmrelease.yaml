@@ -28,6 +28,13 @@ spec:
     cleanupOnFail: true
     remediation:
       retries: 3
-  valuesFrom:
-    - kind: ConfigMap
-      name: cert-manager-values
+  values:
+    crds:
+      enabled: true
+    replicaCount: 1
+    dns01RecursiveNameservers: https://8.8.8.8:443/dns-query,https://8.8.4.4:443/dns-query
+    dns01RecursiveNameserversOnly: true
+    prometheus:
+      enabled: true
+      servicemonitor:
+        enabled: true
