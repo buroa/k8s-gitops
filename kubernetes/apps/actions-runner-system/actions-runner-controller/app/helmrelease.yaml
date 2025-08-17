@@ -32,4 +32,3 @@ spec:
       retries: 3
   values:
     fullnameOverride: *name
-    replicaCount: 1
