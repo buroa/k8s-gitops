@@ -1,6 +1,6 @@
 ---
 helmDefaults:
-  args: ['--include-crds']
+  args: ['--include-crds', '--no-hooks']
   postRenderer: yq
   postRendererArgs: ['ea', 'select(.kind == "CustomResourceDefinition")', '-']
 
@@ -9,6 +9,7 @@ releases:
     namespace: cert-manager
     chart: oci://quay.io/jetstack/charts/cert-manager
     version: v1.18.2
+    values: [crds: { enabled: true }]
 
   - name: external-secrets
     namespace: external-secrets
