@@ -27,9 +27,6 @@
   "helm-values": {
     managerFilePatterns: ["/\\.yaml(?:\\.j2)?$/"],
   },
-  helmfile: {
-    managerFilePatterns: ["/\\.yaml(?:\\.j2)?$/"],
-  },
   kubernetes: {
     managerFilePatterns: ["/\\.yaml(?:\\.j2)?$/"],
   },
