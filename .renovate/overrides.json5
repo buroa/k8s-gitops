@@ -11,8 +11,8 @@
       description: "Override Talos Factory Image Name",
       matchDatasources: ["docker"],
       matchPackageNames: ["/factory\\.talos\\.dev/"],
-      overrideDepName: "ghcr.io/siderolabs/installer",
-      overridePackageName: "{{depName}}",
+      overrideDepName: "{{replace 'factory.talos.dev/metal-installer' 'ghcr.io/siderolabs/installer' depName}}",
+      overridePackageName: "ghcr.io/siderolabs/installer",
     },
   ],
 }
