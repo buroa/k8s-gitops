@@ -5,9 +5,3 @@ resources:
   - ./receiver
   - ./helmrelease.yaml
   - ./prometheusrule.yaml
-configMapGenerator:
-  - name: flux-instance-values
-    files:
-      - ./helm/values.yaml
-configurations:
-  - ./helm/kustomizeconfig.yaml
