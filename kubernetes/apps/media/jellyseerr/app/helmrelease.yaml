@@ -83,7 +83,7 @@ spec:
       app:
         hostnames:
           - "{{ .Release.Name }}.k13.dev"
-          # - requests.k13.dev
+          - requests.k13.dev
         parentRefs:
           - name: external
             namespace: kube-system
