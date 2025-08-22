@@ -72,8 +72,10 @@ machine:
         dhcp: true
         mtu: 9000
         vlans:
-          - { vlanId: 20, dhcp: false, mtu: 9000 }
-          - { vlanId: 30, dhcp: false, mtu: 9000 }
+          - # Services VLAN (K8S svcs)
+            { vlanId: 20, dhcp: false, mtu: 9000 }
+          - # IOT VLAN
+            { vlanId: 30, dhcp: false, mtu: 9000 }
     nameservers: ["192.168.10.1"]
     disableSearchDomain: true
   nodeLabels:
