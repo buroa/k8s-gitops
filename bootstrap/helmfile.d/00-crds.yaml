@@ -9,7 +9,9 @@ releases:
     namespace: cert-manager
     chart: oci://quay.io/jetstack/charts/cert-manager
     version: v1.18.2
-    values: [crds: { enabled: true }]
+    values:
+      - # Enable CRDs
+        crds: { enabled: true }
 
   - name: external-secrets
     namespace: external-secrets

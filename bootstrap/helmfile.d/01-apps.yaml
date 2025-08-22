@@ -11,8 +11,8 @@ releases:
     version: 1.18.1
     values: ['../values.yaml.gotmpl']
     hooks:
-      # Advertise Kubernetes VIP
-      - events: ['postsync']
+      - # Advertise Kubernetes VIP
+        events: ['postsync']
         command: kubectl
         args:
           - apply
