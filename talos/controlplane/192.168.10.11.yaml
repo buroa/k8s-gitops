@@ -23,3 +23,8 @@ apiVersion: v1alpha1
 kind: EthernetConfig
 name: enp5s0f1np1
 rings: { rx: 8160, tx: 8160 }
+---
+apiVersion: v1alpha1
+kind: WatchdogTimerConfig
+device: /dev/watchdog0
+timeout: 5m
