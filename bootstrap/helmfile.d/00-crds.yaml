@@ -1,8 +1,8 @@
 ---
 helmDefaults:
-  args: ['--include-crds', '--no-hooks']
-  postRenderer: yq
-  postRendererArgs: ['ea', 'select(.kind == "CustomResourceDefinition")', '-']
+  args: ['--include-crds', '--no-hooks'] # Prevent helmfile apply or sync
+  postRenderer: bash
+  postRendererArgs: [-c, "yq ea --exit-status 'select(.kind == \"CustomResourceDefinition\")' -"]
 
 releases:
   - name: cert-manager

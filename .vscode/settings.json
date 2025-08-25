@@ -15,6 +15,7 @@
   },
   "files.trimTrailingWhitespace": true,
   "material-icon-theme.files.associations": {
+    "*.gotmpl": "smarty",
     "kubeconfig": "kubernetes",
     "talosconfig": "kubernetes"
   },

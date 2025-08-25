@@ -25,7 +25,8 @@ tasks:
       - defer: talosctl kubeconfig --nodes {{.RANDOM_CONTROLLER}} --force {{.KUBERNETES_DIR}}
       - until kubectl wait nodes --for=condition=Ready=False --all --timeout=10m; do sleep 5; done
       - op inject --in-file {{.BOOTSTRAP_DIR}}/secrets.yaml.tpl | kubectl apply --server-side --filename -
-      - helmfile --file {{.BOOTSTRAP_DIR}}/helmfile.d sync --hide-notes
+      - helmfile --file {{.BOOTSTRAP_DIR}}/helmfile.d/00-crds.yaml template --quiet | kubectl apply --server-side --filename -
+      - helmfile --file {{.BOOTSTRAP_DIR}}/helmfile.d/01-apps.yaml sync --hide-notes
     vars:
       CONTEXT:
         sh: talosctl config info --output json | jq --raw-output '.context'
@@ -35,6 +36,7 @@ tasks:
       - op user get --me
       - talosctl config info
       - talosctl --nodes {{.RANDOM_CONTROLLER}} get machineconfig
-      - test -d {{.BOOTSTRAP_DIR}}/helmfile.d
+      - test -f {{.BOOTSTRAP_DIR}}/helmfile.d/00-crds.yaml
+      - test -f {{.BOOTSTRAP_DIR}}/helmfile.d/01-apps.yaml
       - test -f {{.BOOTSTRAP_DIR}}/secrets.yaml.tpl
       - which helmfile jq kubectl op talosctl
