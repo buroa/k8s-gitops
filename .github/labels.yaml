@@ -6,6 +6,8 @@
   color: "0e8a16"
 - name: area/kubernetes
   color: "0e8a16"
+- name: area/renovate
+  color: "0e8a16"
 - name: area/talos
   color: "0e8a16"
 - name: area/taskfile
@@ -31,5 +33,7 @@
 - name: type/major
   color: "f6412d"
 # Uncategorized
+- name: community
+  color: "370fb2"
 - name: hold
   color: "ee0701"

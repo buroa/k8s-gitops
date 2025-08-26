@@ -1,4 +1,6 @@
 ---
+# yaml-language-server: $schema=https://json.schemastore.org/helmfile
+
 helmDefaults:
   cleanupOnFail: true
   wait: true
@@ -37,12 +39,19 @@ releases:
     values: ['../values.yaml.gotmpl']
     needs: ['kube-system/coredns']
 
+  - name: cert-manager
+    namespace: cert-manager
+    chart: oci://quay.io/jetstack/charts/cert-manager
+    version: v1.18.2
+    values: ['../values.yaml.gotmpl']
+    needs: ['kube-system/spegel']
+
   - name: flux-operator
     namespace: flux-system
     chart: oci://ghcr.io/controlplaneio-fluxcd/charts/flux-operator
     version: 0.28.0
     values: ['../values.yaml.gotmpl']
-    needs: ['kube-system/spegel']
+    needs: ['cert-manager/cert-manager']
 
   - name: flux-instance
     namespace: flux-system
