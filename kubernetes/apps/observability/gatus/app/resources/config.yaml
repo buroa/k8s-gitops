@@ -12,13 +12,6 @@ endpoints:
       dns-resolver: tcp://8.8.8.8:53
     conditions:
       - "[STATUS] == 404"
-  - name: gatus
-    url: https://gatus.k13.dev
-    interval: 1m
-    client:
-      dns-resolver: tcp://8.8.8.8:53
-    conditions:
-      - "[STATUS] == 200"
 
 metrics: true
 
