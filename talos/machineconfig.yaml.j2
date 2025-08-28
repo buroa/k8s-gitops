@@ -146,6 +146,7 @@ cluster:
     extraArgs: { listen-metrics-urls: http://0.0.0.0:2381 }
   proxy:
     disabled: true
+    image: registry.k8s.io/kube-proxy:v1.34.0
   secretboxEncryptionSecret: op://K8s/talos/CLUSTER_SECRETBOXENCRYPTIONSECRET
   scheduler:
     image: registry.k8s.io/kube-scheduler:v1.34.0
