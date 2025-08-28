@@ -51,7 +51,7 @@ machine:
     modules:
       - name: nbd
   kubelet:
-    image: ghcr.io/siderolabs/kubelet:v1.33.4
+    image: ghcr.io/siderolabs/kubelet:v1.34.0
     extraConfig:
       featureGates:
         ImageVolume: true
@@ -128,14 +128,14 @@ cluster:
     key: op://K8s/talos/CLUSTER_AGGREGATORCA_KEY
   allowSchedulingOnControlPlanes: true
   apiServer:
-    image: registry.k8s.io/kube-apiserver:v1.33.4
+    image: registry.k8s.io/kube-apiserver:v1.34.0
     extraArgs:
       enable-aggregator-routing: true
       feature-gates: ImageVolume=true
     certSANs: ["k8s.internal"]
     disablePodSecurityPolicy: true
   controllerManager:
-    image: registry.k8s.io/kube-controller-manager:v1.33.4
+    image: registry.k8s.io/kube-controller-manager:v1.34.0
     extraArgs: { bind-address: 0.0.0.0 }
   coreDNS: { disabled: true }
   etcd:
@@ -148,7 +148,7 @@ cluster:
     disabled: true
   secretboxEncryptionSecret: op://K8s/talos/CLUSTER_SECRETBOXENCRYPTIONSECRET
   scheduler:
-    image: registry.k8s.io/kube-scheduler:v1.33.4
+    image: registry.k8s.io/kube-scheduler:v1.34.0
     extraArgs: { bind-address: 0.0.0.0 }
     config:
       apiVersion: kubescheduler.config.k8s.io/v1
