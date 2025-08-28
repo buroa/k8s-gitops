@@ -74,3 +74,5 @@ spec:
                 subPath: logs
               - path: /config/repositories
                 subPath: repositories
+              - path: /tmp
+                subPath: tmp
