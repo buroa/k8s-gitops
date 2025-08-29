@@ -39,35 +39,40 @@ filters:
       - HasAnyTag("not-linked") && SeedingDays > 24
 
     tag:
-      - { name: added:1d,     update: ['AddedDays < 7'] }
-      - { name: added:7d,     update: ['AddedDays >= 7 && AddedDays < 14'] }
-      - { name: added:14d,    update: ['AddedDays >= 14 && AddedDays < 30'] }
-      - { name: added:30d,    update: ['AddedDays >= 30 && AddedDays < 180'] }
-      - { name: added:180d,   update: ['AddedDays >= 180'] }
-      - { name: not-linked,   update: ['HardlinkedOutsideClient == false && Label in ["sonarr", "radarr"]'] }
-      - { name: site:ANT,     update: ['TrackerName == "anthelion.me"'] }
-      - { name: site:AR,      update: ['TrackerName == "alpharatio.cc"'] }
-      - { name: site:ATH,     update: ['TrackerName == "aither.cc"'] }
-      - { name: site:BHD,     update: ['TrackerName == "beyond-hd.me"'] }
-      - { name: site:BLU,     update: ['TrackerName in ["blutopia.cc", "blutopia.xyz"]'] }
-      - { name: site:FL,      update: ['TrackerName in ["filelist.io", "thefl.org"]'] }
-      - { name: site:FNP,     update: ['TrackerName == "fearnopeer.com"'] }
-      - { name: site:HDT,     update: ['TrackerName == "hdts-announce.ru"'] }
-      - { name: site:HUNO,    update: ['TrackerName == "hawke.uno"'] }
-      - { name: site:IPT,     update: ['TrackerName in ["bgp.technology", "empirehost.me", "stackoverflow.tech"]'] }
-      - { name: site:LST,     update: ['TrackerName == "lst.gg"'] }
-      - { name: site:ME,      update: ['TrackerName == "milkie.cc"'] }
-      - { name: site:MTV,     update: ['TrackerName == "morethantv.me"'] }
-      - { name: site:NBL,     update: ['TrackerName == "nebulance.io"'] }
-      - { name: site:OE,      update: ['TrackerName == "onlyencodes.cc"'] }
-      - { name: site:PHD,     update: ['TrackerName == "privatehd.to"'] }
-      - { name: site:PTP,     update: ['TrackerName == "passthepopcorn.me"'] }
-      - { name: site:RFX,     update: ['TrackerName == "reelflix.xyz"'] }
-      - { name: site:SP,      update: ['TrackerName == "seedpool.org"'] }
-      - { name: site:ST,      update: ['TrackerName == "scenetime.com"'] }
-      - { name: site:TD,      update: ['TrackerName in ["jumbohostpro.eu", "td-peers.com"]'] }
-      - { name: site:TL,      update: ['TrackerName in ["tleechreload.org", "torrentleech.org"]'] }
-      - { name: site:UHD,     update: ['TrackerName == "uhdbits.org"'] }
-      - { name: site:ULCX,    update: ['TrackerName == "upload.cx"'] }
-      - { name: tracker-down, update: ['IsTrackerDown()'] }
-      - { name: unregistered, update: ['IsUnregistered()'] }
+      - { name: activity:1d,   update: ['LastActivityDays < 7'] }
+      - { name: activity:7d,   update: ['LastActivityDays >= 7 && LastActivityDays < 14'] }
+      - { name: activity:14d,  update: ['LastActivityDays >= 14 && LastActivityDays < 30'] }
+      - { name: activity:30d,  update: ['LastActivityDays >= 30 && LastActivityDays < 180'] }
+      - { name: activity:180d, update: ['LastActivityDays >= 180'] }
+      - { name: added:1d,      update: ['AddedDays < 7'] }
+      - { name: added:7d,      update: ['AddedDays >= 7 && AddedDays < 14'] }
+      - { name: added:14d,     update: ['AddedDays >= 14 && AddedDays < 30'] }
+      - { name: added:30d,     update: ['AddedDays >= 30 && AddedDays < 180'] }
+      - { name: added:180d,    update: ['AddedDays >= 180'] }
+      - { name: not-linked,    update: ['HardlinkedOutsideClient == false && Label in ["sonarr", "radarr"]'] }
+      - { name: site:ANT,      update: ['TrackerName == "anthelion.me"'] }
+      - { name: site:AR,       update: ['TrackerName == "alpharatio.cc"'] }
+      - { name: site:ATH,      update: ['TrackerName == "aither.cc"'] }
+      - { name: site:BHD,      update: ['TrackerName == "beyond-hd.me"'] }
+      - { name: site:BLU,      update: ['TrackerName in ["blutopia.cc", "blutopia.xyz"]'] }
+      - { name: site:FL,       update: ['TrackerName in ["filelist.io", "thefl.org"]'] }
+      - { name: site:FNP,      update: ['TrackerName == "fearnopeer.com"'] }
+      - { name: site:HDT,      update: ['TrackerName == "hdts-announce.ru"'] }
+      - { name: site:HUNO,     update: ['TrackerName == "hawke.uno"'] }
+      - { name: site:IPT,      update: ['TrackerName in ["bgp.technology", "empirehost.me", "stackoverflow.tech"]'] }
+      - { name: site:LST,      update: ['TrackerName == "lst.gg"'] }
+      - { name: site:ME,       update: ['TrackerName == "milkie.cc"'] }
+      - { name: site:MTV,      update: ['TrackerName == "morethantv.me"'] }
+      - { name: site:NBL,      update: ['TrackerName == "nebulance.io"'] }
+      - { name: site:OE,       update: ['TrackerName == "onlyencodes.cc"'] }
+      - { name: site:PHD,      update: ['TrackerName == "privatehd.to"'] }
+      - { name: site:PTP,      update: ['TrackerName == "passthepopcorn.me"'] }
+      - { name: site:RFX,      update: ['TrackerName == "reelflix.xyz"'] }
+      - { name: site:SP,       update: ['TrackerName == "seedpool.org"'] }
+      - { name: site:ST,       update: ['TrackerName == "scenetime.com"'] }
+      - { name: site:TD,       update: ['TrackerName in ["jumbohostpro.eu", "td-peers.com"]'] }
+      - { name: site:TL,       update: ['TrackerName in ["tleechreload.org", "torrentleech.org"]'] }
+      - { name: site:UHD,      update: ['TrackerName == "uhdbits.org"'] }
+      - { name: site:ULCX,     update: ['TrackerName == "upload.cx"'] }
+      - { name: tracker-down,  update: ['IsTrackerDown()'] }
+      - { name: unregistered,  update: ['IsUnregistered()'] }
