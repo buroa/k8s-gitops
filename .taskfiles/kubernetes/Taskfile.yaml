@@ -50,15 +50,3 @@ tasks:
         cmd: kubectl delete pods --all-namespaces --field-selector status.phase={{.ITEM.PHASE}} --ignore-not-found=true
     preconditions:
       - which kubectl
-
-  # https://docs.github.com/en/enterprise-cloud@latest/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/deploying-runner-scale-sets-with-actions-runner-controller#upgrading-arc
-  upgrade-arc:
-    desc: Upgrade the ARC
-    cmds:
-      - helm -n actions-runner-system uninstall k8s-gitops-runner
-      - helm -n actions-runner-system uninstall actions-runner-controller
-      - sleep 5
-      - flux -n actions-runner-system reconcile hr actions-runner-controller
-      - flux -n actions-runner-system reconcile hr k8s-gitops-runner
-    preconditions:
-      - which flux helm
