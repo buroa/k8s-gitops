@@ -30,6 +30,7 @@
     // namespaces
     "actions-runner-system": "github",
     "cert-manager": "guard",
+    "default": "home",
     "external-secrets": "secure",
     "flux-system": "pipe",
     "kube-system": "kubernetes",
