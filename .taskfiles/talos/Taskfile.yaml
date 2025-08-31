@@ -5,7 +5,7 @@ version: '3'
 tasks:
 
   apply-node:
-    desc: Apply Talos config to a node [NODE=required] [MODE=auto]
+    desc: Apply Talos config to a node [NODE=required] [MODE={{.MODE}}]
     cmd: |-
       minijinja-cli --define "machinetype={{.MACHINE_TYPE}}" {{.TALOS_DIR}}/machineconfig.yaml.j2 \
         | op inject \
@@ -48,7 +48,7 @@ tasks:
       - which minijinja-cli talosctl yq
 
   reboot-node:
-    desc: Reboot Talos on a single node [NODE=required] [MODE=default]
+    desc: Reboot Talos on a single node [NODE=required] [MODE={{.MODE}}]
     cmd: talosctl --nodes {{.NODE}} reboot --mode={{.MODE}}
     vars:
       MODE: '{{.MODE | default "default"}}'
@@ -119,7 +119,7 @@ tasks:
       - which curl task
 
   generate-schematic:
-    desc: Generate a Talos schematic [ISO=false]
+    desc: Generate a Talos schematic [ISO={{.ISO}}]
     cmd: |
       minijinja-cli --define "iso={{.ISO}}" {{.TALOS_DIR}}/schematic.yaml.j2 \
         | curl --silent -X POST --data-binary @- https://factory.talos.dev/schematics \
