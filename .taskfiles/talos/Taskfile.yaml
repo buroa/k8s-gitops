@@ -6,7 +6,7 @@ tasks:
 
   apply-node:
     desc: Apply Talos config to a node [NODE=required] [MODE={{.MODE}}]
-    cmd: |-
+    cmd: |
       minijinja-cli --define "machinetype={{.MACHINE_TYPE}}" {{.TALOS_DIR}}/machineconfig.yaml.j2 \
         | op inject \
         | talosctl --nodes {{.NODE}} apply-config \
@@ -109,7 +109,7 @@ tasks:
     desc: Generate a Talos ISO for a specific version [VERSION=required]
     cmd: |
       curl -L -o {{.TALOS_DIR}}/talos-{{.VERSION}}.iso \
-          https://factory.talos.dev/image/{{.TALOS_SCHEMATIC}}/{{.VERSION}}/metal-amd64.iso
+        https://factory.talos.dev/image/{{.TALOS_SCHEMATIC}}/{{.VERSION}}/metal-amd64.iso
     vars:
       TALOS_SCHEMATIC:
         sh: task --silent talos:generate-schematic ISO=true
