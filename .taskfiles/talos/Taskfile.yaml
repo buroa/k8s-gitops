@@ -108,7 +108,7 @@ tasks:
   generate-iso:
     desc: Generate a Talos ISO for a specific version [VERSION=required]
     cmd: |
-      curl -o {{.TALOS_DIR}}/talos-{{.VERSION}}.iso \
+      curl -L -o {{.TALOS_DIR}}/talos-{{.VERSION}}.iso \
           https://factory.talos.dev/image/{{.TALOS_SCHEMATIC}}/{{.VERSION}}/metal-amd64.iso
     vars:
       TALOS_SCHEMATIC:
