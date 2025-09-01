@@ -72,7 +72,7 @@ machine:
         dhcp: true
         mtu: 9000
         vlans:
-          - # Services VLAN (K8S svcs)
+          - # Services VLAN
             { vlanId: 20, dhcp: false, mtu: 9000 }
           - # IOT VLAN
             { vlanId: 30, dhcp: false, mtu: 9000 }
@@ -98,7 +98,7 @@ machine:
     user.max_user_namespaces: 11255        # User Namespaces
   time:
     disabled: false
-    servers: ["time.google.com"]
+    servers: ["time.cloudflare.com"]
 cluster:
   ca:
     crt: op://K8s/talos/CLUSTER_CA_CRT
