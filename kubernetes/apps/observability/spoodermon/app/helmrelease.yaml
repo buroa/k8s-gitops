@@ -30,7 +30,7 @@ spec:
               GATUS_WEB_PORT: &port 80
               GATUS_CONFIG_PATH: /config
               GATUS_DELAY_START_SECONDS: 5
-              TZ: Etc/UTC
+              TZ: America/Chicago
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
