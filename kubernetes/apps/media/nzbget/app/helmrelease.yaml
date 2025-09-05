@@ -1,0 +1,114 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: nzbget
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    controllers:
+      nzbget:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/home-operations/nzbget
+              tag: 25.3.0@sha256:64ba021db30f1a124cad2263cd5d1ea5411bf58eb4de92938f961b7e95a82e81
+            env:
+              NZBGET__PORT: &port 80
+              TZ: America/Chicago
+            envFrom:
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 10
+            resources:
+              requests:
+                cpu: 100m
+              limits:
+                memory: 32Gi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
+        supplementalGroups: [65536]
+    persistence:
+      config:
+        existingClaim: "{{ .Release.Name }}"
+      incomplete:
+        type: custom
+        volumeSpec:
+          ephemeral:
+            volumeClaimTemplate:
+              spec:
+                accessModes: ["ReadWriteOnce"]
+                resources:
+                  requests:
+                    storage: 1Mi # Ignored
+                storageClassName: openebs-hostpath
+                volumeMode: Filesystem
+      media:
+        type: nfs
+        server: nas.internal
+        path: /volume1/media
+        globalMounts:
+          - path: /media/downloads/nzbs
+            subPath: downloads/nzbs
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          nzbget:
+            app:
+              - path: /config/logs
+                subPath: logs
+              - path: /tmp
+                subPath: tmp
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.k13.dev"
+          - nzb.k13.dev
+        parentRefs:
+          - name: internal
+            namespace: kube-system
+            sectionName: https
+    service:
+      app:
+        ports:
+          http:
+            port: *port
