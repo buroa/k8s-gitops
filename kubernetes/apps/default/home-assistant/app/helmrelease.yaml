@@ -36,8 +36,8 @@ spec:
               startup:
                 enabled: true
                 spec:
-                  failureThreshold: 30
                   periodSeconds: 10
+                  failureThreshold: 30
             resources:
               requests:
                 cpu: 10m
