@@ -27,7 +27,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app tailscale-configs
+  name: &app tailscale-connectors
   namespace: &namespace networking
 spec:
   commonMetadata:
@@ -37,7 +37,7 @@ spec:
     - name: tailscale-operator
       namespace: *namespace
   interval: 1h
-  path: ./kubernetes/apps/networking/tailscale-operator/configs
+  path: ./kubernetes/apps/networking/tailscale-operator/connectors
   prune: true
   retryInterval: 2m
   sourceRef:
