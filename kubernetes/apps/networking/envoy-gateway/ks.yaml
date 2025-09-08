@@ -2,8 +2,8 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app cilium
-  namespace: &namespace kube-system
+  name: &app envoy-gateway
+  namespace: &namespace networking
 spec:
   commonMetadata:
     labels:
@@ -14,7 +14,7 @@ spec:
       name: *app
       namespace: *namespace
   interval: 1h
-  path: ./kubernetes/apps/kube-system/cilium/app
+  path: ./kubernetes/apps/networking/envoy-gateway/app
   prune: true
   retryInterval: 2m
   sourceRef:
@@ -27,17 +27,19 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app cilium-config
-  namespace: &namespace kube-system
+  name: &app envoy-gateway-configs
+  namespace: &namespace networking
 spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: cilium
+    - name: cert-manager-issuers
+      namespace: cert-manager
+    - name: envoy-gateway
       namespace: *namespace
   interval: 1h
-  path: ./kubernetes/apps/kube-system/cilium/config
+  path: ./kubernetes/apps/networking/envoy-gateway/configs
   prune: true
   retryInterval: 2m
   sourceRef:
@@ -46,4 +48,3 @@ spec:
     namespace: flux-system
   targetNamespace: *namespace
   timeout: 5m
-  wait: true
