@@ -11,8 +11,6 @@ spec:
   ref:
     tag: 1.43.3
   url: oci://ghcr.io/coredns/charts/coredns
-  verify:
-    provider: cosign
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
