@@ -35,7 +35,7 @@ spec:
         main:
           enabled: true
           hostnames:
-            - am.k13.dev
+            - alertmanager.k13.dev
           parentRefs:
             - name: envoy-internal
               namespace: networking
@@ -45,7 +45,7 @@ spec:
           name: alertmanager
           global:
             resolveTimeout: 5m
-        externalUrl: https://am.k13.dev
+        externalUrl: https://alertmanager.k13.dev
         storage:
           volumeClaimTemplate:
             spec:
