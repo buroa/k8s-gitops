@@ -47,7 +47,7 @@ kind: Gateway
 metadata:
   name: envoy-internal
   annotations:
-    external-dns.alpha.kubernetes.io/target: &hostname external.k13.dev
+    external-dns.alpha.kubernetes.io/target: &hostname internal.k13.dev
 spec:
   gatewayClassName: envoy-internal
   infrastructure:
