@@ -7,4 +7,5 @@ resources:
   - ./envoy.yaml
   - ./external.yaml
   - ./internal.yaml
+  - ./podmonitor.yaml
   - ./policies.yaml
