@@ -104,13 +104,9 @@ kind: BackendTrafficPolicy
 metadata:
   name: envoy
 spec:
-  targetRefs:
+  targetSelectors:
     - group: gateway.networking.k8s.io
       kind: Gateway
-      name: envoy-external
-    - group: gateway.networking.k8s.io
-      kind: Gateway
-      name: envoy-internal
   compression:
     - type: Brotli
     - type: Gzip
@@ -124,13 +120,9 @@ spec:
     xForwardedFor:
       numTrustedHops: 1
   http3: {}
-  targetRefs:
+  targetSelectors:
     - group: gateway.networking.k8s.io
       kind: Gateway
-      name: envoy-external
-    - group: gateway.networking.k8s.io
-      kind: Gateway
-      name: envoy-internal
   tls:
     minVersion: "1.2"
     alpnProtocols:
