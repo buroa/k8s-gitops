@@ -4,7 +4,6 @@ kind: Connector
 metadata:
   name: ingress
 spec:
-  replicas: 2
   appConnector:
     routes:
       - 192.168.10.0/24
