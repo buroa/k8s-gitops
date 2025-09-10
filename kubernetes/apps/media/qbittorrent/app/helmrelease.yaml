@@ -25,7 +25,7 @@ spec:
               repository: ghcr.io/home-operations/qbittorrent
               tag: 5.1.2@sha256:31ac39705e31f7cdcc04dc46c1c0b0cdf8dc6f9865d4894efc097a33adc41524
             env:
-              QBT_TORRENTING_PORT: &bittorrentPort 50413
+              QBT_TORRENTING_PORT: 50413
               QBT_WEBUI_PORT: &port 80
               TZ: America/Chicago
             probes:
@@ -56,6 +56,13 @@ spec:
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
     defaultPodOptions:
+      annotations:
+        k8s.v1.cni.cncf.io/networks: |
+          [{
+            "name": "multus-vpn",
+            "namespace": "networking",
+            "ips": ["192.168.50.2/24"]
+          }]
       securityContext:
         runAsNonRoot: true
         runAsUser: 568
@@ -108,22 +115,8 @@ spec:
           - name: envoy-internal
             namespace: networking
             sectionName: https
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: *port
     service:
       app:
-        forceRename: "{{ .Release.Name }}"
-        primary: true
         ports:
           http:
             port: *port
-      bittorrent:
-        type: LoadBalancer
-        annotations:
-          lbipam.cilium.io/ips: 192.168.20.82
-        ports:
-          bittorrent-tcp:
-            port: *bittorrentPort
-            protocol: TCP

@@ -12,6 +12,8 @@ spec:
     - ../../../../components/keda/nfs-scaler
     - ../../../../components/volsync
   dependsOn:
+    - name: multus-networks
+      namespace: networking
     - name: openebs
       namespace: openebs-system
     - name: rook-ceph-cluster
