@@ -61,7 +61,8 @@ spec:
           [{
             "name": "multus-vpn",
             "namespace": "networking",
-            "ips": ["192.168.40.2/24"]
+            "ips": ["192.168.40.2/24"],
+            "default-route": ["10.2.0.1"]
           }]
       securityContext:
         runAsNonRoot: true
