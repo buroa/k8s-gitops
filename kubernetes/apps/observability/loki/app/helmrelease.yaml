@@ -46,6 +46,8 @@ spec:
         chunk_encoding: snappy
       limits_config:
         retention_period: 14d
+        ingestion_rate_mb: 16
+        ingestion_burst_size_mb: 32
       schemaConfig:
         configs:
           - from: "2024-04-01" # quote

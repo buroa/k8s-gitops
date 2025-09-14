@@ -37,6 +37,11 @@ spec:
         create: false
         name: &name alloy-configmap
         key: config.alloy
+      extraEnv:
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
     controller:
       podAnnotations:
         configmap.reloader.stakater.com/reload: *name
