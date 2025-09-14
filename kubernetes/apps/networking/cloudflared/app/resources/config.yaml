@@ -1,10 +1,7 @@
 ---
-originRequest:
-  originServerName: external.k13.dev
-
 ingress:
-  - hostname: k13.dev
-    service: &service https://envoy-external.networking.svc.cluster.local
   - hostname: "*.k13.dev"
-    service: *service
+    service: https://cilium-gateway-external.kube-system.svc.cluster.local
+    originRequest:
+      originServerName: external.k13.dev
   - service: http_status:404

@@ -7,8 +7,8 @@ spec:
   hostnames:
     - flux-webhook.k13.dev
   parentRefs:
-    - name: envoy-external
-      namespace: networking
+    - name: external
+      namespace: kube-system
       sectionName: https
   rules:
     - backendRefs:
