@@ -257,8 +257,8 @@ spec:
         hostnames:
           - "{{ .Release.Name }}.k13.dev"
         parentRefs:
-          - name: envoy-internal
-            namespace: networking
+          - name: internal
+            namespace: kube-system
             sectionName: https
     persistence:
       enabled: false

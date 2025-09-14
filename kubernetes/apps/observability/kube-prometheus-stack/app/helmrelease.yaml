@@ -37,8 +37,8 @@ spec:
           hostnames:
             - alertmanager.k13.dev
           parentRefs:
-            - name: envoy-internal
-              namespace: networking
+            - name: internal
+              namespace: kube-system
               sectionName: https
       alertmanagerSpec:
         alertmanagerConfiguration:
@@ -66,8 +66,8 @@ spec:
           hostnames:
             - prometheus.k13.dev
           parentRefs:
-            - name: envoy-internal
-              namespace: networking
+            - name: internal
+              namespace: kube-system
               sectionName: https
       prometheusSpec:
         image:

@@ -95,8 +95,8 @@ spec:
           - "{{ .Release.Name }}.k13.dev"
           - status.k13.dev
         parentRefs:
-          - name: envoy-external
-            namespace: networking
+          - name: external
+            namespace: kube-system
             sectionName: https
     service:
       app:

@@ -75,8 +75,8 @@ spec:
           - "{{ .Release.Name }}.k13.dev"
           - sh.k13.dev
         parentRefs:
-          - name: envoy-internal
-            namespace: networking
+          - name: internal
+            namespace: kube-system
             sectionName: https
         rules:
           - backendRefs:

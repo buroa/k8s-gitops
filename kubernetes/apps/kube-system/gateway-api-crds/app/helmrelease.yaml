@@ -2,41 +2,29 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
-  name: envoy-gateway
+  name: gateway-api-crds
 spec:
   interval: 5m
   layerSelector:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
   ref:
-    tag: 1.5.0
-  url: oci://docker.io/envoyproxy/gateway-helm
+    tag: 1.3.0
+  url: oci://ghcr.io/wiremind/wiremind-helm-charts/gateway-api-crds
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: envoy-gateway
+  name: gateway-api-crds
 spec:
   interval: 1h
   chartRef:
     kind: OCIRepository
-    name: envoy-gateway
+    name: gateway-api-crds
   install:
-    crds: CreateReplace
     remediation:
       retries: -1
   upgrade:
     cleanupOnFail: true
-    crds: CreateReplace
     remediation:
       retries: 3
-  values:
-    config:
-      envoyGateway:
-        provider:
-          type: Kubernetes
-          kubernetes:
-            deploy:
-              type: GatewayNamespace
-    global:
-      imageRegistry: mirror.gcr.io

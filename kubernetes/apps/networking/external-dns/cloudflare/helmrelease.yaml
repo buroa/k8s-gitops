@@ -31,7 +31,7 @@ spec:
               - --cloudflare-proxied
               - --domain-filter=k13.dev
               - --events
-              - --gateway-name=envoy-external
+              - --gateway-name=external
               - --interval=1m
               - --log-format=text
               - --log-level=info

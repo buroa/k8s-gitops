@@ -42,8 +42,8 @@ spec:
           path: /
           pathType: PathPrefix
         parentRefs:
-          - name: envoy-internal
-            namespace: networking
+          - name: internal
+            namespace: kube-system
             sectionName: https
     cephClusterSpec:
       cleanupPolicy:
