@@ -12,8 +12,6 @@ spec:
     - ../../../../components/gatus
     - ../../../../components/volsync
   dependsOn:
-    - name: mosquitto
-      namespace: *namespace
     - name: multus-networks
       namespace: networking
     - name: rook-ceph-cluster

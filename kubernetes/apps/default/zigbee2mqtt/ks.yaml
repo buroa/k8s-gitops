@@ -11,8 +11,6 @@ spec:
   components:
     - ../../../../components/volsync
   dependsOn:
-    - name: mosquitto
-      namespace: *namespace
     - name: rook-ceph-cluster
       namespace: rook-ceph
   interval: 1h
