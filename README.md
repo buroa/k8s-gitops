@@ -192,9 +192,10 @@ In my cluster there are two instances of [ExternalDNS](https://github.com/kubern
 
 My MS-A2 workstations are configured with the following hardware:
 
-- [Crucial 96GB Kit (48GBx2) DDR5-5600 SODIMM](https://www.crucial.com/memory/ddr5/ct2k48g56c46s5)
-- [Samsung 1.92TB M.2 22x110mm PM9A3 NVMe PCIe 4.0](https://www.cdw.com/product/samsung-pm9a3-mz1l21t9hcls-ssd-1.92-tb-pcie-4.0-x4-nvme/7289154)
-- [Samsung 3.84TB U.2 PM9A3 NVMe PCIe 4.0](https://www.cdw.com/product/samsung-pm9a3-pcie-gen-4-nvme-solid-state-drive/6457945)
+- [Crucial 96GB Kit (48GBx2) DDR5-5600 SODIMM](https://www.amazon.com/Crucial-2x48GB-5600MT-5200MT-CT2K48G56C46S5/dp/B0C79K5VGZ)
+- [Samsung 1.92TB M.2 22x110mm PM9A3 NVMe PCIe 4.0](https://www.amazon.com/SAMSUNG-1-9TB-PM9A3-NVMe-PCIe/dp/B0B23N4P7L)
+- [Samsung 3.84TB U.2 PM9A3 NVMe PCIe 4.0](https://www.amazon.com/Samsung-PM9A3-Solid-State-Drive/dp/B0B83W15X6)
+- [Sparkle Intel Arc A310 ECO 4GB GPU](https://www.amazon.com/dp/B0CSFJN835)
 - [Google Coral M.2 Accelerator A+E Key](https://coral.ai/products/m2-accelerator-ae)
 
 ## <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f31f/512.gif" alt="🌟" width="20" height="20"> Stargazers
