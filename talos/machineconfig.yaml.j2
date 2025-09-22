@@ -79,6 +79,7 @@ machine:
     nameservers: ["192.168.10.1"]
     disableSearchDomain: true
   nodeLabels:
+    intel.feature.node.kubernetes.io/gpu: "true"
     topology.kubernetes.io/region: k8s
     topology.kubernetes.io/zone: {{ 'm' if machinetype == 'controlplane' else 'w' }}
   sysctls:
