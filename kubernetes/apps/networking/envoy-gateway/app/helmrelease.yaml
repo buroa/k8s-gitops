@@ -2,36 +2,41 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
-  name: tailscale-operator
+  name: envoy-gateway
 spec:
   interval: 5m
   layerSelector:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
   ref:
-    tag: 1.88.2
-  url: oci://ghcr.io/home-operations/charts-mirror/tailscale-operator
+    tag: 1.5.0
+  url: oci://docker.io/envoyproxy/gateway-helm
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: tailscale-operator
+  name: envoy-gateway
 spec:
   interval: 1h
   chartRef:
     kind: OCIRepository
-    name: tailscale-operator
+    name: envoy-gateway
   install:
+    crds: CreateReplace
     remediation:
       retries: -1
   upgrade:
     cleanupOnFail: true
+    crds: CreateReplace
     remediation:
       retries: 3
   values:
-    oauthSecretVolume:
-      secret:
-        secretName: &secret tailscale-operator-secret
-    operatorConfig:
-      podAnnotations:
-        secret.reloader.stakater.com/reload: *secret
+    config:
+      envoyGateway:
+        provider:
+          type: Kubernetes
+          kubernetes:
+            deploy:
+              type: GatewayNamespace
+    global:
+      imageRegistry: mirror.gcr.io
