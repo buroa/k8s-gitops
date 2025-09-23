@@ -111,7 +111,7 @@ spec:
     - type: Brotli
     - type: Gzip
   connection:
-    bufferLimit: 1Mi
+    bufferLimit: 256Mi
 ---
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: ClientTrafficPolicy
