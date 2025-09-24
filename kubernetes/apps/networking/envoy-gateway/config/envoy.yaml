@@ -110,6 +110,10 @@ spec:
   compression:
     - type: Brotli
     - type: Gzip
+  tcpKeepalive:
+    idleTimeout: 7200s
+    interval: 75s
+    probes: 9
 ---
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: ClientTrafficPolicy
@@ -123,6 +127,10 @@ spec:
   targetSelectors:
     - group: gateway.networking.k8s.io
       kind: Gateway
+  tcpKeepalive:
+    idleTimeout: 7200s
+    interval: 75s
+    probes: 9
   tls:
     minVersion: "1.2"
     alpnProtocols:
