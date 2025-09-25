@@ -28,7 +28,6 @@ spec:
               tag: 6.13.4@sha256:f674a3115fd246043f49853b544754a1324fe8976efa05ce960bad3902dd30a3
             args:
               - daemon
-              - -v
             env:
               CROSS_SEED_PORT: &port 80
               TZ: America/Chicago
@@ -62,12 +61,10 @@ spec:
         runAsNonRoot: true
         runAsUser: 568
         runAsGroup: 568
-        fsGroup: 568
-        fsGroupChangePolicy: OnRootMismatch
         supplementalGroups: [65536]
     persistence:
       config:
-        existingClaim: "{{ .Release.Name }}"
+        type: emptyDir
       config-file:
         type: configMap
         name: "{{ .Release.Name }}-configmap"
@@ -82,17 +79,8 @@ spec:
         globalMounts:
           - path: /media/downloads
             subPath: downloads
-      tmpfs:
+      tmp:
         type: emptyDir
-        advancedMounts:
-          cross-seed:
-            app:
-              - path: /config/logs
-                subPath: logs
-              - path: /config/torrent_cache
-                subPath: torrent_cache
-              - path: /tmp
-                subPath: tmp
     service:
       app:
         ports:
