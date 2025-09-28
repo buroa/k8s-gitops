@@ -21,13 +21,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: blackbox-exporter
-  install:
-    remediation:
-      retries: -1
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
   values:
     fullnameOverride: *app
     securityContext:

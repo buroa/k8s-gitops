@@ -21,15 +21,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: openebs
-  install:
-    disableHooks: true
-    remediation:
-      retries: -1
-  upgrade:
-    cleanupOnFail: true
-    disableHooks: true
-    remediation:
-      retries: 3
   values:
     localpv-provisioner:
       localpv:
