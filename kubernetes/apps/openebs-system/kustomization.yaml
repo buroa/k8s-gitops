@@ -3,6 +3,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: openebs-system
 components:
-  - ../../components/common
+  - ../../components/alerts
+  - ../../components/namespace
 resources:
   - ./openebs/ks.yaml
