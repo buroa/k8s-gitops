@@ -110,6 +110,8 @@ spec:
   compression:
     - type: Brotli
     - type: Gzip
+  connection:
+    bufferLimit: 1Mi
   tcpKeepalive: {}
 ---
 apiVersion: gateway.envoyproxy.io/v1alpha1
