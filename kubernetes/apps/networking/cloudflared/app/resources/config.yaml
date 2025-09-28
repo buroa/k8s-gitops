@@ -1,12 +1,7 @@
 ---
 ingress:
-  - hostname: plex.k13.dev
-    path: /:/eventsource/notifications
-    service: http_status:200
-
   - hostname: "*.k13.dev"
     service: https://envoy-external.networking.svc.cluster.local
     originRequest:
       originServerName: external.k13.dev
-
   - service: http_status:404
