@@ -5,6 +5,5 @@ namespace: actions-runner-system
 components:
   - ../../components/alerts
   - ../../components/namespace
-  - ../../components/helmrelease
 resources:
   - ./actions-runner-controller/ks.yaml
