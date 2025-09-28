@@ -8,6 +8,5 @@ patches:
       group: kustomize.toolkit.fluxcd.io
     patch: |-
       - op: add
-        path: /spec/components
-        value:
-          - ../../../../components/helmrelease
+        path: /spec/components/-
+        value: ../../../../components/helmrelease
