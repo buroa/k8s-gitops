@@ -7,9 +7,8 @@ patches:
       version: v1
       group: kustomize.toolkit.fluxcd.io
     patch: |-
-      - op: add
-        path: /spec/components
-        value: []
-      - op: add
-        path: /spec/components/-
-        value: ../../../../components/helmrelease
+      apiVersion: kustomize.toolkit.fluxcd.io/v1
+      kind: Kustomization
+      spec:
+        components:
+          - ../../../../components/helmrelease
