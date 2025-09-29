@@ -41,11 +41,11 @@ spec:
               namespace: networking
               sectionName: https
       alertmanagerSpec:
+        externalUrl: https://alertmanager.k13.dev
         alertmanagerConfiguration:
           name: alertmanager
           global:
             resolveTimeout: 5m
-        externalUrl: https://alertmanager.k13.dev
         storage:
           volumeClaimTemplate:
             spec:
@@ -70,10 +70,12 @@ spec:
               namespace: networking
               sectionName: https
       prometheusSpec:
+        externalUrl: https://prometheus.k13.dev
+        version: v2.55.1 # override 'unsupported Prometheus version' error
         image:
           registry: docker.io
           repository: prompp/prompp
-          tag: 2.53.2-0.4.0
+          tag: 0.5.1
         securityContext:
           runAsNonRoot: true
           runAsUser: 64535
@@ -84,7 +86,6 @@ spec:
         podMonitorSelectorNilUsesHelmValues: false
         probeSelectorNilUsesHelmValues: false
         scrapeConfigSelectorNilUsesHelmValues: false
-        externalUrl: https://prometheus.k13.dev
         retention: 14d
         retentionSize: 50GB
         resources:
