@@ -113,6 +113,9 @@ spec:
   connection:
     bufferLimit: 64Mi
   tcpKeepalive: {}
+  timeout:
+    http:
+      requestTimeout: 0s
 ---
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: ClientTrafficPolicy
@@ -129,6 +132,9 @@ spec:
     - group: gateway.networking.k8s.io
       kind: Gateway
   tcpKeepalive: {}
+  timeout:
+    http:
+      requestReceivedTimeout: 0s
   tls:
     minVersion: "1.2"
     alpnProtocols:
