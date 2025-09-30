@@ -28,11 +28,15 @@
       description: "Flux Operator Group",
       groupName: "flux-operator",
       matchDatasources: ["docker"],
-      matchPackageNames: ["/flux-operator/", "/flux-instance/"],
+      matchPackageNames: [
+        "/flux-instance/",
+        "/flux-operator/",
+        "/flux-operator-manifests/",
+      ],
       group: {
         commitMessageTopic: "{{{groupName}}} group",
       },
-      minimumGroupSize: 2,
+      minimumGroupSize: 3,
     },
     {
       description: "Kubernetes Group",
