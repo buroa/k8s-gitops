@@ -23,12 +23,11 @@ spec:
     name: gha-runner-scale-set-controller
   install:
     crds: CreateReplace
-    remediation:
-      retries: -1
+    strategy:
+      name: RetryOnFailure
   upgrade:
-    cleanupOnFail: true
     crds: CreateReplace
-    remediation:
-      retries: 3
+    strategy:
+      name: RetryOnFailure
   values:
     fullnameOverride: *name

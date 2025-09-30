@@ -22,12 +22,11 @@ spec:
     kind: OCIRepository
     name: silence-operator
   install:
-    remediation:
-      retries: -1
+    strategy:
+      name: RetryOnFailure
   upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
+    strategy:
+      name: RetryOnFailure
   values:
     alertmanagerAddress: http://alertmanager-operated.observability.svc.cluster.local:9093
     image:

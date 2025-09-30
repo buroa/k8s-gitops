@@ -23,12 +23,11 @@ spec:
     name: tuppr
   install:
     crds: CreateReplace
-    remediation:
-      retries: -1
+    strategy:
+      name: RetryOnFailure
   upgrade:
-    cleanupOnFail: true
     crds: CreateReplace
-    remediation:
-      retries: 3
+    strategy:
+      name: RetryOnFailure
   values:
     replicaCount: 2

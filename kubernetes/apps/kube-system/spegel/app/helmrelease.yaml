@@ -22,12 +22,11 @@ spec:
     kind: OCIRepository
     name: spegel
   install:
-    remediation:
-      retries: -1
+    strategy:
+      name: RetryOnFailure
   upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
+    strategy:
+      name: RetryOnFailure
   values:
     grafanaDashboard:
       enabled: true

@@ -22,12 +22,11 @@ spec:
     kind: OCIRepository
     name: flux-instance
   install:
-    remediation:
-      retries: -1
+    strategy:
+      name: RetryOnFailure
   upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
+    strategy:
+      name: RetryOnFailure
   values:
     instance:
       distribution:
@@ -111,3 +110,19 @@ spec:
             target:
               kind: Deployment
               name: helm-controller
+          - # Watch configmaps and secrets attached to HelmReleases and Kustomizations
+            patch: |
+              - op: add
+                path: /spec/template/spec/containers/0/args/-
+                value: --watch-configs-label-selector=owner!=helm
+            target:
+              kind: Deployment
+              name: (helm-controller|kustomize-controller)
+          - # Cancel health checks on new Kustomizations revisions
+            patch: |
+              - op: add
+                path: /spec/template/spec/containers/0/args/-
+                value: --feature-gates=CancelHealthCheckOnNewRevision=true
+            target:
+              kind: Deployment
+              name: kustomize-controller
