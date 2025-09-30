@@ -23,20 +23,16 @@ spec:
         initContainers:
           init-config:
             image:
-              repository: ghcr.io/home-operations/k8s-sidecar
-              tag: 1.30.10@sha256:dd3b1f0c4e6b4512b2deb50c58acf65fd0f0927120a59a95eec854d32a6c9ce3
-            env:
-              FOLDER: /config
-              LABEL: gatus.io/enabled
-              NAMESPACE: ALL
-              RESOURCE: both
-              UNIQUE_FILENAMES: true
-              METHOD: WATCH
+              repository: ghcr.io/home-operations/gatus-sidecar
+              tag: 0.0.1@sha256:c1154b6df931ab2efe397d770fac166045ee858b60235254f8aa9592c10d9c46
+            args:
+              - --gateway=envoy-external
+              - --output=/config
             resources:
               requests:
                 cpu: 10m
               limits:
-                memory: 128Mi
+                memory: 64Mi
             restartPolicy: Always
         containers:
           app:
@@ -90,6 +86,9 @@ spec:
             readOnly: true
     route:
       app:
+        annotations:
+          gatus.home-operations.com/endpoint: |
+            url: https://{{ .Release.Name }}.k13.dev/health
         hostnames:
           - "{{ .Release.Name }}.k13.dev"
           - status.k13.dev

@@ -8,14 +8,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  components:
-    - ../../../../components/gatus
   interval: 1h
   path: ./kubernetes/apps/networking/echo-server/app
-  postBuild:
-    substitute:
-      APP: *app
-      GATUS_PATH: /healthz
   prune: true
   retryInterval: 2m
   sourceRef:

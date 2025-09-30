@@ -60,6 +60,9 @@ spec:
         runAsGroup: 568
     route:
       app:
+        annotations:
+          gatus.home-operations.com/endpoint: |
+            url: https://{{ .Release.Name }}.k13.dev/healthz
         hostnames:
           - "{{ .Release.Name }}.k13.dev"
           - echo.k13.dev

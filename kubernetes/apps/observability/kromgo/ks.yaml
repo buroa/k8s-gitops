@@ -8,14 +8,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  components:
-    - ../../../../components/gatus
   interval: 1h
   path: ./kubernetes/apps/observability/kromgo/app
-  postBuild:
-    substitute:
-      APP: *app
-      GATUS_STATUS: "404"
   prune: true
   retryInterval: 2m
   sourceRef:
