@@ -22,11 +22,10 @@ spec:
     kind: OCIRepository
     name: keda
   install:
-    remediation:
-      retries: -1
+    strategy:
+      name: RetryOnFailure
   upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
+    strategy:
+      name: RetryOnFailure
   values:
     enableServiceLinks: false

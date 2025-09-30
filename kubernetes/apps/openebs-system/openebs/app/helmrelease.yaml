@@ -23,13 +23,12 @@ spec:
     name: openebs
   install:
     disableHooks: true
-    remediation:
-      retries: -1
+    strategy:
+      name: RetryOnFailure
   upgrade:
-    cleanupOnFail: true
     disableHooks: true
-    remediation:
-      retries: 3
+    strategy:
+      name: RetryOnFailure
   values:
     localpv-provisioner:
       localpv:
