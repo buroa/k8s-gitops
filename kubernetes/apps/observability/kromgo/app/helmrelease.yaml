@@ -71,7 +71,7 @@ spec:
       app:
         annotations:
           gatus.home-operations.com/endpoint: |-
-            conditions: ["[STATUS] == 404"]
+            url: https://{{ .Release.Name }}.k13.dev/talos_version
         hostnames:
           - "{{ .Release.Name }}.k13.dev"
         parentRefs:
