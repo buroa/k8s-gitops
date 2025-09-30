@@ -10,7 +10,7 @@ spec:
       app.kubernetes.io/name: *app
   components:
     - ../../../../components/gatus
-    - ../../../../components/keda/nfs-scaler
+    - ../../../../components/keda
     - ../../../../components/volsync
   dependsOn:
     - name: intel-device-plugin-gpu

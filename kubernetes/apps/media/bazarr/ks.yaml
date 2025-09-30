@@ -9,7 +9,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
-    - ../../../../components/keda/nfs-scaler
+    - ../../../../components/keda
     - ../../../../components/volsync
   dependsOn:
     - name: rook-ceph-cluster
