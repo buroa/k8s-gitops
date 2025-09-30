@@ -70,9 +70,8 @@ spec:
     route:
       app:
         annotations:
-          gatus.home-operations.com/endpoint: |
-            conditions:
-              - "[STATUS] == 404"
+          gatus.home-operations.com/endpoint: |-
+            conditions: ["[STATUS] == 404"]
         hostnames:
           - "{{ .Release.Name }}.k13.dev"
         parentRefs:

@@ -86,7 +86,7 @@ spec:
     route:
       app:
         annotations:
-          gatus.home-operations.com/endpoint: |
+          gatus.home-operations.com/endpoint: |-
             url: https://{{ .Release.Name }}.k13.dev/health
         hostnames:
           - "{{ .Release.Name }}.k13.dev"
