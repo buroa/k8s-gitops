@@ -9,9 +9,6 @@ kind: ClusterRole
 metadata:
   name: gatus
 rules:
-  - apiGroups: [""]
-    resources: ["configmaps", "secrets"]
-    verbs: ["get", "watch", "list"]
   - apiGroups: ["gateway.networking.k8s.io"]
     resources: ["httproutes"]
     verbs: ["get", "watch", "list"]
