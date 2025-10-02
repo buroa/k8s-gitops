@@ -112,6 +112,7 @@ spec:
     - type: Gzip
   connection:
     bufferLimit: 64Mi
+    maxAcceptPerSocketEvent: 0
   tcpKeepalive: {}
   timeout:
     http:
