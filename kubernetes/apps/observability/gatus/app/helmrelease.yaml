@@ -23,8 +23,8 @@ spec:
         initContainers:
           init-config:
             image:
-              repository: ghcr.io/buroa/gatus-sidecar
-              tag: test@sha256:13d88ce0fe3bea84a0cae86777a0b0de81159da39475952d30cbe21656203057
+              repository: ghcr.io/home-operations/gatus-sidecar
+              tag: main-53b963d@sha256:f966bf5bf02cfbf7e30f5c28d1397f47f81694e7d6d1556ace7033396ca86f39
             args:
               - --auto-routes
               - --gateway-name=envoy-external
