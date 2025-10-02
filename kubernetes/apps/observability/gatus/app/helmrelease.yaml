@@ -18,7 +18,7 @@ spec:
           init-config:
             image:
               repository: ghcr.io/home-operations/gatus-sidecar
-              tag: main-53b963d@sha256:f966bf5bf02cfbf7e30f5c28d1397f47f81694e7d6d1556ace7033396ca86f39
+              tag: main-e8690f3@sha256:53a7cb5af8a98e6903d4e9c4b828316562a3edb86ddf4e102d23c44455ff5d26
             args:
               - --auto-routes
               - --gateway-name=envoy-external
