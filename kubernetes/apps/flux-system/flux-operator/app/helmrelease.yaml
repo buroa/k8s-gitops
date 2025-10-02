@@ -21,12 +21,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: flux-operator
-  install:
-    strategy:
-      name: RetryOnFailure
-  upgrade:
-    strategy:
-      name: RetryOnFailure
   values:
     serviceMonitor:
       create: true

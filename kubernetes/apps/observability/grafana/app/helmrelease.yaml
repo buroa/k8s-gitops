@@ -21,12 +21,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: grafana
-  install:
-    strategy:
-      name: RetryOnFailure
-  upgrade:
-    strategy:
-      name: RetryOnFailure
   values:
     deploymentStrategy:
       type: Recreate

@@ -21,12 +21,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: gha-runner-scale-set
-  install:
-    strategy:
-      name: RetryOnFailure
-  upgrade:
-    strategy:
-      name: RetryOnFailure
   values:
     githubConfigUrl: https://github.com/buroa/k8s-gitops
     githubConfigSecret: k8s-gitops-runner-secret

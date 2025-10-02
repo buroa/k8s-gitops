@@ -21,12 +21,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: snmp-exporter
-  install:
-    strategy:
-      name: RetryOnFailure
-  upgrade:
-    strategy:
-      name: RetryOnFailure
   values:
     fullnameOverride: *app
     serviceMonitor:

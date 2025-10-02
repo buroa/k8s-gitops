@@ -21,12 +21,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: cilium
-  install:
-    strategy:
-      name: RetryOnFailure
-  upgrade:
-    strategy:
-      name: RetryOnFailure
   values:
     autoDirectNodeRoutes: true
     bandwidthManager:

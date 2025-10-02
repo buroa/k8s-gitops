@@ -21,12 +21,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: silence-operator
-  install:
-    strategy:
-      name: RetryOnFailure
-  upgrade:
-    strategy:
-      name: RetryOnFailure
   values:
     alertmanagerAddress: http://alertmanager-operated.observability.svc.cluster.local:9093
     image:

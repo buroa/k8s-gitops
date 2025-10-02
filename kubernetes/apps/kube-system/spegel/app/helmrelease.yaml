@@ -21,12 +21,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: spegel
-  install:
-    strategy:
-      name: RetryOnFailure
-  upgrade:
-    strategy:
-      name: RetryOnFailure
   values:
     grafanaDashboard:
       enabled: true

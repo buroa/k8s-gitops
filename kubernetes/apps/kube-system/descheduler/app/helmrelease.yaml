@@ -21,12 +21,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: descheduler
-  install:
-    strategy:
-      name: RetryOnFailure
-  upgrade:
-    strategy:
-      name: RetryOnFailure
   values:
     kind: Deployment
     deschedulerPolicyAPIVersion: descheduler/v1alpha2

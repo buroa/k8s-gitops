@@ -21,12 +21,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: intel-device-plugins-gpu
-  install:
-    strategy:
-      name: RetryOnFailure
-  upgrade:
-    strategy:
-      name: RetryOnFailure
   values:
     name: i915
     nodeFeatureRule: false

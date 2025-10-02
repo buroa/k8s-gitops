@@ -21,11 +21,5 @@ spec:
   chartRef:
     kind: OCIRepository
     name: keda
-  install:
-    strategy:
-      name: RetryOnFailure
-  upgrade:
-    strategy:
-      name: RetryOnFailure
   values:
     enableServiceLinks: false

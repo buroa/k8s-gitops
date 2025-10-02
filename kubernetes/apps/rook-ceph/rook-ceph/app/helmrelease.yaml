@@ -21,12 +21,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: rook-ceph
-  install:
-    strategy:
-      name: RetryOnFailure
-  upgrade:
-    strategy:
-      name: RetryOnFailure
   values:
     csi:
       cephFSKernelMountOptions: ms_mode=prefer-crc

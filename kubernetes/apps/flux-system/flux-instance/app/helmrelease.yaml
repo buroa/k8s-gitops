@@ -21,12 +21,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: flux-instance
-  install:
-    strategy:
-      name: RetryOnFailure
-  upgrade:
-    strategy:
-      name: RetryOnFailure
   values:
     instance:
       distribution:

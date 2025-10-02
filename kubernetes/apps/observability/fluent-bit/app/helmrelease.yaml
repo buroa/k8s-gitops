@@ -21,12 +21,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: fluent-bit
-  install:
-    strategy:
-      name: RetryOnFailure
-  upgrade:
-    strategy:
-      name: RetryOnFailure
   values:
     config:
       service: |-

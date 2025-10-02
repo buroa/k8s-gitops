@@ -21,12 +21,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: metrics-server
-  install:
-    strategy:
-      name: RetryOnFailure
-  upgrade:
-    strategy:
-      name: RetryOnFailure
   values:
     args:
       - --kubelet-insecure-tls

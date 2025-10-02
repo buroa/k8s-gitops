@@ -21,14 +21,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: envoy-gateway
-  install:
-    crds: CreateReplace
-    strategy:
-      name: RetryOnFailure
-  upgrade:
-    crds: CreateReplace
-    strategy:
-      name: RetryOnFailure
   values:
     config:
       envoyGateway:

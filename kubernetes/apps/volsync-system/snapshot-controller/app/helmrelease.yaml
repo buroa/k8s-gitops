@@ -21,14 +21,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: snapshot-controller
-  install:
-    crds: CreateReplace
-    strategy:
-      name: RetryOnFailure
-  upgrade:
-    crds: CreateReplace
-    strategy:
-      name: RetryOnFailure
   values:
     controller:
       replicaCount: 2

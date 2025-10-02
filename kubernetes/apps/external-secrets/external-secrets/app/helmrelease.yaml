@@ -21,12 +21,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: external-secrets
-  install:
-    strategy:
-      name: RetryOnFailure
-  upgrade:
-    strategy:
-      name: RetryOnFailure
   values:
     image:
       repository: ghcr.io/external-secrets/external-secrets
