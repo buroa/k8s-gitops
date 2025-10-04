@@ -45,6 +45,10 @@ metadata:
   name: envoy-external
   annotations:
     external-dns.alpha.kubernetes.io/target: &hostname external.k13.dev
+    gatus.home-operations.com/endpoint: |
+      client:
+        dns-resolver: tcp://1.1.1.1:53
+      group: external
 spec:
   gatewayClassName: envoy
   infrastructure:
@@ -75,6 +79,9 @@ metadata:
   name: envoy-internal
   annotations:
     external-dns.alpha.kubernetes.io/target: &hostname internal.k13.dev
+    gatus.home-operations.com/endpoint: |
+      group: internal
+      guarded: true
 spec:
   gatewayClassName: envoy
   infrastructure:
