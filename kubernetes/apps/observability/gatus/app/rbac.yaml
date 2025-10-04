@@ -16,7 +16,7 @@ rules:
     resources: ["ingresses"]
     verbs: ["get", "watch", "list"]
   - apiGroups: ["gateway.networking.k8s.io"]
-    resources: ["httproutes"]
+    resources: ["gateways", "httproutes"]
     verbs: ["get", "watch", "list"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
