@@ -18,7 +18,7 @@ spec:
           init-config:
             image:
               repository: ghcr.io/buroa/gatus-sidecar
-              tag: test@sha256:c33cbdc6ecb71db97aef3d27bfbfdb562e4542d88559bec3601496edfb6afdcd
+              tag: test@sha256:8fc078bd415723741d2faffef20b796e3e4304664eab027acacc5f833282be7e
             args:
               - --auto-httproute
             resources:
