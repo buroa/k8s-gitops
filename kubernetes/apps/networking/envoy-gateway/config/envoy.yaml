@@ -121,7 +121,7 @@ spec:
     - type: Brotli
     - type: Gzip
   connection:
-    bufferLimit: 64Mi
+    bufferLimit: 8Mi
   tcpKeepalive: {}
   timeout:
     http:
@@ -136,9 +136,11 @@ spec:
     xForwardedFor:
       numTrustedHops: 1
   connection:
-    bufferLimit: 64Mi
+    bufferLimit: 8Mi
     maxAcceptPerSocketEvent: 0
   http2:
+    initialStreamWindowSize: 2Mi
+    initialConnectionWindowSize: 32Mi
     onInvalidMessage: TerminateStream
   http3: {}
   targetSelectors:
