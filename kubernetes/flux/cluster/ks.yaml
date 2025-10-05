@@ -31,25 +31,14 @@ spec:
     name: flux-system
     namespace: flux-system
   patches:
-    - # Add default timings to all Kustomizations
+    - # Add Kustomization defaults for all child Kustomizations
       patch: |-
         apiVersion: kustomize.toolkit.fluxcd.io/v1
         kind: Kustomization
         metadata:
           name: not-used
         spec:
-          retryInterval: 2m
-          timeout: 10m
-      target:
-        group: kustomize.toolkit.fluxcd.io
-        kind: Kustomization
-    - # Add HelmRelease defaults to all Kustomizations
-      patch: |-
-        apiVersion: kustomize.toolkit.fluxcd.io/v1
-        kind: Kustomization
-        metadata:
-          name: not-used
-        spec:
+          deletionPolicy: WaitForTermination
           patches:
             - patch: |-
                 apiVersion: helm.toolkit.fluxcd.io/v2
@@ -64,7 +53,6 @@ spec:
                   rollback:
                     cleanupOnFail: true
                     recreate: true
-                  timeout: 10m
                   upgrade:
                     cleanupOnFail: true
                     crds: CreateReplace
