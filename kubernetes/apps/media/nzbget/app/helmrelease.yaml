@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: sabnzbd
+  name: nzbget
 spec:
   interval: 1h
   chartRef:
@@ -11,46 +11,28 @@ spec:
     namespace: flux-system
   values:
     controllers:
-      sabnzbd:
-        annotations:
-          reloader.stakater.com/auto: "true"
+      nzbget:
         containers:
           app:
             image:
-              repository: ghcr.io/home-operations/sabnzbd
-              tag: 4.5.3@sha256:ecb57bd6257fbfbd9aee70d8ef3df8814b7270ae793fd1f44219ae73cacd519a
+              repository: ghcr.io/home-operations/nzbget
+              tag: 25.3.0@sha256:4a4cf04d8e87a1b5fb1894477701146e06ae41c736208b14ade1662db07adc1a
             env:
-              SABNZBD__PORT: &port 80
-              SABNZBD__HOST_WHITELIST_ENTRIES: >-
-                {{ .Release.Name }},
-                {{ .Release.Name }}.{{ .Release.Namespace }},
-                {{ .Release.Name }}.{{ .Release.Namespace }}.svc,
-                {{ .Release.Name }}.{{ .Release.Namespace }}.svc.cluster,
-                {{ .Release.Name }}.{{ .Release.Namespace }}.svc.cluster.local,
-                {{ .Release.Name }}.k13.dev,
-                sab.k13.dev
+              NZBGET__PORT: &port 80
               TZ: America/Chicago
-            envFrom:
-              - secretRef:
-                  name: "{{ .Release.Name }}-secret"
             probes:
               liveness: &probes
                 enabled: true
                 custom: true
                 spec:
                   httpGet:
-                    path: /api?mode=version
+                    path: /jsonrpc/status
                     port: *port
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
                   failureThreshold: 3
               readiness: *probes
-              startup:
-                enabled: true
-                spec:
-                  failureThreshold: 30
-                  periodSeconds: 10
             resources:
               requests:
                 cpu: 100m
@@ -93,7 +75,7 @@ spec:
       tmpfs:
         type: emptyDir
         advancedMounts:
-          sabnzbd:
+          nzbget:
             app:
               - path: /config/logs
                 subPath: logs
@@ -103,7 +85,7 @@ spec:
       app:
         hostnames:
           - "{{ .Release.Name }}.k13.dev"
-          - sab.k13.dev
+          - nzb.k13.dev
         parentRefs:
           - name: envoy-internal
             namespace: networking
