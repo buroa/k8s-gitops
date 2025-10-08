@@ -22,7 +22,6 @@ spec:
             env:
               GATUS_WEB_PORT: &port 80
               GATUS_CONFIG_PATH: /config
-              GATUS_DELAY_START_SECONDS: 5
               TZ: America/Chicago
             envFrom:
               - secretRef:
