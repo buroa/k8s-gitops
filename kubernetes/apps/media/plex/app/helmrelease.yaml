@@ -40,16 +40,20 @@ spec:
                   periodSeconds: 10
                   failureThreshold: 30
             resources:
+              claims:
+                - name: gpu
               requests:
                 cpu: 100m
               limits:
-                gpu.intel.com/i915: 1
                 memory: 10Gi
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
     defaultPodOptions:
+      resourceClaims:
+        - name: gpu
+          resourceClaimName: plex
       securityContext:
         runAsNonRoot: true
         runAsUser: 568
@@ -81,6 +85,17 @@ spec:
                 subPath: transcode
               - path: /tmp
                 subPath: tmp
+    rawResources:
+      gpu:
+        apiVersion: resource.k8s.io/v1
+        kind: ResourceClaim
+        spec:
+          spec:
+            devices:
+              requests:
+                - name: gpu
+                  exactly:
+                    deviceClassName: gpu.intel.com
     route:
       app:
         annotations:
