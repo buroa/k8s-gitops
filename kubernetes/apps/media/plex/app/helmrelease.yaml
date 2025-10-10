@@ -53,7 +53,7 @@ spec:
     defaultPodOptions:
       resourceClaims:
         - name: gpu
-          resourceClaimTemplateName: "{{ .Release.Name }}-gpu"
+          resourceClaimTemplateName: "{{ .Release.Name }}"
       securityContext:
         runAsNonRoot: true
         runAsUser: 568
