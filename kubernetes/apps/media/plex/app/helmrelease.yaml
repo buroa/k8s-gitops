@@ -53,7 +53,7 @@ spec:
     defaultPodOptions:
       resourceClaims:
         - name: gpu
-          resourceClaimTemplateName: "{{ .Release.Name }}"
+          resourceClaimTemplateName: "{{ .Release.Name }}-gpu"
       securityContext:
         runAsNonRoot: true
         runAsUser: 568
@@ -86,17 +86,18 @@ spec:
               - path: /tmp
                 subPath: tmp
     rawResources:
-      apiVersion: resource.k8s.io/v1
-      kind: ResourceClaimTemplate
-      spec:
+      gpu:
+        apiVersion: resource.k8s.io/v1
+        kind: ResourceClaimTemplate
         spec:
-          devices:
-            requests:
-              - name: gpu
-                exactly:
-                  deviceClassName: gpu.intel.com
-                  adminAccess: true
-                  allocationMode: All
+          spec:
+            devices:
+              requests:
+                - name: gpu
+                  exactly:
+                    deviceClassName: gpu.intel.com
+                    adminAccess: true
+                    allocationMode: All
     route:
       app:
         annotations:
