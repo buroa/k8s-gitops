@@ -1,31 +1,32 @@
 ---
 version: v1alpha1
 machine:
-  type: {{ machinetype }}
-  token: op://K8s/talos/MACHINE_TOKEN
   ca:
     crt: op://K8s/talos/MACHINE_CA_CRT
     {% if machinetype == 'controlplane' %}
     key: op://K8s/talos/MACHINE_CA_KEY
     {% endif %}
   features:
-    rbac: true
-    stableHostname: true
-    {% if machinetype == 'controlplane' %}
-    kubernetesTalosAPIAccess:
-      enabled: true
-      allowedRoles: ["os:admin"]
-      allowedKubernetesNamespaces: ["actions-runner-system", "system-upgrade"]
-    {% endif %}
     apidCheckExtKeyUsage: true
     diskQuotaSupport: true
+    hostDNS:
+      enabled: true
+      forwardKubeDNSToHost: false
+      resolveMemberNames: true
     kubePrism:
       enabled: true
       port: 7445
-    hostDNS:
+    {% if machinetype == 'controlplane' %}
+    kubernetesTalosAPIAccess:
       enabled: true
-      resolveMemberNames: true
-      forwardKubeDNSToHost: false
+      allowedRoles:
+        - os:admin
+      allowedKubernetesNamespaces:
+        - actions-runner-system
+        - system-upgrade
+    {% endif %}
+    rbac: true
+    stableHostname: true
   files:
     - op: create
       path: /etc/cri/conf.d/20-customization.part
@@ -33,6 +34,7 @@ machine:
         [plugins."io.containerd.cri.v1.images"]
           discard_unpacked_layers = false
         [plugins."io.containerd.cri.v1.runtime"]
+          cdi_spec_dirs = ["/var/cdi/static", "/var/cdi/dynamic"]
           device_ownership_from_security_context = true
     - op: overwrite
       path: /etc/nfsmount.conf
@@ -51,35 +53,37 @@ machine:
     modules:
       - name: nbd
   kubelet:
-    image: ghcr.io/siderolabs/kubelet:v1.34.1
+    defaultRuntimeSeccompProfileEnabled: true
+    disableManifestsDirectory: true
     extraConfig:
       featureGates:
         ImageVolume: true
+        ResourceHealthStatus: true
       serializeImagePulls: false
-    defaultRuntimeSeccompProfileEnabled: true
+    image: ghcr.io/siderolabs/kubelet:v1.34.1
     nodeIP:
-      validSubnets: ["192.168.10.0/24"]
-    disableManifestsDirectory: true
+      validSubnets:
+        - 192.168.10.0/24
   network:
     interfaces:
       - interface: bond0
         bond:
-          deviceSelectors: [{ hardwareAddr: "58:47:ca:7f:*", driver: i40e }]
-          mode: 802.3ad
-          xmitHashPolicy: layer3+4
+          deviceSelectors:
+            - hardwareAddr: 58:47:ca:7f:*
+              driver: i40e
           lacpRate: fast
           miimon: 1000
+          mode: 802.3ad
+          xmitHashPolicy: layer3+4
         dhcp: true
         mtu: 9000
         vlans:
-          - # Services VLAN
-            { vlanId: 20, dhcp: false, mtu: 9000 }
-          - # IOT VLAN
-            { vlanId: 30, dhcp: false, mtu: 9000 }
-    nameservers: ["192.168.10.1"]
-    disableSearchDomain: true
+          - # IOT
+            vlanId: 30
+            dhcp: false
+            mtu: 9000
   nodeLabels:
-    intel.feature.node.kubernetes.io/gpu: "true"
+    node.kubernetes.io/gpu: "true"
     topology.kubernetes.io/region: k8s
     topology.kubernetes.io/zone: {{ 'm' if machinetype == 'controlplane' else 'w' }}
   sysctls:
@@ -99,7 +103,10 @@ machine:
     user.max_user_namespaces: 11255        # User Namespaces
   time:
     disabled: false
-    servers: ["time.cloudflare.com"]
+    servers:
+      - time.cloudflare.com
+  token: op://K8s/talos/MACHINE_TOKEN
+  type: {{ machinetype }}
 cluster:
   ca:
     crt: op://K8s/talos/CLUSTER_CA_CRT
@@ -112,15 +119,19 @@ cluster:
   discovery:
     enabled: true
     registries:
-      kubernetes: { disabled: true }
-      service: { disabled: false }
+      kubernetes:
+        disabled: true
+      service:
+        disabled: false
   id: op://K8s/talos/CLUSTER_ID
   network:
     cni:
       name: none
     dnsDomain: cluster.local
-    podSubnets: ["10.244.0.0/16"]
-    serviceSubnets: ["10.245.0.0/16"]
+    podSubnets:
+      - 10.244.0.0/16
+    serviceSubnets:
+      - 10.245.0.0/16
   secret: op://K8s/talos/CLUSTER_SECRET
   token: op://K8s/talos/CLUSTER_TOKEN
   {% if machinetype == 'controlplane' %}
@@ -129,29 +140,32 @@ cluster:
     key: op://K8s/talos/CLUSTER_AGGREGATORCA_KEY
   allowSchedulingOnControlPlanes: true
   apiServer:
-    image: registry.k8s.io/kube-apiserver:v1.34.1
+    certSANs:
+      - k8s.internal
+    disablePodSecurityPolicy: true
     extraArgs:
       enable-aggregator-routing: true
-      feature-gates: ImageVolume=true
-    certSANs: ["k8s.internal"]
-    disablePodSecurityPolicy: true
+      feature-gates: ImageVolume=true,ResourceHealthStatus=true
+    image: registry.k8s.io/kube-apiserver:v1.34.1
   controllerManager:
+    extraArgs:
+      bind-address: 0.0.0.0
     image: registry.k8s.io/kube-controller-manager:v1.34.1
-    extraArgs: { bind-address: 0.0.0.0 }
-  coreDNS: { disabled: true }
+  coreDNS:
+    disabled: true
   etcd:
-    advertisedSubnets: ["192.168.10.0/24"]
+    advertisedSubnets:
+      - 192.168.10.0/24
     ca:
       crt: op://K8s/talos/CLUSTER_ETCD_CA_CRT
       key: op://K8s/talos/CLUSTER_ETCD_CA_KEY
-    extraArgs: { listen-metrics-urls: http://0.0.0.0:2381 }
+    extraArgs:
+      listen-metrics-urls: http://0.0.0.0:2381
   proxy:
     disabled: true
     image: registry.k8s.io/kube-proxy:v1.34.1
   secretboxEncryptionSecret: op://K8s/talos/CLUSTER_SECRETBOXENCRYPTIONSECRET
   scheduler:
-    image: registry.k8s.io/kube-scheduler:v1.34.1
-    extraArgs: { bind-address: 0.0.0.0 }
     config:
       apiVersion: kubescheduler.config.k8s.io/v1
       kind: KubeSchedulerConfiguration
@@ -159,7 +173,8 @@ cluster:
         - schedulerName: default-scheduler
           plugins:
             score:
-              disabled: [{ name: ImageLocality }]
+              disabled:
+                - name: ImageLocality
           pluginConfig:
             - name: PodTopologySpread
               args:
@@ -168,6 +183,9 @@ cluster:
                   - maxSkew: 1
                     topologyKey: kubernetes.io/hostname
                     whenUnsatisfiable: ScheduleAnyway
+    extraArgs:
+      bind-address: 0.0.0.0
+    image: registry.k8s.io/kube-scheduler:v1.34.1
   serviceAccount:
     key: op://K8s/talos/CLUSTER_SERVICEACCOUNT_KEY
   {% endif %}
@@ -175,12 +193,16 @@ cluster:
 apiVersion: v1alpha1
 kind: EthernetConfig
 name: enp5s0f0np0
-rings: { rx: 8160, tx: 8160 }
+rings:
+  rx: 8160
+  tx: 8160
 ---
 apiVersion: v1alpha1
 kind: EthernetConfig
 name: enp5s0f1np1
-rings: { rx: 8160, tx: 8160 }
+rings:
+  rx: 8160
+  tx: 8160
 ---
 apiVersion: v1alpha1
 kind: UserVolumeConfig
