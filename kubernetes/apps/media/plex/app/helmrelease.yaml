@@ -53,7 +53,7 @@ spec:
     defaultPodOptions:
       resourceClaims:
         - name: gpu
-          resourceClaimName: plex
+          resourceClaimTemplateName: plex
       securityContext:
         runAsNonRoot: true
         runAsUser: 568
@@ -88,14 +88,15 @@ spec:
     rawResources:
       gpu:
         apiVersion: resource.k8s.io/v1
-        kind: ResourceClaim
+        kind: ResourceClaimTemplate
         spec:
           spec:
-            devices:
-              requests:
-                - name: gpu
-                  exactly:
-                    deviceClassName: gpu.intel.com
+            spec:
+              devices:
+                requests:
+                  - name: gpu
+                    exactly:
+                      deviceClassName: gpu.intel.com
     route:
       app:
         annotations:
