@@ -3,7 +3,7 @@ groups:
   - name: zigbee2mqtt
     rules:
       - alert: ZigbeeUnableToReachMQTT
-        expr: |
+        expr: |-
           count_over_time({app="zigbee2mqtt"} |~ "(?i)not connected to mqtt server"[5m]) > 0
         for: 5m
         annotations:

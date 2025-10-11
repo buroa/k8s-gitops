@@ -17,5 +17,4 @@ resources:
   - ./silence-operator/ks.yaml
   - ./smartctl-exporter/ks.yaml
   - ./snmp-exporter/ks.yaml
-  - ./spoodermon/ks.yaml
   - ./unpoller/ks.yaml
