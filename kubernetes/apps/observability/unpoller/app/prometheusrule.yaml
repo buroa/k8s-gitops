@@ -8,7 +8,7 @@ spec:
     - name: unpoller.rules
       rules:
         - alert: UDMDownloadBandwithLow
-          expr: |
+          expr: |-
             unpoller_device_speedtest_download < 100
           for: 5m
           annotations:
@@ -18,7 +18,7 @@ spec:
             severity: critical
 
         - alert: UDMUploadBandwidthLow
-          expr: |
+          expr: |-
             unpoller_device_speedtest_upload < 100
           for: 5m
           annotations:
