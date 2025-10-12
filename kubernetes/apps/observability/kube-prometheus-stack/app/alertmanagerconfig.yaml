@@ -6,7 +6,7 @@ metadata:
 spec:
   route:
     groupBy: ["alertname", "job"]
-    groupInterval: 10m
+    groupInterval: 5m
     groupWait: 1m
     receiver: pushover
     repeatInterval: 12h
@@ -17,7 +17,6 @@ spec:
             value: InfoInhibitor
             matchType: =
       - receiver: heartbeat
-        groupInterval: 5m
         groupWait: 0s
         repeatInterval: 5m
         matchers:
