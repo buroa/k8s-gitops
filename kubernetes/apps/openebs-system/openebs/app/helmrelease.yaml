@@ -17,14 +17,10 @@ kind: HelmRelease
 metadata:
   name: openebs
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: openebs
-  install:
-    disableHooks: true
-  upgrade:
-    disableHooks: true
+  interval: 1h
   values:
     localpv-provisioner:
       localpv:

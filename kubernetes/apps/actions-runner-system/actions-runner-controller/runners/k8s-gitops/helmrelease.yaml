@@ -17,10 +17,10 @@ kind: HelmRelease
 metadata:
   name: &app k8s-gitops-runner
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: gha-runner-scale-set
+  interval: 1h
   values:
     githubConfigUrl: https://github.com/buroa/k8s-gitops
     githubConfigSecret: k8s-gitops-runner-secret

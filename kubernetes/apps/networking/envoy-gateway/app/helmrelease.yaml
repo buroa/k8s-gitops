@@ -17,10 +17,10 @@ kind: HelmRelease
 metadata:
   name: envoy-gateway
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: envoy-gateway
+  interval: 1h
   values:
     config:
       envoyGateway:

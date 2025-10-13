@@ -17,10 +17,10 @@ kind: HelmRelease
 metadata:
   name: external-secrets
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: external-secrets
+  interval: 1h
   values:
     image:
       repository: ghcr.io/external-secrets/external-secrets

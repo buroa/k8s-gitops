@@ -17,10 +17,10 @@ kind: HelmRelease
 metadata:
   name: grafana
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: grafana
+  interval: 1h
   values:
     deploymentStrategy:
       type: Recreate
@@ -49,7 +49,6 @@ spec:
         apiVersion: 1
         deleteDatasources:
           - { name: Alertmanager, orgId: 1 }
-          - { name: Loki, orgId: 1 }
           - { name: Prometheus, orgId: 1 }
         datasources:
           - name: Alertmanager
@@ -59,13 +58,6 @@ spec:
             url: http://alertmanager-operated.observability.svc.cluster.local:9093
             jsonData:
               implementation: prometheus
-          - name: Loki
-            type: loki
-            uid: loki
-            access: proxy
-            url: http://loki-headless.observability.svc.cluster.local:3100
-            jsonData:
-              maxLines: 250
           - name: Prometheus
             type: prometheus
             uid: prometheus

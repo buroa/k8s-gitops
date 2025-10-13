@@ -17,10 +17,10 @@ kind: HelmRelease
 metadata:
   name: volsync
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: volsync
+  interval: 1h
   values:
     manageCRDs: true
     replicaCount: 2

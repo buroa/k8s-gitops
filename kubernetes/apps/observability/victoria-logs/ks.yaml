@@ -2,7 +2,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app loki
+  name: &app victoria-logs
   namespace: &namespace observability
 spec:
   commonMetadata:
@@ -12,7 +12,7 @@ spec:
     - name: rook-ceph-cluster
       namespace: rook-ceph
   interval: 1h
-  path: ./kubernetes/apps/observability/loki/app
+  path: ./kubernetes/apps/observability/victoria-logs/app
   prune: true
   sourceRef:
     kind: GitRepository

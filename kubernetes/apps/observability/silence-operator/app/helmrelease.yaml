@@ -17,10 +17,10 @@ kind: HelmRelease
 metadata:
   name: silence-operator
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: silence-operator
+  interval: 1h
   values:
     alertmanagerAddress: http://alertmanager-operated.observability.svc.cluster.local:9093
     image:
