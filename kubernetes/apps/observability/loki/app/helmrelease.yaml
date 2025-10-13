@@ -54,16 +54,6 @@ spec:
         log_level: info
       storage:
         type: filesystem
-      structuredConfig:
-        ruler:
-          enable_api: true
-          enable_alertmanager_v2: true
-          alertmanager_url: http://alertmanager-operated.observability.svc.cluster.local:9093
-          storage:
-            type: local
-            local:
-              directory: /rules
-          rule_path: /rules/fake
     backend:
       replicas: 0
     chunksCache:
@@ -76,14 +66,6 @@ spec:
       replicas: 0
     resultsCache:
       enabled: false
-    sidecar:
-      image:
-        repository: ghcr.io/home-operations/k8s-sidecar
-        tag: 1.30.11@sha256:d8a53f834b0fe70030df75f3f956d1c5e56fbb067b09803708b2bc26e26cfc12
-      enableUniqueFilenames: true
-      rules:
-        searchNamespace: ALL
-        folder: /rules/fake
     singleBinary:
       replicas: 1
       persistence:
