@@ -17,10 +17,10 @@ kind: HelmRelease
 metadata:
   name: &app blackbox-exporter
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: blackbox-exporter
+  interval: 1h
   values:
     fullnameOverride: *app
     securityContext:

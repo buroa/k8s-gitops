@@ -17,10 +17,10 @@ kind: HelmRelease
 metadata:
   name: &app reloader
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: reloader
+  interval: 1h
   values:
     fullnameOverride: *app
     reloader:

@@ -4,11 +4,11 @@ kind: HelmRelease
 metadata:
   name: echo-server
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: app-template
     namespace: flux-system
+  interval: 1h
   values:
     controllers:
       echo-server:
