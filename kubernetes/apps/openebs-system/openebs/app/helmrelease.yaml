@@ -20,10 +20,7 @@ spec:
   chartRef:
     kind: OCIRepository
     name: openebs
-  install:
-    disableHooks: true
-  upgrade:
-    disableHooks: true
+  interval: 1h
   values:
     localpv-provisioner:
       localpv:
