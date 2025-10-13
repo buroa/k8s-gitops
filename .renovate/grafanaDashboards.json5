@@ -13,7 +13,7 @@
       description: "Process Grafana dashboards",
       managerFilePatterns: ["/(^|/)kubernetes/.+\\.ya?ml$/"],
       matchStrings: [
-        'https:\\/\\/grafana\\.com\\/api\\/dashboards\\/(?<depName>\\d+)\\/revisions\\/(?<currentValue>\\d+)\\/download',
+        "dashboards\\/(?<depName>\\d+)\\/revisions\\/(?<currentValue>\\d+)\\/download",
       ],
       datasourceTemplate: "custom.grafana-dashboards",
       versioningTemplate: "regex:^(?<major>\\d+)$",
