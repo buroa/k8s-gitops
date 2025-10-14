@@ -29,7 +29,6 @@ spec:
     env:
       GF_DATE_FORMATS_USE_BROWSER_LOCALE: true
       GF_EXPLORE_ENABLED: true
-      GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS: natel-discrete-panel,pr0ps-trackmap-panel,panodata-map-panel
       GF_SECURITY_ANGULAR_SUPPORT_ENABLED: true
       GF_SERVER_ROOT_URL: https://{{ .Release.Name }}.k13.dev
     grafana.ini:
@@ -167,9 +166,6 @@ spec:
       - grafana-clock-panel
       - grafana-piechart-panel
       - grafana-worldmap-panel
-      - natel-discrete-panel
-      - pr0ps-trackmap-panel
-      - vonage-status-panel
     serviceMonitor:
       enabled: true
     route:
