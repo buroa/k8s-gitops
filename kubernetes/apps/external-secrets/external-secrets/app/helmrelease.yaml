@@ -22,22 +22,15 @@ spec:
     name: external-secrets
   interval: 1h
   values:
-    image:
-      repository: ghcr.io/external-secrets/external-secrets
-    webhook:
-      image:
-        repository: ghcr.io/external-secrets/external-secrets
-      serviceMonitor:
-        enabled: true
-        interval: 1m
-    certController:
-      image:
-        repository: ghcr.io/external-secrets/external-secrets
-      serviceMonitor:
-        enabled: true
-        interval: 1m
+    leaderElect: true
     serviceMonitor:
       enabled: true
-      interval: 1m
     grafanaDashboard:
       enabled: true
+    certController:
+      serviceMonitor:
+        enabled: true
+    webhook:
+      replicaCount: 2
+      serviceMonitor:
+        enabled: true

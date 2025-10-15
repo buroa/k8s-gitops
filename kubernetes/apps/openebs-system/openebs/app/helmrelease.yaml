@@ -22,7 +22,11 @@ spec:
     name: openebs
   interval: 1h
   values:
+    preUpgradeHook:
+      enabled: false
     localpv-provisioner:
+      analytics:
+        enabled: false
       localpv:
         image:
           registry: quay.io/
