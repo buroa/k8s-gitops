@@ -27,3 +27,9 @@ releases:
     namespace: observability
     chart: oci://ghcr.io/prometheus-community/charts/kube-prometheus-stack
     version: 78.2.1
+
+  - # TODO: Find a non-bitnami chart that includes NetworkAttachmentDefinition
+    name: multus-cni
+    namespace: networking
+    chart: oci://mirror.gcr.io/bitnamicharts/multus-cni
+    version: 2.2.21
