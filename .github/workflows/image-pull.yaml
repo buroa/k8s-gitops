@@ -3,7 +3,8 @@ name: Image Pull
 
 on:
   pull_request:
-    branches: ["main"]
+    branches:
+      - main
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
@@ -20,8 +21,7 @@ jobs:
         id: changed-files
         uses: bjw-s-labs/action-changed-files@930cef8463348e168cab7235c47fe95a7a235f65 # v0.3.3
         with:
-          patterns: |-
-            kubernetes/**/*
+          patterns: kubernetes/**/*
 
   extract:
     if: ${{ needs.filter.outputs.changed-files != '[]' }}
@@ -30,7 +30,9 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        branch: ["default", "pull"]
+        branch:
+          - default
+          - pull
       fail-fast: false
     outputs:
       default: ${{ steps.extract.outputs.default }}
@@ -67,7 +69,7 @@ jobs:
     steps:
       - name: Diff Images
         id: diff
-        run: |
+        run: |-
           images=$(jq --compact-output --null-input \
               --argjson f1 '${{ needs.extract.outputs.default }}' \
               --argjson f2 '${{ needs.extract.outputs.pull }}' \

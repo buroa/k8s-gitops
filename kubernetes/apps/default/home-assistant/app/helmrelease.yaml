@@ -42,7 +42,7 @@ spec:
               capabilities: { drop: ["ALL"] }
     defaultPodOptions:
       annotations:
-        k8s.v1.cni.cncf.io/networks: |
+        k8s.v1.cni.cncf.io/networks: |-
           [{
             "name": "multus-iot",
             "namespace": "networking",
