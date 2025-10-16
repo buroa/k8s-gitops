@@ -3,7 +3,7 @@ version: v1alpha1
 machine:
   ca:
     crt: op://K8s/talos/MACHINE_CA_CRT
-    {% if machinetype == 'controlplane' %}
+    {% if ENV.MACHINE_TYPE == 'controlplane' %}
     key: op://K8s/talos/MACHINE_CA_KEY
     {% endif %}
   features:
@@ -16,7 +16,7 @@ machine:
     kubePrism:
       enabled: true
       port: 7445
-    {% if machinetype == 'controlplane' %}
+    {% if ENV.MACHINE_TYPE == 'controlplane' %}
     kubernetesTalosAPIAccess:
       enabled: true
       allowedRoles:
@@ -85,7 +85,7 @@ machine:
   nodeLabels:
     node.kubernetes.io/gpu: "true"
     topology.kubernetes.io/region: k8s
-    topology.kubernetes.io/zone: {{ 'm' if machinetype == 'controlplane' else 'w' }}
+    topology.kubernetes.io/zone: {{ 'm' if ENV.MACHINE_TYPE == 'controlplane' else 'w' }}
   sysctls:
     fs.inotify.max_user_watches: 1048576   # Watchdog
     fs.inotify.max_user_instances: 8192    # Watchdog
@@ -102,11 +102,11 @@ machine:
     sunrpc.tcp_max_slot_table_entries: 128 # 10Gb/s | NFS
     user.max_user_namespaces: 11255        # User Namespaces
   token: op://K8s/talos/MACHINE_TOKEN
-  type: {{ machinetype }}
+  type: {{ ENV.MACHINE_TYPE }}
 cluster:
   ca:
     crt: op://K8s/talos/CLUSTER_CA_CRT
-    {% if machinetype == 'controlplane' %}
+    {% if ENV.MACHINE_TYPE == 'controlplane' %}
     key: op://K8s/talos/CLUSTER_CA_KEY
     {% endif %}
   clusterName: k8s
@@ -130,7 +130,7 @@ cluster:
       - 10.245.0.0/16
   secret: op://K8s/talos/CLUSTER_SECRET
   token: op://K8s/talos/CLUSTER_TOKEN
-  {% if machinetype == 'controlplane' %}
+  {% if ENV.MACHINE_TYPE == 'controlplane' %}
   aggregatorCA:
     crt: op://K8s/talos/CLUSTER_AGGREGATORCA_CRT
     key: op://K8s/talos/CLUSTER_AGGREGATORCA_KEY

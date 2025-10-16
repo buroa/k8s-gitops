@@ -14,7 +14,7 @@ customization:
     - security=none                       # Less security, faster puter
     - sysctl.kernel.kexec_load_disabled=1 # Disable kexec load
     - talos.auditd.disabled=1             # Less security, faster puter
-    {% if iso == 'true' %}
+    {% if ENV.ISO == 'true' %}
     - bond=bond0:enp5s0f0np0,enp5s0f1np1:mode=802.3ad,xmit_hash_policy=layer3+4:9000
     - ip=bond0:dhcp
     {% endif %}
