@@ -98,9 +98,6 @@ spec:
         envoy:
           datasource: [{ name: DS_AFRANET_PROMETHEUS, value: Prometheus }]
           url: https://grafana.com/api/dashboards/23239/revisions/1/download
-        external-dns:
-          datasource: Prometheus
-          url: https://grafana.com/api/dashboards/15038/revisions/3/download
         kubernetes-api-server:
           datasource: Prometheus
           url: https://grafana.com/api/dashboards/15761/revisions/19/download
