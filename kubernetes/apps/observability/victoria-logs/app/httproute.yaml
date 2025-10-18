@@ -11,6 +11,17 @@ spec:
       namespace: networking
       sectionName: https
   rules:
+    - matches:
+        - path:
+            type: Exact
+            value: /
+      filters:
+        - type: RequestRedirect
+          requestRedirect:
+            path:
+              type: ReplaceFullPath
+              replaceFullPath: /select/vmui/
+            statusCode: 302
     - backendRefs:
         - name: victoria-logs-server
           port: 9428
