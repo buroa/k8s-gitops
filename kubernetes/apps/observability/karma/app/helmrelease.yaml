@@ -46,8 +46,8 @@ spec:
       hostUsers: false
       securityContext:
         runAsNonRoot: true
-        runAsUser: 568
-        runAsGroup: 568
+        runAsUser: 1000
+        runAsGroup: 1000
     route:
       app:
         hostnames:
