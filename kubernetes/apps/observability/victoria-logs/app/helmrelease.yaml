@@ -31,6 +31,21 @@ spec:
         size: 20Gi
       serviceMonitor:
         enabled: true
+      route:
+        enabled: true
+        hostnames:
+          - logs.k13.dev
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+            sectionName: https
+        filters:
+          - type: RequestRedirect
+            requestRedirect:
+              path:
+                type: ReplaceFullPath
+                replaceFullPath: /select/vmui/
+              statusCode: 302
     dashboards:
       enabled: true
       labels:
