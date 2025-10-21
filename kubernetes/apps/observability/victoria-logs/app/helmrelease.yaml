@@ -39,6 +39,18 @@ spec:
           - name: envoy-internal
             namespace: networking
             sectionName: https
+        extraRules:
+          - filters:
+              - type: RequestRedirect
+                requestRedirect:
+                  path:
+                    type: ReplaceFullPath
+                    replaceFullPath: /select/vmui/
+                  statusCode: 302
+            matches:
+              - path:
+                  type: Exact
+                  value: /
     dashboards:
       enabled: true
       labels:
