@@ -55,7 +55,6 @@ spec:
         parentRefs:
           - name: envoy-internal
             namespace: networking
-            sectionName: https
     service:
       app:
         ports:

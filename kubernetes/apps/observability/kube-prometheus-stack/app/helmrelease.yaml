@@ -32,7 +32,6 @@ spec:
           parentRefs:
             - name: envoy-internal
               namespace: networking
-              sectionName: https
       alertmanagerSpec:
         externalUrl: https://alertmanager.k13.dev
         alertmanagerConfiguration:
@@ -61,7 +60,6 @@ spec:
           parentRefs:
             - name: envoy-internal
               namespace: networking
-              sectionName: https
       prometheusSpec:
         externalUrl: https://prometheus.k13.dev
         version: v2.55.1 # override 'unsupported Prometheus version' error

@@ -38,7 +38,6 @@ spec:
         parentRefs:
           - name: envoy-internal
             namespace: networking
-            sectionName: https
         extraRules:
           - filters:
               - type: RequestRedirect

@@ -36,7 +36,6 @@ spec:
         parentRefs:
           - name: envoy-internal
             namespace: networking
-            sectionName: https
     cephClusterSpec:
       cleanupPolicy:
         wipeDevicesFromOtherClusters: true

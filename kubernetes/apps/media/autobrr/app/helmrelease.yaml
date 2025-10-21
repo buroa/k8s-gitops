@@ -90,7 +90,6 @@ spec:
         parentRefs:
           - name: envoy-internal
             namespace: networking
-            sectionName: https
         rules:
           - backendRefs:
               - identifier: app
