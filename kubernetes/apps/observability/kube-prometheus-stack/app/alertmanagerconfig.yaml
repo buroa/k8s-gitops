@@ -19,7 +19,7 @@ spec:
           - name: alertname
             matchType: =
             value: InfoInhibitor
-      - receiver: buddy-heartbeat
+      - receiver: heartbeat
         groupWait: 0s
         repeatInterval: 2m30s
         matchers:
@@ -48,7 +48,7 @@ spec:
   receivers:
     - name: blackhole
 
-    - name: buddy-heartbeat
+    - name: heartbeat
       webhookConfigs:
         - httpConfig:
             bearerTokenSecret:
