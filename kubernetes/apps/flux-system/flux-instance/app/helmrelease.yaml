@@ -101,6 +101,14 @@ spec:
             target:
               kind: Deployment
               name: source-controller
+          - # Watch ConfigMaps and Secrets attached to HelmReleases and Kustomizations
+            patch: |-
+              - op: add
+                path: /spec/template/spec/containers/0/args/-
+                value: --watch-configs-label-selector=owner!=helm
+            target:
+              kind: Deployment
+              name: (helm-controller|kustomize-controller)
           - # Disable chart digest tracking
             patch: |-
               - op: add
@@ -109,14 +117,6 @@ spec:
             target:
               kind: Deployment
               name: helm-controller
-          - # Watch configmaps and secrets attached to HelmReleases and Kustomizations
-            patch: |-
-              - op: add
-                path: /spec/template/spec/containers/0/args/-
-                value: --watch-configs-label-selector=owner!=helm
-            target:
-              kind: Deployment
-              name: (helm-controller|kustomize-controller)
           - # Cancel health checks on new Kustomizations revisions
             patch: |-
               - op: add
