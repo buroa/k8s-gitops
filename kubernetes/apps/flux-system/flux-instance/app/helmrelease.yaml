@@ -93,6 +93,14 @@ spec:
             target:
               kind: Deployment
               name: helm-controller
+          - # Cache Secrets and ConfigMaps
+            patch: |-
+              - op: add
+                path: /spec/template/spec/containers/0/args/-
+                value: --feature-gates=CacheSecretsAndConfigMaps=true
+            target:
+              kind: Deployment
+              name: source-controller
           - # Disable chart digest tracking
             patch: |-
               - op: add
