@@ -23,7 +23,7 @@ filters:
       - (
           HasAnyTag(
             "site:ANT", "site:AR", "site:FL", "site:FNP", "site:IPT",
-            "site:ME", "site:MTV", "site:NBL", "site:TD", "site:UHD"
+            "site:ME", "site:MTV", "site:NBL", "site:TD"
           ) &&
           Ratio > 3.0
         )
@@ -32,7 +32,7 @@ filters:
             "site:ANT", "site:AR", "site:BLU", "site:FL", "site:FNP",
             "site:HDT", "site:IPT", "site:LST", "site:ME", "site:MTV",
             "site:NBL", "site:OE", "site:PHD", "site:RFX", "site:SP",
-            "site:ST", "site:TD", "site:TL", "site:UHD", "site:ULCX"
+            "site:ST", "site:TD", "site:TL", "site:ULCX"
           ) &&
           SeedingDays > 24
         )
@@ -72,7 +72,6 @@ filters:
       - { name: site:ST,       update: ['TrackerName == "scenetime.com"'] }
       - { name: site:TD,       update: ['TrackerName in ["jumbohostpro.eu", "td-peers.com"]'] }
       - { name: site:TL,       update: ['TrackerName in ["tleechreload.org", "torrentleech.org"]'] }
-      - { name: site:UHD,      update: ['TrackerName == "uhdbits.org"'] }
       - { name: site:ULCX,     update: ['TrackerName == "upload.cx"'] }
       - { name: tracker-down,  update: ['IsTrackerDown()'] }
       - { name: unregistered,  update: ['IsUnregistered()'] }
