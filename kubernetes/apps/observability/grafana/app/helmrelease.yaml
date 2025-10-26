@@ -79,7 +79,7 @@ spec:
           url: https://grafana.com/api/dashboards/12340/revisions/1/download
         blackbox-exporter:
           datasource: Prometheus
-          url: https://grafana.com/api/dashboards/7587/revisions/2/download
+          url: https://grafana.com/api/dashboards/7587/revisions/3/download
         ceph-cluster:
           datasource: Prometheus
           url: https://grafana.com/api/dashboards/2842/revisions/18/download
