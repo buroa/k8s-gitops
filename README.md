@@ -94,6 +94,9 @@ Here's how Flux orchestrates application deployments with dependencies. Most app
 
 ```mermaid
 graph LR
+    classDef kustom fill:#43A047,stroke:#2E7D32,stroke-width:3px,color:#fff,font-weight:bold,rx:10,ry:10
+    classDef helm fill:#1976D2,stroke:#0D47A1,stroke-width:3px,color:#fff,font-weight:bold,rx:10,ry:10
+
     A["📦 Kustomization<br/>rook-ceph"]:::kustom
     B["📦 Kustomization<br/>rook-ceph-cluster"]:::kustom
     C["🎯 HelmRelease<br/>rook-ceph"]:::helm
@@ -106,9 +109,6 @@ graph LR
     B -.->|Depends on| A
     E -->|Creates| F
     E -.->|Depends on| B
-
-    classDef kustom fill:#43A047,stroke:#2E7D32,stroke-width:3px,color:#fff,font-weight:bold,rx:10,ry:10
-    classDef helm fill:#1976D2,stroke:#0D47A1,stroke-width:3px,color:#fff,font-weight:bold,rx:10,ry:10
 ```
 </details>
 
@@ -130,24 +130,24 @@ graph TD
     classDef vlan fill:#1f2937,stroke:#fff,stroke-width:1px,color:#fff,font-size:12px;
 
     %% Nodes
-    RCN[🛜 RCN<br>5Gbps WAN]:::wan
+    RCN[🛜 RCN<br/>5Gbps WAN]:::wan
     UDM[📦 UDM Pro]:::core
-    AGG[🔗 Aggregation<br>10/25Gb]:::agg
-    NAS[💾 NAS<br>1 Server]:::device
-    K8s[☸️ Kubernetes<br>3 Nodes]:::device
-    SW[🔌 24 Port<br>2.5G PoE]:::switch
+    AGG[🔗 Aggregation<br/>10/25Gb]:::agg
+    NAS[💾 NAS<br/>1 Server]:::device
+    K8s[☸️ Kubernetes<br/>3 Nodes]:::device
+    SW[🔌 24 Port<br/>2.5G PoE]:::switch
     DEV[💻 Devices]:::device
     WIFI[📶 WiFi Clients]:::device
 
     %% Subgraph for VLANs
     subgraph VLANs [LAN +vlan]
         direction TB
-        LOCAL[LOCAL<br>192.168.0.0/24]:::vlan
-        TRUSTED[TRUSTED*<br>192.168.1.0/24]:::vlan
-        SERVERS[SERVERS*<br>192.168.10.0/24]:::vlan
-        SERVICES[SERVICES*<br>192.168.20.0/24]:::vlan
-        IOT[IOT*<br>192.168.30.0/24]:::vlan
-        GUEST[GUEST*<br>192.168.40.0/24]:::vlan
+        LOCAL[LOCAL<br/>192.168.0.0/24]:::vlan
+        TRUSTED[TRUSTED*<br/>192.168.1.0/24]:::vlan
+        SERVERS[SERVERS*<br/>192.168.10.0/24]:::vlan
+        SERVICES[SERVICES*<br/>192.168.20.0/24]:::vlan
+        IOT[IOT*<br/>192.168.30.0/24]:::vlan
+        GUEST[GUEST*<br/>192.168.40.0/24]:::vlan
     end
 
     style VLANs fill:#111,stroke:#fff,stroke-width:2px,rx:0,ry:0,padding:20px;
