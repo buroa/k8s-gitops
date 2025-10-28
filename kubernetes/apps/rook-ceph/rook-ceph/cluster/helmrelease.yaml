@@ -37,6 +37,15 @@ spec:
           - name: envoy-internal
             namespace: networking
     cephClusterSpec:
+      cephConfig:
+        global:
+          enable_experimental_unrecoverable_data_corrupting_features: crimson
+        "mon.*":
+          osd_pool_default_crimson: true
+        "osd.*":
+          allow_crimson: true
+      cephVersion:
+        image: quay.ceph.io/ceph-ci/ceph:63ca1ffb5a23769a97f52deace36c88e9bed1c6d-crimson-release
       cleanupPolicy:
         wipeDevicesFromOtherClusters: true
       crashCollector:
