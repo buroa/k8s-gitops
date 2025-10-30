@@ -5,6 +5,7 @@
     "docker:enableMajor",
     "helpers:pinGitHubActionDigests",
     "github>buroa/k8s-gitops//.renovate/autoMerge.json5",
+    "github>buroa/k8s-gitops//.renovate/changelogs.json5",
     "github>buroa/k8s-gitops//.renovate/customManagers.json5",
     "github>buroa/k8s-gitops//.renovate/grafanaDashboards.json5",
     "github>buroa/k8s-gitops//.renovate/groups.json5",
