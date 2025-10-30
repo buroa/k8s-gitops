@@ -4,17 +4,20 @@
     {
       description: "Changelog URL for 1Password Connect",
       matchPackageNames: ["/1password/"],
-      sourceUrl: "https://github.com/1Password/connect/blob/main/CHANGELOG.md",
+      changelogUrl: "https://github.com/1Password/connect/blob/main/CHANGELOG.md",
+      fetchChangeLogs: "branch",
     },
     {
       description: "Changelog URL for Cloudflared",
       matchPackageNames: ["/cloudflared/"],
-      sourceUrl: "https://github.com/cloudflare/cloudflared/blob/master/RELEASE_NOTES",
+      changelogUrl: "https://github.com/cloudflare/cloudflared/blob/master/RELEASE_NOTES",
+      fetchChangeLogs: "branch",
     },
     {
       description: "Changelog URL for Spegel",
       matchPackageNames: ["/spegel/"],
-      sourceUrl: "https://github.com/spegel-org/spegel/blob/main/CHANGELOG.md",
+      changelogUrl: "https://github.com/spegel-org/spegel/blob/main/CHANGELOG.md",
+      fetchChangeLogs: "branch",
     },
   ],
 }
