@@ -117,10 +117,13 @@ spec:
   targetSelectors:
     - group: gateway.networking.k8s.io
       kind: Gateway
-  compression:
+  compressor:
     - type: Brotli
+      brotli: {}
     - type: Gzip
+      gzip: {}
     - type: Zstd
+      zstd: {}
   connection:
     bufferLimit: 8Mi
   tcpKeepalive: {}
