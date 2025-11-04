@@ -4,5 +4,4 @@ kind: Kustomization
 resources:
   - ./receiver
   - ./helmrelease.yaml
-  - ./podmonitor.yaml
   - ./prometheusrule.yaml
