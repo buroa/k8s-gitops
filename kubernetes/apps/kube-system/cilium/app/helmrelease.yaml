@@ -43,8 +43,6 @@ spec:
       name: main
     cni:
       exclusive: false
-    dashboards:
-      enabled: true
     devices: bond+
     enableIPv4BIGTCP: true
     endpointRoutes:
@@ -71,8 +69,6 @@ spec:
         enabled: true
         serviceMonitor:
           enabled: true
-      dashboards:
-        enabled: true
     pmtuDiscovery:
       enabled: true
     prometheus:

@@ -149,16 +149,6 @@ spec:
         volsync:
           datasource: [{ name: DS_PROMETHEUS, value: Prometheus }]
           url: https://grafana.com/api/dashboards/21356/revisions/3/download
-    sidecar:
-      dashboards:
-        enabled: true
-        searchNamespace: ALL
-        labelValue: ""
-        label: grafana_dashboard
-        folderAnnotation: grafana_folder
-        provider:
-          disableDelete: true
-          foldersFromFilesStructure: true
     plugins:
       - grafana-clock-panel
       - grafana-piechart-panel
