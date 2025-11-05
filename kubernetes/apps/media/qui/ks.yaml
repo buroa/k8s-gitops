@@ -2,12 +2,8 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app qui
-  namespace: &namespace media
+  name: qui
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   components:
     - ../../../../components/volsync
   dependsOn:
@@ -17,11 +13,10 @@ spec:
   path: ./kubernetes/apps/media/qui/app
   postBuild:
     substitute:
-      APP: *app
-      VOLSYNC_CAPACITY: 5Gi
+      APP: qui
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: *namespace
+  targetNamespace: media

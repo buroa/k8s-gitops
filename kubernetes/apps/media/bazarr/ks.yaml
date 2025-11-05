@@ -2,12 +2,8 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app bazarr
-  namespace: &namespace media
+  name: bazarr
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
   components:
     - ../../../../components/keda
     - ../../../../components/volsync
@@ -18,11 +14,10 @@ spec:
   path: ./kubernetes/apps/media/bazarr/app
   postBuild:
     substitute:
-      APP: *app
-      VOLSYNC_CAPACITY: 5Gi
+      APP: bazarr
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: *namespace
+  targetNamespace: media
