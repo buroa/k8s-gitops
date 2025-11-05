@@ -8,6 +8,9 @@ spec:
     - ../../../../components/keda
   interval: 1h
   path: ./kubernetes/apps/media/cross-seed/app
+  postBuild:
+    substitute:
+      APP: cross-seed
   prune: true
   sourceRef:
     kind: GitRepository
