@@ -77,7 +77,7 @@ spec:
           - "{{ .Release.Name }}.k13.dev"
           - hass.k13.dev
         parentRefs:
-          - name: envoy-external
+          - name: envoy-internal
             namespace: networking
     service:
       app:
