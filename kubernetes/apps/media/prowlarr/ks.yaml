@@ -2,8 +2,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app prowlarr
-  namespace: &namespace media
+  name: prowlarr
 spec:
   components:
     - ../../../../components/volsync
@@ -14,11 +13,11 @@ spec:
   path: ./kubernetes/apps/media/prowlarr/app
   postBuild:
     substitute:
-      APP: *app
+      APP: prowlarr
       VOLSYNC_CAPACITY: 2Gi
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: *namespace
+  targetNamespace: media

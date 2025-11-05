@@ -3,7 +3,6 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: onepassword
-  namespace: &namespace external-secrets
 spec:
   interval: 1h
   path: ./kubernetes/apps/external-secrets/onepassword/app
@@ -12,18 +11,16 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: *namespace
+  targetNamespace: external-secrets
   wait: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: onepassword-store
-  namespace: &namespace external-secrets
 spec:
   dependsOn:
     - name: onepassword
-      namespace: *namespace
   healthCheckExprs:
     - apiVersion: external-secrets.io/v1
       kind: ClusterSecretStore
@@ -36,4 +33,4 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: *namespace
+  targetNamespace: external-secrets

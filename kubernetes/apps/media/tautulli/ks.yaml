@@ -2,8 +2,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app tautulli
-  namespace: &namespace media
+  name: tautulli
 spec:
   components:
     - ../../../../components/volsync
@@ -14,11 +13,10 @@ spec:
   path: ./kubernetes/apps/media/tautulli/app
   postBuild:
     substitute:
-      APP: *app
-      VOLSYNC_CAPACITY: 5Gi
+      APP: tautulli
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: *namespace
+  targetNamespace: media

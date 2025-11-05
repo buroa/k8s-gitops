@@ -2,8 +2,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app plex
-  namespace: &namespace media
+  name: plex
 spec:
   components:
     - ../../../../components/keda
@@ -17,7 +16,7 @@ spec:
   path: ./kubernetes/apps/media/plex/app
   postBuild:
     substitute:
-      APP: *app
+      APP: plex
       VOLSYNC_CACHE_CAPACITY: 25Gi
       VOLSYNC_CAPACITY: 50Gi
   prune: true
@@ -25,4 +24,4 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: *namespace
+  targetNamespace: media

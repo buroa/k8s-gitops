@@ -3,7 +3,6 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: external-dns-cloudflare
-  namespace: &namespace networking
 spec:
   interval: 1h
   path: ./kubernetes/apps/networking/external-dns/cloudflare
@@ -12,13 +11,12 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: *namespace
+  targetNamespace: networking
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: external-dns-unifi
-  namespace: &namespace networking
 spec:
   interval: 1h
   path: ./kubernetes/apps/networking/external-dns/unifi
@@ -27,4 +25,4 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: *namespace
+  targetNamespace: networking

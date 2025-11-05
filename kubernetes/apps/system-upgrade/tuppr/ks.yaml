@@ -3,7 +3,6 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: tuppr
-  namespace: &namespace system-upgrade
 spec:
   interval: 1h
   path: ./kubernetes/apps/system-upgrade/tuppr/app
@@ -12,18 +11,16 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: *namespace
+  targetNamespace: system-upgrade
   wait: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: tuppr-upgrades
-  namespace: &namespace system-upgrade
 spec:
   dependsOn:
     - name: tuppr
-      namespace: *namespace
   interval: 1h
   path: ./kubernetes/apps/system-upgrade/tuppr/upgrades
   prune: true
@@ -31,4 +28,4 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: *namespace
+  targetNamespace: system-upgrade
