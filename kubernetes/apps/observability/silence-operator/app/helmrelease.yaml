@@ -10,7 +10,7 @@ spec:
     operation: copy
   ref:
     tag: 0.20.0
-  url: oci://ghcr.io/home-operations/charts-mirror/silence-operator
+  url: oci://gsoci.azurecr.io/charts/giantswarm/silence-operator
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
@@ -23,7 +23,5 @@ spec:
   interval: 1h
   values:
     alertmanagerAddress: http://alertmanager-operated.observability.svc.cluster.local:9093
-    image:
-      registry: quay.io
     networkPolicy:
       enabled: false
