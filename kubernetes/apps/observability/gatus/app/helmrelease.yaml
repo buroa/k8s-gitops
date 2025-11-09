@@ -66,6 +66,10 @@ spec:
           name: *app
     defaultPodOptions:
       hostUsers: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
     persistence:
       config:
         type: emptyDir
