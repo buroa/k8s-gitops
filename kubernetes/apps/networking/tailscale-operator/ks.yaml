@@ -17,17 +17,10 @@ kind: HelmRelease
 metadata:
   name: tailscale-operator
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: tailscale-operator
-  install:
-    remediation:
-      retries: -1
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
+  interval: 1h
   values:
     oauthSecretVolume:
       secret:
