@@ -1,30 +1,31 @@
 ---
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: OCIRepository
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
 metadata:
   name: tailscale-operator
 spec:
-  interval: 5m
-  layerSelector:
-    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
-    operation: copy
-  ref:
-    tag: 1.88.2
-  url: oci://ghcr.io/home-operations/charts-mirror/tailscale-operator
----
-apiVersion: helm.toolkit.fluxcd.io/v2
-kind: HelmRelease
-metadata:
-  name: tailscale-operator
-spec:
-  chartRef:
-    kind: OCIRepository
-    name: tailscale-operator
   interval: 1h
-  values:
-    oauthSecretVolume:
-      secret:
-        secretName: &secret tailscale-operator-secret
-    operatorConfig:
-      podAnnotations:
-        secret.reloader.stakater.com/reload: *secret
+  path: ./kubernetes/apps/networking/tailscale-operator/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: networking
+  wait: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: tailscale-operator-config
+spec:
+  dependsOn:
+    - name: tailscale-operator
+  interval: 1h
+  path: ./kubernetes/apps/networking/tailscale-operator/config
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: networking
