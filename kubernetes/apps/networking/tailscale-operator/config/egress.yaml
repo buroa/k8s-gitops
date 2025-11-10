@@ -5,3 +5,4 @@ metadata:
   name: egress
 spec:
   exitNode: true
+  replicas: 2
