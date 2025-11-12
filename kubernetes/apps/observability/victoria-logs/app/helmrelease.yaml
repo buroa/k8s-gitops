@@ -23,7 +23,6 @@ spec:
   interval: 1h
   values:
     fullnameOverride: victoria-logs
-    retentionPeriod: 14d
     server:
       persistentVolume:
         enabled: true
@@ -31,6 +30,7 @@ spec:
         size: 20Gi
       serviceMonitor:
         enabled: true
+      retentionPeriod: 14d
       route:
         enabled: true
         hostnames:
