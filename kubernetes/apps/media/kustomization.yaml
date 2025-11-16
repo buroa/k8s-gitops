@@ -8,7 +8,6 @@ resources:
   - ./autobrr/ks.yaml
   - ./bazarr/ks.yaml
   - ./cross-seed/ks.yaml
-  - ./jellyseerr/ks.yaml
   - ./nzbget/ks.yaml
   - ./plex/ks.yaml
   - ./prowlarr/ks.yaml
@@ -16,6 +15,7 @@ resources:
   - ./qui/ks.yaml
   - ./radarr/ks.yaml
   - ./recyclarr/ks.yaml
+  - ./seerr/ks.yaml
   - ./sonarr/ks.yaml
   - ./tautulli/ks.yaml
   - ./tqm/ks.yaml
