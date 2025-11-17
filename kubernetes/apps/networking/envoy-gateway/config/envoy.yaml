@@ -90,13 +90,14 @@ spec:
         op: add
         jsonPath: ..filters[*].typed_config.http_filters[?(@.name=="envoy.filters.http.compressor.zstd")].typed_config
         value:
-          "@type": "type.googleapis.com/envoy.extensions.filters.http.compressor.v3.Compressor"
+          "@type": type.googleapis.com/envoy.extensions.filters.http.compressor.v3.Compressor
           choose_first: true
           compressor_library:
-            name: "envoy.compression.zstd.compressor"
+            name: envoy.compression.zstd.compressor
             typed_config:
-              "@type": "type.googleapis.com/envoy.extensions.compression.zstd.compressor.v3.Zstd"
-          remove_accept_encoding_header: true
+              "@type": type.googleapis.com/envoy.extensions.compression.zstd.compressor.v3.Zstd
+          response_direction_config:
+            remove_accept_encoding_header: true
     - type: type.googleapis.com/envoy.config.listener.v3.Listener
       name: networking/envoy-external/https-quic
       operation: *operation
@@ -154,13 +155,14 @@ spec:
         op: add
         jsonPath: ..filters[*].typed_config.http_filters[?(@.name=="envoy.filters.http.compressor.zstd")].typed_config
         value:
-          "@type": "type.googleapis.com/envoy.extensions.filters.http.compressor.v3.Compressor"
+          "@type": type.googleapis.com/envoy.extensions.filters.http.compressor.v3.Compressor
           choose_first: true
           compressor_library:
-            name: "envoy.compression.zstd.compressor"
+            name: envoy.compression.zstd.compressor
             typed_config:
-              "@type": "type.googleapis.com/envoy.extensions.compression.zstd.compressor.v3.Zstd"
-          remove_accept_encoding_header: true
+              "@type": type.googleapis.com/envoy.extensions.compression.zstd.compressor.v3.Zstd
+          response_direction_config:
+            remove_accept_encoding_header: true
     - type: type.googleapis.com/envoy.config.listener.v3.Listener
       name: networking/envoy-internal/https-quic
       operation: *operation
