@@ -17,7 +17,6 @@ spec:
   postBuild:
     substitute:
       APP: nzbget
-      VOLSYNC_CAPACITY: 2Gi
   prune: true
   sourceRef:
     kind: GitRepository

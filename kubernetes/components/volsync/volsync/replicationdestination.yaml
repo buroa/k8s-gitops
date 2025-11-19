@@ -12,10 +12,10 @@ spec:
     volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:=csi-ceph-block}"
     cacheStorageClassName: "${VOLSYNC_CACHE_SNAPSHOTCLASS:=openebs-hostpath}"
     cacheAccessModes: ["${VOLSYNC_CACHE_ACCESSMODES:=ReadWriteOnce}"]
-    cacheCapacity: "${VOLSYNC_CACHE_CAPACITY:=2Gi}"
+    cacheCapacity: "${VOLSYNC_CACHE_CAPACITY:=1Gi}"
     storageClassName: "${VOLSYNC_STORAGECLASS:=ceph-block}"
     accessModes: ["${VOLSYNC_ACCESSMODES:=ReadWriteOnce}"]
-    capacity: "${VOLSYNC_CAPACITY:=5Gi}"
+    capacity: "${VOLSYNC_CAPACITY:=2Gi}"
     moverSecurityContext:
       runAsUser: ${VOLSYNC_PUID:=1000}
       runAsGroup: ${VOLSYNC_PGID:=1000}

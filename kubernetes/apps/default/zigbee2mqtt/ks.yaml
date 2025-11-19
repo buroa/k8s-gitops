@@ -14,7 +14,6 @@ spec:
   postBuild:
     substitute:
       APP: zigbee2mqtt
-      VOLSYNC_CAPACITY: 1Gi
   prune: true
   sourceRef:
     kind: GitRepository
