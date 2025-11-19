@@ -5,8 +5,8 @@ namespace: default
 components:
   - ../../components/namespace
 resources:
-  # - ./atuin/ks.yaml
-  # - ./home-assistant/ks.yaml
+  - ./atuin/ks.yaml
+  - ./home-assistant/ks.yaml
   - ./mosquitto/ks.yaml
-  # - ./thelounge/ks.yaml
+  - ./thelounge/ks.yaml
   - ./zigbee2mqtt/ks.yaml
