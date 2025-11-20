@@ -73,35 +73,6 @@ spec:
           - kind: Secret
             name: k13-dev-tls
 ---
-apiVersion: gateway.envoyproxy.io/v1alpha1
-kind: EnvoyPatchPolicy
-metadata:
-  name: envoy-external
-spec:
-  jsonPatches:
-    - type: type.googleapis.com/envoy.config.listener.v3.Listener
-      name: networking/envoy-external/https
-      operation: &operation
-        op: add
-        jsonPath: ..filters[*].typed_config.http_filters[?(@.name=="envoy.filters.http.compressor.zstd")].typed_config
-        value:
-          "@type": type.googleapis.com/envoy.extensions.filters.http.compressor.v3.Compressor
-          choose_first: true
-          compressor_library:
-            name: envoy.compression.zstd.compressor
-            typed_config:
-              "@type": type.googleapis.com/envoy.extensions.compression.zstd.compressor.v3.Zstd
-          response_direction_config:
-            remove_accept_encoding_header: true
-    - type: type.googleapis.com/envoy.config.listener.v3.Listener
-      name: networking/envoy-external/https-quic
-      operation: *operation
-  targetRef:
-    group: gateway.networking.k8s.io
-    kind: Gateway
-    name: envoy-external
-  type: JSONPatch
----
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
@@ -139,35 +110,6 @@ spec:
             name: k13-dev-tls
 ---
 apiVersion: gateway.envoyproxy.io/v1alpha1
-kind: EnvoyPatchPolicy
-metadata:
-  name: envoy-internal
-spec:
-  jsonPatches:
-    - type: type.googleapis.com/envoy.config.listener.v3.Listener
-      name: networking/envoy-internal/https
-      operation: &operation
-        op: add
-        jsonPath: ..filters[*].typed_config.http_filters[?(@.name=="envoy.filters.http.compressor.zstd")].typed_config
-        value:
-          "@type": type.googleapis.com/envoy.extensions.filters.http.compressor.v3.Compressor
-          choose_first: true
-          compressor_library:
-            name: envoy.compression.zstd.compressor
-            typed_config:
-              "@type": type.googleapis.com/envoy.extensions.compression.zstd.compressor.v3.Zstd
-          response_direction_config:
-            remove_accept_encoding_header: true
-    - type: type.googleapis.com/envoy.config.listener.v3.Listener
-      name: networking/envoy-internal/https-quic
-      operation: *operation
-  targetRef:
-    group: gateway.networking.k8s.io
-    kind: Gateway
-    name: envoy-internal
-  type: JSONPatch
----
-apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: BackendTrafficPolicy
 metadata:
   name: envoy
@@ -176,9 +118,9 @@ spec:
     - group: gateway.networking.k8s.io
       kind: Gateway
   compression:
+    - type: Zstd
     - type: Brotli
     - type: Gzip
-    - type: Zstd
   connection:
     bufferLimit: 8Mi
   tcpKeepalive: {}
