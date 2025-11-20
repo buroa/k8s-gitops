@@ -32,4 +32,4 @@ spec:
     global:
       images:
         envoyGateway:
-          image: ghcr.io/buroa/gateway-dev:228e0a0674
+          image: ghcr.io/buroa/gateway-dev:28e0a0674@sha256:8a3cd92106eb98e8a54199f5df044369760df9837525910e0d18aed287bf8f84
