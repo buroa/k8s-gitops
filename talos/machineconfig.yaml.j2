@@ -56,8 +56,6 @@ machine:
     defaultRuntimeSeccompProfileEnabled: true
     disableManifestsDirectory: true
     extraConfig:
-      featureGates:
-        ImageVolume: true
       serializeImagePulls: false
     image: ghcr.io/siderolabs/kubelet:v1.34.2
     nodeIP:
@@ -140,7 +138,6 @@ cluster:
     disablePodSecurityPolicy: true
     extraArgs:
       enable-aggregator-routing: true
-      feature-gates: ImageVolume=true
     image: registry.k8s.io/kube-apiserver:v1.34.2
   controllerManager:
     extraArgs:
