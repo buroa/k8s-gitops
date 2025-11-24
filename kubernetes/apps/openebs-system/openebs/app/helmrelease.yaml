@@ -10,7 +10,7 @@ spec:
     operation: copy
   ref:
     tag: 4.4.0
-  url: oci://ghcr.io/openebs/dev/helm/openebs
+  url: oci://ghcr.io/openebs/charts/openebs
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
