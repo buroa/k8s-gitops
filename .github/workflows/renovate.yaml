@@ -9,7 +9,7 @@ on:
       - .renovaterc.json5
       - .renovate/**.json5
   schedule:
-    - cron: "0 * * * *"
+    - cron: 0 * * * * # Every hour
   workflow_dispatch:
     inputs:
       dryRun:

@@ -9,7 +9,7 @@ on:
     paths:
       - .github/labels.yaml
   schedule:
-    - cron: "0 0 * * *" # Every day at midnight
+    - cron: 0 0 * * * # Every day at midnight
 
 jobs:
   sync:

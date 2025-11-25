@@ -62,7 +62,7 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: { add: ["NET_RAW"], drop: ["ALL"] }
+              capabilities: { drop: ["ALL"] }
         serviceAccount:
           name: *app
     defaultPodOptions:

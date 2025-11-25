@@ -23,8 +23,6 @@ spec:
   interval: 1h
   values:
     fullnameOverride: *app
-    securityContext:
-      capabilities: { add: ["NET_RAW"] }
     config:
       modules:
         http_2xx:
