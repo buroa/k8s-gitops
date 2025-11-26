@@ -67,7 +67,7 @@ filters:
       - { name: site:OE,       update: ['TrackerName == "onlyencodes.cc"'] }
       - { name: site:PHD,      update: ['TrackerName == "privatehd.to"'] }
       - { name: site:PTP,      update: ['TrackerName == "passthepopcorn.me"'] }
-      - { name: site:RFX,      update: ['TrackerName in ["reelflix.cc", "reelflix.xyz"]'] }
+      - { name: site:RFX,      update: ['TrackerName == "reelflix.cc"'] }
       - { name: site:SP,       update: ['TrackerName == "seedpool.org"'] }
       - { name: site:ST,       update: ['TrackerName == "scenetime.com"'] }
       - { name: site:TD,       update: ['TrackerName in ["jumbohostpro.eu", "td-peers.com"]'] }
