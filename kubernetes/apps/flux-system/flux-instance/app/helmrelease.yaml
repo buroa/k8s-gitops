@@ -9,7 +9,7 @@ spec:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
   ref:
-    tag: 0.34.0
+    tag: 0.35.0
   url: oci://ghcr.io/controlplaneio-fluxcd/charts/flux-instance
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
@@ -24,7 +24,7 @@ spec:
   values:
     instance:
       distribution:
-        artifact: oci://ghcr.io/controlplaneio-fluxcd/flux-operator-manifests:v0.34.0
+        artifact: oci://ghcr.io/controlplaneio-fluxcd/flux-operator-manifests:v0.35.0
       cluster:
         networkPolicy: false
       components:
