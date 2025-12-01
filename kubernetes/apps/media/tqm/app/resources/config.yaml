@@ -31,8 +31,8 @@ filters:
           HasAnyTag(
             "site:ANT", "site:AR", "site:BLU", "site:FL", "site:FNP",
             "site:HDT", "site:IPT", "site:LST", "site:ME", "site:MTV",
-            "site:NBL", "site:OE", "site:PHD", "site:RFX", "site:SP",
-            "site:ST", "site:TD", "site:TL", "site:ULCX"
+            "site:NBL", "site:OE", "site:PHD", "site:RFX", "site:SA",
+            "site:SP", "site:ST", "site:TD", "site:TL", "site:ULCX"
           ) &&
           SeedingDays > 24
         )
@@ -68,6 +68,7 @@ filters:
       - { name: site:PHD,      update: ['TrackerName == "privatehd.to"'] }
       - { name: site:PTP,      update: ['TrackerName == "passthepopcorn.me"'] }
       - { name: site:RFX,      update: ['TrackerName == "reelflix.cc"'] }
+      - { name: site:SA,       update: ['TrackerName == "speedapp.io"'] }
       - { name: site:SP,       update: ['TrackerName == "seedpool.org"'] }
       - { name: site:ST,       update: ['TrackerName == "scenetime.com"'] }
       - { name: site:TD,       update: ['TrackerName in ["jumbohostpro.eu", "td-peers.com"]'] }
