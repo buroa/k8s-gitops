@@ -17,14 +17,14 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: envoy-gateway-config
+  name: envoy-gateway-proxy
 spec:
   dependsOn:
     - name: cert-manager-issuers
       namespace: cert-manager
     - name: envoy-gateway
   interval: 1h
-  path: ./kubernetes/apps/networking/envoy-gateway/config
+  path: ./kubernetes/apps/networking/envoy-gateway/proxy
   prune: true
   sourceRef:
     kind: GitRepository
