@@ -24,7 +24,6 @@ machine:
         - actions-runner-system
         - system-upgrade
     {% endif %}
-    stableHostname: true
   files:
     - op: create
       path: /etc/cri/conf.d/20-customization.part
@@ -167,10 +166,10 @@ cluster:
 apiVersion: v1alpha1
 kind: UserVolumeConfig
 name: local-hostpath
+volumeType: disk
 provisioning:
   diskSelector:
     match: disk.model == "SAMSUNG MZ1L21T9HCLS-00A07" && !system_disk
-  minSize: 1.92TB
 ---
 apiVersion: v1alpha1
 kind: EthernetConfig

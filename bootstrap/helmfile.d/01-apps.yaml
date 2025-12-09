@@ -44,12 +44,37 @@ releases:
     values: ['./templates/values.yaml.gotmpl']
     needs: ['kube-system/spegel']
 
+  - name: external-secrets
+    namespace: external-secrets
+    chart: oci://ghcr.io/external-secrets/charts/external-secrets
+    version: 1.1.1
+    values: ['./templates/values.yaml.gotmpl']
+    needs: ['cert-manager/cert-manager']
+
+  - name: onepassword
+    namespace: external-secrets
+    chart: oci://ghcr.io/bjw-s-labs/helm/app-template
+    version: 4.5.0
+    values: ['./templates/values.yaml.gotmpl']
+    needs: ['external-secrets/external-secrets']
+    hooks:
+      - # Apply 1Password Store
+        events: ['postsync']
+        command: kubectl
+        args:
+          - apply
+          - --server-side
+          - --field-manager=kustomize-controller
+          - --kustomize
+          - ../../kubernetes/apps/external-secrets/onepassword/store
+        showlogs: true
+
   - name: flux-operator
     namespace: flux-system
     chart: oci://ghcr.io/controlplaneio-fluxcd/charts/flux-operator
     version: 0.36.0
     values: ['./templates/values.yaml.gotmpl']
-    needs: ['cert-manager/cert-manager']
+    needs: ['external-secrets/onepassword']
 
   - name: flux-instance
     namespace: flux-system
