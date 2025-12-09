@@ -3,5 +3,7 @@ machine:
   install:
     diskSelector:
       serial: S666NG0X101148
-  network:
-    hostname: m1.k8s.internal
+---
+apiVersion: v1alpha1
+kind: HostnameConfig
+hostname: m1.k8s.internal

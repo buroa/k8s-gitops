@@ -7,7 +7,6 @@ machine:
     key: op://K8s/talos/MACHINE_CA_KEY
     {% endif %}
   features:
-    apidCheckExtKeyUsage: true
     diskQuotaSupport: true
     hostDNS:
       enabled: true
@@ -25,7 +24,6 @@ machine:
         - actions-runner-system
         - system-upgrade
     {% endif %}
-    rbac: true
     stableHostname: true
   files:
     - op: create
@@ -48,7 +46,7 @@ machine:
         rsize=1048576
         wsize=1048576
   install:
-    image: factory.talos.dev/metal-installer/1870a4bc9362fda89df81278894241c5c9beced58cee7485ee7fd7ebff71d131:v1.11.5
+    image: factory.talos.dev/metal-installer/8b8d4dbe8a60c1723cb06ce0cb222aab514ba0231ab969bbe73cc0c17e9dbe6d:v1.12.0-rc.0
   kernel:
     modules:
       - name: nbd
@@ -61,24 +59,6 @@ machine:
     nodeIP:
       validSubnets:
         - 192.168.10.0/24
-  network:
-    interfaces:
-      - interface: bond0
-        bond:
-          deviceSelectors:
-            - hardwareAddr: 58:47:ca:7f:*
-              driver: i40e
-          lacpRate: fast
-          miimon: 1000
-          mode: 802.3ad
-          xmitHashPolicy: layer3+4
-        dhcp: true
-        mtu: 9000
-        vlans:
-          - # IOT
-            vlanId: 30
-            dhcp: false
-            mtu: 9000
   nodeLabels:
     node.kubernetes.io/gpu: "true"
     topology.kubernetes.io/region: k8s
@@ -138,7 +118,6 @@ cluster:
   apiServer:
     certSANs:
       - k8s.internal
-    disablePodSecurityPolicy: true
     extraArgs:
       enable-aggregator-routing: true
     image: registry.k8s.io/kube-apiserver:v1.34.2
@@ -186,6 +165,14 @@ cluster:
   {% endif %}
 ---
 apiVersion: v1alpha1
+kind: UserVolumeConfig
+name: local-hostpath
+provisioning:
+  diskSelector:
+    match: disk.model == "SAMSUNG MZ1L21T9HCLS-00A07" && !system_disk
+  minSize: 1.92TB
+---
+apiVersion: v1alpha1
 kind: EthernetConfig
 name: enp5s0f0np0
 rings:
@@ -200,12 +187,36 @@ rings:
   tx: 8160
 ---
 apiVersion: v1alpha1
-kind: UserVolumeConfig
-name: local-hostpath
-provisioning:
-  diskSelector:
-    match: disk.model == "SAMSUNG MZ1L21T9HCLS-00A07" && !system_disk
-  minSize: 1.92TB
+kind: BondConfig
+name: bond0
+links:
+  - enp5s0f0np0
+  - enp5s0f1np1
+bondMode: 802.3ad
+miimon: 1000
+xmitHashPolicy: layer3+4
+lacpRate: fast
+---
+apiVersion: v1alpha1
+kind: DHCPv4Config
+name: bond0
+clientIdentifier: mac
+---
+apiVersion: v1alpha1
+kind: VLANConfig
+name: bond0.30
+vlanID: 30
+parent: bond0
+---
+apiVersion: v1alpha1
+kind: LinkConfig
+name: bond0
+mtu: 9000
+---
+apiVersion: v1alpha1
+kind: LinkConfig
+name: bond0.30
+mtu: 9000
 ---
 apiVersion: v1alpha1
 kind: WatchdogTimerConfig
