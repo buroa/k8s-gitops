@@ -122,11 +122,8 @@ tasks:
   generate-schematic:
     desc: Generate a Talos schematic
     cmd: |-
-      minijinja-cli {{.TALOS_DIR}}/schematic.yaml.j2 \
-        | curl --silent -X POST --data-binary @- https://factory.talos.dev/schematics \
+      curl --silent -X POST --data-binary @{{ .TALOS_DIR }}/schematic.yaml https://factory.talos.dev/schematics \
         | jq --raw-output '.id'
-    env:
-      ISO: '{{.ISO | default "false"}}'
     preconditions:
-      - test -f {{.TALOS_DIR}}/schematic.yaml.j2
-      - which curl jq minijinja-cli
+      - test -f {{.TALOS_DIR}}/schematic.yaml
+      - which curl jq
