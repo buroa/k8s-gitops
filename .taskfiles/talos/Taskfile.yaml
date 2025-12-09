@@ -113,7 +113,7 @@ tasks:
         https://factory.talos.dev/image/{{.TALOS_SCHEMATIC}}/{{.VERSION}}/metal-amd64.iso
     vars:
       TALOS_SCHEMATIC:
-        sh: task --silent talos:generate-schematic ISO=true
+        sh: task --silent talos:generate-schematic
     requires:
       vars: [VERSION]
     preconditions:
