@@ -46,7 +46,7 @@ machine:
         rsize=1048576
         wsize=1048576
   install:
-    image: factory.talos.dev/metal-installer/8b8d4dbe8a60c1723cb06ce0cb222aab514ba0231ab969bbe73cc0c17e9dbe6d:v1.12.0-rc.0
+    image: factory.talos.dev/metal-installer/5ab007e4f8f960ce6119012aa5a976f3f99c1330db1b42d24ad24a2dda0e96ed:v1.12.0-rc.0
   kernel:
     modules:
       - name: nbd
@@ -196,6 +196,7 @@ bondMode: 802.3ad
 miimon: 1000
 xmitHashPolicy: layer3+4
 lacpRate: fast
+mtu: 9000
 ---
 apiVersion: v1alpha1
 kind: DHCPv4Config
@@ -207,15 +208,6 @@ kind: VLANConfig
 name: bond0.30
 vlanID: 30
 parent: bond0
----
-apiVersion: v1alpha1
-kind: LinkConfig
-name: bond0
-mtu: 9000
----
-apiVersion: v1alpha1
-kind: LinkConfig
-name: bond0.30
 mtu: 9000
 ---
 apiVersion: v1alpha1
