@@ -15,7 +15,8 @@ customization:
     - security=none                       # Less security, faster puter
     - sysctl.kernel.kexec_load_disabled=1 # Disable kexec load
     - talos.auditd.disabled=1             # Less security, faster puter
-    - talos.config.early=KLUv/ST8LQUAIssjHlBr6gNsN1Gz/4VYIQWYJyEFPlAJiIZxEis1ZmJianh45Sbtyd83Qnjfrg7CsUgoDgpyHd7C5zjl9mOFdlghAgBJ+sEq93FcsQXDseL5ekBVNct9IWIkQEAJchuxBDTtjbbXpG6gfWfJxHWNd4WKnjHk9uLHBk/PEuiZQS56b6BhRlNsHLnP3CW94I2xlBIGADNLKmYaTNWA1BABquAxw80oLNh7BA== # Early networking config
+    - # Early networking config
+      talos.config.early=KLUv/ST8LQUAIssjHlBr6gNsN1Gz/4VYIQWYJyEFPlAJiIZxEis1ZmJianh45Sbtyd83Qnjfrg7CsUgoDgpyHd7C5zjl9mOFdlghAgBJ+sEq93FcsQXDseL5ekBVNct9IWIkQEAJchuxBDTtjbbXpG6gfWfJxHWNd4WKnjHk9uLHBk/PEuiZQS56b6BhRlNsHLnP3CW94I2xlBIGADNLKmYaTNWA1BABquAxw80oLNh7BA==
   systemExtensions:
     officialExtensions:
       - siderolabs/amd-ucode              # AMD CPU Microcode
