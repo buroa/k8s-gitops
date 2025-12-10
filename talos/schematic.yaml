@@ -7,6 +7,7 @@ customization:
     - init_on_alloc=0                     # Less security, faster puter
     - init_on_free=0                      # Less security, faster puter
     - amd_iommu=on                        # PCI Passthrough
+    - amd_pstate=active                   # AMD P-State Driver
     - iommu=pt                            # PCI Passthrough
     - pcie_aspm=off                       # Disable PCIe ASPM
     - mitigations=off                     # Less security, faster puter
