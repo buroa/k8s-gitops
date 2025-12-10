@@ -163,14 +163,6 @@ cluster:
   {% endif %}
 ---
 apiVersion: v1alpha1
-kind: UserVolumeConfig
-name: local-hostpath
-volumeType: disk
-provisioning:
-  diskSelector:
-    match: disk.model == "SAMSUNG MZ1L21T9HCLS-00A07" && !system_disk
----
-apiVersion: v1alpha1
 kind: EthernetConfig
 name: enp5s0f0np0
 rings:

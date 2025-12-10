@@ -7,3 +7,11 @@ machine:
 apiVersion: v1alpha1
 kind: HostnameConfig
 hostname: m2.k8s.internal
+---
+apiVersion: v1alpha1
+kind: UserVolumeConfig
+name: local-hostpath
+volumeType: disk
+provisioning:
+  diskSelector:
+    match: disk.serial == "S666NN0X221313"
