@@ -61,13 +61,6 @@ spec:
     - name: pushover
       pushoverConfigs:
         - html: true
-          sendResolved: true
-          sound: gamelan
-          ttl: 86400s
-          priority: |-
-            {{ if eq .Status "firing" }}1{{ else }}0{{ end }}
-          title: >-
-            [{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ .CommonLabels.alertname }}
           message: |-
             {{- range .Alerts }}
               {{- if ne .Annotations.description "" }}
@@ -87,6 +80,14 @@ spec:
                 </small>
               {{- end }}
             {{- end }}
+          monospace: false
+          priority: |-
+            {{ if eq .Status "firing" }}1{{ else }}0{{ end }}
+          sendResolved: true
+          sound: gamelan
+          title: >-
+            [{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ .CommonLabels.alertname }}
+          ttl: 86400s
           token:
             name: alertmanager-secret
             key: ALERTMANAGER_PUSHOVER_APP_TOKEN
