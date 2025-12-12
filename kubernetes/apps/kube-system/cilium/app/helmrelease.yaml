@@ -88,7 +88,6 @@ spec:
           - NET_ADMIN
           - NET_RAW
           - IPC_LOCK
-          - SYS_ADMIN
           - SYS_RESOURCE
           - PERFMON
           - BPF
@@ -98,8 +97,9 @@ spec:
           - SETUID
         cleanCiliumState:
           - NET_ADMIN
-          - SYS_ADMIN
           - SYS_RESOURCE
+          - PERFMON
+          - BPF
     socketLB:
       enabled: true
       hostNamespaceOnly: true
