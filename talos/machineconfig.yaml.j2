@@ -189,7 +189,6 @@ bondMode: 802.3ad
 miimon: 1000
 xmitHashPolicy: layer3+4
 lacpRate: fast
-mtu: 9000
 ---
 apiVersion: v1alpha1
 kind: DHCPv4Config
@@ -201,7 +200,6 @@ kind: VLANConfig
 name: bond0.30
 vlanID: 30
 parent: bond0
-mtu: 9000
 ---
 apiVersion: v1alpha1
 kind: WatchdogTimerConfig

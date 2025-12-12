@@ -43,7 +43,7 @@ spec:
       name: main
     cni:
       exclusive: false
-    devices: bond+
+    devices: bond0
     enableIPv4BIGTCP: true
     endpointRoutes:
       enabled: true
@@ -59,6 +59,7 @@ spec:
     kubeProxyReplacement: true
     kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
     loadBalancer:
+      acceleration: best-effort
       algorithm: maglev
       mode: dsr
     localRedirectPolicies:
