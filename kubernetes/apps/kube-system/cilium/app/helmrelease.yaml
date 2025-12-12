@@ -43,7 +43,7 @@ spec:
       name: main
     cni:
       exclusive: false
-    devices: bond0
+    devices: bond+
     enableIPv4BIGTCP: true
     endpointRoutes:
       enabled: true
