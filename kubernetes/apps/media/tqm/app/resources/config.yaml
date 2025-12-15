@@ -22,21 +22,38 @@ filters:
       - IsUnregistered()
       - (
           HasAnyTag(
-            "site:ANT", "site:AR", "site:FL", "site:FNP", "site:IPT",
-            "site:ME", "site:MTV", "site:NBL", "site:TD"
+            "site:LST",
+            "site:OE",
+            "site:ULCX"
           ) &&
-          Ratio > 3.0
+          SeedingDays > 90
         )
       - (
           HasAnyTag(
-            "site:ANT", "site:AR", "site:BLU", "site:FL", "site:FNP",
-            "site:HDT", "site:IPT", "site:LST", "site:ME", "site:MTV",
-            "site:NBL", "site:OE", "site:PHD", "site:RFX", "site:SA",
-            "site:SP", "site:ST", "site:TD", "site:TL", "site:ULCX"
+            "site:ANT",
+            "site:BLU",
+            "site:NBL",
+            "site:PHD",
+            "site:TL"
           ) &&
-          SeedingDays > 24
+          SeedingDays > 60
         )
-      - HasAnyTag("not-linked") && SeedingDays > 24
+      - (
+          HasAnyTag(
+            "site:AR",
+            "site:FNP",
+            "site:HDT",
+            "site:IPT",
+            "site:RFX",
+            "site:SA",
+            "site:SP",
+            "site:ST",
+            "site:TD",
+          ) &&
+          SeedingDays > 90
+        )
+      - HasAnyTag("site:TL") && SeedingDays > 1
+      - HasAnyTag("not-linked") && SeedingDays > 30
 
     tag:
       - { name: activity:1d,   update: ['LastActivityDays < 7'] }
@@ -61,7 +78,6 @@ filters:
       - { name: site:HUNO,     update: ['TrackerName == "hawke.uno"'] }
       - { name: site:IPT,      update: ['TrackerName in ["bgp.technology", "empirehost.me", "stackoverflow.tech"]'] }
       - { name: site:LST,      update: ['TrackerName == "lst.gg"'] }
-      - { name: site:ME,       update: ['TrackerName == "milkie.cc"'] }
       - { name: site:MTV,      update: ['TrackerName == "morethantv.me"'] }
       - { name: site:NBL,      update: ['TrackerName == "nebulance.io"'] }
       - { name: site:OE,       update: ['TrackerName == "onlyencodes.cc"'] }
