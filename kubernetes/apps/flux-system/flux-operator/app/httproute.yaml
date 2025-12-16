@@ -1,0 +1,16 @@
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: flux
+spec:
+  hostnames:
+    - flux.k13.dev
+  parentRefs:
+    - name: envoy-internal
+      namespace: networking
+  rules:
+    - backendRefs:
+        - name: flux-operator
+          namespace: flux-system
+          port: 9080
