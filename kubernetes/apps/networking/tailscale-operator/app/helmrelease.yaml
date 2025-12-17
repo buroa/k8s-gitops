@@ -21,12 +21,16 @@ spec:
     kind: OCIRepository
     name: tailscale-operator
   interval: 1h
+  valuesFrom:
+    - kind: Secret
+      name: &secret tailscale-operator-secret
+      valuesKey: AUDIENCE
+      targetPath: oauth.audience
+    - kind: Secret
+      name: *secret
+      valuesKey: CLIENT_ID
+      targetPath: oauth.clientId
   values:
-    oauth:
-      clientSecret: not-used
-    oauthSecretVolume:
-      secret:
-        secretName: &secret tailscale-operator-secret
     operatorConfig:
       podAnnotations:
         secret.reloader.stakater.com/reload: *secret
