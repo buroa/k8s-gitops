@@ -22,6 +22,8 @@ spec:
     name: tailscale-operator
   interval: 1h
   values:
+    oauth:
+      clientSecret: not-used
     oauthSecretVolume:
       secret:
         secretName: &secret tailscale-operator-secret
