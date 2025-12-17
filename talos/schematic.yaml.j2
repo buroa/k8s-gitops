@@ -1,0 +1,25 @@
+---
+customization:
+  extraKernelArgs:
+    - -init_on_alloc                                  # Less security, faster puter
+    - -selinux                                        # Less security, faster puter
+    - apparmor=0                                      # Less security, faster puter
+    - init_on_alloc=0                                 # Less security, faster puter
+    - init_on_free=0                                  # Less security, faster puter
+    - amd_iommu=on                                    # PCI Passthrough
+    - amd_pstate=active                               # AMD P-State Driver
+    - iommu=pt                                        # PCI Passthrough
+    - pcie_aspm=off                                   # Disable PCIe ASPM
+    - mitigations=off                                 # Less security, faster puter
+    - module_blacklist=igc                            # Disable onboard NIC
+    - security=none                                   # Less security, faster puter
+    - sysctl.kernel.kexec_load_disabled=1             # Disable kexec load
+    - talos.auditd.disabled=1                         # Less security, faster puter
+    - talos.config.early={{ ENV.TALOS_CONFIG_EARLY }} # Early config
+  systemExtensions:
+    officialExtensions:
+      - siderolabs/amd-ucode              # AMD CPU Microcode
+      - siderolabs/gasket-driver          # Google Coral
+      - siderolabs/i915                   # Intel GPU
+      - siderolabs/mei                    # Intel GPU
+      - siderolabs/nfsrahead              # NFS Performance

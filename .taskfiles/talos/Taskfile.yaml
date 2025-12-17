@@ -10,6 +10,7 @@ tasks:
         | op inject \
         | talosctl --nodes {{.NODE}} apply-config \
           --mode {{.MODE}} \
+          --config-patch @{{.TALOS_DIR}}/networking.yaml \
           --config-patch @{{.TALOS_DIR}}/{{.MACHINE_TYPE}}/{{.NODE}}.yaml \
           --file /dev/stdin {{if .INSECURE}}--insecure{{end}}
     vars:
@@ -28,6 +29,7 @@ tasks:
       - op user get --me
       - talosctl config info
       - test -f {{.TALOS_DIR}}/machineconfig.yaml.j2
+      - test -f {{.TALOS_DIR}}/networking.yaml
       - test -f {{.TALOS_DIR}}/{{.MACHINE_TYPE}}/{{.NODE}}.yaml
       - which minijinja-cli op talosctl
 
@@ -122,8 +124,13 @@ tasks:
   generate-schematic:
     desc: Generate a Talos schematic
     cmd: |-
-      curl --silent -X POST --data-binary @{{ .TALOS_DIR }}/schematic.yaml https://factory.talos.dev/schematics \
+      minijinja-cli {{.TALOS_DIR}}/schematic.yaml.j2 \
+        | curl --silent -X POST --data-binary @- https://factory.talos.dev/schematics \
         | jq --raw-output '.id'
+    env:
+      TALOS_CONFIG_EARLY:
+        sh: zstd -c {{.TALOS_DIR}}/networking.yaml | base64 -w0
     preconditions:
-      - test -f {{.TALOS_DIR}}/schematic.yaml
-      - which curl jq
+      - test -f {{.TALOS_DIR}}/schematic.yaml.j2
+      - test -f {{.TALOS_DIR}}/networking.yaml
+      - which base64 curl jq minijinja-cli zstd
