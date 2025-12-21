@@ -21,7 +21,7 @@ filters:
     remove:
       - IsUnregistered()
       - TrackerName in [
-            "lsg.gg", "onlyencodes.cc", "upload.cx"
+            "lsg.gg", "onlyencodes.cc", "upload.cx", "darkpeers.org"
         ] && SeedingDays > 90
       - TrackerName in [
             "anthelion.me", "blutopia.cc", "blutopia.xyz", "nebulance.io",
