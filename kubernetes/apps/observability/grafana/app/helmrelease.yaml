@@ -98,9 +98,15 @@ spec:
         cloudflared:
           datasource: [{ name: DS_PROMETHEUS, value: Prometheus }]
           url: https://grafana.com/api/dashboards/17457/revisions/6/download
-        envoy:
-          datasource: [{ name: DS_AFRANET_PROMETHEUS, value: Prometheus }]
-          url: https://grafana.com/api/dashboards/23239/revisions/1/download
+        envoy-overview:
+          datasource: Prometheus
+          url: https://grafana.com/api/dashboards/24459/revisions/1/download
+        envoy-upstream:
+          datasource: Prometheus
+          url: https://grafana.com/api/dashboards/24457/revisions/1/download
+        envoy-downstream:
+          datasource: Prometheus
+          url: https://grafana.com/api/dashboards/24458/revisions/1/download
         etcd:
           datasource: Prometheus
           url: https://grafana.com/api/dashboards/22236/revisions/4/download
