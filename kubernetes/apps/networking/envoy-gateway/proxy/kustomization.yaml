@@ -5,4 +5,3 @@ resources:
   - ./certificate.yaml
   - ./envoy.yaml
   - ./podmonitor.yaml
-  - ./prometheusrule.yaml
