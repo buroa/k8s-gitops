@@ -9,7 +9,7 @@ spec:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
   ref:
-    tag: 0.11.20
+    tag: 0.11.21
   url: oci://ghcr.io/victoriametrics/helm-charts/victoria-logs-single
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
