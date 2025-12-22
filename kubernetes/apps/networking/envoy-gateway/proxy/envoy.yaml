@@ -122,7 +122,7 @@ spec:
     - type: Brotli
     - type: Gzip
   connection:
-    bufferLimit: 8Mi
+    bufferLimit: 32Mi
   tcpKeepalive: {}
   timeout:
     http:
@@ -138,10 +138,10 @@ spec:
       trustedCIDRs:
         - 10.244.0.0/16
   connection:
-    bufferLimit: 8Mi
+    bufferLimit: 32Mi
     maxAcceptPerSocketEvent: 0
   http2:
-    initialStreamWindowSize: 2Mi
+    initialStreamWindowSize: 16Mi
     initialConnectionWindowSize: 32Mi
     onInvalidMessage: TerminateStream
   http3: {}
