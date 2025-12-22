@@ -24,8 +24,7 @@ filters:
             "lsg.gg", "onlyencodes.cc", "upload.cx", "darkpeers.org"
         ] && SeedingDays > 90
       - TrackerName in [
-            "anthelion.me", "blutopia.cc", "blutopia.xyz", "nebulance.io",
-            "privatehd.to", "tleechreload.org", "torrentleech.org"
+            "anthelion.me", "blutopia.cc", "nebulance.io", "privatehd.to"
         ] && SeedingDays > 60
       - TrackerName in [
             "alpharatio.cc", "fearnopeer.com", "hdts-announce.ru", "bgp.technology",
