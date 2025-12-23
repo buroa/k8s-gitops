@@ -141,8 +141,9 @@ spec:
     bufferLimit: 32Mi
     maxAcceptPerSocketEvent: 0
   http2:
-    initialStreamWindowSize: 16Mi
-    initialConnectionWindowSize: 32Mi
+    initialStreamWindowSize: 4Mi
+    initialConnectionWindowSize: 16Mi
+    maxConcurrentStreams: 1000 # Cloudflare Enterprise
     onInvalidMessage: TerminateStream
   http3: {}
   targetSelectors:
