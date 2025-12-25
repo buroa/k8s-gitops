@@ -77,7 +77,7 @@ tasks:
   reset-node:
     desc: Reset Talos on a single node [NODE=required]
     prompt: Reset Talos node '{{.NODE}}' ... continue?
-    cmd: talosctl --nodes {{.NODE}} reset --graceful=false
+    cmd: talosctl --nodes {{.NODE}} reset --reboot=true --graceful=false
     requires:
       vars: [NODE]
     preconditions:
@@ -88,7 +88,7 @@ tasks:
   reset-cluster:
     desc: Reset Talos across the whole cluster
     prompt: Reset the Talos cluster ... continue?
-    cmd: talosctl --nodes {{.NODES}} reset --graceful=false
+    cmd: talosctl --nodes {{.NODES}} reset --reboot=true --graceful=false
     vars:
       NODES:
         sh: talosctl config info --output json | jq --join-output '[.nodes[]] | join(",")'
