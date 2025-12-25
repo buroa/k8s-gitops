@@ -128,5 +128,4 @@ spec:
       app:
         ports:
           http:
-            appProtocol: h2
             port: *port
