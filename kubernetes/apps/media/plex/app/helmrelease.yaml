@@ -128,5 +128,4 @@ spec:
       app:
         ports:
           http:
-            appProtocol: kubernetes.io/h2c
             port: *port
