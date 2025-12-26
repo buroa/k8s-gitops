@@ -4,9 +4,7 @@ ingress:
     service: https://envoy-external.networking.svc.cluster.local
     originRequest:
       http2Origin: true
-      originServerName: external.k13.dev
       keepAliveConnections: 200
-      keepAliveTimeout: 120s
-      connectTimeout: 10s
-      readTimeout: 60s
+      keepAliveTimeout: 300s
+      originServerName: external.k13.dev
   - service: http_status:404
