@@ -146,14 +146,14 @@ spec:
   http2:
     maxConcurrentStreams: 1000
     onInvalidMessage: TerminateStream
-  http3:
-    idleTime: 60s
-    interval: 15s
-    probes: 9
+  http3: {}
   targetSelectors:
     - group: gateway.networking.k8s.io
       kind: Gateway
-  tcpKeepalive: {}
+  tcpKeepalive:
+    idleTime: 60s
+    interval: 15s
+    probes: 9
   timeout:
     http:
       requestReceivedTimeout: 0s
