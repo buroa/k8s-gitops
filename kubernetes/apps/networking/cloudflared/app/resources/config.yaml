@@ -1,9 +1,10 @@
 ---
+tcpKeepAlive: 7200s # Envoy default is 7200s
+
 ingress:
   - hostname: "*.k13.dev"
     service: https://envoy-external.networking.svc.cluster.local
     originRequest:
       http2Origin: true
-      tcpKeepAlive: 7200s
       originServerName: external.k13.dev
   - service: http_status:404
