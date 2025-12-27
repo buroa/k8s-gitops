@@ -7,4 +7,5 @@ ingress:
       originServerName: external.k13.dev
       connectTimeout: 0s
       tcpKeepAlive: 7200s
+      keepAliveTimeout: 7200s
   - service: http_status:404
