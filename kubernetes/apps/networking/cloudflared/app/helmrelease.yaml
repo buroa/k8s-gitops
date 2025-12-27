@@ -24,6 +24,8 @@ spec:
             args:
               - tunnel
               - run
+              - --proxy-tcp-keepalive=7200s
+              - --proxy-keepalive-timeout=7200s
             env:
               NO_AUTOUPDATE: true
               TUNNEL_METRICS: 0.0.0.0:8080
