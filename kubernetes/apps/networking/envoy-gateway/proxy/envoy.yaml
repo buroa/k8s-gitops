@@ -123,9 +123,13 @@ spec:
     - type: Gzip
   connection:
     bufferLimit: 32Mi
-  tcpKeepalive: {}
+  tcpKeepalive:
+    idleTime: 300s
+    interval: 30s
+    probes: 8
   timeout:
     http:
+      connectionIdleTimeout: 7200s
       requestTimeout: 0s
 ---
 apiVersion: gateway.envoyproxy.io/v1alpha1
@@ -147,9 +151,13 @@ spec:
   targetSelectors:
     - group: gateway.networking.k8s.io
       kind: Gateway
-  tcpKeepalive: {}
+  tcpKeepalive:
+    idleTime: 300s
+    interval: 30s
+    probes: 8
   timeout:
     http:
+      idleTimeout: 7200s
       requestReceivedTimeout: 0s
   tls:
     minVersion: "1.2"
