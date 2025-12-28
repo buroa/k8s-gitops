@@ -6,4 +6,5 @@ ingress:
       http2Origin: true
       originServerName: external.k13.dev
       tcpKeepAlive: 7200s
+      keepAliveTimeout: 3600s
   - service: http_status:404

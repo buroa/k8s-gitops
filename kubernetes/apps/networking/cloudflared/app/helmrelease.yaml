@@ -26,7 +26,6 @@ spec:
               - run
             env:
               NO_AUTOUPDATE: true
-              TUNNEL_LOGLEVEL: debug
               TUNNEL_METRICS: 0.0.0.0:8080
               TUNNEL_TRANSPORT_PROTOCOL: http2
             envFrom:
