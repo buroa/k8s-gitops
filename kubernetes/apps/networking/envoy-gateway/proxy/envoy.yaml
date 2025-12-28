@@ -114,15 +114,15 @@ kind: BackendTrafficPolicy
 metadata:
   name: envoy
 spec:
-  targetSelectors:
-    - group: gateway.networking.k8s.io
-      kind: Gateway
   compression:
     - type: Zstd
     - type: Brotli
     - type: Gzip
   connection:
     bufferLimit: 32Mi
+  targetSelectors:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
   tcpKeepalive:
     idleTime: 300s
     interval: 30s
