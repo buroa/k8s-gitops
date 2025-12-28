@@ -123,7 +123,10 @@ spec:
     - type: Gzip
   connection:
     bufferLimit: 32Mi
-  tcpKeepalive: {}
+  tcpKeepalive:
+    idleTime: 300s
+    interval: 30s
+    probes: 8
   timeout:
     http:
       requestTimeout: 0s
@@ -147,7 +150,10 @@ spec:
   targetSelectors:
     - group: gateway.networking.k8s.io
       kind: Gateway
-  tcpKeepalive: {}
+  tcpKeepalive:
+    idleTime: 300s
+    interval: 30s
+    probes: 8
   timeout:
     http:
       requestReceivedTimeout: 0s
