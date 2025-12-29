@@ -140,6 +140,8 @@ spec:
   connection:
     bufferLimit: 32Mi
     maxAcceptPerSocketEvent: 0
+  headers:
+    enableEnvoyHeaders: true
   http2:
     maxConcurrentStreams: 1000
     onInvalidMessage: TerminateStream
