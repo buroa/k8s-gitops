@@ -129,8 +129,6 @@ spec:
     xForwardedFor:
       trustedCIDRs:
         - 10.244.0.0/16
-  connection:
-    maxAcceptPerSocketEvent: 0
   http2:
     onInvalidMessage: TerminateStream
   http3: {}
