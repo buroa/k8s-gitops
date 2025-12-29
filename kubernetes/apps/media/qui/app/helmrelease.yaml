@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: ghcr.io/autobrr/qui
-              tag: pr-849@sha256:f4ed4426565edd88956a7ed80ddb631b9f38fa149586ca93f3b4bcc0dff7eabb
+              tag: pr-849@sha256:18d9f38824ec1c054f3bf69f9da9332a099808155327f6fc7b8fdbeeb94c78c4
             env:
               QUI__HOST: 0.0.0.0
               QUI__PORT: &port 80
