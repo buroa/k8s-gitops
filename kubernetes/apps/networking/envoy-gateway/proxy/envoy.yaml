@@ -18,7 +18,7 @@ spec:
             requests:
               cpu: 100m
             limits:
-              memory: 4Gi
+              memory: 2Gi
   shutdown:
     drainTimeout: 180s
   telemetry:
@@ -79,12 +79,6 @@ metadata:
   name: envoy-internal
   annotations:
     external-dns.alpha.kubernetes.io/target: &hostname internal.k13.dev
-    gatus.home-operations.com/endpoint: |-
-      group: internal
-      guarded: true
-      ui:
-        hide-hostname: true
-        hide-url: true
 spec:
   gatewayClassName: envoy
   infrastructure:
@@ -137,8 +131,6 @@ spec:
         - 10.244.0.0/16
   connection:
     maxAcceptPerSocketEvent: 0
-  headers:
-    enableEnvoyHeaders: true
   http2:
     onInvalidMessage: TerminateStream
   http3: {}
