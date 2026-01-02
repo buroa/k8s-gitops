@@ -109,7 +109,7 @@ spec:
             retry:
               numRetries: 2
             targetRefs:
-              - group: ''
+              - group: gateway.networking.k8s.io
                 kind: HTTPRoute
                 name: plex
             tcpKeepalive: {}
