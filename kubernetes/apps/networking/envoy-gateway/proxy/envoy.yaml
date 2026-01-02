@@ -112,6 +112,7 @@ spec:
     - type: Zstd
     - type: Brotli
     - type: Gzip
+  retry: {}
   targetSelectors:
     - group: gateway.networking.k8s.io
       kind: Gateway
