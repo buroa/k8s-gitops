@@ -97,6 +97,25 @@ spec:
                   - name: gpu
                     exactly:
                       deviceClassName: gpu.intel.com
+      traffic:
+        apiVersion: gateway.envoyproxy.io/v1alpha1
+        kind: BackendTrafficPolicy
+        spec:
+          spec:
+            compression:
+              - type: Zstd
+              - type: Brotli
+              - type: Gzip
+            retry:
+              numRetries: 2
+            targetRefs:
+              - kind: HTTPRoute
+                name: plex
+            tcpKeepalive: {}
+            timeout:
+              http:
+                connectionIdleTimeout: 20s # Plex Keep-Alive is 20s
+                requestTimeout: 0s
     route:
       app:
         annotations:
