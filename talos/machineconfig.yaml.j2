@@ -45,7 +45,7 @@ machine:
         rsize=1048576
         wsize=1048576
   install:
-    image: factory.talos.dev/metal-installer/8507459ade11f68c97d482541ef6bc36f464cfccdceedd1db61ae0a775255189:v1.12.0
+    image: factory.talos.dev/metal-installer/1a3d1333b28261fce5a26e0eb6f7ff2f88c935dc54ff8e0fd90564d6e9b72a38:v1.12.0
   kernel:
     modules:
       - name: nbd
@@ -162,33 +162,6 @@ cluster:
   serviceAccount:
     key: op://K8s/talos/CLUSTER_SERVICEACCOUNT_KEY
   {% endif %}
----
-apiVersion: v1alpha1
-kind: EthernetConfig
-name: bond0
-features:
-  rx-gro-list: off
-  rx-udp-gro-forwarding: on
----
-apiVersion: v1alpha1
-kind: EthernetConfig
-name: enp5s0f0np0
-rings:
-  rx: 8160
-  tx: 8160
-features:
-  rx-gro-list: off
-  rx-udp-gro-forwarding: on
----
-apiVersion: v1alpha1
-kind: EthernetConfig
-name: enp5s0f1np1
-rings:
-  rx: 8160
-  tx: 8160
-features:
-  rx-gro-list: off
-  rx-udp-gro-forwarding: on
 ---
 apiVersion: v1alpha1
 kind: WatchdogTimerConfig
