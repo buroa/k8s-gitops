@@ -23,6 +23,5 @@ spec:
   interval: 1h
   values:
     manageCRDs: true
-    replicaCount: 2
     metrics:
       disableAuth: true
