@@ -9,7 +9,7 @@ spec:
       rules:
         - alert: UPSOnBattery
           expr: |-
-            (upsAdvBatteryRunTimeRemaining/60/100 <= 20 and upsBasicBatteryTimeOnBattery > 0)
+            upsAdvBatteryRunTimeRemaining_seconds < 300
           annotations:
             summary: >-
               ZPM {{ $labels.instance }} is running on battery power and has less than {{ $value }} minutes of runtime remaining
@@ -18,7 +18,7 @@ spec:
             severity: critical
 
         - alert: UPSReplaceBattery
-          expr: upsAdvTestDiagnosticsResults != 1
+          expr: upsAdvBattery_needsreplacing > 0
           annotations:
             summary: >-
               ZPM {{ $labels.instance }} battery needs to be replaced
