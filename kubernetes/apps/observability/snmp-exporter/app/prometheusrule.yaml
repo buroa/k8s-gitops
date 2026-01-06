@@ -9,7 +9,7 @@ spec:
       rules:
         - alert: UPSOnBattery
           expr: |-
-            upsAdvBatteryRunTimeRemaining_seconds < 300
+            upsBasicBatteryTimeOnBattery_seconds > 0 and upsAdvBatteryRunTimeRemaining_seconds < 300
           annotations:
             summary: >-
               ZPM {{ $labels.instance }} is running on battery power and has less than {{ $value }} minutes of runtime remaining
