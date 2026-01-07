@@ -4,8 +4,6 @@
 
 helmDefaults:
   args: ['--include-crds', '--no-hooks'] # Prevent helmfile apply or sync
-  postRenderer: bash
-  postRendererArgs: [-c, "yq ea --exit-status 'select(.kind == \"CustomResourceDefinition\")'"]
 
 releases:
   - name: envoy-gateway

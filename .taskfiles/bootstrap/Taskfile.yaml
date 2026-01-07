@@ -25,8 +25,7 @@ tasks:
       - defer: talosctl kubeconfig --nodes {{.RANDOM_CONTROLLER}} --force {{.KUBERNETES_DIR}}
       - until kubectl wait nodes --for=condition=Ready=False --all --timeout=10m; do sleep 5; done
       - op inject --in-file {{.BOOTSTRAP_DIR}}/resources.yaml | kubectl apply --server-side --filename -
-      - helmfile --file {{.BOOTSTRAP_DIR}}/helmfile.d/00-crds.yaml template --quiet | kubectl apply --server-side --filename -
-      - helmfile --file {{.BOOTSTRAP_DIR}}/helmfile.d/01-apps.yaml sync --hide-notes
+      - task: helmfile
     vars:
       CONTEXT:
         sh: talosctl config info --output json | jq --raw-output '.context'
@@ -36,7 +35,18 @@ tasks:
       - op user get --me
       - talosctl config info
       - talosctl --nodes {{.RANDOM_CONTROLLER}} get machineconfig
+      - test -f {{.BOOTSTRAP_DIR}}/resources.yaml
+      - which jq kubectl op talosctl
+
+  helmfile:
+    internal: true
+    cmds:
+      - |
+        helmfile --file {{.BOOTSTRAP_DIR}}/helmfile.d/00-crds.yaml template --quiet \
+          | yq ea -e 'select(.kind == "CustomResourceDefinition")' \
+          | kubectl apply --server-side --field-manager bootstrap --force-conflicts --filename -
+      - helmfile --file {{.BOOTSTRAP_DIR}}/helmfile.d/01-apps.yaml sync --hide-notes
+    preconditions:
       - test -f {{.BOOTSTRAP_DIR}}/helmfile.d/00-crds.yaml
       - test -f {{.BOOTSTRAP_DIR}}/helmfile.d/01-apps.yaml
-      - test -f {{.BOOTSTRAP_DIR}}/resources.yaml
-      - which helmfile jq kubectl op talosctl
+      - which helmfile kubectl yq
