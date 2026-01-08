@@ -108,10 +108,13 @@ kind: BackendTrafficPolicy
 metadata:
   name: envoy
 spec:
-  compression:
+  compressor:
     - type: Zstd
+      zstd: {}
     - type: Brotli
+      brotli: {}
     - type: Gzip
+      gzip: {}
   retry:
     numRetries: 2
   targetSelectors:
