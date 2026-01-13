@@ -5,6 +5,7 @@ namespace: media
 components:
   - ../../components/namespace
 resources:
+  - ./agregarr/ks.yaml
   - ./autobrr/ks.yaml
   - ./bazarr/ks.yaml
   - ./nzbget/ks.yaml
