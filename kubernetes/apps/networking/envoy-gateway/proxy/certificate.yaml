@@ -4,9 +4,13 @@ kind: Certificate
 metadata:
   name: k13-dev
 spec:
-  secretName: k13-dev-tls
+  dnsNames:
+    - k13.dev
+    - "*.k13.dev"
+  duration: 160h
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
-  commonName: k13.dev
-  dnsNames: ["k13.dev", "*.k13.dev"]
+  secretName: k13-dev-tls
+  usages:
+    - digital signature

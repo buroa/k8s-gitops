@@ -19,16 +19,6 @@ spec:
 
     - name: cert-manager-tls.rules
       rules:
-        - alert: CertManagerCertExpirySoon
-          expr: |-
-            avg by (exported_namespace, namespace, name) (certmanager_certificate_expiration_timestamp_seconds - time()) < (21 * 24 * 3600)
-          for: 5m
-          annotations:
-            summary: >-
-              The cert {{ $labels.name }} is {{ $value | humanizeDuration }} from expiry
-          labels:
-            severity: critical
-
         - alert: CertManagerCertNotReady
           expr: |-
             max by (name, exported_namespace, namespace, condition) (certmanager_certificate_ready_status{condition!="True"} == 1)
