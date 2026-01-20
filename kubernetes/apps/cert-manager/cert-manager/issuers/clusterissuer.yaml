@@ -5,9 +5,9 @@ metadata:
   name: letsencrypt-production
 spec:
   acme:
-    profile: shortlived
     privateKeySecretRef:
       name: letsencrypt-production
+    profile: shortlived
     server: https://acme-v02.api.letsencrypt.org/directory
     solvers:
       - dns01:

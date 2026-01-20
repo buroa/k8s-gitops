@@ -11,6 +11,10 @@ spec:
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
+  privateKey:
+    algorithm: ECDSA
+    size: 384
+    rotationPolicy: Always
   secretName: k13-dev-tls
   usages:
     - digital signature
