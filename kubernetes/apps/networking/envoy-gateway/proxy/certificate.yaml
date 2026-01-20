@@ -13,7 +13,7 @@ spec:
     kind: ClusterIssuer
   privateKey:
     algorithm: ECDSA
-    size: 384
+    size: 256
     rotationPolicy: Always
   secretName: k13-dev-tls
   usages:
