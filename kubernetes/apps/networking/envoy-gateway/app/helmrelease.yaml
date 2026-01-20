@@ -32,4 +32,4 @@ spec:
     global:
       images:
         envoyGateway:
-          image: mirror.gcr.io/envoyproxy/gateway-dev:latest@sha256:a9a203448744ff175956978c16bad496f0fcd3675248e141df0db0fac6ea2c33
+          image: mirror.gcr.io/envoyproxy/gateway-dev:latest@sha256:d0c479fe01da464720cd7bd039b4333fcaf2bb74d7ea6c62750fd2fa906c25b4
