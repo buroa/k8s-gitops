@@ -9,7 +9,7 @@ releases:
   - name: envoy-gateway
     namespace: networking
     chart: oci://mirror.gcr.io/envoyproxy/gateway-helm
-    version: v1.6.2
+    version: 1.6.3
 
   - name: keda
     namespace: observability
