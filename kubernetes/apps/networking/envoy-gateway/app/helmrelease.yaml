@@ -9,7 +9,7 @@ spec:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
   ref:
-    tag: 1.6.3
+    tag: 1.7.0-rc.1
   url: oci://mirror.gcr.io/envoyproxy/gateway-helm
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
@@ -29,7 +29,3 @@ spec:
           kubernetes:
             deploy:
               type: GatewayNamespace
-    global:
-      images:
-        envoyGateway:
-          image: mirror.gcr.io/envoyproxy/gateway-dev:latest@sha256:80dea970296e62de37a7a30aafd2b87b45477f6b4bad981d3d1bbaa48f0c8b02
