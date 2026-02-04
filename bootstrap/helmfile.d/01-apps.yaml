@@ -8,7 +8,7 @@ releases:
   - name: cilium
     namespace: kube-system
     chart: oci://quay.io/cilium/charts/cilium
-    version: 1.19.0-rc.1
+    version: 1.19.0
     values: ['./templates/values.yaml.gotmpl']
     hooks:
       - # Advertise Kubernetes VIP
