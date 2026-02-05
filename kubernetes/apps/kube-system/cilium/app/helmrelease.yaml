@@ -72,7 +72,6 @@ spec:
           enabled: true
     pmtuDiscovery:
       enabled: true
-      packetizationLayerPMTUDMode: disabled
     prometheus:
       enabled: true
       serviceMonitor:
