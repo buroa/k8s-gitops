@@ -22,11 +22,6 @@ spec:
             env:
               SABNZBD__PORT: &port 80
               SABNZBD__HOST_WHITELIST_ENTRIES: >-
-                {{ .Release.Name }},
-                {{ .Release.Name }}.{{ .Release.Namespace }},
-                {{ .Release.Name }}.{{ .Release.Namespace }}.svc,
-                {{ .Release.Name }}.{{ .Release.Namespace }}.svc.cluster,
-                {{ .Release.Name }}.{{ .Release.Namespace }}.svc.cluster.local,
                 {{ .Release.Name }}.k13.dev,
                 sab.k13.dev
               TZ: America/Chicago
