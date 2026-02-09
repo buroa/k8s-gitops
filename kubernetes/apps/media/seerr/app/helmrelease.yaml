@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: ghcr.io/seerr-team/seerr
-              tag: develop@sha256:f071863a8601d162f04f95e8c75622e3bb840791a5f32b1947a515c989e1ace8
+              tag: develop@sha256:ba6979c16c29f77ae206d26e483b54b9f45b0c16c66cb80f08a7caf84eedbfbb
             env:
               LOG_LEVEL: info
               PORT: &port 80
