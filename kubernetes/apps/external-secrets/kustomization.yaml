@@ -6,3 +6,4 @@ components:
   - ../../components/namespace
 resources:
   - ./external-secrets/ks.yaml
+  - ./onepassword/ks.yaml
