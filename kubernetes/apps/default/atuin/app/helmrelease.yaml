@@ -27,7 +27,6 @@ spec:
               ATUIN_PORT: &port 80
               TZ: America/Chicago
             args:
-              - server
               - start
             probes:
               liveness:
