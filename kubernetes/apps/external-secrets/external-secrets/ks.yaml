@@ -12,3 +12,20 @@ spec:
     name: flux-system
     namespace: flux-system
   targetNamespace: external-secrets
+  wait: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: external-secrets-store
+spec:
+  dependsOn:
+    - name: external-secrets
+  interval: 1h
+  path: ./kubernetes/apps/external-secrets/external-secrets/store
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: external-secrets
