@@ -192,9 +192,9 @@ This is achieved by defining routes with two specific gateways: `internal` for p
 </details>
 
 | Device                        | Count | OS Disk         | Data Disk                   | RAM   | OS               | Purpose                 |
-|-------------------------------|-------|-----------------|-----------------------------|----|------------------|-------------------------|
-| MS-A2 (AMD Ryzen™ 9 9955HX)   | 3     | 1.92TB M.2      | 3.84TB U.2 + 1.92TB M.2     | 96GB  | Talos            | Kubernetes Nodes        |
-| Synology RS1221+              | 1     | -               | 8×22TB HDD                  | 32GB  | DSM 7            | NFS Storage             |
+|-------------------------------|-------|-----------------|-----------------------------|-------|------------------|-------------------------|
+| Minisforum MS-A2              | 3     | 1.92TB M.2      | 3.84TB U.2 + 1.92TB M.2     | 96GB  | Talos            | Kubernetes Nodes        |
+| 45 HomeLab HL15 2.0           | 1     | 1.92TB M.2      | 12×22TB HDD                 | 256GB | TrueNAS SCALE    | NFS Storage             |
 | PiKVM (Raspberry Pi 4)        | 1     | 64GB SD         | -                           | 4GB   | PiKVM            | Remote KVM              |
 | TESmart 8-Port KVM            | 1     | -               | -                           | -     | -                | Network KVM             |
 | UniFi Dream Machine Pro Max   | 1     | -               | 2×16TB HDD                  | -     | UniFi OS         | Router & NVR            |
@@ -207,13 +207,13 @@ This is achieved by defining routes with two specific gateways: `internal` for p
 
 ### MS-A2 Configuration
 
-Each MS-A2 workstation is equipped with:
+Each MS-A2 (AMD Ryzen™ 9 9955HX) workstation is equipped with:
 
-- [Crucial 96GB Kit (48GBx2) DDR5-5600 SODIMM](https://www.amazon.com/Crucial-2x48GB-5600MT-5200MT-CT2K48G56C46S5/dp/B0C79K5VGZ)
-- [Samsung 1.92TB M.2 22x110mm PM9A3 NVMe PCIe 4.0](https://www.amazon.com/SAMSUNG-1-9TB-PM9A3-NVMe-PCIe/dp/B0B23N4P7L)
-- [Samsung 3.84TB U.2 PM9A3 NVMe PCIe 4.0](https://www.amazon.com/Samsung-PM9A3-Solid-State-Drive/dp/B0B83W15X6)
+- [Crucial 96GB Kit (48GBx2) DDR5-5600 SODIMM](https://www.amazon.com/dp/B0C79K5VGZ)
+- [Samsung 1.92TB M.2 22x110mm PM9A3 NVMe PCIe 4.0](https://www.amazon.com/dp/B0B23N4P7L)
+- [Samsung 3.84TB U.2 PM9A3 NVMe PCIe 4.0](https://www.amazon.com/dp/B0B83W15X6)
 - [Sparkle Intel Arc A310 ECO 4GB GPU](https://www.amazon.com/dp/B0CSFJN835)
-- [Google Coral M.2 Accelerator A+E Key](https://coral.ai/products/m2-accelerator-ae)
+- [Google Coral M.2 Accelerator A+E Key](https://www.amazon.com/dp/B0DFMC1GQF)
 
 ## <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f31f/512.gif" alt="🌟" width="20" height="20"> Stargazers
 
