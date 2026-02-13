@@ -194,7 +194,7 @@ This is achieved by defining routes with two specific gateways: `internal` for p
 | Device                        | Count | OS Disk         | Data Disk                   | RAM   | OS               | Purpose                 |
 |-------------------------------|-------|-----------------|-----------------------------|-------|------------------|-------------------------|
 | Minisforum MS-A2              | 3     | 1.92TB M.2      | 3.84TB U.2 + 1.92TB M.2     | 96GB  | Talos            | Kubernetes Nodes        |
-| 45 HomeLab HL15 2.0           | 1     | 1.92TB M.2      | 12×22TB HDD                 | 256GB | TrueNAS SCALE    | NFS Storage             |
+| 45 HomeLab HL15 2.0           | 1     | 1.92TB M.2      | 12×22TB HDD + 2x1.92TB M.2  | 256GB | TrueNAS SCALE    | NFS Storage             |
 | PiKVM (Raspberry Pi 4)        | 1     | 64GB SD         | -                           | 4GB   | PiKVM            | Remote KVM              |
 | TESmart 8-Port KVM            | 1     | -               | -                           | -     | -                | Network KVM             |
 | UniFi Dream Machine Pro Max   | 1     | -               | 2×16TB HDD                  | -     | UniFi OS         | Router & NVR            |
