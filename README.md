@@ -195,12 +195,11 @@ This is achieved by defining routes with two specific gateways: `internal` for p
 |-------------------------------|-------|-----------------|-----------------------------|-------|------------------|-------------------------|
 | Minisforum MS-A2              | 3     | 1.92TB M.2      | 3.84TB U.2 + 1.92TB M.2     | 96GB  | Talos            | Kubernetes Nodes        |
 | 45 HomeLab HL15 2.0           | 1     | 1.92TB M.2      | 12×22TB HDD + 2x1.92TB M.2  | 256GB | TrueNAS SCALE    | NFS Storage             |
-| PiKVM (Raspberry Pi 4)        | 1     | 64GB SD         | -                           | 4GB   | PiKVM            | Remote KVM              |
-| TESmart 8-Port KVM            | 1     | -               | -                           | -     | -                | Network KVM             |
+| JetKVM                        | 3     | -               | -                           | -     | -                | KVM for Kubernetes      |
 | UniFi Dream Machine Pro Max   | 1     | -               | 2×16TB HDD                  | -     | UniFi OS         | Router & NVR            |
 | UniFi Switch Pro Aggregation  | 1     | -               | -                           | -     | UniFi OS         | 10G/25Gb Core Switch    |
 | UniFi Switch Pro Max 24 PoE   | 1     | -               | -                           | -     | UniFi OS         | 2.5Gb PoE Switch        |
-| UniFi SmartPower PDU Pro      | 1     | -               | -                           | -     | UniFi OS         | Managed PDU             |
+| UniFi SmartPower PDU Pro      | 2     | -               | -                           | -     | UniFi OS         | Managed PDU             |
 | APC SMT1500RM2UNC UPS         | 1     | -               | -                           | -     | -                | Backup Power            |
 
 ---
