@@ -73,8 +73,8 @@ spec:
                 volumeMode: Filesystem
       media:
         type: nfs
-        server: nas.internal
-        path: /volume1/media
+        server: tank.internal
+        path: /mnt/tank/media
       qbrr:
         type: image
         image: ghcr.io/buroa/qbrr:0.1.4@sha256:35dce0dafb56f20d628b84eeb0e0214ee55fe18d452e27c850e62d163e239d8f

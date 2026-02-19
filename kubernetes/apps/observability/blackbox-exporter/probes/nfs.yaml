@@ -10,4 +10,4 @@ spec:
   targets:
     staticConfig:
       static:
-        - nas.internal:2049
+        - tank.internal:2049

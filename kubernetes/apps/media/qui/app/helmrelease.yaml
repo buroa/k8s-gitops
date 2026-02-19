@@ -61,8 +61,8 @@ spec:
         existingClaim: "{{ .Release.Name }}"
       media:
         type: nfs
-        server: nas.internal
-        path: /volume1/media
+        server: tank.internal
+        path: /mnt/tank/media
     route:
       app:
         hostnames:

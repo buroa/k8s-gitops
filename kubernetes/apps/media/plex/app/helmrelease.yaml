@@ -70,8 +70,8 @@ spec:
           - path: /config/Library/Application Support/Plex Media Server/Cache
       media:
         type: nfs
-        server: nas.internal
-        path: /volume1/media
+        server: tank.internal
+        path: /mnt/tank/media
         globalMounts:
           - readOnly: true
       tmpfs:
