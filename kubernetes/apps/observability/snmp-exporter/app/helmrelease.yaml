@@ -26,10 +26,6 @@ spec:
     serviceMonitor:
       enabled: true
       params:
-        - name: nas
-          auth: [public_v2]
-          module: [synology]
-          target: tank.internal
         - name: ups
           auth: [public_v2]
           module: [apcups]
