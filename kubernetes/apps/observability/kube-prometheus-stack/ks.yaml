@@ -15,3 +15,20 @@ spec:
     name: flux-system
     namespace: flux-system
   targetNamespace: observability
+  wait: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: kube-prometheus-stack-scapes
+spec:
+  dependsOn:
+    - name: kube-prometheus-stack
+  interval: 1h
+  path: ./kubernetes/apps/observability/kube-prometheus-stack/scrapes
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: observability
