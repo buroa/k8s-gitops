@@ -18,11 +18,11 @@ machine:
     {% if ENV.MACHINE_TYPE == 'controlplane' %}
     kubernetesTalosAPIAccess:
       enabled: true
-      allowedRoles:
-        - os:admin
       allowedKubernetesNamespaces:
         - actions-runner-system
         - system-upgrade
+      allowedRoles:
+        - os:admin
     {% endif %}
   files:
     - op: create
@@ -45,7 +45,7 @@ machine:
         rsize=1048576
         wsize=1048576
   install:
-    image: factory.talos.dev/metal-installer/3b7b9f9e9be25e4976e80d512761970c5701fe8792c71951755506daf930aea4:v1.12.4
+    image: factory.talos.dev/metal-installer/cf279b9a2fcbe9e0e514827ca92d0f4fce2f33f64ff18c6196b06c9cb3038fbf:v1.12.4
   kernel:
     modules:
       - name: nbd

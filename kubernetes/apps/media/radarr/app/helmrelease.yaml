@@ -60,7 +60,6 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
-        supplementalGroups: [65536]
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
@@ -70,8 +69,8 @@ spec:
           - path: /config/MediaCover
       media:
         type: nfs
-        server: nas.internal
-        path: /volume1/media
+        server: tank.internal
+        path: /mnt/tank/media
       tmpfs:
         type: emptyDir
         advancedMounts:

@@ -29,7 +29,7 @@ spec:
         - name: nas
           auth: [public_v2]
           module: [synology]
-          target: nas.internal
+          target: tank.internal
         - name: ups
           auth: [public_v2]
           module: [apcups]

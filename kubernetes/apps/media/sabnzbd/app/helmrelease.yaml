@@ -59,26 +59,13 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
-        supplementalGroups: [65536]
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
-      incomplete:
-        type: custom
-        volumeSpec:
-          ephemeral:
-            volumeClaimTemplate:
-              spec:
-                accessModes: ["ReadWriteOnce"]
-                resources:
-                  requests:
-                    storage: 1Mi # Ignored
-                storageClassName: openebs-hostpath
-                volumeMode: Filesystem
       media:
         type: nfs
-        server: nas.internal
-        path: /volume1/media
+        server: tank.internal
+        path: /mnt/tank/media
       tmpfs:
         type: emptyDir
         advancedMounts:
