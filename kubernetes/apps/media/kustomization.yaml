@@ -5,16 +5,16 @@ namespace: media
 components:
   - ../../components/namespace
 resources:
-  # - ./agregarr/ks.yaml
+  - ./agregarr/ks.yaml
   - ./autobrr/ks.yaml
   - ./bazarr/ks.yaml
-  # - ./plex/ks.yaml
+  - ./plex/ks.yaml
   - ./prowlarr/ks.yaml
   - ./qbittorrent/ks.yaml
   - ./qui/ks.yaml
   - ./radarr/ks.yaml
   # - ./recyclarr/ks.yaml
   - ./sabnzbd/ks.yaml
-  # - ./seerr/ks.yaml
+  - ./seerr/ks.yaml
   - ./sonarr/ks.yaml
-  # - ./tautulli/ks.yaml
+  - ./tautulli/ks.yaml
