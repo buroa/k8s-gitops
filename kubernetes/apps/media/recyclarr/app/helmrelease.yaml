@@ -15,7 +15,7 @@ spec:
         type: cronjob
         cronjob:
           schedule: "@daily"
-          timeZone: &timeZone America/Chicago
+          timeZone: America/Chicago
           concurrencyPolicy: Forbid
           successfulJobsHistory: 1
           failedJobsHistory: 1
@@ -27,7 +27,7 @@ spec:
             args:
               - sync
             env:
-              TZ: *timeZone
+              RECYCLARR_DATA_DIR: /tmp
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
