@@ -6,8 +6,8 @@ components:
   - ../../components/namespace
 resources:
   # - ./agregarr/ks.yaml
-  # - ./autobrr/ks.yaml
-  # - ./bazarr/ks.yaml
+  - ./autobrr/ks.yaml
+  - ./bazarr/ks.yaml
   # - ./plex/ks.yaml
   - ./prowlarr/ks.yaml
   - ./qbittorrent/ks.yaml
@@ -16,5 +16,5 @@ resources:
   # - ./recyclarr/ks.yaml
   - ./sabnzbd/ks.yaml
   # - ./seerr/ks.yaml
-  # - ./sonarr/ks.yaml
+  - ./sonarr/ks.yaml
   # - ./tautulli/ks.yaml
