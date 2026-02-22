@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: agregarr
+  name: seasonpackerr
 spec:
   chartRef:
     kind: OCIRepository
@@ -11,14 +11,24 @@ spec:
   interval: 1h
   values:
     controllers:
-      agregarr:
+      seasonpackerr:
         containers:
           app:
             image:
-              repository: ghcr.io/agregarr/agregarr
-              tag: v2.4.0@sha256:5f638efaa7ebf19defaea2168ee95a7108709bd5598974f243c19b3993c11e50
+              repository: ghcr.io/nuxencs/seasonpackarr
+              tag: v0.14.0@sha256:b8e759b3fb3c9587aafbb5ebcf4a5527245afd35b5893439fd21aea0283c8144
             env:
-              PORT: &port 80
+              SEASONPACKARR__DISABLE_CONFIG_FILE: true
+              SEASONPACKARR__HOST: 0.0.0.0
+              SEASONPACKARR__PORT: &port 80
+              SEASONPACKARR__LOG_LEVEL: INFO
+              SEASONPACKARR__SMART_MODE: true
+              SEASONPACKARR__SMART_MODE_THRESHOLD: 0.75
+              SEASONPACKARR__PARSE_TORRENT_FILE: true
+              SEASONPACKARR__FUZZY_MATCHING_SKIP_REPACK_COMPARE: true
+              SEASONPACKARR__CLIENTS_DEFAULT_HOST: qbittorrent.media.svc.cluster.local
+              SEASONPACKARR__CLIENTS_DEFAULT_PORT: 80
+              SEASONPACKARR__CLIENTS_DEFAULT_PREIMPORTPATH: /media/downloads/qbittorrent/complete/sonarr
               TZ: America/Chicago
             probes:
               liveness: &probes
@@ -26,7 +36,7 @@ spec:
                 custom: true
                 spec:
                   httpGet:
-                    path: /api/v1/status
+                    path: /api/healthz/readiness
                     port: *port
                   initialDelaySeconds: 0
                   periodSeconds: 10
@@ -37,7 +47,7 @@ spec:
               requests:
                 cpu: 10m
               limits:
-                memory: 1Gi
+                memory: 256Mi
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -50,26 +60,12 @@ spec:
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
     persistence:
-      config:
-        existingClaim: "{{ .Release.Name }}"
-        globalMounts:
-          - path: /app/config
-      tmpfs:
+      media:
+        type: nfs
+        server: tank.internal
+        path: /mnt/tank/media
+      tmp:
         type: emptyDir
-        advancedMounts:
-          agregarr:
-            app:
-              - path: /app/config/logs
-                subPath: logs
-              - path: /tmp
-                subPath: tmp
-    route:
-      app:
-        hostnames:
-          - "{{ .Release.Name }}.k13.dev"
-        parentRefs:
-          - name: envoy-internal
-            namespace: networking
     service:
       app:
         ports:
