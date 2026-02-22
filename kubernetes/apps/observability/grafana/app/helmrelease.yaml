@@ -146,9 +146,6 @@ spec:
         spegel:
           datasource: Prometheus
           url: https://grafana.com/api/dashboards/22104/revisions/1/download
-        synology-snmp:
-          datasource: [{ name: DS_PROMETHEUS, value: Prometheus }]
-          url: https://grafana.com/api/dashboards/18643/revisions/1/download
         unifi-insights:
           datasource: Prometheus
           url: https://grafana.com/api/dashboards/11315/revisions/9/download
