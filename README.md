@@ -115,7 +115,7 @@ graph LR
 
 ### Networking
 
-My network is built on a multi-tier architecture with enterprise-grade performance. At the core, a UniFi Dream Machine Pro handles routing and firewall duties, connected to a 10/25Gb aggregation switch that provides the backbone. Critical infrastructure—NAS, Kubernetes cluster, and access layer—connects via 10G LACP bonds for redundancy and throughput. A 24-port 2.5G PoE switch serves end devices and wireless access points, all backed by 5Gbps WAN connectivity from RCN.
+My network is built on a multi-tier architecture with enterprise-grade performance. At the core, a UniFi Dream Machine Pro handles routing and firewall duties, connected to a 10/25Gb aggregation switch that provides the backbone. The NAS connects via dual 25G LACP bonds, while the Kubernetes cluster and access layer remain on 10G LACP for redundancy and throughput. A 24-port 2.5G PoE switch serves end devices and wireless access points, all backed by 5Gbps WAN connectivity from RCN.
 
 <details>
   <summary>Click to see a high-level network diagram</summary>
@@ -156,7 +156,7 @@ graph TD
     %% Links
     RCN -.->|WAN| UDM
     UDM --> AGG
-    AGG -- 10G LACP --- NAS
+    AGG -- 25G LACP --- NAS
     AGG -- 10G LACP --- K8s
     AGG -- 10G LACP --- SW
     SW --> DEV
@@ -194,7 +194,7 @@ This is achieved by defining routes with two specific gateways: `internal` for p
 | Device                        | Count | OS Disk         | Data Disk                   | RAM   | OS               | Purpose                 |
 |-------------------------------|-------|-----------------|-----------------------------|-------|------------------|-------------------------|
 | Minisforum MS-A2              | 3     | 1.92TB M.2      | 3.84TB U.2 + 1.92TB M.2     | 96GB  | Talos            | Kubernetes Nodes        |
-| 45 HomeLab HL15 2.0           | 1     | 1.92TB M.2      | 12×22TB HDD + 2x1.92TB M.2  | 256GB | TrueNAS SCALE    | NFS Storage             |
+| 45 HomeLab HL15 2.0           | 1     | 1.92TB M.2      | 12×22TB HDD + 2x1.92TB M.2  | 512GB | TrueNAS SCALE    | NFS Storage             |
 | JetKVM                        | 3     | -               | -                           | -     | -                | KVM for Kubernetes      |
 | UniFi Dream Machine Pro Max   | 1     | -               | 2×16TB HDD                  | -     | UniFi OS         | Router & NVR            |
 | UniFi Switch Pro Aggregation  | 1     | -               | -                           | -     | UniFi OS         | 10G/25Gb Core Switch    |
