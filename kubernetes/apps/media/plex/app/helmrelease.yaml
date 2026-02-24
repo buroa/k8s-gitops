@@ -95,7 +95,7 @@ spec:
                 requests:
                   - name: gpu
                     exactly:
-                      deviceClassName: gpu.intel.com
+                      deviceClassName: gpu.amd.com
     route:
       app:
         annotations:

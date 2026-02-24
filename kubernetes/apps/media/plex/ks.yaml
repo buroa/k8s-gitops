@@ -8,7 +8,7 @@ spec:
     - ../../../../components/keda
     - ../../../../components/volsync
   dependsOn:
-    - name: intel-gpu-resource-driver
+    - name: k8s-gpu-dra-driver
       namespace: kube-system
     - name: rook-ceph-cluster
       namespace: rook-ceph
