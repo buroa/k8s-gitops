@@ -2,10 +2,10 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: intel-gpu-resource-driver
+  name: k8s-gpu-dra-driver
 spec:
   interval: 1h
-  path: ./kubernetes/apps/kube-system/intel-gpu-resource-driver/app
+  path: ./kubernetes/apps/kube-system/k8s-gpu-dra-driver/app
   prune: true
   sourceRef:
     kind: GitRepository
