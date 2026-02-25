@@ -24,3 +24,6 @@ spec:
   values:
     cdi:
       dynamicPath: /var/cdi/dynamic
+    image:
+      repository: ghcr.io/buroa/k8s-gpu-dra-driver
+      tag: v0.1.0@sha256:ef1ccb2e39d991bad8201c3b76f81a8a856296c63b7021e672fb4e7bdca91cde
