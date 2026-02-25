@@ -48,7 +48,6 @@ spec:
                 spec:
                   install:
                     crds: CreateReplace
-                    serverSideApply: true
                     strategy:
                       name: RetryOnFailure
                   rollback:
@@ -56,7 +55,6 @@ spec:
                   upgrade:
                     cleanupOnFail: true
                     crds: CreateReplace
-                    serverSideApply: enabled
                     strategy:
                       name: RemediateOnFailure
                     remediation:
