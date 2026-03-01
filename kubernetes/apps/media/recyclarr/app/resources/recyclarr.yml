@@ -5,6 +5,18 @@ sonarr:
     api_key: !env_var SONARR_API_KEY
     delete_old_custom_formats: true
 
+    media_management:
+      propers_and_repacks: do_not_prefer
+
+    media_naming:
+      episodes:
+        anime: default
+        daily: default
+        rename: true
+        standard: default
+      season: default
+      series: plex-imdb
+
     quality_definition:
       type: series
 
@@ -32,11 +44,20 @@ radarr:
     api_key: !env_var RADARR_API_KEY
     delete_old_custom_formats: true
 
+    media_management:
+      propers_and_repacks: do_not_prefer
+
+    media_naming:
+      folder: plex-imdb
+      movie:
+        rename: true
+        standard: plex-imdb
+
     quality_definition:
       type: sqp-uhd
 
     quality_profiles:
-      - trash_id: 5128baeb2b081b72126bc8482b2a86a0 # SQP-1 (2160p)
+      - trash_id: 5128baeb2b081b72126bc8482b2a86a0 # [SQP] SQP-1 (2160p)
         reset_unmatched_scores:
           enabled: true
 
@@ -50,4 +71,4 @@ radarr:
           - 5c44f52a8714fdd79bb4d98e2673be1f # Retags
           - f537cf427b64c38c8e36298f657e4828 # Scene
         assign_scores_to:
-          - name: SQP-1 (2160p)
+          - name: "[SQP] SQP-1 (2160p)"
