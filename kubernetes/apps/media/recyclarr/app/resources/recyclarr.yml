@@ -35,8 +35,8 @@ sonarr:
           - e1a997ddb54e3ecbfe06341ad323c458 # Obfuscated
           - 06d66ab109d4d2eddb2794d21526d140 # Retags
         assign_scores_to:
-          - name: WEB-1080p
-          - name: WEB-2160p
+          - trash_id: 72dae194fc92bf828f32cde7744e51a1 # WEB-1080p
+          - trash_id: d1498e7d189fbe6c7110ceaabb7473e6 # WEB-2160p
 
 radarr:
   movies:
@@ -71,4 +71,4 @@ radarr:
           - 5c44f52a8714fdd79bb4d98e2673be1f # Retags
           - f537cf427b64c38c8e36298f657e4828 # Scene
         assign_scores_to:
-          - name: "[SQP] SQP-1 (2160p)"
+          - trash_id: 5128baeb2b081b72126bc8482b2a86a0 # [SQP] SQP-1 (2160p)
