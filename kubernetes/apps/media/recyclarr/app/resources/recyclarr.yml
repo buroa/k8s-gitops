@@ -30,6 +30,13 @@ sonarr:
 
     custom_formats:
       - trash_ids:
+          - 5d9fd1b1e06cd8a475462f40214b7df6 # FLUX
+        assign_scores_to:
+          - trash_id: 72dae194fc92bf828f32cde7744e51a1 # WEB-1080p
+            score: 100
+          - trash_id: d1498e7d189fbe6c7110ceaabb7473e6 # WEB-2160p
+            score: 100
+      - trash_ids:
           - 32b367365729d530ca1c124a0b180c64 # Bad Dual Groups
           - 82d40da2bc6923f41e14394075dd4b03 # No-RlsGroup
           - e1a997ddb54e3ecbfe06341ad323c458 # Obfuscated
