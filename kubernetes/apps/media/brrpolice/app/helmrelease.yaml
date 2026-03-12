@@ -18,6 +18,7 @@ spec:
               repository: ghcr.io/zariel/brrpolice
               tag: v0.6.0@sha256:41fec7b93c050f69b5ee814e7b7fc8f7d93d35d2392bb645d05bae29ab42822b
             env:
+              BRRPOLICE_LOGGING__LEVEL: info
               BRRPOLICE_QBITTORRENT__BASE_URL: http://qbittorrent.media.svc.cluster.local
               TZ: America/Chicago
             probes:
