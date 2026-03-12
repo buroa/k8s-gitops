@@ -18,6 +18,7 @@ spec:
               repository: ghcr.io/buroa/brrpolice
               tag: test@sha256:914a9394ae7cd51baf05879cccc58525a44b881255edb4b64fd9954c6bd14a8b
             env:
+              BRRPOLICE_LOGGING__LEVEL: info
               BRRPOLICE_QBITTORRENT__BASE_URL: http://qbittorrent.media.svc.cluster.local
               TZ: America/Chicago
             probes:
