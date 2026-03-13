@@ -18,6 +18,7 @@ spec:
               repository: ghcr.io/zariel/brrpolice
               tag: v0.12.1@sha256:dfad36b5de5b49c2180dbe45d04e52d7b3681d27987a8780d6306e8455d8b1d2
             env:
+              BRRPOLICE_HTTP__PORT: &port 80
               BRRPOLICE_LOGGING__LEVEL: info
               BRRPOLICE_QBITTORRENT__BASE_URL: http://qbittorrent.media.svc.cluster.local
               TZ: America/Chicago
@@ -28,7 +29,7 @@ spec:
                 spec:
                   httpGet:
                     path: /healthz
-                    port: &port 9090
+                    port: *port
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 5
