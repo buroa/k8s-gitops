@@ -22,7 +22,7 @@ spec:
             env:
               TZ: America/Chicago
               UP_INFLUXDB_DISABLE: true
-              UP_PROMETHEUS_HTTP_LISTEN: 0.0.0.0:8080
+              UP_PROMETHEUS_HTTP_LISTEN: 0.0.0.0:80
               UP_UNIFI_DEFAULT_ROLE: k8s-gitops
               UP_UNIFI_DEFAULT_URL: https://unifi.internal
               UP_UNIFI_DEFAULT_VERIFY_SSL: false
@@ -36,7 +36,7 @@ spec:
                 spec:
                   httpGet:
                     path: /health
-                    port: &port 8080
+                    port: &port 80
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 5
