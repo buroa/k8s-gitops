@@ -68,7 +68,7 @@ spec:
               tag: 1.8.2@sha256:3844a6410e119ccec72011737d5b46afe4be12cb0f54f681fe3ce999280449d8
             env:
               XDG_DATA_HOME: *configDir
-              OP_HTTP_PORT: &syncPort 8081
+              OP_HTTP_PORT: &syncPort 8080
               OP_BUS_PORT: 11221
               OP_BUS_PEERS: localhost:11220
               OP_SESSION:

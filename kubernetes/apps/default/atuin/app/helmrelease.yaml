@@ -22,7 +22,7 @@ spec:
               ATUIN_HOST: 0.0.0.0
               ATUIN_METRICS__ENABLE: true
               ATUIN_METRICS__HOST: 0.0.0.0
-              ATUIN_METRICS__PORT: &metricsPort 8081
+              ATUIN_METRICS__PORT: &metricsPort 8080
               ATUIN_OPEN_REGISTRATION: true
               ATUIN_PORT: &port 80
               TZ: America/Chicago
