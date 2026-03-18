@@ -13,6 +13,4 @@ spec:
         - unifi.internal
         - tank.internal
         - ups.internal
-        - kvm.internal
-        - pikvm.internal
         - zigbee-controller.internal

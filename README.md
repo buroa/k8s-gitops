@@ -199,7 +199,7 @@ This is achieved by defining routes with two specific gateways: `internal` for p
 | UniFi Dream Machine Pro Max   | 1     | -               | 2×16TB HDD                  | -     | UniFi OS         | Router & NVR            |
 | UniFi Switch Pro Aggregation  | 1     | -               | -                           | -     | UniFi OS         | 10G/25Gb Core Switch    |
 | UniFi Switch Pro Max 24 PoE   | 1     | -               | -                           | -     | UniFi OS         | 2.5Gb PoE Switch        |
-| UniFi SmartPower PDU Pro      | 2     | -               | -                           | -     | UniFi OS         | Managed PDU             |
+| UniFi SmartPower PDU Pro      | 1     | -               | -                           | -     | UniFi OS         | Managed PDU             |
 | APC SMT1500RM2UNC UPS         | 1     | -               | -                           | -     | -                | Backup Power            |
 
 ---
