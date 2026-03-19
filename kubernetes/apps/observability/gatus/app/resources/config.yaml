@@ -1,48 +1,49 @@
 ---
 connectivity:
   checker:
-    target: 1.1.1.1:53
     interval: 1m
+    target: 1.1.1.1:53
 
 endpoints:
-  - name: Cloudflare
+  - conditions:
+      - "[CONNECTED] == true"
     group: connectivity
+    interval: 1m
+    name: Cloudflare
     url: icmp://1.1.1.1
-    interval: 1m
-    conditions:
-      - "[CONNECTED] == true"
 
-  - name: Google
+  - conditions:
+      - "[CONNECTED] == true"
     group: connectivity
+    interval: 1m
+    name: Google
     url: icmp://8.8.8.8
-    interval: 1m
-    conditions:
-      - "[CONNECTED] == true"
 
-  - name: Lumen
-    group: connectivity
-    url: icmp://4.2.2.1
-    interval: 1m
-    conditions:
+  - conditions:
       - "[CONNECTED] == true"
+    group: connectivity
+    interval: 1m
+    name: Lumen
+    url: icmp://4.2.2.1
 
 metrics: true
 
 storage:
-  type: sqlite
   caching: true
   path: ${GATUS_CONFIG_PATH}/gatus.db
+  type: sqlite
 
 ui:
-  title: Status | Gatus
-  header: Status
-  logo: https://avatars.githubusercontent.com/u/36205263
-  link: https://github.com/buroa
   buttons:
     - name: Github
       link: https://github.com/buroa
     - name: Homelab
       link: https://github.com/buroa/k8s-gitops
+  default-sort-by: group
+  header: Status
+  link: https://github.com/buroa
+  logo: https://avatars.githubusercontent.com/u/36205263
+  title: Status | Gatus
 
 web:
   port: ${GATUS_WEB_PORT}

@@ -14,35 +14,35 @@ alerting:
     user-key: ${BUDDY_PUSHOVER_USER_KEY}
 
 endpoints:
-  - name: Ping
-    group: buddy
-    url: icmp://${BUDDY_DDNS_HOSTNAME}
-    interval: 1m
-    ui:
-      hide-url: true
-      hide-hostname: true
+  - alerts:
+      - type: pushover
     conditions:
       - "[CONNECTED] == true"
-    alerts:
-      - type: pushover
-
-  - name: Status Page
     group: buddy
-    url: https://${BUDDY_STATUS_HOSTNAME}
     interval: 1m
+    name: Ping
     ui:
-      hide-url: true
       hide-hostname: true
+      hide-url: true
+    url: icmp://${BUDDY_DDNS_HOSTNAME}
+
+  - alerts:
+      - type: pushover
     conditions:
       - "[STATUS] == 200"
-    alerts:
-      - type: pushover
+    group: buddy
+    interval: 1m
+    name: Status Page
+    ui:
+      hide-hostname: true
+      hide-url: true
+    url: https://${BUDDY_STATUS_HOSTNAME}
 
 external-endpoints:
-  - name: Heartbeat
+  - alerts:
+      - type: pushover
     group: buddy
-    token: ${BUDDY_HEARTBEAT_TOKEN}
     heartbeat:
       interval: 5m
-    alerts:
-      - type: pushover
+    name: Heartbeat
+    token: ${BUDDY_HEARTBEAT_TOKEN}
