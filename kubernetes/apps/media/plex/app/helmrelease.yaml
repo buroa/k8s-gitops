@@ -15,12 +15,14 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/home-operations/plex
-              tag: 1.43.0.10492@sha256:8cb062f2b0660bd7811387e6c799da0ce5f18112078fe21485c11adcc83a9c1c
+              repository: ghcr.io/buroa/plex
+              tag: dev@sha256:fe12a4acb406cf1299c09f272ffed7e1889727255caaec64a56288c164a5b56b
             env:
               PLEX_ADVERTISE_URL: https://{{ .Release.Name }}.k13.dev:443
               PLEX_NO_AUTH_NETWORKS: 192.168.1.0/24
               TZ: America/Chicago
+              MESA_SHADER_CACHE_DIR: /tmp
+              LIBVA_DRIVER_NAME: radeonsi
             probes:
               liveness: &probes
                 enabled: true
