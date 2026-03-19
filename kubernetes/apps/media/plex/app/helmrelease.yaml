@@ -16,12 +16,11 @@ spec:
           app:
             image:
               repository: ghcr.io/buroa/plex
-              tag: dev@sha256:e2ebc45ee589e4a650da63830583b0d8f3b2cecfc04079dca1f86d94d5f04913
+              tag: 1.43.0.10492@sha256:cae15bcf114d6dca88733cb5b8b33ae427f7fad06863e335e5a3ab93a930c871
             env:
               PLEX_ADVERTISE_URL: https://{{ .Release.Name }}.k13.dev:443
               PLEX_NO_AUTH_NETWORKS: 192.168.1.0/24
               TZ: America/Chicago
-              MESA_SHADER_CACHE_DIR: /tmp
             probes:
               liveness: &probes
                 enabled: true
