@@ -238,3 +238,11 @@ Huge thanks to [@onedr0p](https://github.com/onedr0p) and the amazing [Home Oper
 ## <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/2696_fe0f/512.gif" alt="⚖" width="20" height="20"> License
 
 See [LICENSE](./LICENSE).
+
+---
+
+<div align="center">
+
+[![DeepWiki](https://img.shields.io/badge/deepwiki-purple?label=&logo=deepl&style=for-the-badge&logoColor=white)](https://deepwiki.com/buroa/k8s-gitops)
+
+</div>
