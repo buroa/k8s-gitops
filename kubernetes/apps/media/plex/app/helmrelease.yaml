@@ -15,8 +15,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/buroa/plex
-              tag: 1.43.0.10492@sha256:95cdfbee3244207dd5052c3dd0f31bdef42e6ae14cd2be84f9ea71c6525ef4e4
+              repository: ghcr.io/home-operations/plex-next
+              tag: 1.43.0.10492@sha256:e17838a5272f51faefaca5be71d2a9345a37bd46b22b74ca724a96c5831b2366
             env:
               PLEX_ADVERTISE_URL: https://{{ .Release.Name }}.k13.dev:443
               PLEX_NO_AUTH_NETWORKS: 192.168.1.0/24
