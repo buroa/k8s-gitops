@@ -15,10 +15,9 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/home-operations/plex-next
-              tag: 1.43.0.10492@sha256:cbbc661bdd7134b3afbc16d2cffe99f0a30a1e7b60936cc115f08f92e50640e9
+              repository: ghcr.io/buroa/plex
+              tag: 1.43.0.10492@sha256:6e38a9be82264d785a4dea445e7e201c581181b16db9f5e0b43cd1955ad04eee
             env:
-              LIBVA_DRIVERS_PATH: /usr/lib/dri # test
               PLEX_ADVERTISE_URL: https://{{ .Release.Name }}.k13.dev:443
               PLEX_NO_AUTH_NETWORKS: 192.168.1.0/24
               TZ: America/Chicago
