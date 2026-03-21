@@ -16,7 +16,7 @@ spec:
           app:
             image:
               repository: ghcr.io/home-operations/plex-next
-              tag: 1.43.0.10492@sha256:7dcac8367f5aea9ac8d291f2b11a9f2d8907a1d4320d8fbf18191974ee3e41ae
+              tag: 1.43.0.10492@sha256:cbbc661bdd7134b3afbc16d2cffe99f0a30a1e7b60936cc115f08f92e50640e9
             env:
               LIBVA_DRIVERS_PATH: /usr/lib/dri # test
               PLEX_ADVERTISE_URL: https://{{ .Release.Name }}.k13.dev:443
