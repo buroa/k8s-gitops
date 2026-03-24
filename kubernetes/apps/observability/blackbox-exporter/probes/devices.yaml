@@ -14,6 +14,7 @@ spec:
         - m1-kvm.internal
         - m2-kvm.internal
         - tank.internal
+        - tank-ipmi.internal
         - unifi.internal
         - ups.internal
         - zigbee-controller.internal
