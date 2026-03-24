@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: ghcr.io/unpoller/unpoller
-              tag: v2.36.0@sha256:16ccaba600bb973160d8d67810b8d59b294b2f3967ed359ab40dbf07ed0f725b
+              tag: v2.37.0@sha256:f730b383f9c84fcf02665f793ad270eae7d5447cdc3f799794885d8d67334568
             env:
               TZ: America/Chicago
               UP_INFLUXDB_DISABLE: true
