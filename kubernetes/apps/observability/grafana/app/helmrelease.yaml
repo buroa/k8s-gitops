@@ -26,20 +26,24 @@ spec:
       type: Recreate
     admin:
       existingSecret: grafana-secret
-    env:
-      GF_DATE_FORMATS_USE_BROWSER_LOCALE: true
-      GF_EXPLORE_ENABLED: true
-      GF_SECURITY_ANGULAR_SUPPORT_ENABLED: true
-      GF_SERVER_ROOT_URL: https://{{ .Release.Name }}.k13.dev
     grafana.ini:
       analytics:
         check_for_updates: false
         check_for_plugin_updates: false
+        feedback_links_enabled: false
         reporting_enabled: false
       auth.anonymous:
         enabled: true
+      logs:
+        mode: console
+      metrics:
+        enabled: true
       news:
         news_feed_enabled: false
+      plugins:
+        plugin_admin_enabled: false
+      security:
+        angular_support_enabled: true
     datasources:
       datasources.yaml:
         apiVersion: 1
