@@ -10,7 +10,10 @@ spec:
   targets:
     staticConfig:
       static:
-        - unifi.internal
+        - m0-kvm.internal
+        - m1-kvm.internal
+        - m2-kvm.internal
         - tank.internal
+        - unifi.internal
         - ups.internal
         - zigbee-controller.internal
