@@ -95,12 +95,6 @@ spec:
             imageFormat: "2"
           reclaimPolicy: Delete
           volumeBindingMode: Immediate
-      - name: ceph-blockpool-ec
-        spec:
-          failureDomain: host
-          erasureCoded:
-            dataChunks: 2
-            codingChunks: 1
     cephBlockPoolsVolumeSnapshotClass:
       enabled: true
       name: csi-ceph-block
