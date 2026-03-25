@@ -1,3 +1,11 @@
+apiVersion: ceph.rook.io/v1
+kind: CephBlockPool
+metadata:
+  name: nvmeof
+spec:
+  failureDomain: host
+  replicated:
+    size: 3
 ---
 apiVersion: ceph.rook.io/v1
 kind: CephNVMeOFGateway
@@ -5,9 +13,9 @@ metadata:
   name: nvmeof
 spec:
   image: quay.io/ceph/nvmeof:1.7
-  pool: ceph-blockpool
-  group: nvmeof
-  instances: 2
+  pool: nvmeof
+  group: group-a
+  instances: 1
   hostNetwork: false
 ---
 apiVersion: csi.ceph.io/v1
@@ -24,7 +32,7 @@ metadata:
   name: ceph-nvmeof
 parameters:
   clusterID: rook-ceph
-  pool: ceph-blockpool
+  pool: nvmeof
   subsystemNQN: nqn.2016-06.io.spdk:cnode1.rook-ceph
   nvmeofGatewayAddress: rook-ceph-nvmeof-nvmeof-a.rook-ceph.svc.cluster.local
   nvmeofGatewayPort: "5500"
