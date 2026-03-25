@@ -12,7 +12,7 @@ kind: CephNVMeOFGateway
 metadata:
   name: nvmeof
 spec:
-  image: quay.io/ceph/nvmeof:1.7
+  image: quay.io/ceph/nvmeof:1.5
   pool: nvmeof
   group: group-a
   instances: 1
