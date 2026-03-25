@@ -9,8 +9,8 @@ spec:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
   ref:
-    tag: v1.19.3
-  url: oci://ghcr.io/rook/rook-ceph
+    tag: 0.0.1
+  url: oci://ghcr.io/buroa/rook-ceph
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
@@ -27,9 +27,6 @@ spec:
       enableLiveness: true
       serviceMonitor:
         enabled: true
-    drivers:
-      cephfs:
-        enabled: false
     image:
       repository: ghcr.io/rook/ceph
     monitoring:
