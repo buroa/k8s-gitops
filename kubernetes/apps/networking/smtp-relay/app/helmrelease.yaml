@@ -20,7 +20,7 @@ spec:
           app:
             image:
               repository: ghcr.io/foxcpp/maddy
-              tag: 0.8.2@sha256:eeb5813fc4d101ec5d8f7b08b7255fd76ced2a06884ea94450c8a9a22fd6a08d
+              tag: 0.9.1@sha256:eb2a738a230044f7ade0695323315a79a02c4a9b9eb88942613c249aa0ccab47
             env:
               SMTP_RELAY_METRICS_PORT: &metricsPort 8080
               SMTP_RELAY_SMTP_PORT: &smtpPort 25
