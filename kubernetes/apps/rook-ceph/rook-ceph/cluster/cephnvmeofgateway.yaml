@@ -10,6 +10,14 @@ spec:
   instances: 2
   hostNetwork: false
 ---
+apiVersion: csi.ceph.io/v1
+kind: Driver
+metadata:
+  name: rook-ceph.nvmeof.csi.ceph.com
+spec:
+  controllerPlugin:
+    hostNetwork: false
+---
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
