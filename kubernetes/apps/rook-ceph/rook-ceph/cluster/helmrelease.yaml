@@ -43,6 +43,8 @@ spec:
         modules:
           - name: pg_autoscaler
             enabled: true
+          - name: rook
+            enabled: true
       network:
         connections:
           requireMsgr2: true
