@@ -23,6 +23,8 @@ spec:
   interval: 1h
   values:
     cephClusterSpec:
+      cephVersion:
+        image: ghcr.io/rook/ceph:v20.2.0
       cleanupPolicy:
         wipeDevicesFromOtherClusters: true
       crashCollector:
