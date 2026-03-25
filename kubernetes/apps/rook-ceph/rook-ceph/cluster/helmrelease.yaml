@@ -33,7 +33,6 @@ spec:
       csi:
         readAffinity:
           enabled: true
-          crushLocationLabels: ["kubernetes.io/hostname"]
       dashboard:
         enabled: true
         urlPrefix: /
