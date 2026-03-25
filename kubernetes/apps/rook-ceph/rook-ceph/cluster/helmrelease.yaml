@@ -23,7 +23,7 @@ spec:
   interval: 1h
   values:
     cephImage:
-      repository: ghcr.io/rook/ceph
+      repository: quay.io/ceph/ceph
       tag: v20.2.0
     cephClusterSpec:
       cleanupPolicy:
