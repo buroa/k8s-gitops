@@ -101,6 +101,8 @@ spec:
           erasureCoded:
             dataChunks: 2
             codingChunks: 1
+          replicated:
+            size: 3
         storageClass:
           enabled: true
           name: ceph-blockpool-ec
