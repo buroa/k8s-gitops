@@ -27,9 +27,10 @@ spec:
         wipeDevicesFromOtherClusters: true
       crashCollector:
         disable: false
-      # csi:
-      #   readAffinity:
-      #     enabled: true
+      csi:
+        readAffinity:
+          enabled: true
+          crushLocationLabels: ["kubernetes.io/hostname"]
       dashboard:
         enabled: true
         urlPrefix: /
