@@ -27,6 +27,9 @@ spec:
       enableLiveness: true
       serviceMonitor:
         enabled: true
+    drivers:
+      cephfs:
+        enabled: false
     image:
       repository: ghcr.io/rook/ceph
     monitoring:
