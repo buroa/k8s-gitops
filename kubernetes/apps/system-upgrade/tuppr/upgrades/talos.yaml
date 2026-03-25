@@ -7,8 +7,6 @@ spec:
   talos:
     # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
     version: v1.12.6
-  policy:
-    rebootMode: powercycle
   healthChecks:
     - apiVersion: ceph.rook.io/v1
       kind: CephCluster
