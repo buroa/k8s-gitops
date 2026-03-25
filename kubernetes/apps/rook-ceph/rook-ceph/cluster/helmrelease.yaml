@@ -22,9 +22,10 @@ spec:
     name: rook-ceph-cluster
   interval: 1h
   values:
+    cephImage:
+      repository: ghcr.io/rook/ceph
+      tag: v20.2.0
     cephClusterSpec:
-      cephVersion:
-        image: ghcr.io/rook/ceph:v20.2.0
       cleanupPolicy:
         wipeDevicesFromOtherClusters: true
       crashCollector:
