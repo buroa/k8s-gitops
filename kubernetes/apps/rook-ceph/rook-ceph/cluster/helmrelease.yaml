@@ -95,6 +95,32 @@ spec:
             imageFormat: "2"
           reclaimPolicy: Delete
           volumeBindingMode: Immediate
+      - name: ceph-blockpool-ec
+        spec:
+          failureDomain: host
+          erasureCoded:
+            dataChunks: 2
+            codingChunks: 1
+        storageClass:
+          enabled: true
+          name: ceph-blockpool-ec
+          allowVolumeExpansion: true
+          isDefault: false
+          mountOptions:
+            - discard
+          parameters:
+            csi.storage.k8s.io/controller-expand-secret-name: rook-csi-rbd-provisioner
+            csi.storage.k8s.io/controller-expand-secret-namespace: "{{ .Release.Namespace }}"
+            csi.storage.k8s.io/controller-publish-secret-name: rook-csi-rbd-provisioner
+            csi.storage.k8s.io/controller-publish-secret-namespace: "{{ .Release.Namespace }}"
+            csi.storage.k8s.io/node-stage-secret-name: rook-csi-rbd-node
+            csi.storage.k8s.io/node-stage-secret-namespace: "{{ .Release.Namespace }}"
+            csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
+            csi.storage.k8s.io/provisioner-secret-namespace: "{{ .Release.Namespace }}"
+            imageFeatures: deep-flatten,exclusive-lock,fast-diff,layering,object-map
+            imageFormat: "2"
+          reclaimPolicy: Delete
+          volumeBindingMode: Immediate
     cephBlockPoolsVolumeSnapshotClass:
       enabled: true
       name: csi-ceph-block
