@@ -1,0 +1,52 @@
+---
+apiVersion: ceph.rook.io/v1
+kind: CephNVMeOFGateway
+metadata:
+  name: nvmeof
+spec:
+  image: quay.io/ceph/nvmeof:1.7
+  pool: ceph-blockpool
+  group: nvmeof
+  instances: 2
+  hostNetwork: false
+---
+apiVersion: csi.ceph.io/v1
+kind: Driver
+metadata:
+  name: rook-ceph.nvmeof.csi.ceph.com
+spec:
+  controllerPlugin:
+    hostNetwork: false
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ceph-nvmeof
+parameters:
+  clusterID: rook-ceph
+  pool: ceph-blockpool
+  subsystemNQN: nqn.2016-06.io.spdk:cnode1.rook-ceph
+  nvmeofGatewayAddress: rook-ceph-nvmeof-nvmeof-a.rook-ceph.svc.cluster.local
+  nvmeofGatewayPort: "5500"
+  listeners: |
+    [
+      {
+        "hostname": "rook-ceph-nvmeof-nvmeof-a"
+      }
+    ]
+  csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
+  csi.storage.k8s.io/provisioner-secret-namespace: rook-ceph
+  csi.storage.k8s.io/node-stage-secret-name: rook-csi-rbd-node
+  csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
+  csi.storage.k8s.io/controller-expand-secret-name: rook-csi-rbd-provisioner
+  csi.storage.k8s.io/controller-expand-secret-namespace: rook-ceph
+  csi.storage.k8s.io/controller-modify-secret-name: rook-csi-rbd-provisioner
+  csi.storage.k8s.io/controller-modify-secret-namespace: rook-ceph
+  csi.storage.k8s.io/node-expand-secret-name: rook-csi-rbd-node
+  csi.storage.k8s.io/node-expand-secret-namespace: rook-ceph
+  imageFormat: "2"
+  imageFeatures: layering,deep-flatten,exclusive-lock,object-map,fast-diff
+provisioner: rook-ceph.nvmeof.csi.ceph.com
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
+allowVolumeExpansion: true
