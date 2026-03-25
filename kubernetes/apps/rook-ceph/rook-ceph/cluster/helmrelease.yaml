@@ -22,9 +22,6 @@ spec:
     name: rook-ceph-cluster
   interval: 1h
   values:
-    cephImage:
-      repository: quay.io/ceph/ceph
-      tag: v20.2.0
     cephClusterSpec:
       cleanupPolicy:
         wipeDevicesFromOtherClusters: true
@@ -41,8 +38,6 @@ spec:
       mgr:
         modules:
           - name: pg_autoscaler
-            enabled: true
-          - name: rook
             enabled: true
       network:
         connections:
