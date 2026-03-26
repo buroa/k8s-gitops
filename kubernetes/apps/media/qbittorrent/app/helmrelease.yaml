@@ -15,8 +15,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/home-operations/qbittorrent-libtorrentv1
-              tag: 5.1.4@sha256:f8ded91789511af07db8e47bcfde9440f3c2d235e85b7eee13c9d03a7a4107c9
+              repository: ghcr.io/buroa/qbittorrent-next
+              tag: 5.1.4@sha256:a7f46fbbb462b0d78600046d84530f37bc30b0812b68105bbe2e238b8cbe5978
             env:
               QBT_TORRENTING_PORT: &bittorrentPort 50413
               QBT_WEBUI_PORT: &port 80
@@ -50,6 +50,8 @@ spec:
               capabilities: { drop: ["ALL"] }
     defaultPodOptions:
       securityContext:
+        seccompProfile:
+          type: Unconfined # disable for io_uring
         runAsNonRoot: true
         runAsUser: 1000
         runAsGroup: 1000
