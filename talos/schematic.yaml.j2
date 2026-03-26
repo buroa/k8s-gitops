@@ -12,6 +12,7 @@ customization:
     - pcie_aspm=off                                   # Disable PCIe ASPM
     - mitigations=off                                 # Less security, faster puter
     - module_blacklist=igc                            # Disable onboard NIC
+    - nvme.poll_queues=16                             # NVMe performance
     - security=none                                   # Less security, faster puter
     - talos.auditd.disabled=1                         # Less security, faster puter
     - talos.config.early={{ ENV.TALOS_CONFIG_EARLY }} # Early config
