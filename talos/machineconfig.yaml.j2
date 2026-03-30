@@ -31,8 +31,9 @@ machine:
         [plugins."io.containerd.cri.v1.images"]
           discard_unpacked_layers = false
         [plugins."io.containerd.cri.v1.runtime"]
-          cdi_spec_dirs = ["/var/cdi/static", "/var/cdi/dynamic"]
           device_ownership_from_security_context = true
+        [plugins."io.containerd.transfer.v1.local"]
+          max_concurrent_unpacks = 5
     - op: overwrite
       path: /etc/nfsmount.conf
       permissions: 0o644
@@ -45,7 +46,7 @@ machine:
         rsize=1048576
         wsize=1048576
   install:
-    image: factory.talos.dev/metal-installer/24ec784ea5dba4680011c97ab466a36006f526802ce360217aed8692774e008c:v1.12.6
+    image: factory.talos.dev/metal-installer/24ec784ea5dba4680011c97ab466a36006f526802ce360217aed8692774e008c:v1.13.0-beta.1
   kernel:
     modules:
       - name: nbd
@@ -53,6 +54,8 @@ machine:
     defaultRuntimeSeccompProfileEnabled: true
     disableManifestsDirectory: true
     extraConfig:
+      featureGates:
+        PodAndContainerStatsFromCRI: true
       serializeImagePulls: false
     image: ghcr.io/siderolabs/kubelet:v1.35.3
     nodeIP:
