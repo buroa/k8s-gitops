@@ -1,0 +1,29 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: onepassword-connect
+spec:
+  interval: 15m
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 2.4.1
+  url: oci://ghcr.io/1password/connect
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: onepassword-connect
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: onepassword-connect
+  interval: 1h
+  values:
+    api:
+      serviceMonitor:
+        enabled: true
+    connect:
+      credentialsName: onepassword-connect-secret
