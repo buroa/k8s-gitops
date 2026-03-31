@@ -26,4 +26,4 @@ spec:
       serviceMonitor:
         enabled: true
     connect:
-      credentialsName: onepassword-connect-secret
+      credentialsName: onepassword-connect-credentials-secret

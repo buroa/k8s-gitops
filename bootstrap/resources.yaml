@@ -7,9 +7,15 @@ metadata:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: onepassword-connect-secret
+  name: onepassword-connect-credentials-secret
   namespace: external-secrets
 stringData:
-  1password-credentials.json: |-
-    op://K8s/1password/OP_CREDENTIALS
+  1password-credentials.json: 'op://K8s/1password/OP_CREDENTIALS_JSON' # quote
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: onepassword-connect-vault-secret
+  namespace: external-secrets
+stringData:
   token: op://K8s/1password/OP_CONNECT_TOKEN
