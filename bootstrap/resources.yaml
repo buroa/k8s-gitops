@@ -10,5 +10,6 @@ metadata:
   name: onepassword-connect-secret
   namespace: external-secrets
 stringData:
-  1password-credentials.json: op://K8s/1password/OP_CREDENTIALS
+  1password-credentials.json: |-
+    op://K8s/1password/OP_CREDENTIALS
   token: op://K8s/1password/OP_CONNECT_TOKEN
