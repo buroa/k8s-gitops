@@ -58,8 +58,9 @@ tasks:
       - kubectl --namespace {{.NS}} wait pod --for=condition=ready --selector="app.kubernetes.io/name={{.APP}}" --timeout=5m
     vars:
       NS: '{{.NS | default "default"}}'
-      CONTROLLER:
-        sh: kubectl --namespace {{.NS}} get deployment {{.APP}} &>/dev/null && echo deployment || echo statefulset
+      TYPE:
+        sh: kubectl --namespace {{.NS}} get helmrelease/{{.APP}} --output=jsonpath='{.spec.values.controllers.{{.APP}}.type}'
+      CONTROLLER: '{{.TYPE | default "deployment"}}'
     env:
       NS: '{{.NS}}'
       APP: '{{.APP}}'
@@ -77,6 +78,8 @@ tasks:
     requires:
       vars: [APP, PREVIOUS]
     preconditions:
+      - kubectl --namespace {{.NS}} get kustomization {{.APP}}
+      - kubectl --namespace {{.NS}} get helmrelease {{.APP}}
       - kubectl --namespace {{.NS}} get replicationsources {{.APP}}
       - test -f {{.VOLSYNC_RESOURCES_DIR}}/replicationdestination.yaml.j2
       - which flux kubectl minijinja-cli
