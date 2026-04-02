@@ -5,6 +5,7 @@ metadata:
   name: zigbee2mqtt
 spec:
   components:
+    - ../../../../components/keda
     - ../../../../components/volsync
   dependsOn:
     - name: rook-ceph-cluster
@@ -14,6 +15,7 @@ spec:
   postBuild:
     substitute:
       APP: zigbee2mqtt
+      SCALER_QUERY: probe_success{instance=~"zigbee-controller.+"}
   prune: true
   sourceRef:
     kind: GitRepository

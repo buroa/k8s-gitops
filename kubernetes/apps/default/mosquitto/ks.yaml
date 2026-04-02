@@ -4,11 +4,16 @@ kind: Kustomization
 metadata:
   name: mosquitto
 spec:
+  components:
+    - ../../../../components/volsync
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
   interval: 1h
   path: ./kubernetes/apps/default/mosquitto/app
+  postBuild:
+    substitute:
+      APP: mosquitto
   prune: true
   sourceRef:
     kind: GitRepository
