@@ -22,7 +22,7 @@ spec:
           nfs:
             path: /mnt/tank/volsync
             server: tank.internal
-    paralleism: 2
+    parallelism: 2
     repository: ${APP}-volsync-secret
     retain:
       hourly: 24
