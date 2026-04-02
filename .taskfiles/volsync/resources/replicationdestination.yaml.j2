@@ -1,0 +1,31 @@
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  name: {{ ENV.APP }}-manual
+  namespace: {{ ENV.NS }}
+spec:
+  trigger:
+    manual: restore-once
+  kopia:
+    accessModes: {{ ENV.ACCESS_MODES }}
+    cleanupCachePVC: true
+    cleanupTempPVC: true
+    copyMethod: Direct
+    destinationPVC: {{ ENV.CLAIM }}
+    enableFileDeletion: true
+    moverSecurityContext:
+      runAsUser: {{ ENV.PUID }}
+      runAsGroup: {{ ENV.PGID }}
+      fsGroup: {{ ENV.PGID }}
+    moverVolumes:
+      - mountPath: repository
+        volumeSource:
+          nfs:
+            path: /mnt/tank/volsync
+            server: tank.internal
+    previous: {{ ENV.PREVIOUS }}
+    repository: {{ ENV.APP }}-volsync-secret
+    sourceIdentity:
+      sourceName: ${APP}
+    storageClassName: {{ ENV.STORAGE_CLASS_NAME }}
