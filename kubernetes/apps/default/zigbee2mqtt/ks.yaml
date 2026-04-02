@@ -15,7 +15,7 @@ spec:
   postBuild:
     substitute:
       APP: zigbee2mqtt
-      SCALER_QUERY: probe_success{instance=~"zigbee-controller.+"}
+      KEDA_QUERY: probe_success{instance=~"zigbee-controller.+"}
   prune: true
   sourceRef:
     kind: GitRepository
