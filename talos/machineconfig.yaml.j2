@@ -119,6 +119,8 @@ cluster:
       - k8s.internal
     extraArgs:
       enable-aggregator-routing: true
+      feature-gates: MutatingAdmissionPolicy=true
+      runtime-config: admissionregistration.k8s.io/v1beta1=true
     image: registry.k8s.io/kube-apiserver:v1.35.3
   controllerManager:
     extraArgs:
