@@ -8,6 +8,7 @@ spec:
     - name: openebs
       namespace: openebs-system
     - name: snapshot-controller
+      namespace: kube-system
   interval: 1h
   path: ./kubernetes/apps/volsync-system/volsync/app
   prune: true
@@ -17,3 +18,19 @@ spec:
     namespace: flux-system
   targetNamespace: volsync-system
   wait: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: volsync-maintenance
+spec:
+  dependsOn:
+    - name: volsync
+  interval: 1h
+  path: ./kubernetes/apps/volsync-system/volsync/maintenance
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: volsync-system

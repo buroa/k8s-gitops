@@ -2,25 +2,30 @@
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: "${APP}"
+  name: ${APP}
 spec:
-  sourcePVC: "${APP}"
+  sourcePVC: ${APP}
   trigger:
-    schedule: "15 */8 * * *"
-  restic:
-    copyMethod: "${VOLSYNC_COPYMETHOD:=Snapshot}"
-    pruneIntervalDays: 14
-    repository: "${APP}-restic-secret"
-    volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:=csi-ceph-block}"
-    cacheCapacity: "${VOLSYNC_CACHE_CAPACITY:=1Gi}"
-    cacheStorageClassName: "${VOLSYNC_CACHE_STORAGECLASS:=openebs-hostpath}"
-    cacheAccessModes: ["${VOLSYNC_CACHE_ACCESSMODES:=ReadWriteOnce}"]
-    storageClassName: "${VOLSYNC_STORAGECLASS:=ceph-block}"
-    accessModes: ["${VOLSYNC_SNAP_ACCESSMODES:=ReadWriteOnce}"]
+    schedule: 0 */12 * * *
+  kopia:
+    accessModes:
+      - ${VOLSYNC_SNAP_ACCESSMODES:=ReadWriteOnce}
+    compression: zstd-fastest
+    copyMethod: Snapshot
     moverSecurityContext:
       runAsUser: ${VOLSYNC_PUID:=1000}
       runAsGroup: ${VOLSYNC_PGID:=1000}
       fsGroup: ${VOLSYNC_PGID:=1000}
+    moverVolumes:
+      - mountPath: repository
+        volumeSource:
+          nfs:
+            path: /mnt/tank/volsync
+            server: tank.internal
+    paralleism: 2
+    repository: ${APP}-volsync-secret
     retain:
       hourly: 24
       daily: 7
+    storageClassName: ${VOLSYNC_STORAGECLASS:=ceph-block}
+    volumeSnapshotClassName: ${VOLSYNC_SNAPSHOTCLASS:=csi-ceph-block}
