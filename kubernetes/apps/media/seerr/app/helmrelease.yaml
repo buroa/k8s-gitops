@@ -60,10 +60,6 @@ spec:
         existingClaim: "{{ .Release.Name }}"
         globalMounts:
           - path: /app/config
-      config-cache:
-        existingClaim: "{{ .Release.Name }}-cache"
-        globalMounts:
-          - path: /app/config/cache
       tmpfs:
         type: emptyDir
         advancedMounts:

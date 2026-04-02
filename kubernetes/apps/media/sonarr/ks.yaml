@@ -15,6 +15,7 @@ spec:
   postBuild:
     substitute:
       APP: sonarr
+      VOLSYNC_CAPACITY: 10Gi
   prune: true
   sourceRef:
     kind: GitRepository
