@@ -2,7 +2,7 @@
 apiVersion: keda.sh/v1alpha1
 kind: ScaledObject
 metadata:
-  name: zigbee2mqtt-scaler
+  name: ${APP}-scaler
 spec:
   cooldownPeriod: 0
   minReplicaCount: 0
@@ -10,11 +10,11 @@ spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: zigbee2mqtt
+    name: ${APP}
   triggers:
     - type: prometheus
       metadata:
         serverAddress: http://prometheus-operated.observability.svc.cluster.local:9090
-        query: probe_success{instance=~"zigbee-controller.+"}
+        query: ${KEDA_QUERY:=max_over_time(probe_success{instance=~".+:2049"}[1m])}
         threshold: "1"
         ignoreNullValues: "0"
