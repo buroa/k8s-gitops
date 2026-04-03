@@ -61,6 +61,9 @@ spec:
               target:
                 group: helm.toolkit.fluxcd.io
                 kind: HelmRelease
+          postBuild:
+            substitute:
+              APP: _
       target:
         group: kustomize.toolkit.fluxcd.io
         kind: Kustomization
