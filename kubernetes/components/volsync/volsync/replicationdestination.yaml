@@ -26,7 +26,7 @@ spec:
       - mountPath: repository
         volumeSource:
           nfs:
-            path: /mnt/tank/volsync
+            path: /mnt/sank/kopia
             server: tank.internal
     repository: ${APP}-volsync-secret
     sourceIdentity:

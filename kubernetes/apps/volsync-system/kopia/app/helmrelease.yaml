@@ -67,7 +67,7 @@ spec:
       repository:
         type: nfs
         server: tank.internal
-        path: /mnt/tank/volsync
+        path: /mnt/sank/kopia
       tmpfs:
         type: emptyDir
         advancedMounts:
