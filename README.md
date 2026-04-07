@@ -194,9 +194,9 @@ This is achieved by defining routes with two specific gateways: `internal` for p
 | Device                        | Count | OS Disk         | Data Disk                   | RAM   | OS               | Purpose                 |
 |-------------------------------|-------|-----------------|-----------------------------|-------|------------------|-------------------------|
 | Minisforum MS-A2              | 3     | 1.92TB M.2      | 3.84TB U.2 + 1.92TB M.2     | 96GB  | Talos            | Kubernetes Nodes        |
-| 45 HomeLab HL15 2.0           | 1     | 1.92TB M.2      | 12×22TB HDD + 2x1.92TB M.2  | 512GB | TrueNAS SCALE    | NFS Storage             |
+| 45 HomeLab HL15 2.0           | 1     | 1.92TB M.2      | 12×22TB HDD + 2x7.68TB U.2  | 512GB | TrueNAS SCALE    | NFS Storage             |
 | JetKVM                        | 3     | -               | -                           | -     | -                | KVM for Kubernetes      |
-| UniFi Dream Machine Pro Max   | 1     | -               | 2×16TB HDD                  | -     | UniFi OS         | Router & NVR            |
+| UniFi Dream Machine Pro Max   | 1     | -               | 2×960GB SSD                 | -     | UniFi OS         | Router & NVR            |
 | UniFi Switch Pro Aggregation  | 1     | -               | -                           | -     | UniFi OS         | 10G/25Gb Core Switch    |
 | UniFi Switch Pro Max 24 PoE   | 1     | -               | -                           | -     | UniFi OS         | 2.5Gb PoE Switch        |
 | UniFi SmartPower PDU Pro      | 1     | -               | -                           | -     | UniFi OS         | Managed PDU             |
@@ -243,6 +243,6 @@ See [LICENSE](./LICENSE).
 
 <div align="center">
 
-[![DeepWiki](https://img.shields.io/badge/deepwiki-purple?label=&logo=deepl&style=for-the-badge&logoColor=white)](https://deepwiki.com/buroa/k8s-gitops)
+[![DeepWiki](https://img.shields.io/badge/deepwiki-blue?label=&logo=deepl&style=for-the-badge&logoColor=white)](https://deepwiki.com/buroa/k8s-gitops)
 
 </div>
