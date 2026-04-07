@@ -8,8 +8,6 @@ spec:
     - ../../../../components/keda
     - ../../../../components/volsync
   dependsOn:
-    - name: openebs
-      namespace: openebs-system
     - name: rook-ceph-cluster
       namespace: rook-ceph
   interval: 1h
