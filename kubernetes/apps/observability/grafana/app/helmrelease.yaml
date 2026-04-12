@@ -84,6 +84,9 @@ spec:
         blackbox-exporter:
           datasource: Prometheus
           url: https://grafana.com/api/dashboards/7587/revisions/3/download
+        brrpolice:
+          datasource: [{ name: DS_PROMETHEUS, value: Prometheus }]
+          url: https://grafana.com/api/dashboards/25155/revisions/1/download
         ceph-cluster:
           datasource: Prometheus
           url: https://grafana.com/api/dashboards/2842/revisions/18/download
@@ -170,7 +173,7 @@ spec:
           url: https://grafana.com/api/dashboards/21356/revisions/3/download
         zfs:
           datasource: [{ name: DS_PROMETHEUS, value: Prometheus }]
-          url: https://grafana.com/api/dashboards/24987/revisions/1/download
+          url: https://grafana.com/api/dashboards/24987/revisions/2/download
     plugins:
       - grafana-clock-panel
       - grafana-piechart-panel
