@@ -121,7 +121,7 @@ My network is built on a multi-tier architecture with enterprise-grade performan
   <summary>Click to see a high-level network diagram</summary>
 
 ```mermaid
-graph TD
+graph LR
     %% Class Definitions
     classDef wan fill:#f87171,stroke:#fff,stroke-width:2px,color:#fff,font-weight:bold;
     classDef core fill:#60a5fa,stroke:#fff,stroke-width:2px,color:#fff,font-weight:bold;
@@ -154,6 +154,7 @@ graph TD
     style VLANs fill:#111,stroke:#fff,stroke-width:2px,rx:0,ry:0,padding:20px;
 
     %% Links
+    SERVERS -.-> RCN
     RCN -.->|WAN| UDM
     UDM --> AGG
     AGG -- 25G LACP --- NAS
@@ -162,11 +163,11 @@ graph TD
     SW --> DEV
     SW --> WIFI
 
-    %% Style the bonded links thicker
-    linkStyle 2 stroke-width:4px,stroke:34d399;
+    %% Keep SERVERS->RCN as a hidden layout constraint and style bonded links thicker
+    linkStyle 0 stroke:transparent,stroke-width:0px,color:transparent;
     linkStyle 3 stroke-width:4px,stroke:34d399;
     linkStyle 4 stroke-width:4px,stroke:34d399;
-
+    linkStyle 5 stroke-width:4px,stroke:34d399;
 ```
 </details>
 
