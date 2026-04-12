@@ -147,6 +147,9 @@ spec:
         prometheus:
           datasource: Prometheus
           url: https://grafana.com/api/dashboards/19105/revisions/9/download
+        qui:
+          datasource: [{ name: DS_PROMETHEUS, value: Prometheus }]
+          url: https://grafana.com/api/dashboards/25156/revisions/1/download
         smartctl-exporter:
           datasource: [{ name: DS_VICTORIAMETRICS, value: Prometheus }]
           url: https://grafana.com/api/dashboards/22381/revisions/1/download
