@@ -42,29 +42,11 @@ jobs:
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           ref: ${{ matrix.branch == 'default' && github.event.repository.default_branch || '' }}
-
-      - name: Stage required files only
-        shell: bash
-        env:
-          CHANGED_FILES: ${{ needs.filter.outputs.changed-files }}
-        run: |
-          set -euo pipefail
-
-          STAGE_DIR=".image-pull-worktree"
-          mkdir -p "${STAGE_DIR}/kubernetes"
-
-          # Always include these directories.
-          cp -a kubernetes/flux "${STAGE_DIR}/kubernetes/flux"
-          cp -a kubernetes/components "${STAGE_DIR}/kubernetes/components"
-
-          # Include changed files when they exist on this branch.
-          jq -r '.[]' <<< "${CHANGED_FILES}" | while IFS= read -r f; do
-            [ -z "${f}" ] && continue
-            if [ -e "${f}" ]; then
-              mkdir -p "${STAGE_DIR}/$(dirname "${f}")"
-              cp -a "${f}" "${STAGE_DIR}/${f}"
-            fi
-          done
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            kubernetes/flux
+            kubernetes/components
+            ${{ join(fromJSON(needs.filter.outputs.changed-files), '') }}
 
       - name: Gather Images
         uses: docker://ghcr.io/allenporter/flux-local:v8.1.0
@@ -72,7 +54,7 @@ jobs:
           args: >-
             get cluster
             --all-namespaces
-            --path /github/workspace/.image-pull-worktree/kubernetes/flux/cluster
+            --path /github/workspace/kubernetes/flux/cluster
             --enable-images
             --only-images
             --output json
