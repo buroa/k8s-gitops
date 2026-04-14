@@ -38,15 +38,47 @@ jobs:
       default: ${{ steps.extract.outputs.default }}
       pull: ${{ steps.extract.outputs.pull }}
     steps:
+      - name: Scope
+        id: scope
+        env:
+          CHANGED: ${{ needs.filter.outputs.changed-files }}
+        run: |
+          set -euo pipefail
+          apps="$(jq -r '.[] | capture("^kubernetes/apps/(?<ns>[^/]+)/(?<app>[^/]+)/")? | "\(.ns)/\(.app)"' <<< "$CHANGED" | sort -u)"
+          {
+            echo "kubernetes/flux"
+            echo "kubernetes/components"
+            jq -r '.[]' <<< "$CHANGED"
+            awk -F/ '{print "kubernetes/apps/"$1"/kustomization.yaml\nkubernetes/apps/"$1"/"$2}' <<< "$apps"
+          } | awk 'NF' | sort -u > sparse.txt
+          { echo "sparse<<EOF"; cat sparse.txt; echo "EOF"; } >> "$GITHUB_OUTPUT"
+          { echo "apps<<EOF"; echo "$apps"; echo "EOF"; } >> "$GITHUB_OUTPUT"
+
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           ref: ${{ matrix.branch == 'default' && github.event.repository.default_branch || '' }}
           sparse-checkout-cone-mode: false
-          sparse-checkout: |
-            kubernetes/flux
-            kubernetes/components
-            ${{ join(fromJSON(needs.filter.outputs.changed-files), '') }}
+          sparse-checkout: ${{ steps.scope.outputs.sparse }}
+
+      - name: Rewrite app kustomizations
+        env:
+          APPS: ${{ steps.scope.outputs.apps }}
+        run: |
+          set -euo pipefail
+          for ns in $(awk -F/ '{print $1}' <<< "$APPS" | sort -u); do
+            [ -n "$ns" ] || continue
+            {
+              echo "---"
+              echo "apiVersion: kustomize.config.k8s.io/v1beta1"
+              echo "kind: Kustomization"
+              echo "namespace: $ns"
+              echo "components:"
+              echo "  - ../../components/namespace"
+              echo "resources:"
+              awk -F/ -v ns="$ns" '$1==ns{print "  - ./"$2"/ks.yaml"}' <<< "$APPS" | sort -u
+            } > "kubernetes/apps/$ns/kustomization.yaml"
+          done
 
       - name: Gather Images
         uses: docker://ghcr.io/allenporter/flux-local:v8.1.0
