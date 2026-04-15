@@ -29,22 +29,8 @@ jobs:
     name: Flux Local - Test
     runs-on: ubuntu-latest
     steps:
-      - if: ${{ github.actor_id != secrets.BOT_ACTOR_ID }}
-        name: Checkout
+      - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-
-      - if: ${{ github.actor_id == secrets.BOT_ACTOR_ID }}
-        name: Checkout
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-        with:
-          sparse-checkout: |
-            ${{ join(fromJSON(needs.filter.outputs.changed-files), '') }}
-            kubernetes/flux
-          sparse-checkout-cone-mode: false
-
-      - if: ${{ github.actor_id == secrets.BOT_ACTOR_ID }}
-        name: Set Namespace
-        run: yq eval-all -i 'select(.spec) | .spec.targetNamespace = "flux-system"' ./kubernetes/flux/cluster/ks.yaml
 
       - name: Run flux-local test
         uses: docker://ghcr.io/allenporter/flux-local:v8.1.0
@@ -71,45 +57,16 @@ jobs:
           - kustomization
       fail-fast: false
     steps:
-      - if: ${{ github.actor_id != secrets.BOT_ACTOR_ID }}
-        name: Checkout Pull Request Branch
+      - name: Checkout Pull Request Branch
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           path: pull
 
-      - if: ${{ github.actor_id != secrets.BOT_ACTOR_ID }}
-        name: Checkout Default Branch
+      - name: Checkout Default Branch
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           path: default
           ref: ${{ github.event.repository.default_branch }}
-
-      - if: ${{ github.actor_id == secrets.BOT_ACTOR_ID }}
-        name: Checkout Pull Request Branch
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-        with:
-          path: pull
-          sparse-checkout: |
-            ${{ join(fromJSON(needs.filter.outputs.changed-files), '') }}
-            kubernetes/flux
-          sparse-checkout-cone-mode: false
-
-      - if: ${{ github.actor_id == secrets.BOT_ACTOR_ID }}
-        name: Checkout Default Branch
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-        with:
-          path: default
-          ref: ${{ github.event.repository.default_branch }}
-          sparse-checkout: |
-            ${{ join(fromJSON(needs.filter.outputs.changed-files), '') }}
-            kubernetes/flux
-          sparse-checkout-cone-mode: false
-
-      - if: ${{ github.actor_id == secrets.BOT_ACTOR_ID }}
-        name: Set Namespace
-        run: |-
-          yq eval-all -i 'select(.spec) | .spec.targetNamespace = "flux-system"' ./pull/kubernetes/flux/cluster/ks.yaml
-          yq eval-all -i 'select(.spec) | .spec.targetNamespace = "flux-system"' ./default/kubernetes/flux/cluster/ks.yaml
 
       - name: Run flux-local diff
         uses: docker://ghcr.io/allenporter/flux-local:v8.1.0
