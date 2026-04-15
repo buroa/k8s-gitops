@@ -47,6 +47,7 @@ jobs:
             kubernetes/apps/flux-system
             kubernetes/components
             kubernetes/flux
+          sparse-checkout-cone-mode: false
 
       - name: Gather Images
         uses: docker://ghcr.io/allenporter/flux-local:v8.1.0
