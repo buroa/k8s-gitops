@@ -31,6 +31,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          sparse-checkout: |
+            ${{ join(fromJSON(needs.filter.outputs.changed-files), '') }}
+            kubernetes/flux
+          sparse-checkout-cone-mode: false
+
+      - name: Set Namespace
+        run: yq eval-all -i 'select(.spec) | .spec.targetNamespace = "flux-system"' ./kubernetes/flux/cluster/ks.yaml
 
       - name: Run flux-local test
         uses: docker://ghcr.io/allenporter/flux-local:v8.1.0
