@@ -44,7 +44,6 @@ jobs:
           ref: ${{ matrix.branch == 'default' && github.event.repository.default_branch || '' }}
           sparse-checkout: |
             ${{ join(fromJSON(needs.filter.outputs.changed-files), '') }}
-            kubernetes/apps/flux-system
             kubernetes/components
             kubernetes/flux
           sparse-checkout-cone-mode: false
@@ -54,7 +53,7 @@ jobs:
         with:
           args: >-
             get cluster
-            --all-namespaces
+            --namespace flux-system
             --path /github/workspace/kubernetes/flux/cluster
             --enable-images
             --only-images
