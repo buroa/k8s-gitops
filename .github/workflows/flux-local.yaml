@@ -71,6 +71,7 @@ jobs:
           path: pull
           sparse-checkout: |
             ${{ join(fromJSON(needs.filter.outputs.changed-files), '') }}
+            kubernetes/components
             kubernetes/flux
           sparse-checkout-cone-mode: false
 
