@@ -47,7 +47,7 @@ jobs:
             kubernetes/flux
           sparse-checkout-cone-mode: false
 
-      - name: Add temporary namespace
+      - name: Set Namespace
         run: yq eval-all -i 'select(.spec) | .spec.targetNamespace = "flux-system"' ./kubernetes/flux/cluster/ks.yaml
 
       - name: Gather Images

@@ -39,7 +39,7 @@ jobs:
             test
             --all-namespaces
             --enable-helm
-            --path /github/workspace/kubernetes/flux/cluster
+            --path ./kubernetes/flux/cluster
             --verbose
 
   diff:
@@ -61,12 +61,26 @@ jobs:
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           path: pull
+          sparse-checkout: |
+            ${{ join(fromJSON(needs.filter.outputs.changed-files), '') }}
+            kubernetes/flux
+          sparse-checkout-cone-mode: false
 
       - name: Checkout Default Branch
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
-          ref: "${{ github.event.repository.default_branch }}"
           path: default
+          ref: "${{ github.event.repository.default_branch }}"
+          sparse-checkout: |
+            ${{ join(fromJSON(needs.filter.outputs.changed-files), '') }}
+            kubernetes/components
+            kubernetes/flux
+          sparse-checkout-cone-mode: false
+
+      - name: Set Namespace
+        run: |-
+          yq eval-all -i 'select(.spec) | .spec.targetNamespace = "flux-system"' ./pull/kubernetes/flux/cluster/ks.yaml
+          yq eval-all -i 'select(.spec) | .spec.targetNamespace = "flux-system"' ./default/kubernetes/flux/cluster/ks.yaml
 
       - name: Run flux-local diff
         uses: docker://ghcr.io/allenporter/flux-local:v8.1.0
@@ -74,12 +88,12 @@ jobs:
           args: >-
             diff ${{ matrix.resource }}
             --unified 6
-            --path /github/workspace/pull/kubernetes/flux/cluster
-            --path-orig /github/workspace/default/kubernetes/flux/cluster
+            --path ./pull/kubernetes/flux/cluster
+            --path-orig ./default/kubernetes/flux/cluster
             --strip-attrs "helm.sh/chart,checksum/config,app.kubernetes.io/version,chart"
             --limit-bytes 10000
             --all-namespaces
-            --sources "flux-system"
+            --sources flux-system
             --output-file diff.patch
 
       - name: Generate Diff
