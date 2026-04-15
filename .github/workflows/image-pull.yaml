@@ -47,20 +47,15 @@ jobs:
             kubernetes/flux
           sparse-checkout-cone-mode: false
 
-      - name: Add namespace
-        run: |
-          for f in $(jq --compact-output --raw-output '.[]' <<< '${{ needs.filter.outputs.changed-files }}'); do
-            dir=$(dirname "$f")
-            ns=$(echo "$dir" | cut -d/ -f3)
-            yq eval ".metadata.namespace = \"$ns\"" -i "$f"
-          done
+      - name: Add temporary namespace
+        run: yq eval-all -i 'select(.spec) | .spec.targetNamespace = "flux-system"' ./kubernetes/flux/cluster/ks.yaml
 
       - name: Gather Images
         uses: docker://ghcr.io/allenporter/flux-local:v8.1.0
         with:
           args: >-
             get cluster
-            --path /github/workspace/kubernetes/flux/cluster
+            --path ./kubernetes/flux/cluster
             --enable-images
             --only-images
             --output json
