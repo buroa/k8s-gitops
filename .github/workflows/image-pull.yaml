@@ -56,6 +56,9 @@ jobs:
           sparse-checkout: ${{ steps.sparse.outputs.paths }}
           sparse-checkout-cone-mode: false
 
+      - name: List Files
+        run: find ./kubernetes
+
       - name: Set Namespace
         run: yq eval-all --inplace '.spec.targetNamespace = "flux-system"' ./kubernetes/flux/cluster/ks.yaml
 
