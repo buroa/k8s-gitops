@@ -48,12 +48,12 @@ jobs:
         with:
           ref: ${{ matrix.branch == 'default' && github.event.repository.default_branch || '' }}
           sparse-checkout: |
-            ${{ join(fromJSON(needs.filter.outputs.changed-files), env.NEWLINE) }}
+            ${{ fromJSON(needs.filter.outputs.changed-files) }}
             kubernetes/flux
           sparse-checkout-cone-mode: false
 
       - name: Echo Changed
-        run: echo ${{ join(fromJSON(needs.filter.outputs.changed-files), env.NEWLINE) }}
+        run: echo ${{ fromJSON(needs.filter.outputs.changed-files) }}
 
       - name: List Files
         run: find . -type f
