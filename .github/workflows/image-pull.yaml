@@ -64,7 +64,7 @@ jobs:
           sparse-checkout-cone-mode: false
 
       - name: List Files
-        run: find ./kubernetes/apps -type f
+        run: find ./kubernetes
 
       - name: Set Namespace
         run: find ./kubernetes/apps -type f -name "ks.yaml" -exec yq --inplace '.metadata.namespace = .spec.targetNamespace' {} +
