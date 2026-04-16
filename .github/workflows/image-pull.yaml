@@ -48,6 +48,9 @@ jobs:
             ${{ join(fromJSON(needs.filter.outputs.changed-files), '\n') }}
             kubernetes/flux
 
+      - name: List Changed
+        run: echo ${{ join(fromJSON(needs.filter.outputs.changed-files), '\n') }}
+
       - name: List Files
         run: find . -type f
 
