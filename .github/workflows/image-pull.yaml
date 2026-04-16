@@ -105,7 +105,7 @@ jobs:
           script: |
             const fs = require("fs");
             const path = require("path");
-            const yaml = require("yaml");
+            const yaml = require("js-yaml");
 
             const namespaceApps = JSON.parse(process.env.NAMESPACE_APPS || "{}");
 
@@ -124,12 +124,18 @@ jobs:
               }
 
               const original = fs.readFileSync(kustomizationPath, "utf8");
-              const doc = yaml.parse(original) || {};
+              const doc = yaml.load(original) || {};
 
               // Overwrite resources with only changed apps.
               doc.resources = apps.map((app) => `./${app}/ks.yaml`);
 
-              fs.writeFileSync(kustomizationPath, yaml.stringify(doc), "utf8");
+              const rendered = yaml.dump(doc, {
+                lineWidth: -1,
+                noRefs: true,
+                sortKeys: false,
+              });
+
+              fs.writeFileSync(kustomizationPath, ${rendered}, "utf8");
               core.info(`Updated ${kustomizationPath} with ${apps.length} app(s)`);
             }
 
