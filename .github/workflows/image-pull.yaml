@@ -43,87 +43,28 @@ jobs:
       default: ${{ steps.extract.outputs.default }}
       pull: ${{ steps.extract.outputs.pull }}
     steps:
-      - name: Prepare Sparse Checkout And Namespace Apps
-        id: prepare
-        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3
-        env:
-          CHANGED_FILES: ${{ needs.filter.outputs.changed-files }}
-        with:
-          script: |
-            const changed = JSON.parse(process.env.CHANGED_FILES || "[]");
-
-            const namespaceApps = new Map();
-            for (const raw of changed) {
-              const p = String(raw).replace(/^\.?\//, "");
-              if (!p.startsWith("kubernetes/apps/")) continue;
-
-              const parts = p.split("/");
-              // kubernetes/apps/<namespace>/<app>/...
-              if (parts.length < 4) continue;
-
-              const namespace = parts[2];
-              const app = parts[3];
-              if (!namespace || !app || app === "kustomization.yaml") continue;
-
-              if (!namespaceApps.has(namespace)) namespaceApps.set(namespace, new Set());
-              namespaceApps.get(namespace).add(app);
-            }
-
-            const sparsePaths = new Set([
-              "kubernetes/components",
-              "kubernetes/flux",
-            ]);
-
-            for (const [namespace, apps] of namespaceApps.entries()) {
-              sparsePaths.add(`kubernetes/apps/${namespace}/kustomization.yaml`);
-              for (const app of apps) {
-                sparsePaths.add(`kubernetes/apps/${namespace}/${app}`);
-              }
-            }
-
-            const namespaceAppsObj = Object.fromEntries(
-              [...namespaceApps.entries()]
-                .sort(([a], [b]) => a.localeCompare(b))
-                .map(([ns, apps]) => [ns, [...apps].sort()])
-            );
-
-            core.setOutput("sparse-checkout", [...sparsePaths].sort().join("\n"));
-            core.setOutput("namespace-apps", JSON.stringify(namespaceAppsObj));
+      - name: Build Sparse Checkout Paths
+        id: sparse
+        shell: bash
+        run: |
+          {
+            echo "paths<<EOF"
+            jq -r '.[]' <<< '${{ needs.filter.outputs.changed-files }}'
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
 
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           ref: ${{ matrix.branch == 'default' && github.event.repository.default_branch || '' }}
-          sparse-checkout: ${{ steps.prepare.outputs.sparse-checkout }}
+          sparse-checkout: |
+            ${{ steps.sparse.outputs.paths }}
+            kubernetes/components
+            kubernetes/flux
           sparse-checkout-cone-mode: false
 
-      - name: Rewrite Namespace Kustomizations
-        env:
-          NAMESPACE_APPS: ${{ steps.prepare.outputs.namespace-apps }}
-        run: |
-          set -euo pipefail
-
-          jq -r 'keys[]' <<< "${NAMESPACE_APPS}" | while read -r namespace; do
-            kustomization_path="kubernetes/apps/${namespace}/kustomization.yaml"
-
-            if [[ ! -f "${kustomization_path}" ]]; then
-              echo "WARN: Missing ${kustomization_path}, skipping"
-              continue
-            fi
-
-            apps_json="$(jq -c --arg ns "${namespace}" '.[$ns]' <<< "${NAMESPACE_APPS}")"
-            export APPS_JSON="${apps_json}"
-
-            yq --inplace '
-              .resources = (
-                strenv(APPS_JSON)
-                | fromjson
-                | map("./" + . + "/ks.yaml")
-              )
-            ' "${kustomization_path}"
-
-            echo "Updated ${kustomization_path}"
-          done
+      - name: Set Namespace
+        run: find ./kubernetes/apps -type f -name "ks.yaml" -exec yq --inplace '.metadata.namespace = .spec.targetNamespace' {} +
 
       - name: Gather Images
         uses: docker://ghcr.io/allenporter/flux-local:v8.1.0
