@@ -103,7 +103,7 @@ jobs:
           node-version: 18
 
       - name: Install Dependencies
-        run: npm install -g yaml
+        run: npm install -g js-yaml
 
       - name: Rewrite Namespace Kustomizations
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3
@@ -113,7 +113,7 @@ jobs:
           script: |
             const fs = require("fs");
             const path = require("path");
-            const yaml = require("yaml");
+            const yaml = require("js-yaml");
 
             const namespaceApps = JSON.parse(process.env.NAMESPACE_APPS || "{}");
 
