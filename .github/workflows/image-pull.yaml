@@ -135,7 +135,7 @@ jobs:
                 sortKeys: false,
               });
 
-              fs.writeFileSync(kustomizationPath, ${rendered}, "utf8");
+              fs.writeFileSync(kustomizationPath, rendered, "utf8");
               core.info(`Updated ${kustomizationPath} with ${apps.length} app(s)`);
             }
 
