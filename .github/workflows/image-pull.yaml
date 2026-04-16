@@ -10,9 +10,6 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
   cancel-in-progress: true
 
-env:
-  NEWLINE: |
-
 jobs:
   filter:
     name: Image Pull - Filter
@@ -45,7 +42,6 @@ jobs:
     steps:
       - name: Build Sparse Checkout Paths
         id: sparse
-        shell: bash
         run: |
           {
             echo "paths<<EOF"
@@ -63,11 +59,11 @@ jobs:
             kubernetes/flux
           sparse-checkout-cone-mode: false
 
-      - name: List Files
-        run: find ./kubernetes
+      # - name: List Files
+      #   run: find ./kubernetes
 
-      - name: Set Namespace
-        run: find ./kubernetes/apps -type f -name "ks.yaml" -exec yq --inplace '.metadata.namespace = .spec.targetNamespace' {} +
+      # - name: Set Namespace
+      #   run: find ./kubernetes/apps -type f -name "ks.yaml" -exec yq --inplace '.metadata.namespace = .spec.targetNamespace' {} +
 
       - name: Gather Images
         uses: docker://ghcr.io/allenporter/flux-local:v8.1.0
