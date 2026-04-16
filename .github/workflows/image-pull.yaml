@@ -97,6 +97,14 @@ jobs:
           sparse-checkout: ${{ steps.prepare.outputs.sparse-checkout }}
           sparse-checkout-cone-mode: false
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v3.8.0
+        with:
+          node-version: 18
+
+      - name: Install Dependencies
+        run: npm install -g yaml
+
       - name: Rewrite Namespace Kustomizations
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3
         env:
@@ -105,7 +113,7 @@ jobs:
           script: |
             const fs = require("fs");
             const path = require("path");
-            const yaml = require("js-yaml");
+            const yaml = require("yaml");
 
             const namespaceApps = JSON.parse(process.env.NAMESPACE_APPS || "{}");
 
@@ -124,18 +132,12 @@ jobs:
               }
 
               const original = fs.readFileSync(kustomizationPath, "utf8");
-              const doc = yaml.load(original) || {};
+              const doc = yaml.parse(original) || {};
 
               // Overwrite resources with only changed apps.
               doc.resources = apps.map((app) => `./${app}/ks.yaml`);
 
-              const rendered = yaml.dump(doc, {
-                lineWidth: -1,
-                noRefs: true,
-                sortKeys: false,
-              });
-
-              fs.writeFileSync(kustomizationPath, rendered, "utf8");
+              fs.writeFileSync(kustomizationPath, yaml.stringify(doc), "utf8");
               core.info(`Updated ${kustomizationPath} with ${apps.length} app(s)`);
             }
 
