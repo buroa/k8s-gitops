@@ -97,14 +97,6 @@ jobs:
           sparse-checkout: ${{ steps.prepare.outputs.sparse-checkout }}
           sparse-checkout-cone-mode: false
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3.8.0
-        with:
-          node-version: 18
-
-      - name: Install Dependencies
-        run: npm install -g js-yaml
-
       - name: Rewrite Namespace Kustomizations
         env:
           NAMESPACE_APPS: ${{ steps.prepare.outputs.namespace-apps }}
