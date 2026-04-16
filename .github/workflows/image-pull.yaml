@@ -106,40 +106,32 @@ jobs:
         run: npm install -g js-yaml
 
       - name: Rewrite Namespace Kustomizations
-        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3
         env:
           NAMESPACE_APPS: ${{ steps.prepare.outputs.namespace-apps }}
-        with:
-          script: |
-            const fs = require("fs");
-            const path = require("path");
-            const yaml = require("js-yaml");
+        run: |
+          set -euo pipefail
 
-            const namespaceApps = JSON.parse(process.env.NAMESPACE_APPS || "{}");
+          jq -r 'keys[]' <<< "${NAMESPACE_APPS}" | while read -r namespace; do
+            kustomization_path="kubernetes/apps/${namespace}/kustomization.yaml"
 
-            for (const [namespace, apps] of Object.entries(namespaceApps)) {
-              const kustomizationPath = path.join(
-                process.env.GITHUB_WORKSPACE,
-                "kubernetes",
-                "apps",
-                namespace,
-                "kustomization.yaml"
-              );
+            if [[ ! -f "${kustomization_path}" ]]; then
+              echo "WARN: Missing ${kustomization_path}, skipping"
+              continue
+            fi
 
-              if (!fs.existsSync(kustomizationPath)) {
-                core.warning(`Missing ${kustomizationPath}, skipping`);
-                continue;
-              }
+            apps_json="$(jq -c --arg ns "${namespace}" '.[$ns]' <<< "${NAMESPACE_APPS}")"
+            export APPS_JSON="${apps_json}"
 
-              const original = fs.readFileSync(kustomizationPath, "utf8");
-              const doc = yaml.parse(original) || {};
+            yq --inplace '
+              .resources = (
+                strenv(APPS_JSON)
+                | fromjson
+                | map("./" + . + "/ks.yaml")
+              )
+            ' "${kustomization_path}"
 
-              // Overwrite resources with only changed apps.
-              doc.resources = apps.map((app) => `./${app}/ks.yaml`);
-
-              fs.writeFileSync(kustomizationPath, yaml.stringify(doc), "utf8");
-              core.info(`Updated ${kustomizationPath} with ${apps.length} app(s)`);
-            }
+            echo "Updated ${kustomization_path}"
+          done
 
       - name: Gather Images
         uses: docker://ghcr.io/allenporter/flux-local:v8.1.0
