@@ -49,6 +49,9 @@ jobs:
             kubernetes/flux
           sparse-checkout-cone-mode: false
 
+      - name: Echo Changed
+        run: echo ${{ join(fromJSON(needs.filter.outputs.changed-files), ' ') }}
+
       - name: List Files
         run: find . -type f
 
