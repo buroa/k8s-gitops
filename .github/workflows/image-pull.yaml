@@ -144,6 +144,7 @@ jobs:
         with:
           args: >-
             get cluster
+            --all-namespaces
             --path ./kubernetes/flux/cluster
             --enable-images
             --only-images
