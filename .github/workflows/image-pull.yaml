@@ -21,9 +21,8 @@ jobs:
         id: changed-files
         uses: bjw-s-labs/action-changed-files@a9a36fb08ce06db9b02fbd8026cc2c0945eb9841 # v0.6.0
         with:
-          patterns: kubernetes/apps/**/*
+          patterns: kubernetes/apps/*/*/*
           include_only_directories: true
-          max_depth: 4
 
   extract:
     if: ${{ needs.filter.outputs.changed-files != '[]' }}
@@ -60,7 +59,7 @@ jobs:
           sparse-checkout-cone-mode: false
 
       - name: Set Namespace
-        run: find ./kubernetes/apps -type f -name "ks.yaml" -exec yq --inplace '.metadata.namespace = "flux-system"' {} +
+        run: yq eval-all --inplace '.spec.targetNamespace = "flux-system"' ./kubernetes/flux/cluster/ks.yaml
 
       - name: Gather Images
         uses: docker://ghcr.io/allenporter/flux-local:v8.1.0
