@@ -54,7 +54,7 @@ machine:
     disableManifestsDirectory: true
     extraConfig:
       serializeImagePulls: false
-    image: ghcr.io/siderolabs/kubelet:v1.35.3
+    image: ghcr.io/siderolabs/kubelet:v1.35.4
     nodeIP:
       validSubnets:
         - 192.168.10.0/24
@@ -121,11 +121,11 @@ cluster:
       enable-aggregator-routing: true
       feature-gates: MutatingAdmissionPolicy=true
       runtime-config: admissionregistration.k8s.io/v1beta1=true
-    image: registry.k8s.io/kube-apiserver:v1.35.3
+    image: registry.k8s.io/kube-apiserver:v1.35.4
   controllerManager:
     extraArgs:
       bind-address: 0.0.0.0
-    image: registry.k8s.io/kube-controller-manager:v1.35.3
+    image: registry.k8s.io/kube-controller-manager:v1.35.4
   coreDNS:
     disabled: true
   etcd:
@@ -138,7 +138,7 @@ cluster:
       listen-metrics-urls: http://0.0.0.0:2381
   proxy:
     disabled: true
-    image: registry.k8s.io/kube-proxy:v1.35.3
+    image: registry.k8s.io/kube-proxy:v1.35.4
   secretboxEncryptionSecret: op://K8s/talos/CLUSTER_SECRETBOXENCRYPTIONSECRET
   scheduler:
     config:
@@ -160,7 +160,7 @@ cluster:
                     whenUnsatisfiable: ScheduleAnyway
     extraArgs:
       bind-address: 0.0.0.0
-    image: registry.k8s.io/kube-scheduler:v1.35.3
+    image: registry.k8s.io/kube-scheduler:v1.35.4
   serviceAccount:
     key: op://K8s/talos/CLUSTER_SERVICEACCOUNT_KEY
   {% endif %}
