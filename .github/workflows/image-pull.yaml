@@ -105,6 +105,7 @@ jobs:
           script: |
             const fs = require("fs");
             const path = require("path");
+            const yaml = require("yaml");
 
             const namespaceApps = JSON.parse(process.env.NAMESPACE_APPS || "{}");
 
@@ -122,20 +123,13 @@ jobs:
                 continue;
               }
 
-              const lines = fs.readFileSync(kustomizationPath, "utf8").replace(/\r\n/g, "\n");
-              const resourcesBlock =
-                "resources:\n" +
-                apps.map((app) => `  - ./${app}/ks.yaml`).join("\n") +
-                (apps.length ? "\n" : "");
+              const original = fs.readFileSync(kustomizationPath, "utf8");
+              const doc = yaml.parse(original) || {};
 
-              let next;
-              if (/^resources:\n(?:[ \t]*-[^\n]*\n)*/m.test(lines)) {
-                next = lines.replace(/^resources:\n(?:[ \t]*-[^\n]*\n)*/m, resourcesBlock);
-              } else {
-                next = lines.trimEnd() + "\n" + resourcesBlock;
-              }
+              // Overwrite resources with only changed apps.
+              doc.resources = apps.map((app) => `./${app}/ks.yaml`);
 
-              fs.writeFileSync(kustomizationPath, next);
+              fs.writeFileSync(kustomizationPath, yaml.stringify(doc), "utf8");
               core.info(`Updated ${kustomizationPath} with ${apps.length} app(s)`);
             }
 
