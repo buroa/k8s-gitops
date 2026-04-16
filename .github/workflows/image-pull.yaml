@@ -43,20 +43,17 @@ jobs:
         id: sparse
         run: |
           {
-            echo "paths<<EOF"
+            echo 'paths<<EOF'
             jq -r '.[]' <<< '${{ needs.filter.outputs.changed-files }}'
-            echo "EOF"
+            echo 'kubernetes/flux'
+            echo 'EOF'
           } >> "$GITHUB_OUTPUT"
 
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           ref: ${{ matrix.branch == 'default' && github.event.repository.default_branch || '' }}
-          sparse-checkout: |
-            ${{ steps.sparse.outputs.paths }}
-            kubernetes/components
-            kubernetes/flux
-          sparse-checkout-cone-mode: false
+          sparse-checkout: ${{ steps.sparse.outputs.paths }}
 
       - name: Set Namespace
         run: yq eval-all --inplace '.spec.targetNamespace = "flux-system"' ./kubernetes/flux/cluster/ks.yaml
