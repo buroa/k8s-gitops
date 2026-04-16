@@ -43,23 +43,101 @@ jobs:
       default: ${{ steps.extract.outputs.default }}
       pull: ${{ steps.extract.outputs.pull }}
     steps:
+      - name: Prepare Sparse Checkout And Namespace Apps
+        id: prepare
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3
+        env:
+          CHANGED_FILES: ${{ needs.filter.outputs.changed-files }}
+        with:
+          script: |
+            const changed = JSON.parse(process.env.CHANGED_FILES || "[]");
+
+            const namespaceApps = new Map();
+            for (const raw of changed) {
+              const p = String(raw).replace(/^\.?\//, "");
+              if (!p.startsWith("kubernetes/apps/")) continue;
+
+              const parts = p.split("/");
+              // kubernetes/apps/<namespace>/<app>/...
+              if (parts.length < 4) continue;
+
+              const namespace = parts[2];
+              const app = parts[3];
+              if (!namespace || !app || app === "kustomization.yaml") continue;
+
+              if (!namespaceApps.has(namespace)) namespaceApps.set(namespace, new Set());
+              namespaceApps.get(namespace).add(app);
+            }
+
+            const sparsePaths = new Set([
+              "kubernetes/components",
+              "kubernetes/flux",
+            ]);
+
+            for (const [namespace, apps] of namespaceApps.entries()) {
+              sparsePaths.add(`kubernetes/apps/${namespace}/kustomization.yaml`);
+              for (const app of apps) {
+                sparsePaths.add(`kubernetes/apps/${namespace}/${app}`);
+              }
+            }
+
+            const namespaceAppsObj = Object.fromEntries(
+              [...namespaceApps.entries()]
+                .sort(([a], [b]) => a.localeCompare(b))
+                .map(([ns, apps]) => [ns, [...apps].sort()])
+            );
+
+            core.setOutput("sparse-checkout", [...sparsePaths].sort().join("\n"));
+            core.setOutput("namespace-apps", JSON.stringify(namespaceAppsObj));
+
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           ref: ${{ matrix.branch == 'default' && github.event.repository.default_branch || '' }}
-          sparse-checkout: |
-            ${{ fromJSON(needs.filter.outputs.changed-files) }}
-            kubernetes/flux
+          sparse-checkout: ${{ steps.prepare.outputs.sparse-checkout }}
           sparse-checkout-cone-mode: false
 
-      - name: Echo Changed
-        run: echo ${{ fromJSON(needs.filter.outputs.changed-files) }}
+      - name: Rewrite Namespace Kustomizations
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3
+        env:
+          NAMESPACE_APPS: ${{ steps.prepare.outputs.namespace-apps }}
+        with:
+          script: |
+            const fs = require("fs");
+            const path = require("path");
 
-      - name: List Files
-        run: find . -type f
+            const namespaceApps = JSON.parse(process.env.NAMESPACE_APPS || "{}");
 
-      - name: Set Namespace
-        run: yq eval-all --inplace '.spec.targetNamespace = "flux-system"' ./kubernetes/flux/cluster/ks.yaml
+            for (const [namespace, apps] of Object.entries(namespaceApps)) {
+              const kustomizationPath = path.join(
+                process.env.GITHUB_WORKSPACE,
+                "kubernetes",
+                "apps",
+                namespace,
+                "kustomization.yaml"
+              );
+
+              if (!fs.existsSync(kustomizationPath)) {
+                core.warning(`Missing ${kustomizationPath}, skipping`);
+                continue;
+              }
+
+              const lines = fs.readFileSync(kustomizationPath, "utf8").replace(/\r\n/g, "\n");
+              const resourcesBlock =
+                "resources:\n" +
+                apps.map((app) => `  - ./${app}/ks.yaml`).join("\n") +
+                (apps.length ? "\n" : "");
+
+              let next;
+              if (/^resources:\n(?:[ \t]*-[^\n]*\n)*/m.test(lines)) {
+                next = lines.replace(/^resources:\n(?:[ \t]*-[^\n]*\n)*/m, resourcesBlock);
+              } else {
+                next = lines.trimEnd() + "\n" + resourcesBlock;
+              }
+
+              fs.writeFileSync(kustomizationPath, next);
+              core.info(`Updated ${kustomizationPath} with ${apps.length} app(s)`);
+            }
 
       - name: Gather Images
         uses: docker://ghcr.io/allenporter/flux-local:v8.1.0
