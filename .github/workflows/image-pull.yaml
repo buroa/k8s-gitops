@@ -54,6 +54,7 @@ jobs:
         with:
           ref: ${{ matrix.branch == 'default' && github.event.repository.default_branch || '' }}
           sparse-checkout: ${{ steps.sparse.outputs.paths }}
+          sparse-checkout-cone-mode: false
 
       - name: Set Namespace
         run: yq eval-all --inplace '.spec.targetNamespace = "flux-system"' ./kubernetes/flux/cluster/ks.yaml
