@@ -21,8 +21,7 @@ jobs:
         id: changed-files
         uses: bjw-s-labs/action-changed-files@a9a36fb08ce06db9b02fbd8026cc2c0945eb9841 # v0.6.0
         with:
-          patterns: kubernetes/apps/*/*/**
-          include_only_directories: true
+          patterns: kubernetes/apps/**/helmrelease.yaml
 
   extract:
     if: ${{ needs.filter.outputs.changed-files != '[]' }}
