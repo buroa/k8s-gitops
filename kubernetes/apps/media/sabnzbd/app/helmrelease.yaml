@@ -25,6 +25,9 @@ spec:
                 {{ .Release.Name }}.k13.dev,
                 sab.k13.dev
               TZ: America/Chicago
+            envFrom:
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
             probes:
               liveness: &probes
                 enabled: true
