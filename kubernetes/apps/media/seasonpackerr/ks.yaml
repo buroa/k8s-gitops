@@ -4,8 +4,13 @@ kind: Kustomization
 metadata:
   name: seasonpackerr
 spec:
+  components:
+    - ../../../../components/keda
   interval: 1h
   path: ./kubernetes/apps/media/seasonpackerr/app
+  postBuild:
+    substitute:
+      APP: seasonpackerr
   prune: true
   sourceRef:
     kind: GitRepository
