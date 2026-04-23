@@ -28,8 +28,6 @@ spec:
         enabled: true
         storageClassName: ceph-block
         size: 20Gi
-      serviceMonitor:
-        enabled: true
       retentionPeriod: 14d
       route:
         enabled: true
@@ -50,3 +48,7 @@ spec:
               - path:
                   type: Exact
                   value: /
+      serviceMonitor:
+        enabled: true
+    dashboards:
+      enabled: true

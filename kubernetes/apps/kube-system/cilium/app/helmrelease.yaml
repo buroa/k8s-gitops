@@ -42,6 +42,8 @@ spec:
       name: main
     cni:
       exclusive: false
+    dashboards:
+      enabled: true
     devices: bond+
     enableIPv4BIGTCP: true
     endpointRoutes:
@@ -64,12 +66,14 @@ spec:
     localRedirectPolicies:
       enabled: true
     operator:
-      replicas: 2
-      rollOutPods: true
+      dashboards:
+        enabled: true
       prometheus:
         enabled: true
         serviceMonitor:
           enabled: true
+      replicas: 2
+      rollOutPods: true
     pmtuDiscovery:
       enabled: true
     prometheus:
