@@ -35,6 +35,6 @@ spec:
           for: 5m
           annotations:
             summary: >-
-              Cert manager hitting LetsEncrypt rate limits
+              Cert manager is hitting rate limits on {{ $labels.host }}
           labels:
             severity: critical
