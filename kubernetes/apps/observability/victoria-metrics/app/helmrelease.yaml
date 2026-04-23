@@ -1,0 +1,67 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: victoria-metrics
+spec:
+  interval: 15m
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 0.74.1
+  url: oci://ghcr.io/victoriametrics/helm-charts/victoria-metrics-k8s-stack
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: victoria-metrics
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: victoria-metrics
+  interval: 1h
+  values:
+    fullnameOverride: victoria-metrics
+    alertmanager:
+      route:
+        enabled: true
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+        hostnames:
+          - alertmanager.k13.dev
+      spec:
+        externalURL: https://alertmanager.k13.dev
+        storage:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: ceph-block
+              resources:
+                requests:
+                  storage: 1Gi
+    grafana:
+      enabled: false
+    kubeEtcd:
+      service:
+        selector:
+          component: kube-apiserver # etcd runs on control plane nodes
+    victoria-metrics-operator:
+      crds:
+        cleanup:
+          image:
+            repository: registry.k8s.io/kubectl
+    vmsingle:
+      route:
+        enabled: true
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+        hostnames:
+          - vm.k13.dev
+      spec:
+        storage:
+          storageClassName: ceph-block
+          resources:
+            requests:
+              storage: 50Gi

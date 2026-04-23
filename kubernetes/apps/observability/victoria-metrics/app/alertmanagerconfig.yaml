@@ -1,0 +1,85 @@
+---
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMAlertmanagerConfig
+metadata:
+  name: alertmanager
+spec:
+  inhibit_rules:
+    - equal:
+        - alertname
+        - namespace
+      source_matchers:
+        - severity = critical
+      target_matchers:
+        - severity = warning
+
+  receivers:
+    - name: blackhole
+
+    - name: heartbeat
+      webhook_configs:
+        - http_config:
+            bearer_token_secret:
+              name: alertmanager-secret
+              key: BUDDY_HEARTBEAT_TOKEN
+          url_secret:
+            name: alertmanager-secret
+            key: BUDDY_HEARTBEAT_URL
+
+    - name: pushover
+      pushover_configs:
+        - html: true
+          message: |-
+            {{- range .Alerts }}
+              {{- if ne .Annotations.description "" }}
+                {{ .Annotations.description }}
+              {{- else if ne .Annotations.summary "" }}
+                {{ .Annotations.summary }}
+              {{- else if ne .Annotations.message "" }}
+                {{ .Annotations.message }}
+              {{- else }}
+                Alert description not available
+              {{- end }}
+              {{- if gt (len .Labels.SortedPairs) 0 }}
+                <small>
+                  {{- range .Labels.SortedPairs }}
+                    <b>{{ .Name }}:</b> {{ .Value }}
+                  {{- end }}
+                </small>
+              {{- end }}
+            {{- end }}
+          priority: |-
+            {{ if eq .Status "firing" }}1{{ else }}0{{ end }}
+          send_resolved: true
+          sound: gamelan
+          title: >-
+            [{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ .CommonLabels.alertname }}
+          token:
+            name: alertmanager-secret
+            key: ALERTMANAGER_PUSHOVER_APP_TOKEN
+          user_title: View in Alertmanager
+          user_key:
+            name: alertmanager-secret
+            key: ALERTMANAGER_PUSHOVER_USER_KEY
+
+  route:
+    receiver: pushover
+    repeat_interval: 12h
+
+    routes:
+      - receiver: blackhole
+        matchers:
+          - alertname = InfoInhibitor
+      - receiver: heartbeat
+        matchers:
+          - alertname = Watchdog
+        group_interval: 2m
+        group_wait: 0s
+        repeat_interval: 2m30s
+
+    group_by:
+      - alertname
+      - cluster
+      - job
+    group_interval: 5m
+    group_wait: 1m
