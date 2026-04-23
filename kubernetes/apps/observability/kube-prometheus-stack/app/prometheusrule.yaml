@@ -15,6 +15,7 @@ spec:
               There are {{ $value }} containers pulling from Dockerhub. This may lead to rate limiting.
           labels:
             severity: critical
+
     - name: oom.rules
       rules:
         - alert: OomKilled
@@ -25,6 +26,7 @@ spec:
               Container {{ $labels.container }} in pod {{ $labels.namespace }}/{{ $labels.pod }} has been OOMKilled {{ $value }} times in the last 10 minutes.
           labels:
             severity: critical
+
     - name: zfs.rules
       rules:
         - alert: ZfsUnexpectedPoolState
