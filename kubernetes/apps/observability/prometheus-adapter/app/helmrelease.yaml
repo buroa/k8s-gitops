@@ -25,11 +25,5 @@ spec:
     prometheus:
       url: http://prometheus-operated.observability.svc.cluster.local
     rules:
-      external:
-        - seriesQuery: probe_success{instance=~".+:2049"}
-          resources:
-            template: <<.Resource>>
-          name:
-            matches: ""
-            as: nfs_probe_success
-          metricsQuery: max_over_time(probe_success{instance=~".+:2049"}[1m])
+      existing: prometheus-adapter-configmap
+
