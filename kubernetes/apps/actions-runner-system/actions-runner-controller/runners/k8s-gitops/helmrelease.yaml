@@ -29,7 +29,8 @@ spec:
     containerMode:
       type: kubernetes
       kubernetesModeWorkVolumeClaim:
-        accessModes: ["ReadWriteOnce"]
+        accessModes:
+          - ReadWriteOnce
         resources:
           requests:
             storage: 25Gi

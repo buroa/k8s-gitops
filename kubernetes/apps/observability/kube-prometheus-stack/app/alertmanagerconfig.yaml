@@ -4,34 +4,6 @@ kind: AlertmanagerConfig
 metadata:
   name: alertmanager
 spec:
-  route:
-    receiver: pushover
-    groupBy:
-      - alertname
-      - cluster
-      - job
-    groupWait: 1m
-    groupInterval: 5m
-    repeatInterval: 12h
-    routes:
-      - receiver: blackhole
-        matchers:
-          - name: alertname
-            matchType: =
-            value: InfoInhibitor
-      - receiver: heartbeat
-        groupWait: 0s
-        repeatInterval: 2m30s
-        matchers:
-          - name: alertname
-            matchType: =
-            value: Watchdog
-      - receiver: pushover
-        matchers:
-          - name: severity
-            matchType: =
-            value: critical
-
   inhibitRules:
     - equal:
         - alertname
@@ -44,10 +16,8 @@ spec:
         - name: severity
           matchType: =
           value: warning
-
   receivers:
     - name: blackhole
-
     - name: heartbeat
       webhookConfigs:
         - httpConfig:
@@ -57,7 +27,6 @@ spec:
           urlSecret:
             name: alertmanager-secret
             key: BUDDY_HEARTBEAT_URL
-
     - name: pushover
       pushoverConfigs:
         - html: true
@@ -80,18 +49,43 @@ spec:
                 </small>
               {{- end }}
             {{- end }}
-          monospace: false
           priority: |-
             {{ if eq .Status "firing" }}1{{ else }}0{{ end }}
           sendResolved: true
           sound: gamelan
           title: >-
             [{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ .CommonLabels.alertname }}
-          ttl: 86400s
           token:
             name: alertmanager-secret
             key: ALERTMANAGER_PUSHOVER_APP_TOKEN
+          urlTitle: View in Alertmanager
           userKey:
             name: alertmanager-secret
             key: ALERTMANAGER_PUSHOVER_USER_KEY
-          urlTitle: View in Alertmanager
+  route:
+    receiver: pushover
+    repeatInterval: 12h
+    routes:
+      - receiver: blackhole
+        matchers:
+          - name: alertname
+            matchType: =
+            value: InfoInhibitor
+      - receiver: heartbeat
+        groupWait: 0s
+        repeatInterval: 2m30s
+        matchers:
+          - name: alertname
+            matchType: =
+            value: Watchdog
+      - receiver: pushover
+        matchers:
+          - name: severity
+            matchType: =
+            value: critical
+    groupBy:
+      - alertname
+      - cluster
+      - job
+    groupInterval: 5m
+    groupWait: 1m

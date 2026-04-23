@@ -5,7 +5,7 @@ metadata:
   name: kube-prometheus-stack-additional
 spec:
   groups:
-    - name: kube-prometheus-stack-additional.rules
+    - name: dockerhub.rules
       rules:
         - alert: DockerhubRateLimitRisk
           expr: |-
@@ -15,12 +15,23 @@ spec:
               There are {{ $value }} containers pulling from Dockerhub. This may lead to rate limiting.
           labels:
             severity: critical
-
+    - name: oom.rules
+      rules:
         - alert: OomKilled
           expr: |-
             (kube_pod_container_status_restarts_total - kube_pod_container_status_restarts_total offset 10m >= 1) and ignoring (reason) min_over_time(kube_pod_container_status_last_terminated_reason{reason="OOMKilled"}[10m]) == 1
           annotations:
             summary: >-
               Container {{ $labels.container }} in pod {{ $labels.namespace }}/{{ $labels.pod }} has been OOMKilled {{ $value }} times in the last 10 minutes.
+          labels:
+            severity: critical
+    - name: zfs.rules
+      rules:
+        - alert: ZfsUnexpectedPoolState
+          expr: |-
+            node_zfs_zpool_state{state!="online"} > 0
+          annotations:
+            summary: >-
+              ZFS pool {{ $labels.zpool }} is {{ $labels.state }} on instance {{ $labels.instance }}
           labels:
             severity: critical

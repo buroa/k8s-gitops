@@ -80,18 +80,6 @@ spec:
                 subPath: transcode
               - path: /tmp
                 subPath: tmp
-    rawResources:
-      gpu:
-        apiVersion: resource.k8s.io/v1
-        kind: ResourceClaimTemplate
-        spec:
-          spec:
-            spec:
-              devices:
-                requests:
-                  - name: gpu
-                    exactly:
-                      deviceClassName: gpu.amd.com
     route:
       app:
         annotations:
