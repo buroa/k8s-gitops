@@ -15,21 +15,19 @@ spec:
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: victoria-logs
+  name: &app victoria-logs
 spec:
   chartRef:
     kind: OCIRepository
     name: victoria-logs
   interval: 1h
   values:
-    fullnameOverride: victoria-logs
+    fullnameOverride: *app
     server:
       persistentVolume:
         enabled: true
         storageClassName: ceph-block
-        size: 20Gi
-      serviceMonitor:
-        enabled: true
+        size: 50Gi
       retentionPeriod: 14d
       route:
         enabled: true
@@ -50,3 +48,7 @@ spec:
               - path:
                   type: Exact
                   value: /
+      serviceMonitor:
+        enabled: true
+    dashboards:
+      enabled: true

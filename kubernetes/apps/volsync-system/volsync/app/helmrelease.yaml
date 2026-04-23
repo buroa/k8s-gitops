@@ -15,14 +15,14 @@ spec:
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: volsync
+  name: &app volsync
 spec:
   chartRef:
     kind: OCIRepository
     name: volsync
   interval: 1h
   values:
-    fullnameOverride: volsync # Required for volsync-perfectra1n fork
+    fullnameOverride: *app # Required for volsync-perfectra1n fork
     image: &image
       repository: ghcr.io/perfectra1n/volsync
       tag: v0.17.11
