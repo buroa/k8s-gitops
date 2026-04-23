@@ -15,14 +15,14 @@ spec:
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: coredns
+  name: &app coredns
 spec:
   chartRef:
     kind: OCIRepository
     name: coredns
   interval: 1h
   values:
-    fullnameOverride: coredns
+    fullnameOverride: *app
     image:
       repository: mirror.gcr.io/coredns/coredns
     replicaCount: 2

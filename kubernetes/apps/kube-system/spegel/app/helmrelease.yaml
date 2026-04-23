@@ -22,10 +22,16 @@ spec:
     name: spegel
   interval: 1h
   values:
+    grafanaDashboard:
+      enabled: true
+      mode: GrafanaOperator
+      grafanaOperator:
+        matchLabels:
+          dashboards: grafana
+    service:
+      registry:
+        hostPort: 29999
     serviceMonitor:
       enabled: true
     spegel:
       containerdRegistryConfigPath: /etc/cri/conf.d/hosts
-    service:
-      registry:
-        hostPort: 29999
