@@ -26,4 +26,3 @@ spec:
       url: http://prometheus-operated.observability.svc.cluster.local
     rules:
       existing: prometheus-adapter-configmap
-

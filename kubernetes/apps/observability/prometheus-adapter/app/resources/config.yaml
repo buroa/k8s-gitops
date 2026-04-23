@@ -1,9 +1,6 @@
 ---
 rules:
-  - seriesQuery: probe_success{instance=~".+:2049"}
-    resources:
-      template: <<.Resource>>
+  - metricsQuery: max_over_time(probe_success{instance=~".+:2049"}[1m])
     name:
-      matches: ""
       as: nfs_probe_success
-    metricsQuery: max_over_time(probe_success{instance=~".+:2049"}[1m])
+    seriesQuery: max_over_time(probe_success{instance=~".+:2049"}[1m])
