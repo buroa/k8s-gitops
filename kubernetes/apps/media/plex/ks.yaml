@@ -5,8 +5,8 @@ metadata:
   name: plex
 spec:
   components:
-    - ../../../../components/hpa
     - ../../../../components/volsync
+    - ../../../../components/zeroscaler
   dependsOn:
     - name: k8s-gpu-dra-driver
       namespace: kube-system

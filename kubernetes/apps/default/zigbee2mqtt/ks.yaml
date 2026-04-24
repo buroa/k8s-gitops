@@ -5,8 +5,8 @@ metadata:
   name: zigbee2mqtt
 spec:
   components:
-    - ../../../../components/hpa
     - ../../../../components/volsync
+    - ../../../../components/zeroscaler
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
@@ -15,7 +15,7 @@ spec:
   postBuild:
     substitute:
       APP: zigbee2mqtt
-      HPA_METRIC_JOB: zigbee_probe
+      ZEROSCALER_METRIC_JOB: zigbee_probe
   prune: true
   sourceRef:
     kind: GitRepository
