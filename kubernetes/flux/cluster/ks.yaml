@@ -12,6 +12,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
+  targetNamespace: flux-system
   wait: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
