@@ -6,7 +6,6 @@ components:
   - ../../components/namespace
 resources:
   - ./blackbox-exporter/ks.yaml
-  - ./fluent-bit/ks.yaml
   - ./gatus/ks.yaml
   - ./grafana/ks.yaml
   - ./karma/ks.yaml

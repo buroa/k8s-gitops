@@ -22,33 +22,23 @@ spec:
     name: victoria-logs
   interval: 1h
   values:
-    fullnameOverride: *app
+    dashboards:
+      enabled: true
     server:
+      fullnameOverride: *app
+      image:
+        registry: quay.io
       persistentVolume:
         enabled: true
         storageClassName: ceph-block
         size: 50Gi
-      retentionPeriod: 14d
+      retentionPeriod: 90d
       route:
         enabled: true
         hostnames:
-          - logs.k13.dev
+          - vlogs.k13.dev
         parentRefs:
           - name: envoy-internal
             namespace: networking
-        extraRules:
-          - filters:
-              - type: RequestRedirect
-                requestRedirect:
-                  path:
-                    type: ReplaceFullPath
-                    replaceFullPath: /select/vmui/
-                  statusCode: 302
-            matches:
-              - path:
-                  type: Exact
-                  value: /
       serviceMonitor:
         enabled: true
-    dashboards:
-      enabled: true
