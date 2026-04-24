@@ -17,7 +17,7 @@ spec:
           name: ${HPA_METRIC_NAME:=probe_success}
           selector:
             matchLabels:
-              job: ${HPA_METRIC_LABEL:=nfs_probe}
+              job: ${HPA_METRIC_JOB:=nfs_probe}
         target:
           type: Value
           value: "1"

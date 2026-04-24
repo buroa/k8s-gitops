@@ -15,7 +15,7 @@ spec:
   postBuild:
     substitute:
       APP: zigbee2mqtt
-      HPA_METRIC_LABEL: zigbee_probe
+      HPA_METRIC_JOB: zigbee_probe
   prune: true
   sourceRef:
     kind: GitRepository
