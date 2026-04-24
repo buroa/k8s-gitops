@@ -1,6 +1,6 @@
 ---
-kind: Probe
 apiVersion: monitoring.coreos.com/v1
+kind: Probe
 metadata:
   name: nfs
 spec:
