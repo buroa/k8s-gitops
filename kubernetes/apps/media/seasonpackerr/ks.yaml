@@ -5,7 +5,7 @@ metadata:
   name: seasonpackerr
 spec:
   components:
-    - ../../../../components/keda
+    - ../../../../components/scaler
   interval: 1h
   path: ./kubernetes/apps/media/seasonpackerr/app
   postBuild:

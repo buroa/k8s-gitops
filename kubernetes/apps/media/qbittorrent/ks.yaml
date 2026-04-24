@@ -5,7 +5,7 @@ metadata:
   name: qbittorrent
 spec:
   components:
-    - ../../../../components/keda
+    - ../../../../components/scaler
     - ../../../../components/volsync
   dependsOn:
     - name: rook-ceph-cluster

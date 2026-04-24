@@ -5,7 +5,7 @@ metadata:
   name: plex
 spec:
   components:
-    - ../../../../components/keda
+    - ../../../../components/scaler
     - ../../../../components/volsync
   dependsOn:
     - name: k8s-gpu-dra-driver

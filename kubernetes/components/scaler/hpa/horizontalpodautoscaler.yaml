@@ -1,0 +1,23 @@
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: ${APP}-scaler
+spec:
+  minReplicas: 0
+  maxReplicas: 1
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: ${APP}
+  metrics:
+    - type: External
+      external:
+        metric:
+          name: probe_success
+          selector:
+            matchLabels:
+              instance: ${SCALER_INSTANCE:=tank.internal:2049}
+        target:
+          type: Value
+          value: "1"

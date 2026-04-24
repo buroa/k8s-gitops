@@ -5,7 +5,7 @@ metadata:
   name: kopia
 spec:
   components:
-    - ../../../../components/keda
+    - ../../../../components/scaler
   dependsOn:
     - name: volsync
   interval: 1h

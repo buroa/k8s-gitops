@@ -1,6 +1,6 @@
 ---
 rules:
-  - metricsQuery: max_over_time(probe_success{instance=~".+:2049"}[1m])
+  - metricsQuery: '{__name__="probe_success"}'
     name:
-      as: nfs_probe_success
-    seriesQuery: max_over_time(probe_success{instance=~".+:2049"}[1m])
+      as: probe_success
+    seriesQuery: max_over_time(probe_success{<<.LabelMatchers>>}[1m])

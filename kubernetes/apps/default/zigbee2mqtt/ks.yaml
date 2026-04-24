@@ -5,6 +5,7 @@ metadata:
   name: zigbee2mqtt
 spec:
   components:
+    - ../../../../components/scaler
     - ../../../../components/volsync
   dependsOn:
     - name: rook-ceph-cluster
@@ -14,6 +15,7 @@ spec:
   postBuild:
     substitute:
       APP: zigbee2mqtt
+      SCALER_INSTANCE: zigbee-controller.internal
   prune: true
   sourceRef:
     kind: GitRepository
