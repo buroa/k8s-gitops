@@ -4,8 +4,8 @@ kind: Kustomization
 metadata:
   name: kopia
 spec:
-  components:
-    - ../../../../components/scaler
+  # components:
+  #   - ../../../../components/scaler
   dependsOn:
     - name: volsync
   interval: 1h

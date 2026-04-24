@@ -5,7 +5,7 @@ metadata:
   name: radarr
 spec:
   components:
-    - ../../../../components/scaler
+    # - ../../../../components/scaler
     - ../../../../components/volsync
   dependsOn:
     - name: rook-ceph-cluster
