@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - ./devices.yaml
   - ./nfs.yaml
+  - ./zigbee.yaml

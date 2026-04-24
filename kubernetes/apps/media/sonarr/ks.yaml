@@ -5,7 +5,7 @@ metadata:
   name: sonarr
 spec:
   components:
-    - ../../../../components/keda
+    - ../../../../components/hpa
     - ../../../../components/volsync
   dependsOn:
     - name: rook-ceph-cluster

@@ -5,7 +5,7 @@ metadata:
   name: qui
 spec:
   components:
-    - ../../../../components/keda
+    - ../../../../components/hpa
     - ../../../../components/volsync
   dependsOn:
     - name: rook-ceph-cluster
