@@ -192,16 +192,16 @@ This is achieved by defining routes with two specific gateways: `internal` for p
   <img src="https://i.imgur.com/CdVYTMJ.jpeg" align="center" alt="rack"/>
 </details>
 
-| Device                        | Count | OS Disk         | Data Disk                   | RAM   | OS               | Purpose                 |
-|-------------------------------|-------|-----------------|-----------------------------|-------|------------------|-------------------------|
-| Minisforum MS-A2              | 3     | 1.92TB M.2      | 3.84TB U.2 + 1.92TB M.2     | 96GB  | Talos            | Kubernetes Nodes        |
-| 45 HomeLab HL15 2.0           | 1     | 1.92TB M.2      | 12×22TB HDD + 2x7.68TB U.2  | 512GB | TrueNAS SCALE    | NFS Storage             |
-| JetKVM                        | 3     | -               | -                           | -     | -                | KVM for Kubernetes      |
-| UniFi Dream Machine Pro Max   | 1     | -               | 2×960GB SSD                 | -     | UniFi OS         | Router & NVR            |
-| UniFi Switch Pro Aggregation  | 1     | -               | -                           | -     | UniFi OS         | 10G/25Gb Core Switch    |
-| UniFi Switch Pro Max 24 PoE   | 1     | -               | -                           | -     | UniFi OS         | 2.5Gb PoE Switch        |
-| UniFi SmartPower PDU Pro      | 1     | -               | -                           | -     | UniFi OS         | Managed PDU             |
-| APC SMT1500RM2UNC UPS         | 1     | -               | -                           | -     | -                | Backup Power            |
+| Device                       | Count | OS Disk    | Data Disk                  | RAM   | OS            | Purpose              |
+|------------------------------|-------|------------|----------------------------|-------|---------------|----------------------|
+| Minisforum MS-A2             | 3     | 1.92TB M.2 | 3.84TB U.2 + 1.92TB M.2    | 96GB  | Talos         | Kubernetes           |
+| 45 HomeLab HL15 2.0          | 1     | 1.92TB M.2 | 12×22TB HDD + 2x7.68TB U.2 | 512GB | TrueNAS SCALE | NFS + Backup Storage |
+| JetKVM                       | 3     | -          | -                          | -     | -             | KVM for Kubernetes   |
+| UniFi Dream Machine Pro Max  | 1     | -          | 2×960GB SSD                | -     | UniFi OS      | Router & NVR         |
+| UniFi Switch Pro Aggregation | 1     | -          | -                          | -     | UniFi OS      | 10G/25Gb SFP+ Switch |
+| UniFi Switch Pro Max 24 PoE  | 1     | -          | -                          | -     | UniFi OS      | 2.5Gb PoE+ Switch    |
+| UniFi SmartPower PDU Pro     | 1     | -          | -                          | -     | UniFi OS      | PDU                  |
+| APC SMT1500RM2UNC UPS        | 1     | -          | -                          | -     | -             | UPS                  |
 
 ---
 
