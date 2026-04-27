@@ -22,12 +22,15 @@ spec:
     name: victoria-logs
   interval: 1h
   values:
-    dashboards:
-      enabled: true
-    server:
-      fullnameOverride: victoria-logs
+    global:
       image:
         registry: quay.io
+    dashboards:
+      enabled: true
+      grafanaOperator:
+        enabled: true
+    server:
+      fullnameOverride: victoria-logs
       persistentVolume:
         enabled: true
         storageClassName: ceph-block

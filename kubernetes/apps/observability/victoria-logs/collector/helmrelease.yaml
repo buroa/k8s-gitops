@@ -23,7 +23,10 @@ spec:
   interval: 1h
   values:
     fullnameOverride: victoria-logs-collector
-    image:
-      registry: quay.io
+    global:
+      image:
+        registry: quay.io
+    podMonitor:
+      enabled: true
     remoteWrite:
       - url: http://victoria-logs.observability.svc.cluster.local:9428
