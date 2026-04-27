@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app gatus
+  name: gatus
 spec:
   chartRef:
     kind: OCIRepository
@@ -65,7 +65,7 @@ spec:
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
         serviceAccount:
-          name: *app
+          name: gatus
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true

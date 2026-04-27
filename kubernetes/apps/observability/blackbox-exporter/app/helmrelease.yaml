@@ -15,14 +15,14 @@ spec:
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app blackbox-exporter
+  name: blackbox-exporter
 spec:
   chartRef:
     kind: OCIRepository
     name: blackbox-exporter
   interval: 1h
   values:
-    fullnameOverride: *app
+    fullnameOverride: blackbox-exporter
     config:
       modules:
         http_2xx:

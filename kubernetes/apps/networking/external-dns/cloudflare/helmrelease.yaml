@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app external-dns-cloudflare
+  name: external-dns-cloudflare
 spec:
   chartRef:
     kind: OCIRepository
@@ -61,7 +61,7 @@ spec:
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
         serviceAccount:
-          name: *app
+          name: external-dns-cloudflare
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
