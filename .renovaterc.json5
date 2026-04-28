@@ -18,8 +18,10 @@
     ":semanticCommits",
     ":timezone(America/Chicago)",
   ],
+  registryAliases: {
+    "mirror.gcr.io": "docker.io",
+  },
   dependencyDashboardTitle: "Renovate Dashboard 🤖",
-  suppressNotifications: ["prEditedNotification", "prIgnoreNotification"],
   ignorePaths: ["**/resources/**"],
   flux: {
     managerFilePatterns: ["/\\.yaml(?:\\.j2)?$/"],
