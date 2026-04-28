@@ -18,9 +18,6 @@
     ":semanticCommits",
     ":timezone(America/Chicago)",
   ],
-  registryAliases: {
-    "mirror.gcr.io": "docker.io",
-  },
   dependencyDashboardTitle: "Renovate Dashboard 🤖",
   ignorePaths: ["**/resources/**"],
   flux: {
