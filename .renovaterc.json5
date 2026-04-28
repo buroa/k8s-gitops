@@ -26,4 +26,7 @@
   kubernetes: {
     managerFilePatterns: ["/\\.yaml(?:\\.j2)?$/"],
   },
+  registryAliases: {
+    "mirror.gcr.io": "docker.io",
+  },
 }
