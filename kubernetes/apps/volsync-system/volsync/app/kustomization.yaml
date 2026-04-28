@@ -4,5 +4,4 @@ kind: Kustomization
 resources:
   - ./grafanadashboard.yaml
   - ./helmrelease.yaml
-  - ./mutatingadmissionpolicy.yaml
   - ./prometheusrule.yaml
