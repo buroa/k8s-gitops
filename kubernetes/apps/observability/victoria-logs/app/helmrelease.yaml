@@ -15,7 +15,7 @@ spec:
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: victoria-logs
+  name: &app victoria-logs
 spec:
   chartRef:
     kind: OCIRepository
@@ -30,7 +30,7 @@ spec:
       grafanaOperator:
         enabled: true
     server:
-      fullnameOverride: victoria-logs
+      fullnameOverride: *app
       persistentVolume:
         enabled: true
         storageClassName: ceph-block

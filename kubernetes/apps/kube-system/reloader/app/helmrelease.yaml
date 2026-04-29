@@ -15,14 +15,14 @@ spec:
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: reloader
+  name: &app reloader
 spec:
   chartRef:
     kind: OCIRepository
     name: reloader
   interval: 1h
   values:
-    fullnameOverride: reloader
+    fullnameOverride: *app
     reloader:
       readOnlyRootFileSystem: true
       podMonitor:

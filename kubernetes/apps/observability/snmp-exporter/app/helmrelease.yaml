@@ -15,14 +15,14 @@ spec:
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: snmp-exporter
+  name: &app snmp-exporter
 spec:
   chartRef:
     kind: OCIRepository
     name: snmp-exporter
   interval: 1h
   values:
-    fullnameOverride: snmp-exporter
+    fullnameOverride: *app
     serviceMonitor:
       enabled: true
       params:
