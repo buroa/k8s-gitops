@@ -28,6 +28,7 @@ spec:
           nfs:
             path: /mnt/sank/kopia
             server: tank.internal
+    parallelism: 2
     repository: ${APP}-volsync-secret
     sourceIdentity:
       sourceName: ${APP}
