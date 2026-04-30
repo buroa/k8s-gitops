@@ -115,7 +115,7 @@ graph LR
 
 ### Networking
 
-My network is built on a multi-tier architecture with enterprise-grade performance. At the core, a UniFi Dream Machine Pro handles routing and firewall duties, connected to a 10/25Gb aggregation switch that provides the backbone. The NAS connects via dual 25G LACP bonds, while the Kubernetes cluster and access layer remain on 10G LACP for redundancy and throughput. A 24-port 2.5G PoE switch serves end devices and wireless access points, all backed by 5Gbps WAN connectivity from RCN.
+My network is built on a multi-tier architecture with enterprise-grade performance. At the core, a UniFi Dream Machine Beast handles routing and firewall duties, connected upstream to RCN's 5Gbps WAN and downstream to a 25G aggregation switch that forms the backbone. The NAS and the 24-port PoE+ access switch each connect to the aggregation switch via 25G LACP, while the three-node Kubernetes cluster connects at 10G LACP. The access switch serves wired end devices and wireless clients.
 
 <details>
   <summary>Click to see a high-level network diagram</summary>
@@ -132,11 +132,11 @@ graph LR
 
     %% Nodes
     RCN[🛜 RCN<br/>5Gbps WAN]:::wan
-    UDM[📦 UDM Pro]:::core
-    AGG[🔗 Aggregation<br/>10/25Gb]:::agg
-    NAS[💾 NAS<br/>1 Server]:::device
+    UDM[📦 UDM Beast]:::core
+    AGG[🔗 Pro Aggregation XG]:::agg
+    NAS[💾 NAS]:::device
     K8s[☸️ Kubernetes<br/>3 Nodes]:::device
-    SW[🔌 24 Port<br/>2.5G PoE]:::switch
+    SW[🔌 Pro XG 24 PoE]:::switch
     DEV[💻 Devices]:::device
     WIFI[📶 WiFi Clients]:::device
 
@@ -156,10 +156,10 @@ graph LR
     %% Links
     SERVERS -.-> RCN
     RCN -.->|WAN| UDM
-    UDM --> AGG
-    AGG -- 25G LACP --- NAS
+    UDM -- 25G LACP --- AGG
     AGG -- 10G LACP --- K8s
-    AGG -- 10G LACP --- SW
+    AGG -- 25G LACP --- NAS
+    AGG -- 25G LACP --- SW
     SW --> DEV
     SW --> WIFI
 
@@ -192,16 +192,16 @@ This is achieved by defining routes with two specific gateways: `internal` for p
   <img src="https://i.imgur.com/CdVYTMJ.jpeg" align="center" alt="rack"/>
 </details>
 
-| Device                       | Count | OS Disk    | Data Disk                  | RAM   | OS            | Purpose              |
-|------------------------------|-------|------------|----------------------------|-------|---------------|----------------------|
-| Minisforum MS-A2             | 3     | 1.92TB M.2 | 3.84TB U.2 + 1.92TB M.2    | 96GB  | Talos         | Kubernetes           |
-| 45 HomeLab HL15 2.0          | 1     | 1.92TB M.2 | 12×22TB HDD + 2x7.68TB U.2 | 512GB | TrueNAS SCALE | NFS + Backup Storage |
-| JetKVM                       | 3     | -          | -                          | -     | -             | KVM for Kubernetes   |
-| UniFi Dream Machine Pro Max  | 1     | -          | 2×960GB SSD                | -     | UniFi OS      | Router & NVR         |
-| UniFi Switch Pro Aggregation | 1     | -          | -                          | -     | UniFi OS      | 10G/25Gb SFP+ Switch |
-| UniFi Switch Pro Max 24 PoE  | 1     | -          | -                          | -     | UniFi OS      | 2.5Gb PoE+ Switch    |
-| UniFi SmartPower PDU Pro     | 1     | -          | -                          | -     | UniFi OS      | PDU                  |
-| APC SMT1500RM2UNC UPS        | 1     | -          | -                          | -     | -             | UPS                  |
+| Device                        | Count | OS Disk     | Data Disk                   | RAM    | OS             | Purpose               |
+|-------------------------------|-------|-------------|-----------------------------|--------|----------------|-----------------------|
+| Minisforum MS-A2              | 3     | 1.92TB M.2  | 3.84TB U.2 + 1.92TB M.2     | 96GB   | Talos          | Kubernetes            |
+| 45HomeLab HL15 2.0            | 1     | 1.92TB M.2  | 12×22TB HDD + 2x7.68TB U.2  | 512GB  | TrueNAS SCALE  | NFS + Backup Storage  |
+| JetKVM                        | 3     | -           | -                           | -      | -              | KVM for Kubernetes    |
+| UniFi Dream Machine Beast     | 1     | -           | 2×960GB SSD                 | -      | UniFi OS       | Router & NVR          |
+| UniFi Pro XG Aggregation      | 1     | -           | -                           | -      | UniFi OS       | 25G SFP28 Switch      |
+| UniFi Pro XG 24 PoE           | 1     | -           | -                           | -      | UniFi OS       | 10G PoE+ Switch       |
+| UniFi Power Distribution Pro  | 1     | -           | -                           | -      | UniFi OS       | PDU                   |
+| APC SMT1500RM2UNC UPS         | 1     | -           | -                           | -      | -              | UPS                   |
 
 ---
 
