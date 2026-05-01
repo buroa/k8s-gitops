@@ -45,3 +45,5 @@ spec:
             namespace: networking
       serviceMonitor:
         enabled: true
+    vector:
+      enabled: false
