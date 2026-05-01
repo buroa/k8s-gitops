@@ -165,9 +165,10 @@ graph LR
 
     %% Keep SERVERS->RCN as a hidden layout constraint and style bonded links thicker
     linkStyle 0 stroke:transparent,stroke-width:0px,color:transparent;
-    linkStyle 3 stroke-width:4px,stroke:34d399;
-    linkStyle 4 stroke-width:4px,stroke:34d399;
-    linkStyle 5 stroke-width:4px,stroke:34d399;
+    linkStyle 2 stroke-width:4px;
+    linkStyle 3 stroke-width:4px;
+    linkStyle 4 stroke-width:2px;
+    linkStyle 5 stroke-width:4px;
 ```
 </details>
 
