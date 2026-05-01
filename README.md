@@ -158,8 +158,8 @@ graph LR
     RCN -.->|WAN| UDM
     UDM -- 25G --- AGG
     UDM -- 25G --- SW
-    AGG -- 10G LACP --- K8s
-    AGG -- 25G LACP --- NAS
+    AGG -- 10G LACP --> K8s
+    AGG -- 25G LACP --> NAS
     SW --> DEV
     SW --> WIFI
 
