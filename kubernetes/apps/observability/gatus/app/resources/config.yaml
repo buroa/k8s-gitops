@@ -23,8 +23,8 @@ endpoints:
       - "[CONNECTED] == true"
     group: connectivity
     interval: 1m
-    name: Lumen
-    url: icmp://4.2.2.1
+    name: Quad9
+    url: icmp://9.9.9.9
 
 metrics: true
 
