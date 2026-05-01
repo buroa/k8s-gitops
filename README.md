@@ -115,7 +115,7 @@ graph LR
 
 ### Networking
 
-My network is built on a multi-tier architecture with enterprise-grade performance. At the core, a UniFi Dream Machine Beast handles routing and firewall duties, connected upstream to RCN's 5Gbps WAN and downstream to a 25G aggregation switch that forms the backbone. The NAS and the 24-port PoE+ access switch each connect to the aggregation switch via 25G LACP, while the three-node Kubernetes cluster connects at 10G LACP. The access switch serves wired end devices and wireless clients.
+My network is built on a multi-tier architecture with enterprise-grade performance. At the core, a UniFi Dream Machine Beast handles routing and firewall duties, connected upstream to RCN's 5Gbps WAN and downstream to both a 25G aggregation switch and a 24-port PoE+ access switch. The aggregation switch forms the backbone, connecting to the NAS via 25G LACP and the three-node Kubernetes cluster via 10G LACP. The access switch serves wired end devices and wireless clients.
 
 <details>
   <summary>Click to see a high-level network diagram</summary>
@@ -156,10 +156,10 @@ graph LR
     %% Links
     SERVERS -.-> RCN
     RCN -.->|WAN| UDM
-    UDM -- 25G LACP --- AGG
+    UDM -- 25G --- AGG
+    UDM -- 25G --- SW
     AGG -- 10G LACP --- K8s
     AGG -- 25G LACP --- NAS
-    AGG -- 25G LACP --- SW
     SW --> DEV
     SW --> WIFI
 
