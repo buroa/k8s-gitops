@@ -178,7 +178,7 @@ graph LR
 
 I run two instances of [ExternalDNS](https://github.com/kubernetes-sigs/external-dns) to handle DNS automation:
 
-- **Private DNS**: Syncs records to my UDM Pro Max via the [ExternalDNS webhook provider for UniFi](https://github.com/kashalls/external-dns-unifi-webhook)
+- **Private DNS**: Syncs records to my UDM Beast via the [ExternalDNS webhook provider for UniFi](https://github.com/kashalls/external-dns-unifi-webhook)
 - **Public DNS**: Syncs records to Cloudflare for external services
 
 This is achieved by defining routes with two specific gateways: `internal` for private DNS and `external` for public DNS. Each ExternalDNS instance watches for routes using its assigned gateway and syncs the appropriate DNS records to the corresponding platform.
