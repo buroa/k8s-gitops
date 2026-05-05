@@ -93,6 +93,7 @@ spec:
         serviceAccount:
           name: external-dns-unifi
     defaultPodOptions:
+      automountServiceAccountToken: true
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000

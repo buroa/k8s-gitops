@@ -67,6 +67,7 @@ spec:
         serviceAccount:
           name: gatus
     defaultPodOptions:
+      automountServiceAccountToken: true
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
