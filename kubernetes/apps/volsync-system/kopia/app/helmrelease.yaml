@@ -59,12 +59,6 @@ spec:
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
     persistence:
-      config:
-        type: configMap
-        name: "{{ .Release.Name }}-configmap"
-        globalMounts:
-          - path: /config/repository.config
-            subPath: repository.config
       repository:
         type: nfs
         server: tank.internal
