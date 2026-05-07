@@ -35,7 +35,8 @@ spec:
       httpRoute:
         enabled: true
         hostnames:
-          - flux-operator.k13.dev
+          - "{{ .Release.Name }}.k13.dev"
+          - flux.k13.dev
         parentRefs:
           - name: envoy-internal
             namespace: networking
