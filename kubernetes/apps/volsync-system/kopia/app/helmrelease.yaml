@@ -20,6 +20,7 @@ spec:
               repository: ghcr.io/home-operations/kopia
               tag: 0.22.3@sha256:17ab64542280197a5368247deaefadc3e3bbe15714ab666c2455a06824e86efd
             args:
+              - --no-auto-maintenance
               - --refresh-interval=5m
               - --without-password
             env:
