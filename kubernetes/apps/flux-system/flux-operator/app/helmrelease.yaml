@@ -32,5 +32,12 @@ spec:
             username: flux
             groups:
               - flux-admin
+      httpRoute:
+        enabled: true
+        hostnames:
+          - flux-operator.k13.dev
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
       networkPolicy:
         create: false
