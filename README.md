@@ -190,7 +190,7 @@ This is achieved by defining routes with two specific gateways: `internal` for p
 <details>
   <summary>Click to see my rack</summary>
 
-  <img src="https://i.imgur.com/CdVYTMJ.jpeg" align="center" alt="rack"/>
+  <img src="https://github.com/user-attachments/assets/20a912ed-05d7-4ead-999c-fb01ecbe88bf" align="center" alt="rack"/>
 </details>
 
 | Device                        | Count | OS Disk     | Data Disk                   | RAM    | OS             | Purpose               |
