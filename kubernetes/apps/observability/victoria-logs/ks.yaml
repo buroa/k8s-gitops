@@ -24,6 +24,7 @@ metadata:
 spec:
   dependsOn:
     - name: victoria-logs
+      namespace: observability
   interval: 1h
   path: ./kubernetes/apps/observability/victoria-logs/collector
   prune: true
