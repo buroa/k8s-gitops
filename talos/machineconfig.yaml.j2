@@ -58,7 +58,6 @@ machine:
       validSubnets:
         - 192.168.10.0/24
   nodeLabels:
-    node.kubernetes.io/gpu: "true"
     topology.kubernetes.io/region: k8s
     topology.kubernetes.io/zone: {{ 'm' if ENV.MACHINE_TYPE == 'controlplane' else 'w' }}
   sysctls:
