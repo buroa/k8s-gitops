@@ -44,7 +44,7 @@ machine:
         rsize=4194304
         wsize=4194304
   install:
-    image: factory.talos.dev/metal-installer/a8a042a774fbea473eb100f4aecfbb023c168d10583ef7de4a54c526cee26cf4:v1.13.0
+    image: factory.talos.dev/metal-installer/31a3638a3a6bfca90ce921243f1c0f2000745febc8b16a117aac5a0b5e451a93:v1.13.0
   kernel:
     modules:
       - name: nbd
@@ -77,7 +77,6 @@ machine:
     net.ipv4.tcp_window_scaling: 1          # 10Gb/s
     sunrpc.tcp_slot_table_entries: 128      # 10Gb/s | NFS
     sunrpc.tcp_max_slot_table_entries: 128  # 10Gb/s | NFS
-    user.max_user_namespaces: 11255         # User Namespaces
   token: op://K8s/talos/MACHINE_TOKEN
   type: {{ ENV.MACHINE_TYPE }}
 cluster:
