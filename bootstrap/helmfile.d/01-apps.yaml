@@ -1,5 +1,6 @@
 ---
 helmDefaults:
+  args: ['--force-conflicts']
   cleanupOnFail: true
   wait: true
   waitForJobs: true
@@ -16,11 +17,10 @@ releases:
         command: kubectl
         args:
           - apply
-          - --server-side
-          - --namespace=kube-system
           - --field-manager=kustomize-controller
-          - --kustomize
-          - ../../kubernetes/apps/kube-system/cilium/config
+          - --namespace={{ .Release.Namespace }}
+          - --kustomize=../../kubernetes/apps/{{ .Release.Namespace }}/{{ .Release.Name }}/config
+          - --server-side
         showlogs: true
 
   - name: coredns
@@ -63,10 +63,10 @@ releases:
         command: kubectl
         args:
           - apply
-          - --server-side
           - --field-manager=kustomize-controller
-          - --kustomize
-          - ../../kubernetes/apps/external-secrets/onepassword-connect/store
+          - --namespace={{ .Release.Namespace }}
+          - --kustomize=../../kubernetes/apps/{{ .Release.Namespace }}/{{ .Release.Name }}/store
+          - --server-side
         showlogs: true
 
   - name: flux-operator

@@ -7,8 +7,8 @@ tasks:
     desc: Bootstrap Talos
     prompt: Bootstrap Talos ...?
     cmds:
-      - until talosctl --nodes {{.RANDOM_CONTROLLER}} bootstrap; do sleep 5; done
-      - talosctl kubeconfig --nodes {{.RANDOM_CONTROLLER}} --force {{.KUBERNETES_DIR}}
+      - talosctl --nodes {{.RANDOM_CONTROLLER}} bootstrap
+      - talosctl --nodes {{.RANDOM_CONTROLLER}} kubeconfig --force {{.KUBERNETES_DIR}}
     vars:
       RANDOM_CONTROLLER:
         sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
@@ -22,8 +22,8 @@ tasks:
     prompt: Bootstrap Kubernetes Apps ...?
     cmds:
       - kubectl config set-cluster {{.CONTEXT}} --server https://{{.RANDOM_CONTROLLER}}:6443
-      - defer: talosctl kubeconfig --nodes {{.RANDOM_CONTROLLER}} --force {{.KUBERNETES_DIR}}
-      - until kubectl wait nodes --for=condition=Ready=False --all --timeout=10m; do sleep 5; done
+      - defer: talosctl --nodes {{.RANDOM_CONTROLLER}} kubeconfig --force {{.KUBERNETES_DIR}}
+      - kubectl wait nodes --for=condition=Ready=False --all --timeout=10m
       - op inject --in-file {{.BOOTSTRAP_DIR}}/resources.yaml | kubectl apply --server-side --filename -
       - task: helmfile
     vars:
