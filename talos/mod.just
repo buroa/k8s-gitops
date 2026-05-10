@@ -10,7 +10,7 @@ default:
 [confirm('Apply Talos config to ' + node + ' [y|N] ?')]
 [doc('Apply Talos config to a node')]
 apply-node node *args:
-    just talos render-config "{{ node }}" | talosctl -n "{{ node }}" apply-config -f /dev/stdin {{ args }}
+    just talos render-config {{ node }} | talosctl -n {{ node }} apply-config -f /dev/stdin {{ args }}
 
 [confirm('Reboot node ' + node + ' [y|N] ?')]
 [doc('Reboot a node')]
@@ -29,12 +29,12 @@ render-config node:
 [confirm('Reset node ' + node + ' [y|N] ?')]
 [doc('Reset a node')]
 reset-node node *args:
-    talosctl -n "{{ node }}" reset --reboot=true --graceful=false {{ args }}
+    talosctl -n {{ node }} reset --reboot=true --graceful=false {{ args }}
 
 [confirm('Shutdown node ' + node + ' [y|N] ?')]
 [doc('Shutdown a node')]
 shutdown-node node *args:
-    talosctl -n "{{ node }}" shutdown --force {{ args }}
+    talosctl -n {{ node }} shutdown --force {{ args }}
 
 [confirm('Upgrade Kubernetes to ' + version + ' [y|N] ?')]
 [doc('Upgrade Kubernetes version on the cluster')]
@@ -44,7 +44,7 @@ upgrade-k8s version:
 [confirm('Upgrade node ' + node + ' [y|N] ?')]
 [doc('Upgrade Talos version on a node')]
 upgrade-node node *args:
-    talosctl -n "{{ node }}" upgrade -i "$(just talos machine-image)" -m powercycle --timeout=10m {{ args }}
+    talosctl -n {{ node }} upgrade -i "$(just talos machine-image)" -m powercycle --timeout=10m {{ args }}
 
 [doc('Generate a Talos schematic')]
 schematic-id:

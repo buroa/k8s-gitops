@@ -1,12 +1,4 @@
 .claude/
-.private/
-.pytest_cache/
-.venv/
-*.crt
-*.env
-*.iso
-*.key
-.decrypted~*
 .DS_Store
 Thumbs.db
 kubeconfig
