@@ -25,8 +25,8 @@ delete-ks ns ks:
 
 [doc('Open a shell on a node')]
 node-shell node:
-    kubectl debug node/{{ node }} -n default -it --image="mirror.gcr.io/alpine:latest" --profile sysadmin
-    kubectl delete pod -n default -l app.kubernetes.io/managed-by=kubectl-debug
+    trap 'kubectl delete pod -n default -l app.kubernetes.io/managed-by=kubectl-debug --ignore-not-found --wait=false' EXIT
+    kubectl debug node/{{ node }} -n default -it --image=mirror.gcr.io/alpine:latest --profile=sysadmin
 
 [doc('Prune pods in Failed, Pending, or Succeeded state')]
 [script]
