@@ -23,8 +23,6 @@ spec:
   interval: 1h
   values:
     instance:
-      distribution:
-        artifact: oci://ghcr.io/controlplaneio-fluxcd/flux-operator-manifests:v0.48.0
       cluster:
         networkPolicy: false
       components:
