@@ -1,11 +1,5 @@
-/.private/
-/.task/
-*.crt
-*.iso
-*.key
-.decrypted~*
+.claude/
 .DS_Store
-Brewfile.lock.json
 Thumbs.db
 kubeconfig
 talosconfig

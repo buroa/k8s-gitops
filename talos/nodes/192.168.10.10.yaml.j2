@@ -1,12 +1,13 @@
 ---
 machine:
+  type: controlplane
   install:
     diskSelector:
-      serial: S666NG0X101148
+      serial: S666NN0W402512
 ---
 apiVersion: v1alpha1
 kind: HostnameConfig
-hostname: m1.k8s.internal
+hostname: m0.k8s.internal
 ---
 apiVersion: v1alpha1
 kind: UserVolumeConfig
@@ -14,4 +15,4 @@ name: local-hostpath
 volumeType: disk
 provisioning:
   diskSelector:
-    match: disk.serial == "S666NN0W110861"
+    match: disk.serial == "S666NG0X101174"

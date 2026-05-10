@@ -1,3 +1,5 @@
+; https://editorconfig.org/
+
 root = true
 
 [*]
@@ -8,5 +10,12 @@ charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
 
+[*.md]
+indent_size = 4
+trim_trailing_whitespace = false
+
 [*.sh]
+indent_size = 4
+
+[{*.just,*.justfile}]
 indent_size = 4
