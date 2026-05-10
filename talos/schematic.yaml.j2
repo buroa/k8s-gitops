@@ -6,7 +6,7 @@ customization:
     - iommu=pt                                         # PCI Passthrough
     - module_blacklist=igc                             # Disable onboard NIC
     - pcie_aspm=off                                    # Disable PCIe ASPM
-    - talos.config.early={{ ENV.TALOS_CONFIG_EARLY }}  # Early config
+    - talos.config.early={{ ENV.CONFIG_EARLY }}        # Early config
   systemExtensions:
     officialExtensions:
       - siderolabs/amd-ucode                           # AMD CPU Microcode

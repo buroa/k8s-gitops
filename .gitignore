@@ -1,11 +1,13 @@
-/.private/
-/.task/
+.claude/
+.private/
+.pytest_cache/
+.venv/
 *.crt
+*.env
 *.iso
 *.key
 .decrypted~*
 .DS_Store
-Brewfile.lock.json
 Thumbs.db
 kubeconfig
 talosconfig
