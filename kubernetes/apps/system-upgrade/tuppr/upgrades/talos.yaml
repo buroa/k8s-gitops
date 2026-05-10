@@ -5,7 +5,7 @@ metadata:
   name: talos
 spec:
   talos:
-    # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
+    # renovate: datasource=custom.talos-factory depName=siderolabs/talos
     version: v1.13.0
   healthChecks:
     - apiVersion: ceph.rook.io/v1

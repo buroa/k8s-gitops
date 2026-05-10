@@ -44,7 +44,7 @@ machine:
         rsize=4194304
         wsize=4194304
   install:
-    image: factory.talos.dev/metal-installer/31a3638a3a6bfca90ce921243f1c0f2000745febc8b16a117aac5a0b5e451a93:v1.13.0
+    image: factory.talos.dev/metal-installer/{{ ENV.TALOS_SCHEMATIC }}:v1.13.0
   kernel:
     modules:
       - name: nbd
@@ -136,7 +136,6 @@ cluster:
   proxy:
     disabled: true
     image: registry.k8s.io/kube-proxy:v1.36.0
-  secretboxEncryptionSecret: op://K8s/talos/CLUSTER_SECRETBOXENCRYPTIONSECRET
   scheduler:
     config:
       apiVersion: kubescheduler.config.k8s.io/v1
@@ -158,6 +157,7 @@ cluster:
     extraArgs:
       bind-address: 0.0.0.0
     image: registry.k8s.io/kube-scheduler:v1.36.0
+  secretboxEncryptionSecret: op://K8s/talos/CLUSTER_SECRETBOXENCRYPTIONSECRET
   serviceAccount:
     key: op://K8s/talos/CLUSTER_SERVICEACCOUNT_KEY
   {% endif %}

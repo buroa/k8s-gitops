@@ -23,6 +23,8 @@ tasks:
             || basename $(find '{{.TALOS_DIR}}' -name '{{.NODE}}.yaml' -printf '%h')
     env:
       MACHINE_TYPE: '{{.MACHINE_TYPE}}'
+      TALOS_SCHEMATIC:
+        sh: task --silent talos:generate-schematic
     requires:
       vars: [NODE]
     preconditions:
@@ -107,19 +109,6 @@ tasks:
       - talosctl config info
       - talosctl --nodes {{.RANDOM_CONTROLLER}} get machineconfig
       - which jq talosctl
-
-  generate-iso:
-    desc: Generate a Talos ISO for a specific version [VERSION=required]
-    cmd: |-
-      curl -L -o {{.TALOS_DIR}}/talos-{{.VERSION}}.iso \
-        https://factory.talos.dev/image/{{.TALOS_SCHEMATIC}}/{{.VERSION}}/metal-amd64.iso
-    vars:
-      TALOS_SCHEMATIC:
-        sh: task --silent talos:generate-schematic
-    requires:
-      vars: [VERSION]
-    preconditions:
-      - which curl task
 
   generate-schematic:
     desc: Generate a Talos schematic

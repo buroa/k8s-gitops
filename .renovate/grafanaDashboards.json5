@@ -11,7 +11,7 @@
     {
       customType: "regex",
       description: "Process Grafana dashboards",
-      managerFilePatterns: ["/(^|/)kubernetes/.+\\.ya?ml$/"],
+      managerFilePatterns: ["/grafanadashboard\\.yaml(?:\\.j2)?$/"],
       matchStrings: [
         "dashboards\\/(?<depName>\\d+)\\/revisions\\/(?<currentValue>\\d+)\\/download",
       ],
