@@ -1,6 +1,10 @@
 ---
 version: '3'
 
+vars:
+  RANDOM_CONTROLLER:
+    sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
+
 tasks:
 
   talos:
@@ -9,9 +13,6 @@ tasks:
     cmds:
       - talosctl --nodes {{.RANDOM_CONTROLLER}} bootstrap
       - talosctl --nodes {{.RANDOM_CONTROLLER}} kubeconfig --force {{.KUBERNETES_DIR}}
-    vars:
-      RANDOM_CONTROLLER:
-        sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
     preconditions:
       - talosctl config info
       - talosctl --nodes {{.RANDOM_CONTROLLER}} get machineconfig
@@ -29,8 +30,6 @@ tasks:
     vars:
       CONTEXT:
         sh: talosctl config info --output json | jq --raw-output '.context'
-      RANDOM_CONTROLLER:
-        sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
     preconditions:
       - op user get --me
       - talosctl config info

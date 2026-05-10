@@ -1,6 +1,12 @@
 ---
 version: '3'
 
+vars:
+  NODES:
+    sh: talosctl config info --output json | jq --join-output '[.nodes[]] | join(",")'
+  RANDOM_CONTROLLER:
+    sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
+
 tasks:
 
   apply-node:
@@ -68,9 +74,6 @@ tasks:
     desc: Shutdown Talos across the whole cluster
     prompt: Shutdown the Talos cluster ... continue?
     cmd: talosctl --nodes {{.NODES}} shutdown --force
-    vars:
-      NODES:
-        sh: talosctl config info --output json | jq --join-output '[.nodes[]] | join(",")'
     preconditions:
       - talosctl config info
       - talosctl --nodes {{.NODES}} get machineconfig
@@ -91,9 +94,6 @@ tasks:
     desc: Reset Talos across the whole cluster
     prompt: Reset the Talos cluster ... continue?
     cmd: talosctl --nodes {{.NODES}} reset --reboot=true --graceful=false
-    vars:
-      NODES:
-        sh: talosctl config info --output json | jq --join-output '[.nodes[]] | join(",")'
     preconditions:
       - talosctl config info
       - talosctl --nodes {{.NODES}} get machineconfig
@@ -102,9 +102,6 @@ tasks:
   generate-kubeconfig:
     desc: Generate the kubeconfig for a Talos cluster
     cmd: talosctl kubeconfig --nodes {{.RANDOM_CONTROLLER}} --force {{.KUBERNETES_DIR}}
-    vars:
-      RANDOM_CONTROLLER:
-        sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
     preconditions:
       - talosctl config info
       - talosctl --nodes {{.RANDOM_CONTROLLER}} get machineconfig
