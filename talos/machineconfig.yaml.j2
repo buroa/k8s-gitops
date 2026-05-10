@@ -44,7 +44,7 @@ machine:
         rsize=4194304
         wsize=4194304
   install:
-    image: factory.talos.dev/metal-installer/31a3638a3a6bfca90ce921243f1c0f2000745febc8b16a117aac5a0b5e451a93:v1.13.0
+    image: factory.talos.dev/metal-installer/{{ ENV.TALOS_SCHEMATIC }}:v1.13.0
   kernel:
     modules:
       - name: nbd

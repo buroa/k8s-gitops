@@ -10,8 +10,6 @@
   color: "0e8a16"
 - name: area/talos
   color: "0e8a16"
-- name: area/taskfile
-  color: "0e8a16"
 # Renovate Types
 - name: renovate/container
   color: "027fa0"
@@ -22,6 +20,8 @@
 - name: renovate/github-release
   color: "027fa0"
 - name: renovate/helm
+  color: "027fa0"
+- name: renovate/talos
   color: "027fa0"
 # Semantic Types
 - name: type/digest
