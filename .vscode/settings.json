@@ -12,10 +12,12 @@
   "explorer.autoReveal": true,
   "files.associations": {
     "**/*.json5": "json5",
+    "**/*.just": "just",
   },
   "files.trimTrailingWhitespace": true,
   "material-icon-theme.files.associations": {
     "*.gotmpl": "smarty",
+    "*.just": "just",
     "kubeconfig": "kubernetes",
     "talosconfig": "kubernetes"
   },
