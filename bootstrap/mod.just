@@ -41,7 +41,7 @@ k8s:
 [script]
 kubeconfig lb="cilium":
     just log info "Running stage..." "stage" "$(basename "$0")"
-    if ! talosctl kubeconfig -n "{{ controller }}" -f --force-context-name k8s {{ justfile_dir() }}; then
+    if ! talosctl kubeconfig -n "{{ controller }}" -f --force-context-name k8s "{{ justfile_dir() }}/kubernetes"; then
         just log fatal "Failed to fetch kubeconfig" "stage" "$(basename "$0")"
     fi
     if [[ "{{ lb }}" != "cilium" ]]; then
@@ -54,7 +54,7 @@ kubeconfig lb="cilium":
 [script]
 base: ready
     just log info "Running stage..." "stage" "$(basename "$0")"
-    if ! kustomize build {{ source_directory() }}/kustomize | just template - | kubectl apply --server-side --force-conflicts -f -; then
+    if ! kustomize build "{{ source_directory() }}/kustomize" | just template - | kubectl apply --server-side --force-conflicts -f -; then
         just log fatal "Failed to apply base manifests" "stage" "$(basename "$0")" "file" "$f"
     fi
     if ! helmfile -f "{{ source_directory() }}/helmfile.d/crds.yaml" template -q | yq ea -e 'select(.kind == "CustomResourceDefinition")' | kubectl apply --server-side --force-conflicts -f -; then

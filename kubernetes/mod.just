@@ -40,7 +40,7 @@ prune-pods:
 restore ns app previous='0':
     flux -n {{ ns }} suspend kustomization {{ app }}
     flux -n {{ ns }} suspend helmrelease {{ app }}
-    kubectl -n {{ ns }} get deploy,sts -l app.kubernetes.io/name={{ app }} -o name \
+    kubectl -n {{ ns }} get deploy,sts -l "app.kubernetes.io/name={{ app }}" -o name \
         | xargs -r -I{} kubectl -n {{ ns }} scale {} --replicas=0
     kubectl -n {{ ns }} wait pod --for=delete --selector="app.kubernetes.io/name={{ app }}" --timeout=5m
     kubectl -n {{ ns }} get replicationdestination {{ app }} -o json \
