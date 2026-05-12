@@ -6,26 +6,23 @@ set shell := ['bash', '-euo', 'pipefail', '-c']
 default:
     just -l kube
 
-[doc('Browse a PVC')]
-browse-pvc ns claim:
-    kubectl browse-pvc -n {{ ns }} -i mirror.gcr.io/alpine:latest {{ claim }}
-
-[doc('View a secret')]
-view-secret ns secret:
-    kubectl view-secret -n {{ ns }} {{ secret }}
-
 [doc('Apply local Flux Kustomization')]
 apply-ks ns ks:
     just kube render-local-ks "{{ ns }}" "{{ ks }}" | kubectl apply --server-side --force-conflicts --field-manager=kustomize-controller -f -
 
+[doc('Browse a PVC')]
+browse-pvc ns claim:
+    kubectl browse-pvc -n {{ ns }} -i mirror.gcr.io/alpine:latest {{ claim }}
+
+[doc('Debug a node')]
+[script]
+debug-node node:
+    trap 'kubectl delete pod -n default -l app.kubernetes.io/managed-by=kubectl-debug --ignore-not-found --wait=false' EXIT
+    kubectl debug node/{{ node }} -n default -it --image=mirror.gcr.io/alpine:latest --profile=sysadmin
+
 [doc('Delete local Flux Kustomization')]
 delete-ks ns ks:
     just kube render-local-ks "{{ ns }}" "{{ ks }}" | kubectl delete -f -
-
-[doc('Open a shell on a node')]
-node-shell node:
-    trap 'kubectl delete pod -n default -l app.kubernetes.io/managed-by=kubectl-debug --ignore-not-found --wait=false' EXIT
-    kubectl debug node/{{ node }} -n default -it --image=mirror.gcr.io/alpine:latest --profile=sysadmin
 
 [doc('Prune pods in Failed, Pending, or Succeeded state')]
 [script]
@@ -75,20 +72,17 @@ volsync state:
 [doc('Sync a resource')]
 [script]
 sync resource:
-    case "{{ resource }}" in
-        es)
-            annotations="force-sync=$(date +%s)"
-            ;;
-        hr)
-            annotations="reconcile.fluxcd.io/requestedAt=$(date +%s) reconcile.fluxcd.io/forceAt=$(date +%s)"
-            ;;
-        *)
-            annotations="reconcile.fluxcd.io/requestedAt=$(date +%s)"
-            ;;
-    esac
     kubectl get {{ resource }} --no-headers -A | while read -r ns name _; do
-        kubectl -n "$ns" annotate --field-manager flux-client-side-apply --overwrite {{ resource }} "$name" $annotations
+        kubectl -n "$ns" annotate --field-manager flux-client-side-apply --overwrite {{ resource }} "$name" \
+            "force-sync=$(date +%s)" \
+            "reconcile.fluxcd.io/requestedAt=$(date +%s)" \
+            "reconcile.fluxcd.io/forceAt=$(date +%s)"
     done
+
+
+[doc('View a secret')]
+view-secret ns secret:
+    kubectl view-secret -n {{ ns }} {{ secret }}
 
 [private]
 render-local-ks ns ks:
