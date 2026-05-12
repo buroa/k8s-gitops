@@ -1,4 +1,3 @@
-set lazy
 set quiet
 set script-interpreter := ['bash', '-euo', 'pipefail']
 set shell := ['bash', '-euo', 'pipefail', '-c']
@@ -65,39 +64,32 @@ snapshot:
         kubectl -n "$ns" patch replicationsources "$name" --type merge -p '{"spec":{"trigger":{"manual":"$(date +%s)"}}}'
     done
 
+[arg('state', pattern='suspend|resume')]
 [doc('Suspend or resume VolSync')]
 volsync state:
     flux -n volsync-system {{ state }} kustomization volsync
     flux -n volsync-system {{ state }} helmrelease volsync
     kubectl -n volsync-system scale deployment volsync --replicas {{ if state != "suspend" { "1" } else { "0" } }}
 
-[doc('Sync ExternalSecrets')]
-sync-es:
-    just kube sync-resource es force-sync="$(date +%s)"
-
-[doc('Sync GitRepositories')]
-sync-git:
-    just kube sync-resource gitrepo reconcile.fluxcd.io/requestedAt="$(date +%s)"
-
-[doc('Sync HelmReleases')]
-sync-hr:
-    just kube sync-resource hr reconcile.fluxcd.io/requestedAt="$(date +%s)" reconcile.fluxcd.io/forceAt="$(date +%s)"
-
-[doc('Sync Kustomizations')]
-sync-ks:
-    just kube sync-resource ks reconcile.fluxcd.io/requestedAt="$(date +%s)"
-
-[doc('Sync OCIRepositories')]
-sync-oci:
-    just kube sync-resource ocirepo reconcile.fluxcd.io/requestedAt="$(date +%s)"
+[arg('resource', pattern='hr|ks|gitrepo|ocirepo|es')]
+[doc('Sync a resource')]
+[script]
+sync resource:
+    case "{{ resource }}" in
+        es)
+            annotations="force-sync=$(date +%s)"
+            ;;
+        hr)
+            annotations="reconcile.fluxcd.io/requestedAt=$(date +%s) reconcile.fluxcd.io/forceAt=$(date +%s)"
+            ;;
+        *)
+            annotations="reconcile.fluxcd.io/requestedAt=$(date +%s)"
+            ;;
+    esac
+    kubectl get {{ resource }} --no-headers -A | while read -r ns name _; do
+        kubectl -n "$ns" annotate --field-manager flux-client-side-apply --overwrite {{ resource }} "$name" $annotations
+    done
 
 [private]
 render-local-ks ns ks:
     flux-local build ks --namespace {{ ns }} --path "{{ source_directory() }}/flux/cluster" "{{ ks }}"
-
-[private]
-[script]
-sync-resource resource *annotations:
-    kubectl get {{ resource }} --no-headers -A | while read -r ns name _; do
-        kubectl -n "$ns" annotate --field-manager flux-client-side-apply --overwrite {{ resource }} "$name" {{ annotations }}
-    done
