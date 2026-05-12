@@ -6,7 +6,7 @@ metadata:
 spec:
   talos:
     # renovate: datasource=custom.talos-factory depName=siderolabs/talos
-    version: v1.13.1
+    version: v1.13.2
   healthChecks:
     - apiVersion: ceph.rook.io/v1
       kind: CephCluster
