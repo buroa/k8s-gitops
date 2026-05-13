@@ -46,6 +46,7 @@ upgrade-node node *args:
     talosctl -n {{ node }} upgrade -i "$(just talos machine-image)" -m powercycle --timeout=10m {{ args }}
 
 [doc('Generate a Talos schematic')]
+[script]
 schematic-id:
     export CONFIG_EARLY="$(zstd -c {{ source_directory() }}/networking.yaml.j2 | base64 -w0)"
     curl -sX POST --data-binary @<(just template "{{ source_directory() }}/schematic.yaml.j2") "https://factory.talos.dev/schematics" | jq -r '.id'
