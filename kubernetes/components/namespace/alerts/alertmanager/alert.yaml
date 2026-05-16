@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/notification.toolkit.fluxcd.io/alert_v1beta3.json
 apiVersion: notification.toolkit.fluxcd.io/v1beta3
 kind: Alert
 metadata:
@@ -8,8 +9,6 @@ spec:
     name: alertmanager
   eventSeverity: error
   eventSources:
-    - kind: FluxInstance
-      name: "*"
     - kind: GitRepository
       name: "*"
     - kind: HelmRelease

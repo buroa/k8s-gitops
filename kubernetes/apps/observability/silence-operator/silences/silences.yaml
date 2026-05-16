@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/observability.giantswarm.io/silence_v1alpha2.json
 apiVersion: observability.giantswarm.io/v1alpha2
 kind: Silence
 metadata:
@@ -10,6 +11,7 @@ spec:
     - name: mountpoint
       value: /etc/nfsmount.conf
 ---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/observability.giantswarm.io/silence_v1alpha2.json
 apiVersion: observability.giantswarm.io/v1alpha2
 kind: Silence
 metadata:
@@ -22,6 +24,7 @@ spec:
       value: /dev/nvme.*
       matchType: "=~"
 ---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/observability.giantswarm.io/silence_v1alpha2.json
 apiVersion: observability.giantswarm.io/v1alpha2
 kind: Silence
 metadata:
@@ -31,6 +34,7 @@ spec:
     - name: alertname
       value: KubeHpaMaxedOut
 ---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/observability.giantswarm.io/silence_v1alpha2.json
 apiVersion: observability.giantswarm.io/v1alpha2
 kind: Silence
 metadata:
