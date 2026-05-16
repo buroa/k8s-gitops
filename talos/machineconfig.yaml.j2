@@ -54,6 +54,8 @@ machine:
     defaultRuntimeSeccompProfileEnabled: true
     disableManifestsDirectory: true
     extraConfig:
+      allowedUnsafeSysctls:
+        - net.ipv4.*
       serializeImagePulls: false
     image: ghcr.io/siderolabs/kubelet:v1.36.1
     nodeIP:

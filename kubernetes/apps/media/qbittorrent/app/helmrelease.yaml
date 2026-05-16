@@ -50,6 +50,13 @@ spec:
               capabilities: { drop: ["ALL"] }
     defaultPodOptions:
       securityContext:
+        sysctls:
+          - name: net.ipv4.tcp_notsent_lowat
+            value: "131072"
+          - name: net.ipv4.tcp_slow_start_after_idle
+            value: "0"
+          - name: net.ipv4.tcp_fastopen
+            value: "3"
         runAsNonRoot: true
         runAsUser: 1000
         runAsGroup: 1000
