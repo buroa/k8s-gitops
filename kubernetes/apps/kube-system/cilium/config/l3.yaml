@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/cilium.io/ciliumbgpadvertisement_v2.json
 apiVersion: cilium.io/v2
 kind: CiliumBGPAdvertisement
 metadata:
@@ -13,6 +14,7 @@ spec:
         matchExpressions:
           - { key: somekey, operator: NotIn, values: ["never-used-value"] }
 ---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/cilium.io/ciliumbgppeerconfig_v2.json
 apiVersion: cilium.io/v2
 kind: CiliumBGPPeerConfig
 metadata:
@@ -25,6 +27,7 @@ spec:
         matchLabels:
           advertise: bgp
 ---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/cilium.io/ciliumbgpclusterconfig_v2.json
 apiVersion: cilium.io/v2
 kind: CiliumBGPClusterConfig
 metadata:

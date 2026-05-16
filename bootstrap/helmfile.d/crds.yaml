@@ -1,4 +1,6 @@
 ---
+# yaml-language-server: $schema=https://json.schemastore.org/helmfile
+
 # Bootstraps cluster-wide Custom Resource Definitions (CRDs) by extracting them
 # from upstream Helm charts and applying them directly with kubectl. The releases
 # below are never reconciled with helmfile apply or helmfile sync — only their

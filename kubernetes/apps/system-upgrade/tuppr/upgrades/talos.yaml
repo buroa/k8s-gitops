@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/tuppr.home-operations.com/talosupgrade_v1alpha1.json
 apiVersion: tuppr.home-operations.com/v1alpha1
 kind: TalosUpgrade
 metadata:
@@ -8,9 +9,11 @@ spec:
     # renovate: datasource=custom.talos-factory depName=siderolabs/talos
     version: v1.13.2
   healthChecks:
-    - apiVersion: ceph.rook.io/v1
-      kind: CephCluster
-      expr: status.ceph.health in ['HEALTH_OK']
     - apiVersion: volsync.backube/v1alpha1
       kind: ReplicationSource
-      expr: status.conditions.filter(c, c.type == "Synchronizing").all(c, c.status == "False")
+      expr: |-
+        status.conditions.filter(c, c.type == "Synchronizing").all(c, c.status == "False")
+    - apiVersion: ceph.rook.io/v1
+      kind: CephCluster
+      expr: |-
+        status.ceph.health in ['HEALTH_OK']
