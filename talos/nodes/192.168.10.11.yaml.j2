@@ -1,3 +1,18 @@
 ---
 machine:
   type: controlplane
+  install:
+    diskSelector:
+      serial: S666NG0X101148
+---
+apiVersion: v1alpha1
+kind: HostnameConfig
+hostname: m1
+---
+apiVersion: v1alpha1
+kind: UserVolumeConfig
+name: local-hostpath
+volumeType: disk
+provisioning:
+  diskSelector:
+    match: disk.serial == "S666NN0W110861"

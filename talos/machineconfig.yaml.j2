@@ -44,8 +44,6 @@ machine:
         rsize=4194304
         wsize=4194304
   install:
-    diskSelector:
-      model: SAMSUNG MZ1L21T9HCLS-00A07
     image: factory.talos.dev/metal-installer/{{ ENV.SCHEMATIC }}:v1.13.2
   kernel:
     modules:
@@ -165,14 +163,6 @@ cluster:
   serviceAccount:
     key: op://K8s/talos/CLUSTER_SERVICEACCOUNT_KEY
   {% endif %}
----
-apiVersion: v1alpha1
-kind: UserVolumeConfig
-name: local-hostpath
-volumeType: disk
-provisioning:
-  diskSelector:
-    match: disk.model == "SAMSUNG MZ1L21T9HCLS-00A07" && !system_disk
 ---
 apiVersion: v1alpha1
 kind: WatchdogTimerConfig
