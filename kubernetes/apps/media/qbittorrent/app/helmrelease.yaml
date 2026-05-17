@@ -58,10 +58,6 @@ spec:
             value: "0"
           - name: net.ipv4.tcp_fastopen
             value: "3"
-          - name: net.ipv4.tcp_rmem
-            value: "4096 87380 67108864"
-          - name: net.ipv4.tcp_wmem
-            value: "4096 65536 67108864"
           - name: net.ipv4.tcp_tw_reuse
             value: "1"
           - name: net.ipv4.tcp_fin_timeout

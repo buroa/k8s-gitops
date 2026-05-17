@@ -64,24 +64,28 @@ machine:
     topology.kubernetes.io/region: k8s
     topology.kubernetes.io/zone: {{ 'm' if ENV.CONTROLPLANE else 'w' }}
   sysctls:
-    fs.inotify.max_user_instances: 8192     # Watchdog
-    fs.inotify.max_user_watches: 1048576    # Watchdog
-    net.core.default_qdisc: fq              # 10Gb/s
-    net.core.rmem_max: 134217728            # 10Gb/s | Cloudflared / QUIC
-    net.core.wmem_max: 134217728            # 10Gb/s | Cloudflared / QUIC
-    net.core.netdev_max_backlog: 50000      # 10Gb/s
-    net.ipv4.ping_group_range: 0 2147483647 # Ping non-root
-    net.ipv4.tcp_congestion_control: bbr    # 10Gb/s
-    net.ipv4.tcp_fastopen: 3                # Send and accept data in the opening SYN packet
-    net.ipv4.tcp_mtu_probing: 1             # 10Gb/s | Jumbo frames
-    net.ipv4.tcp_notsent_lowat: 131072      # 10Gb/s
-    net.ipv4.tcp_slow_start_after_idle: 0   # 10Gb/s
-    net.ipv4.tcp_rmem: 4096 87380 67108864  # 10Gb/s
-    net.ipv4.tcp_wmem: 4096 65536 67108864  # 10Gb/s
-    net.ipv4.tcp_window_scaling: 1          # 10Gb/s
-    net.ipv4.tcp_tw_reuse: 1                # Reuse sockets in TIME_WAIT
-    sunrpc.tcp_slot_table_entries: 128      # 10Gb/s | NFS
-    sunrpc.tcp_max_slot_table_entries: 128  # 10Gb/s | NFS
+    fs.inotify.max_user_instances: 8192      # Watchdog
+    fs.inotify.max_user_watches: 1048576     # Watchdog
+    net.core.default_qdisc: fq               # 10Gb/s
+    net.core.somaxconn: 65535                # 10Gb/s
+    net.core.rmem_max: 134217728             # 10Gb/s | Cloudflared / QUIC
+    net.core.wmem_max: 134217728             # 10Gb/s | Cloudflared / QUIC
+    net.core.netdev_max_backlog: 50000       # 10Gb/s
+    net.ipv4.ip_local_port_range: 1024 65535 # Increase port ranges
+    net.ipv4.ping_group_range: 0 2147483647  # Ping non-root
+    net.ipv4.tcp_congestion_control: bbr     # 10Gb/s
+    net.ipv4.tcp_fastopen: 3                 # Send and accept data in the opening SYN packet
+    net.ipv4.tcp_fin_timeout: 15             # Faster timeouts
+    net.ipv4.tcp_max_syn_backlog: 65535      # 10Gb/s
+    net.ipv4.tcp_mtu_probing: 1              # 10Gb/s | Jumbo frames
+    net.ipv4.tcp_notsent_lowat: 131072       # 10Gb/s
+    net.ipv4.tcp_slow_start_after_idle: 0    # 10Gb/s
+    net.ipv4.tcp_tw_reuse: 1                 # Reuse sockets in TIME_WAIT
+    net.ipv4.tcp_rmem: 4096 87380 67108864   # 10Gb/s
+    net.ipv4.tcp_wmem: 4096 65536 67108864   # 10Gb/s
+    net.ipv4.tcp_window_scaling: 1           # 10Gb/s
+    sunrpc.tcp_slot_table_entries: 128       # 10Gb/s | NFS
+    sunrpc.tcp_max_slot_table_entries: 128   # 10Gb/s | NFS
   token: op://K8s/talos/MACHINE_TOKEN
   type: {{ ENV.MACHINE_TYPE }}
 cluster:
