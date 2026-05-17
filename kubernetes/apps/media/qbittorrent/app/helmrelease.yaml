@@ -78,7 +78,7 @@ spec:
         path: /mnt/tank/media
       qbrr:
         type: image
-        image: ghcr.io/buroa/qbrr:0.1.5@sha256:7dcb8ff9940502f7222ed969db714cb1903181391d45bb6212ffd50ac2d2b629
+        image: ghcr.io/buroa/qbrr:0.1.6@sha256:50baeb6633f144b7220777c56a8d501ea708d43043e28eb416d93e4e96efe06b
         globalMounts:
           - readOnly: true
       tmpfs:
