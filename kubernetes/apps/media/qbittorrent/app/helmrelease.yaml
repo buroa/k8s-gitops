@@ -54,8 +54,6 @@ spec:
         sysctls:
           - name: net.ipv4.ip_local_port_range
             value: "1024 65535"
-          - name: net.ipv4.tcp_adv_win_scale
-            value: "-2"
           - name: net.ipv4.tcp_fastopen
             value: "3"
           - name: net.ipv4.tcp_fin_timeout
