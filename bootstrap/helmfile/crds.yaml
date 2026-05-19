@@ -10,8 +10,13 @@
 # workloads that reference them, avoiding the need for dependsOn chains on nearly
 # every Kustomization that consumes a CRD-backed resource.
 
+bases:
+  - default.yaml
+
 helmDefaults:
-  args: ['--include-crds', '--no-hooks']
+  args:
+    - --include-crds
+    - --no-hooks
 
 releases:
   - name: envoy-gateway
@@ -28,10 +33,3 @@ releases:
     namespace: observability
     inherit:
       - template: default
-
-templates:
-  default:
-    chart: '{{ (fromYaml (tpl (readFile "./templates/release.yaml.gotmpl") .)).chart }}'
-    version: '{{ (fromYaml (tpl (readFile "./templates/release.yaml.gotmpl") .)).version }}'
-    values:
-      - ./templates/values.yaml.gotmpl

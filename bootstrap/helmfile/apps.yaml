@@ -8,9 +8,12 @@
 # After this bootstrap phase, Flux is ready to take over management of the
 # application stack and continue reconciling downstream state.
 
+bases:
+  - default.yaml
+
 helmDefaults:
-  args: ['--force-conflicts']
   cleanupOnFail: true
+  forceConflicts: true
   wait: true
   waitForJobs: true
 
@@ -92,10 +95,3 @@ releases:
       - template: default
     needs:
       - flux-system/flux-operator
-
-templates:
-  default:
-    chart: '{{ (fromYaml (tpl (readFile "./templates/release.yaml.gotmpl") .)).chart }}'
-    version: '{{ (fromYaml (tpl (readFile "./templates/release.yaml.gotmpl") .)).version }}'
-    values:
-      - ./templates/values.yaml.gotmpl
