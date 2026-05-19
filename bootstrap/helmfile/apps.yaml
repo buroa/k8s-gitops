@@ -19,7 +19,6 @@ releases:
     namespace: kube-system
     hooks:
       - # Advertise Kubernetes VIP
-        events: ['postsync']
         command: kubectl
         args:
           - apply
@@ -27,34 +26,44 @@ releases:
           - --namespace={{ .Release.Namespace }}
           - --kustomize=../../kubernetes/apps/{{ .Release.Namespace }}/{{ .Release.Name }}/config
           - --server-side
+        events:
+          - postsync
         showlogs: true
-    inherit: [{ template: default }]
+    inherit:
+      - template: default
 
   - name: coredns
     namespace: kube-system
-    inherit: [{ template: default }]
-    needs: ['kube-system/cilium']
+    inherit:
+      - template: default
+    needs:
+      - kube-system/cilium
 
   - name: spegel
     namespace: kube-system
-    inherit: [{ template: default }]
-    needs: ['kube-system/coredns']
+    inherit:
+      - template: default
+    needs:
+      - kube-system/coredns
 
   - name: cert-manager
     namespace: cert-manager
-    inherit: [{ template: default }]
-    needs: ['kube-system/spegel']
+    inherit:
+      - template: default
+    needs:
+      - kube-system/spegel
 
   - name: external-secrets
     namespace: external-secrets
-    inherit: [{ template: default }]
-    needs: ['cert-manager/cert-manager']
+    inherit:
+      - template: default
+    needs:
+      - cert-manager/cert-manager
 
   - name: onepassword-connect
     namespace: external-secrets
     hooks:
       - # Apply 1Password Connect Store
-        events: ['postsync']
         command: kubectl
         args:
           - apply
@@ -62,22 +71,31 @@ releases:
           - --namespace={{ .Release.Namespace }}
           - --kustomize=../../kubernetes/apps/{{ .Release.Namespace }}/{{ .Release.Name }}/store
           - --server-side
+        events:
+          - postsync
         showlogs: true
-    inherit: [{ template: default }]
-    needs: ['external-secrets/external-secrets']
+    inherit:
+      - template: default
+    needs:
+      - external-secrets/external-secrets
 
   - name: flux-operator
     namespace: flux-system
-    inherit: [{ template: default }]
-    needs: ['external-secrets/onepassword-connect']
+    inherit:
+      - template: default
+    needs:
+      - external-secrets/onepassword-connect
 
   - name: flux-instance
     namespace: flux-system
-    inherit: [{ template: default }]
-    needs: ['flux-system/flux-operator']
+    inherit:
+      - template: default
+    needs:
+      - flux-system/flux-operator
 
 templates:
   default:
-    chart: '{{ (fromYaml (readFile (printf "../../kubernetes/apps/%s/%s/app/ocirepository.yaml" .Release.Namespace .Release.Name))).spec.url }}'
-    version: '{{ (fromYaml (readFile (printf "../../kubernetes/apps/%s/%s/app/ocirepository.yaml" .Release.Namespace .Release.Name))).spec.ref.tag }}'
-    values: ['./templates/values.yaml.gotmpl']
+    chart: '{{ (fromYaml (tpl (readFile "./templates/release.yaml.gotmpl") .)).chart }}'
+    version: '{{ (fromYaml (tpl (readFile "./templates/release.yaml.gotmpl") .)).version }}'
+    values:
+      - ./templates/values.yaml.gotmpl

@@ -16,17 +16,22 @@ helmDefaults:
 releases:
   - name: envoy-gateway
     namespace: networking
-    inherit: [{ template: default }]
+    inherit:
+      - template: default
 
   - name: grafana-operator
     namespace: observability
-    inherit: [{ template: default }]
+    inherit:
+      - template: default
 
   - name: kube-prometheus-stack
     namespace: observability
-    inherit: [{ template: default }]
+    inherit:
+      - template: default
 
 templates:
   default:
-    chart: '{{ (fromYaml (readFile (printf "../../kubernetes/apps/%s/%s/app/ocirepository.yaml" .Release.Namespace .Release.Name))).spec.url }}'
-    version: '{{ (fromYaml (readFile (printf "../../kubernetes/apps/%s/%s/app/ocirepository.yaml" .Release.Namespace .Release.Name))).spec.ref.tag }}'
+    chart: '{{ (fromYaml (tpl (readFile "./templates/release.yaml.gotmpl") .)).chart }}'
+    version: '{{ (fromYaml (tpl (readFile "./templates/release.yaml.gotmpl") .)).version }}'
+    values:
+      - ./templates/values.yaml.gotmpl
