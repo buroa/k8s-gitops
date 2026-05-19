@@ -10,7 +10,7 @@ spec:
     schedule: 0 * * * *
   kopia:
     accessModes:
-      - ${VOLSYNC_SNAP_ACCESSMODES:=ReadWriteOnce}
+      - ${VOLSYNC_ACCESSMODES:=ReadWriteOnce}
     cacheAccessModes:
       - ${VOLSYNC_CACHE_ACCESSMODES:=ReadWriteOnce}
     cacheCapacity: ${VOLSYNC_CAPACITY:=5Gi}
