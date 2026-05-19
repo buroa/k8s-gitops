@@ -4,31 +4,15 @@
     "config:recommended",
     "docker:enableMajor",
     "helpers:pinGitHubActionDigests",
+    "github>home-operations/renovate-presets#1.0.0",
     "github>buroa/k8s-gitops//.renovate/autoMerge.json5",
-    "github>buroa/k8s-gitops//.renovate/customManagers.json5",
-    "github>buroa/k8s-gitops//.renovate/grafanaDashboards.json5",
     "github>buroa/k8s-gitops//.renovate/groups.json5",
     "github>buroa/k8s-gitops//.renovate/labels.json5",
-    "github>buroa/k8s-gitops//.renovate/semanticCommits.json5",
-    "github>buroa/k8s-gitops//.renovate/talosFactory.json5",
     ":automergeBranch",
-    ":dependencyDashboard",
     ":disableRateLimiting",
     ":gitSignOff",
     ":semanticCommits",
     ":timezone(America/Chicago)",
   ],
-  registryAliases: {
-    "mirror.gcr.io": "docker.io",
-  },
   dependencyDashboardTitle: "Renovate Dashboard 🤖",
-  ignorePaths: [
-    "**/resources/**",
-  ],
-  flux: {
-    managerFilePatterns: ["/\\.yaml(?:\\.j2)?$/"],
-  },
-  kubernetes: {
-    managerFilePatterns: ["/\\.yaml(?:\\.j2)?$/"],
-  },
 }

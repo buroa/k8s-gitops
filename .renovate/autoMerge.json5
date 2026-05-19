@@ -39,5 +39,14 @@
       minimumReleaseAge: "1 minute",
       ignoreTests: true,
     },
+    {
+      description: "Auto-merge Grafana dashboards",
+      matchDatasources: ["custom.grafana-dashboards"],
+      addLabels: ["renovate/grafana-dashboard"],
+      automerge: true,
+      automergeType: "branch",
+      matchUpdateTypes: ["major"],
+      ignoreTests: true,
+    },
   ],
 }
