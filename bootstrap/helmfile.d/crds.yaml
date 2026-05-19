@@ -16,19 +16,17 @@ helmDefaults:
 releases:
   - name: envoy-gateway
     namespace: networking
-    chart: oci://mirror.gcr.io/envoyproxy/gateway-helm
     inherit: [{ template: default }]
 
   - name: grafana-operator
     namespace: observability
-    chart: oci://ghcr.io/grafana/helm-charts/grafana-operator
     inherit: [{ template: default }]
 
   - name: kube-prometheus-stack
     namespace: observability
-    chart: oci://ghcr.io/prometheus-community/charts/kube-prometheus-stack
     inherit: [{ template: default }]
 
 templates:
   default:
-    version: '{{ exec "yq" (list "select(.kind == \"OCIRepository\").spec.ref.tag" (printf "../../kubernetes/apps/%s/%s/app/helmrelease.yaml" .Release.Namespace .Release.Name)) }}'
+    chart: '{{ (fromYaml (readFile (printf "../../kubernetes/apps/%s/%s/app/ocirepository.yaml" .Release.Namespace .Release.Name))).spec.url }}'
+    version: '{{ (fromYaml (readFile (printf "../../kubernetes/apps/%s/%s/app/ocirepository.yaml" .Release.Namespace .Release.Name))).spec.ref.tag }}'

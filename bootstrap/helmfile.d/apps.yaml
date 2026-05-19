@@ -17,7 +17,6 @@ helmDefaults:
 releases:
   - name: cilium
     namespace: kube-system
-    chart: oci://quay.io/cilium/charts/cilium
     hooks:
       - # Advertise Kubernetes VIP
         events: ['postsync']
@@ -33,31 +32,26 @@ releases:
 
   - name: coredns
     namespace: kube-system
-    chart: oci://ghcr.io/coredns/charts/coredns
     inherit: [{ template: default }]
     needs: ['kube-system/cilium']
 
   - name: spegel
     namespace: kube-system
-    chart: oci://ghcr.io/spegel-org/helm-charts/spegel
     inherit: [{ template: default }]
     needs: ['kube-system/coredns']
 
   - name: cert-manager
     namespace: cert-manager
-    chart: oci://quay.io/jetstack/charts/cert-manager
     inherit: [{ template: default }]
     needs: ['kube-system/spegel']
 
   - name: external-secrets
     namespace: external-secrets
-    chart: oci://ghcr.io/external-secrets/charts/external-secrets
     inherit: [{ template: default }]
     needs: ['cert-manager/cert-manager']
 
   - name: onepassword-connect
     namespace: external-secrets
-    chart: oci://ghcr.io/1password/connect
     hooks:
       - # Apply 1Password Connect Store
         events: ['postsync']
@@ -74,17 +68,16 @@ releases:
 
   - name: flux-operator
     namespace: flux-system
-    chart: oci://ghcr.io/controlplaneio-fluxcd/charts/flux-operator
     inherit: [{ template: default }]
     needs: ['external-secrets/onepassword-connect']
 
   - name: flux-instance
     namespace: flux-system
-    chart: oci://ghcr.io/controlplaneio-fluxcd/charts/flux-instance
     inherit: [{ template: default }]
     needs: ['flux-system/flux-operator']
 
 templates:
   default:
-    version: '{{ exec "yq" (list "select(.kind == \"OCIRepository\").spec.ref.tag" (printf "../../kubernetes/apps/%s/%s/app/helmrelease.yaml" .Release.Namespace .Release.Name)) }}'
+    chart: '{{ (fromYaml (readFile (printf "../../kubernetes/apps/%s/%s/app/ocirepository.yaml" .Release.Namespace .Release.Name))).spec.url }}'
+    version: '{{ (fromYaml (readFile (printf "../../kubernetes/apps/%s/%s/app/ocirepository.yaml" .Release.Namespace .Release.Name))).spec.ref.tag }}'
     values: ['./templates/values.yaml.gotmpl']
