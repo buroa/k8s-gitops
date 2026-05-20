@@ -1,16 +1,10 @@
 {
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
   extends: [
-    "config:recommended",
-    "docker:enableMajor",
-    "helpers:pinGitHubActionDigests",
     "github>home-operations/renovate-presets#1.3.0",
     "github>buroa/k8s-gitops//.renovate/autoMerge.json5",
     "github>buroa/k8s-gitops//.renovate/groups.json5",
     "github>buroa/k8s-gitops//.renovate/labels.json5",
-    ":automergeBranch",
-    ":disableRateLimiting",
-    ":semanticCommits",
     ":timezone(America/Chicago)",
   ],
 }
