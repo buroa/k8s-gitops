@@ -10,9 +10,7 @@
     "github>buroa/k8s-gitops//.renovate/labels.json5",
     ":automergeBranch",
     ":disableRateLimiting",
-    ":gitSignOff",
     ":semanticCommits",
     ":timezone(America/Chicago)",
   ],
-  dependencyDashboardTitle: "Renovate Dashboard 🤖",
 }
