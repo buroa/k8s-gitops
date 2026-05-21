@@ -42,7 +42,7 @@ jobs:
           path: default
 
       - name: Run flate test
-        uses: docker://ghcr.io/home-operations/flate:0.0.3
+        uses: docker://ghcr.io/home-operations/flate:0.0.4
         with:
           args: >-
             test
@@ -76,7 +76,7 @@ jobs:
           path: default
 
       - name: Run flate diff
-        uses: docker://ghcr.io/home-operations/flate:0.0.3
+        uses: docker://ghcr.io/home-operations/flate:0.0.4
         with:
           args: >-
             diff ${{ matrix.resource }}
