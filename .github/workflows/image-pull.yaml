@@ -47,8 +47,7 @@ jobs:
         uses: docker://ghcr.io/home-operations/flate:0.0.4
         with:
           args: >-
-            get cluster
-            --only-images
+            diff images
             --output json
             --output-file images.json
             --path ./pull
