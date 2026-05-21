@@ -29,63 +29,43 @@ jobs:
     needs: filter
     name: Image Pull - Extract Images
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        branch:
-          - default
-          - pull
-      fail-fast: false
     outputs:
-      default: ${{ steps.extract.outputs.default }}
-      pull: ${{ steps.extract.outputs.pull }}
+      images: ${{ steps.extract.outputs.images }}
     steps:
-      - name: Checkout
+      - name: Checkout Pull Request Branch
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
-          ref: ${{ matrix.branch == 'default' && github.event.repository.default_branch || '' }}
+          path: pull
+
+      - name: Checkout Default Branch
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          path: default
 
       - name: Gather Images
-        uses: docker://ghcr.io/allenporter/flux-local:v8.2.0
+        uses: docker://ghcr.io/home-operations/flate:0.0.2
         with:
           args: >-
             get cluster
-            --all-namespaces
-            --path /github/workspace/kubernetes/flux/cluster
-            --enable-images
             --only-images
             --output json
             --output-file images.json
+            --path ./pull
+            --path-orig ./default
 
       - name: Extract Images
         id: extract
-        run: echo "${{ matrix.branch }}=$(jq --compact-output '.' images.json)" >> $GITHUB_OUTPUT
-
-  diff:
-    if: ${{ needs.extract.outputs.default != needs.extract.outputs.pull }}
-    needs: extract
-    name: Image Pull - Diff Images
-    runs-on: ubuntu-latest
-    outputs:
-      images: ${{ steps.diff.outputs.images }}
-    steps:
-      - name: Diff Images
-        id: diff
-        run: |-
-          images=$(jq --compact-output --null-input \
-              --argjson f1 '${{ needs.extract.outputs.default }}' \
-              --argjson f2 '${{ needs.extract.outputs.pull }}' \
-              '$f2 - $f1' \
-          )
-          echo "images=${images}" >> $GITHUB_OUTPUT
+        run: echo "images=$(jq --compact-output '.' images.json)" >> $GITHUB_OUTPUT
 
   pull:
-    if: ${{ needs.diff.outputs.images != '[]' }}
-    needs: diff
+    if: ${{ needs.extract.outputs.images != '[]' }}
+    needs: extract
     name: Image Pull - Pull Images
     runs-on: k8s-gitops-runner
     strategy:
       matrix:
-        image: ${{ fromJSON(needs.diff.outputs.images) }}
+        image: ${{ fromJSON(needs.extract.outputs.images) }}
       max-parallel: 4
       fail-fast: false
     steps:
