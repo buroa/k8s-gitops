@@ -29,6 +29,14 @@ jobs:
     needs: filter
     name: Flate - Test
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    strategy:
+      matrix:
+        resource:
+          - helmrelease
+          - kustomization
+      fail-fast: false
     steps:
       - name: Checkout Pull Request Branch
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -42,10 +50,10 @@ jobs:
           path: default
 
       - name: Run flate test
-        uses: docker://ghcr.io/home-operations/flate:0.0.4
+        uses: docker://ghcr.io/home-operations/flate:0.1.0
         with:
           args: >-
-            test
+            test ${{ matrix.resource }}
             --path ./pull
             --path-orig ./default
 
@@ -76,7 +84,7 @@ jobs:
           path: default
 
       - name: Run flate diff
-        uses: docker://ghcr.io/home-operations/flate:0.0.4
+        uses: docker://ghcr.io/home-operations/flate:0.1.0
         with:
           args: >-
             diff ${{ matrix.resource }}
