@@ -14,7 +14,7 @@ on:
 
 jobs:
   sync:
-    name: Label Sync
+    name: Sync
     runs-on: ubuntu-latest
     permissions:
       issues: write
