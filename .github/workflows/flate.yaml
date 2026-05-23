@@ -13,7 +13,7 @@ concurrency:
 
 jobs:
   filter:
-    name: Flate - Filter
+    name: Filter
     runs-on: ubuntu-latest
     outputs:
       changed-files: ${{ steps.changed-files.outputs.changed_files }}
@@ -90,7 +90,7 @@ jobs:
   success:
     if: ${{ !cancelled() }}
     needs: flate
-    name: Flate - Success
+    name: Success
     runs-on: ubuntu-latest
     steps:
       - name: Any jobs failed?
