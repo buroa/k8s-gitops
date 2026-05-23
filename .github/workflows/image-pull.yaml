@@ -13,7 +13,7 @@ concurrency:
 
 jobs:
   filter:
-    name: Image Pull - Filter
+    name: Filter
     runs-on: ubuntu-latest
     outputs:
       changed-files: ${{ steps.changed-files.outputs.changed_files }}
@@ -27,7 +27,7 @@ jobs:
   extract:
     if: ${{ needs.filter.outputs.changed-files != '[]' }}
     needs: filter
-    name: Image Pull - Extract Images
+    name: Extract
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -63,7 +63,7 @@ jobs:
   pull:
     if: ${{ needs.extract.outputs.images != '[]' }}
     needs: extract
-    name: Image Pull - Pull Images
+    name: Pull
     runs-on: k8s-gitops-runner
     strategy:
       matrix:
@@ -80,7 +80,7 @@ jobs:
   success:
     if: ${{ !cancelled() }}
     needs: pull
-    name: Image Pull - Success
+    name: Success
     runs-on: ubuntu-latest
     steps:
       - name: Any jobs failed?
