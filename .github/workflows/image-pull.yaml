@@ -53,7 +53,12 @@ jobs:
 
       - name: Extract Images
         id: extract
-        run: echo "images=$(flate diff images --path ./pull --path-orig ./default -o json)" >> $GITHUB_OUTPUT
+        run: |-
+          {
+            echo 'images<<EOF'
+            flate diff images --output json --path ./pull --path-orig ./default
+            echo 'EOF'
+          } >> $GITHUB_OUTPUT
 
   pull:
     if: ${{ needs.extract.outputs.images != '[]' }}
