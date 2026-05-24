@@ -22,6 +22,7 @@ spec:
               PLEX_ADVERTISE_URL: https://{{ .Release.Name }}.k13.dev:443
               PLEX_NO_AUTH_NETWORKS: 192.168.1.0/24
               TZ: America/Chicago
+              SLOP: ERATIONS
             probes:
               liveness: &probes
                 enabled: true
