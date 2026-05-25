@@ -52,7 +52,7 @@ jobs:
             github:home-operations/flate latest
 
       - name: Run flate test
-        run: flate test ${{ matrix.resource }} --path ./kubernetes
+        run: flate test ${{ matrix.resource }} --path ./kubernetes --base ${{ github.event.repository.default_branch }}
 
       - name: Run flate diff
         id: diff
