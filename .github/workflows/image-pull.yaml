@@ -48,7 +48,12 @@ jobs:
 
       - name: Extract Images
         id: extract
-        run: echo images="$(flate diff images -o json --path ./kubernetes)" >> $GITHUB_OUTPUT
+        run: |-
+          {
+            echo 'images<<EOF'
+            flate diff images --output json --path ./kubernetes
+            echo 'EOF'
+          } >> $GITHUB_OUTPUT
 
   pull:
     if: ${{ needs.extract.outputs.images != '[]' }}
@@ -65,7 +70,7 @@ jobs:
         run: curl -fsSL https://talos.dev/install | sh
 
       - name: Pull Image
-        run: talosctl -n $NODE image pull ${{ matrix.image }}
+        run: talosctl --nodes $NODE image pull ${{ matrix.image }}
 
   success:
     if: ${{ !cancelled() }}

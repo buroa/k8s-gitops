@@ -56,7 +56,12 @@ jobs:
 
       - name: Run flate diff
         id: diff
-        run: echo diff="$(flate diff ${{ matrix.resource }} --path ./kubernetes)" >> $GITHUB_OUTPUT
+        run: |-
+          {
+            echo 'diff<<EOF'
+            flate diff ${{ matrix.resource }} --path ./kubernetes
+            echo 'EOF'
+          } >> $GITHUB_OUTPUT
 
       - if: ${{ steps.diff.outputs.diff != '' }}
         name: Generate Token
