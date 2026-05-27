@@ -24,15 +24,15 @@ jobs:
         with:
           patterns: kubernetes/**/*
 
-  extract:
+  flate:
     if: ${{ needs.filter.outputs.changed-files != '[]' }}
     needs: filter
-    name: Image Pull - Extract Images
+    name: Image Pull - Flate
     runs-on: ubuntu-latest
     permissions:
       contents: read
     outputs:
-      images: ${{ steps.extract.outputs.images }}
+      images: ${{ steps.flate.outputs.images }}
     steps:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -44,28 +44,33 @@ jobs:
         with:
           cache: true
 
-      - name: Extract Images
-        id: extract
-        run: |-
-          {
-            echo 'images<<EOF'
-            flate diff images --output json --path ./kubernetes/flux/cluster
-            echo 'EOF'
-          } >> $GITHUB_OUTPUT
+      - name: Run Flate
+        id: flate
+        env:
+          FLATE_OUTPUT: json
+          FLATE_PATH: ./kubernetes/flux/cluster
+        run: |
+          echo 'images<<EOF' >> $GITHUB_ENV
+          flate diff images >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
 
   pull:
-    if: ${{ needs.extract.outputs.images != '[]' }}
-    needs: extract
+    if: ${{ needs.flate.outputs.images != '[]' }}
+    needs: flate
     name: Image Pull - Pull Images
     runs-on: k8s-gitops-runner
     strategy:
       matrix:
-        image: ${{ fromJSON(needs.extract.outputs.images) }}
+        image: ${{ fromJSON(needs.flate.outputs.images) }}
       max-parallel: 4
       fail-fast: false
     steps:
       - name: Install talosctl
-        run: curl -fsSL https://talos.dev/install | sh
+        uses: jdx/mise-action@1648a7812b9aeae629881980618f079932869151 # v4.0.1
+        with:
+          cache: false
+          tool_versions: |
+            aqua:siderolabs/talos latest
 
       - name: Pull Image
         run: talosctl --nodes $NODE image pull ${{ matrix.image }}
