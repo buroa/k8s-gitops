@@ -54,12 +54,9 @@ jobs:
         env:
           FLATE_PATH: ./kubernetes/flux/cluster
         run: |-
-          echo 'diff<<EOF' >> $GITHUB_ENV
-          flate diff ${{ matrix.resource }} >> $GITHUB_ENV
-          echo 'EOF' >> $GITHUB_ENV
-
-      - name: Test
-        run: echo ${{ steps.flate.outputs.diff }}
+          echo 'diff<<EOF' >> $GITHUB_OUTPUT
+          flate diff ${{ matrix.resource }} >> $GITHUB_OUTPUT
+          echo 'EOF' >> $GITHUB_OUTPUT
 
       - if: ${{ steps.flate.outputs.diff != '' }}
         name: Generate Token

@@ -50,12 +50,9 @@ jobs:
           FLATE_OUTPUT: json
           FLATE_PATH: ./kubernetes/flux/cluster
         run: |
-          echo 'images<<EOF' >> $GITHUB_ENV
-          flate diff images >> $GITHUB_ENV
-          echo 'EOF' >> $GITHUB_ENV
-
-      - name: Test
-        run: echo ${{ steps.flate.outputs.images }}
+          echo 'images<<EOF' >> $GITHUB_OUTPUT
+          flate diff images >> $GITHUB_OUTPUT
+          echo 'EOF' >> $GITHUB_OUTPUT
 
   pull:
     if: ${{ needs.flate.outputs.images != '[]' }}
