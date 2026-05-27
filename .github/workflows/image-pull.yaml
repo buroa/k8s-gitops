@@ -39,12 +39,10 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup Mise
-        uses: jdx/mise-action@1648a7812b9aeae629881980618f079932869151 # v4.0.1
+      - name: Setup flate
+        uses: home-operations/flate/action@62f56d7f2a9a7ade2d35a0fed89bde3ff79fdacd # 0.1.26
         with:
-          cache: false
-          tool_versions: |
-            github:home-operations/flate latest
+          cache: true
 
       - name: Extract Images
         id: extract
