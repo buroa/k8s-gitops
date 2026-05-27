@@ -44,12 +44,12 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup flate
+      - name: Setup Flate
         uses: home-operations/flate/action@62f56d7f2a9a7ade2d35a0fed89bde3ff79fdacd # 0.1.26
         with:
           cache: true
 
-      - name: Run flate diff
+      - name: Flate Diff
         id: diff
         run: |-
           {
