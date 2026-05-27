@@ -54,6 +54,9 @@ jobs:
           flate diff images >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
 
+      - name: Test
+        run: echo ${{ steps.flate.outputs.images }}
+
   pull:
     if: ${{ needs.flate.outputs.images != '[]' }}
     needs: flate

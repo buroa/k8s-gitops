@@ -53,10 +53,13 @@ jobs:
         id: flate
         env:
           FLATE_PATH: ./kubernetes/flux/cluster
-        run: |
+        run: |-
           echo 'diff<<EOF' >> $GITHUB_ENV
           flate diff ${{ matrix.resource }} >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
+
+      - name: Test
+        run: echo ${{ steps.flate.outputs.diff }}
 
       - if: ${{ steps.flate.outputs.diff != '' }}
         name: Generate Token
