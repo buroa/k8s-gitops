@@ -40,7 +40,7 @@ jobs:
           fetch-depth: 0
 
       - name: Setup Flate
-        uses: home-operations/flate/action@62f56d7f2a9a7ade2d35a0fed89bde3ff79fdacd # 0.1.26
+        uses: home-operations/flate/action@aef47adc856bb97038ff321e5136cf65e0fa23cf # 0.1.27
         with:
           cache: true
 
@@ -50,9 +50,9 @@ jobs:
           FLATE_OUTPUT: json
           FLATE_PATH: ./kubernetes/flux/cluster
         run: |
-          echo 'images<<EOF' >> $GITHUB_ENV
-          flate diff images >> $GITHUB_ENV
-          echo 'EOF' >> $GITHUB_ENV
+          echo 'images<<EOF' >> $GITHUB_OUTPUT
+          flate diff images >> $GITHUB_OUTPUT
+          echo 'EOF' >> $GITHUB_OUTPUT
 
   pull:
     if: ${{ needs.flate.outputs.images != '[]' }}
