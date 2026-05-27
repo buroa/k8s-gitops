@@ -11,6 +11,8 @@
 bases:
   - default.yaml
 
+defaultInherit: default
+
 helmDefaults:
   cleanupOnFail: true
   forceConflicts: true
@@ -32,34 +34,24 @@ releases:
         events:
           - postsync
         showlogs: true
-    inherit:
-      - template: default
 
   - name: coredns
     namespace: kube-system
-    inherit:
-      - template: default
     needs:
       - kube-system/cilium
 
   - name: spegel
     namespace: kube-system
-    inherit:
-      - template: default
     needs:
       - kube-system/coredns
 
   - name: cert-manager
     namespace: cert-manager
-    inherit:
-      - template: default
     needs:
       - kube-system/spegel
 
   - name: external-secrets
     namespace: external-secrets
-    inherit:
-      - template: default
     needs:
       - cert-manager/cert-manager
 
@@ -77,21 +69,15 @@ releases:
         events:
           - postsync
         showlogs: true
-    inherit:
-      - template: default
     needs:
       - external-secrets/external-secrets
 
   - name: flux-operator
     namespace: flux-system
-    inherit:
-      - template: default
     needs:
       - external-secrets/onepassword-connect
 
   - name: flux-instance
     namespace: flux-system
-    inherit:
-      - template: default
     needs:
       - flux-system/flux-operator

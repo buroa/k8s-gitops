@@ -13,6 +13,8 @@
 bases:
   - default.yaml
 
+defaultInherit: default
+
 helmDefaults:
   args:
     - --include-crds
@@ -21,15 +23,9 @@ helmDefaults:
 releases:
   - name: envoy-gateway
     namespace: networking
-    inherit:
-      - template: default
 
   - name: grafana-operator
     namespace: observability
-    inherit:
-      - template: default
 
   - name: kube-prometheus-stack
     namespace: observability
-    inherit:
-      - template: default
