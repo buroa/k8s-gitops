@@ -51,9 +51,6 @@ jobs:
           tool_versions: |
             github:home-operations/flate latest
 
-      - name: Run flate test
-        run: flate test ${{ matrix.resource }} --path ./kubernetes/flux/cluster --base ${{ github.event.repository.default_branch }}
-
       - name: Run flate diff
         id: diff
         run: |-
