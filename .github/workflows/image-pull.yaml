@@ -51,7 +51,7 @@ jobs:
         run: |-
           {
             echo 'images<<EOF'
-            flate diff images --output json --path ./kubernetes
+            flate diff images --output json --path ./kubernetes/flux/cluster
             echo 'EOF'
           } >> $GITHUB_OUTPUT
 

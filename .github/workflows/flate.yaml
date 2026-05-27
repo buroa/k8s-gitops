@@ -52,14 +52,14 @@ jobs:
             github:home-operations/flate latest
 
       - name: Run flate test
-        run: flate test ${{ matrix.resource }} --path ./kubernetes --base ${{ github.event.repository.default_branch }}
+        run: flate test ${{ matrix.resource }} --path ./kubernetes/flux/cluster --base ${{ github.event.repository.default_branch }}
 
       - name: Run flate diff
         id: diff
         run: |-
           {
             echo 'diff<<EOF'
-            flate diff ${{ matrix.resource }} --path ./kubernetes
+            flate diff ${{ matrix.resource }} --path ./kubernetes/flux/cluster
             echo 'EOF'
           } >> $GITHUB_OUTPUT
 
