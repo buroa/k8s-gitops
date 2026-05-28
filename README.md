@@ -240,3 +240,11 @@ A huge thank you to [@onedr0p](https://github.com/onedr0p) and the [Home Operati
 ## <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/2696_fe0f/512.webp" alt="⚖" width="20" height="20"> License
 
 See [LICENSE](./LICENSE).
+
+---
+
+<div align="center">
+
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/buroa/k8s-gitops)
+
+</div>
