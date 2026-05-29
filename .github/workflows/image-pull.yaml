@@ -77,7 +77,7 @@ jobs:
 
   success:
     if: ${{ !cancelled() }}
-    needs: pull
+    needs: [flate, pull]
     name: Image Pull - Success
     runs-on: ubuntu-latest
     steps:
