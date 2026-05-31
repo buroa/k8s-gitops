@@ -39,7 +39,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup Flate
+      - name: Install Flate
         uses: home-operations/flate/action@46bd035df3d0eba88e334567ebb76318ff6be1d7 # 0.1.35
         with:
           cache: true
@@ -66,11 +66,7 @@ jobs:
       fail-fast: false
     steps:
       - name: Install talosctl
-        uses: jdx/mise-action@1648a7812b9aeae629881980618f079932869151 # v4.0.1
-        with:
-          cache: false
-          tool_versions: |
-            aqua:siderolabs/talos latest
+        run: curl -fsSL https://talos.dev/install | sh
 
       - name: Pull Image
         run: talosctl --nodes $NODE image pull ${{ matrix.image }}
