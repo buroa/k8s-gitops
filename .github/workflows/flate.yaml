@@ -49,12 +49,7 @@ jobs:
         with:
           cache: true
 
-      - name: Run Flate Test
-        env:
-          FLATE_PATH: ./kubernetes/flux/cluster
-        run: flate test ${{ matrix.resource }}
-
-      - name: Run Flate Diff
+      - name: Run Flate
         id: flate
         env:
           FLATE_PATH: ./kubernetes/flux/cluster
