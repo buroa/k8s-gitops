@@ -69,8 +69,8 @@ machine:
     net.core.default_qdisc: fq               # 10Gb/s
     net.core.netdev_max_backlog: 50000       # 10Gb/s
     net.core.somaxconn: 65535                # 10Gb/s
-    net.core.rmem_max: 268435456             # 10Gb/s | Cloudflared / QUIC
-    net.core.wmem_max: 268435456             # 10Gb/s | Cloudflared / QUIC
+    net.core.rmem_max: 67108864              # 10Gb/s | Cloudflared / QUIC
+    net.core.wmem_max: 67108864              # 10Gb/s | Cloudflared / QUIC
     net.ipv4.ip_local_port_range: 1024 65535 # Increase port ranges
     net.ipv4.ping_group_range: 0 2147483647  # Ping non-root
     net.ipv4.tcp_congestion_control: bbr     # 10Gb/s
@@ -82,8 +82,8 @@ machine:
     net.ipv4.tcp_slow_start_after_idle: 0    # 10Gb/s
     net.ipv4.tcp_tw_reuse: 1                 # Reuse sockets in TIME_WAIT
     net.ipv4.tcp_window_scaling: 1           # 10Gb/s
-    net.ipv4.tcp_rmem: 4096 87380 134217728  # 10Gb/s
-    net.ipv4.tcp_wmem: 4096 65536 134217728  # 10Gb/s
+    net.ipv4.tcp_rmem: 4096	131072 67108864  # 10Gb/s
+    net.ipv4.tcp_wmem: 4096	16384	67108864   # 10Gb/s
     sunrpc.tcp_slot_table_entries: 128       # 10Gb/s | NFS
     sunrpc.tcp_max_slot_table_entries: 128   # 10Gb/s | NFS
   token: op://K8s/talos/MACHINE_TOKEN
