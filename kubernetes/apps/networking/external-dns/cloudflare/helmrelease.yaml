@@ -34,7 +34,7 @@ spec:
               - --registry=txt
               - --source=gateway-httproute
               - --txt-owner-id=k8s
-              - --txt-prefix=k8s.
+              - --txt-prefix=k8s.%{record_type}-
               - --zone-id-filter=$(CF_ZONE_ID)
             envFrom:
               - secretRef:

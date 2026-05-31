@@ -75,7 +75,7 @@ spec:
               - --source=gateway-httproute
               - --source=service
               - --txt-owner-id=k8s
-              - --txt-prefix=k8s.
+              - --txt-prefix=k8s.%{record_type}-
             probes:
               liveness: &probes
                 enabled: true
