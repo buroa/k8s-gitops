@@ -6,6 +6,7 @@ namespace: default
 components:
   - ../../components/alerts
   - ../../components/namespace
+  - ../../components/networking
 resources:
   - ./atuin/ks.yaml
   - ./home-assistant/ks.yaml

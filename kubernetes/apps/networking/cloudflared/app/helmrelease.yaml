@@ -56,19 +56,6 @@ spec:
               capabilities: { drop: ["ALL"] }
     defaultPodOptions:
       securityContext:
-        sysctls:
-          - name: net.ipv4.ip_local_port_range
-            value: "1024 65535"
-          - name: net.ipv4.tcp_fastopen
-            value: "3"
-          - name: net.ipv4.tcp_fin_timeout
-            value: "15"
-          - name: net.ipv4.tcp_notsent_lowat
-            value: "131072"
-          - name: net.ipv4.tcp_slow_start_after_idle
-            value: "0"
-          - name: net.ipv4.tcp_tw_reuse
-            value: "1"
         runAsNonRoot: true
         runAsUser: 1000
         runAsGroup: 1000

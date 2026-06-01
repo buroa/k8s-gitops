@@ -6,6 +6,7 @@ namespace: kube-system
 components:
   - ../../components/alerts
   - ../../components/namespace
+  - ../../components/networking
 resources:
   - ./cilium/ks.yaml
   - ./coredns/ks.yaml

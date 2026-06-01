@@ -6,6 +6,7 @@ namespace: observability
 components:
   - ../../components/alerts
   - ../../components/namespace
+  - ../../components/networking
 resources:
   - ./blackbox-exporter/ks.yaml
   - ./gatus/ks.yaml
