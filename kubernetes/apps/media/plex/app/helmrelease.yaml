@@ -85,7 +85,7 @@ spec:
       app:
         annotations:
           gatus.home-operations.com/endpoint: |-
-            url: https://{{ .Release.Name }}.k13.dev/identity
+            path: /identity
         hostnames:
           - "{{ .Release.Name }}.k13.dev"
         parentRefs:
