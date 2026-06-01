@@ -10,9 +10,9 @@ _... managed with [Flux](https://github.com/fluxcd/flux2), [Renovate](https://gi
 
 <div align="center">
 
-[![Home-Internet](https://img.shields.io/endpoint?url=https%3A%2F%2Fstatus.turbo.ac%2Fapi%2Fv1%2Fendpoints%2Fbuddy_ping%2Fhealth%2Fbadge.shields&logo=ubiquiti&logoColor=white&label=Home%20Internet)](https://status.k13.dev)&nbsp;&nbsp;
-[![Status-Page](https://img.shields.io/endpoint?url=https%3A%2F%2Fstatus.turbo.ac%2Fapi%2Fv1%2Fendpoints%2Fbuddy_status-page%2Fhealth%2Fbadge.shields&logo=statuspage&logoColor=white&label=Status%20Page)](https://status.k13.dev)&nbsp;&nbsp;
-[![Alertmanager](https://img.shields.io/endpoint?url=https%3A%2F%2Fstatus.turbo.ac%2Fapi%2Fv1%2Fendpoints%2Fbuddy_heartbeat%2Fhealth%2Fbadge.shields&logo=prometheus&logoColor=white&label=Alertmanager)](https://status.k13.dev)
+[![Home-Internet](https://kromgo.turbo.ac/badges/buddy_ping)](https://status.k13.dev)&nbsp;&nbsp;
+[![Status-Page](https://kromgo.turbo.ac/badges/buddy_status-page)](https://status.k13.dev)&nbsp;&nbsp;
+[![Alertmanager](https://kromgo.turbo.ac/badges/buddy_heartbeat)](https://status.k13.dev)
 
 </div>
 

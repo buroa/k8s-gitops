@@ -72,6 +72,7 @@ badges:
     value: 'result == 1.0 ? "up" : "down"'
     color: 'result == 1.0 ? "green" : "red"'
     title: Home Internet
+    icon: mdi:wan
     gallery:
       hidden: true
 
@@ -80,6 +81,7 @@ badges:
     value: 'result == 1.0 ? "up" : "down"'
     color: 'result == 1.0 ? "green" : "red"'
     title: Status Page
+    icon: mdi:monitor-dashboard
     gallery:
       hidden: true
 
@@ -88,5 +90,6 @@ badges:
     value: 'result == 1.0 ? "up" : "down"'
     color: 'result == 1.0 ? "green" : "red"'
     title: Alertmanager
+    icon: mdi:heart-pulse
     gallery:
       hidden: true
