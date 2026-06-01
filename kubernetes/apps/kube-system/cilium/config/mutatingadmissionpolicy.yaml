@@ -1,0 +1,57 @@
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingAdmissionPolicyBinding
+metadata:
+  name: default-network-sysctls
+spec:
+  policyName: default-network-sysctls
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingAdmissionPolicy
+metadata:
+  name: default-network-sysctls
+spec:
+  matchConstraints:
+    resourceRules:
+      - apiGroups: [""]
+        apiVersions: ["v1"]
+        operations: ["CREATE"]
+        resources: ["pods"]
+  matchConditions:
+    - name: not-host-network
+      expression: "!has(object.spec.hostNetwork) || !object.spec.hostNetwork"
+  failurePolicy: Fail
+  reinvocationPolicy: Never
+  variables:
+    - name: existing
+      expression: >
+        (has(object.spec.securityContext) && has(object.spec.securityContext.sysctls))
+          ? object.spec.securityContext.sysctls : []
+    - name: existingNames
+      expression: "variables.existing.map(s, s.name)"
+    - name: defaults
+      expression: >
+        [
+          {"name": "net.ipv4.ip_local_port_range",       "value": "1024 65535"},
+          {"name": "net.ipv4.tcp_fin_timeout",           "value": "15"},
+          {"name": "net.ipv4.tcp_fastopen",              "value": "3"},
+          {"name": "net.ipv4.tcp_notsent_lowat",         "value": "131072"},
+          {"name": "net.ipv4.tcp_slow_start_after_idle", "value": "0"},
+          {"name": "net.ipv4.tcp_tw_reuse",              "value": "1"}
+        ]
+    - name: merged
+      expression: >
+        variables.existing +
+        variables.defaults.filter(d, !(d.name in variables.existingNames))
+  mutations:
+    - patchType: JSONPatch
+      jsonPatch:
+        expression: >
+          (has(object.spec.securityContext) ? [] :
+            [JSONPatch{op: "add", path: "/spec/securityContext", value: {}}]
+          ) +
+          [JSONPatch{
+            op: "add",
+            path: "/spec/securityContext/sysctls",
+            value: variables.merged
+          }]
