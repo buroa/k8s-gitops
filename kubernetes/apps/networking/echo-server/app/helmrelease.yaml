@@ -54,9 +54,6 @@ spec:
         runAsGroup: 1000
     route:
       app:
-        annotations:
-          gatus.home-operations.com/endpoint: |-
-            path: /healthz
         hostnames:
           - "{{ .Release.Name }}.k13.dev"
           - echo.k13.dev
