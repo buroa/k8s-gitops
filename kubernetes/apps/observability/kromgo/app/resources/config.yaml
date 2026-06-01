@@ -3,7 +3,6 @@
 defaults:
   badge:
     size: 12
-  cacheSeconds: 300 # 5 minutes
 
 badges:
   - id: talos_version
