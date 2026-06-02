@@ -22,6 +22,8 @@ metadata:
   name: rook-ceph-cluster
 spec:
   dependsOn:
+    - name: ceph-csi-drivers
+      namespace: rook-ceph
     - name: rook-ceph
       namespace: rook-ceph
     - name: volsync

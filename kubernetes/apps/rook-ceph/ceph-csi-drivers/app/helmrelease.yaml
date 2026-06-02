@@ -3,22 +3,21 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: rook-ceph
+  name: ceph-csi-drivers
 spec:
   chartRef:
     kind: OCIRepository
-    name: rook-ceph
+    name: ceph-csi-drivers
   interval: 1h
   values:
-    csi:
-      serviceMonitor:
+    drivers:
+      cephfs:
+        enabled: false
+      nfs:
+        enabled: false
+      nvmeof:
+        enabled: false
+      rbd:
         enabled: true
-    image:
-      repository: ghcr.io/rook/ceph
-    monitoring:
-      enabled: true
-    resources:
-      requests:
-        cpu: 100m # unchangable
-        memory: 128Mi # unchangable
-      limits: {}
+        name: rook-ceph.rbd.csi.ceph.com
+        snapshotPolicy: volumeSnapshot
