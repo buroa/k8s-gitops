@@ -11,7 +11,7 @@ _... managed with [Flux](https://github.com/fluxcd/flux2), [Renovate](https://gi
 <div align="center">
 
 [![Home-Internet](https://kromgo.turbo.ac/badges/buddy_ping)](https://status.k13.dev)&nbsp;&nbsp;
-[![Status-Page](https://kromgo.turbo.ac/badges/buddy_status-page)](https://status.k13.dev)&nbsp;&nbsp;
+[![Status-Page](https://kromgo.turbo.ac/badges/buddy_status_page)](https://status.k13.dev)&nbsp;&nbsp;
 [![Alertmanager](https://kromgo.turbo.ac/badges/buddy_heartbeat)](https://status.k13.dev)
 
 </div>
