@@ -11,6 +11,9 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 jobs:
   filter:
     name: Flate - Filter
@@ -29,9 +32,6 @@ jobs:
     needs: filter
     name: Flate
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
     strategy:
       matrix:
         resource:
@@ -43,6 +43,7 @@ jobs:
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
         with:
           fetch-depth: 0
+          persist-credentials: false
 
       - name: Install Flate
         uses: home-operations/flate/action@2df8349356dd1b40a56be5bce8bc4b2b4a951962 # 0.1.38
@@ -50,10 +51,12 @@ jobs:
       - name: Run Flate
         id: flate
         env:
+          FLATE_OUTPUT: github
           FLATE_PATH: ./kubernetes/flux/cluster
+          KIND: ${{ matrix.resource }}
         run: |-
           echo 'diff<<EOF' >> $GITHUB_OUTPUT
-          flate diff ${{ matrix.resource }} >> $GITHUB_OUTPUT
+          flate diff $KIND >> $GITHUB_OUTPUT
           echo 'EOF' >> $GITHUB_OUTPUT
 
       - if: ${{ steps.flate.outputs.diff != '' }}
@@ -63,6 +66,7 @@ jobs:
         with:
           client-id: ${{ secrets.BOT_APP_CLIENT_ID }}
           private-key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
+          permission-pull-requests: write
 
       - if: ${{ steps.flate.outputs.diff != '' }}
         name: Add Comment
