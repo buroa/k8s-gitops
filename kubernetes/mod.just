@@ -79,11 +79,10 @@ sync resource:
             "reconcile.fluxcd.io/forceAt=$(date +%s)"
     done
 
-
 [doc('View a secret')]
 view-secret ns secret:
     kubectl view-secret -n {{ ns }} {{ secret }}
 
 [private]
 render-local-ks ns ks:
-    flate build ks --namespace "{{ ns }}" --output yaml "{{ ks }}"
+    flate build ks -n "{{ ns }}" -o yaml "{{ ks }}"
