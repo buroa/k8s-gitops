@@ -29,6 +29,7 @@ spec:
               NO_AUTOUPDATE: true
               TUNNEL_METRICS: 0.0.0.0:80
               TUNNEL_TRANSPORT_PROTOCOL: http2
+              HI: BYE
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
