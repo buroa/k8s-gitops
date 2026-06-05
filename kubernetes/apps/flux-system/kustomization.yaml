@@ -9,3 +9,4 @@ components:
 resources:
   - ./flux-instance/ks.yaml
   - ./flux-operator/ks.yaml
+  - ./konflate/ks.yaml
