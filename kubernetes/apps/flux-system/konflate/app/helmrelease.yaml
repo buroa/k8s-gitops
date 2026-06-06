@@ -12,6 +12,7 @@ spec:
   values:
     config:
       repo: github://buroa/k8s-gitops
+      clusterPath: ./kubernetes/flux/cluster
     httpRoute:
       enabled: true
       annotations:
@@ -29,5 +30,6 @@ spec:
       requests:
         cpu: 50m
       limits:
-        cpu: 4000m
-        memory: 4Gi
+        memory: 1Gi
+    secret:
+      existingSecret: konflate-webhook-token-secret
