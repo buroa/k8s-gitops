@@ -12,6 +12,7 @@ spec:
   values:
     config:
       repo: github://buroa/k8s-gitops
+      clusterPath: ./kubernetes/flux/cluster
     httpRoute:
       enabled: true
       annotations:
