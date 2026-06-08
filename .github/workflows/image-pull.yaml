@@ -48,12 +48,9 @@ jobs:
 
       - name: Run Flate
         id: flate
-        env:
-          FLATE_OUTPUT: json
-          FLATE_PATH: ./kubernetes/flux/cluster
         run: |
           echo 'images<<EOF' >> $GITHUB_OUTPUT
-          flate diff images >> $GITHUB_OUTPUT
+          flate diff images -p ./kubernetes/flux/cluster -o json >> $GITHUB_OUTPUT
           echo 'EOF' >> $GITHUB_OUTPUT
 
   pull:
