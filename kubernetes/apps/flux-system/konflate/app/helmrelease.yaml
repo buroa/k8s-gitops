@@ -12,7 +12,7 @@ spec:
   values:
     config:
       clusterPath: ./kubernetes/flux/cluster
-      refreshInterval: 0
+      refreshInterval: "0"
       repo: github://buroa/k8s-gitops
       prComments: true
       publicUrl: https://{{ .Release.Name }}.k13.dev
