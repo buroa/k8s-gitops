@@ -16,6 +16,7 @@ spec:
       repo: github://buroa/k8s-gitops
       prComments: true
       publicUrl: https://{{ .Release.Name }}.k13.dev
+      statusChecks: true
     httpRoute:
       enabled: true
       annotations:
