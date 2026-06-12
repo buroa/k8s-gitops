@@ -55,6 +55,9 @@ machine:
       allowedUnsafeSysctls:
         - net.core.*
         - net.ipv4.*
+      featureGates:
+        ResourceHealthStatus: false
+        ResourceHealthStatusMessage: false
       serializeImagePulls: false
     image: ghcr.io/siderolabs/kubelet:v1.36.2
     nodeIP:
