@@ -11,18 +11,21 @@ spec:
   interval: 1h
   values:
     config:
-      repo: github://buroa/k8s-gitops
       clusterPath: ./kubernetes/flux/cluster
+      refreshInterval: 0
+      repo: github://buroa/k8s-gitops
+      prComments: true
+      publicUrl: https://{{ .Release.Name }}.k13.dev
     httpRoute:
       enabled: true
       annotations:
         gatus.home-operations.com/endpoint: |-
           conditions: ["[STATUS] == 200"]
+      hostnames:
+        - "{{ .Release.Name }}.k13.dev"
       parentRefs:
         - name: envoy-external
           namespace: networking
-      hostnames:
-        - "{{ .Release.Name }}.k13.dev"
     monitoring:
       serviceMonitor:
         enabled: true
@@ -32,4 +35,4 @@ spec:
       limits:
         memory: 1Gi
     secret:
-      existingSecret: konflate-webhook-token-secret
+      existingSecret: konflate-secret
