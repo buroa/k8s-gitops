@@ -3,23 +3,27 @@
 apiVersion: cilium.io/v2
 kind: CiliumBGPAdvertisement
 metadata:
-  name: l3-bgp-advertisement
+  name: services
   labels:
     advertise: bgp
 spec:
   advertisements:
     - advertisementType: Service
-      service: { addresses: ["LoadBalancerIP"] }
-      selector:
-        matchExpressions:
-          - { key: somekey, operator: NotIn, values: ["never-used-value"] }
+      selector: {}
+      service:
+        addresses:
+          - LoadBalancerIP
 ---
 # yaml-language-server: $schema=https://k8s-schemas.home-operations.com/cilium.io/ciliumbgppeerconfig_v2.json
 apiVersion: cilium.io/v2
 kind: CiliumBGPPeerConfig
 metadata:
-  name: l3-bgp-peer-config
+  name: unifi
 spec:
+  ebgpMultihop: 1
+  gracefulRestart:
+    enabled: true
+    restartTimeSeconds: 15
   families:
     - afi: ipv4
       safi: unicast
@@ -31,11 +35,8 @@ spec:
 apiVersion: cilium.io/v2
 kind: CiliumBGPClusterConfig
 metadata:
-  name: l3-bgp-cluster-config
+  name: unifi
 spec:
-  nodeSelector:
-    matchLabels:
-      kubernetes.io/os: linux
   bgpInstances:
     - name: cilium
       localASN: 64514
@@ -44,4 +45,4 @@ spec:
           peerASN: 64513
           peerAddress: 192.168.0.1
           peerConfigRef:
-            name: l3-bgp-peer-config
+            name: unifi
