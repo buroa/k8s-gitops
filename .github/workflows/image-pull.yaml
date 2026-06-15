@@ -44,7 +44,7 @@ jobs:
           persist-credentials: false
 
       - name: Install Flate
-        uses: home-operations/flate/action@ee29b6f74f26eba61564406749e2a5ed46a8d98d # v0.4.5
+        uses: home-operations/flate/action@dfa3992ed14feb4b04df25fe3397606345f87374 # v0.4.7
 
       - name: Run Flate
         id: flate
