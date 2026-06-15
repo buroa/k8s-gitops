@@ -43,8 +43,12 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
-      - name: Install Flate
-        uses: home-operations/flate/action@dfa3992ed14feb4b04df25fe3397606345f87374 # v0.4.7
+      - name: Setup Mise
+        uses: jdx/mise-action@dba19683ed58901619b14f395a24841710cb4925 # v4.1.0
+        with:
+          cache: false
+          tool_versions: |
+            github:home-operations/flate 0.4.7
 
       - name: Run Flate
         id: flate
@@ -64,8 +68,12 @@ jobs:
       max-parallel: 4
       fail-fast: false
     steps:
-      - name: Install talosctl
-        run: curl -fsSL https://talos.dev/install | sh
+      - name: Setup Mise
+        uses: jdx/mise-action@dba19683ed58901619b14f395a24841710cb4925 # v4.1.0
+        with:
+          cache: false
+          tool_versions: |
+            talosctl latest
 
       - name: Pull Image
         env:
