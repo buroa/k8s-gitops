@@ -20,10 +20,6 @@ kind: CiliumBGPPeerConfig
 metadata:
   name: unifi
 spec:
-  ebgpMultihop: 1
-  gracefulRestart:
-    enabled: true
-    restartTimeSeconds: 15
   families:
     - afi: ipv4
       safi: unicast
