@@ -26,8 +26,8 @@ spec:
       namespace: rook-ceph
     - name: rook-ceph
       namespace: rook-ceph
-    - name: volsync
-      namespace: volsync-system
+    - name: kopiur
+      namespace: kopiur-system
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease

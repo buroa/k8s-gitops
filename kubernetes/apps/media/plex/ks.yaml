@@ -7,7 +7,6 @@ metadata:
 spec:
   components:
     - ../../../../components/kopiur
-    - ../../../../components/volsync
     - ../../../../components/zeroscaler
   dependsOn:
     - name: k8s-gpu-dra-driver
@@ -20,7 +19,6 @@ spec:
     substitute:
       APP: plex
       KOPIUR_CAPACITY: 50Gi
-      VOLSYNC_CAPACITY: 50Gi
   prune: true
   sourceRef:
     kind: GitRepository
