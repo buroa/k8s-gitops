@@ -33,6 +33,6 @@ spec:
     podSecurityContext:
       fsGroup: 1000
       fsGroupChangePolicy: OnRootMismatch
-    ttlSecondsAfterFinished: 86400
+    ttlSecondsAfterFinished: 3600
   maintenance:
     enabled: true
