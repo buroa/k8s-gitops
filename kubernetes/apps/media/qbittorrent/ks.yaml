@@ -6,6 +6,7 @@ metadata:
   name: qbittorrent
 spec:
   components:
+    - ../../../../components/kopiur
     - ../../../../components/volsync
     - ../../../../components/zeroscaler
   dependsOn:

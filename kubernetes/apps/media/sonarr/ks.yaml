@@ -6,6 +6,7 @@ metadata:
   name: sonarr
 spec:
   components:
+    - ../../../../components/kopiur
     - ../../../../components/volsync
     - ../../../../components/zeroscaler
   dependsOn:
@@ -16,6 +17,7 @@ spec:
   postBuild:
     substitute:
       APP: sonarr
+      KOPIUR_CAPACITY: 10Gi
       VOLSYNC_CAPACITY: 10Gi
   prune: true
   sourceRef:

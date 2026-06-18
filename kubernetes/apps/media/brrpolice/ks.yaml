@@ -6,6 +6,7 @@ metadata:
   name: brrpolice
 spec:
   components:
+    - ../../../../components/kopiur
     - ../../../../components/volsync
   dependsOn:
     - name: rook-ceph-cluster
