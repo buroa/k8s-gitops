@@ -9,3 +9,4 @@ spec:
   tags:
     reason: pre-kopiur
   deletionPolicy: Retain
+  pin: true
