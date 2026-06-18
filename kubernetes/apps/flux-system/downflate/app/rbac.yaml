@@ -4,4 +4,4 @@ kind: ServiceAccount
 metadata:
   name: downflate
 spec:
-  roles: ["os:admin"]
+  roles: ["os:operator"]
