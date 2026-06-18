@@ -8,6 +8,6 @@ spec:
   policyRef:
     name: ${APP}
   schedule:
-    cron: "H 2 * * *"
+    cron: H * * * *
     jitter: 2m
     timezone: America/Chicago
