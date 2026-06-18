@@ -66,10 +66,10 @@ spec:
         globalMounts:
           - path: /config/repository.config
             subPath: repository.config
-      repo:
+      repository:
         type: nfs
         server: tank.internal
-        path: /mnt/sank/kopiur
+        path: /mnt/sank/kopia
       tmpfs:
         type: emptyDir
         advancedMounts:
