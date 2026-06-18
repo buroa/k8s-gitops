@@ -69,7 +69,7 @@ spec:
       repository:
         type: nfs
         server: tank.internal
-        path: /mnt/sank/kopia
+        path: /mnt/sank/kopiur
       tmpfs:
         type: emptyDir
         advancedMounts:
