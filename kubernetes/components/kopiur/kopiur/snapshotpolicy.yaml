@@ -5,6 +5,7 @@ kind: SnapshotPolicy
 metadata:
   name: ${APP}
 spec:
+  defaultDeletionPolicy: Retain
   repository:
     kind: ClusterRepository
     name: nas
