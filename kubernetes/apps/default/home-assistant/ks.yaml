@@ -6,6 +6,7 @@ metadata:
   name: home-assistant
 spec:
   components:
+    - ../../../../components/kopiur
     - ../../../../components/volsync
   dependsOn:
     - name: multus-networks
