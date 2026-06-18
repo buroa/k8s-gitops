@@ -19,6 +19,11 @@ spec:
       extraVolumeMounts:
         - name: repo
           mountPath: /repo
+      resources:
+        requests:
+          cpu: 100m
+        limits:
+          memory: 2Gi
     grafanaDashboard:
       enabled: true
       grafanaOperator:
