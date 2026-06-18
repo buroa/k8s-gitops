@@ -6,7 +6,7 @@ metadata:
   name: tautulli
 spec:
   components:
-    # - ../../../../components/kopiur
+    - ../../../../components/kopiur
     - ../../../../components/volsync
   dependsOn:
     - name: rook-ceph-cluster
