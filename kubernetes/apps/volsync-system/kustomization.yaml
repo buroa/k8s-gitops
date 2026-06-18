@@ -7,5 +7,4 @@ components:
   - ../../components/alerts
   - ../../components/namespace
 resources:
-  - ./kopia/ks.yaml
   - ./volsync/ks.yaml
