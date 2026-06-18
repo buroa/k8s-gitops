@@ -19,15 +19,15 @@ spec:
   retention:
     keepDaily: 7
     keepWeekly: 4
-  verification:
-    quick:
-      cron: 0 5 * * *
-      jitter: 2m
-    deep:
-      schedule:
-        cron: 0 5 * * 0
-        jitter: 1h
-      capacity: 1Mi # Ignored
-      storageClassName: openebs-hostpath
-    successExpr: stats.files > 0 && stats.errors == 0
-    verifyFilesPercent: 10
+  # verification:
+  #   quick:
+  #     cron: 0 5 * * *
+  #     jitter: 2m
+  #   deep:
+  #     schedule:
+  #       cron: 0 5 * * 0
+  #       jitter: 1h
+  #     capacity: 1Mi # Ignored
+  #     storageClassName: openebs-hostpath
+  #   successExpr: stats.files > 0 && stats.errors == 0
+  #   verifyFilesPercent: 10
