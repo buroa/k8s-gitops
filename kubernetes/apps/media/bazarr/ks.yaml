@@ -6,7 +6,7 @@ metadata:
   name: bazarr
 spec:
   components:
-    - ../../../../components/kopiur
+    # - ../../../../components/kopiur
     - ../../../../components/volsync
     - ../../../../components/zeroscaler
   dependsOn:
