@@ -11,4 +11,4 @@ spec:
     cron: "H 2 * * *"
     jitter: 2m
     timezone: America/Chicago
-    runOnCreate: true
+    runOnCreate: false
