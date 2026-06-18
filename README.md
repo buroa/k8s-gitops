@@ -64,7 +64,7 @@ Want to build something similar? Start with [onedr0p/cluster-template](https://g
 📁 bootstrap     # One-time cluster bootstrap (helmfile + kustomize)
 📁 kubernetes    # Everything Flux reconciles
 ├─📁 apps        # Workloads, grouped by namespace
-├─📁 components  # Reusable Kustomize components (alerts, volsync, etc.)
+├─📁 components  # Reusable Kustomize components (alerts, kopiur, etc.)
 └─📁 flux        # Flux system configuration and source repositories
 📁 talos         # Talos machine configs and per-node overrides
 ```
@@ -77,17 +77,16 @@ A semi hyper-converged, three-node Kubernetes cluster running on bare-metal [MS-
 
 ### Core components
 
-- [actions-runner-controller](https://github.com/actions/actions-runner-controller) — Self-hosted GitHub runners for CI/CD workflows.
 - [cert-manager](https://github.com/cert-manager/cert-manager) — Automated SSL certificate management and provisioning.
 - [cilium](https://github.com/cilium/cilium) — High-performance container networking powered by [eBPF](https://ebpf.io).
 - [cloudflared](https://github.com/cloudflare/cloudflared) — Secure tunnel providing Cloudflare-protected access to cluster services.
 - [envoy-gateway](https://github.com/envoyproxy/gateway) — Modern ingress controller for cluster traffic management.
 - [external-dns](https://github.com/kubernetes-sigs/external-dns) — Automated DNS record synchronization for ingress resources.
 - [external-secrets](https://github.com/external-secrets/external-secrets) — Kubernetes secrets management integrated with [1Password Connect](https://github.com/1Password/connect).
+- [kopiur](https://github.com/home-operations/kopiur) — Advanced backup and recovery solution for persistent volume claims.
 - [multus](https://github.com/k8snetworkplumbingwg/multus-cni) — Multi-homed pod networking for advanced network configurations.
 - [rook](https://github.com/rook/rook) — Cloud-native distributed storage orchestrator for persistent storage.
 - [spegel](https://github.com/spegel-org/spegel) — Stateless cluster-local OCI registry mirror for improved performance.
-- [volsync](https://github.com/backube/volsync) — Advanced backup and recovery solution for persistent volume claims.
 
 ### GitOps workflow
 

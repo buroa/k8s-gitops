@@ -5,6 +5,11 @@ kind: Kustomization
 metadata:
   name: kopiur
 spec:
+  dependsOn:
+    - name: openebs
+      namespace: openebs-system
+    - name: snapshot-controller
+      namespace: kube-system
   interval: 1h
   path: ./kubernetes/apps/kopiur-system/kopiur/app
   prune: true
