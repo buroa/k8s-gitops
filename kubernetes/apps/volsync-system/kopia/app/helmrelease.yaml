@@ -67,10 +67,10 @@ spec:
         globalMounts:
           - path: /config/repository.config
             subPath: repository.config
-      repository:
+      repo:
         type: nfs
         server: tank.internal
-        path: /mnt/sank/kopia
+        path: /mnt/sank/kopiur
         globalMounts:
           - readOnly: true
       tmpfs:
