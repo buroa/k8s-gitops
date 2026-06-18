@@ -1,0 +1,95 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: downflate
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
+  interval: 1h
+  values:
+    controllers:
+      downflate:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/home-operations/downflate
+              tag: main@sha256:10671801e93d5ee00ae5074a3083f49663e38deb45b99091d8872ecc79420e3c
+            env:
+              DOWNFLATE_ADDR: :80
+              DOWNFLATE_REPO: github://buroa/k8s-gitops
+              DOWNFLATE_CLUSTER_PATH: ./kubernetes/flux/cluster
+              DOWNFLATE_NODES:
+                valueFrom:
+                  fieldRef:
+                    fieldPath: spec.nodeName
+            envFrom:
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /healthz
+                    port: &port 80
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+                  failureThreshold: 3
+              readiness: *probes
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 1Gi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+    persistence:
+      talos:
+        type: secret
+        name: "{{ .Release.Name }}"
+        globalMounts:
+          - path: /var/run/secrets/talos.dev
+            readOnly: true
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          downflate:
+            app:
+              - path: /.cache
+                subPath: cache
+              - path: /tmp
+                subPath: tmp
+    route:
+      app:
+        annotations:
+          gatus.home-operations.com/endpoint: |-
+            conditions: ["[STATUS] == 404"]
+        hostnames:
+          - "{{ .Release.Name }}.k13.dev"
+        parentRefs:
+          - name: envoy-external
+            namespace: networking
+    service:
+      app:
+        ports:
+          http:
+            port: *port
+    serviceMonitor:
+      app:
+        endpoints:
+          - port: http
