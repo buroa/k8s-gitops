@@ -5,28 +5,28 @@ kind: SnapshotPolicy
 metadata:
   name: ${APP}
 spec:
+  copyMethod: Snapshot
+  credentialProjection:
+    enabled: true
   repository:
     kind: ClusterRepository
     name: nas
-  credentialProjection:
-    enabled: true
+  retention:
+    keepDaily: 7
+    keepHourly: 24
   sources:
     - pvc:
         name: ${APP}
-  copyMethod: Snapshot
-  volumeSnapshotClassName: ${KOPIUR_SNAPSHOTCLASS:=csi-ceph-block}
-  retention:
-    keepHourly: 24
-    keepDaily: 7
   verification:
-    quick:
-      cron: 0 5 * * *
-      jitter: 30m
     deep:
+      capacity: 1Mi # Ignored
       schedule:
         cron: 0 5 * * 0
         jitter: 1h
-      capacity: 1Mi # Ignored
       storageClassName: openebs-hostpath
+    quick:
+      cron: 0 5 * * *
+      jitter: 30m
     successExpr: stats.files > 0 && stats.errors == 0
     verifyFilesPercent: 10
+  volumeSnapshotClassName: ${KOPIUR_SNAPSHOTCLASS:=csi-ceph-block}

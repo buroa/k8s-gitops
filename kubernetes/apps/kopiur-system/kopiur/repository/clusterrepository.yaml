@@ -5,6 +5,8 @@ kind: ClusterRepository
 metadata:
   name: nas
 spec:
+  allowedNamespaces:
+    all: true
   backend:
     filesystem:
       path: /repo
@@ -12,27 +14,28 @@ spec:
         nfs:
           server: tank.internal
           path: /mnt/sank/kopiur
+  create:
+    enabled: true
+  credentialProjection:
+    allowed: true
   encryption:
     passwordSecretRef:
       name: kopiur-nas-secret
       namespace: kopiur-system
       key: KOPIA_PASSWORD
-  create:
-    enabled: true
-  allowedNamespaces:
-    all: true
-  credentialProjection:
-    allowed: true
   identityDefaults:
     hostnameExpr: namespace
     usernameExpr: namespace + '-' + policyName
+  maintenance:
+    enabled: true
   moverDefaults:
-    securityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
+    cache:
+      mode: Ephemeral
+      storageClassName: openebs-hostpath
     podSecurityContext:
       fsGroup: 1000
       fsGroupChangePolicy: OnRootMismatch
+    securityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
     ttlSecondsAfterFinished: 300
-  maintenance:
-    enabled: true

@@ -5,13 +5,13 @@ kind: Restore
 metadata:
   name: ${APP}
 spec:
+  credentialProjection:
+    enabled: true
+  policy:
+    onMissingSnapshot: Continue # default for fromPolicy — empty volume if none
   source:
     fromPolicy:
       name: ${APP}
       offset: 0 # 0 = latest snapshot
   target:
     populator: {}
-  policy:
-    onMissingSnapshot: Continue # default for fromPolicy — empty volume if none
-  credentialProjection:
-    enabled: true
