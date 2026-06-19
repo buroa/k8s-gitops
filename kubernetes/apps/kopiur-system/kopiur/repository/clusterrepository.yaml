@@ -30,6 +30,7 @@ spec:
     enabled: true
   moverDefaults:
     cache:
+      capacity: 1Mi # Ignored
       mode: Ephemeral
       storageClassName: openebs-hostpath
     podSecurityContext:
