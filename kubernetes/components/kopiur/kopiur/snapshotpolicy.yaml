@@ -16,8 +16,8 @@ spec:
   copyMethod: Snapshot
   volumeSnapshotClassName: ${KOPIUR_SNAPSHOTCLASS:=csi-ceph-block}
   retention:
+    keepHourly: 24
     keepDaily: 7
-    keepWeekly: 4
   verification:
     quick:
       cron: 0 5 * * *
