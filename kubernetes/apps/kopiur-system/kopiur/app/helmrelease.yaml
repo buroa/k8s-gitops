@@ -24,6 +24,9 @@ spec:
           cpu: 100m
         limits:
           memory: 2Gi
+    features:
+      credentialProjection:
+        enabled: true
     grafanaDashboard:
       enabled: true
       grafanaOperator:
