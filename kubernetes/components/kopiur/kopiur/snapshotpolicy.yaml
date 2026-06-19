@@ -21,7 +21,7 @@ spec:
   verification:
     quick:
       cron: 0 5 * * *
-      jitter: 2m
+      jitter: 1h
     deep:
       schedule:
         cron: 0 5 * * 0
