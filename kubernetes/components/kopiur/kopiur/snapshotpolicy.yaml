@@ -17,14 +17,12 @@ spec:
   sources:
     - pvc:
         name: ${APP}
-  # verification:
-  #   deep:
-  #     schedule:
-  #       cron: 0 5 * * 0
-  #       jitter: 1h
-  #   quick:
-  #     cron: 0 5 * * *
-  #     jitter: 30m
-  #   successExpr: stats.files > 0 && stats.errors == 0
-  #   verifyFilesPercent: 10
+  verification:
+    deep:
+      schedule:
+        cron: H 5 * * 0
+        jitter: 1h
+    quick:
+      cron: H 5 * * *
+      jitter: 30m
   volumeSnapshotClassName: ${KOPIUR_SNAPSHOTCLASS:=csi-ceph-block}
