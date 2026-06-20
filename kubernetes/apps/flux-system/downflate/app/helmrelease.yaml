@@ -19,7 +19,7 @@ spec:
           app:
             image:
               repository: ghcr.io/home-operations/downflate
-              tag: main@sha256:9c8a6a83fee9ab39deaf9ce56ebcb81aa1ef247f03979696e00e0d724c56e302
+              tag: main@sha256:db0761c5a0107af3550214fadc122b9099e03f20ebbfdcd12e5cfd8607cda041
             env:
               DOWNFLATE_ADDR: :80
               DOWNFLATE_REPO: github://buroa/k8s-gitops
