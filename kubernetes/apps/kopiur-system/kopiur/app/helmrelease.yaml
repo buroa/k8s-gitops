@@ -24,6 +24,7 @@ spec:
           cpu: 100m
         limits:
           memory: 2Gi
+      streamingLists: true
     features:
       credentialProjection:
         enabled: true
