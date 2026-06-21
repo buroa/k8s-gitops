@@ -5,8 +5,8 @@ kind: Kustomization
 namespace: default
 components:
   - ../../components/alerts
-  - ../../components/namespace
 resources:
+  - ./namespace.yaml
   - ./atuin/ks.yaml
   - ./home-assistant/ks.yaml
   - ./mosquitto/ks.yaml

@@ -5,8 +5,8 @@ kind: Kustomization
 namespace: media
 components:
   - ../../components/alerts
-  - ../../components/namespace
 resources:
+  - ./namespace.yaml
   - ./agregarr/ks.yaml
   - ./autobrr/ks.yaml
   - ./bazarr/ks.yaml

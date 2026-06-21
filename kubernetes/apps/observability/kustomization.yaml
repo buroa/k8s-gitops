@@ -5,8 +5,8 @@ kind: Kustomization
 namespace: observability
 components:
   - ../../components/alerts
-  - ../../components/namespace
 resources:
+  - ./namespace.yaml
   - ./blackbox-exporter/ks.yaml
   - ./gatus/ks.yaml
   - ./grafana-operator/ks.yaml
