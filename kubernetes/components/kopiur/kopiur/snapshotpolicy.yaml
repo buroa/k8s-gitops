@@ -22,7 +22,9 @@ spec:
       schedule:
         cron: H 5 * * 0
         jitter: 1h
+        timezone: America/Chicago
     quick:
       cron: H 5 * * *
-      jitter: 30m
+      jitter: 1h
+      timezone: America/Chicago
   volumeSnapshotClassName: ${KOPIUR_SNAPSHOTCLASS:=csi-ceph-block}
