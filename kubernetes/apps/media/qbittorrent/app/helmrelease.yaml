@@ -76,11 +76,6 @@ spec:
         type: nfs
         server: tank.internal
         path: /mnt/tank/media
-      qbrr:
-        type: image
-        image: ghcr.io/buroa/qbrr:0.1.6@sha256:50baeb6633f144b7220777c56a8d501ea708d43043e28eb416d93e4e96efe06b
-        globalMounts:
-          - readOnly: true
       tmpfs:
         type: emptyDir
         advancedMounts:
