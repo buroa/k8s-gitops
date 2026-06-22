@@ -22,7 +22,7 @@ spec:
               tag: v0.21.0@sha256:f53faaf71cb270d1ca9dce6ea0c94bfebf1a18696263487f0fbc74b9bf2bd7ff
             args:
               - --cloudflare-dns-records-per-page=1000
-              - --cloudflare-proxied
+              # - --cloudflare-proxied
               - --domain-filter=k13.dev
               - --events
               - --gateway-name=envoy-external
