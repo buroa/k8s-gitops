@@ -27,4 +27,6 @@ spec:
       cron: H 3 * * * # Every day at 3am
       jitter: 1h
       timezone: America/Chicago
+    successExpr: stats.files > 0 && stats.errors == 0
+    verifyFilesPercent: 10
   volumeSnapshotClassName: ${KOPIUR_SNAPSHOTCLASS:=csi-ceph-block}
