@@ -146,8 +146,6 @@ spec:
         - 10.244.0.0/16
   connection:
     bufferLimit: 4Mi
-  http2:
-    onInvalidMessage: TerminateStream
   http3: {}
   targetSelectors:
     - group: gateway.networking.k8s.io
