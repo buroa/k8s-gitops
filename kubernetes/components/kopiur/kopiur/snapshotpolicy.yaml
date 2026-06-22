@@ -20,11 +20,11 @@ spec:
   verification:
     deep:
       schedule:
-        cron: H 5 * * 0
+        cron: H 5 1 * * # First of the month at 5am
         jitter: 1h
         timezone: America/Chicago
     quick:
-      cron: H 5 * * *
+      cron: H 3 * * * # Every day at 3am
       jitter: 1h
       timezone: America/Chicago
   volumeSnapshotClassName: ${KOPIUR_SNAPSHOTCLASS:=csi-ceph-block}
