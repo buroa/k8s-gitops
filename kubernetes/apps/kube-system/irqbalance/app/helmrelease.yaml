@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: ghcr.io/home-operations/irqbalance
-              tag: 1.9.5@sha256:a6d8c6f69c56f653022861ae7b1813cf41751dc5289a35d99075c9d113c29817
+              tag: 1.9.5@sha256:5c58790f22fea1e331b3312977005e66586ced3d39e2d0e4fddb7dfacf873fb5
             resources:
               requests:
                 cpu: 10m
