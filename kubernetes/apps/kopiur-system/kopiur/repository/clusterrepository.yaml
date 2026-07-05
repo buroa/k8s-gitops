@@ -14,8 +14,6 @@ spec:
         nfs:
           server: tank.internal
           path: /mnt/sank/kopiur
-  create:
-    enabled: true
   credentialProjection:
     allowed: true
   encryption:
