@@ -23,11 +23,6 @@ spec:
       name: kopiur-nas-secret
       namespace: kopiur-system
       key: KOPIA_PASSWORD
-  identityDefaults:
-    hostnameExpr: namespace
-    usernameExpr: namespace + '-' + policyName
-  maintenance:
-    enabled: true
   moverDefaults:
     cache:
       capacity: 1Mi # Ignored
