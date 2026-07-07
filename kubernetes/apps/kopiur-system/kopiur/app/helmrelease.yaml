@@ -10,35 +10,27 @@ spec:
     name: kopiur
   interval: 1h
   values:
-    controller:
-      extraVolumes:
-        - name: repo
-          nfs:
-            server: tank.internal
-            path: /mnt/sank/kopiur
-      extraVolumeMounts:
-        - name: repo
-          mountPath: /repo
-      resources:
-        requests:
-          cpu: 100m
-        limits:
-          memory: 2Gi
-      streamingLists: true
+    extraVolumes:
+      - name: repo
+        nfs:
+          server: tank.internal
+          path: /mnt/sank/kopiur
+    extraVolumeMounts:
+      - name: repo
+        mountPath: /repo
     features:
       credentialProjection:
         enabled: true
-    grafanaDashboard:
-      enabled: true
-      grafanaOperator:
+    monitoring:
+      dashboards:
         enabled: true
-        matchLabels:
-          dashboards: grafana
-    installScope: cluster
-    metrics:
-      serviceMonitor:
-        enabled: true
+        grafanaOperator:
+          enabled: true
+          matchLabels:
+            dashboards: grafana
       prometheusRule:
+        enabled: true
+      serviceMonitor:
         enabled: true
     podSecurityContext:
       runAsNonRoot: true
@@ -46,8 +38,8 @@ spec:
       runAsGroup: 1000
       fsGroup: 1000
       fsGroupChangePolicy: OnRootMismatch
-    webhook:
-      tls:
-        mode: self
-      serviceMonitor:
-        enabled: true
+    resources:
+      requests:
+        cpu: 100m
+      limits:
+        memory: 2Gi
