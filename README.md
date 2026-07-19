@@ -77,6 +77,7 @@ A semi hyper-converged, three-node Kubernetes cluster running on bare-metal [MS-
 
 ### Core components
 
+- [actions-runner-controller](https://github.com/actions/actions-runner-controller) — Self-hosted GitHub runners for CI/CD workflows.
 - [cert-manager](https://github.com/cert-manager/cert-manager) — Automated SSL certificate management and provisioning.
 - [cilium](https://github.com/cilium/cilium) — High-performance container networking powered by [eBPF](https://ebpf.io).
 - [cloudflared](https://github.com/cloudflare/cloudflared) — Secure tunnel providing Cloudflare-protected access to cluster services.
