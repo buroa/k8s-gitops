@@ -19,10 +19,9 @@ machine:
     kubernetesTalosAPIAccess:
       enabled: true
       allowedKubernetesNamespaces:
-        - flux-system
+        - actions-runner-system
         - system-upgrade
       allowedRoles:
-        - os:operator
         - os:admin
     {% endif %}
   files:
