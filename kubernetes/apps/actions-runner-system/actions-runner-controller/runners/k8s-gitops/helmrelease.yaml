@@ -12,7 +12,7 @@ spec:
   values:
     githubConfigUrl: https://github.com/buroa/k8s-gitops
     githubConfigSecret: k8s-gitops-runner-secret
-    minRunners: 1
+    minRunners: 0
     maxRunners: 3
     containerMode:
       type: kubernetes

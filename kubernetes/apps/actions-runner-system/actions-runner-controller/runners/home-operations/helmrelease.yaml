@@ -16,7 +16,7 @@ spec:
     runnerGroup: home-operations
     scaleSetLabels:
       - home-operations
-    minRunners: 1
+    minRunners: 0
     maxRunners: 3
     containerMode:
       type: kubernetes
