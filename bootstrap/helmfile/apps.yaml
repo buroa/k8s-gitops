@@ -55,7 +55,7 @@ releases:
     needs:
       - cert-manager/cert-manager
     hooks:
-      - # Apply Store
+      - # Apply Stores
         command: kubectl
         args:
           - apply
