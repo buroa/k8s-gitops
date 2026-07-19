@@ -54,28 +54,23 @@ releases:
     namespace: external-secrets
     needs:
       - cert-manager/cert-manager
-
-  - name: onepassword-connect
-    namespace: external-secrets
     hooks:
-      - # Apply 1Password Connect Store
+      - # Apply Stores
         command: kubectl
         args:
           - apply
           - --field-manager=kustomize-controller
           - --namespace={{ .Release.Namespace }}
-          - --kustomize=../../kubernetes/apps/{{ .Release.Namespace }}/{{ .Release.Name }}/store
+          - --kustomize=../../kubernetes/apps/{{ .Release.Namespace }}/{{ .Release.Name }}/stores
           - --server-side
         events:
           - postsync
         showlogs: true
-    needs:
-      - external-secrets/external-secrets
 
   - name: flux-operator
     namespace: flux-system
     needs:
-      - external-secrets/onepassword-connect
+      - external-secrets/external-secrets
 
   - name: flux-instance
     namespace: flux-system
