@@ -10,9 +10,8 @@ spec:
     name: multus
   interval: 1h
   values:
-    multus:
-      resources:
-        requests:
-          cpu: 10m
-        limits:
-          memory: 32Mi
+    resources:
+      requests:
+        cpu: 10m
+      limits:
+        memory: 32Mi
