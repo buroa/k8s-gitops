@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: govcon-runner
+  name: &name govcon-runner
 spec:
   chartRef:
     kind: OCIRepository
@@ -27,7 +27,17 @@ spec:
       name: actions-runner-controller
       namespace: actions-runner-system
     template:
+      metadata:
+        labels:
+          runner: *name
       spec:
+        affinity:
+          podAntiAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              - labelSelector:
+                  matchLabels:
+                    runner: *name
+                topologyKey: kubernetes.io/hostname
         containers:
           - name: runner
             image: ghcr.io/home-operations/actions-runner:2.336.0@sha256:281a9a090522fafbf4967f158b8c97d03552b1978b688893c5f7cb1944bc5fe5
