@@ -27,9 +27,6 @@ spec:
             use_tcp: true
         port: 53
         plugins:
-          - name: rewrite
-            configBlock: |-
-              stop type AAAA A
           - name: errors
           - name: health
             configBlock: |-
