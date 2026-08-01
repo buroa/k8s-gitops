@@ -19,11 +19,12 @@ reboot-node node *args:
 
 [doc('Render Talos config for a node')]
 render-config node:
-    export CONTROLPLANE="$(just talos machine-controller {{ node }})"
+    type="$(just talos machine-type {{ node }})"
     export SCHEMATIC="$(just talos schematic-id)"
-    talosctl machineconfig patch <(just template "{{ source_directory() }}/machineconfig.yaml.j2") \
+    talosctl machineconfig patch <(just template "{{ source_directory() }}/cluster.yaml.j2") \
         -p @<(just template "{{ source_directory() }}/networking.yaml.j2") \
-        -p @<(just template "{{ source_directory() }}/nodes/{{ node }}.yaml.j2")
+        -p @<(just template "{{ source_directory() }}/nodes/{{ node }}.yaml.j2") \
+        -p @<(just template "{{ source_directory() }}/${type}.yaml.j2")
 
 [confirm('Reset node ' + node + ' [y|N] ?')]
 [doc('Reset a node')]
@@ -51,8 +52,8 @@ schematic-id:
     curl -sX POST --data-binary @<(just template "{{ source_directory() }}/schematic.yaml.j2") "https://factory.talos.dev/schematics" | jq -r '.id'
 
 [private]
-machine-controller node:
-    just template "{{ source_directory() }}/nodes/{{ node }}.yaml.j2" | yq -r -e 'select(.machine) | (.machine.type == "controlplane") // ""'
+machine-type node:
+    just template "{{ source_directory() }}/nodes/{{ node }}.yaml.j2" | yq -r -e 'select(.machine) | .machine.type'
 
 [private]
 machine-image:
