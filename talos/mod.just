@@ -19,12 +19,12 @@ reboot-node node *args:
 
 [doc('Render Talos config for a node')]
 render-config node:
-    type="$(just talos machine-type {{ node }})"
+    TYPE="$(just talos machine-type {{ node }})"
     export SCHEMATIC="$(just talos schematic-id)"
     talosctl machineconfig patch <(just template "{{ source_directory() }}/cluster.yaml.j2") \
         -p @<(just template "{{ source_directory() }}/networking.yaml.j2") \
         -p @<(just template "{{ source_directory() }}/nodes/{{ node }}.yaml.j2") \
-        -p @<(just template "{{ source_directory() }}/${type}.yaml.j2")
+        -p @<(just template "{{ source_directory() }}/${TYPE}.yaml.j2")
 
 [confirm('Reset node ' + node + ' [y|N] ?')]
 [doc('Reset a node')]

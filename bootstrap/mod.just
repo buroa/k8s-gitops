@@ -39,7 +39,7 @@ k8s:
 [private]
 kubeconfig lb="cilium":
     just log info "Running stage..." "stage" "{{ recipe_name() }}"
-    if ! talosctl kubeconfig -n "{{ controller }}" -f --force-context-name k8s {{ justfile_dir() }}; then
+    if ! talosctl kubeconfig -n "{{ controller }}" -f --force-context-name k8s "{{ justfile_dir() }}/kubernetes"; then
         just log fatal "Failed to fetch kubeconfig" "stage" "{{ recipe_name() }}"
     fi
     if [[ "{{ lb }}" != "cilium" ]]; then
