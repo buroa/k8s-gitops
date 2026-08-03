@@ -23,10 +23,18 @@ spec:
               HASS_HTTP_TRUSTED_PROXY_2: 10.244.0.0/16
               TZ: America/Chicago
             probes:
-              liveness:
+              liveness: &probes
                 enabled: true
-              readiness:
-                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /healthz
+                    port: &port 8123
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+                  failureThreshold: 3
+              readiness: *probes
               startup:
                 enabled: true
                 spec:
@@ -83,4 +91,4 @@ spec:
       app:
         ports:
           http:
-            port: 8123
+            port: *port

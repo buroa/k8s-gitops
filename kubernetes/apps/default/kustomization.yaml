@@ -9,4 +9,3 @@ resources:
   - ./namespace.yaml
   - ./atuin/ks.yaml
   - ./home-assistant/ks.yaml
-  - ./thelounge/ks.yaml
