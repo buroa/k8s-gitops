@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: ghcr.io/prymitive/karma
-              tag: v0.131@sha256:90a10c5c6793a1923abd807966eba6c20985400d72416c5e159676bd4ed35f46
+              tag: v0.132@sha256:98d9ed60911811f936a143177fc34642e30cf9579e073c28b6416a28dff17724
             env:
               ALERTMANAGER_URI: http://alertmanager-operated.observability.svc.cluster.local:9093
               LISTEN_PORT: &port 80
