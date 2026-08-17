@@ -7,17 +7,17 @@ components:
   - ../../components/alerts
 resources:
   - ./namespace.yaml
-  # - ./agregarr/ks.yaml
-  # - ./autobrr/ks.yaml
-  # - ./bazarr/ks.yaml
-  # - ./brrpolice/ks.yaml
-  # - ./plex/ks.yaml
-  # - ./prowlarr/ks.yaml
-  # - ./qbittorrent/ks.yaml
-  # - ./qui/ks.yaml
-  # - ./radarr/ks.yaml
-  # - ./recyclarr/ks.yaml
-  # - ./sabnzbd/ks.yaml
-  # - ./seerr/ks.yaml
-  # - ./sonarr/ks.yaml
-  # - ./tautulli/ks.yaml
+  - ./agregarr/ks.yaml
+  - ./autobrr/ks.yaml
+  - ./bazarr/ks.yaml
+  - ./brrpolice/ks.yaml
+  - ./plex/ks.yaml
+  - ./prowlarr/ks.yaml
+  - ./qbittorrent/ks.yaml
+  - ./qui/ks.yaml
+  - ./radarr/ks.yaml
+  - ./recyclarr/ks.yaml
+  - ./sabnzbd/ks.yaml
+  - ./seerr/ks.yaml
+  - ./sonarr/ks.yaml
+  - ./tautulli/ks.yaml
