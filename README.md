@@ -221,28 +221,6 @@ A huge thank you to [@onedr0p](https://github.com/onedr0p) and the [Home Operati
 
 ---
 
-## <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f31f/512.webp" alt="🌟" width="20" height="20"> Stargazers
-
-<div align="center">
-
-<a href="https://star-history.com/#buroa/home-ops&Date">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=buroa/home-ops&type=Date&theme=dark" />
-    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=buroa/home-ops&type=Date" />
-    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=buroa/home-ops&type=Date" />
-  </picture>
-</a>
-
-</div>
-
----
-
-## <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/2696_fe0f/512.webp" alt="⚖" width="20" height="20"> License
-
-See [LICENSE](./LICENSE).
-
----
-
 <div align="center">
 
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/buroa/home-ops)
