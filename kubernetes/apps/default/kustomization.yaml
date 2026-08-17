@@ -7,5 +7,5 @@ components:
   - ../../components/alerts
 resources:
   - ./namespace.yaml
-  # - ./atuin/ks.yaml
-  # - ./home-assistant/ks.yaml
+  - ./atuin/ks.yaml
+  - ./home-assistant/ks.yaml
