@@ -22,7 +22,7 @@ _... managed with [Flux](https://github.com/fluxcd/flux2), [Renovate](https://gi
 [![Talos](https://kromgo.k13.dev/badges/talos_version)](https://talos.dev)&nbsp;&nbsp;
 [![Kubernetes](https://kromgo.k13.dev/badges/kubernetes_version)](https://kubernetes.io)&nbsp;&nbsp;
 [![Flux](https://kromgo.k13.dev/badges/flux_version)](https://fluxcd.io)&nbsp;&nbsp;
-[![Renovate](https://img.shields.io/github/actions/workflow/status/buroa/k8s-gitops/renovate.yaml?branch=main&label&logo=renovate&color=blue)](https://github.com/buroa/k8s-gitops/actions/workflows/renovate.yaml)
+[![Renovate](https://img.shields.io/github/actions/workflow/status/buroa/home-ops/renovate.yaml?branch=main&label&logo=renovate&color=blue)](https://github.com/buroa/home-ops/actions/workflows/renovate.yaml)
 
 </div>
 
@@ -225,11 +225,11 @@ A huge thank you to [@onedr0p](https://github.com/onedr0p) and the [Home Operati
 
 <div align="center">
 
-<a href="https://star-history.com/#buroa/k8s-gitops&Date">
+<a href="https://star-history.com/#buroa/home-ops&Date">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=buroa/k8s-gitops&type=Date&theme=dark" />
-    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=buroa/k8s-gitops&type=Date" />
-    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=buroa/k8s-gitops&type=Date" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=buroa/home-ops&type=Date&theme=dark" />
+    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=buroa/home-ops&type=Date" />
+    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=buroa/home-ops&type=Date" />
   </picture>
 </a>
 
@@ -245,6 +245,6 @@ See [LICENSE](./LICENSE).
 
 <div align="center">
 
-[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/buroa/k8s-gitops)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/buroa/home-ops)
 
 </div>

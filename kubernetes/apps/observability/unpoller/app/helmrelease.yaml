@@ -24,7 +24,7 @@ spec:
               TZ: America/Chicago
               UP_INFLUXDB_DISABLE: true
               UP_PROMETHEUS_HTTP_LISTEN: 0.0.0.0:80
-              UP_UNIFI_DEFAULT_ROLE: k8s-gitops
+              UP_UNIFI_DEFAULT_ROLE: home-ops
               UP_UNIFI_DEFAULT_URL: https://unifi.internal
               UP_UNIFI_DEFAULT_VERIFY_SSL: false
             envFrom:

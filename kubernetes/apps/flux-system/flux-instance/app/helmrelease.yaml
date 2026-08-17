@@ -20,7 +20,7 @@ spec:
         - notification-controller
       sync:
         kind: GitRepository
-        url: https://github.com/buroa/k8s-gitops
+        url: https://github.com/buroa/home-ops
         ref: refs/heads/main
         path: ./kubernetes/flux/cluster
         interval: 1h

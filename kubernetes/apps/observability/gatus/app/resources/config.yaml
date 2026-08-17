@@ -38,7 +38,7 @@ ui:
     - name: Github
       link: https://github.com/buroa
     - name: Homelab
-      link: https://github.com/buroa/k8s-gitops
+      link: https://github.com/buroa/home-ops
   default-sort-by: group
   header: Status
   link: https://github.com/buroa

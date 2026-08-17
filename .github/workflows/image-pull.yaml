@@ -61,7 +61,7 @@ jobs:
     if: ${{ needs.flate.outputs.images != '[]' }}
     needs: flate
     name: Image Pull - Pull Images
-    runs-on: k8s-gitops-runner
+    runs-on: home-ops-runner
     strategy:
       matrix:
         image: ${{ fromJSON(needs.flate.outputs.images) }}
