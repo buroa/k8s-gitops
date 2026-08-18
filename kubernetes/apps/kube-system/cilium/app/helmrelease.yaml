@@ -48,9 +48,8 @@ spec:
     kubeProxyReplacement: true
     kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
     loadBalancer:
-      acceleration: native
+      acceleration: best-effort
       algorithm: maglev
-      dsrDispatch: opt
       mode: dsr
     localRedirectPolicies:
       enabled: true
