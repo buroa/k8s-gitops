@@ -5,7 +5,7 @@ metadata:
   name: kube-vip
   annotations:
     external-dns.alpha.kubernetes.io/hostname: k8s.k13.dev
-    lbipam.cilium.io/ips: 192.168.20.2
+    lbipam.cilium.io/ips: 192.168.20.10
 spec:
   type: LoadBalancer
   externalTrafficPolicy: Local
