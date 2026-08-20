@@ -37,6 +37,13 @@ spec:
         osd:
           limits:
             memory: 8Gi # Required for bootstrap
+      security:
+        cephx:
+          daemon:
+            keyRotationPolicy: KeyGeneration
+            keyGeneration: 2
+          csi:
+            keyType: aes
       storage:
         devicePathFilter: /dev/disk/by-id/nvme-SAMSUNG_MZQL23T8HCLS-00A07_.*
         useAllDevices: false
