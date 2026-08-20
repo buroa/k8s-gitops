@@ -12,7 +12,7 @@ spec:
   values:
     githubConfigUrl: https://github.com/buroa/home-ops
     githubConfigSecret: home-ops-runner-secret
-    minRunners: 0
+    minRunners: 1
     maxRunners: 3
     containerMode:
       type: kubernetes
